@@ -42,6 +42,11 @@ type FabApplication() =
         base.OnFrameworkInitializationCompleted()
     
 module ApplicationUpdaters =
+    let mainWindowApplyDiff (diff: WidgetDiff) (node: IViewNode) =
+        let target = node.Target :?> FabApplication
+        let childViewNode = node.TreeContext.GetViewNode(target.MainWindow)
+        childViewNode.ApplyDiff(&diff)
+    
     let mainWindowUpdateNode (prevOpt: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
         let target = node.Target :?> FabApplication
         match currOpt with
@@ -50,6 +55,11 @@ module ApplicationUpdaters =
         | ValueSome widget ->
             let struct (_, view) = Helpers.createViewForWidget node widget
             target.MainWindow <- view :?> Window
+            
+    let mainViewApplyDiff (diff: WidgetDiff) (node: IViewNode) =
+        let target = node.Target :?> FabApplication
+        let childViewNode = node.TreeContext.GetViewNode(target.MainView)
+        childViewNode.ApplyDiff(&diff)
             
     let mainViewUpdateNode (prevOpt: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
         let target = node.Target :?> FabApplication
@@ -63,9 +73,8 @@ module ApplicationUpdaters =
 module Application =
     let WidgetKey = Widgets.register<FabApplication>()
     
-    let MainWindow = Attributes.defineWidget "MainWindow" (fun diff node -> ()) ApplicationUpdaters.mainWindowUpdateNode
-    let MainView = Attributes.defineWidget "MainView" (fun diff node -> ()) ApplicationUpdaters.mainViewUpdateNode
-    
+    let MainWindow = Attributes.defineWidget "MainWindow" ApplicationUpdaters.mainWindowApplyDiff ApplicationUpdaters.mainWindowUpdateNode
+    let MainView = Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode
     let Styles = Attributes.defineAvaloniaListWidgetCollection "Styles" (fun target -> (target :?> Application).Styles)
     
 [<AutoOpen>]

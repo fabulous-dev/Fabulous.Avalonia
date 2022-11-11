@@ -12,6 +12,6 @@ open CounterApp
 // User Interface of the application, as well as listening (and optionally responding) to 
 // application events from iOS.
 type [<Register("AppDelegate")>] AppDelegate() =
-    inherit FabulousAvaloniaAppDelegate<unit, unit>()
+    inherit FabulousAvaloniaAppDelegate<App.Model, App.Msg>()
 
-    override this.FabulousApp = MyApp.program
+    override this.FabulousApp = App.program
