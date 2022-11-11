@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0;net7.0-ios</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ViewNode.fs" />
+    <Compile Include="Attributes.fs" />
+    <Compile Include="Widgets.fs" />
+    <Compile Include="Views\Animatable.fs" />
+    <Compile Include="Views\Brush.fs" />
+    <Compile Include="Views\SolidColorBrush.fs" />
+    <Compile Include="Views\StyledElement.fs" />
+    <Compile Include="Views\Visual.fs" />
+    <Compile Include="Views\Layoutable.fs" />
+    <Compile Include="Views\Interactive.fs" />
+    <Compile Include="Views\InputElement.fs" />
+    <Compile Include="Views\Control.fs" />
+    <Compile Include="Views\TextBlock.fs" />
+    <Compile Include="Views\TemplatedControl.fs" />
+    <Compile Include="Views\ContentControl.fs" />
+    <Compile Include="Views\Panel.fs" />
+    <Compile Include="Views\Grid.fs" />
+    <Compile Include="Views\Window.fs" />
+    <Compile Include="Views\Style.fs" />
+    <Compile Include="Views\FluentTheme.fs" />
+    <Compile Include="Views\Application.fs" />
+    <Compile Include="Views\UserControl.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="$(TargetPlatformIdentifier) == 'ios'">
+    <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview4" />
+    <Compile Include="Platform\iOS\FabulousAvaloniaAppDelegate.fs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />
+  </ItemGroup>
+
+</Project>
