@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open Avalonia
+open Avalonia.Themes.Fluent
 open Foundation
 open UIKit
 

@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
@@ -36,7 +37,11 @@ type FabApplication() =
         and set value =
             _mainView <- value
             this.UpdateLifetime()
-    
+            
+    // TODO Set the App to Light theme for now. So we can test more controls
+    override this.Initialize() =
+        this.Styles.Add (FluentTheme(baseUri = null, Mode = FluentThemeMode.Light))
+        
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
         base.OnFrameworkInitializationCompleted()

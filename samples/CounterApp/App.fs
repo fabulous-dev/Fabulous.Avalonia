@@ -57,9 +57,9 @@ module App =
             (VStack() {
                 TextBlock($"%d{model.Count}").centerText()
                 
-                //Button("Increment", Increment)
+                Button("Increment", Increment)
                 
-                // Button("Decrement", Decrement)
+                Button("Decrement", Decrement)
                 
                 (HStack() {
                     TextBlock("Timer")
@@ -74,13 +74,13 @@ module App =
                 TextBlock($"Step size: %d{model.Step}")
                     .centerText()
                 
-                // Button("Reset", Reset)
+                Button("Reset", Reset)
              })
                 .center()
         )
-            .styles() {
-                FluentTheme(FluentThemeMode.Light)
-            }
-        
+            // .styles() {
+            //     FluentTheme(FluentThemeMode.Dark)
+            // }
+            //
 
     let program = Program.statefulWithCmd init update view
