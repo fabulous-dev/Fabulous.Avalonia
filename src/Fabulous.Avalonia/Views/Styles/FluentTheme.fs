@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System
 open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
