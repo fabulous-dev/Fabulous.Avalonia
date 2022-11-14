@@ -1,15 +1,14 @@
-namespace Fabulous.Avalonia
+namespace Fabulous.Avalonia.Themes.Fluent
 
-open System
 open Avalonia.Themes.Fluent
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
+open Fabulous.Avalonia
 
 type IFabFluentTheme = inherit IFabStyle
 
 module FluentTheme =
     let WidgetKey = Widgets.registerWithFactory<FluentTheme>(fun () -> FluentTheme(baseUri = null))
-    let Mode = Attributes.defineStyledWithEquality FluentTheme.ModeProperty
+    let Mode = Attributes.defineAvaloniaPropertyWithEquality FluentTheme.ModeProperty
     
 [<AutoOpen>]
 module FluentThemeBuilders =

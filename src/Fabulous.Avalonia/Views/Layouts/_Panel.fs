@@ -9,7 +9,7 @@ open Fabulous.StackAllocatedCollections
 type IFabPanel = inherit IFabControl
 
 module Panel =
-    let Background = Attributes.defineStyledWidget Panel.BackgroundProperty
+    let Background = Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
     let Children = Attributes.defineAvaloniaListWidgetCollection "Children" (fun x -> (x :?> Panel).Children)
     
 [<Extension>]

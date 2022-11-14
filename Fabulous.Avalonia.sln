@@ -15,9 +15,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous", "..\Fabulous\src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{918B7439-7A5D-4581-9910-8C81780E0D32}"
 	ProjectSection(SolutionItems) = preProject
-	    .gitignore = .gitignore
+					.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Themes.Fluent", "src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj", "{74A67DCD-5093-4CC6-B421-77376153C714}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,9 +42,14 @@ Global
 		{19CE08C6-87BF-4036-AE2B-B44EDF63561A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19CE08C6-87BF-4036-AE2B-B44EDF63561A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19CE08C6-87BF-4036-AE2B-B44EDF63561A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A67DCD-5093-4CC6-B421-77376153C714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A67DCD-5093-4CC6-B421-77376153C714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A67DCD-5093-4CC6-B421-77376153C714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A67DCD-5093-4CC6-B421-77376153C714}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9EB9291D-09F8-43DD-9A95-154D4E6BA78E} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{3CABE580-CB56-4853-926E-411BECD2BAB9} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
+		{74A67DCD-5093-4CC6-B421-77376153C714} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 	EndGlobalSection
 EndGlobal

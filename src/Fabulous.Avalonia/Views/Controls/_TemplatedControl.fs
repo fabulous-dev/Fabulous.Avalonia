@@ -9,9 +9,9 @@ open Fabulous
 type IFabTemplatedControl = inherit IFabControl
 
 module TemplatedControl =
-    let Background = Attributes.defineStyledWidget TemplatedControl.BackgroundProperty
-    let Foreground = Attributes.defineStyledWidget TemplatedControl.ForegroundProperty
-    let Padding = Attributes.defineStyledWithEquality TemplatedControl.PaddingProperty
+    let Background = Attributes.defineAvaloniaPropertyWidget TemplatedControl.BackgroundProperty
+    let Foreground = Attributes.defineAvaloniaPropertyWidget TemplatedControl.ForegroundProperty
+    let Padding = Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.PaddingProperty
 
 [<Extension>]
 type TemplatedControlModifiers =

@@ -6,5 +6,5 @@ open Fabulous
 type IFabContentControl = inherit IFabTemplatedControl
 
 module ContentControl =
-    let Content = Attributes.defineStyledWidget ContentControl.ContentProperty
-    let ContentString = Attributes.defineStyled<string, obj> ContentControl.ContentProperty box ScalarAttributeComparers.equalityCompare
+    let Content = Attributes.defineAvaloniaPropertyWidget ContentControl.ContentProperty
+    let ContentString = Attributes.defineAvaloniaProperty<string, obj> ContentControl.ContentProperty box ScalarAttributeComparers.equalityCompare

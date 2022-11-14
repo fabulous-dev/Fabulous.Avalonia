@@ -8,9 +8,11 @@ open Fabulous
 type IFabLayoutable = inherit IFabVisual
 
 module Layoutable =
-    let HorizontalAlignment = Attributes.defineStyledWithEquality Layoutable.HorizontalAlignmentProperty
-    let VerticalAlignment = Attributes.defineStyledWithEquality Layoutable.VerticalAlignmentProperty
-    let Margin = Attributes.defineStyledWithEquality Layoutable.MarginProperty
+    let HorizontalAlignment = Attributes.defineAvaloniaPropertyWithEquality Layoutable.HorizontalAlignmentProperty
+    let VerticalAlignment = Attributes.defineAvaloniaPropertyWithEquality Layoutable.VerticalAlignmentProperty
+    let Margin = Attributes.defineAvaloniaPropertyWithEquality Layoutable.MarginProperty
+    let Height = Attributes.defineAvaloniaPropertyWithEquality Layoutable.HeightProperty
+    let Width = Attributes.defineAvaloniaPropertyWithEquality Layoutable.WidthProperty
     
 [<Extension>]
 type LayoutableModifiers =
@@ -25,6 +27,14 @@ type LayoutableModifiers =
     [<Extension>]
     static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, value: Thickness) =
         this.AddScalar(Layoutable.Margin.WithValue(value))
+        
+    [<Extension>]
+    static member inline Height(this: WidgetBuilder<'msg, #IFabLayoutable>, value: float) =
+        this.AddScalar(Layoutable.Height.WithValue(value))
+        
+    [<Extension>]
+    static member inline width(this: WidgetBuilder<'msg, #IFabLayoutable>, value: float) =
+        this.AddScalar(Layoutable.Width.WithValue(value))
 
 [<Extension>]
 type LayoutableExtraModifiers =

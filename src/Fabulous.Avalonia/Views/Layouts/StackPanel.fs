@@ -9,7 +9,7 @@ type IFabStackPanel = inherit IFabPanel
 module StackPanel =
     let WidgetKey = Widgets.register<StackPanel>()
     
-    let Orientation = Attributes.defineStyledWithEquality StackPanel.OrientationProperty
+    let Orientation = Attributes.defineAvaloniaPropertyWithEquality StackPanel.OrientationProperty
     
 [<AutoOpen>]
 module StackPanelBuilders =

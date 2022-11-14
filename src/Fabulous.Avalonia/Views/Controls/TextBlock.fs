@@ -10,8 +10,8 @@ type IFabTextBlock = inherit IFabControl
 module TextBlock =
     let WidgetKey = Widgets.register<TextBlock>()
     
-    let Text = Attributes.defineDirectWithEquality TextBlock.TextProperty
-    let TextAlignment = Attributes.defineStyledWithEquality TextBlock.TextAlignmentProperty
+    let Text = Attributes.defineAvaloniaPropertyWithEquality TextBlock.TextProperty
+    let TextAlignment = Attributes.defineAvaloniaPropertyWithEquality TextBlock.TextAlignmentProperty
     
 [<AutoOpen>]
 module TextBlockBuilders =

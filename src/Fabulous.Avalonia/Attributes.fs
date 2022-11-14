@@ -1,29 +1,40 @@
 namespace Fabulous.Avalonia
 
+open System
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Interactivity
 open Fabulous
+open Fabulous.ScalarAttributeDefinitions
+
+[<Struct>]
+type ValueEventData<'data, 'eventArgs> =
+    { Value: 'data
+      Event: 'eventArgs -> obj }
+    
+module ValueEventData =
+    let create (value: 'data) (event: 'eventArgs -> obj) = { Value = value; Event = event }
 
 module Attributes =
-    /// Define an attribute for a DirectProperty
-    let inline defineDirect<'owner, 'modelType, 'valueType when 'owner :> IAvaloniaObject>
-        (directProperty: DirectProperty<'owner, 'valueType>)
+    /// Define an attribute for an AvaloniaProperty
+    let inline defineAvaloniaProperty<'modelType, 'valueType>
+        (property: AvaloniaProperty<'valueType>)
         ([<InlineIfLambda>] convertValue: 'modelType -> 'valueType)
         ([<InlineIfLambda>] compare: 'modelType -> 'modelType -> ScalarAttributeComparison)
         =
         Attributes.defineScalar<'modelType, 'valueType>
-            directProperty.Name
+            property.Name
             convertValue
             compare
             (fun _ newValueOpt node ->
                 let target = node.Target :?> IAvaloniaObject
 
                 match newValueOpt with
-                | ValueNone -> target.ClearValue(directProperty)
-                | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
+                | ValueNone -> target.ClearValue(property)
+                | ValueSome v -> target.SetValue(property, v) |> ignore)
             
-    /// Define an attribute for a DirectProperty supporting equality comparison
-    let inline defineDirectWithEquality<'owner, 'T when 'owner :> IAvaloniaObject and 'T: equality> (directProperty: DirectProperty<'owner, 'T>) =
+    /// Define an attribute for an AvaloniaProperty supporting equality comparison
+    let inline defineAvaloniaPropertyWithEquality<'T when 'T: equality> (directProperty: AvaloniaProperty<'T>) =
         Attributes.defineSimpleScalarWithEquality<'T>
             directProperty.Name
             (fun _ newValueOpt node ->
@@ -32,39 +43,11 @@ module Attributes =
                 match newValueOpt with
                 | ValueNone -> target.ClearValue(directProperty)
                 | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
-            
-    /// Define an attribute for a StyledProperty
-    let inline defineStyled<'modelType, 'valueType>
-        (styledProperty: StyledProperty<'valueType>)
-        ([<InlineIfLambda>] convertValue: 'modelType -> 'valueType)
-        ([<InlineIfLambda>] compare: 'modelType -> 'modelType -> ScalarAttributeComparison)
-        =
-        Attributes.defineScalar<'modelType, 'valueType>
-            styledProperty.Name
-            convertValue
-            compare
-            (fun _ newValueOpt node ->
-                let target = node.Target :?> IAvaloniaObject
-
-                match newValueOpt with
-                | ValueNone -> target.ClearValue(styledProperty)
-                | ValueSome v -> target.SetValue(styledProperty, v) |> ignore)
-            
-    /// Define an attribute for a StyledProperty supporting equality comparison
-    let inline defineStyledWithEquality<'T when 'T: equality> (styledProperty: StyledProperty<'T>) =
-        Attributes.defineSimpleScalarWithEquality<'T>
-            styledProperty.Name
-            (fun _ newValueOpt node ->
-                let target = node.Target :?> IAvaloniaObject
-
-                match newValueOpt with
-                | ValueNone -> target.ClearValue(styledProperty)
-                | ValueSome v -> target.SetValue(styledProperty, v) |> ignore)
 
     /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
-    let inline defineAvaloniaListWidgetCollection<'itemType>
+    let defineAvaloniaListWidgetCollection<'itemType>
         name
-        ([<InlineIfLambda>] getCollection: obj -> IAvaloniaList<'itemType>)
+        (getCollection: obj -> IAvaloniaList<'itemType>)
         =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
@@ -134,16 +117,93 @@ module Attributes =
 
         Attributes.defineWidgetCollection name applyDiff updateNode
         
-    /// Define an attribute storing a Widget for a styled property
-    let inline defineStyledWidget (styledProperty: StyledProperty<'T>) =
+    /// Define an attribute storing a Widget for an AvaloniaProperty
+    let inline defineAvaloniaPropertyWidget (property: AvaloniaProperty<'T>) =
         Attributes.definePropertyWidget
-            styledProperty.Name
+            property.Name
             (fun target ->
-                (target :?> IAvaloniaObject).GetValue(styledProperty))
+                (target :?> IAvaloniaObject).GetValue(property))
             (fun target value ->
                 let avaloniaObject = target :?> IAvaloniaObject
 
                 if value = null then
-                    avaloniaObject.ClearValue(styledProperty)
+                    avaloniaObject.ClearValue(property)
                 else
-                    avaloniaObject.SetValue(styledProperty, value) |> ignore)
+                    avaloniaObject.SetValue(property, value) |> ignore)
+            
+    /// Update both a property and its related event.
+    /// This definition makes sure that the event is only raised when the property is changed by the user,
+    /// and not when the property is set by the code
+    let defineAvaloniaPropertyWith2RoutedEvents<'modelType, 'valueType>
+        name
+        (property: AvaloniaProperty<'valueType>)
+        (getEventOn: obj -> IEvent<EventHandler<RoutedEventArgs>, RoutedEventArgs>)
+        (getEventOff: obj -> IEvent<EventHandler<RoutedEventArgs>, RoutedEventArgs>)
+        (convert: 'modelType -> 'valueType)
+        (valueOn: 'modelType)
+        (valueOff: 'modelType)
+        : SimpleScalarAttributeDefinition<ValueEventData<'modelType, 'modelType>> =
+
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun oldValueOpt (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
+                    let target = node.Target :?> AvaloniaObject
+                    let eventOn = getEventOn target
+                    let eventOff = getEventOff target
+
+                    let eventOnName = $"{name}_On"
+                    let eventOffName = $"{name}_Off"
+
+                    match newValueOpt with
+                    | ValueNone ->
+                        // The attribute is no longer applied, so we clean up the event
+                        match node.TryGetHandler(eventOnName) with
+                        | ValueNone -> ()
+                        | ValueSome handler -> eventOn.RemoveHandler(handler)
+
+                        match node.TryGetHandler(eventOffName) with
+                        | ValueNone -> ()
+                        | ValueSome handler -> eventOff.RemoveHandler(handler)
+
+                        // Only clear the property if a value was set before
+                        match oldValueOpt with
+                        | ValueNone -> ()
+                        | ValueSome _ -> target.ClearValue(property)
+
+                    | ValueSome curr ->
+                        // Clean up the old event handler if any
+                        match node.TryGetHandler(eventOnName) with
+                        | ValueNone -> ()
+                        | ValueSome handler -> eventOn.RemoveHandler(handler)
+
+                        match node.TryGetHandler(eventOffName) with
+                        | ValueNone -> ()
+                        | ValueSome handler -> eventOff.RemoveHandler(handler)
+
+                        // Set the new value
+                        let newValue = convert curr.Value
+                        target.SetValue(property, newValue) |> ignore
+
+                        // Set the new event handler
+                        let handlerOn =
+                            EventHandler<RoutedEventArgs>
+                                (fun _ _ ->
+                                    let r = curr.Event valueOn
+                                    Dispatcher.dispatch node r)
+
+                        let handlerOff =
+                            EventHandler<RoutedEventArgs>
+                                (fun _ _ ->
+                                    let r = curr.Event valueOff
+                                    Dispatcher.dispatch node r)
+
+                        node.SetHandler(eventOnName, ValueSome handlerOn)
+                        eventOn.AddHandler(handlerOn)
+
+                        node.SetHandler(eventOffName, ValueSome handlerOff)
+                        eventOff.AddHandler(handlerOff))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
