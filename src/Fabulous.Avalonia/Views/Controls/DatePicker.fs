@@ -10,7 +10,11 @@ type IFabDatePicker = inherit IFabTemplatedControl
 // TODO: Add Header and missing Events
 module DatePicker =
     let WidgetKey = Widgets.register<DatePicker>()
-    let SelectedDate = Attributes.defineAvaloniaPropertyWithEquality DatePicker.SelectedDateProperty
+    let SelectedDate =
+        Attributes.defineAvaloniaProperty<DateTimeOffset option, Nullable<DateTimeOffset>>
+            DatePicker.SelectedDateProperty
+            Option.toNullable
+            ScalarAttributeComparers.equalityCompare
     
     let DayVisible = Attributes.defineAvaloniaPropertyWithEquality DatePicker.DayVisibleProperty
     
@@ -38,10 +42,10 @@ module DatePicker =
 [<AutoOpen>]
 module DatePickerBuilders =
     type Fabulous.Avalonia.View with
-        static member inline DatePicker(date: DateTimeOffset) =
+        static member inline DatePicker(date: DateTimeOffset option) =
             WidgetBuilder<'msg, IFabDatePicker>(
                 DatePicker.WidgetKey,
-                DatePicker.SelectedDate.WithValue(Nullable(date))
+                DatePicker.SelectedDate.WithValue(date)
             )
             
 [<Extension>]

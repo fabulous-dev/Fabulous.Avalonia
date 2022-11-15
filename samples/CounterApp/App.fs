@@ -83,8 +83,7 @@ module App =
                 Button("Reset", Reset)
                     .centerHorizontal()
                     
-                DatePicker(DateTimeOffset.Now)
-                    
+                DatePicker(Some DateTimeOffset.Now)
              })
                 .center()
         )
