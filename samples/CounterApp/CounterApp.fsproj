@@ -3,6 +3,27 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0-ios</TargetFramework>
+    <TargetPlatformIdentifier>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</TargetPlatformIdentifier>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="App.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
+  </ItemGroup>
+
+  <!-- Desktop -->
+<!--  <PropertyGroup Condition="$(TargetPlatformIdentifier) == ''">-->
+<!--    <TrimMode>copyused</TrimMode>-->
+<!--    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>-->
+<!--  </PropertyGroup>-->
+  
+  <!-- iOS -->
+  <PropertyGroup Condition="$(TargetPlatformIdentifier) == 'ios'">
+    <EnableDefaultiOSItems>false</EnableDefaultiOSItems>
     <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
     <ProvisioningProfile>manual</ProvisioningProfile>
     <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
@@ -12,23 +33,16 @@
     <!--<CodesignKey></CodesignKey>-->
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <PropertyGroup Condition=" '$(TargetPlatformIdentifier)|$(Configuration)' == 'ios|Debug' ">
     <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="App.fs" />
-    <Compile Include="AppDelegate.fs" />
-    <Compile Include="Main.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
-    <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+  
+  <ItemGroup Condition="$(TargetPlatformIdentifier) == 'ios'">
+    <InterfaceDefinition Include="Platforms\iOS\Resources\LaunchScreen.xib" />
+    <None Include="Platforms\iOS\Entitlements.plist" />
+    <None Include="Platforms\iOS\Info.plist" />
+    <Compile Include="Platforms\iOS\AppDelegate.fs" />
+    <Compile Include="Platforms\iOS\Main.fs" />
   </ItemGroup>
 
 </Project>
