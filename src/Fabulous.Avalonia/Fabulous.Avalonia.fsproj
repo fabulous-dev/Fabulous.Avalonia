@@ -21,6 +21,8 @@
     <Compile Include="Views\Controls\_TemplatedControl.fs" />
     <Compile Include="Views\Controls\_ContentControl.fs" />
     <Compile Include="Views\Controls\Button.fs" />
+    <Compile Include="Views\Controls\Decorator.fs" />
+    <Compile Include="Views\Controls\Border.fs" />
     <Compile Include="Views\Controls\DatePicker.fs" />
     <Compile Include="Views\Controls\TextBlock.fs" />
     <Compile Include="Views\Controls\UserControl.fs" />

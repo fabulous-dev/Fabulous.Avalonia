@@ -1,6 +1,7 @@
 namespace CounterApp
 
 open System
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Themes.Fluent
@@ -83,7 +84,16 @@ module App =
                 Button("Reset", Reset)
                     .centerHorizontal()
                     
-                DatePicker(Some DateTimeOffset.Now)
+                DatePicker(Some DateTimeOffset.Now).margin(20.)
+                    
+                Border(VStack() {
+                    TextBlock("Hello")
+                    TextBlock("World")
+                })
+                    .background(Brushes.Red)
+                    .borderBrush(Brushes.Black)
+                    .borderThickness(Thickness(2.))
+                    .boxShadow(BoxShadows.Parse("5 5 10 2 Blue"))
              })
                 .center()
         )
