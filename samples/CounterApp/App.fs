@@ -57,35 +57,37 @@ module App =
                 model, Cmd.none
 
     let view model =
-        SingleViewApplication(
-            (VStack() {
-                TextBlock($"%d{model.Count}").centerText()
-                
-                Button("Increment", Increment)
-                    .centerHorizontal()
-                
-                Button("Decrement", Decrement)
-                    .centerHorizontal()
-                
-                (HStack() {
-                    TextBlock("Timer")
-                
-                    ToggleSwitch(model.TimerOn, TimerToggled)
-                 })
-                    .margin(20.)
-                    .centerHorizontal()
-                
-                Slider(0.0, 10.0, double model.Step, SetStep)
-                
-                TextBlock($"Step size: %d{model.Step}")
-                    .centerText()
-                
-                Button("Reset", Reset)
-                    .centerHorizontal()
+        DesktopApplication(
+            Window(
+                (VStack() {
+                    TextBlock($"%d{model.Count}").centerText()
                     
-                DatePicker(Some DateTimeOffset.Now)
-             })
-                .center()
+                    Button("Increment", Increment)
+                        .centerHorizontal()
+                    
+                    Button("Decrement", Decrement)
+                        .centerHorizontal()
+                    
+                    (HStack() {
+                        TextBlock("Timer")
+                    
+                        ToggleSwitch(model.TimerOn, TimerToggled)
+                     })
+                        .margin(20.)
+                        .centerHorizontal()
+                    
+                    Slider(0.0, 10.0, double model.Step, SetStep)
+                    
+                    TextBlock($"Step size: %d{model.Step}")
+                        .centerText()
+                    
+                    Button("Reset", Reset)
+                        .centerHorizontal()
+                        
+                    DatePicker(Some DateTimeOffset.Now)
+                 })
+                    .center()
+            )
         )
             .styles() {
                 FluentTheme(FluentThemeMode.Light)

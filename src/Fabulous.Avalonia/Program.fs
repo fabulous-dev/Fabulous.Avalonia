@@ -110,12 +110,24 @@ module Program =
         runner.Start(arg)
         let adapter = ViewAdapters.create ViewNode.get runner
         adapter.CreateView() |> unbox
+        
+    type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
+        inherit FabApplication()
+        
+        override this.Initialize() =
+            base.Initialize()
+            
+            let runner = Runners.create program
+            runner.Start(arg)
+            
+            let adapter = ViewAdapters.create ViewNode.get runner
+            adapter.Attach(this)
 
     /// Start the program
     let startApplication
         (program: Program<unit, 'model, 'msg, #IFabApplication>)
         : Application =
-        startApplicationWithArgs() program
+        FabApplication<unit, 'model, 'msg, #IFabApplication>(program, ())
 
     /// Subscribe to external source of events.
     /// The subscription is called once - with the initial model, but can dispatch new messages at any time.

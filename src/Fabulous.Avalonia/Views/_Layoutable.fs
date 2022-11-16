@@ -29,7 +29,7 @@ type LayoutableModifiers =
         this.AddScalar(Layoutable.Margin.WithValue(value))
         
     [<Extension>]
-    static member inline Height(this: WidgetBuilder<'msg, #IFabLayoutable>, value: float) =
+    static member inline height(this: WidgetBuilder<'msg, #IFabLayoutable>, value: float) =
         this.AddScalar(Layoutable.Height.WithValue(value))
         
     [<Extension>]

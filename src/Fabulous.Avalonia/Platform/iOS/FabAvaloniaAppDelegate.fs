@@ -1,5 +1,7 @@
 namespace Fabulous.Avalonia
 
+open System
+open System.Runtime.CompilerServices
 open Avalonia
 open Foundation
 open UIKit
@@ -15,26 +17,25 @@ type SingleViewLifetime() =
     interface ISingleViewApplicationLifetime with
         member this.MainView
             with get() = this.View.Content
-            and set(value) = this.View.Content <- value
+            and set(value) =
+                if this.View <> null then
+                    this.View.Content <- value
 
 [<AbstractClass>]
-type FabulousAvaloniaAppDelegate<'model, 'msg>() =
+type FabAvaloniaAppDelegate() =
     inherit UIResponder()
     interface IUIApplicationDelegate
     
     [<Export("window")>]
     member val Window: UIWindow = null with get, set
     
-    abstract member CustomizeAppBuilder: AppBuilder -> AppBuilder
-    default this.CustomizeAppBuilder(appBuilder) = appBuilder
-    
-    abstract member FabulousApp: Program<unit, 'model, 'msg, IFabApplication>
+    abstract member CreateApp: unit -> Application
     
     [<Export("application:didFinishLaunchingWithOptions:")>]
     member this.FinishedLaunching(application: UIApplication, launchOptions: NSDictionary) =
         let builder =
             AppBuilder
-                .Configure<Application>(fun () -> Program.startApplication this.FabulousApp)
+                .Configure<Application>(Func<_>(this.CreateApp))
                 .UseiOS()
                 
         let lifetime = SingleViewLifetime()

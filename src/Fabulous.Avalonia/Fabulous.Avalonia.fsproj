@@ -39,12 +39,15 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="$(TargetPlatformIdentifier) == ''">
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
   </ItemGroup>
   
   <ItemGroup Condition="$(TargetPlatformIdentifier) == 'ios'">
     <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview4" />
-    <Compile Include="Platform\iOS\FabulousAvaloniaAppDelegate.fs" />
+    <Compile Include="Platform\iOS\FabAvaloniaAppDelegate.fs" />
   </ItemGroup>
   
   <ItemGroup>

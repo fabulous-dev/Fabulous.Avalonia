@@ -1,17 +1,19 @@
 namespace CounterApp.iOS
 
 open Foundation
-open Avalonia
-open Avalonia.iOS
-
+open UIKit
 open Fabulous.Avalonia
-
 open CounterApp
 
-// The UIApplicationDelegate for the application. This class is responsible for launching the 
-// User Interface of the application, as well as listening (and optionally responding) to 
-// application events from iOS.
-type [<Register("AppDelegate")>] AppDelegate() =
-    inherit FabulousAvaloniaAppDelegate<App.Model, App.Msg>()
+[<Register("AppDelegate")>]
+type AppDelegate() =
+    inherit FabAvaloniaAppDelegate()
 
-    override this.FabulousApp = App.program
+    override this.CreateApp() =
+        Program.startApplication App.program
+        
+module Main =
+    [<EntryPoint>]
+    let main(args: string array) =
+        UIApplication.Main(args, null, typeof<AppDelegate>)
+        0
