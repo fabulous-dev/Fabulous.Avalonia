@@ -12,6 +12,7 @@
     <PropertyGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidPlatformFolder Condition="$(AndroidPlatformFolder) == ''">Platform\Android\</AndroidPlatformFolder>
         <AndroidManifest>$(AndroidPlatformFolder)AndroidManifest.xml</AndroidManifest>
+        <DefineConstants>MOBILE;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
     
     <PropertyGroup Condition="$(AvaloniaPlatform) == 'iOS'">
@@ -22,10 +23,12 @@
         <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
         <ProvisioningProfile>manual</ProvisioningProfile>
         <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
+        <DefineConstants>MOBILE;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
     
     <PropertyGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <DesktopPlatformFolder Condition="$(DesktopPlatformFolder) == ''">Platform\Desktop\</DesktopPlatformFolder>
         <BuiltInCodeInteropSupport>true</BuiltInCodeInteropSupport>
+        <DefineConstants>DESKTOP;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
 </Project>
