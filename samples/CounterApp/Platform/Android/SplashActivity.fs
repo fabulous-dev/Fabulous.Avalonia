@@ -10,16 +10,12 @@ open Fabulous.Avalonia
 [<Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)>]
 type SplashActivity() =
     inherit AvaloniaSplashActivity()
-    
-    // override this.CreateApp() =
-    //     Program.startApplication App.program
-
-    
-    override this.OnResume() =
-        base.OnResume()
-        this.StartActivity(new Intent(Application.Context, typeof<MainActivity>))
 
     override this.CreateAppBuilder() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
+    
+    override this.OnResume() =
+        base.OnResume()
+        this.StartActivity(new Intent(Application.Context, typeof<MainActivity>))
