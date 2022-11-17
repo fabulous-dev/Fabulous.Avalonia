@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-        <None Include="$(iOSPlatformFolder)Entitlements.plist">
-            <Link>Entitlements.plist</Link>
-        </None>
-        <None Include="$(iOSPlatformFolder)Info.plist">
-            <Link>Info.plist</Link>
-        </None>
-        
+        <None Include="$(iOSPlatformFolder)Entitlements.plist" />
+        <None Include="$(iOSPlatformFolder)Info.plist" />
         <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
     </ItemGroup>
 
@@ -28,6 +23,6 @@
     </ItemGroup>
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->
-<!--        <Error Text="AvaloniaPlatform is '$(iOSPlatformFolder)'" />-->
+<!--        <Error Text="AvaloniaPlatform is '$(AppBundleManifest)'" />-->
 <!--    </Target>-->
 </Project>

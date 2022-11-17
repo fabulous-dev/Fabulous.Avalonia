@@ -16,6 +16,8 @@
     
     <PropertyGroup Condition="$(AvaloniaPlatform) == 'iOS'">
         <iOSPlatformFolder Condition="$(iOSPlatformFolder) == ''">Platform\iOS\</iOSPlatformFolder>
+        <AppBundleManifest>$(iOSPlatformFolder)Info.plist</AppBundleManifest>
+        <CodesignEntitlements>$(iOSPlatformFolder)Entitlements.plist</CodesignEntitlements>
         <EnableDefaultiOSItems>false</EnableDefaultiOSItems>
         <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
         <ProvisioningProfile>manual</ProvisioningProfile>
