@@ -46,23 +46,29 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
-  </ItemGroup>
-  
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
-  </ItemGroup>
-
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" Version="11.0.0-preview4" />
     <Compile Include="Platform\Android\FabSplashActivity.fs" />
   </ItemGroup>
   
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview4" />
     <Compile Include="Platform\iOS\FabAppDelegate.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
+    <PackageReference Include="Avalonia.Android" Version="11.0.0-preview4" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
+    <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview4" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
   </ItemGroup>
   
   <ItemGroup>

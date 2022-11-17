@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-        <None Include="$(iOSPlatformFolder)Entitlements.plist" />
-        <None Include="$(iOSPlatformFolder)Info.plist" />
-        <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
-    </ItemGroup>
-
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
         <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
         <Compile Include="$(AndroidPlatformFolder)MainActivity.fs" />
         <Compile Include="$(AndroidPlatformFolder)SplashActivity.fs" />
-        <PackageReference Include="Avalonia.Android" Version="11.0.0-preview4" />
+    </ItemGroup>
+    
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
+        <None Include="$(iOSPlatformFolder)Entitlements.plist" />
+        <None Include="$(iOSPlatformFolder)Info.plist" />
+        <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
+        <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
     </ItemGroup>
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
-    </ItemGroup>
-
-    <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-        <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
     </ItemGroup>
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->

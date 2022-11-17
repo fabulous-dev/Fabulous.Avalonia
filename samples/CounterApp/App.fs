@@ -1,12 +1,9 @@
 namespace CounterApp
 
 open System
-open Avalonia.Controls
 open Avalonia.Media
-open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
