@@ -30,6 +30,7 @@
     <Compile Include="Views\Controls\_RangeBase.fs" />
     <Compile Include="Views\Controls\Slider.fs" />
     <Compile Include="Views\Controls\ToggleSwitch.fs" />
+    <Compile Include="Views\Controls\Separator.fs" />
     <Compile Include="Views\Layouts\_Panel.fs" />
     <Compile Include="Views\Layouts\Grid.fs" />
     <Compile Include="Views\Layouts\StackPanel.fs" />
