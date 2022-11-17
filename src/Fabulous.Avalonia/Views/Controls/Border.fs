@@ -31,7 +31,6 @@ module Border =
     let BorderDashOffset =
         Attributes.defineAvaloniaPropertyWithEquality Border.BorderDashOffsetProperty
         
-    // TODO: Investigate if there is a way to convert from string to Avalonia list double to support ie "5,5"
     let BorderDashArray =
         Attributes.defineSimpleScalarWithEquality<float list>
             "Border_BorderDashArray"

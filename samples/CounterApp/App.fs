@@ -85,15 +85,6 @@ module App =
                     .centerHorizontal()
                     
                 DatePicker(Some DateTimeOffset.Now).margin(20.)
-                    
-                Border(VStack() {
-                    TextBlock("Hello")
-                    TextBlock("World")
-                })
-                    .background(Brushes.Red)
-                    .borderBrush(Brushes.Black)
-                    .borderThickness(Thickness(2.))
-                    .boxShadow(BoxShadows.Parse("5 5 10 2 Blue"))
              })
                 .center()
         )
