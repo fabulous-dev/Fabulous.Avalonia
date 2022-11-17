@@ -42,6 +42,22 @@ type FabApplication() =
         this.UpdateLifetime()
         base.OnFrameworkInitializationCompleted()
     
+type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
+    inherit FabApplication()
+    
+    override this.Initialize() =
+        this.Styles.Add(FluentTheme(baseUri = null, Mode = FluentThemeMode.Light))
+        base.Initialize()
+    
+    override this.OnFrameworkInitializationCompleted() =            
+        let runner = Runners.create program
+        runner.Start(arg)
+        
+        let adapter = ViewAdapters.create ViewNode.get runner
+        adapter.Attach(this)
+        
+        base.OnFrameworkInitializationCompleted()
+    
 module ApplicationUpdaters =
     let mainWindowApplyDiff (diff: WidgetDiff) (node: IViewNode) =
         let target = node.Target :?> FabApplication

@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System
 open System.Diagnostics
 open Avalonia
+open Avalonia.Themes.Fluent
 open Avalonia.Threading
 
 open Fabulous
@@ -106,22 +107,7 @@ module Program =
         (arg: 'arg)
         (program: Program<'arg, 'model, 'msg, #IFabApplication>)
         : Application =
-        let runner = Runners.create program
-        runner.Start(arg)
-        let adapter = ViewAdapters.create ViewNode.get runner
-        adapter.CreateView() |> unbox
-        
-    type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
-        inherit FabApplication()
-        
-        override this.Initialize() =
-            base.Initialize()
-            
-            let runner = Runners.create program
-            runner.Start(arg)
-            
-            let adapter = ViewAdapters.create ViewNode.get runner
-            adapter.Attach(this)
+        FabApplication<'arg, 'model, 'msg, #IFabApplication>(program, arg)
 
     /// Start the program
     let startApplication
