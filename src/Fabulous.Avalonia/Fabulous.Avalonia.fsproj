@@ -1,8 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net7.0-ios</TargetFrameworks>
+    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
+
+    <!-- Normalize casing -->
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,13 +51,18 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
   </ItemGroup>
   
-  <ItemGroup Condition="$(TargetPlatformIdentifier) == ''">
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
     <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
   </ItemGroup>
+
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
+    <PackageReference Include="Avalonia.Android" Version="11.0.0-preview4" />
+    <Compile Include="Platform\Android\FabSplashActivity.fs" />
+  </ItemGroup>
   
-  <ItemGroup Condition="$(TargetPlatformIdentifier) == 'ios'">
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview4" />
-    <Compile Include="Platform\iOS\FabAvaloniaAppDelegate.fs" />
+    <Compile Include="Platform\iOS\FabAppDelegate.fs" />
   </ItemGroup>
   
   <ItemGroup>

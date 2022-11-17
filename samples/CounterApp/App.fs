@@ -57,8 +57,8 @@ module App =
                 model, Cmd.none
 
     let view model =
-        DesktopApplication(
-            Window(
+        SingleViewApplication(
+            //Window(
                 UserControl(
                     (VStack() {
                         TextBlock($"%d{model.Count}").centerText()
@@ -91,7 +91,7 @@ module App =
                 )
                     .foreground(SolidColorBrush(Colors.Black))
                     .background(SolidColorBrush(Colors.White))
-            )
+            //)
         )
             // .styles() {
             //     FluentTheme(FluentThemeMode.Light)

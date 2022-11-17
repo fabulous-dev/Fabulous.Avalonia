@@ -7,7 +7,7 @@ open CounterApp
 
 [<Register("AppDelegate")>]
 type AppDelegate() =
-    inherit FabAvaloniaAppDelegate()
+    inherit FabAppDelegate()
 
     override this.CreateApp() =
         Program.startApplication App.program

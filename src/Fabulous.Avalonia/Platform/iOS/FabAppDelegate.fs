@@ -22,7 +22,7 @@ type SingleViewLifetime() =
                     this.View.Content <- value
 
 [<AbstractClass>]
-type FabAvaloniaAppDelegate() =
+type FabAppDelegate() =
     inherit UIResponder()
     interface IUIApplicationDelegate
     

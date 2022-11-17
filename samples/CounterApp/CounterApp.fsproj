@@ -1,32 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.props" />
+  
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net7.0;net7.0-ios</TargetFrameworks>
-    <EnableDefaultItems>false</EnableDefaultItems>
-
-    <TPI>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</TPI>
-    <TPI Condition="'$(TPI)' == 'ios'">iOS</TPI>
+    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
   </PropertyGroup>
 
-  <!-- iOS -->
-  <PropertyGroup Condition="$(TPI) == 'iOS'">
-    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
-    <ProvisioningProfile>manual</ProvisioningProfile>
-    <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
-
-    <!-- These properties need to be set in order to run on a real iDevice -->
-    <!--<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>-->
-    <!--<CodesignKey></CodesignKey>-->
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TPI)|$(Configuration)' == 'iOS|Debug' ">
+  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
     <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
-  </PropertyGroup>
-
-  <!-- Desktop -->
-  <PropertyGroup Condition="$(TPI) == ''">
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,19 +19,5 @@
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
   </ItemGroup>
   
-  <ItemGroup Condition="$(TPI) == ''">
-    <Compile Include="Platforms\Desktop\Program.fs" />
-  </ItemGroup>
-  
-  <ItemGroup Condition="$(TPI) == 'iOS'">
-    <None Include="Platforms\iOS\Entitlements.plist">
-      <Link>Entitlements.plist</Link>
-    </None>
-    <None Include="Platforms\iOS\Info.plist">
-      <Link>Info.plist</Link>
-    </None>
-    <InterfaceDefinition Include="Platforms\iOS\Resources\LaunchScreen.xib" />
-    <Compile Include="Platforms\iOS\AppDelegate.fs" />
-  </ItemGroup>
-
+  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.targets" />
 </Project>
