@@ -1,0 +1,5 @@
+<linker>
+    <assembly fullname="ControlCatalog.Shared" preserve="All" />
+    <assembly fullname="ControlCatalog.Web" preserve="All" />
+    <assembly fullname="Avalonia.Themes.Fluent" preserve="All" />
+</linker>

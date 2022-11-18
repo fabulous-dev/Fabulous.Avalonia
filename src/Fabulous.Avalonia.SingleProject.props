@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
+        <EnableDefaultItems>false</EnableDefaultItems>
+        <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
         <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
         
         <!-- Normalize casing -->
@@ -19,7 +21,6 @@
         <iOSPlatformFolder Condition="$(iOSPlatformFolder) == ''">Platform\iOS\</iOSPlatformFolder>
         <AppBundleManifest>$(iOSPlatformFolder)Info.plist</AppBundleManifest>
         <CodesignEntitlements>$(iOSPlatformFolder)Entitlements.plist</CodesignEntitlements>
-        <EnableDefaultiOSItems>false</EnableDefaultiOSItems>
         <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
         <ProvisioningProfile>manual</ProvisioningProfile>
         <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>

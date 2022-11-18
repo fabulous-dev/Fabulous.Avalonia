@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\..\src\Fabulous.Avalonia.SingleProject.props" />
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+        <iOSPlatformFolder>iOS\</iOSPlatformFolder>
+        <AndroidPlatformFolder>Android\</AndroidPlatformFolder>
+        <DesktopPlatformFolder>Desktop\</DesktopPlatformFolder>
+    </PropertyGroup>
+    <Import Project="..\..\..\src\Fabulous.Avalonia.SingleProject.targets" />
+
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
+        <Compile Include="Android\MainActivity.fs" />
+        <Compile Include="Android\SplashActivity.fs" />
+    </ItemGroup>
+    
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
+        <Compile Include="iOS\SceneDelegate.fs" />
+        <Compile Include="iOS\AppDelegate.fs" />
+        <Compile Include="iOS\Main.fs" />
+    </ItemGroup>
+    
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
+        <Compile Include="Desktop\Program.fs" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="FSharp.Core" Version="7.0.0" />
+        <ProjectReference Include="..\ControlCatalog.Shared\ControlCatalog.Shared.fsproj" />
+    </ItemGroup>
+</Project>

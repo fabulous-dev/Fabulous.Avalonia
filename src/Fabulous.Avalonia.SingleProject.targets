@@ -3,20 +3,18 @@
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
         <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
-        <Compile Include="$(AndroidPlatformFolder)MainActivity.fs" />
-        <Compile Include="$(AndroidPlatformFolder)SplashActivity.fs" />
+        <PackageReference Include="FSharp.Android.Resource" Version="1.0.4" />
     </ItemGroup>
     
     <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
+        <ImageAsset Include="$(iOSPlatformFolder)Assets.xcassets\**\*" />
+        <InterfaceDefinition Include="$(iOSPlatformFolder)Resources\*.storyboard;$(iOSPlatformFolder)Resources\*.xib" />
+        <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
         <None Include="$(iOSPlatformFolder)Entitlements.plist" />
         <None Include="$(iOSPlatformFolder)Info.plist" />
-        <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
-        <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
     </ItemGroup>
 
-    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-        <Compile Include="$(DesktopPlatformFolder)Program.fs" />
-    </ItemGroup>
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'" />
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->
 <!--        <Error Text="AvaloniaPlatform is '$(AppBundleManifest)'" />-->
