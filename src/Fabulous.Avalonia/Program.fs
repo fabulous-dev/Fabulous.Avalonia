@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System
 open System.Diagnostics
 open Avalonia
+open Avalonia.Themes.Fluent
 open Avalonia.Threading
 
 open Fabulous
@@ -106,16 +107,13 @@ module Program =
         (arg: 'arg)
         (program: Program<'arg, 'model, 'msg, #IFabApplication>)
         : Application =
-        let runner = Runners.create program
-        runner.Start(arg)
-        let adapter = ViewAdapters.create ViewNode.get runner
-        adapter.CreateView() |> unbox
+        FabApplication<'arg, 'model, 'msg, #IFabApplication>(program, arg)
 
     /// Start the program
     let startApplication
         (program: Program<unit, 'model, 'msg, #IFabApplication>)
         : Application =
-        startApplicationWithArgs() program
+        FabApplication<unit, 'model, 'msg, #IFabApplication>(program, ())
 
     /// Subscribe to external source of events.
     /// The subscription is called once - with the initial model, but can dispatch new messages at any time.

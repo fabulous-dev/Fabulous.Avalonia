@@ -37,13 +37,25 @@ type FabApplication() =
         and set value =
             _mainView <- value
             this.UpdateLifetime()
-            
-    // TODO Set the App to Light theme for now. So we can test more controls
-    override this.Initialize() =
-        this.Styles.Add (FluentTheme(baseUri = null, Mode = FluentThemeMode.Light))
         
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
+        base.OnFrameworkInitializationCompleted()
+    
+type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
+    inherit FabApplication()
+    
+    override this.Initialize() =
+        this.Styles.Add(FluentTheme(baseUri = null, Mode = FluentThemeMode.Light))
+        base.Initialize()
+    
+    override this.OnFrameworkInitializationCompleted() =            
+        let runner = Runners.create program
+        runner.Start(arg)
+        
+        let adapter = ViewAdapters.create ViewNode.get runner
+        adapter.Attach(this)
+        
         base.OnFrameworkInitializationCompleted()
     
 module ApplicationUpdaters =
