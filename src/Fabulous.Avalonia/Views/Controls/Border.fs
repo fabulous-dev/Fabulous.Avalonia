@@ -14,10 +14,10 @@ module Border =
     let WidgetKey = Widgets.register<Border>()
 
     let Background =
-        Attributes.defineAvaloniaPropertyWithEquality Border.BackgroundProperty
+        Attributes.defineAvaloniaPropertyWidget Border.BackgroundProperty
      
     let BorderBrush =
-        Attributes.defineAvaloniaPropertyWithEquality Border.BorderBrushProperty
+        Attributes.defineAvaloniaPropertyWidget Border.BorderBrushProperty
 
     let BorderThickness =
         Attributes.defineAvaloniaPropertyWithEquality Border.BorderThicknessProperty
@@ -66,12 +66,12 @@ module Border =
 [<Extension>]
 type BorderModifiers =
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
-        this.AddScalar(Border.Background.WithValue(value))
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(Border.Background.WithValue(value.Compile()))
         
     [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
-        this.AddScalar(Border.BorderBrush.WithValue(value))
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(Border.BorderBrush.WithValue(value.Compile()))
           
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, value: Thickness) =
