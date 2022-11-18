@@ -29,6 +29,7 @@
     <Compile Include="Views\Controls\_Control.fs" />
     <Compile Include="Views\Controls\_TemplatedControl.fs" />
     <Compile Include="Views\Controls\_ContentControl.fs" />
+    <Compile Include="Views\Controls\_HeaderedContentControl.fs" />
     <Compile Include="Views\Controls\_Decorator.fs" />
     <Compile Include="Views\Controls\Button.fs" />
     <Compile Include="Views\Controls\Border.fs" />
@@ -40,6 +41,7 @@
     <Compile Include="Views\Controls\Slider.fs" />
     <Compile Include="Views\Controls\ToggleSwitch.fs" />
     <Compile Include="Views\Controls\Separator.fs" />
+    <Compile Include="Views\Controls\TabItem.fs" />
     <Compile Include="Views\Layouts\_Panel.fs" />
     <Compile Include="Views\Layouts\Grid.fs" />
     <Compile Include="Views\Layouts\StackPanel.fs" />
