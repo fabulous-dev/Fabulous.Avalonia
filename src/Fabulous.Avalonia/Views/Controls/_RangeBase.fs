@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System
+open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
 open Fabulous
 
@@ -35,4 +36,19 @@ module RangeBase =
         Attributes.defineSimpleScalarWithEquality<struct (float * float)>
             "RangeBase_MinimumMaximum"
             RangeBaseUpdaters.updateSliderMinMax
+    
     let Value = Attributes.defineAvaloniaPropertyWithEquality RangeBase.ValueProperty
+    
+    let SmallChange = Attributes.defineAvaloniaPropertyWithEquality RangeBase.SmallChangeProperty
+    
+    let LargeChange = Attributes.defineAvaloniaPropertyWithEquality RangeBase.LargeChangeProperty
+
+[<Extension>]
+type RangeBaserModifiers =
+    [<Extension>]
+    static member inline smallChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
+        this.AddScalar(RangeBase.SmallChange.WithValue(value))
+
+    [<Extension>]
+    static member inline largeChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
+        this.AddScalar(RangeBase.LargeChange.WithValue(value))
