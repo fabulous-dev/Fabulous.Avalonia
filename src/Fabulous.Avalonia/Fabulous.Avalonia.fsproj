@@ -26,6 +26,8 @@
     <Compile Include="Widgets\_InputElement.fs" />
     <Compile Include="Widgets\_Control.fs" />
     <Compile Include="Widgets\Styling\Style.fs" />
+    <Compile Include="Widgets\Media\DrawingImage.fs" />
+    <Compile Include="Widgets\Media\Image.fs" />
     <Compile Include="Widgets\Media\Brushes\_Brush.fs" />
     <Compile Include="Widgets\Media\Brushes\SolidColorBrush.fs" />
     <Compile Include="Widgets\Controls\_Panel.fs" />
