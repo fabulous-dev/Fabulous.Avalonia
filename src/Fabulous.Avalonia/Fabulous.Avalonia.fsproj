@@ -33,6 +33,7 @@
     <Compile Include="Widgets\Media\Brushes\SolidColorBrush.fs" />
     <Compile Include="Widgets\Media\Imaging\CroppedBitmap.fs" />
     <Compile Include="Widgets\Media\LineGeometry.fs" />
+    <Compile Include="Widgets\Media\Pen.fs" />
     <Compile Include="Widgets\Media\GeometryDrawing.fs" />
     <Compile Include="Widgets\Media\DrawingImage.fs" />
     <Compile Include="Widgets\Media\Image.fs" />

@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -27,3 +28,13 @@ module GeometryDrawingBuilders =
                     ValueSome [| GeometryDrawing.Geometry.WithValue(content.Compile()) |],
                     ValueNone)
                 )
+             
+[<Extension>]             
+type GeometryDrawingModifiers =
+    [<Extension>]
+    static member inline brush(this: WidgetBuilder<'msg, #IFabGeometryDrawing>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(GeometryDrawing.Brush.WithValue(value.Compile()))
+        
+    [<Extension>]
+    static member inline pen(this: WidgetBuilder<'msg, #IFabGeometryDrawing>, value: WidgetBuilder<'msg, #IFabPen>) =
+        this.AddWidget(GeometryDrawing.Brush.WithValue(value.Compile()))
