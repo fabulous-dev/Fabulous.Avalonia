@@ -16,6 +16,36 @@ module ValueEventData =
     let create (value: 'data) (event: 'eventArgs -> obj) = { Value = value; Event = event }
 
 module Attributes =
+        /// Define an attribute for EventHandler<'T>
+    let inline defineAvaloniaEvent<'args>
+        name
+        ([<InlineIfLambda>] getObservable: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
+        : SimpleScalarAttributeDefinition<'args -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                    let observable = getObservable node.Target
+
+                    match node.TryGetHandler<IDisposable>(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                    let r = fn args.NewValue.Value
+                                    Dispatcher.dispatch node r
+                                )
+                        node.SetHandler(name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+        
     /// Define an attribute for an AvaloniaProperty
     let inline defineAvaloniaProperty<'modelType, 'valueType>
         (property: AvaloniaProperty<'valueType>)
@@ -28,7 +58,7 @@ module Attributes =
             compare
             (fun _ newValueOpt node ->
                 let target = node.Target :?> IAvaloniaObject
-
+               
                 match newValueOpt with
                 | ValueNone -> target.ClearValue(property)
                 | ValueSome v -> target.SetValue(property, v) |> ignore)
@@ -131,17 +161,11 @@ module Attributes =
                 else
                     avaloniaObject.SetValue(property, value) |> ignore)
             
-    /// Update both a property and its related event.
-    /// This definition makes sure that the event is only raised when the property is changed by the user,
-    /// and not when the property is set by the code
-    let defineAvaloniaPropertyWith2RoutedEvents<'modelType, 'valueType>
+    let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)
-        (getEventOn: obj -> IEvent<EventHandler<RoutedEventArgs>, RoutedEventArgs>)
-        (getEventOff: obj -> IEvent<EventHandler<RoutedEventArgs>, RoutedEventArgs>)
         (convert: 'modelType -> 'valueType)
-        (valueOn: 'modelType)
-        (valueOff: 'modelType)
+        (convertToModel: 'valueType -> 'modelType)
         : SimpleScalarAttributeDefinition<ValueEventData<'modelType, 'modelType>> =
 
         let key =
@@ -149,61 +173,47 @@ module Attributes =
                 ScalarAttributeComparers.noCompare,
                 (fun oldValueOpt (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
                     let target = node.Target :?> AvaloniaObject
-                    let eventOn = getEventOn target
-                    let eventOff = getEventOff target
+                    let observable = property.Changed
 
-                    let eventOnName = $"{name}_On"
-                    let eventOffName = $"{name}_Off"
-
+                    // The attribute is no longer applied, so we clean up the event
+                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+                    
                     match newValueOpt with
                     | ValueNone ->
-                        // The attribute is no longer applied, so we clean up the event
-                        match node.TryGetHandler(eventOnName) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> eventOn.RemoveHandler(handler)
-
-                        match node.TryGetHandler(eventOffName) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> eventOff.RemoveHandler(handler)
-
-                        // Only clear the property if a value was set before
                         match oldValueOpt with
                         | ValueNone -> ()
                         | ValueSome _ -> target.ClearValue(property)
 
                     | ValueSome curr ->
                         // Clean up the old event handler if any
-                        match node.TryGetHandler(eventOnName) with
+                        match node.TryGetHandler<IDisposable>(property.Name) with
                         | ValueNone -> ()
-                        | ValueSome handler -> eventOn.RemoveHandler(handler)
-
-                        match node.TryGetHandler(eventOffName) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> eventOff.RemoveHandler(handler)
+                        | ValueSome handler -> handler.Dispose()
 
                         // Set the new value
                         let newValue = convert curr.Value
                         target.SetValue(property, newValue) |> ignore
 
                         // Set the new event handler
-                        let handlerOn =
-                            EventHandler<RoutedEventArgs>
-                                (fun _ _ ->
-                                    let r = curr.Event valueOn
-                                    Dispatcher.dispatch node r)
-
-                        let handlerOff =
-                            EventHandler<RoutedEventArgs>
-                                (fun _ _ ->
-                                    let r = curr.Event valueOff
-                                    Dispatcher.dispatch node r)
-
-                        node.SetHandler(eventOnName, ValueSome handlerOn)
-                        eventOn.AddHandler(handlerOn)
-
-                        node.SetHandler(eventOffName, ValueSome handlerOff)
-                        eventOff.AddHandler(handlerOff))
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                if args.Sender = target then
+                                   let r = curr.Event (convertToModel args.NewValue.Value)
+                                   Dispatcher.dispatch node r)
+                        node.SetHandler(property.Name, ValueSome disposable))
             )
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
+
+    let defineAvaloniaPropertyWithChangedEven2<'T>
+        name
+        (property: AvaloniaProperty<'T>)
+        : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
+            defineAvaloniaPropertyWithChangedEvent<'T, 'T>
+                name
+                property
+                id
+                id

@@ -11,7 +11,8 @@ open Avalonia.Platform
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabImage = inherit IFabControl
+type IFabImage =
+    inherit IFabIImage
 
 module internal ImageSource =
     let fromFile source =
@@ -45,7 +46,7 @@ module ImageBuilders =
                     ValueNone)
                 )
              
-        static member Image(source: WidgetBuilder<'msg, #IFabCroppedBitmap>) =
+        static member Image(source: WidgetBuilder<'msg, #IFabIImage>) =
              WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(
@@ -54,11 +55,11 @@ module ImageBuilders =
                     ValueNone)
                 )
              
-        static member Image(source: string) =
-            View.Image(ImageSource.fromFile source)
-            
-        static member Image(source: Stream) =
-            View.Image(ImageSource.fromStream source)
+        // static member Image(source: string) =
+        //     View.Image(ImageSource.fromFile source)
+        //     
+        // static member Image(source: Stream) =
+        //     View.Image(ImageSource.fromStream source)
 
 [<Extension>]             
 type ImageModifiers =

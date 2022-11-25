@@ -13,7 +13,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabCroppedBitmap =
-    inherit IFabElement
+    inherit IFabIImage
     
 module CroppedBitmap =
     
