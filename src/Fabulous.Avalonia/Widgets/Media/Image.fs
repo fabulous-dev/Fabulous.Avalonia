@@ -1,8 +1,13 @@
 namespace Fabulous.Avalonia
 
+open System
+open System.IO
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
+open Avalonia.Media.Imaging
+open Avalonia.Platform
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -11,7 +16,7 @@ type IFabImage = inherit IFabControl
 module Image =
     let WidgetKey = Widgets.register<Image>()
     
-    let Source = Attributes.defineAvaloniaPropertyWidget Image.SourceProperty
+    let Source = Attributes.defineAvaloniaPropertyWithEquality Image.SourceProperty
     
     let Stretch = Attributes.defineAvaloniaPropertyWithEquality Image.StretchProperty
     
@@ -20,14 +25,22 @@ module Image =
 [<AutoOpen>]
 module ImageBuilders =
     type Fabulous.Avalonia.View with
-        static member Image(source: WidgetBuilder<'msg, #IFabControl>) =
+        static member Image(source: IImage) =
              WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
-                    ValueSome [| Image.Source.WithValue(source.Compile()) |],
+                    StackList.one(Image.Source.WithValue(source)),
+                    ValueNone,
                     ValueNone)
                 )
+             
+        static member Image(source: string) =
+            let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
+            let bitmap = new Bitmap(assets.Open(Uri(source, UriKind.RelativeOrAbsolute)))
+            View.Image(bitmap)
+            
+        static member Image(source: MemoryStream) =
+            View.Image(new Bitmap(source))
 
 [<Extension>]             
 type ImageModifiers =
