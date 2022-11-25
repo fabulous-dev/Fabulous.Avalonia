@@ -13,10 +13,21 @@ open Fabulous.StackAllocatedCollections.StackList
 
 type IFabImage = inherit IFabControl
 
+module internal ImageSource =
+    let fromFile source =
+        let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
+        new Bitmap(assets.Open(Uri(source, UriKind.RelativeOrAbsolute)))
+        
+    let fromStream (source: Stream) =
+        use stream = source
+        new Bitmap(stream)
+
 module Image =
     let WidgetKey = Widgets.register<Image>()
     
     let Source = Attributes.defineAvaloniaPropertyWithEquality Image.SourceProperty
+    
+    let SourceWidget = Attributes.defineAvaloniaPropertyWidget Image.SourceProperty
     
     let Stretch = Attributes.defineAvaloniaPropertyWithEquality Image.StretchProperty
     
@@ -34,13 +45,20 @@ module ImageBuilders =
                     ValueNone)
                 )
              
+        static member Image(source: WidgetBuilder<'msg, #IFabCroppedBitmap>) =
+             WidgetBuilder<'msg, IFabImage>(
+                Image.WidgetKey,
+                AttributesBundle(
+                    StackList.empty(),
+                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    ValueNone)
+                )
+             
         static member Image(source: string) =
-            let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
-            let bitmap = new Bitmap(assets.Open(Uri(source, UriKind.RelativeOrAbsolute)))
-            View.Image(bitmap)
+            View.Image(ImageSource.fromFile source)
             
-        static member Image(source: MemoryStream) =
-            View.Image(new Bitmap(source))
+        static member Image(source: Stream) =
+            View.Image(ImageSource.fromStream source)
 
 [<Extension>]             
 type ImageModifiers =
