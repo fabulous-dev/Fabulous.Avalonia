@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.IO
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
@@ -18,10 +17,6 @@ module internal ImageSource =
     let fromFile source =
         let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
         new Bitmap(assets.Open(Uri(source, UriKind.RelativeOrAbsolute)))
-        
-    let fromStream (source: Stream) =
-        use stream = source
-        new Bitmap(stream)
 
 module Image =
     let WidgetKey = Widgets.register<Image>()
@@ -46,6 +41,9 @@ module ImageBuilders =
                     ValueNone)
                 )
              
+        static member Image(source: string) =
+            View.Image(ImageSource.fromFile source)
+             
         static member Image(source: WidgetBuilder<'msg, #IFabIImage>) =
              WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
@@ -55,11 +53,6 @@ module ImageBuilders =
                     ValueNone)
                 )
              
-        // static member Image(source: string) =
-        //     View.Image(ImageSource.fromFile source)
-        //     
-        // static member Image(source: Stream) =
-        //     View.Image(ImageSource.fromStream source)
 
 [<Extension>]             
 type ImageModifiers =

@@ -21,6 +21,8 @@ module CroppedBitmap =
     
     let Source = Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceProperty
     
+    let SourceWidget = Attributes.defineAvaloniaPropertyWidget CroppedBitmap.SourceProperty
+    
     let SourceRect = Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceRectProperty
     
 [<AutoOpen>]
@@ -32,6 +34,15 @@ module CroppedBitmapBuilders =
                 AttributesBundle(
                     StackList.one(CroppedBitmap.Source.WithValue(source)),
                     ValueNone,
+                    ValueNone)
+                )
+             
+        static member Image(source: WidgetBuilder<'msg, #IFabIImage>) =
+             WidgetBuilder<'msg, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                AttributesBundle(
+                    StackList.empty(),
+                    ValueSome [| CroppedBitmap.SourceWidget.WithValue(source.Compile()) |],
                     ValueNone)
                 )
 
