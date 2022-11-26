@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -42,6 +41,10 @@ type PenModifiers =
     static member inline thickness(this: WidgetBuilder<'msg, #IFabPen>, value: float) =
         this.AddScalar(Pen.Thickness.WithValue(value))
         
+    [<Extension>]
+    static member inline dashStyle(this: WidgetBuilder<'msg, #IFabPen>, content: WidgetBuilder<'msg, IFaDashStyle>) =
+        this.AddWidget(Pen.DashStyle.WithValue(content.Compile()))
+    
     [<Extension>]
     // linecap
     static member inline lineCap(this: WidgetBuilder<'msg, #IFabPen>, value: PenLineCap) =

@@ -11,7 +11,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabImage =
-    inherit IFabIImage
+    inherit IFabControl
 
 module internal ImageSource =
     let fromFile source =
