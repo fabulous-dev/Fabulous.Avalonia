@@ -5,30 +5,14 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Avalonia.Layout
-open Avalonia.Styling
+
 open Fabulous
 
 type IFabSlider = inherit IFabRangeBase
 
-type FabSlider() =
-    inherit Slider()
-    
-    let _valueChanged =  Event<EventHandler<RangeBaseValueChangedEventArgs>, _>()
-    
-    [<CLIEvent>]
-    member this.ValueChanged = _valueChanged.Publish
-    
-    override this.OnPropertyChanged(args: AvaloniaPropertyChangedEventArgs) =
-        if args.Property = RangeBase.ValueProperty then
-            _valueChanged.Trigger(this, RangeBaseValueChangedEventArgs(args.OldValue :?> float, args.NewValue :?> float))
-            
-    interface IStyleable with
-            member this.StyleKey = typeof<Slider>
-
 module Slider =
-    let WidgetKey = Widgets.register<FabSlider>()
+    let WidgetKey = Widgets.register<Slider>()
     
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality Slider.OrientationProperty
@@ -57,8 +41,9 @@ module Slider =
                     let coll = AvaloniaList<float>()
                     points |> List.iter coll.Add
                     target.SetValue(Slider.TicksProperty, coll) |> ignore)
+            
     
-    let ValueChanged = Attributes.defineEvent "Slider_ValueChanged" (fun target -> (target :?> FabSlider).ValueChanged)
+    let ValueChanged = Attributes.defineAvaloniaPropertyWithChangedEven2 "Slider_ValueChanged" Slider.ValueProperty
     
 [<AutoOpen>]
 module SliderBuilders =
@@ -68,7 +53,7 @@ module SliderBuilders =
                 Slider.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(min, max),
                 RangeBase.Value.WithValue(value),
-                Slider.ValueChanged.WithValue(fun args -> onValueChanged args.NewValue |> box)
+                Slider.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
             )
             
 [<Extension>]
