@@ -36,6 +36,7 @@
     <Compile Include="Widgets\Media\Pen.fs" />
     <Compile Include="Widgets\Media\GeometryDrawing.fs" />
     <Compile Include="Widgets\Media\GlyphRunDrawing.fs" />
+    <Compile Include="Widgets\Media\DrawingGroup.fs" />
     <Compile Include="Widgets\Media\DrawingImage.fs" />
     <Compile Include="Widgets\Media\Image.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
