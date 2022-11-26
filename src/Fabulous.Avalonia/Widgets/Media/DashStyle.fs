@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
@@ -14,7 +15,7 @@ module DashStyle =
     
     let Dashes =
         Attributes.defineSimpleScalarWithEquality<float list>
-            "Border_BorderDashArray"
+            "DashStyle_Dashes"
             (fun _ newValueOpt node ->
                 let target = node.Target :?> AvaloniaObject
 
@@ -39,3 +40,9 @@ module DashStyleBuilders =
                     ValueNone,
                     ValueNone)
                 )
+
+[<Extension>]             
+type DashStyleModifiers =
+    [<Extension>]
+    static member inline thickness(this: WidgetBuilder<'msg, #IFaDashStyle>, value: float) =
+        this.AddScalar(DashStyle.Offset.WithValue(value))
