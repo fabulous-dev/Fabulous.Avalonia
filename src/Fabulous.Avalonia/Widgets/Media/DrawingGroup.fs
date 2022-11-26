@@ -43,11 +43,16 @@ type DrawingGroupModifiers =
     static member inline opacity(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: float) =
         this.AddScalar(DrawingGroup.Opacity.WithValue(value))
         
+    
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(DrawingGroup.OpacityMask.WithValue(content.Compile()))
+                
 
 [<Extension>]
 type DrawingGroupCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabDrawing and 'itemType :> IFabControl>
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>
         (
             _: CollectionBuilder<'msg, 'marker, IFabDrawing>,
             x: WidgetBuilder<'msg, 'itemType>
@@ -55,7 +60,7 @@ type DrawingGroupCollectionBuilderExtensions =
         { Widgets = MutStackArray1.One(x.Compile()) }
         
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabDrawing and 'itemType :> IFabControl>
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>
         (
             _: CollectionBuilder<'msg, 'marker, IFabDrawing>,
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>

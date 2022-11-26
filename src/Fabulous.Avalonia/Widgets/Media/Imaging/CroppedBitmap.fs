@@ -8,7 +8,6 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.Imaging
-open Avalonia.Platform
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -37,7 +36,7 @@ module CroppedBitmapBuilders =
                     ValueNone)
                 )
              
-        static member Image(source: WidgetBuilder<'msg, #IFabIImage>) =
+        static member CroppedBitmap(source: WidgetBuilder<'msg, #IFabIImage>) =
              WidgetBuilder<'msg, IFabCroppedBitmap>(
                 CroppedBitmap.WidgetKey,
                 AttributesBundle(

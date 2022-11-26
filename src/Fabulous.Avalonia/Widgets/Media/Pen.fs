@@ -27,7 +27,7 @@ module Pen =
 [<AutoOpen>]
 module PenBuilders =
     type Fabulous.Avalonia.View with
-        static member Pen(brush: WidgetBuilder<'msg, #IFabBrush>) =
+        static member Pen(brush: WidgetBuilder<'msg, IFabBrush>) =
              WidgetBuilder<'msg, IFabLineGeometry>(
                 LineGeometry.WidgetKey,
                 AttributesBundle(
