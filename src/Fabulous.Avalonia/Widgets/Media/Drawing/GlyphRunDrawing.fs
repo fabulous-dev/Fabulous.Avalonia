@@ -22,18 +22,12 @@ module GlyphRunDrawing =
 module GlyphRunDrawingBuilders =
     type Fabulous.Avalonia.View with
 
-        static member GlyphRunDrawing(content: WidgetBuilder<'msg, #IFabBrush>) =
+        static member GlyphRunDrawing(content: WidgetBuilder<'msg, #IFabBrush>, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.one (GlyphRunDrawing.GlyphRun.WithValue(glyphRun)),
                     ValueSome [| GlyphRunDrawing.Foreground.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
-
-[<Extension>]
-type GlyphRunDrawingModifiers =
-    [<Extension>]
-    static member inline glyphRun(this: WidgetBuilder<'msg, #IFabGlyphRunDrawing>, value: GlyphRun) =
-        this.AddScalar(GlyphRunDrawing.GlyphRun.WithValue(value))

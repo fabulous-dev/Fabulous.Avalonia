@@ -18,6 +18,6 @@ type GeometryModifiers =
     static member inline transform
         (
             this: WidgetBuilder<'msg, #IFabGeometry>,
-            content: WidgetBuilder<'msg, #IFabGeometry>
+            content: WidgetBuilder<'msg, #IFabTransform>
         ) =
         this.AddWidget(Geometry.Transform.WithValue(content.Compile()))
