@@ -6,18 +6,21 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
-type IFabPanel = inherit IFabControl
+type IFabPanel =
+    inherit IFabControl
 
 module Panel =
     let Background = Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
-    let Children = Attributes.defineAvaloniaListWidgetCollection "Children" (fun x -> (x :?> Panel).Children)
-    
+
+    let Children =
+        Attributes.defineAvaloniaListWidgetCollection "Children" (fun x -> (x :?> Panel).Children)
+
 [<Extension>]
 type PanelModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Panel.Background.WithValue(brush.Compile()))
-    
+
 [<Extension>]
 type PanelCollectionBuilderExtensions =
     [<Extension>]
@@ -27,7 +30,7 @@ type PanelCollectionBuilderExtensions =
             x: WidgetBuilder<'msg, 'itemType>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-        
+
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabPanel and 'itemType :> IFabControl>
         (

@@ -1,4 +1,4 @@
 namespace Fabulous.Avalonia
 
-type IFabInteractive = inherit IFabLayoutable
-
+type IFabInteractive =
+    inherit IFabLayoutable

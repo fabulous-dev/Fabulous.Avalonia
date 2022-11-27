@@ -1,5 +1,4 @@
 namespace Fabulous.Avalonia
 
-type IFabControl = inherit IFabInputElement
-    
-
+type IFabControl =
+    inherit IFabInputElement

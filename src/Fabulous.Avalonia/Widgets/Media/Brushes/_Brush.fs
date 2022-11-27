@@ -1,4 +1,4 @@
 namespace Fabulous.Avalonia
 
-type IFabBrush = inherit IFabAnimatable
-
+type IFabBrush =
+    inherit IFabAnimatable

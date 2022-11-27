@@ -8,18 +8,20 @@ type IFabDrawingImage =
     inherit IFabIImage
 
 module DrawingImage =
-    let WidgetKey = Widgets.register<DrawingImage>()
-    
-    let Drawing = Attributes.defineAvaloniaPropertyWidget DrawingImage.DrawingProperty        
-    
+    let WidgetKey = Widgets.register<DrawingImage> ()
+
+    let Drawing = Attributes.defineAvaloniaPropertyWidget DrawingImage.DrawingProperty
+
 [<AutoOpen>]
 module DrawingImageBuilders =
     type Fabulous.Avalonia.View with
+
         static member DrawingImage(source: WidgetBuilder<'msg, #IFabDrawing>) =
-             WidgetBuilder<'msg, IFabDrawingImage>(
+            WidgetBuilder<'msg, IFabDrawingImage>(
                 DrawingImage.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
+                    StackList.empty (),
                     ValueSome [| DrawingImage.Drawing.WithValue(source.Compile()) |],
-                    ValueNone)
+                    ValueNone
                 )
+            )

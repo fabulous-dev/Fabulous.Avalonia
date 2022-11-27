@@ -1,4 +1,4 @@
 namespace Fabulous.Avalonia
 
-type IFabStyle = inherit IFabElement
-
+type IFabStyle =
+    inherit IFabElement

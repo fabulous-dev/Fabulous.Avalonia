@@ -15,7 +15,7 @@ type SplashActivity() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
-    
+
     override this.OnResume() =
         base.OnResume()
         this.StartActivity(new Intent(Application.Context, typeof<MainActivity>))
