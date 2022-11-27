@@ -11,52 +11,72 @@ open Fabulous.ScalarAttributeDefinitions
 type ValueEventData<'data, 'eventArgs> =
     { Value: 'data
       Event: 'eventArgs -> obj }
-    
+
 module ValueEventData =
     let create (value: 'data) (event: 'eventArgs -> obj) = { Value = value; Event = event }
 
 module Attributes =
+    /// Define an attribute for EventHandler<'T>
+    let inline defineAvaloniaEvent<'args>
+        name
+        ([<InlineIfLambda>] getObservable: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
+        : SimpleScalarAttributeDefinition<'args -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                    let observable = getObservable node.Target
+
+                    match node.TryGetHandler<IDisposable>(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                let r = fn args.NewValue.Value
+                                Dispatcher.dispatch node r)
+
+                        node.SetHandler(name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+
     /// Define an attribute for an AvaloniaProperty
     let inline defineAvaloniaProperty<'modelType, 'valueType>
         (property: AvaloniaProperty<'valueType>)
         ([<InlineIfLambda>] convertValue: 'modelType -> 'valueType)
         ([<InlineIfLambda>] compare: 'modelType -> 'modelType -> ScalarAttributeComparison)
         =
-        Attributes.defineScalar<'modelType, 'valueType>
-            property.Name
-            convertValue
-            compare
-            (fun _ newValueOpt node ->
-                let target = node.Target :?> IAvaloniaObject
+        Attributes.defineScalar<'modelType, 'valueType> property.Name convertValue compare (fun _ newValueOpt node ->
+            let target = node.Target :?> IAvaloniaObject
 
-                match newValueOpt with
-                | ValueNone -> target.ClearValue(property)
-                | ValueSome v -> target.SetValue(property, v) |> ignore)
-            
+            match newValueOpt with
+            | ValueNone -> target.ClearValue(property)
+            | ValueSome v -> target.SetValue(property, v) |> ignore)
+
     /// Define an attribute for an AvaloniaProperty supporting equality comparison
     let inline defineAvaloniaPropertyWithEquality<'T when 'T: equality> (directProperty: AvaloniaProperty<'T>) =
-        Attributes.defineSimpleScalarWithEquality<'T>
-            directProperty.Name
-            (fun _ newValueOpt node ->
-                let target = node.Target :?> IAvaloniaObject
+        Attributes.defineSimpleScalarWithEquality<'T> directProperty.Name (fun _ newValueOpt node ->
+            let target = node.Target :?> IAvaloniaObject
 
-                match newValueOpt with
-                | ValueNone -> target.ClearValue(directProperty)
-                | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
+            match newValueOpt with
+            | ValueNone -> target.ClearValue(directProperty)
+            | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
 
     /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
-    let defineAvaloniaListWidgetCollection<'itemType>
-        name
-        (getCollection: obj -> IAvaloniaList<'itemType>)
-        =
+    let defineAvaloniaListWidgetCollection<'itemType> name (getCollection: obj -> IAvaloniaList<'itemType>) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
 
             for diff in diffs do
                 match diff with
-                | WidgetCollectionItemChange.Remove (index, widget) ->
-                    let itemNode =
-                        node.TreeContext.GetViewNode(box targetColl.[index])
+                | WidgetCollectionItemChange.Remove(index, widget) ->
+                    let itemNode = node.TreeContext.GetViewNode(box targetColl.[index])
 
                     // Trigger the unmounted event
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
@@ -69,7 +89,7 @@ module Attributes =
 
             for diff in diffs do
                 match diff with
-                | WidgetCollectionItemChange.Insert (index, widget) ->
+                | WidgetCollectionItemChange.Insert(index, widget) ->
                     let struct (itemNode, view) = Helpers.createViewForWidget node widget
 
                     // Insert the new child into the UI tree
@@ -78,18 +98,15 @@ module Attributes =
                     // Trigger the mounted event
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Mounted
 
-                | WidgetCollectionItemChange.Update (index, widgetDiff) ->
-                    let childNode =
-                        node.TreeContext.GetViewNode(box targetColl.[index])
+                | WidgetCollectionItemChange.Update(index, widgetDiff) ->
+                    let childNode = node.TreeContext.GetViewNode(box targetColl.[index])
 
                     childNode.ApplyDiff(&widgetDiff)
 
-                | WidgetCollectionItemChange.Replace (index, oldWidget, newWidget) ->
-                    let prevItemNode =
-                        node.TreeContext.GetViewNode(box targetColl.[index])
+                | WidgetCollectionItemChange.Replace(index, oldWidget, newWidget) ->
+                    let prevItemNode = node.TreeContext.GetViewNode(box targetColl.[index])
 
-                    let struct (nextItemNode, view) =
-                        Helpers.createViewForWidget node newWidget
+                    let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
                     // Trigger the unmounted event for the old child
                     Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget Lifecycle.Unmounted
@@ -116,13 +133,12 @@ module Attributes =
                     targetColl.Add(unbox view)
 
         Attributes.defineWidgetCollection name applyDiff updateNode
-        
+
     /// Define an attribute storing a Widget for an AvaloniaProperty
     let inline defineAvaloniaPropertyWidget (property: AvaloniaProperty<'T>) =
         Attributes.definePropertyWidget
             property.Name
-            (fun target ->
-                (target :?> IAvaloniaObject).GetValue(property))
+            (fun target -> (target :?> IAvaloniaObject).GetValue(property))
             (fun target value ->
                 let avaloniaObject = target :?> IAvaloniaObject
 
@@ -130,18 +146,12 @@ module Attributes =
                     avaloniaObject.ClearValue(property)
                 else
                     avaloniaObject.SetValue(property, value) |> ignore)
-            
-    /// Update both a property and its related event.
-    /// This definition makes sure that the event is only raised when the property is changed by the user,
-    /// and not when the property is set by the code
-    let defineAvaloniaPropertyWith2RoutedEvents<'modelType, 'valueType>
+
+    let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)
-        (getEventOn: obj -> IEvent<EventHandler<RoutedEventArgs>, RoutedEventArgs>)
-        (getEventOff: obj -> IEvent<EventHandler<RoutedEventArgs>, RoutedEventArgs>)
         (convert: 'modelType -> 'valueType)
-        (valueOn: 'modelType)
-        (valueOff: 'modelType)
+        (convertToModel: 'valueType -> 'modelType)
         : SimpleScalarAttributeDefinition<ValueEventData<'modelType, 'modelType>> =
 
         let key =
@@ -149,61 +159,44 @@ module Attributes =
                 ScalarAttributeComparers.noCompare,
                 (fun oldValueOpt (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
                     let target = node.Target :?> AvaloniaObject
-                    let eventOn = getEventOn target
-                    let eventOff = getEventOff target
+                    let observable = property.Changed
 
-                    let eventOnName = $"{name}_On"
-                    let eventOffName = $"{name}_Off"
+                    // The attribute is no longer applied, so we clean up the event
+                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
 
                     match newValueOpt with
                     | ValueNone ->
-                        // The attribute is no longer applied, so we clean up the event
-                        match node.TryGetHandler(eventOnName) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> eventOn.RemoveHandler(handler)
-
-                        match node.TryGetHandler(eventOffName) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> eventOff.RemoveHandler(handler)
-
-                        // Only clear the property if a value was set before
                         match oldValueOpt with
                         | ValueNone -> ()
                         | ValueSome _ -> target.ClearValue(property)
 
                     | ValueSome curr ->
                         // Clean up the old event handler if any
-                        match node.TryGetHandler(eventOnName) with
+                        match node.TryGetHandler<IDisposable>(property.Name) with
                         | ValueNone -> ()
-                        | ValueSome handler -> eventOn.RemoveHandler(handler)
-
-                        match node.TryGetHandler(eventOffName) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> eventOff.RemoveHandler(handler)
+                        | ValueSome handler -> handler.Dispose()
 
                         // Set the new value
                         let newValue = convert curr.Value
                         target.SetValue(property, newValue) |> ignore
 
                         // Set the new event handler
-                        let handlerOn =
-                            EventHandler<RoutedEventArgs>
-                                (fun _ _ ->
-                                    let r = curr.Event valueOn
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                if args.Sender = target then
+                                    let r = curr.Event(convertToModel args.NewValue.Value)
                                     Dispatcher.dispatch node r)
 
-                        let handlerOff =
-                            EventHandler<RoutedEventArgs>
-                                (fun _ _ ->
-                                    let r = curr.Event valueOff
-                                    Dispatcher.dispatch node r)
-
-                        node.SetHandler(eventOnName, ValueSome handlerOn)
-                        eventOn.AddHandler(handlerOn)
-
-                        node.SetHandler(eventOffName, ValueSome handlerOff)
-                        eventOff.AddHandler(handlerOff))
+                        node.SetHandler(property.Name, ValueSome disposable))
             )
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
+
+    let defineAvaloniaPropertyWithChangedEven2<'T>
+        name
+        (property: AvaloniaProperty<'T>)
+        : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
+        defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id

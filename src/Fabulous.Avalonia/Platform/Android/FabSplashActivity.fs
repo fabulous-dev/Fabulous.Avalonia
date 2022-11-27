@@ -7,10 +7,8 @@ open Avalonia.Android
 [<AbstractClass>]
 type FabSplashActivity() =
     inherit AvaloniaSplashActivity()
-    
+
     abstract member CreateApp: unit -> Application
-    
+
     override this.CreateAppBuilder() =
-        AppBuilder
-            .Configure(Func<_>(this.CreateApp))
-            .UseAndroid()
+        AppBuilder.Configure(Func<_>(this.CreateApp)).UseAndroid()

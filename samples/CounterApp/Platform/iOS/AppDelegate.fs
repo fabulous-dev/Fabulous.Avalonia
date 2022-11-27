@@ -9,11 +9,10 @@ open CounterApp
 type AppDelegate() =
     inherit FabAppDelegate()
 
-    override this.CreateApp() =
-        Program.startApplication App.program
-        
+    override this.CreateApp() = Program.startApplication App.program
+
 module Main =
     [<EntryPoint>]
-    let main(args: string array) =
+    let main (args: string array) =
         UIApplication.Main(args, null, typeof<AppDelegate>)
         0
