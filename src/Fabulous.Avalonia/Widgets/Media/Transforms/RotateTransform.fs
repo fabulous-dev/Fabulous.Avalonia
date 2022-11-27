@@ -15,7 +15,7 @@ module RotateTransform =
 
     let CenterX =
         Attributes.defineAvaloniaPropertyWithEquality RotateTransform.CenterXProperty
-        
+
     let CenterY =
         Attributes.defineAvaloniaPropertyWithEquality RotateTransform.CenterYProperty
 

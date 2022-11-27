@@ -10,11 +10,9 @@ module TranslateTransform =
 
     let WidgetKey = Widgets.register<TranslateTransform> ()
 
-    let X =
-        Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.XProperty
+    let X = Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.XProperty
 
-    let Y =
-        Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.YProperty
+    let Y = Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.YProperty
 
 
 [<AutoOpen>]
