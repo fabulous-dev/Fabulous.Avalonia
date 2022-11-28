@@ -14,7 +14,7 @@ module ImageDrawing =
     let ImageSource =
         Attributes.defineAvaloniaPropertyWithEquality ImageDrawing.ImageSourceProperty
 
-    let SourceWidget =
+    let ImageSourceWidget =
         Attributes.defineAvaloniaPropertyWidget ImageDrawing.ImageSourceProperty
 
     let Rect = Attributes.defineAvaloniaPropertyWithEquality ImageDrawing.RectProperty
@@ -30,12 +30,12 @@ module ImageDrawingBuilders =
                 ImageDrawing.Rect.WithValue(rect)
             )
 
-        static member ImageDrawing(source: WidgetBuilder<'msg, #IFabIImage>, rect: Rect) =
+        static member ImageDrawing(source: WidgetBuilder<'msg, #IFabDrawing>, rect: Rect) =
             WidgetBuilder<'msg, IFabImageDrawing>(
                 ImageDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.one (ImageDrawing.Rect.WithValue(rect)),
-                    ValueSome [| ImageDrawing.SourceWidget.WithValue(source.Compile()) |],
+                    ValueSome [| ImageDrawing.ImageSourceWidget.WithValue(source.Compile()) |],
                     ValueNone
                 )
             )

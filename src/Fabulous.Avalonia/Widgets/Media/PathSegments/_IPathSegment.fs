@@ -1,4 +1,5 @@
 namespace Fabulous.Avalonia
 
-type IFabDrawing =
+
+type IFabPathSegment =
     inherit IFabElement

@@ -18,7 +18,7 @@ module PolylineGeometry =
             match newValueOpt with
             | ValueNone -> target.ClearValue(PolylineGeometry.PointsProperty)
             | ValueSome points ->
-                let coll = AvaloniaList<Point>()
+                let coll = Points()
                 points |> List.iter coll.Add
                 target.SetValue(PolylineGeometry.PointsProperty, coll) |> ignore)
 

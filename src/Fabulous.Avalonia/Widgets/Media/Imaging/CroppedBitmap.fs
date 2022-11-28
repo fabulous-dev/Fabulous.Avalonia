@@ -8,7 +8,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabCroppedBitmap =
-    inherit IFabIImage
+    inherit IFabElement
 
 module CroppedBitmap =
 
@@ -34,7 +34,7 @@ module CroppedBitmapBuilders =
                 CroppedBitmap.SourceRect.WithValue(rect)
             )
 
-        static member CroppedBitmap(source: WidgetBuilder<'msg, #IFabIImage>, rect: PixelRect) =
+        static member CroppedBitmap(source: WidgetBuilder<'msg, #IFabDrawing>, rect: PixelRect) =
             WidgetBuilder<'msg, IFabCroppedBitmap>(
                 CroppedBitmap.WidgetKey,
                 AttributesBundle(

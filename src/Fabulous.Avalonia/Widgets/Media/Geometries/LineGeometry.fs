@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open Avalonia
 open Avalonia.Media
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabLineGeometry =
     inherit IFabGeometry
