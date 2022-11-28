@@ -41,7 +41,7 @@ module ImageBuilders =
                 Image.Stretch.WithValue(stretch |> Option.defaultValue Stretch.Uniform)
             )
 
-        static member Image(source: WidgetBuilder<'msg, #IFabIImage>, ?stretch: Stretch) =
+        static member Image(source: WidgetBuilder<'msg, #IFabDrawingImage>, ?stretch: Stretch) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(

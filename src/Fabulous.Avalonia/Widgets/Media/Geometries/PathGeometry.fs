@@ -1,10 +1,10 @@
 namespace Fabulous.Avalonia
 
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
-
+open Fabulous.StackAllocatedCollections
 
 type IFabPathGeometry =
     inherit IFabGeometry
@@ -24,8 +24,27 @@ module PathGeometry =
 module PathGeometryBuilders =
     type Fabulous.Avalonia.View with
 
-        static member PathGeometry() =
-            WidgetBuilder<'msg, IFabPathGeometry>(
-                PolylineGeometry.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
+        static member PathGeometry(fillRule: FillRule) =
+            CollectionBuilder<'msg, IFabPathGeometry, IFabPathFigure>(
+                PathGeometry.WidgetKey,
+                PathGeometry.Figures,
+                PathGeometry.FillRule.WithValue(fillRule)
             )
+
+[<Extension>]
+type PathGeometryBuilderExtensions =
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathFigure>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabPathFigure>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathFigure>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabPathFigure>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }

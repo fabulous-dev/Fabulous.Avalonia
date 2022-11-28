@@ -30,7 +30,7 @@ module ImageDrawingBuilders =
                 ImageDrawing.Rect.WithValue(rect)
             )
 
-        static member ImageDrawing(source: WidgetBuilder<'msg, #IFabIImage>, rect: Rect) =
+        static member ImageDrawing(source: WidgetBuilder<'msg, #IFabDrawing>, rect: Rect) =
             WidgetBuilder<'msg, IFabImageDrawing>(
                 ImageDrawing.WidgetKey,
                 AttributesBundle(
