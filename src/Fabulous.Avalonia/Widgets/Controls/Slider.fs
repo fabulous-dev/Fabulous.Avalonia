@@ -43,7 +43,7 @@ module Slider =
 
 
     let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEven2 "Slider_ValueChanged" Slider.ValueProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent2 "Slider_ValueChanged" Slider.ValueProperty
 
 [<AutoOpen>]
 module SliderBuilders =
