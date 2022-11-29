@@ -6,7 +6,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabPathFigure =
-    inherit IFabControl
+    inherit IFabElement
 
 module PathFigure =
     let WidgetKey = Widgets.register<PathFigure> ()

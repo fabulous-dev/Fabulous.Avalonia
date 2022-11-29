@@ -17,7 +17,7 @@ module ValueEventData =
 
 module Attributes =
     /// Define an attribute for EventHandler<'T>
-    let inline defineAvaloniaEvent<'args>
+    let inline defineAvaloniaObservableEvent<'args>
         name
         ([<InlineIfLambda>] getObservable: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
         : SimpleScalarAttributeDefinition<'args -> obj> =
@@ -195,8 +195,67 @@ module Attributes =
 
         { Key = key; Name = name }
 
-    let defineAvaloniaPropertyWithChangedEven2<'T>
+    let defineAvaloniaPropertyWithChangedEvent2<'T>
         name
         (property: AvaloniaProperty<'T>)
         : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
+
+    let inline defineAvaloniaEvent<'args>
+        name
+        ([<InlineIfLambda>] getEvent: obj -> IEvent<EventHandler<'args>, 'args>)
+        : SimpleScalarAttributeDefinition<'args -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                    let event = getEvent node.Target
+
+                    match node.TryGetHandler(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> event.RemoveHandler handler
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let handler =
+                            EventHandler<'args>(fun _ args ->
+                                let r = fn args
+                                Dispatcher.dispatch node r)
+
+                        node.SetHandler(name, ValueSome handler)
+                        event.AddHandler handler)
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+        
+        /// Define an attribute for EventHandler
+    let inline defineEventNoArg
+        name
+        ([<InlineIfLambda>] getEvent: obj -> IEvent<EventHandler, EventArgs>)
+        : SimpleScalarAttributeDefinition<obj> =
+        let key =
+                SimpleScalarAttributeDefinition.CreateAttributeData(
+                    ScalarAttributeComparers.noCompare,
+                    (fun _ newValueOpt node ->
+                        let event = getEvent node.Target
+
+                        match node.TryGetHandler(name) with
+                        | ValueNone -> ()
+                        | ValueSome handler -> event.RemoveHandler handler
+
+                        match newValueOpt with
+                        | ValueNone -> node.SetHandler(name, ValueNone)
+
+                        | ValueSome msg ->
+                            let handler =
+                                EventHandler(fun _ _ -> Dispatcher.dispatch node msg)
+
+                            event.AddHandler handler
+                            node.SetHandler(name, ValueSome handler))
+                )
+
+                |> AttributeDefinitionStore.registerScalar
+        { Key = key; Name = name }

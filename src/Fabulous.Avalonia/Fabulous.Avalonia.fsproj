@@ -20,11 +20,6 @@
     <Compile Include="Widgets.fs" />
     <Compile Include="Widgets\_Animatable.fs" />
     <Compile Include="Widgets\_StyledElement.fs" />
-    <Compile Include="Widgets\_Visual.fs" />
-    <Compile Include="Widgets\_Layoutable.fs" />
-    <Compile Include="Widgets\_Interactive.fs" />
-    <Compile Include="Widgets\_InputElement.fs" />
-    <Compile Include="Widgets\_Control.fs" />
     <Compile Include="Widgets\Styling\Style.fs" />
     <Compile Include="Widgets\Media\Brushes\_Brush.fs" />
     <Compile Include="Widgets\Media\Brushes\SolidColorBrush.fs" />
@@ -42,7 +37,6 @@
     <Compile Include="Widgets\Media\PathSegments\PolyLineSegment.fs" />
     <Compile Include="Widgets\Media\PathSegments\QuadraticBezierSegment.fs" />
     <Compile Include="Widgets\Media\PathSegments\PathFigure.fs" />
-
     <Compile Include="Widgets\Media\Geometries\_IGeometry.fs" />
     <Compile Include="Widgets\Media\Geometries\LineGeometry.fs" />
     <Compile Include="Widgets\Media\Geometries\EllipseGeometry.fs" />
@@ -60,13 +54,18 @@
     <Compile Include="Widgets\Media\Drawing\ImageDrawing.fs" />
     <Compile Include="Widgets\Media\Drawing\DrawingImage.fs" />
     <Compile Include="Widgets\Media\Imaging\CroppedBitmap.fs" />
-    <Compile Include="Widgets\Media\Imaging\Image.fs" />
+    <Compile Include="Widgets\_Visual.fs" />
+    <Compile Include="Widgets\_Layoutable.fs" />
+    <Compile Include="Widgets\_Interactive.fs" />
+    <Compile Include="Widgets\_InputElement.fs" />
+    <Compile Include="Widgets\_Control.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\_Panel.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
     <Compile Include="Widgets\Controls\_Decorator.fs" />
+    <Compile Include="Widgets\Controls\Image.fs" />
     <Compile Include="Widgets\Controls\Grid.fs" />
     <Compile Include="Widgets\Controls\StackPanel.fs" />
     <Compile Include="Widgets\Controls\Button.fs" />

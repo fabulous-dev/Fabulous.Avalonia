@@ -31,6 +31,7 @@ module DashStyleBuilders =
 
         static member DashStyle(dashes: float list, offset: float) =
             WidgetBuilder<'msg, IFaDashStyle>(
-                DashStyle.WidgetKey,DashStyle.Dashes.WithValue(dashes),
+                DashStyle.WidgetKey,
+                DashStyle.Dashes.WithValue(dashes),
                 DashStyle.Offset.WithValue(offset)
             )
