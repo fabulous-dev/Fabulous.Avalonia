@@ -65,6 +65,16 @@
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
     <Compile Include="Widgets\Controls\_Decorator.fs" />
+    <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Polyline.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Polygon.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Rectangle.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Line.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Arc.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Sector.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Ellipse.fs" />
+    <Compile Include="Widgets\Controls\Shapes\Path.fs" />
+    <Compile Include="Widgets\Controls\Canvas.fs" />
     <Compile Include="Widgets\Controls\Image.fs" />
     <Compile Include="Widgets\Controls\Grid.fs" />
     <Compile Include="Widgets\Controls\StackPanel.fs" />

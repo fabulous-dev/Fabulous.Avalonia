@@ -42,67 +42,65 @@ module InputElement =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
 
     let GotFocusEvent =
-        Attributes.defineAvaloniaEvent<GotFocusEventArgs> "InputElement_GotFocusEvent" (fun target ->
+        Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocusEvent" (fun target ->
             (target :?> InputElement).GotFocus)
 
     let LostFocusEvent =
-        Attributes.defineAvaloniaEvent<RoutedEventArgs> "InputElement_LostFocusEvent" (fun target ->
+        Attributes.defineEvent<RoutedEventArgs> "InputElement_LostFocusEvent" (fun target ->
             (target :?> InputElement).LostFocus)
 
     let KeyDownEvent =
-        Attributes.defineAvaloniaEvent<KeyEventArgs> "InputElement_KeyDownEvent" (fun target ->
+        Attributes.defineEvent<KeyEventArgs> "InputElement_KeyDownEvent" (fun target ->
             (target :?> InputElement).KeyDown)
 
     let KeyUpEvent =
-        Attributes.defineAvaloniaEvent<KeyEventArgs> "InputElement_KeyUpEvent" (fun target ->
-            (target :?> InputElement).KeyUp)
+        Attributes.defineEvent<KeyEventArgs> "InputElement_KeyUpEvent" (fun target -> (target :?> InputElement).KeyUp)
 
     let TextInputEvent =
-        Attributes.defineAvaloniaEvent<TextInputEventArgs> "InputElement_TextInputEvent" (fun target ->
+        Attributes.defineEvent<TextInputEventArgs> "InputElement_TextInputEvent" (fun target ->
             (target :?> InputElement).TextInput)
 
 
     let TextInputMethodClientRequestedEvent =
-        Attributes.defineAvaloniaEvent<TextInputMethodClientRequestedEventArgs>
+        Attributes.defineEvent<TextInputMethodClientRequestedEventArgs>
             "InputElement_TextInputMethodClientRequestedEvent"
             (fun target -> (target :?> InputElement).TextInputMethodClientRequested)
 
 
     let PointerEnteredEvent =
-        Attributes.defineAvaloniaEvent<PointerEventArgs> "InputElement_PointerEnteredEvent" (fun target ->
+        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerEnteredEvent" (fun target ->
             (target :?> InputElement).PointerEntered)
 
     let PointerExitedEvent =
-        Attributes.defineAvaloniaEvent<PointerEventArgs> "InputElement_PointerExitedEvent" (fun target ->
+        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerExitedEvent" (fun target ->
             (target :?> InputElement).PointerExited)
 
     let PointerMovedEvent =
-        Attributes.defineAvaloniaEvent<PointerEventArgs> "InputElement_PointerMovedEvent" (fun target ->
+        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerMovedEvent" (fun target ->
             (target :?> InputElement).PointerMoved)
 
     let PointerPressedEvent =
-        Attributes.defineAvaloniaEvent<PointerPressedEventArgs> "InputElement_PointerPressedEvent" (fun target ->
+        Attributes.defineEvent<PointerPressedEventArgs> "InputElement_PointerPressedEvent" (fun target ->
             (target :?> InputElement).PointerPressed)
 
     let PointerReleasedEvent =
-        Attributes.defineAvaloniaEvent<PointerReleasedEventArgs> "InputElement_PointerReleasedEvent" (fun target ->
+        Attributes.defineEvent<PointerReleasedEventArgs> "InputElement_PointerReleasedEvent" (fun target ->
             (target :?> InputElement).PointerReleased)
 
     let PointerCaptureLostEvent =
-        Attributes.defineAvaloniaEvent<PointerCaptureLostEventArgs>
-            "InputElement_PointerCaptureLostEvent"
-            (fun target -> (target :?> InputElement).PointerCaptureLost)
+        Attributes.defineEvent<PointerCaptureLostEventArgs> "InputElement_PointerCaptureLostEvent" (fun target ->
+            (target :?> InputElement).PointerCaptureLost)
 
     let PointerWheelChangedEvent =
-        Attributes.defineAvaloniaEvent<PointerWheelEventArgs> "InputElement_PointerWheelChangedEvent" (fun target ->
+        Attributes.defineEvent<PointerWheelEventArgs> "InputElement_PointerWheelChangedEvent" (fun target ->
             (target :?> InputElement).PointerWheelChanged)
 
     let TappedEvent =
-        Attributes.defineAvaloniaEvent<TappedEventArgs> "InputElement_TappedEvent" (fun target ->
+        Attributes.defineEvent<TappedEventArgs> "InputElement_TappedEvent" (fun target ->
             (target :?> InputElement).Tapped)
 
     let DoubleTappedEvent =
-        Attributes.defineAvaloniaEvent<TappedEventArgs> "InputElement_DoubleTappedEvent" (fun target ->
+        Attributes.defineEvent<TappedEventArgs> "InputElement_DoubleTappedEvent" (fun target ->
             (target :?> InputElement).DoubleTapped)
 
 [<Extension>]
@@ -180,11 +178,7 @@ type InputElementModifiers =
         this.AddScalar(InputElement.KeyUpEvent.WithValue(fun args -> onKeyUp args |> box))
 
     [<Extension>]
-    static member inline onTextInput
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onTextInput: string -> 'msg
-        ) =
+    static member inline onTextInput(this: WidgetBuilder<'msg, #IFabInputElement>, onTextInput: string -> 'msg) =
         this.AddScalar(InputElement.TextInputEvent.WithValue(fun args -> onTextInput args.Text |> box))
 
     [<Extension>]
@@ -193,7 +187,10 @@ type InputElementModifiers =
             this: WidgetBuilder<'msg, #IFabInputElement>,
             onTextInputMethodClientRequested: TextInputMethodClientRequestedEventArgs -> 'msg
         ) =
-        this.AddScalar(InputElement.TextInputMethodClientRequestedEvent.WithValue(fun args -> onTextInputMethodClientRequested args |> box))
+        this.AddScalar(
+            InputElement.TextInputMethodClientRequestedEvent.WithValue(fun args ->
+                onTextInputMethodClientRequested args |> box)
+        )
 
     [<Extension>]
     static member inline onPointerEnter

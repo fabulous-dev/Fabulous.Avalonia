@@ -12,7 +12,7 @@ module ToggleSwitch =
         Widgets.registerWithFactory (fun () -> ToggleSwitch(IsThreeState = false))
 
     let IsChecked =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
+        Attributes.definePropertyWithChangedEvent
             "ToggleSwitch_IsChecked"
             ToggleSwitch.IsCheckedProperty
             Nullable
