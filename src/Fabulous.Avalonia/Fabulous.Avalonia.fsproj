@@ -65,6 +65,7 @@
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
     <Compile Include="Widgets\Controls\_Decorator.fs" />
+    <Compile Include="Widgets\Controls\_FlyoutBase.fs" />
     <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />
     <Compile Include="Widgets\Controls\Shapes\Polyline.fs" />
     <Compile Include="Widgets\Controls\Shapes\Polygon.fs" />
