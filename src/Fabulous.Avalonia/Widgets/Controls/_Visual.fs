@@ -44,58 +44,58 @@ module Visual =
 [<Extension>]
 type VisualModifiers =
     [<Extension>]
-    static member inline bounds(this: WidgetBuilder<'msg, #IFabAnimatable>, rect: Rect) =
+    static member inline bounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: Rect) =
         this.AddScalar(Visual.Bounds.WithValue(rect))
 
     [<Extension>]
-    static member inline transformedBounds(this: WidgetBuilder<'msg, #IFabAnimatable>, rect: TransformedBounds) =
+    static member inline transformedBounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: TransformedBounds) =
         this.AddScalar(Visual.TransformedBounds.WithValue(rect))
 
 
     [<Extension>]
-    static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabAnimatable>, clip: bool) =
+    static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabVisual>, clip: bool) =
         this.AddScalar(Visual.ClipToBounds.WithValue(clip))
 
     [<Extension>]
-    static member inline clip(this: WidgetBuilder<'msg, #IFabAnimatable>, clip: WidgetBuilder<'msg, #IFabGeometry>) =
+    static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, clip: WidgetBuilder<'msg, #IFabGeometry>) =
         this.AddWidget(Visual.Clip.WithValue(clip.Compile()))
 
     [<Extension>]
-    static member inline isVisible(this: WidgetBuilder<'msg, #IFabAnimatable>, visible: bool) =
+    static member inline isVisible(this: WidgetBuilder<'msg, #IFabVisual>, visible: bool) =
         this.AddScalar(Visual.IsVisible.WithValue(visible))
 
     [<Extension>]
-    static member inline opacity(this: WidgetBuilder<'msg, #IFabAnimatable>, opacity: double) =
+    static member inline opacity(this: WidgetBuilder<'msg, #IFabVisual>, opacity: double) =
         this.AddScalar(Visual.Opacity.WithValue(opacity))
 
     [<Extension>]
     static member inline opacityMask
         (
-            this: WidgetBuilder<'msg, #IFabAnimatable>,
+            this: WidgetBuilder<'msg, #IFabVisual>,
             mask: WidgetBuilder<'msg, #IFabBrush>
         ) =
         this.AddWidget(Visual.OpacityMask.WithValue(mask.Compile()))
 
     [<Extension>]
-    static member inline hasMirroredTransform(this: WidgetBuilder<'msg, #IFabAnimatable>, hasMirror: bool) =
+    static member inline hasMirroredTransform(this: WidgetBuilder<'msg, #IFabVisual>, hasMirror: bool) =
         this.AddScalar(Visual.HasMirroredTransform.WithValue(hasMirror))
 
     [<Extension>]
     static member inline renderTransform
         (
-            this: WidgetBuilder<'msg, #IFabAnimatable>,
+            this: WidgetBuilder<'msg, #IFabVisual>,
             transform: WidgetBuilder<'msg, #IFabTransform>
         ) =
         this.AddWidget(Visual.RenderTransform.WithValue(transform.Compile()))
 
     [<Extension>]
-    static member inline renderTransformOrigin(this: WidgetBuilder<'msg, #IFabAnimatable>, origin: RelativePoint) =
+    static member inline renderTransformOrigin(this: WidgetBuilder<'msg, #IFabVisual>, origin: RelativePoint) =
         this.AddScalar(Visual.RenderTransformOrigin.WithValue(origin))
 
     [<Extension>]
-    static member inline visualParent(this: WidgetBuilder<'msg, #IFabAnimatable>, parent: IVisual) =
+    static member inline visualParent(this: WidgetBuilder<'msg, #IFabVisual>, parent: IVisual) =
         this.AddScalar(Visual.VisualParent.WithValue(parent))
 
     [<Extension>]
-    static member inline zIndex(this: WidgetBuilder<'msg, #IFabAnimatable>, index: int) =
+    static member inline zIndex(this: WidgetBuilder<'msg, #IFabVisual>, index: int) =
         this.AddScalar(Visual.ZIndex.WithValue(index))
