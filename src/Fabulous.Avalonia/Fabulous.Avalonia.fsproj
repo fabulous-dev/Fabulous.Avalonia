@@ -59,6 +59,7 @@
     <Compile Include="Widgets\_Interactive.fs" />
     <Compile Include="Widgets\_InputElement.fs" />
     <Compile Include="Widgets\_Control.fs" />
+    <Compile Include="Widgets\Primitives\Popup.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\_Panel.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
