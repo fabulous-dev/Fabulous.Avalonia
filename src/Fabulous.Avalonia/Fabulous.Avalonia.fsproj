@@ -64,6 +64,9 @@
     <Compile Include="Widgets\Controls\Panels\Canvas.fs" />
     <Compile Include="Widgets\Controls\Panels\Grid.fs" />
     <Compile Include="Widgets\Controls\Panels\StackPanel.fs" />
+    <Compile Include="Widgets\Controls\Panels\DockPanel.fs" />
+    <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
+    <Compile Include="Widgets\Controls\Panels\ItemsRepeater.fs" />
     <Compile Include="Widgets\Controls\TextBlock.fs" />
     <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
     <Compile Include="Widgets\Controls\Primitives\_FlyoutBase.fs" />
