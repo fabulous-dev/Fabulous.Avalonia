@@ -68,6 +68,7 @@
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\ItemsRepeater.fs" />
     <Compile Include="Widgets\Controls\TextBlock.fs" />
+    <Compile Include="Widgets\Controls\MaskedTextBox.fs" />
     <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
     <Compile Include="Widgets\Controls\Primitives\_FlyoutBase.fs" />
     <Compile Include="Widgets\Controls\Primitives\_TemplatedControl.fs" />
