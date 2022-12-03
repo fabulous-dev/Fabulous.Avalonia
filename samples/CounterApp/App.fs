@@ -65,7 +65,11 @@ module App =
             
             (HStack() {
                 TextBlock("Timer")
+                    .centerVertical()
+
                 ToggleSwitch(model.TimerOn, TimerToggled)
+
+                CheckBox(model.TimerOn, TimerToggled)
              })
                 .margin(20.)
                 .centerHorizontal()
