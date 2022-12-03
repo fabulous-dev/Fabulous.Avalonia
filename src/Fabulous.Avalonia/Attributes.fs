@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System
 open Avalonia
 open Avalonia.Collections
-open Avalonia.Interactivity
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
@@ -147,7 +146,7 @@ module Attributes =
                 else
                     avaloniaObject.SetValue(property, value) |> ignore)
 
-    let definePropertyWithChangedEvent<'modelType, 'valueType>
+    let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)
         (convert: 'modelType -> 'valueType)
@@ -195,8 +194,8 @@ module Attributes =
 
         { Key = key; Name = name }
 
-    let definePropertyChangedEventNoConverters<'T>
+    let defineAvaloniaPropertyWithChangedEvent'<'T>
         name
         (property: AvaloniaProperty<'T>)
         : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
-        definePropertyWithChangedEvent<'T, 'T> name property id id
+        defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
