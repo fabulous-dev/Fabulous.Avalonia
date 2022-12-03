@@ -62,6 +62,7 @@
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\_Panel.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
+    <Compile Include="Widgets\Controls\_ItemsControl.fs" />
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
     <Compile Include="Widgets\Controls\_Decorator.fs" />
