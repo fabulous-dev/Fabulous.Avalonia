@@ -1,6 +1,7 @@
 namespace CounterApp
 
 open System
+open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
@@ -9,7 +10,10 @@ open type Fabulous.Avalonia.View
 
 module App =
     type Model =
-        { Count: int; Step: int; TimerOn: bool }
+        { Count: int
+          Step: int
+          TimerOn: bool
+          EntryText: string }
 
     type Msg =
         | Increment
@@ -18,8 +22,9 @@ module App =
         | SetStep of float
         | TimerToggled of bool
         | TimedTick
+        | EntryTextChanged of string
 
-    let initModel = { Count = 0; Step = 1; TimerOn = false }
+    let initModel = { Count = 0; Step = 1; TimerOn = false; EntryText = "" }
 
     let timerCmd () =
         async {
@@ -42,6 +47,7 @@ module App =
                 { model with Count = model.Count + model.Step }, timerCmd ()
             else
                 model, Cmd.none
+        | EntryTextChanged text -> { model with EntryText = text }, Cmd.none
 
     let view model =
         (VStack() {
@@ -68,9 +74,26 @@ module App =
             Button("Reset", Reset).centerHorizontal ()
 
             DatePicker(Some DateTimeOffset.Now)
-        })
-            .center ()
 
+            TextBox(model.EntryText, fun text -> EntryTextChanged(text))
+                .margin(0, 10)
+                .height(100)
+                .textAlignment(TextAlignment.Center)
+                .verticalContentAlignment(VerticalAlignment.Center)
+                .acceptsReturn(true)
+                .acceptsTab(true)
+                .maxLines(3)
+                .watermark("Enter some text...")
+                .useFloatingWatermark(false)
+                .caretBrush(SolidColorBrush(Colors.Green))
+                .selectionBrush(SolidColorBrush(Colors.Red))
+                .selectionForegroundBrush(SolidColorBrush(Colors.Yellow))
+
+            TextBlock($"You Entered: {model.EntryText}")                
+
+         })
+            .center()
+            
 #if MOBILE
     let app model = SingleViewApplication(view model)
 #else
