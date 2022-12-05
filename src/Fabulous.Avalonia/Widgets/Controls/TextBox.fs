@@ -14,58 +14,79 @@ module TextBox =
 
     let Text = Attributes.defineAvaloniaPropertyWithEquality TextBox.TextProperty
 
-    let TextAlignment = Attributes.defineAvaloniaPropertyWithEquality TextBox.TextAlignmentProperty
+    let TextAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.TextAlignmentProperty
 
-    let TextWrapping = Attributes.defineAvaloniaPropertyWithEquality TextBox.TextWrappingProperty
+    let TextWrapping =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.TextWrappingProperty
 
-    let HorizontalContentAlignment = Attributes.defineAvaloniaPropertyWithEquality TextBox.HorizontalContentAlignmentProperty
+    let HorizontalContentAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.HorizontalContentAlignmentProperty
 
-    let VerticalContentAlignment = Attributes.defineAvaloniaPropertyWithEquality TextBox.VerticalContentAlignmentProperty
+    let VerticalContentAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.VerticalContentAlignmentProperty
 
-    let AcceptsReturn = Attributes.defineAvaloniaPropertyWithEquality TextBox.AcceptsReturnProperty
-    
-    let AcceptsTab = Attributes.defineAvaloniaPropertyWithEquality TextBox.AcceptsTabProperty
-    
-    let IsReadOnly = Attributes.defineAvaloniaPropertyWithEquality TextBox.IsReadOnlyProperty
+    let AcceptsReturn =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.AcceptsReturnProperty
 
-    let IsUndoEnabled = Attributes.defineAvaloniaPropertyWithEquality TextBox.IsUndoEnabledProperty
+    let AcceptsTab =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.AcceptsTabProperty
 
-    let LetterSpacing = Attributes.defineAvaloniaPropertyWithEquality TextBox.LetterSpacingProperty
-  
-    let LineHeight = Attributes.defineAvaloniaPropertyWithEquality TextBox.LineHeightProperty
-  
-    let MaxLength = Attributes.defineAvaloniaPropertyWithEquality TextBox.MaxLengthProperty
-  
-    let MaxLines = Attributes.defineAvaloniaPropertyWithEquality TextBox.MaxLinesProperty
-    
-    let PasswordChar = Attributes.defineAvaloniaPropertyWithEquality TextBox.PasswordCharProperty
+    let IsReadOnly =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.IsReadOnlyProperty
 
-    let RevealPassword = Attributes.defineAvaloniaPropertyWithEquality TextBox.RevealPasswordProperty    
+    let IsUndoEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.IsUndoEnabledProperty
 
-    let Watermark = Attributes.defineAvaloniaPropertyWithEquality TextBox.WatermarkProperty
+    let LetterSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.LetterSpacingProperty
 
-    let UseFloatingWatermark = Attributes.defineAvaloniaPropertyWithEquality TextBox.UseFloatingWatermarkProperty
+    let LineHeight =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.LineHeightProperty
+
+    let MaxLength =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.MaxLengthProperty
+
+    let MaxLines =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.MaxLinesProperty
+
+    let PasswordChar =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.PasswordCharProperty
+
+    let RevealPassword =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.RevealPasswordProperty
+
+    let Watermark =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.WatermarkProperty
+
+    let UseFloatingWatermark =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.UseFloatingWatermarkProperty
 
     // Read-only Properties
     let CanCopy = Attributes.defineAvaloniaPropertyWithEquality TextBox.CanCopyProperty
-    
+
     let CanCut = Attributes.defineAvaloniaPropertyWithEquality TextBox.CanCutProperty
-    
-    let CanPaste = Attributes.defineAvaloniaPropertyWithEquality TextBox.CanPasteProperty
-  
-    let CaretIndex = Attributes.defineAvaloniaPropertyWithEquality TextBox.CaretIndexProperty    
+
+    let CanPaste =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.CanPasteProperty
+
+    let CaretIndex =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.CaretIndexProperty
 
     let NewLine = Attributes.defineAvaloniaPropertyWithEquality TextBox.NewLineProperty
 
     // Property Widgets
     let CaretBrush = Attributes.defineAvaloniaPropertyWidget TextBox.CaretBrushProperty
 
-    let SelectionBrush = Attributes.defineAvaloniaPropertyWidget TextBox.SelectionBrushProperty
-   
-    let SelectionForegroundBrush = Attributes.defineAvaloniaPropertyWidget TextBox.SelectionForegroundBrushProperty
+    let SelectionBrush =
+        Attributes.defineAvaloniaPropertyWidget TextBox.SelectionBrushProperty
+
+    let SelectionForegroundBrush =
+        Attributes.defineAvaloniaPropertyWidget TextBox.SelectionForegroundBrushProperty
 
     // Events
-    let ValueChanged = Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_ValueChanged" TextBox.TextProperty
+    let ValueChanged =
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_ValueChanged" TextBox.TextProperty
 
 
 [<AutoOpen>]
@@ -76,7 +97,7 @@ module TextBoxBuilders =
             WidgetBuilder<'msg, IFabTextBox>(
                 TextBox.WidgetKey,
                 TextBox.Text.WithValue(text),
-                TextBox.ValueChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))                
+                TextBox.ValueChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
             )
 
 [<Extension>]
@@ -91,7 +112,11 @@ type TextBoxModifiers =
         this.AddScalar(TextBox.TextWrapping.WithValue(value))
 
     [<Extension>]
-    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabTextBox>, value: HorizontalAlignment) =
+    static member inline horizontalContentAlignment
+        (
+            this: WidgetBuilder<'msg, #IFabTextBox>,
+            value: HorizontalAlignment
+        ) =
         this.AddScalar(TextBox.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]
@@ -99,13 +124,13 @@ type TextBoxModifiers =
         this.AddScalar(TextBox.VerticalContentAlignment.WithValue(value))
 
     [<Extension>]
-    static member acceptsReturn(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) = 
+    static member acceptsReturn(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) =
         this.AddScalar(TextBox.AcceptsReturn.WithValue(value))
-    
+
     [<Extension>]
-    static member acceptsTab(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) = 
+    static member acceptsTab(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) =
         this.AddScalar(TextBox.AcceptsTab.WithValue(value))
-    
+
     [<Extension>]
     static member inline isReadOnly(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) =
         this.AddScalar(TextBox.IsReadOnly.WithValue(value))
@@ -144,18 +169,26 @@ type TextBoxModifiers =
 
     [<Extension>]
     static member inline useFloatingWatermark(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) =
-        this.AddScalar(TextBox.UseFloatingWatermark.WithValue(value))    
-       
+        this.AddScalar(TextBox.UseFloatingWatermark.WithValue(value))
+
     [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.CaretBrush.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
+    static member inline selectionBrush
+        (
+            this: WidgetBuilder<'msg, #IFabTextBox>,
+            value: WidgetBuilder<'msg, #IFabBrush>
+        ) =
         this.AddWidget(TextBox.SelectionBrush.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
+    static member inline selectionForegroundBrush
+        (
+            this: WidgetBuilder<'msg, #IFabTextBox>,
+            value: WidgetBuilder<'msg, #IFabBrush>
+        ) =
         this.AddWidget(TextBox.SelectionForegroundBrush.WithValue(value.Compile()))
 
 

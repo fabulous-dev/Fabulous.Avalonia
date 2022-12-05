@@ -24,7 +24,11 @@ module App =
         | TimedTick
         | EntryTextChanged of string
 
-    let initModel = { Count = 0; Step = 1; TimerOn = false; EntryText = "" }
+    let initModel =
+        { Count = 0
+          Step = 1
+          TimerOn = false
+          EntryText = "" }
 
     let timerCmd () =
         async {
@@ -75,7 +79,7 @@ module App =
 
             DatePicker(Some DateTimeOffset.Now)
 
-            TextBox(model.EntryText, fun text -> EntryTextChanged(text))
+            TextBox(model.EntryText, EntryTextChanged)
                 .margin(0, 10)
                 .height(100)
                 .textAlignment(TextAlignment.Center)
@@ -87,13 +91,13 @@ module App =
                 .useFloatingWatermark(false)
                 .caretBrush(SolidColorBrush(Colors.Green))
                 .selectionBrush(SolidColorBrush(Colors.Red))
-                .selectionForegroundBrush(SolidColorBrush(Colors.Yellow))
+                .selectionForegroundBrush (SolidColorBrush(Colors.Yellow))
 
-            TextBlock($"You Entered: {model.EntryText}")                
+            TextBlock($"You Entered: {model.EntryText}")
 
-         })
-            .center()
-            
+        })
+            .center ()
+
 #if MOBILE
     let app model = SingleViewApplication(view model)
 #else
