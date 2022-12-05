@@ -9,9 +9,7 @@ open type Fabulous.Avalonia.View
 
 module App =
     type Model =
-        { Count: int
-          Step: int
-          TimerOn: bool }
+        { Count: int; Step: int; TimerOn: bool }
 
     type Msg =
         | Increment
@@ -34,70 +32,49 @@ module App =
 
     let update msg model =
         match msg with
-        | Increment ->
-            { model with
-                  Count = model.Count + model.Step },
-            Cmd.none
-        | Decrement ->
-            { model with
-                  Count = model.Count - model.Step },
-            Cmd.none
+        | Increment -> { model with Count = model.Count + model.Step }, Cmd.none
+        | Decrement -> { model with Count = model.Count - model.Step }, Cmd.none
         | Reset -> initModel, Cmd.none
-        | SetStep n -> { model with Step = int(n + 0.5) }, Cmd.none
-        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd() else Cmd.none)
+        | SetStep n -> { model with Step = int (n + 0.5) }, Cmd.none
+        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd () else Cmd.none)
         | TimedTick ->
             if model.TimerOn then
-                { model with
-                      Count = model.Count + model.Step },
-                timerCmd()
+                { model with Count = model.Count + model.Step }, timerCmd ()
             else
                 model, Cmd.none
 
     let view model =
         (VStack() {
-            TextBlock($"%d{model.Count}").centerText()
-            
-            Button("Increment", Increment)
-                .centerHorizontal()
-            
-            Button("Decrement", Decrement)
-                .centerHorizontal()
-            
+            TextBlock($"%d{model.Count}").centerText ()
+
+            Button("Increment", Increment).centerHorizontal ()
+
+            Button("Decrement", Decrement).centerHorizontal ()
+
             (HStack() {
-                TextBlock("Timer")
-                    .centerVertical()
+                TextBlock("Timer").centerVertical ()
 
                 ToggleSwitch(model.TimerOn, TimerToggled)
 
                 CheckBox(model.TimerOn, TimerToggled)
-             })
+            })
                 .margin(20.)
-                .centerHorizontal()
-            
+                .centerHorizontal ()
+
             Slider(0.0, 10.0, double model.Step, SetStep)
-            
-            TextBlock($"Step size: %d{model.Step}")
-                .centerText()
-            
-            Button("Reset", Reset)
-                .centerHorizontal()
-                
+
+            TextBlock($"Step size: %d{model.Step}").centerText ()
+
+            Button("Reset", Reset).centerHorizontal ()
+
             DatePicker(Some DateTimeOffset.Now)
-         })
-            .center()
-            
+        })
+            .center ()
+
 #if MOBILE
-    let app model =
-        SingleViewApplication(
-            view model
-        )
+    let app model = SingleViewApplication(view model)
 #else
-    let app model =
-        DesktopApplication(
-            Window(
-                view model
-            )
-        )
+    let app model = DesktopApplication(Window(view model))
 #endif
 
     let program = Program.statefulWithCmd init update app

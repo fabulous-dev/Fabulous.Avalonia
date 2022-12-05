@@ -8,7 +8,7 @@ type IFabAccessText =
 
 module AccessText =
     let WidgetKey = Widgets.register<AccessText> ()
-    
+
     let ShowAccessKey =
         Attributes.defineAvaloniaPropertyWithEquality AccessText.ShowAccessKeyProperty
 
@@ -20,4 +20,5 @@ module AccessTextBuilders =
             WidgetBuilder<'msg, IFabAccessText>(
                 AccessText.WidgetKey,
                 TextBlock.Text.WithValue(text),
-                AccessText.ShowAccessKey.WithValue(showAccessKey))
+                AccessText.ShowAccessKey.WithValue(showAccessKey)
+            )
