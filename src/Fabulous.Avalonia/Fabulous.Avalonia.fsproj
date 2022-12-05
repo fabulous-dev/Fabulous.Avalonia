@@ -114,6 +114,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+    <PackageReference Include="Fabulous" Version="2.2.0-preview.1" />
   </ItemGroup>
 
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
@@ -127,9 +128,4 @@
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
     <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />
-  </ItemGroup>
-
 </Project>
