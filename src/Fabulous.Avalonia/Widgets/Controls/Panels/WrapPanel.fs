@@ -13,10 +13,10 @@ module WrapPanel =
 
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality WrapPanel.OrientationProperty
-        
+
     let ItemWidth =
         Attributes.defineAvaloniaPropertyWithEquality WrapPanel.ItemWidthProperty
-        
+
     let ItemHeight =
         Attributes.defineAvaloniaPropertyWithEquality WrapPanel.ItemHeightProperty
 
@@ -43,7 +43,7 @@ type WrapPanelModifiers =
     [<Extension>]
     static member inline itemWidth(this: WidgetBuilder<'msg, #IFabWrapPanel>, itemWidth: float) =
         this.AddScalar(WrapPanel.ItemWidth.WithValue(itemWidth))
-        
+
     [<Extension>]
     static member inline itemHeight(this: WidgetBuilder<'msg, #IFabWrapPanel>, itemHeight: float) =
         this.AddScalar(WrapPanel.ItemHeight.WithValue(itemHeight))

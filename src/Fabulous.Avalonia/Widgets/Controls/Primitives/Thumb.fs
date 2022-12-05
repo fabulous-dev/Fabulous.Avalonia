@@ -10,32 +10,20 @@ type IFabThumb =
 
 module Thumb =
     let WidgetKey = Widgets.register<Thumb> ()
-    
+
     let DragStartedEvent =
-        Attributes.defineEvent<VectorEventArgs>
-            "Thumb_DragStartedEvent"
-            (fun target -> (target :?> Thumb).DragStarted)
-            
+        Attributes.defineEvent<VectorEventArgs> "Thumb_DragStartedEvent" (fun target -> (target :?> Thumb).DragStarted)
+
     let DragDeltaEvent =
-        Attributes.defineEvent<VectorEventArgs>
-            "Thumb_DragDeltaEvent"
-            (fun target -> (target :?> Thumb).DragDelta)
-            
+        Attributes.defineEvent<VectorEventArgs> "Thumb_DragDeltaEvent" (fun target -> (target :?> Thumb).DragDelta)
+
     let DragCompletedEvent =
-        Attributes.defineEvent<VectorEventArgs>
-            "Thumb_DragCompletedEvent"
-            (fun target -> (target :?> Thumb).DragCompleted)
+        Attributes.defineEvent<VectorEventArgs> "Thumb_DragCompletedEvent" (fun target ->
+            (target :?> Thumb).DragCompleted)
 
 [<AutoOpen>]
 module ThumbBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline Thumb() =
-            WidgetBuilder<'msg, IFabThumb>(
-                Thumb.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueNone,
-                    ValueNone
-                )
-            )
+            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty (), ValueNone, ValueNone))

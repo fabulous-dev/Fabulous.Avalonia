@@ -9,9 +9,8 @@ type IFabDockPanel =
 module DockPanel =
     let WidgetKey = Widgets.register<DockPanel> ()
 
-    let Dock =
-        Attributes.defineAvaloniaPropertyWithEquality DockPanel.DockProperty
-        
+    let Dock = Attributes.defineAvaloniaPropertyWithEquality DockPanel.DockProperty
+
     let LastChildFill =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.LastChildFillProperty
 

@@ -9,9 +9,8 @@ type IFabAdornerLayer =
 
 module AdornerLayer =
     let WidgetKey = Widgets.register<AdornerLayer> ()
-    
-    let Adorner =
-        Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornerProperty
+
+    let Adorner = Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornerProperty
 
 [<AutoOpen>]
 module AdornerLayerBuilders =
