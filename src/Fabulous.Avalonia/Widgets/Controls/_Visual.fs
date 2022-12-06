@@ -36,9 +36,6 @@ module Visual =
     let RenderTransformOrigin =
         Attributes.defineAvaloniaPropertyWithEquality Visual.RenderTransformOriginProperty
 
-    let VisualParent =
-        Attributes.defineAvaloniaPropertyWithEquality Visual.VisualParentProperty
-
     let ZIndex = Attributes.defineAvaloniaPropertyWithEquality Visual.ZIndexProperty
 
 [<Extension>]
@@ -87,10 +84,6 @@ type VisualModifiers =
     [<Extension>]
     static member inline renderTransformOrigin(this: WidgetBuilder<'msg, #IFabVisual>, origin: RelativePoint) =
         this.AddScalar(Visual.RenderTransformOrigin.WithValue(origin))
-
-    [<Extension>]
-    static member inline visualParent(this: WidgetBuilder<'msg, #IFabVisual>, parent: IVisual) =
-        this.AddScalar(Visual.VisualParent.WithValue(parent))
 
     [<Extension>]
     static member inline zIndex(this: WidgetBuilder<'msg, #IFabVisual>, index: int) =
