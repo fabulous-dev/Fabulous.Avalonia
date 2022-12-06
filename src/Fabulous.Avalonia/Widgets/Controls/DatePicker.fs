@@ -8,15 +8,8 @@ open Fabulous
 type IFabDatePicker =
     inherit IFabTemplatedControl
 
-// TODO: Add Header and missing Events
 module DatePicker =
     let WidgetKey = Widgets.register<DatePicker> ()
-
-    let SelectedDate =
-        Attributes.defineAvaloniaProperty<DateTimeOffset option, Nullable<DateTimeOffset>>
-            DatePicker.SelectedDateProperty
-            Option.toNullable
-            ScalarAttributeComparers.equalityCompare
 
     let DayVisible =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.DayVisibleProperty
@@ -42,13 +35,31 @@ module DatePicker =
     let MaxYear =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.MaxYearProperty
 
+    let SelectedDate =
+        Attributes.defineAvaloniaProperty<DateTimeOffset, Nullable<DateTimeOffset>>
+            DatePicker.SelectedDateProperty
+            Nullable
+            ScalarAttributeComparers.equalityCompare
+
+    let SelectedDateChanged =
+        Attributes.defineAvaloniaPropertyWithChangedEvent
+            "DatePicker_SelectedDateChanged"
+            DatePicker.SelectedDateProperty
+            Nullable
+            Nullable.op_Explicit
 
 [<AutoOpen>]
 module DatePickerBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline DatePicker(date: DateTimeOffset option) =
-            WidgetBuilder<'msg, IFabDatePicker>(DatePicker.WidgetKey, DatePicker.SelectedDate.WithValue(date))
+        static member inline DatePicker(date: DateTimeOffset, onValueChanged: DateTimeOffset -> 'msg) =
+            WidgetBuilder<'msg, IFabDatePicker>(
+                DatePicker.WidgetKey,
+                DatePicker.SelectedDate.WithValue(date),
+                DatePicker.SelectedDateChanged.WithValue(
+                    ValueEventData.create date (fun args -> onValueChanged args |> box)
+                )
+            )
 
 [<Extension>]
 type DatePickerModifiers =
