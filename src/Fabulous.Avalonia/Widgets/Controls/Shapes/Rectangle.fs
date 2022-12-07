@@ -1,8 +1,6 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open Avalonia.Controls.Shapes
-open Avalonia
 open Fabulous
 
 type IFabRectangle =
