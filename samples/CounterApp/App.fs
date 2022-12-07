@@ -1,18 +1,22 @@
 namespace CounterApp
 
 open System
+open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Avalonia.Interactivity
 
 module App =
     type Model =
         { Count: int
           Step: int
           TimerOn: bool
-          Date: DateTimeOffset }
+          Date: DateTimeOffset
+          EntryText: string
+          CopyTest: string }
 
     type Msg =
         | Increment
@@ -22,12 +26,16 @@ module App =
         | TimerToggled of bool
         | TimedTick
         | DateSelected of DateTimeOffset
+        | EntryTextChanged of string
+        | TextCopied of RoutedEventArgs
 
     let initModel =
         { Count = 0
           Step = 1
           TimerOn = false
-          Date = DateTimeOffset.Now }
+          Date = DateTimeOffset.Now
+          EntryText = ""
+          CopyTest = "" }
 
     let timerCmd () =
         async {
@@ -51,6 +59,10 @@ module App =
             else
                 model, Cmd.none
         | DateSelected date -> { model with Date = date }, Cmd.none
+        | EntryTextChanged text -> { model with EntryText = text }, Cmd.none
+        | TextCopied eventArgs ->
+            { model with CopyTest = $"Text copied from {eventArgs.Source.ToString()} at {DateTime.Now:``HH:mm:ss``}" },
+            Cmd.none
 
     let view model =
         (VStack() {
@@ -79,6 +91,28 @@ module App =
             DatePicker(model.Date, DateSelected)
 
             TextBlock($"Selected date: {model.Date:``yyyy-MM-dd``}").centerText ()
+
+            TextBox(model.EntryText, EntryTextChanged)
+                .margin(0, 10)
+                .height(100)
+                .textAlignment(TextAlignment.Center)
+                .verticalContentAlignment(VerticalAlignment.Center)
+                .acceptsReturn(true)
+                .acceptsTab(true)
+                .maxLines(3)
+                .watermark("Enter some text...")
+                .useFloatingWatermark(false)
+                .caretBrush(SolidColorBrush(Colors.Green))
+                .selectionBrush(SolidColorBrush(Colors.Red))
+                .selectionForegroundBrush(SolidColorBrush(Colors.Yellow))
+                .undoLimit(5)
+                .onCopyingToClipboard (TextCopied)
+
+
+            TextBlock($"You Entered: {model.EntryText}")
+
+            TextBlock(model.CopyTest)
+
         })
             .center ()
 
