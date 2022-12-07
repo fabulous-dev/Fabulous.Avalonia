@@ -27,30 +27,30 @@ module RadialGradientBrushBuilders =
         static member inline RadialGradientBrush<'msg>(?center: RelativePoint, ?origin: RelativePoint) =
             match center, origin with
             | Some s, None ->
-                CollectionBuilder<'msg, ILinearGradientBrush, IGradientStop>(
-                    LinearGradientBrush.WidgetKey,
+                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                    RadialGradientBrush.WidgetKey,
                     GradientBrush.GradientStops,
                     RadialGradientBrush.Center.WithValue(s),
                     RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
                 )
             | None, Some e ->
-                CollectionBuilder<'msg, ILinearGradientBrush, IGradientStop>(
-                    LinearGradientBrush.WidgetKey,
+                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                    RadialGradientBrush.WidgetKey,
                     GradientBrush.GradientStops,
                     RadialGradientBrush.Center.WithValue(RelativePoint.Center),
                     RadialGradientBrush.GradientOrigin.WithValue(e)
                 )
             | Some s, Some e ->
-                CollectionBuilder<'msg, ILinearGradientBrush, IGradientStop>(
-                    LinearGradientBrush.WidgetKey,
+                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                    RadialGradientBrush.WidgetKey,
                     GradientBrush.GradientStops,
                     RadialGradientBrush.Center.WithValue(s),
                     RadialGradientBrush.GradientOrigin.WithValue(e)
                 )
 
             | None, None ->
-                CollectionBuilder<'msg, ILinearGradientBrush, IGradientStop>(
-                    LinearGradientBrush.WidgetKey,
+                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                    RadialGradientBrush.WidgetKey,
                     GradientBrush.GradientStops,
                     RadialGradientBrush.Center.WithValue(RelativePoint.Center),
                     RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
