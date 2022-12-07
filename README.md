@@ -2,7 +2,7 @@
 
 *F# Functional App Development, using declarative dynamic UI.*
 
-[![build](https://github.com/fabulous-dev/Fabulous.Avalonia/actions/workflows/build.yml/badge.svg)]
+![build](https://github.com/fabulous-dev/Fabulous.Avalonia/actions/workflows/build.yml/badge.svg)
 [![Discord](https://img.shields.io/discord/716980335593914419?label=discord&logo=discord)](https://discord.gg/bpTJMbSSYK)
 
 Never write a ViewModel class again! Conquer the world with clean dynamic UIs!
@@ -47,4 +47,3 @@ let view model =
 
 ## Credits
 This repository is inspired by [Elmish.WPF](https://github.com/Prolucid/Elmish.WPF), [Elmish.Forms](https://github.com/dboris/elmish-forms) and [elmish](https://github.com/elmish/elmish).
- 
