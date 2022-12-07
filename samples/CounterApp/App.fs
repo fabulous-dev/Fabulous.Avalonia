@@ -9,7 +9,7 @@ open type Fabulous.Avalonia.View
 
 module App =
     type Model =
-        { Count: int; Step: int; TimerOn: bool }
+        { Count: int; Step: int; TimerOn: bool; Date: DateTimeOffset }
 
     type Msg =
         | Increment
@@ -18,8 +18,9 @@ module App =
         | SetStep of float
         | TimerToggled of bool
         | TimedTick
+        | DateSelected of DateTimeOffset
 
-    let initModel = { Count = 0; Step = 1; TimerOn = false }
+    let initModel = { Count = 0; Step = 1; TimerOn = false; Date = DateTimeOffset.Now }
 
     let timerCmd () =
         async {
@@ -42,6 +43,7 @@ module App =
                 { model with Count = model.Count + model.Step }, timerCmd ()
             else
                 model, Cmd.none
+        | DateSelected date -> { model with Date = date}, Cmd.none
 
     let view model =
         (VStack() {
@@ -67,7 +69,9 @@ module App =
 
             Button("Reset", Reset).centerHorizontal ()
 
-            DatePicker(Some DateTimeOffset.Now)
+            DatePicker(model.Date, DateSelected)
+
+            TextBlock($"Selected date: {model.Date:``yyyy-MM-dd``}").centerText ()
         })
             .center ()
 
