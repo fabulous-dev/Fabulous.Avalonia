@@ -5,6 +5,7 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Avalonia.Layout
+open Avalonia.Interactivity
 
 type IFabTextBox =
     inherit IFabTemplatedControl
@@ -38,6 +39,9 @@ module TextBox =
     let IsUndoEnabled =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.IsUndoEnabledProperty
 
+    let UndoLimit =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.UndoLimitProperty
+
     let LetterSpacing =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.LetterSpacingProperty
 
@@ -55,6 +59,12 @@ module TextBox =
 
     let RevealPassword =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.RevealPasswordProperty
+
+    let SelectionStart =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionStartProperty
+
+    let SelectionEnd =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionEndProperty
 
     let Watermark =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.WatermarkProperty
@@ -88,6 +98,13 @@ module TextBox =
     let ValueChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_ValueChanged" TextBox.TextProperty
 
+    let CopyingToClipboardEvent =
+        Attributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target ->
+            (target :?> TextBox).CopyingToClipboard)
+
+    let PastingFromClipboardEvent =
+        Attributes.defineEvent<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target ->
+            (target :?> TextBox).PastingFromClipboard)
 
 [<AutoOpen>]
 module TextBoxBuilders =
@@ -140,6 +157,10 @@ type TextBoxModifiers =
         this.AddScalar(TextBox.IsUndoEnabled.WithValue(value))
 
     [<Extension>]
+    static member inline undoLimit(this: WidgetBuilder<'msg, #IFabTextBox>, value: int) =
+        this.AddScalar(TextBox.UndoLimit.WithValue(value))
+
+    [<Extension>]
     static member inline letterSpacing(this: WidgetBuilder<'msg, #IFabTextBox>, value: float) =
         this.AddScalar(TextBox.LetterSpacing.WithValue(value))
 
@@ -162,6 +183,14 @@ type TextBoxModifiers =
     [<Extension>]
     static member inline revealPassword(this: WidgetBuilder<'msg, #IFabTextBox>, value: bool) =
         this.AddScalar(TextBox.RevealPassword.WithValue(value))
+
+    [<Extension>]
+    static member inline selectionStart(this: WidgetBuilder<'msg, #IFabTextBox>, value: int) =
+        this.AddScalar(TextBox.SelectionStart.WithValue(value))
+
+    [<Extension>]
+    static member inline selectionEnd(this: WidgetBuilder<'msg, #IFabTextBox>, value: int) =
+        this.AddScalar(TextBox.SelectionEnd.WithValue(value))
 
     [<Extension>]
     static member inline watermark(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
@@ -191,6 +220,21 @@ type TextBoxModifiers =
         ) =
         this.AddWidget(TextBox.SelectionForegroundBrush.WithValue(value.Compile()))
 
+    [<Extension>]
+    static member inline onCopyingToClipboard
+        (
+            this: WidgetBuilder<'msg, #IFabTextBox>,
+            onCopyingToClipboard: RoutedEventArgs -> 'msg
+        ) =
+        this.AddScalar(TextBox.CopyingToClipboardEvent.WithValue(fun args -> onCopyingToClipboard args |> box))
+
+    [<Extension>]
+    static member inline onPastingFromClipboard
+        (
+            this: WidgetBuilder<'msg, #IFabTextBox>,
+            onPastingFromClipboard: RoutedEventArgs -> 'msg
+        ) =
+        this.AddScalar(TextBox.PastingFromClipboardEvent.WithValue(fun args -> onPastingFromClipboard args |> box))
 
 [<Extension>]
 type TextBoxExtraModifiers =
