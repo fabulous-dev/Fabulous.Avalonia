@@ -19,7 +19,7 @@ module Path =
 module PathBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Path(content: WidgetBuilder<'msg, IFabGeometry>) =
+        static member Path(content: WidgetBuilder<'msg, #IFabGeometry>) =
             WidgetBuilder<'msg, IFabPath>(
                 Path.WidgetKey,
                 AttributesBundle(StackList.empty (), ValueSome [| Path.Data.WithValue(content.Compile()) |], ValueNone)

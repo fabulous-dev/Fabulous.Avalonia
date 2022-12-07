@@ -35,21 +35,40 @@ module ImageBuilders =
     type Fabulous.Avalonia.View with
 
         static member Image(source: IImage, ?stretch: Stretch) =
-            WidgetBuilder<'msg, IFabImage>(
-                Image.WidgetKey,
-                Image.Source.WithValue(source),
-                Image.Stretch.WithValue(stretch |> Option.defaultValue Stretch.Uniform)
-            )
+            match stretch with
+            | Some value ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    Image.Source.WithValue(source),
+                    Image.Stretch.WithValue(value)
+                )
+            | None ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    Image.Source.WithValue(source),
+                    Image.Stretch.WithValue(Stretch.Uniform)
+                )
 
         static member Image(source: WidgetBuilder<'msg, #IFabDrawingImage>, ?stretch: Stretch) =
-            WidgetBuilder<'msg, IFabImage>(
-                Image.WidgetKey,
-                AttributesBundle(
-                    StackList.one (Image.Stretch.WithValue(stretch |> Option.defaultValue Stretch.Uniform)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone
+            match stretch with
+            | Some value ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    AttributesBundle(
+                        StackList.one (Image.Stretch.WithValue(value)),
+                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                        ValueNone
+                    )
                 )
-            )
+            | None ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    AttributesBundle(
+                        StackList.one (Image.Stretch.WithValue(Stretch.Uniform)),
+                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                        ValueNone
+                    )
+                )
 
 [<Extension>]
 type ImageModifiers =
