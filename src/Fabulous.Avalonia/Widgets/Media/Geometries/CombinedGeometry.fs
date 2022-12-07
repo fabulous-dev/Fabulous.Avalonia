@@ -50,6 +50,6 @@ type CombinedGeometryModifiers =
     static member inline geometryCombineMode
         (
             this: WidgetBuilder<'msg, #IFabCombinedGeometry>,
-            mode: GeometryCombineMode
+            value: GeometryCombineMode
         ) =
-        this.AddScalar(CombinedGeometry.GeometryCombineMode.WithValue(mode))
+        this.AddScalar(CombinedGeometry.GeometryCombineMode.WithValue(value))

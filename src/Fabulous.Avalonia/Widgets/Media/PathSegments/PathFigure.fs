@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -21,17 +22,30 @@ module PathFigure =
         Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target ->
             (target :?> PathFigure).Segments)
 
+    let StartPoint =
+        Attributes.defineAvaloniaPropertyWithEquality PathFigure.StartPointProperty
+
 [<AutoOpen>]
 module PathFigureBuilders =
     type Fabulous.Avalonia.View with
 
-        static member PathFigure(?isClosed: bool, ?isFilled: bool) =
+        static member PathFigure(startPoint: Point) =
             CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(
                 PathFigure.WidgetKey,
                 PathFigure.Segments,
-                PathFigure.IsClosed.WithValue(isClosed |> Option.defaultValue true),
-                PathFigure.IsFilled.WithValue(isFilled |> Option.defaultValue true)
+                PathFigure.StartPoint.WithValue(startPoint)
             )
+
+[<Extension>]
+type PathFigureModifiers =
+
+    [<Extension>]
+    static member inline isClosed(this: WidgetBuilder<'msg, #IFabPathFigure>, value: bool) =
+        this.AddScalar(PathFigure.IsClosed.WithValue(value))
+
+    [<Extension>]
+    static member inline isFilled(this: WidgetBuilder<'msg, #IFabPathFigure>, value: bool) =
+        this.AddScalar(PathFigure.IsFilled.WithValue(value))
 
 [<Extension>]
 type PathFigureBuilderExtensions =

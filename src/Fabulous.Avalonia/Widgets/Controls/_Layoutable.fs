@@ -39,11 +39,18 @@ module Layoutable =
     let UseLayoutRounding =
         Attributes.defineAvaloniaPropertyWithEquality Layoutable.UseLayoutRoundingProperty
 
+    let EffectiveViewportChanged =
+        Attributes.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
+            (target :?> Layoutable).EffectiveViewportChanged)
+
+    let LayoutUpdated =
+        Attributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
+
 [<Extension>]
 type LayoutableModifiers =
     [<Extension>]
-    static member inline desiredSize(this: WidgetBuilder<'msg, #IFabLayoutable>, desiredSize: Size) =
-        this.AddScalar(Layoutable.DesiredSize.WithValue(desiredSize))
+    static member inline desiredSize(this: WidgetBuilder<'msg, #IFabLayoutable>, value: Size) =
+        this.AddScalar(Layoutable.DesiredSize.WithValue(value))
 
     [<Extension>]
     static member inline width(this: WidgetBuilder<'msg, #IFabLayoutable>, value: float) =
@@ -84,6 +91,21 @@ type LayoutableModifiers =
     [<Extension>]
     static member inline useLayoutRounding(this: WidgetBuilder<'msg, #IFabLayoutable>, value: bool) =
         this.AddScalar(Layoutable.UseLayoutRounding.WithValue(value))
+
+    [<Extension>]
+    static member inline onEffectiveViewportChanged
+        (
+            this: WidgetBuilder<'msg, #IFabLayoutable>,
+            onEffectiveViewportChanged: Rect -> 'msg
+        ) =
+        this.AddScalar(
+            Layoutable.EffectiveViewportChanged.WithValue(fun args ->
+                onEffectiveViewportChanged args.EffectiveViewport |> box)
+        )
+
+    [<Extension>]
+    static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, onLayoutUpdated: 'msg) =
+        this.AddScalar(Layoutable.LayoutUpdated.WithValue(onLayoutUpdated))
 
 [<Extension>]
 type LayoutableExtraModifiers =
