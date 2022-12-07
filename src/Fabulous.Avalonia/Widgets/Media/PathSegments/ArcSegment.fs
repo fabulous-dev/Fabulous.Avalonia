@@ -5,7 +5,6 @@ open Avalonia
 open Avalonia.Media
 open Fabulous
 
-
 type IFabArcSegment =
     inherit IFabPathSegment
 
