@@ -14,7 +14,7 @@ module GradientBrush =
 
     let GradientStops =
         Attributes.defineAvaloniaListWidgetCollection "GradientBrush_GradientStops" (fun target ->
-            (target :?> PathFigure).Segments)
+            (target :?> GradientBrush).GradientStops)
 
 [<Extension>]
 type GradientBrushModifiers =
