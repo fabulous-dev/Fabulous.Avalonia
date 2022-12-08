@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
@@ -41,10 +40,6 @@ module Slider =
                 points |> List.iter coll.Add
                 target.SetValue(Slider.TicksProperty, coll) |> ignore)
 
-
-    let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Slider_ValueChanged" Slider.ValueProperty
-
 [<AutoOpen>]
 module SliderBuilders =
     type Fabulous.Avalonia.View with
@@ -54,7 +49,7 @@ module SliderBuilders =
                 Slider.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(min, max),
                 RangeBase.Value.WithValue(value),
-                Slider.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
             )
 
 [<Extension>]

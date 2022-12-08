@@ -6,7 +6,7 @@ open Avalonia.Controls
 open Fabulous
 
 type IFabMaskedTextBox =
-    inherit IFabTextBlock
+    inherit IFabTextBox
 
 module MaskedTextBox =
     let WidgetKey = Widgets.register<MaskedTextBox> ()
@@ -19,12 +19,6 @@ module MaskedTextBox =
 
     let HidePromptOnLeave =
         Attributes.defineAvaloniaPropertyWithEquality MaskedTextBox.HidePromptOnLeaveProperty
-
-    let MaskCompleted =
-        Attributes.defineAvaloniaPropertyWithEquality MaskedTextBox.MaskCompletedProperty
-
-    let MaskFull =
-        Attributes.defineAvaloniaPropertyWithEquality MaskedTextBox.MaskFullProperty
 
     let Mask = Attributes.defineAvaloniaPropertyWithEquality MaskedTextBox.MaskProperty
 
@@ -64,14 +58,6 @@ type MaskedTextBoxModifiers =
     [<Extension>]
     static member inline hidePromptOnLeave(this: WidgetBuilder<'msg, #IFabMaskedTextBox>, hidePromptOnLeave: bool) =
         this.AddScalar(MaskedTextBox.HidePromptOnLeave.WithValue(hidePromptOnLeave))
-
-    [<Extension>]
-    static member inline maskCompleted(this: WidgetBuilder<'msg, #IFabMaskedTextBox>, maskCompleted: bool) =
-        this.AddScalar(MaskedTextBox.MaskCompleted.WithValue(maskCompleted))
-
-    [<Extension>]
-    static member inline maskFull(this: WidgetBuilder<'msg, #IFabMaskedTextBox>, maskFull: bool) =
-        this.AddScalar(MaskedTextBox.MaskFull.WithValue(maskFull))
 
     [<Extension>]
     static member inline passwordChar(this: WidgetBuilder<'msg, #IFabMaskedTextBox>, passwordChar: char) =
