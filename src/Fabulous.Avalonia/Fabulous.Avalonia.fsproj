@@ -66,6 +66,7 @@
     <Compile Include="Widgets\Controls\_Interactive.fs" />
     <Compile Include="Widgets\Controls\_InputElement.fs" />
     <Compile Include="Widgets\Controls\_Control.fs" />
+    <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\Panels\_Panel.fs" />
     <Compile Include="Widgets\Controls\Panels\Canvas.fs" />
@@ -74,10 +75,10 @@
     <Compile Include="Widgets\Controls\Panels\DockPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
     <Compile Include="Widgets\Controls\TextBlock.fs" />
+    <Compile Include="Widgets\Controls\TextBox.fs" />
     <Compile Include="Widgets\Controls\MaskedTextBox.fs" />
     <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
     <Compile Include="Widgets\Controls\Primitives\_FlyoutBase.fs" />
-    <Compile Include="Widgets\Controls\Primitives\_TemplatedControl.fs" />
     <Compile Include="Widgets\Controls\Primitives\AccessText.fs" />
     <Compile Include="Widgets\Controls\Primitives\AdornerLayer.fs" />
     <Compile Include="Widgets\Controls\Primitives\Thumb.fs" />
@@ -104,7 +105,6 @@
     <Compile Include="Widgets\Controls\UserControl.fs" />
     <Compile Include="Widgets\Controls\Window.fs" />
     <Compile Include="Widgets\Controls\Slider.fs" />
-    <Compile Include="Widgets\Controls\TextBox.fs" />
     <Compile Include="Widgets\Controls\ToggleSwitch.fs" />
     <Compile Include="Widgets\Controls\Separator.fs" />
     <Compile Include="Widgets\Application.fs" />

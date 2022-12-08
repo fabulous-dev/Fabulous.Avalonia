@@ -76,35 +76,35 @@ type BorderModifiers =
         this.AddScalar(Border.BorderThickness.WithValue(value))
 
     [<Extension>]
-    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, uniformLength: float) =
-        BorderModifiers.borderThickness (this, Thickness(uniformLength))
-
-    [<Extension>]
-    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, horizontal: float, vertical: float) =
-        BorderModifiers.borderThickness (this, Thickness(horizontal, vertical))
-
-    [<Extension>]
-    static member inline borderThickness
-        (
-            this: WidgetBuilder<'msg, #IFabBorder>,
-            left: float,
-            top: float,
-            right: float,
-            bottom: float
-        ) =
-        BorderModifiers.borderThickness (this, Thickness(left, top, right, bottom))
-
-    [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, value: CornerRadius) =
         this.AddScalar(Border.CornerRadius.WithValue(value))
 
     [<Extension>]
-    static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        this.AddScalar(Border.CornerRadius.WithValue(CornerRadius.Parse(value)))
+    static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
+        this.AddScalar(Border.BoxShadow.WithValue(value))
 
     [<Extension>]
-    static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, uniformRadius: float) =
-        BorderModifiers.cornerRadius (this, CornerRadius(uniformRadius))
+    static member inline strokeDashArray(this: WidgetBuilder<'msg, #IFabBorder>, value: float list) =
+        this.AddScalar(Border.BorderDashArray.WithValue(value))
+
+    [<Extension>]
+    static member inline borderLineCap(this: WidgetBuilder<'msg, #IFabBorder>, value: PenLineCap) =
+        this.AddScalar(Border.BorderLineCap.WithValue(value))
+
+    [<Extension>]
+    static member inline borderLineJoin(this: WidgetBuilder<'msg, #IFabBorder>, value: PenLineJoin) =
+        this.AddScalar(Border.BorderLineJoin.WithValue(value))
+
+    [<Extension>]
+    static member inline borderDashOffset(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
+        this.AddScalar(Border.BorderDashOffset.WithValue(value))
+
+
+[<Extension>]
+type BorderExtraModifiers =
+    [<Extension>]
+    static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
+        BorderModifiers.cornerRadius (this, CornerRadius(value))
 
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, top: float, bottom: float) =
@@ -122,8 +122,23 @@ type BorderModifiers =
         BorderModifiers.cornerRadius (this, CornerRadius(topLeft, topRight, bottomRight, bottomLeft))
 
     [<Extension>]
-    static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
-        this.AddScalar(Border.BoxShadow.WithValue(value))
+    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
+        BorderModifiers.borderThickness (this, Thickness(value))
+
+    [<Extension>]
+    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, horizontal: float, vertical: float) =
+        BorderModifiers.borderThickness (this, Thickness(horizontal, vertical))
+
+    [<Extension>]
+    static member inline borderThickness
+        (
+            this: WidgetBuilder<'msg, #IFabBorder>,
+            left: float,
+            top: float,
+            right: float,
+            bottom: float
+        ) =
+        BorderModifiers.borderThickness (this, Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
@@ -133,19 +148,3 @@ type BorderModifiers =
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
         BorderModifiers.boxShadow (this, BoxShadows(BoxShadow.Parse(first), rest))
-
-    [<Extension>]
-    static member inline strokeDashArray(this: WidgetBuilder<'msg, #IFabBorder>, value: float list) =
-        this.AddScalar(Border.BorderDashArray.WithValue(value))
-
-    [<Extension>]
-    static member inline borderLineCap(this: WidgetBuilder<'msg, #IFabBorder>, value: PenLineCap) =
-        this.AddScalar(Border.BorderLineCap.WithValue(value))
-
-    [<Extension>]
-    static member inline borderLineJoin(this: WidgetBuilder<'msg, #IFabBorder>, value: PenLineJoin) =
-        this.AddScalar(Border.BorderLineJoin.WithValue(value))
-
-    [<Extension>]
-    static member inline borderDashOffset(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
-        this.AddScalar(Border.BorderDashOffset.WithValue(value))

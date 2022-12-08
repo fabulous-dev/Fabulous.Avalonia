@@ -58,8 +58,6 @@ module ScrollViewer =
     let VerticalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarVisibilityProperty
 
-    let IsExpanded =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsExpandedProperty
 
     let AllowAutoHide =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.AllowAutoHideProperty
@@ -153,10 +151,6 @@ type ScrollViewerModifiers =
             value: ScrollBarVisibility
         ) =
         this.AddScalar(ScrollViewer.VerticalScrollBarVisibility.WithValue(value))
-
-    [<Extension>]
-    static member inline isExpanded(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
-        this.AddScalar(ScrollViewer.IsExpanded.WithValue(value))
 
     [<Extension>]
     static member inline allowAutoHide(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =

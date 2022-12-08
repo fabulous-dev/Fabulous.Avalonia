@@ -72,20 +72,11 @@ module TextBox =
     let UseFloatingWatermark =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.UseFloatingWatermarkProperty
 
-    // Read-only Properties
-    let CanCopy = Attributes.defineAvaloniaPropertyWithEquality TextBox.CanCopyProperty
-
-    let CanCut = Attributes.defineAvaloniaPropertyWithEquality TextBox.CanCutProperty
-
-    let CanPaste =
-        Attributes.defineAvaloniaPropertyWithEquality TextBox.CanPasteProperty
-
     let CaretIndex =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.CaretIndexProperty
 
     let NewLine = Attributes.defineAvaloniaPropertyWithEquality TextBox.NewLineProperty
 
-    // Property Widgets
     let CaretBrush = Attributes.defineAvaloniaPropertyWidget TextBox.CaretBrushProperty
 
     let SelectionBrush =
@@ -94,15 +85,18 @@ module TextBox =
     let SelectionForegroundBrush =
         Attributes.defineAvaloniaPropertyWidget TextBox.SelectionForegroundBrushProperty
 
-    // Events
-    let ValueChanged =
+    let TextChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_ValueChanged" TextBox.TextProperty
 
-    let CopyingToClipboardEvent =
+    let CopyingToClipboard =
         Attributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target ->
             (target :?> TextBox).CopyingToClipboard)
 
-    let PastingFromClipboardEvent =
+    let CuttingToClipboard =
+        Attributes.defineEvent<RoutedEventArgs> "TextBox_CuttingToClipboard" (fun target ->
+            (target :?> TextBox).CuttingToClipboard)
+
+    let PastingFromClipboard =
         Attributes.defineEvent<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target ->
             (target :?> TextBox).PastingFromClipboard)
 
@@ -114,7 +108,7 @@ module TextBoxBuilders =
             WidgetBuilder<'msg, IFabTextBox>(
                 TextBox.WidgetKey,
                 TextBox.Text.WithValue(text),
-                TextBox.ValueChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
+                TextBox.TextChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
             )
 
 [<Extension>]
@@ -201,6 +195,14 @@ type TextBoxModifiers =
         this.AddScalar(TextBox.UseFloatingWatermark.WithValue(value))
 
     [<Extension>]
+    static member inline caretIndex(this: WidgetBuilder<'msg, #IFabTextBox>, value: int) =
+        this.AddScalar(TextBox.CaretIndex.WithValue(value))
+
+    [<Extension>]
+    static member inline newLine(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
+        this.AddScalar(TextBox.NewLine.WithValue(value))
+
+    [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.CaretBrush.WithValue(value.Compile()))
 
@@ -224,17 +226,29 @@ type TextBoxModifiers =
     static member inline onCopyingToClipboard
         (
             this: WidgetBuilder<'msg, #IFabTextBox>,
-            onCopyingToClipboard: RoutedEventArgs -> 'msg
+            onCopyingToClipboard: string -> 'msg
         ) =
-        this.AddScalar(TextBox.CopyingToClipboardEvent.WithValue(fun args -> onCopyingToClipboard args |> box))
+        this.AddScalar(
+            TextBox.CopyingToClipboard.WithValue(fun args ->
+                let control = args.Source :?> TextBox
+                onCopyingToClipboard control.Text |> box)
+        )
 
     [<Extension>]
-    static member inline onPastingFromClipboard
+    static member inline onCuttingToClipboard
         (
             this: WidgetBuilder<'msg, #IFabTextBox>,
-            onPastingFromClipboard: RoutedEventArgs -> 'msg
+            onCuttingToClipboard: string -> 'msg
         ) =
-        this.AddScalar(TextBox.PastingFromClipboardEvent.WithValue(fun args -> onPastingFromClipboard args |> box))
+        this.AddScalar(
+            TextBox.CuttingToClipboard.WithValue(fun args ->
+                let control = args.Source :?> TextBox
+                onCuttingToClipboard control.Text |> box)
+        )
+
+    [<Extension>]
+    static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onPastingFromClipboard: 'msg) =
+        this.AddScalar(TextBox.PastingFromClipboard.WithValue(fun _ -> onPastingFromClipboard |> box))
 
 [<Extension>]
 type TextBoxExtraModifiers =
