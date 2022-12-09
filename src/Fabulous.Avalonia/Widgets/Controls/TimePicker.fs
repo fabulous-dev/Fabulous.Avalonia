@@ -53,3 +53,9 @@ type TimePickerModifiers =
     [<Extension>]
     static member inline minuteIncrement(this: WidgetBuilder<'msg, #IFabTimePicker>, value: int) =
         this.AddScalar(TimePicker.MinuteIncrement.WithValue(value))
+
+[<Extension>]
+type TimePickerExtraModifiers =
+    [<Extension>]
+    static member inline use24HourClock(this: WidgetBuilder<'msg, #IFabTimePicker>, value: bool) =
+        this.AddScalar(TimePicker.ClockIdentifier.WithValue(if value then "24HourClock" else "12HourClock"))
