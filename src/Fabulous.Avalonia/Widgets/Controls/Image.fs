@@ -13,10 +13,19 @@ open Fabulous.StackAllocatedCollections.StackList
 type IFabImage =
     inherit IFabControl
 
-module ImageSource =
-    let fromFile source =
-        let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
-        new Bitmap(assets.Open(Uri(source, UriKind.RelativeOrAbsolute)))
+module Bitmap =
+    let create (source: string) =
+        let uri =
+            if source.StartsWith("/") then
+                Uri(source, UriKind.Relative)
+            else
+                Uri(source, UriKind.RelativeOrAbsolute)
+
+        if uri.IsAbsoluteUri && uri.IsFile then
+            new Bitmap(uri.LocalPath)
+        else
+            let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
+            new Bitmap(assets.Open(uri))
 
 module Image =
     let WidgetKey = Widgets.register<Image> ()
@@ -49,7 +58,43 @@ module ImageBuilders =
                     Image.Stretch.WithValue(Stretch.Uniform)
                 )
 
-        static member Image(source: WidgetBuilder<'msg, #IFabDrawingImage>, ?stretch: Stretch) =
+        static member Image(source: string, ?stretch: Stretch) =
+            match stretch with
+            | Some value ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    Image.Source.WithValue(Bitmap.create source),
+                    Image.Stretch.WithValue(value)
+                )
+            | None ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    Image.Source.WithValue(Bitmap.create source),
+                    Image.Stretch.WithValue(Stretch.Uniform)
+                )
+
+        static member Image<'msg>(source: WidgetBuilder<'msg, IFabDrawingImage>, ?stretch: Stretch) =
+            match stretch with
+            | Some value ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    AttributesBundle(
+                        StackList.one (Image.Stretch.WithValue(value)),
+                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                        ValueNone
+                    )
+                )
+            | None ->
+                WidgetBuilder<'msg, IFabImage>(
+                    Image.WidgetKey,
+                    AttributesBundle(
+                        StackList.one (Image.Stretch.WithValue(Stretch.Uniform)),
+                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                        ValueNone
+                    )
+                )
+
+        static member Image<'msg>(source: WidgetBuilder<'msg, IFabCroppedBitmap>, ?stretch: Stretch) =
             match stretch with
             | Some value ->
                 WidgetBuilder<'msg, IFabImage>(
