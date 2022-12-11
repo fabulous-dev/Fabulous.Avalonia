@@ -102,6 +102,7 @@
     <Compile Include="Widgets\Controls\CheckBox.fs" />
     <Compile Include="Widgets\Controls\ScrollViewer.fs" />
     <Compile Include="Widgets\Controls\DatePicker.fs" />
+    <Compile Include="Widgets\Controls\TimePicker.fs" />
     <Compile Include="Widgets\Controls\UserControl.fs" />
     <Compile Include="Widgets\Controls\Window.fs" />
     <Compile Include="Widgets\Controls\Slider.fs" />
