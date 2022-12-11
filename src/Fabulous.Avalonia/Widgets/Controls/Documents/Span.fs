@@ -13,7 +13,7 @@ module Span =
     
     let Inlines =
         Attributes.defineAvaloniaListWidgetCollection
-            ""
+            "Span_Inlines"
             (fun target -> (target :?> Span).Inlines)
     
 [<AutoOpen>]

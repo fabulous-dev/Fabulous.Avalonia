@@ -79,6 +79,8 @@
     <Compile Include="Widgets\Controls\Documents\_TextElement.fs" />
     <Compile Include="Widgets\Controls\Documents\_Inline.fs" />
     <Compile Include="Widgets\Controls\Documents\Run.fs" />
+    <Compile Include="Widgets\Controls\Documents\LineBreak.fs" />
+    <Compile Include="Widgets\Controls\Documents\InlineUIContainer.fs" />
     <Compile Include="Widgets\Controls\Documents\Span.fs" />
     <Compile Include="Widgets\Controls\TextBlock.fs" />
     <Compile Include="Widgets\Controls\TextBox.fs" />
