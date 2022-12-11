@@ -22,14 +22,14 @@ module Inline =
     let BaselineAlignment =
         Attributes.defineAvaloniaPropertyWithEquality Inline.BaselineAlignmentProperty
 
-[<Extension>]
-type InlineModifiers =
-    [<Extension>]
-    static member inline baselineAlignment(this: WidgetBuilder<'msg, #IFabInline>, value: BaselineAlignment) =
-        this.AddScalar(Inline.BaselineAlignment.WithValue(value))
-        
-    [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabElement>
-        (this: WidgetBuilder<'msg, 'marker>)
-        =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabInline> Inline.TextDecorations this
+// [<Extension>]
+// type InlineModifiers =
+//     [<Extension>]
+//     static member inline baselineAlignment(this: WidgetBuilder<'msg, #IFabInline>, value: BaselineAlignment) =
+//         this.AddScalar(Inline.BaselineAlignment.WithValue(value))
+//         
+//     [<Extension>]
+//     static member inline textDecorations<'msg, 'marker when 'marker :> IFabElement>
+//         (this: WidgetBuilder<'msg, 'marker>)
+//         =
+//         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabInline> Inline.TextDecorations this
