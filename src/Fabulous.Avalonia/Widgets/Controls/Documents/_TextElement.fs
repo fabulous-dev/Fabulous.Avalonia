@@ -33,3 +33,42 @@ module TextElement =
 
     let Foreground =
         Attributes.defineAvaloniaPropertyWidget TextElement.ForegroundProperty
+
+[<Extension>]
+type TextElementModifiers =
+    [<Extension>]
+    static member inline background
+        (
+            this: WidgetBuilder<'msg, #IFabTextElement>,
+            content: WidgetBuilder<'msg, #IFabBrush>
+        ) =
+        this.AddWidget(TextElement.Background.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline fontFamily(this: WidgetBuilder<'msg, #IFabTextElement>, value: FontFamily) =
+        this.AddScalar(TextElement.FontFamily.WithValue(value))
+
+    [<Extension>]
+    static member inline fontSize(this: WidgetBuilder<'msg, #IFabTextElement>, value: double) =
+        this.AddScalar(TextElement.FontSize.WithValue(value))
+
+
+    [<Extension>]
+    static member inline fontStyle(this: WidgetBuilder<'msg, #IFabTextElement>, value: FontStyle) =
+        this.AddScalar(TextElement.FontStyle.WithValue(value))
+
+    [<Extension>]
+    static member inline fontWeight(this: WidgetBuilder<'msg, #IFabTextElement>, value: FontWeight) =
+        this.AddScalar(TextElement.FontWeight.WithValue(value))
+
+    [<Extension>]
+    static member inline fontStretch(this: WidgetBuilder<'msg, #IFabTextElement>, value: FontStretch) =
+        this.AddScalar(TextElement.FontStretch.WithValue(value))
+
+    [<Extension>]
+    static member inline foreground
+        (
+            this: WidgetBuilder<'msg, #IFabTextElement>,
+            content: WidgetBuilder<'msg, #IFabBrush>
+        ) =
+        this.AddWidget(TextElement.Foreground.WithValue(content.Compile()))

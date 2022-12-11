@@ -30,7 +30,5 @@ type InlineModifiers =
         this.AddScalar(Inline.BaselineAlignment.WithValue(value))
 
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabInline>
-        (this: WidgetBuilder<'msg, 'marker>)
-        =
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabInline>(this: WidgetBuilder<'msg, 'marker>) =
         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> Inline.TextDecorations this

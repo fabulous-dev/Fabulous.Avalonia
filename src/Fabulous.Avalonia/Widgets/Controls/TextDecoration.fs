@@ -5,8 +5,6 @@ open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
 open Fabulous
-open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabTextDecoration =
     inherit IFabElement
@@ -54,18 +52,14 @@ module TextDecoration =
 module TextDecorationBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline TextDecoration<'msg>() =
+        static member inline TextDecoration<'msg>(location: TextDecorationLocation) =
             WidgetBuilder<'msg, IFabTextDecoration>(
                 TextDecoration.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
+                TextDecoration.Location.WithValue(location)
             )
 
 [<Extension>]
 type TextDecorationModifiers =
-    [<Extension>]
-    static member inline location(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: TextDecorationLocation) =
-        this.AddScalar(TextDecoration.Location.WithValue(value))
-
     [<Extension>]
     static member inline stroke
         (
