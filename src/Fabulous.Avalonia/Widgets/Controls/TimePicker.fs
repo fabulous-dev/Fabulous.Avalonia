@@ -18,10 +18,7 @@ module TimePicker =
         Attributes.defineAvaloniaPropertyWithEquality TimePicker.MinuteIncrementProperty
 
     let SelectedTime =
-        Attributes.defineAvaloniaProperty<TimeSpan, Nullable<TimeSpan>>
-            TimePicker.SelectedTimeProperty
-            Nullable
-            ScalarAttributeComparers.equalityCompare
+        Attributes.defineAvaloniaPropertyWithEquality TimePicker.SelectedTimeProperty
 
     let SelectedTimeChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent

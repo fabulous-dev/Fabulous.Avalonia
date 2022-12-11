@@ -36,10 +36,7 @@ module DatePicker =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.MaxYearProperty
 
     let SelectedDate =
-        Attributes.defineAvaloniaProperty<DateTimeOffset, Nullable<DateTimeOffset>>
-            DatePicker.SelectedDateProperty
-            Nullable
-            ScalarAttributeComparers.equalityCompare
+        Attributes.defineAvaloniaPropertyWithEquality DatePicker.SelectedDateProperty
 
     let SelectedDateChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent
