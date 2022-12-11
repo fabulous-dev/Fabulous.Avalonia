@@ -7,23 +7,19 @@ open Fabulous.StackAllocatedCollections
 
 type IFabSpan =
     inherit IFabInline
-    
+
 module Span =
     let WidgetKey = Widgets.register<Span> ()
-    
+
     let Inlines =
-        Attributes.defineAvaloniaListWidgetCollection
-            "Span_Inlines"
-            (fun target -> (target :?> Span).Inlines)
-    
+        Attributes.defineAvaloniaListWidgetCollection "Span_Inlines" (fun target -> (target :?> Span).Inlines)
+
 [<AutoOpen>]
 module SpanBuilders =
     type Fabulous.Avalonia.View with
+
         static member Span<'msg>() =
-            CollectionBuilder<'msg, IFabSpan, IFabInline>(
-                Span.WidgetKey,
-                Span.Inlines
-            )
+            CollectionBuilder<'msg, IFabSpan, IFabInline>(Span.WidgetKey, Span.Inlines)
 
 [<Extension>]
 type SpanCollectionBuilderExtensions =

@@ -4,18 +4,18 @@ open Avalonia.Controls.Documents
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabLineBreak =
-    inherit IFabInline
+type IFabItalic =
+    inherit IFabSpan
 
-module LineBreak =
-    let WidgetKey = Widgets.register<LineBreak> ()
+module Italic =
+    let WidgetKey = Widgets.register<Italic> ()
 
 [<AutoOpen>]
-module LineBreakBuilders =
+module ItalicBuilders =
     type Fabulous.Avalonia.View with
 
-        static member LineBreak() =
-            WidgetBuilder<'msg, IFabLineBreak>(
-                LineBreak.WidgetKey,
+        static member Italic<'msg>() =
+            WidgetBuilder<'msg, IFabItalic>(
+                Italic.WidgetKey,
                 AttributesBundle(StackList.empty (), ValueNone, ValueNone)
             )

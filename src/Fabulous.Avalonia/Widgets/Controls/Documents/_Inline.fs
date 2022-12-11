@@ -12,6 +12,7 @@ module Inline =
     let TextDecorations =
         Attributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
             let target = target :?> Inline
+
             if target.TextDecorations = null then
                 let newColl = TextDecorationCollection()
                 target.TextDecorations <- newColl
@@ -22,14 +23,14 @@ module Inline =
     let BaselineAlignment =
         Attributes.defineAvaloniaPropertyWithEquality Inline.BaselineAlignmentProperty
 
-// [<Extension>]
-// type InlineModifiers =
-//     [<Extension>]
-//     static member inline baselineAlignment(this: WidgetBuilder<'msg, #IFabInline>, value: BaselineAlignment) =
-//         this.AddScalar(Inline.BaselineAlignment.WithValue(value))
-//         
-//     [<Extension>]
-//     static member inline textDecorations<'msg, 'marker when 'marker :> IFabElement>
-//         (this: WidgetBuilder<'msg, 'marker>)
-//         =
-//         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabInline> Inline.TextDecorations this
+[<Extension>]
+type InlineModifiers =
+    [<Extension>]
+    static member inline baselineAlignment(this: WidgetBuilder<'msg, #IFabInline>, value: BaselineAlignment) =
+        this.AddScalar(Inline.BaselineAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabInline>
+        (this: WidgetBuilder<'msg, 'marker>)
+        =
+        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> Inline.TextDecorations this

@@ -4,18 +4,18 @@ open Avalonia.Controls.Documents
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabLineBreak =
-    inherit IFabInline
+type IFabUnderline =
+    inherit IFabSpan
 
-module LineBreak =
-    let WidgetKey = Widgets.register<LineBreak> ()
+module Underline =
+    let WidgetKey = Widgets.register<Underline> ()
 
 [<AutoOpen>]
-module LineBreakBuilders =
+module UnderlineBuilders =
     type Fabulous.Avalonia.View with
 
-        static member LineBreak() =
-            WidgetBuilder<'msg, IFabLineBreak>(
-                LineBreak.WidgetKey,
+        static member Underline<'msg>() =
+            WidgetBuilder<'msg, IFabUnderline>(
+                Underline.WidgetKey,
                 AttributesBundle(StackList.empty (), ValueNone, ValueNone)
             )

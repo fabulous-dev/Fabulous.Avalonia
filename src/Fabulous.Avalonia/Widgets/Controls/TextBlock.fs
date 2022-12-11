@@ -159,22 +159,16 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline textTrimming(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextTrimming) =
         this.AddScalar(TextBlock.TextTrimming.WithValue(value))
-            
+
     [<Extension>]
     static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>
         (this: WidgetBuilder<'msg, 'marker>)
         =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration>
-            TextBlock.TextDecorations
-            this
-        
+        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> TextBlock.TextDecorations this
+
     [<Extension>]
-    static member inline textInlines<'msg, 'marker when 'marker :> IFabTextBlock>
-        (this: WidgetBuilder<'msg, 'marker>)
-        =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabInline>
-            TextBlock.Inlines
-            this
+    static member inline textInlines<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
+        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabInline> TextBlock.Inlines this
 
 [<Extension>]
 type TextBlockExtraModifiers =
@@ -219,7 +213,7 @@ type TextBlockCollectionBuilderExtensions =
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-        
+
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
         (
