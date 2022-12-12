@@ -1,0 +1,176 @@
+﻿namespace Fabulous.Avalonia
+
+open System.Runtime.CompilerServices
+open Avalonia.Controls
+open Fabulous
+open System
+open Avalonia.Interactivity
+
+type IFabNumericUpDown =
+    inherit IFabTemplatedControl
+
+module NumericUpDown =
+    let WidgetKey = Widgets.register<NumericUpDown> ()
+
+    let AllowSpin =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.AllowSpinProperty
+
+    let ButtonSpinnerLocation =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.ButtonSpinnerLocationProperty
+
+    let ClipValueToMinMax =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.ClipValueToMinMaxProperty
+
+    let FormatString =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.FormatStringProperty
+
+    let HorizontalContentAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.HorizontalContentAlignmentProperty
+
+    let VerticalContentAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.VerticalContentAlignmentProperty
+
+    let Increment =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.IncrementProperty
+
+    let IsReadOnly =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.IsReadOnlyProperty
+
+    let Maximum =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.MaximumProperty
+
+    let Minimum =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.MinimumProperty
+
+    let NumberFormat =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.NumberFormatProperty
+
+    let ParsingNumberStyle =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.ParsingNumberStyleProperty
+
+    let ShowButtonSpinner =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.ShowButtonSpinnerProperty
+
+    let Text = Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.TextProperty
+
+    let TextConverter =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.TextConverterProperty
+
+    let Watermark =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.WatermarkProperty
+
+    let Value =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.ValueProperty
+
+    let ValueChanged =
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty
+
+    let LostFocus =
+        Attributes.defineEvent<RoutedEventArgs> "NumericUpDown_LostFocus" (fun target ->
+            (target :?> NumericUpDown).LostFocus)
+
+[<AutoOpen>]
+module NumericUpDownBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member inline NumericUpDown<'msg>(value: Nullable<decimal>, valueChanged: Nullable<decimal> -> 'msg) =
+            WidgetBuilder<'msg, IFabNumericUpDown>(
+                NumericUpDown.WidgetKey,
+                NumericUpDown.Value.WithValue(value),
+                NumericUpDown.ValueChanged.WithValue(ValueEventData.create value (fun args -> valueChanged args |> box))
+            )
+
+[<Extension>]
+type NumericUpDownModifiers =
+
+    [<Extension>]
+    static member inline allowSpin(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
+        this.AddScalar(NumericUpDown.AllowSpin.WithValue(value))
+
+    [<Extension>]
+    static member inline buttonSpinnerLocation(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: Location) =
+        this.AddScalar(NumericUpDown.ButtonSpinnerLocation.WithValue(value))
+
+    [<Extension>]
+    static member inline clipValueToMinMax(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
+        this.AddScalar(NumericUpDown.ClipValueToMinMax.WithValue(value))
+
+    [<Extension>]
+    static member inline formatString(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
+        this.AddScalar(NumericUpDown.FormatString.WithValue(value))
+
+    [<Extension>]
+    static member inline horizontalContentAlignment
+        (
+            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
+            value: Avalonia.Layout.HorizontalAlignment
+        ) =
+        this.AddScalar(NumericUpDown.HorizontalContentAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline verticalContentAlignment
+        (
+            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
+            value: Avalonia.Layout.VerticalAlignment
+        ) =
+        this.AddScalar(NumericUpDown.VerticalContentAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline increment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: decimal) =
+        this.AddScalar(NumericUpDown.Increment.WithValue(value))
+
+    [<Extension>]
+    static member inline isReadOnly(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
+        this.AddScalar(NumericUpDown.IsReadOnly.WithValue(value))
+
+    [<Extension>]
+    static member inline maximum(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: decimal) =
+        this.AddScalar(NumericUpDown.Maximum.WithValue(value))
+
+    [<Extension>]
+    static member inline minimum(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: decimal) =
+        this.AddScalar(NumericUpDown.Minimum.WithValue(value))
+
+    [<Extension>]
+    static member inline numberFormat
+        (
+            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
+            value: System.Globalization.NumberFormatInfo
+        ) =
+        this.AddScalar(NumericUpDown.NumberFormat.WithValue(value))
+
+    [<Extension>]
+    static member inline parsingNumberStyle
+        (
+            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
+            value: System.Globalization.NumberStyles
+        ) =
+        this.AddScalar(NumericUpDown.ParsingNumberStyle.WithValue(value))
+
+    [<Extension>]
+    static member inline showButtonSpinner(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
+        this.AddScalar(NumericUpDown.ShowButtonSpinner.WithValue(value))
+
+    [<Extension>]
+    static member inline text(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
+        this.AddScalar(NumericUpDown.Text.WithValue(value))
+
+    [<Extension>]
+    static member inline textConverter
+        (
+            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
+            value: Avalonia.Data.Converters.IValueConverter
+        ) =
+        this.AddScalar(NumericUpDown.TextConverter.WithValue(value))
+
+    [<Extension>]
+    static member inline watermark(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
+        this.AddScalar(NumericUpDown.Watermark.WithValue(value))
+
+    [<Extension>]
+    static member inline onLostFocus
+        (
+            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
+            onLostFocus: RoutedEventArgs -> 'msg
+        ) =
+        this.AddScalar(NumericUpDown.LostFocus.WithValue(fun args -> onLostFocus args |> box))
