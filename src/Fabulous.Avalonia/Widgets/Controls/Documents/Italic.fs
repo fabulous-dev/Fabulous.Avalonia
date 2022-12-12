@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Controls.Documents
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabItalic =
     inherit IFabSpan
@@ -14,8 +13,8 @@ module Italic =
 module ItalicBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Italic<'msg>() =
-            WidgetBuilder<'msg, IFabItalic>(
-                Italic.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
-            )
+        static member private Italic<'msg>() =
+            CollectionBuilder<'msg, IFabItalic, IFabInline>(Italic.WidgetKey, Span.Inlines)
+
+        static member Italic<'msg>(text: string) =
+            Fabulous.Avalonia.View.Italic<'msg>() { View.Run<'msg>(text) }

@@ -14,5 +14,8 @@ module Bold =
 module BoldBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Bold<'msg>() =
-            WidgetBuilder<'msg, IFabBold>(Bold.WidgetKey, AttributesBundle(StackList.empty (), ValueNone, ValueNone))
+        static member private Bold<'msg>() =
+            CollectionBuilder<'msg, IFabBold, IFabInline>(Bold.WidgetKey, Span.Inlines)
+
+        static member Bold<'msg>(text: string) =
+            Fabulous.Avalonia.View.Bold<'msg>() { View.Run<'msg>(text) }

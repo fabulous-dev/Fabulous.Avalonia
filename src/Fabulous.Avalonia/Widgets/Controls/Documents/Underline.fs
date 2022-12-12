@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Controls.Documents
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabUnderline =
     inherit IFabSpan
@@ -14,8 +13,8 @@ module Underline =
 module UnderlineBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Underline<'msg>() =
-            WidgetBuilder<'msg, IFabUnderline>(
-                Underline.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
-            )
+        static member private Underline<'msg>() =
+            CollectionBuilder<'msg, IFabUnderline, IFabInline>(Underline.WidgetKey, Span.Inlines)
+
+        static member Underline<'msg>(text: string) =
+            Fabulous.Avalonia.View.Underline<'msg>() { View.Run<'msg>(text) }
