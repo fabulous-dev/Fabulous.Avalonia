@@ -1,10 +1,11 @@
 ﻿namespace Fabulous.Avalonia
 
-open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Data.Converters
+open Avalonia.Layout
 open Fabulous
-open System
-open Avalonia.Interactivity
+open System.Globalization
+open System.Runtime.CompilerServices
 
 type IFabNumericUpDown =
     inherit IFabTemplatedControl
@@ -60,20 +61,20 @@ module NumericUpDown =
         Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.WatermarkProperty
 
     let Value =
-        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.ValueProperty
+        Attributes.defineAvaloniaPropertyWithEqualityConverter NumericUpDown.ValueProperty Option.toNullable
 
     let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty
-
-    let LostFocus =
-        Attributes.defineEvent<RoutedEventArgs> "NumericUpDown_LostFocus" (fun target ->
-            (target :?> NumericUpDown).LostFocus)
+        Attributes.defineAvaloniaPropertyWithChangedEvent
+            "NumericUpDown_ValueChanged"
+            NumericUpDown.ValueProperty
+            Option.toNullable
+            Option.ofNullable
 
 [<AutoOpen>]
 module NumericUpDownBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline NumericUpDown<'msg>(value: Nullable<decimal>, valueChanged: Nullable<decimal> -> 'msg) =
+        static member inline NumericUpDown<'msg>(value: decimal option, valueChanged: decimal option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.Value.WithValue(value),
@@ -103,7 +104,7 @@ type NumericUpDownModifiers =
     static member inline horizontalContentAlignment
         (
             this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: Avalonia.Layout.HorizontalAlignment
+            value: HorizontalAlignment
         ) =
         this.AddScalar(NumericUpDown.HorizontalContentAlignment.WithValue(value))
 
@@ -111,7 +112,7 @@ type NumericUpDownModifiers =
     static member inline verticalContentAlignment
         (
             this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: Avalonia.Layout.VerticalAlignment
+            value: VerticalAlignment
         ) =
         this.AddScalar(NumericUpDown.VerticalContentAlignment.WithValue(value))
 
@@ -132,19 +133,11 @@ type NumericUpDownModifiers =
         this.AddScalar(NumericUpDown.Minimum.WithValue(value))
 
     [<Extension>]
-    static member inline numberFormat
-        (
-            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: System.Globalization.NumberFormatInfo
-        ) =
+    static member inline numberFormat(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: NumberFormatInfo) =
         this.AddScalar(NumericUpDown.NumberFormat.WithValue(value))
 
     [<Extension>]
-    static member inline parsingNumberStyle
-        (
-            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: System.Globalization.NumberStyles
-        ) =
+    static member inline parsingNumberStyle(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: NumberStyles) =
         this.AddScalar(NumericUpDown.ParsingNumberStyle.WithValue(value))
 
     [<Extension>]
@@ -156,21 +149,9 @@ type NumericUpDownModifiers =
         this.AddScalar(NumericUpDown.Text.WithValue(value))
 
     [<Extension>]
-    static member inline textConverter
-        (
-            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: Avalonia.Data.Converters.IValueConverter
-        ) =
+    static member inline textConverter(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: IValueConverter) =
         this.AddScalar(NumericUpDown.TextConverter.WithValue(value))
 
     [<Extension>]
     static member inline watermark(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
         this.AddScalar(NumericUpDown.Watermark.WithValue(value))
-
-    [<Extension>]
-    static member inline onLostFocus
-        (
-            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            onLostFocus: RoutedEventArgs -> 'msg
-        ) =
-        this.AddScalar(NumericUpDown.LostFocus.WithValue(fun args -> onLostFocus args |> box))
