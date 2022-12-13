@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.props" />
+  
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
+    <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="App.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
+  </ItemGroup>
+  
+  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.targets" />
+</Project>
