@@ -1,8 +1,8 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia.Collections
 open Avalonia.Controls
+open Avalonia.Layout
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -39,6 +39,40 @@ module TabControlBuilders =
                     ItemsControl.Items,
                     TabControl.TabStripPlacement.WithValue(Dock.Top)
                 )
+
+[<Extension>]
+type TabControlModifiers =
+    [<Extension>]
+    static member inline horizontalContentAlignment
+        (
+            this: WidgetBuilder<'msg, #IFabTabControl>,
+            value: HorizontalAlignment
+        ) =
+        this.AddScalar(TabControl.HorizontalContentAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline verticalContentAlignment
+        (
+            this: WidgetBuilder<'msg, #IFabTabControl>,
+            value: VerticalAlignment
+        ) =
+        this.AddScalar(TabControl.VerticalContentAlignment.WithValue(value))
+
+[<Extension>]
+type TabControlExtraModifiers =
+
+    [<Extension>]
+    static member inline centerHorizontal(this: WidgetBuilder<'msg, #IFabTabControl>) =
+        TabControlModifiers.horizontalContentAlignment (this, HorizontalAlignment.Center)
+
+    [<Extension>]
+    static member inline centerVertical(this: WidgetBuilder<'msg, #IFabTabControl>) =
+        TabControlModifiers.verticalContentAlignment (this, VerticalAlignment.Center)
+
+    [<Extension>]
+    static member inline center(this: WidgetBuilder<'msg, #IFabTabControl>) =
+        this.centerHorizontal().centerVertical ()
+
 
 [<Extension>]
 type TabControlCollectionBuilderExtensions =
