@@ -86,6 +86,7 @@
     <Compile Include="Widgets\Controls\Documents\Italic.fs" />
     <Compile Include="Widgets\Controls\Documents\Underline.fs" />
     <Compile Include="Widgets\Controls\TextBlock.fs" />
+    <Compile Include="Widgets\Controls\SelectableTextBlock.fs" />
     <Compile Include="Widgets\Controls\TextBox.fs" />
     <Compile Include="Widgets\Controls\MaskedTextBox.fs" />
     <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
