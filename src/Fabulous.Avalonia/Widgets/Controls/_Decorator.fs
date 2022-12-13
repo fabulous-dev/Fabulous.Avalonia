@@ -20,6 +20,8 @@ type DecoratorModifiers =
     static member inline padding(this: WidgetBuilder<'msg, #IFabDecorator>, value: Thickness) =
         this.AddScalar(Decorator.Padding.WithValue(value))
 
+[<Extension>]
+type DecoratorExtraModifiers =
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabDecorator>, value: float) =
         DecoratorModifiers.padding (this, Thickness(value))

@@ -104,5 +104,20 @@ type TemplatedControlModifiers =
 [<Extension>]
 type TemplatedControlExtraModifiers =
     [<Extension>]
-    static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, uniformValue: float) =
-        this.padding (Thickness(uniformValue))
+    static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: float) =
+        TemplatedControlModifiers.padding (this, Thickness(value))
+
+    [<Extension>]
+    static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, horizontal: float, vertical: float) =
+        TemplatedControlModifiers.padding (this, Thickness(horizontal, vertical))
+
+    [<Extension>]
+    static member inline padding
+        (
+            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
+            left: float,
+            top: float,
+            right: float,
+            bottom: float
+        ) =
+        TemplatedControlModifiers.padding (this, Thickness(left, top, right, bottom))

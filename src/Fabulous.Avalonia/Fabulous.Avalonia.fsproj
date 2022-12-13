@@ -65,6 +65,7 @@
     <Compile Include="Widgets\Controls\_Interactive.fs" />
     <Compile Include="Widgets\Controls\_InputElement.fs" />
     <Compile Include="Widgets\Controls\_Control.fs" />
+    <Compile Include="Widgets\Controls\_Decorator.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\Panels\_Panel.fs" />
@@ -73,7 +74,19 @@
     <Compile Include="Widgets\Controls\Panels\StackPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\DockPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
+    <Compile Include="Widgets\Controls\Border.fs" />
+    <Compile Include="Widgets\Controls\TextDecoration.fs" />
+    <Compile Include="Widgets\Controls\Documents\_TextElement.fs" />
+    <Compile Include="Widgets\Controls\Documents\_Inline.fs" />
+    <Compile Include="Widgets\Controls\Documents\Run.fs" />
+    <Compile Include="Widgets\Controls\Documents\LineBreak.fs" />
+    <Compile Include="Widgets\Controls\Documents\InlineUIContainer.fs" />
+    <Compile Include="Widgets\Controls\Documents\Span.fs" />
+    <Compile Include="Widgets\Controls\Documents\Bold.fs" />
+    <Compile Include="Widgets\Controls\Documents\Italic.fs" />
+    <Compile Include="Widgets\Controls\Documents\Underline.fs" />
     <Compile Include="Widgets\Controls\TextBlock.fs" />
+    <Compile Include="Widgets\Controls\SelectableTextBlock.fs" />
     <Compile Include="Widgets\Controls\TextBox.fs" />
     <Compile Include="Widgets\Controls\MaskedTextBox.fs" />
     <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
@@ -85,7 +98,6 @@
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
-    <Compile Include="Widgets\Controls\_Decorator.fs" />
     <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />
     <Compile Include="Widgets\Controls\Shapes\Polyline.fs" />
     <Compile Include="Widgets\Controls\Shapes\Polygon.fs" />
@@ -98,7 +110,6 @@
     <Compile Include="Widgets\Controls\CroppedBitmap.fs" />
     <Compile Include="Widgets\Controls\Image.fs" />
     <Compile Include="Widgets\Controls\Button.fs" />
-    <Compile Include="Widgets\Controls\Border.fs" />
     <Compile Include="Widgets\Controls\CheckBox.fs" />
     <Compile Include="Widgets\Controls\NumericUpDown.fs" />
     <Compile Include="Widgets\Controls\ScrollViewer.fs" />
