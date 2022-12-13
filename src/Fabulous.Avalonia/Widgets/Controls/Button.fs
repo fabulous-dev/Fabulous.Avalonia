@@ -47,21 +47,21 @@ type ButtonModifiers =
         this.AddScalar(Button.ClickMode.WithValue(clickMode))
 
     [<Extension>]
-    static member inline hotKey(this: WidgetBuilder<'msg, #IFabButton>, hotKey: KeyGesture) =
-        this.AddScalar(Button.HotKey.WithValue(hotKey))
+    static member inline hotKey(this: WidgetBuilder<'msg, #IFabButton>, value: KeyGesture) =
+        this.AddScalar(Button.HotKey.WithValue(value))
 
     [<Extension>]
-    static member inline isDefault(this: WidgetBuilder<'msg, #IFabButton>, isDefault: bool) =
-        this.AddScalar(Button.IsDefault.WithValue(isDefault))
+    static member inline isDefault(this: WidgetBuilder<'msg, #IFabButton>, value: bool) =
+        this.AddScalar(Button.IsDefault.WithValue(value))
 
     [<Extension>]
-    static member inline isCancel(this: WidgetBuilder<'msg, #IFabButton>, isCancel: bool) =
-        this.AddScalar(Button.IsCancel.WithValue(isCancel))
+    static member inline isCancel(this: WidgetBuilder<'msg, #IFabButton>, value: bool) =
+        this.AddScalar(Button.IsCancel.WithValue(value))
 
     [<Extension>]
-    static member inline isPressed(this: WidgetBuilder<'msg, #IFabButton>, isPressed: bool) =
-        this.AddScalar(Button.IsPressed.WithValue(isPressed))
+    static member inline isPressed(this: WidgetBuilder<'msg, #IFabButton>, value: bool) =
+        this.AddScalar(Button.IsPressed.WithValue(value))
 
     [<Extension>]
-    static member inline flyout(this: WidgetBuilder<'msg, #IFabButton>, flyout: WidgetBuilder<'msg, IFabFlyoutBase>) =
-        this.AddWidget(Button.Flyout.WithValue(flyout.Compile()))
+    static member inline flyout(this: WidgetBuilder<'msg, #IFabButton>, content: WidgetBuilder<'msg, IFabFlyoutBase>) =
+        this.AddWidget(Button.Flyout.WithValue(content.Compile()))
