@@ -60,7 +60,6 @@
     <Compile Include="Widgets\Media\Drawing\DrawingGroup.fs" />
     <Compile Include="Widgets\Media\Drawing\ImageDrawing.fs" />
     <Compile Include="Widgets\Media\Drawing\DrawingImage.fs" />
-    <Compile Include="Widgets\Media\Imaging\CroppedBitmap.fs" />
     <Compile Include="Widgets\Controls\_Visual.fs" />
     <Compile Include="Widgets\Controls\_Layoutable.fs" />
     <Compile Include="Widgets\Controls\_Interactive.fs" />
@@ -97,6 +96,7 @@
     <Compile Include="Widgets\Controls\Shapes\Sector.fs" />
     <Compile Include="Widgets\Controls\Shapes\Ellipse.fs" />
     <Compile Include="Widgets\Controls\Shapes\Path.fs" />
+    <Compile Include="Widgets\Controls\CroppedBitmap.fs" />
     <Compile Include="Widgets\Controls\Image.fs" />
     <Compile Include="Widgets\Controls\Button.fs" />
     <Compile Include="Widgets\Controls\ButtonSpinner.fs" />
@@ -104,6 +104,7 @@
     <Compile Include="Widgets\Controls\CheckBox.fs" />
     <Compile Include="Widgets\Controls\ScrollViewer.fs" />
     <Compile Include="Widgets\Controls\DatePicker.fs" />
+    <Compile Include="Widgets\Controls\TimePicker.fs" />
     <Compile Include="Widgets\Controls\UserControl.fs" />
     <Compile Include="Widgets\Controls\Window.fs" />
     <Compile Include="Widgets\Controls\Slider.fs" />
