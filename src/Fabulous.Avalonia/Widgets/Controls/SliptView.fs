@@ -62,7 +62,7 @@ module SplitViewBuilders =
                     StackList.empty (),
                     ValueSome
                         [| SplitView.Pane.WithValue(pane.Compile())
-                           ContentControl.Content.WithValue(content.Compile()) |],
+                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueSome [||]
                 )
             )

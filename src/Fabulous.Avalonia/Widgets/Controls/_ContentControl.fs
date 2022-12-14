@@ -9,7 +9,7 @@ type IFabContentControl =
     inherit IFabTemplatedControl
 
 module ContentControl =
-    let Content = Attributes.defineAvaloniaPropertyWidget ContentControl.ContentProperty
+    let ContentWidget = Attributes.defineAvaloniaPropertyWidget ContentControl.ContentProperty
 
     let ContentString =
         Attributes.defineAvaloniaProperty<string, obj>

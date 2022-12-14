@@ -77,7 +77,7 @@ module ScrollViewerBuilders =
                 ScrollViewer.WidgetKey,
                 AttributesBundle(
                     StackList.empty (),
-                    ValueSome [| ContentControl.Content.WithValue(content.Compile()) |],
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
