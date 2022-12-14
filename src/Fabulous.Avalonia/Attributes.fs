@@ -67,6 +67,22 @@ module Attributes =
             | ValueNone -> target.ClearValue(directProperty)
             | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
 
+    /// Define an attribute for an AvaloniaProperty supporting equality comparison and converter
+    let inline defineAvaloniaPropertyWithEqualityConverter<'T, 'modelType, 'valueType when 'T: equality>
+        (directProperty: AvaloniaProperty<'T>)
+        (convert: 'modelType -> 'valueType)
+        =
+        Attributes.defineScalar<'modelType, 'valueType>
+            directProperty.Name
+            convert
+            ScalarAttributeComparers.noCompare
+            (fun _ newValueOpt node ->
+                let target = node.Target :?> IAvaloniaObject
+
+                match newValueOpt with
+                | ValueNone -> target.ClearValue(directProperty)
+                | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
+
     /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
     let defineAvaloniaListWidgetCollection<'itemType> name (getCollection: obj -> IAvaloniaList<'itemType>) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
