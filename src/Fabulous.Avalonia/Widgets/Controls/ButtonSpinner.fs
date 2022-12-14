@@ -25,23 +25,10 @@ module ButtonSpinner =
 module ButtonSpinnerBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ButtonSpinner(content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline ButtonSpinner(text: string) =
             WidgetBuilder<'msg, IFabButtonSpinner>(
                 ButtonSpinner.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| ContentControl.Content.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-        static member inline ButtonSpinner(content: string) =
-            WidgetBuilder<'msg, IFabButtonSpinner>(
-                ButtonSpinner.WidgetKey,
-                AttributesBundle(
-                    StackList.one (ContentControl.ContentString.WithValue(content)),
-                    ValueNone,
-                    ValueNone
-                )
+                ContentControl.ContentString.WithValue(text)
             )
 
 [<Extension>]

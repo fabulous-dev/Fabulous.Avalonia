@@ -12,6 +12,6 @@ module HeaderedContentControl =
             HeaderedContentControl.HeaderProperty
             box
             ScalarAttributeComparers.equalityCompare
-            
+
     let HeaderWidget =
         Attributes.defineAvaloniaPropertyWidget HeaderedContentControl.HeaderProperty

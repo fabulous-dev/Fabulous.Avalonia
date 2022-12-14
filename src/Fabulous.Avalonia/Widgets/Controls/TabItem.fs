@@ -29,16 +29,15 @@ module TabItemBuilders =
                     ValueNone
                 )
             )
-            
+
         static member TabItem(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
                     StackList.empty (),
-                    ValueSome [|
-                        HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
-                        ContentControl.Content.WithValue(content.Compile())
-                    |],
+                    ValueSome
+                        [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
+                           ContentControl.Content.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
