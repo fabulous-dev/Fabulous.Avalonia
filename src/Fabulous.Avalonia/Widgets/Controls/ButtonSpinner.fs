@@ -34,6 +34,15 @@ module ButtonSpinnerBuilders =
                     ValueNone
                 )
             )
+        static member inline ButtonSpinner(content: string) =
+            WidgetBuilder<'msg, IFabButtonSpinner>(
+                ButtonSpinner.WidgetKey,
+                AttributesBundle(
+                    StackList.one (ContentControl.ContentString.WithValue(content)),
+                    ValueNone,
+                    ValueNone
+                )
+            )
 
 [<Extension>]
 type ButtonSpinnerModifiers =
