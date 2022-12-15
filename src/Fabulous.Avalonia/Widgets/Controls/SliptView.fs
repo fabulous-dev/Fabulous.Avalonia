@@ -46,11 +46,9 @@ module SplitView =
 
     let PanOpening =
         Attributes.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
-        
+
     let IsPresented =
-        Attributes.defineAvaloniaPropertyWithChangedEvent'
-            "SplitView_IsPresented"
-            SplitView.IsPaneOpenProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
 
 [<AutoOpen>]
 module SplitViewBuilders =
@@ -123,7 +121,7 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, onPanOpening: 'msg) =
         this.AddScalar(SplitView.PanOpening.WithValue(fun _ -> onPanOpening |> box))
-        
+
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, onChanged: bool -> 'msg) =
         this.AddScalar(SplitView.IsPresented.WithValue(ValueEventData.create value (fun v -> onChanged v |> box)))

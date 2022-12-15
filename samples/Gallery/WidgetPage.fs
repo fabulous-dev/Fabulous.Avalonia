@@ -18,25 +18,23 @@ module WidgetPage =
         | SampleMsg of obj
         | SampleViewChanged of WidgetType
         | OpenBrowser of string
-        
+
     let init index =
         let sample = Registry.getForIndex index
+
         { Sample = sample
-          SampleModel = sample.Program.init()
+          SampleModel = sample.Program.init ()
           SelectedSampleView = WidgetType.Run }
-        
+
     let update msg model =
         match msg with
         | SampleMsg sampleMsg ->
             let sampleModel = model.Sample.Program.update sampleMsg model.SampleModel
-            { model with
-                SampleModel = sampleModel }, Cmd.none
-            
-        | SampleViewChanged value ->
-            { model with SelectedSampleView = value }, Cmd.none
-            
-        | OpenBrowser _ ->
-            model, Cmd.none
+            { model with SampleModel = sampleModel }, Cmd.none
+
+        | SampleViewChanged value -> { model with SelectedSampleView = value }, Cmd.none
+
+        | OpenBrowser _ -> model, Cmd.none
 
     let sampleViews =
         [ { Value = WidgetType.Run
@@ -46,10 +44,10 @@ module WidgetPage =
 
     let view model =
         VStack(spacing = 20.) {
-            TextBlock(model.Sample.Name).centerHorizontal()
+            TextBlock(model.Sample.Name).centerHorizontal ()
             WidgetSelector(sampleViews, model.SelectedSampleView, SampleViewChanged)
             TextBlock(model.Sample.Description)
-            
+
             VStack(spacing = 5.) {
                 TextBlock("Source")
                 TextBlock(model.Sample.SourceFilename)
@@ -60,8 +58,7 @@ module WidgetPage =
                 TextBlock(model.Sample.DocumentationName)
             }
 
-            Separator()
-                .background(SolidColorBrush(Colors.Gray))
+            Separator().background (SolidColorBrush(Colors.Gray))
 
 
             Grid() {
@@ -72,8 +69,6 @@ module WidgetPage =
                     (View.map SampleMsg (model.Sample.SampleCodeFormatted()))
                         .margin (Thickness(0., 0., 0., 10.))
                 )
-                    .isVisible (
-                        model.SelectedSampleView = Code
-                    )
+                    .isVisible (model.SelectedSampleView = Code)
             }
         }

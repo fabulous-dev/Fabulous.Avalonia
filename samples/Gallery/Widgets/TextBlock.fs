@@ -56,8 +56,7 @@ module TextBlock =
         { Name = "TextBlock"
           Description = "A simple text block"
           SourceFilename = "Views/Controls/TextBlock.fs"
-          SourceLink =
-            "https://github.com/fsprojects/Fabulous/blob/v2.0/src/Fabulous.Avalonia/Views/Controls/Button.fs"
+          SourceLink = "https://github.com/fsprojects/Fabulous/blob/v2.0/src/Fabulous.Avalonia/Views/Controls/Button.fs"
           DocumentationName = "Button API reference"
           DocumentationLink = "https://docs.fabulous.dev/v2/api/controls/button"
           SampleCode = Helper.cleanMarkersFromSampleCode sampleCode

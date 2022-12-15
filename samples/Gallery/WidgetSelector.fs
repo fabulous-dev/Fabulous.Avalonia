@@ -47,7 +47,7 @@ module WidgetSelector =
                 else
                     SolidColorBrush(Colors.LightGray)
             )
-            .padding(0.)
+            .padding (0.)
 
 [<AutoOpen>]
 module WidgetSelectorBuilders =
