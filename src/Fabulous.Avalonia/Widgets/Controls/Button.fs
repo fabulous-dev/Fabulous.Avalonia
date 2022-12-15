@@ -40,15 +40,16 @@ module ButtonBuilders =
                 ContentControl.ContentString.WithValue(text),
                 Button.Clicked.WithValue(fun _ -> box onClicked)
             )
-            
+
         static member inline Button(content: WidgetBuilder<'msg, #IFabControl>, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabButton>(
                 Button.WidgetKey,
                 AttributesBundle(
-                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone)
-                
+                    ValueNone
+                )
+
             )
 
 [<Extension>]

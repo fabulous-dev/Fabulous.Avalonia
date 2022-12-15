@@ -11,6 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <AvaloniaResource Include="Assets\*" />
+    <EmbeddedResource Include="Assets\Fonts\icomoon.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="Common.fs" />
+    <Compile Include="Widgets\Button.fs" />
+    <Compile Include="Registry.fs" />
+    <Compile Include="WidgetSelector.fs" />
+    <Compile Include="WidgetPage.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
 
@@ -18,6 +29,10 @@
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\Icons\fabulous-icon.png" />
+  </ItemGroup>
+
   <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.targets" />
 </Project>
