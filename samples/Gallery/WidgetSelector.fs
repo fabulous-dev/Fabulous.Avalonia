@@ -1,9 +1,7 @@
 namespace Gallery
 
-open System
 open Avalonia.Media
 open Fabulous.Avalonia
-open Avalonia
 
 open type Fabulous.Avalonia.View
 
@@ -27,7 +25,6 @@ module WidgetSelector =
 
         Border(
             Button(foreground, onSelected)
-                //.isEnabled(isSelected)
                 .centerHorizontal()
                 .centerVertical()
                 .foreground (
@@ -50,7 +47,7 @@ module WidgetSelector =
                 else
                     SolidColorBrush(Colors.LightGray)
             )
-            .padding (0.)
+            .padding(0.)
 
 [<AutoOpen>]
 module WidgetSelectorBuilders =

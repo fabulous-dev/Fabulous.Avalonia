@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Widgets\Button.fs" />
+    <Compile Include="Widgets\TextBlock.fs" />
     <Compile Include="Registry.fs" />
     <Compile Include="WidgetSelector.fs" />
     <Compile Include="WidgetPage.fs" />

@@ -1,8 +1,6 @@
 namespace Gallery
 
-open System
 open Avalonia
-open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
@@ -11,15 +9,6 @@ open Gallery
 open type Fabulous.Avalonia.View
 
 module WidgetPage =
-    // let openBrowserCmd url =
-    //     async {
-    //         do!
-    //             Browser.OpenAsync(Uri url, BrowserLaunchMode.SystemPreferred)
-    //             |> Async.AwaitTask
-    //     }
-    //     |> Async.executeOnMainThread
-    //     |> Cmd.performAsync
-
     type Model =
         { Sample: Sample
           SampleModel: obj
@@ -29,23 +18,25 @@ module WidgetPage =
         | SampleMsg of obj
         | SampleViewChanged of WidgetType
         | OpenBrowser of string
-
+        
     let init index =
         let sample = Registry.getForIndex index
-
         { Sample = sample
-          SampleModel = sample.Program.init ()
+          SampleModel = sample.Program.init()
           SelectedSampleView = WidgetType.Run }
-
+        
     let update msg model =
         match msg with
         | SampleMsg sampleMsg ->
             let sampleModel = model.Sample.Program.update sampleMsg model.SampleModel
-            { model with SampleModel = sampleModel }, Cmd.none
-
-        | SampleViewChanged value -> { model with SelectedSampleView = value }, Cmd.none
-
-        | OpenBrowser url -> model, Cmd.none
+            { model with
+                SampleModel = sampleModel }, Cmd.none
+            
+        | SampleViewChanged value ->
+            { model with SelectedSampleView = value }, Cmd.none
+            
+        | OpenBrowser _ ->
+            model, Cmd.none
 
     let sampleViews =
         [ { Value = WidgetType.Run
