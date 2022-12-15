@@ -54,49 +54,23 @@ module WidgetPage =
             Text = "M8,5.14V19.14L19,12.14L8,5.14Z" } ]
 
     let view model =
-
-        (VStack(spacing = 20.) {
-            HStack() {
-                TextBlock(model.Sample.Name)
-                //.font(NamedSize.Title)
-                //.padding(top = 20.)
-
-                WidgetSelector(sampleViews, model.SelectedSampleView, SampleViewChanged)
-            //.alignEndHorizontal(expand = true)
-            //.alignEndVertical()
-            }
-
+        VStack(spacing = 20.) {
+            TextBlock(model.Sample.Name).centerHorizontal()
+            WidgetSelector(sampleViews, model.SelectedSampleView, SampleViewChanged)
             TextBlock(model.Sample.Description)
-
+            
             VStack(spacing = 5.) {
                 TextBlock("Source")
-                //.font(NamedSize.Micro)
-                //.textTransform(TextTransform.Uppercase)
-                //.textColor(FabColor.fromHex "#A4A4A4")
-
                 TextBlock(model.Sample.SourceFilename)
-            //.font(NamedSize.Small)
-            //.gestureRecognizers() {
-            // TapGestureRecognizer(OpenBrowser model.Sample.SourceLink)
-            // }
             }
 
             VStack(spacing = 5.) {
                 TextBlock("Documentation")
-                //.font(NamedSize.Micro)
-                //.textTransform(TextTransform.Uppercase)
-                //.textColor(FabColor.fromHex "#A4A4A4")
-
                 TextBlock(model.Sample.DocumentationName)
-            //.font(NamedSize.Small)
-            //.gestureRecognizers() {
-            // TapGestureRecognizer(OpenBrowser model.Sample.DocumentationLink)
-            //}
             }
 
-            Separator().background (SolidColorBrush(Colors.Gray))
-            // Rectangle(1., SolidColorBrush(Colors.Gray))
-            //     .height(if Device.RuntimePlatform = Device.iOS then 1. else 2.)
+            Separator()
+                .background(SolidColorBrush(Colors.Gray))
 
 
             Grid() {
@@ -107,9 +81,8 @@ module WidgetPage =
                     (View.map SampleMsg (model.Sample.SampleCodeFormatted()))
                         .margin (Thickness(0., 0., 0., 10.))
                 )
-                    //.orientation(ScrollOrientation.Horizontal)
                     .isVisible (
                         model.SelectedSampleView = Code
                     )
             }
-        })
+        }
