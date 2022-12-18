@@ -8,7 +8,7 @@ type IFabTranslateTransform =
 
 module TranslateTransform =
 
-    let WidgetKey = Widgets.register<TranslateTransform>()
+    let WidgetKey = Widgets.register<TranslateTransform> ()
 
     let X = Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.XProperty
 

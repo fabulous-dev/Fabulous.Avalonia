@@ -8,7 +8,7 @@ type IFabSeparator =
     inherit IFabTemplatedControl
 
 module Separator =
-    let WidgetKey = Widgets.register<Separator>()
+    let WidgetKey = Widgets.register<Separator> ()
 
 [<AutoOpen>]
 module SeparatorBuilders =
@@ -17,5 +17,5 @@ module SeparatorBuilders =
         static member Separator() =
             WidgetBuilder<'msg, IFabSeparator>(
                 Separator.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueNone, ValueNone)
+                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
             )

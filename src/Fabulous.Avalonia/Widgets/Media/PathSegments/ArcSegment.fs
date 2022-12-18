@@ -9,7 +9,7 @@ type IFabArcSegment =
     inherit IFabPathSegment
 
 module ArcSegment =
-    let WidgetKey = Widgets.register<ArcSegment>()
+    let WidgetKey = Widgets.register<ArcSegment> ()
 
     let IsLargeArc =
         Attributes.defineAvaloniaPropertyWithEquality ArcSegment.IsLargeArcProperty

@@ -23,4 +23,4 @@ module Helper =
         =
         { init = init >> box
           update = (fun msg model -> update (unbox msg) (unbox model) |> box)
-          view = (fun model -> AnyView(View.map box (view(unbox model)))) }
+          view = (fun model -> AnyView(View.map box (view (unbox model)))) }

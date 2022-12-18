@@ -7,7 +7,7 @@ type IFabAccessText =
     inherit IFabTextBlock
 
 module AccessText =
-    let WidgetKey = Widgets.register<AccessText>()
+    let WidgetKey = Widgets.register<AccessText> ()
 
     let ShowAccessKey =
         Attributes.defineAvaloniaPropertyWithEquality AccessText.ShowAccessKeyProperty

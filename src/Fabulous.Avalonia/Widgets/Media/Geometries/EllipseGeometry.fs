@@ -9,7 +9,7 @@ type IFabEllipseGeometry =
     inherit IFabGeometry
 
 module EllipseGeometry =
-    let WidgetKey = Widgets.register<EllipseGeometry>()
+    let WidgetKey = Widgets.register<EllipseGeometry> ()
 
     let Rect =
         Attributes.defineAvaloniaPropertyWithEquality EllipseGeometry.RectProperty

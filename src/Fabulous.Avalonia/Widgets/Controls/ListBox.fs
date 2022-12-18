@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -9,7 +8,7 @@ type IFabListBox =
     inherit IFabSelectingItemsControl
 
 module ListBox =
-    let WidgetKey = Widgets.register<ListBox>()
+    let WidgetKey = Widgets.register<ListBox> ()
 
     let ItemsSource<'T> =
         Attributes.defineSimpleScalar<WidgetItems<'T>>

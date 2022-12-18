@@ -10,7 +10,7 @@ type IFabGradientStop =
 
 module GradientStop =
 
-    let WidgetKey = Widgets.register<GradientStop>()
+    let WidgetKey = Widgets.register<GradientStop> ()
 
     let Color = Attributes.defineAvaloniaPropertyWithEquality GradientStop.ColorProperty
 

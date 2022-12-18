@@ -13,7 +13,7 @@ module Button =
         | Increment
         | Decrement
 
-    let init() = { Count = 0 }
+    let init () = { Count = 0 }
 
     let update msg model =
         match msg with
@@ -27,7 +27,7 @@ module Button =
             Button("Click me!", Clicked)
 
             TextBlock("Disabled button")
-            Button("Disabled button", Clicked).isEnabled(false)
+            Button("Disabled button", Clicked).isEnabled (false)
 
             TextBlock("Button with styling")
 
@@ -35,15 +35,15 @@ module Button =
                 Button("Decrement", Decrement)
                     .background(SolidColorBrush(Color.Parse("#FF0000")))
                     .foreground(SolidColorBrush(Color.Parse("#FFFFFF")))
-                    .padding(5.)
+                    .padding (5.)
 
-                TextBlock($"Count: {model.Count}").centerVertical()
+                TextBlock($"Count: {model.Count}").centerVertical ()
 
                 Button("Increment", Increment)
                     .background(SolidColorBrush(Color.Parse("#43ab2f")))
-                    .padding(5.)
+                    .padding (5.)
             })
-                .centerHorizontal()
+                .centerHorizontal ()
         }
 
     let sample =

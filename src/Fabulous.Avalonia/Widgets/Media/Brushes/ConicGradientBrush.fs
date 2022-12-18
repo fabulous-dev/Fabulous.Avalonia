@@ -8,7 +8,7 @@ type IFabConicGradientBrush =
     inherit IFabGradientBrush
 
 module ConicGradientBrush =
-    let WidgetKey = Widgets.register<ConicGradientBrush>()
+    let WidgetKey = Widgets.register<ConicGradientBrush> ()
 
     let Center =
         Attributes.defineAvaloniaPropertyWithEquality ConicGradientBrush.CenterProperty

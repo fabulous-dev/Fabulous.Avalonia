@@ -9,7 +9,7 @@ type IFabMatrixTransform =
 
 module MatrixTransform =
 
-    let WidgetKey = Widgets.register<MatrixTransform>()
+    let WidgetKey = Widgets.register<MatrixTransform> ()
 
     let Matrix =
         Attributes.defineAvaloniaPropertyWithEquality MatrixTransform.MatrixProperty

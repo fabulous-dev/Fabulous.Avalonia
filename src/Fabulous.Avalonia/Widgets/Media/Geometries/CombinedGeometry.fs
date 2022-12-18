@@ -10,7 +10,7 @@ type IFabCombinedGeometry =
 
 module CombinedGeometry =
 
-    let WidgetKey = Widgets.register<CombinedGeometry>()
+    let WidgetKey = Widgets.register<CombinedGeometry> ()
 
     let Geometry1 =
         Attributes.defineAvaloniaPropertyWidget CombinedGeometry.Geometry1Property
@@ -33,7 +33,7 @@ module CombinedGeometryBuilders =
             WidgetBuilder<'msg, IFabCombinedGeometry>(
                 CombinedGeometry.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
+                    StackList.empty (),
                     ValueSome
                         [| CombinedGeometry.Geometry1.WithValue(geometry1.Compile())
                            CombinedGeometry.Geometry2.WithValue(geometry2.Compile()) |],

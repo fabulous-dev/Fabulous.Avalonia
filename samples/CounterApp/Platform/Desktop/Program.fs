@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 module Program =
 
     [<CompiledName "BuildAvaloniaApp">]
-    let buildAvaloniaApp() =
+    let buildAvaloniaApp () =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .LogToTrace(areas = Array.empty)

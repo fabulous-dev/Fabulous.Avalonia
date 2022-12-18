@@ -10,7 +10,7 @@ type IFabSelectableTextBlock =
     inherit IFabTextBlock
 
 module SelectableTextBlock =
-    let WidgetKey = Widgets.register<SelectableTextBlock>()
+    let WidgetKey = Widgets.register<SelectableTextBlock> ()
 
     let SelectionStart =
         Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionStartProperty
@@ -44,7 +44,7 @@ module SelectableTextBlockBuilders =
             | None ->
                 WidgetBuilder<'msg, IFabSelectableTextBlock>(
                     SelectableTextBlock.WidgetKey,
-                    AttributesBundle(StackList.empty(), ValueNone, ValueNone)
+                    AttributesBundle(StackList.empty (), ValueNone, ValueNone)
                 )
 
 [<Extension>]

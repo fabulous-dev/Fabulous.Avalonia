@@ -14,13 +14,15 @@ module WidgetPage =
 
     let samples = [ Button.sample; TextBlock.sample ]
 
-    let getForIndex(index: int) = samples.[index]
+    let getSamplesNames () = samples |> List.map (fun s -> s.Name)
+
+    let getForIndex (index: int) = samples.[index]
 
     let init index =
         let sample = getForIndex index
 
         { Sample = sample
-          SampleModel = sample.Program.init() }
+          SampleModel = sample.Program.init () }
 
     let update msg model =
         match msg with
@@ -30,8 +32,8 @@ module WidgetPage =
 
     let view model =
         VStack(spacing = 20.) {
-            TextBlock(model.Sample.Name).centerHorizontal()
+            TextBlock(model.Sample.Name).centerHorizontal ()
             TextBlock(model.Sample.Description)
-            Separator().background(SolidColorBrush(Colors.Gray))
+            Separator().background (SolidColorBrush(Colors.Gray))
             View.map SampleMsg (model.Sample.Program.view model.SampleModel)
         }

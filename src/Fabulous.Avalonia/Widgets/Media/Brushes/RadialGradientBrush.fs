@@ -9,7 +9,7 @@ type IFabRadialGradientBrush =
     inherit IFabBrush
 
 module RadialGradientBrush =
-    let WidgetKey = Widgets.register<RadialGradientBrush>()
+    let WidgetKey = Widgets.register<RadialGradientBrush> ()
 
     let Center =
         Attributes.defineAvaloniaPropertyWithEquality RadialGradientBrush.CenterProperty

@@ -11,7 +11,7 @@ type IFabTextBox =
     inherit IFabTemplatedControl
 
 module TextBox =
-    let WidgetKey = Widgets.register<TextBox>()
+    let WidgetKey = Widgets.register<TextBox> ()
 
     let Text = Attributes.defineAvaloniaPropertyWithEquality TextBox.TextProperty
 

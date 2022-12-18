@@ -12,7 +12,7 @@ module TextBlock =
         | Increment
         | Decrement
 
-    let init() = { Count = 0 }
+    let init () = { Count = 0 }
 
     let update msg model =
         match msg with

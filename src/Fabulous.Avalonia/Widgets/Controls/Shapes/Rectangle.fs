@@ -7,7 +7,7 @@ type IFabRectangle =
     inherit IFabShape
 
 module Rectangle =
-    let WidgetKey = Widgets.register<Rectangle>()
+    let WidgetKey = Widgets.register<Rectangle> ()
 
     let RadiusX =
         Attributes.defineAvaloniaPropertyWithEquality Rectangle.RadiusXProperty

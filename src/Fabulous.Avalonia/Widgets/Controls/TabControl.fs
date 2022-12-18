@@ -10,7 +10,7 @@ type IFabTabControl =
     inherit IFabSelectingItemsControl
 
 module TabControl =
-    let WidgetKey = Widgets.register<TabControl>()
+    let WidgetKey = Widgets.register<TabControl> ()
 
     let TabStripPlacement =
         Attributes.defineAvaloniaPropertyWithEquality TabControl.TabStripPlacementProperty
@@ -63,15 +63,15 @@ type TabControlExtraModifiers =
 
     [<Extension>]
     static member inline centerHorizontal(this: WidgetBuilder<'msg, #IFabTabControl>) =
-        TabControlModifiers.horizontalContentAlignment(this, HorizontalAlignment.Center)
+        TabControlModifiers.horizontalContentAlignment (this, HorizontalAlignment.Center)
 
     [<Extension>]
     static member inline centerVertical(this: WidgetBuilder<'msg, #IFabTabControl>) =
-        TabControlModifiers.verticalContentAlignment(this, VerticalAlignment.Center)
+        TabControlModifiers.verticalContentAlignment (this, VerticalAlignment.Center)
 
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabTabControl>) =
-        this.centerHorizontal().centerVertical()
+        this.centerHorizontal().centerVertical ()
 
 [<Extension>]
 type TabControlCollectionBuilderExtensions =

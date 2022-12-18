@@ -11,7 +11,7 @@ type IFabCroppedBitmap =
 
 module CroppedBitmap =
 
-    let WidgetKey = Widgets.register<CroppedBitmap>()
+    let WidgetKey = Widgets.register<CroppedBitmap> ()
 
     let Source =
         Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceProperty
@@ -37,7 +37,7 @@ module CroppedBitmapBuilders =
             WidgetBuilder<'msg, IFabCroppedBitmap>(
                 CroppedBitmap.WidgetKey,
                 AttributesBundle(
-                    StackList.one(CroppedBitmap.SourceRect.WithValue(rect)),
+                    StackList.one (CroppedBitmap.SourceRect.WithValue(rect)),
                     ValueSome [| CroppedBitmap.SourceWidget.WithValue(source.Compile()) |],
                     ValueNone
                 )

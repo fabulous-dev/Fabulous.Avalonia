@@ -8,7 +8,7 @@ type IFabTrack =
     inherit IFabControl
 
 module Track =
-    let WidgetKey = Widgets.register<Track>()
+    let WidgetKey = Widgets.register<Track> ()
 
     let Minimum = Attributes.defineAvaloniaPropertyWithEquality Track.MinimumProperty
 
@@ -38,4 +38,4 @@ module TrackBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline Track() =
-            WidgetBuilder<'msg, IFabTrack>(Track.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabTrack>(Track.WidgetKey, AttributesBundle(StackList.empty (), ValueNone, ValueNone))

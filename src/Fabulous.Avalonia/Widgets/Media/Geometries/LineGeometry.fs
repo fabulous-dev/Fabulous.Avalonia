@@ -8,7 +8,7 @@ type IFabLineGeometry =
     inherit IFabGeometry
 
 module LineGeometry =
-    let WidgetKey = Widgets.register<LineGeometry>()
+    let WidgetKey = Widgets.register<LineGeometry> ()
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality LineGeometry.StartPointProperty

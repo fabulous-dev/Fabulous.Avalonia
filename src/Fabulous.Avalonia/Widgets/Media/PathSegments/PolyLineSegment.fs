@@ -9,7 +9,7 @@ type IFabPolyLineSegment =
     inherit IFabPathSegment
 
 module PolyLineSegment =
-    let WidgetKey = Widgets.register<PolyLineSegment>()
+    let WidgetKey = Widgets.register<PolyLineSegment> ()
 
     let Points =
         Attributes.defineSimpleScalarWithEquality<Point list> "PolyLineSegment_Points" (fun _ newValueOpt node ->

@@ -12,7 +12,7 @@ type IFabPath =
     inherit IFabShape
 
 module Path =
-    let WidgetKey = Widgets.register<Path>()
+    let WidgetKey = Widgets.register<Path> ()
 
     let DataWidget = Attributes.defineAvaloniaPropertyWidget Path.DataProperty
 
@@ -26,7 +26,7 @@ module PathBuilders =
             WidgetBuilder<'msg, IFabPath>(
                 Path.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
+                    StackList.empty (),
                     ValueSome [| Path.DataWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

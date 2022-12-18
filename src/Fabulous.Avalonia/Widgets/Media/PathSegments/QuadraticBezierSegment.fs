@@ -8,7 +8,7 @@ type IFabQuadraticBezierSegment =
     inherit IFabPathSegment
 
 module QuadraticBezierSegment =
-    let WidgetKey = Widgets.register<QuadraticBezierSegment>()
+    let WidgetKey = Widgets.register<QuadraticBezierSegment> ()
 
     let Point1 =
         Attributes.defineAvaloniaPropertyWithEquality QuadraticBezierSegment.Point1Property

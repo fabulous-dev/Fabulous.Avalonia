@@ -7,7 +7,7 @@ type IFabDockPanel =
     inherit IFabPanel
 
 module DockPanel =
-    let WidgetKey = Widgets.register<DockPanel>()
+    let WidgetKey = Widgets.register<DockPanel> ()
 
     let Dock = Attributes.defineAvaloniaPropertyWithEquality DockPanel.DockProperty
 

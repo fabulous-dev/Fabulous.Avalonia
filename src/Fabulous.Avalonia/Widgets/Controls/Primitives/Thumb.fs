@@ -11,7 +11,7 @@ type IFabThumb =
     inherit IFabTemplatedControl
 
 module Thumb =
-    let WidgetKey = Widgets.register<Thumb>()
+    let WidgetKey = Widgets.register<Thumb> ()
 
     let DragStarted =
         Attributes.defineEvent<VectorEventArgs> "Thumb_DragStarted" (fun target -> (target :?> Thumb).DragStarted)
@@ -27,7 +27,7 @@ module ThumbBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline Thumb() =
-            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty (), ValueNone, ValueNone))
 
 [<Extension>]
 type ThumbModifiers =

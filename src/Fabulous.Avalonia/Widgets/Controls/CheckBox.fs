@@ -9,7 +9,7 @@ type IFabCheckBox =
 
 module CheckBox =
     let WidgetKey =
-        Widgets.registerWithFactory(fun () -> CheckBox(IsThreeState = false))
+        Widgets.registerWithFactory (fun () -> CheckBox(IsThreeState = false))
 
     let IsChecked =
         Attributes.defineAvaloniaPropertyWithChangedEvent

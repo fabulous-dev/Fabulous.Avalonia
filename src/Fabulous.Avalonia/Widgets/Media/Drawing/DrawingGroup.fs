@@ -9,7 +9,7 @@ type IFabDrawingGroup =
     inherit IFabDrawing
 
 module DrawingGroup =
-    let WidgetKey = Widgets.register<DrawingGroup>()
+    let WidgetKey = Widgets.register<DrawingGroup> ()
 
     let Opacity =
         Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityProperty

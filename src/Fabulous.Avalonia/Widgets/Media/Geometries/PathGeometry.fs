@@ -10,7 +10,7 @@ type IFabPathGeometry =
 
 module PathGeometry =
 
-    let WidgetKey = Widgets.register<PathGeometry>()
+    let WidgetKey = Widgets.register<PathGeometry> ()
 
     let Figures =
         Attributes.defineAvaloniaListWidgetCollection "PathGeometry_Figures" (fun target ->

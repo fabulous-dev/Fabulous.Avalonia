@@ -8,7 +8,7 @@ type IFabLinearGradientBrush =
     inherit IFabGradientBrush
 
 module LinearGradientBrush =
-    let WidgetKey = Widgets.register<LinearGradientBrush>()
+    let WidgetKey = Widgets.register<LinearGradientBrush> ()
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality LinearGradientBrush.StartPointProperty

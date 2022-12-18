@@ -9,7 +9,7 @@ type IFabFluentTheme =
 
 module FluentTheme =
     let WidgetKey =
-        Widgets.registerWithFactory<FluentTheme>(fun () -> FluentTheme(baseUri = null))
+        Widgets.registerWithFactory<FluentTheme> (fun () -> FluentTheme(baseUri = null))
 
     let Mode = Attributes.defineAvaloniaPropertyWithEquality FluentTheme.ModeProperty
 

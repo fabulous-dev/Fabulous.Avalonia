@@ -8,7 +8,7 @@ type IFabLineBreak =
     inherit IFabInline
 
 module LineBreak =
-    let WidgetKey = Widgets.register<LineBreak>()
+    let WidgetKey = Widgets.register<LineBreak> ()
 
 [<AutoOpen>]
 module LineBreakBuilders =
@@ -17,5 +17,5 @@ module LineBreakBuilders =
         static member LineBreak() =
             WidgetBuilder<'msg, IFabLineBreak>(
                 LineBreak.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueNone, ValueNone)
+                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
             )

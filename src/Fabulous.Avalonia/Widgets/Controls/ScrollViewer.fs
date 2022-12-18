@@ -11,7 +11,7 @@ type IFabScrollViewer =
     inherit IFabContentControl
 
 module ScrollViewer =
-    let WidgetKey = Widgets.register<ScrollViewer>()
+    let WidgetKey = Widgets.register<ScrollViewer> ()
 
     let CanHorizontallyScroll =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.CanHorizontallyScrollProperty
@@ -75,7 +75,7 @@ module ScrollViewerBuilders =
             WidgetBuilder<'msg, IFabScrollViewer>(
                 ScrollViewer.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
+                    StackList.empty (),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

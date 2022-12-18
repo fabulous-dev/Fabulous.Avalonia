@@ -7,7 +7,7 @@ type IFabArc =
     inherit IFabShape
 
 module Arc =
-    let WidgetKey = Widgets.register<Arc>()
+    let WidgetKey = Widgets.register<Arc> ()
 
     let StartAngle =
         Attributes.defineAvaloniaPropertyWithEquality Arc.StartAngleProperty

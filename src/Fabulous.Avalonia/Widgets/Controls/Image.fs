@@ -14,7 +14,7 @@ type IFabImage =
     inherit IFabControl
 
 module Bitmap =
-    let create(source: string) =
+    let create (source: string) =
         let uri =
             if source.StartsWith("/") then
                 Uri(source, UriKind.Relative)
@@ -28,7 +28,7 @@ module Bitmap =
             new Bitmap(assets.Open(uri))
 
 module Image =
-    let WidgetKey = Widgets.register<Image>()
+    let WidgetKey = Widgets.register<Image> ()
 
     let Source = Attributes.defineAvaloniaPropertyWithEquality Image.SourceProperty
 
@@ -79,7 +79,7 @@ module ImageBuilders =
                 WidgetBuilder<'msg, IFabImage>(
                     Image.WidgetKey,
                     AttributesBundle(
-                        StackList.one(Image.Stretch.WithValue(value)),
+                        StackList.one (Image.Stretch.WithValue(value)),
                         ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
                         ValueNone
                     )
@@ -88,7 +88,7 @@ module ImageBuilders =
                 WidgetBuilder<'msg, IFabImage>(
                     Image.WidgetKey,
                     AttributesBundle(
-                        StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
+                        StackList.one (Image.Stretch.WithValue(Stretch.Uniform)),
                         ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
                         ValueNone
                     )
@@ -100,7 +100,7 @@ module ImageBuilders =
                 WidgetBuilder<'msg, IFabImage>(
                     Image.WidgetKey,
                     AttributesBundle(
-                        StackList.one(Image.Stretch.WithValue(value)),
+                        StackList.one (Image.Stretch.WithValue(value)),
                         ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
                         ValueNone
                     )
@@ -109,7 +109,7 @@ module ImageBuilders =
                 WidgetBuilder<'msg, IFabImage>(
                     Image.WidgetKey,
                     AttributesBundle(
-                        StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
+                        StackList.one (Image.Stretch.WithValue(Stretch.Uniform)),
                         ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
                         ValueNone
                     )

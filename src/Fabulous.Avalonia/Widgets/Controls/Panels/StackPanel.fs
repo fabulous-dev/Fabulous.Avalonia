@@ -8,7 +8,7 @@ type IFabStackPanel =
     inherit IFabPanel
 
 module StackPanel =
-    let WidgetKey = Widgets.register<StackPanel>()
+    let WidgetKey = Widgets.register<StackPanel> ()
 
     let Spacing =
         Attributes.defineAvaloniaPropertyWithEquality StackPanel.SpacingProperty

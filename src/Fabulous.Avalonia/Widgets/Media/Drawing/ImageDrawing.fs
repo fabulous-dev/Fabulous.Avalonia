@@ -9,7 +9,7 @@ type IFabImageDrawing =
     inherit IFabDrawing
 
 module ImageDrawing =
-    let WidgetKey = Widgets.register<ImageDrawing>()
+    let WidgetKey = Widgets.register<ImageDrawing> ()
 
     let ImageSource =
         Attributes.defineAvaloniaPropertyWithEquality ImageDrawing.ImageSourceProperty
@@ -34,7 +34,7 @@ module ImageDrawingBuilders =
             WidgetBuilder<'msg, IFabImageDrawing>(
                 ImageDrawing.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ImageDrawing.Rect.WithValue(rect)),
+                    StackList.one (ImageDrawing.Rect.WithValue(rect)),
                     ValueSome [| ImageDrawing.ImageSourceWidget.WithValue(source.Compile()) |],
                     ValueNone
                 )

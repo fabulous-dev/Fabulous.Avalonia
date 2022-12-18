@@ -8,7 +8,7 @@ type IFabSkewTransform =
 
 module SkewTransform =
 
-    let WidgetKey = Widgets.register<SkewTransform>()
+    let WidgetKey = Widgets.register<SkewTransform> ()
 
     let AngleX =
         Attributes.defineAvaloniaPropertyWithEquality SkewTransform.AngleXProperty

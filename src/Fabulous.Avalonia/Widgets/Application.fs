@@ -90,7 +90,7 @@ module ApplicationUpdaters =
             target.MainView <- view :?> Control
 
 module Application =
-    let WidgetKey = Widgets.register<FabApplication>()
+    let WidgetKey = Widgets.register<FabApplication> ()
 
     let MainWindow =
         Attributes.defineWidget
@@ -112,7 +112,7 @@ module ApplicationBuilders =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
+                    StackList.empty (),
                     ValueSome [| Application.MainWindow.WithValue(mainWindow.Compile()) |],
                     ValueNone
                 )
@@ -122,7 +122,7 @@ module ApplicationBuilders =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
                 AttributesBundle(
-                    StackList.empty(),
+                    StackList.empty (),
                     ValueSome [| Application.MainView.WithValue(mainView.Compile()) |],
                     ValueNone
                 )
