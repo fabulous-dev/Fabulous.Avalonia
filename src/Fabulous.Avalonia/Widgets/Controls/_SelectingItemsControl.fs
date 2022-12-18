@@ -15,23 +15,45 @@ module SelectingItemsControl =
     let SelectedIndex =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.SelectedIndexProperty
 
+    let SelectedItem<'T when 'T : equality> =
+        Attributes.defineSimpleScalar<'T>
+            "SelectingItemsControl_SelectedItem"
+            ScalarAttributeComparers.equalityCompare
+            (fun _ newValueOpt node ->
+                let control = node.Target :?> SelectingItemsControl
+
+                match newValueOpt with
+                | ValueNone ->
+                    control.ClearValue(SelectingItemsControl.SelectedItemProperty)
+                | ValueSome value ->
+                    control.SetValue(SelectingItemsControl.SelectedItemProperty, value))
+
     let IsTextSearchEnabled =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.IsTextSearchEnabledProperty
 
     let WrapSelection =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.WrapSelectionProperty
-
+    
     let SelectedIndexChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent'
             "SelectingItemsControl_SelectedIndexChanged"
             SelectingItemsControl.SelectedIndexProperty
 
     let SelectionChanged =
-        Attributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
-            (target :?> SelectingItemsControl).SelectionChanged)
+        Attributes.defineEvent<SelectionChangedEventArgs>
+            "SelectingItemsControl_SelectionChanged"
+            (fun target -> (target :?> SelectingItemsControl).SelectionChanged)
 
 [<Extension>]
 type SelectingItemsControlModifiers =
+    [<Extension>]
+    static member inline selectedItem
+        (
+            this: WidgetBuilder<'msg, #IFabSelectingItemsControl>,
+            value: 'marker
+        ) =
+        this.AddScalar(SelectingItemsControl.SelectedItem.WithValue(value))
+
     [<Extension>]
     static member inline autoScrollToSelectedItem(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
         this.AddScalar(SelectingItemsControl.AutoScrollToSelectedItem.WithValue(value))

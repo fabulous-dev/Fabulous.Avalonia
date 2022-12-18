@@ -101,6 +101,8 @@
     <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
     <Compile Include="Widgets\Controls\TabItem.fs" />
     <Compile Include="Widgets\Controls\TabControl.fs" />
+    <Compile Include="Widgets\Controls\ListBoxItem.fs" />
+    <Compile Include="Widgets\Controls\ListBox.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
     <Compile Include="Widgets\Controls\_Spinner.fs" />
     <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />

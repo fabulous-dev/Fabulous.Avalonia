@@ -1,8 +1,10 @@
 namespace Fabulous.Avalonia
 
 open System
+open System.Collections.Generic
 open Avalonia
 open Fabulous
+open Fabulous.ScalarAttributeDefinitions
 open Fabulous.WidgetCollectionAttributeDefinitions
 
 [<AbstractClass; Sealed>]
@@ -13,6 +15,10 @@ type View =
 type IFabElement =
     interface
     end
+
+type WidgetItems<'T> =
+    { OriginalItems: IEnumerable<'T>
+      Template: 'T -> Widget }
 
 module Widgets =
     let registerWithFactory<'T when 'T :> IAvaloniaObject> (factory: unit -> 'T) =
@@ -74,3 +80,19 @@ module WidgetHelpers =
         (widget: WidgetBuilder<'msg, 'marker>)
         =
         AttributeCollectionBuilder<'msg, 'marker, 'item>(widget, collectionAttributeDefinition)
+
+    let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
+        key
+        (attrDef: SimpleScalarAttributeDefinition<WidgetItems<'itemData>>)
+        (items: seq<'itemData>)
+        (itemTemplate: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+        =
+        let template (item: obj) =
+            let item = unbox<'itemData> item
+            (itemTemplate item).Compile()
+
+        let data: WidgetItems<'itemData> =
+            { OriginalItems = items
+              Template = template }
+
+        WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))

@@ -13,7 +13,8 @@ module App =
 
     type Model =
         { SelectedWidgetModel: WidgetPage.Model option
-          IsPanOpen: bool }
+          IsPanOpen: bool
+          SelectedIndex: int }
 
     type Msg =
         | WidgetPageMsg of WidgetPage.Msg
@@ -23,7 +24,8 @@ module App =
 
     let init () =
         { SelectedWidgetModel = None
-          IsPanOpen = false },
+          IsPanOpen = false
+          SelectedIndex = -1 },
         Cmd.none
 
     let update msg model =
@@ -33,10 +35,17 @@ module App =
             { model with SelectedWidgetModel = Some m }, (Cmd.map WidgetPageMsg c)
 
         | ItemSelected index ->
-            { model with
-                SelectedWidgetModel = Some(WidgetPage.init index)
-                IsPanOpen = true },
-            Cmd.ofMsg (WidgetPageMsg(WidgetPage.Msg.SampleViewChanged(WidgetType.Run)))
+            printfn $"ItemSelected %d{index}"
+            if index = - 1 then
+                model, Cmd.none
+            else
+                let model = 
+                    { model with
+                        SelectedWidgetModel = Some(WidgetPage.init index)
+                        SelectedIndex = index
+                        IsPanOpen = true }
+                model,
+                Cmd.ofMsg (WidgetPageMsg(WidgetPage.Msg.SampleViewChanged(WidgetType.Run)))
 
         | OpenPanChanged x -> { model with IsPanOpen = x }, Cmd.none
 
@@ -46,14 +55,18 @@ module App =
         Path("M1,4 H18 V6 H1 V4 M1,9 H18 V11 H1 V7 M3,14 H18 V16 H1 V14")
             .fill (SolidColorBrush(Colors.Black))
 
-    let buttonSpinnerHeader _ =
+    let buttonSpinnerHeader model =
         (VStack(0.) {
             Image(Bitmap.create "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                 .size (100., 100.)
 
-            TextBlock("Fabulous Gallery").centerHorizontal ()
-            Button("Button", ItemSelected 0).centerHorizontal ()
-            Button("TextBlock", ItemSelected 1).centerHorizontal ()
+            (ListBox([ "Button"; "TextBlock"]) (fun x ->
+                ListBoxItem(TextBlock(x))))
+                .selectionMode(SelectionMode.Single)
+                .onSelectedIndexChanged (model.SelectedIndex, ItemSelected)
+        // TextBlock("Fabulous Gallery").centerHorizontal ()
+        // Button("Button", ItemSelected 0).centerHorizontal ()
+        // Button("TextBlock", ItemSelected 1).centerHorizontal ()
         })
             .margin (Thickness(0., 20., 0., 0.))
 
