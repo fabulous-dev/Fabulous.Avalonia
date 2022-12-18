@@ -8,7 +8,7 @@ type IFabDrawingImage =
     inherit IFabElement
 
 module DrawingImage =
-    let WidgetKey = Widgets.register<DrawingImage> ()
+    let WidgetKey = Widgets.register<DrawingImage>()
 
     let Drawing = Attributes.defineAvaloniaPropertyWidget DrawingImage.DrawingProperty
 
@@ -20,7 +20,7 @@ module DrawingImageBuilders =
             WidgetBuilder<'msg, IFabDrawingImage>(
                 DrawingImage.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome [| DrawingImage.Drawing.WithValue(source.Compile()) |],
                     ValueNone
                 )

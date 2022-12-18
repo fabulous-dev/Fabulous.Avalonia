@@ -21,52 +21,52 @@ module App =
 
     let initModel = { Count = 0; Step = 1; TimerOn = false }
 
-    let timerCmd () =
+    let timerCmd() =
         async {
             do! Async.Sleep 200
             return TimedTick
         }
         |> Cmd.ofAsyncMsg
 
-    let init () = initModel, Cmd.none
+    let init() = initModel, Cmd.none
 
     let update msg model =
         match msg with
         | Increment -> { model with Count = model.Count + model.Step }, Cmd.none
         | Decrement -> { model with Count = model.Count - model.Step }, Cmd.none
         | Reset -> initModel, Cmd.none
-        | SetStep n -> { model with Step = int (n + 0.5) }, Cmd.none
-        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd () else Cmd.none)
+        | SetStep n -> { model with Step = int(n + 0.5) }, Cmd.none
+        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd() else Cmd.none)
         | TimedTick ->
             if model.TimerOn then
-                { model with Count = model.Count + model.Step }, timerCmd ()
+                { model with Count = model.Count + model.Step }, timerCmd()
             else
                 model, Cmd.none
 
     let view model =
         (VStack() {
-            TextBlock($"%d{model.Count}").centerText ()
+            TextBlock($"%d{model.Count}").centerText()
 
-            Button("Increment", Increment).centerHorizontal ()
+            Button("Increment", Increment).centerHorizontal()
 
-            Button("Decrement", Decrement).centerHorizontal ()
+            Button("Decrement", Decrement).centerHorizontal()
 
             (HStack() {
-                TextBlock("Timer").centerVertical ()
+                TextBlock("Timer").centerVertical()
 
                 ToggleSwitch(model.TimerOn, TimerToggled)
             })
                 .margin(20.)
-                .centerHorizontal ()
+                .centerHorizontal()
 
             Slider(0.0, 10.0, double model.Step, SetStep)
 
-            TextBlock($"Step size: %d{model.Step}").centerText ()
+            TextBlock($"Step size: %d{model.Step}").centerText()
 
-            Button("Reset", Reset).centerHorizontal ()
+            Button("Reset", Reset).centerHorizontal()
 
         })
-            .center ()
+            .center()
 
 #if MOBILE
     let app model = SingleViewApplication(view model)

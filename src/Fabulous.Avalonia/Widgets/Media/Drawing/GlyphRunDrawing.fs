@@ -9,14 +9,13 @@ type IFabGlyphRunDrawing =
     inherit IFabDrawing
 
 module GlyphRunDrawing =
-    let WidgetKey = Widgets.register<GlyphRunDrawing> ()
+    let WidgetKey = Widgets.register<GlyphRunDrawing>()
 
     let Foreground =
         Attributes.defineAvaloniaPropertyWidget GlyphRunDrawing.ForegroundProperty
 
     let GlyphRun =
         Attributes.defineAvaloniaPropertyWithEquality GlyphRunDrawing.GlyphRunProperty
-
 
 [<AutoOpen>]
 module GlyphRunDrawingBuilders =
@@ -26,7 +25,7 @@ module GlyphRunDrawingBuilders =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,
                 AttributesBundle(
-                    StackList.one (GlyphRunDrawing.GlyphRun.WithValue(glyphRun)),
+                    StackList.one(GlyphRunDrawing.GlyphRun.WithValue(glyphRun)),
                     ValueSome [| GlyphRunDrawing.Foreground.WithValue(content.Compile()) |],
                     ValueNone
                 )

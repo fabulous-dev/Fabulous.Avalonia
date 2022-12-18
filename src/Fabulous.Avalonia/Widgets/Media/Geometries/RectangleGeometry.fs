@@ -8,7 +8,7 @@ type IFabRectangleGeometry =
     inherit IFabGeometry
 
 module RectangleGeometry =
-    let WidgetKey = Widgets.register<RectangleGeometry> ()
+    let WidgetKey = Widgets.register<RectangleGeometry>()
 
     let Rect =
         Attributes.defineAvaloniaPropertyWithEquality RectangleGeometry.RectProperty

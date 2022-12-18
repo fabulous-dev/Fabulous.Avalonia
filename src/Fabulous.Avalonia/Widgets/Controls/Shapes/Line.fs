@@ -9,7 +9,7 @@ type IFabLine =
     inherit IFabShape
 
 module Line =
-    let WidgetKey = Widgets.register<Line> ()
+    let WidgetKey = Widgets.register<Line>()
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality Line.StartPointProperty

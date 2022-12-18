@@ -10,7 +10,7 @@ type IFabSplitView =
     inherit IFabContentControl
 
 module SplitView =
-    let WidgetKey = Widgets.register<SplitView> ()
+    let WidgetKey = Widgets.register<SplitView>()
 
     let CompactPaneLength =
         Attributes.defineAvaloniaPropertyWithEquality SplitView.CompactPaneLengthProperty
@@ -62,7 +62,7 @@ module SplitViewBuilders =
             WidgetBuilder<'msg, IFabSplitView>(
                 SplitView.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| SplitView.Pane.WithValue(pane.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],

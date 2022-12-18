@@ -7,7 +7,7 @@ module ViewNode =
     let ViewNodeProperty =
         StyledProperty.RegisterAttached<ViewNode, IAvaloniaObject, IViewNode>("ViewNode")
 
-    let get (target: obj) =
+    let get(target: obj) =
         (target :?> IAvaloniaObject).GetValue(ViewNodeProperty)
 
     let set (node: IViewNode) (target: obj) =

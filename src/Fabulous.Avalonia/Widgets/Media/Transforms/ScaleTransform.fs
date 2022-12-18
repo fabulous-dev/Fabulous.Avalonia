@@ -8,14 +8,13 @@ type IFabScaleTransform =
 
 module ScaleTransform =
 
-    let WidgetKey = Widgets.register<ScaleTransform> ()
+    let WidgetKey = Widgets.register<ScaleTransform>()
 
     let ScaleX =
         Attributes.defineAvaloniaPropertyWithEquality ScaleTransform.ScaleXProperty
 
     let ScaleY =
         Attributes.defineAvaloniaPropertyWithEquality ScaleTransform.ScaleYProperty
-
 
 [<AutoOpen>]
 module ScaleTransformBuilders =

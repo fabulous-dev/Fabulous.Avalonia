@@ -10,7 +10,7 @@ type IFabPathFigure =
     inherit IFabElement
 
 module PathFigure =
-    let WidgetKey = Widgets.register<PathFigure> ()
+    let WidgetKey = Widgets.register<PathFigure>()
 
     let IsClosed =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsClosedProperty

@@ -7,7 +7,7 @@ type IFabItalic =
     inherit IFabSpan
 
 module Italic =
-    let WidgetKey = Widgets.register<Italic> ()
+    let WidgetKey = Widgets.register<Italic>()
 
 [<AutoOpen>]
 module ItalicBuilders =

@@ -10,7 +10,7 @@ type IFabTransformGroup =
 
 module TransformGroup =
 
-    let WidgetKey = Widgets.register<TransformGroup> ()
+    let WidgetKey = Widgets.register<TransformGroup>()
 
     let Children =
         Attributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target ->

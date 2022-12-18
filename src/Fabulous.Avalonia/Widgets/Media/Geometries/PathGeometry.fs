@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
@@ -11,7 +10,7 @@ type IFabPathGeometry =
 
 module PathGeometry =
 
-    let WidgetKey = Widgets.register<PathGeometry> ()
+    let WidgetKey = Widgets.register<PathGeometry>()
 
     let Figures =
         Attributes.defineAvaloniaListWidgetCollection "PathGeometry_Figures" (fun target ->

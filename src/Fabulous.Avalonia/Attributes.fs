@@ -59,7 +59,7 @@ module Attributes =
             | ValueSome v -> target.SetValue(property, v) |> ignore)
 
     /// Define an attribute for an AvaloniaProperty supporting equality comparison
-    let inline defineAvaloniaPropertyWithEquality<'T when 'T: equality> (directProperty: AvaloniaProperty<'T>) =
+    let inline defineAvaloniaPropertyWithEquality<'T when 'T: equality>(directProperty: AvaloniaProperty<'T>) =
         Attributes.defineSimpleScalarWithEquality<'T> directProperty.Name (fun _ newValueOpt node ->
             let target = node.Target :?> IAvaloniaObject
 
@@ -150,7 +150,7 @@ module Attributes =
         Attributes.defineWidgetCollection name applyDiff updateNode
 
     /// Define an attribute storing a Widget for an AvaloniaProperty
-    let inline defineAvaloniaPropertyWidget (property: AvaloniaProperty<'T>) =
+    let inline defineAvaloniaPropertyWidget(property: AvaloniaProperty<'T>) =
         Attributes.definePropertyWidget
             property.Name
             (fun target -> (target :?> IAvaloniaObject).GetValue(property))

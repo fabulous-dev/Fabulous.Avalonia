@@ -9,7 +9,7 @@ type IFabWrapPanel =
     inherit IFabPanel
 
 module WrapPanel =
-    let WidgetKey = Widgets.register<WrapPanel> ()
+    let WidgetKey = Widgets.register<WrapPanel>()
 
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality WrapPanel.OrientationProperty

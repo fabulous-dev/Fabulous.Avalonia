@@ -10,7 +10,7 @@ type IFabTextDecoration =
     inherit IFabElement
 
 module TextDecoration =
-    let WidgetKey = Widgets.register<TextDecoration> ()
+    let WidgetKey = Widgets.register<TextDecoration>()
 
     let Location =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.LocationProperty

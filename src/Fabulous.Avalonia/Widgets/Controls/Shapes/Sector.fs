@@ -9,7 +9,7 @@ type IFabSector =
     inherit IFabShape
 
 module Sector =
-    let WidgetKey = Widgets.register<Sector> ()
+    let WidgetKey = Widgets.register<Sector>()
 
     let StartAngle =
         Attributes.defineAvaloniaPropertyWithEquality Sector.StartAngleProperty

@@ -1,17 +1,15 @@
 namespace Fabulous.Avalonia
 
-
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Media
 open Fabulous
 
-
 type IFabEllipseGeometry =
     inherit IFabGeometry
 
 module EllipseGeometry =
-    let WidgetKey = Widgets.register<EllipseGeometry> ()
+    let WidgetKey = Widgets.register<EllipseGeometry>()
 
     let Rect =
         Attributes.defineAvaloniaPropertyWithEquality EllipseGeometry.RectProperty

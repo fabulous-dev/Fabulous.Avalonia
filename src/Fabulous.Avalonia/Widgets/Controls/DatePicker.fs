@@ -9,7 +9,7 @@ type IFabDatePicker =
     inherit IFabTemplatedControl
 
 module DatePicker =
-    let WidgetKey = Widgets.register<DatePicker> ()
+    let WidgetKey = Widgets.register<DatePicker>()
 
     let DayVisible =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.DayVisibleProperty

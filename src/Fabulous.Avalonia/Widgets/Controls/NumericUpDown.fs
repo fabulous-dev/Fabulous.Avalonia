@@ -11,7 +11,7 @@ type IFabNumericUpDown =
     inherit IFabTemplatedControl
 
 module NumericUpDown =
-    let WidgetKey = Widgets.register<NumericUpDown> ()
+    let WidgetKey = Widgets.register<NumericUpDown>()
 
     let AllowSpin =
         Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.AllowSpinProperty

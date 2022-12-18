@@ -9,7 +9,7 @@ type IFabPen =
     inherit IFabElement
 
 module Pen =
-    let WidgetKey = Widgets.register<Pen> ()
+    let WidgetKey = Widgets.register<Pen>()
 
     let Brush = Attributes.defineAvaloniaPropertyWidget Pen.BrushProperty
 
@@ -32,7 +32,7 @@ module PenBuilders =
             WidgetBuilder<'msg, IFabPen>(
                 Pen.WidgetKey,
                 AttributesBundle(
-                    StackList.one (Pen.Thickness.WithValue(thickness)),
+                    StackList.one(Pen.Thickness.WithValue(thickness)),
                     ValueSome [| Pen.Brush.WithValue(brush.Compile()) |],
                     ValueNone
                 )

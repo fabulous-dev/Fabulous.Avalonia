@@ -10,7 +10,7 @@ type IFabButtonSpinner =
     inherit IFabSpinner
 
 module ButtonSpinner =
-    let WidgetKey = Widgets.register<ButtonSpinner> ()
+    let WidgetKey = Widgets.register<ButtonSpinner>()
 
     let AllowSpin =
         Attributes.defineAvaloniaPropertyWithEquality ButtonSpinner.AllowSpinProperty

@@ -13,6 +13,6 @@ type AppDelegate() =
 
 module Main =
     [<EntryPoint>]
-    let main (args: string array) =
+    let main(args: string array) =
         UIApplication.Main(args, null, typeof<AppDelegate>)
         0

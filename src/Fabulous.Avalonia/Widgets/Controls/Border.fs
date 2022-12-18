@@ -12,7 +12,7 @@ type IFabBorder =
     inherit IFabDecorator
 
 module Border =
-    let WidgetKey = Widgets.register<Border> ()
+    let WidgetKey = Widgets.register<Border>()
 
     let Background = Attributes.defineAvaloniaPropertyWidget Border.BackgroundProperty
 
@@ -55,7 +55,7 @@ module BorderBuilders =
             WidgetBuilder<'msg, IFabBorder>(
                 Border.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome [| Decorator.Child.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -99,16 +99,15 @@ type BorderModifiers =
     static member inline borderDashOffset(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
         this.AddScalar(Border.BorderDashOffset.WithValue(value))
 
-
 [<Extension>]
 type BorderExtraModifiers =
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
-        BorderModifiers.cornerRadius (this, CornerRadius(value))
+        BorderModifiers.cornerRadius(this, CornerRadius(value))
 
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, top: float, bottom: float) =
-        BorderModifiers.cornerRadius (this, CornerRadius(top, bottom))
+        BorderModifiers.cornerRadius(this, CornerRadius(top, bottom))
 
     [<Extension>]
     static member inline cornerRadius
@@ -119,15 +118,15 @@ type BorderExtraModifiers =
             bottomRight: float,
             bottomLeft: float
         ) =
-        BorderModifiers.cornerRadius (this, CornerRadius(topLeft, topRight, bottomRight, bottomLeft))
+        BorderModifiers.cornerRadius(this, CornerRadius(topLeft, topRight, bottomRight, bottomLeft))
 
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
-        BorderModifiers.borderThickness (this, Thickness(value))
+        BorderModifiers.borderThickness(this, Thickness(value))
 
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, horizontal: float, vertical: float) =
-        BorderModifiers.borderThickness (this, Thickness(horizontal, vertical))
+        BorderModifiers.borderThickness(this, Thickness(horizontal, vertical))
 
     [<Extension>]
     static member inline borderThickness
@@ -138,13 +137,13 @@ type BorderExtraModifiers =
             right: float,
             bottom: float
         ) =
-        BorderModifiers.borderThickness (this, Thickness(left, top, right, bottom))
+        BorderModifiers.borderThickness(this, Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.boxShadow (this, BoxShadows(BoxShadow.Parse(value)))
+        BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(value)))
 
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
-        BorderModifiers.boxShadow (this, BoxShadows(BoxShadow.Parse(first), rest))
+        BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))

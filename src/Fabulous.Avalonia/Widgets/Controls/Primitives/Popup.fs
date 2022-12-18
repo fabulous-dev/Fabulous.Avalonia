@@ -14,7 +14,7 @@ type IFabPopup =
     inherit IFabControl
 
 module Popup =
-    let WidgetKey = Widgets.register<Popup> ()
+    let WidgetKey = Widgets.register<Popup>()
 
     let WindowManagerAddShadowHint =
         Attributes.defineAvaloniaPropertyWithEquality Popup.WindowManagerAddShadowHintProperty
@@ -62,11 +62,7 @@ module PopupBuilders =
         static member inline Popup(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabPopup>(
                 Popup.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| Popup.Child.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
 [<Extension>]

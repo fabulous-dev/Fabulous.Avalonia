@@ -9,7 +9,7 @@ type IFabPolyline =
     inherit IFabShape
 
 module Polyline =
-    let WidgetKey = Widgets.register<Polyline> ()
+    let WidgetKey = Widgets.register<Polyline>()
 
     let Points =
         Attributes.defineSimpleScalarWithEquality<Point list> "Polyline_Points" (fun _ newValueOpt node ->

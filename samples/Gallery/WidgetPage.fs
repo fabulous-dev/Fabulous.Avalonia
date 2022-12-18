@@ -8,12 +8,9 @@ open Gallery
 open type Fabulous.Avalonia.View
 
 module WidgetPage =
-    type Model =
-        { Sample: Sample
-          SampleModel: obj}
+    type Model = { Sample: Sample; SampleModel: obj }
 
-    type Msg =
-        | SampleMsg of obj
+    type Msg = SampleMsg of obj
 
     let samples = [ Button.sample; TextBlock.sample ]
 
@@ -23,8 +20,7 @@ module WidgetPage =
         let sample = getForIndex index
 
         { Sample = sample
-          SampleModel = sample.Program.init()
-           }
+          SampleModel = sample.Program.init() }
 
     let update msg model =
         match msg with

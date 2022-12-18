@@ -23,7 +23,6 @@ module Animatable =
                 points |> List.iter coll.Add
                 target.SetValue(Animatable.TransitionsProperty, coll) |> ignore)
 
-
 [<Extension>]
 type AnimatableModifiers =
     [<Extension>]

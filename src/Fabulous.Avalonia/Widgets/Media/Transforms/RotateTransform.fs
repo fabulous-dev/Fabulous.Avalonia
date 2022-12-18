@@ -8,7 +8,7 @@ type IFabRotateTransform =
 
 module RotateTransform =
 
-    let WidgetKey = Widgets.register<RotateTransform> ()
+    let WidgetKey = Widgets.register<RotateTransform>()
 
     let Angle =
         Attributes.defineAvaloniaPropertyWithEquality RotateTransform.AngleProperty
@@ -18,7 +18,6 @@ module RotateTransform =
 
     let CenterY =
         Attributes.defineAvaloniaPropertyWithEquality RotateTransform.CenterYProperty
-
 
 [<AutoOpen>]
 module RotateTransformBuilders =

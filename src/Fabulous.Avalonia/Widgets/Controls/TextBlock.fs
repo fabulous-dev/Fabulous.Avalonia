@@ -13,7 +13,7 @@ type IFabTextBlock =
     inherit IFabControl
 
 module TextBlock =
-    let WidgetKey = Widgets.register<TextBlock> ()
+    let WidgetKey = Widgets.register<TextBlock>()
 
     let Background =
         Attributes.defineAvaloniaPropertyWidget TextBlock.BackgroundProperty
@@ -94,7 +94,7 @@ module TextBlockBuilders =
             | None ->
                 WidgetBuilder<'msg, IFabTextBlock>(
                     TextBlock.WidgetKey,
-                    AttributesBundle(StackList.empty (), ValueNone, ValueNone)
+                    AttributesBundle(StackList.empty(), ValueNone, ValueNone)
                 )
 
 [<Extension>]
@@ -185,7 +185,7 @@ type TextBlockExtraModifiers =
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
-        TextBlockModifiers.padding (this, Thickness(value))
+        TextBlockModifiers.padding(this, Thickness(value))
 
     [<Extension>]
     static member inline padding
@@ -196,11 +196,11 @@ type TextBlockExtraModifiers =
             right: float,
             bottom: float
         ) =
-        TextBlockModifiers.padding (this, Thickness(left, top, right, bottom))
+        TextBlockModifiers.padding(this, Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
-        TextBlockModifiers.padding (this, Thickness(horizontal, vertical))
+        TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
 
 [<Extension>]
 type TextBlockCollectionBuilderExtensions =

@@ -1,18 +1,16 @@
 namespace Fabulous.Avalonia
 
-
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
-
 
 type IFabCombinedGeometry =
     inherit IFabGeometry
 
 module CombinedGeometry =
 
-    let WidgetKey = Widgets.register<CombinedGeometry> ()
+    let WidgetKey = Widgets.register<CombinedGeometry>()
 
     let Geometry1 =
         Attributes.defineAvaloniaPropertyWidget CombinedGeometry.Geometry1Property
@@ -22,7 +20,6 @@ module CombinedGeometry =
 
     let GeometryCombineMode =
         Attributes.defineAvaloniaPropertyWithEquality CombinedGeometry.GeometryCombineModeProperty
-
 
 [<AutoOpen>]
 module CombinedGeometryBuilders =
@@ -36,7 +33,7 @@ module CombinedGeometryBuilders =
             WidgetBuilder<'msg, IFabCombinedGeometry>(
                 CombinedGeometry.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| CombinedGeometry.Geometry1.WithValue(geometry1.Compile())
                            CombinedGeometry.Geometry2.WithValue(geometry2.Compile()) |],

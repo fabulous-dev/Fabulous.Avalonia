@@ -63,7 +63,7 @@ module App =
 
             TextBlock("Fabulous Gallery").centerHorizontal()
 
-            (ListBox([ "Button"; "TextBlock" ]) (fun x -> ListBoxItem(TextBlock(x))))
+            (ListBox ([ "Button"; "TextBlock" ]) (fun x -> ListBoxItem(TextBlock(x))))
                 .selectionMode(SelectionMode.Multiple)
                 .onSelectedIndexChanged(model.SelectedIndex, ItemSelected)
         })

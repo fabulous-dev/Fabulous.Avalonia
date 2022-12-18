@@ -48,7 +48,6 @@ type VisualModifiers =
     static member inline transformedBounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: TransformedBounds) =
         this.AddScalar(Visual.TransformedBounds.WithValue(rect))
 
-
     [<Extension>]
     static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabVisual>, clip: bool) =
         this.AddScalar(Visual.ClipToBounds.WithValue(clip))

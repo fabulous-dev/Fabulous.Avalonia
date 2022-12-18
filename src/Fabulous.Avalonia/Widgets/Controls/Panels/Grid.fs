@@ -7,7 +7,7 @@ type IFabGrid =
     inherit IFabPanel
 
 module Grid =
-    let WidgetKey = Widgets.register<Grid> ()
+    let WidgetKey = Widgets.register<Grid>()
 
 [<AutoOpen>]
 module GridBuilders =

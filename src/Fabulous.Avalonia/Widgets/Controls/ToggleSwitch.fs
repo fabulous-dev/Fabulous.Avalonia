@@ -9,7 +9,7 @@ type IFabToggleSwitch =
 
 module ToggleSwitch =
     let WidgetKey =
-        Widgets.registerWithFactory (fun () -> ToggleSwitch(IsThreeState = false))
+        Widgets.registerWithFactory(fun () -> ToggleSwitch(IsThreeState = false))
 
     let IsChecked =
         Attributes.defineAvaloniaPropertyWithChangedEvent

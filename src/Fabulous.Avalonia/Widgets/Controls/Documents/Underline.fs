@@ -7,7 +7,7 @@ type IFabUnderline =
     inherit IFabSpan
 
 module Underline =
-    let WidgetKey = Widgets.register<Underline> ()
+    let WidgetKey = Widgets.register<Underline>()
 
 [<AutoOpen>]
 module UnderlineBuilders =

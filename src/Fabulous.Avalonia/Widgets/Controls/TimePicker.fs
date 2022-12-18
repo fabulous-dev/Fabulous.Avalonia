@@ -9,7 +9,7 @@ type IFabTimePicker =
     inherit IFabTemplatedControl
 
 module TimePicker =
-    let WidgetKey = Widgets.register<TimePicker> ()
+    let WidgetKey = Widgets.register<TimePicker>()
 
     let ClockIdentifier =
         Attributes.defineAvaloniaPropertyWithEquality TimePicker.ClockIdentifierProperty

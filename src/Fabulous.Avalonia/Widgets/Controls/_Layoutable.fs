@@ -111,23 +111,23 @@ type LayoutableModifiers =
 type LayoutableExtraModifiers =
     [<Extension>]
     static member inline centerHorizontal(this: WidgetBuilder<'msg, #IFabLayoutable>) =
-        this.horizontalAlignment (HorizontalAlignment.Center)
+        this.horizontalAlignment(HorizontalAlignment.Center)
 
     [<Extension>]
     static member inline centerVertical(this: WidgetBuilder<'msg, #IFabLayoutable>) =
-        this.verticalAlignment (VerticalAlignment.Center)
+        this.verticalAlignment(VerticalAlignment.Center)
 
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabLayoutable>) =
-        this.centerHorizontal().centerVertical ()
+        this.centerHorizontal().centerVertical()
 
     [<Extension>]
     static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, uniformValue: float) =
-        this.margin (Thickness(uniformValue))
+        this.margin(Thickness(uniformValue))
 
     [<Extension>]
     static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, horizontal: float, vertical: float) =
-        this.margin (Thickness(horizontal, vertical))
+        this.margin(Thickness(horizontal, vertical))
 
     [<Extension>]
     static member inline margin
@@ -138,8 +138,8 @@ type LayoutableExtraModifiers =
             right: float,
             bottom: float
         ) =
-        this.margin (Thickness(left, top, right, bottom))
+        this.margin(Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline size(this: WidgetBuilder<'msg, #IFabLayoutable>, width: float, height: float) =
-        this.width(width).height (height)
+        this.width(width).height(height)

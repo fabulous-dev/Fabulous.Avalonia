@@ -9,7 +9,7 @@ type IFabGeometryGroup =
     inherit IFabGeometry
 
 module GeometryGroup =
-    let WidgetKey = Widgets.register<GeometryGroup> ()
+    let WidgetKey = Widgets.register<GeometryGroup>()
 
     let Children =
         Attributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target ->

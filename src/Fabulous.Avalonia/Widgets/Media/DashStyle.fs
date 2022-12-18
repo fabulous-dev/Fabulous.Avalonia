@@ -9,7 +9,7 @@ type IFaDashStyle =
     inherit IFabAnimatable
 
 module DashStyle =
-    let WidgetKey = Widgets.register<DashStyle> ()
+    let WidgetKey = Widgets.register<DashStyle>()
 
     let Dashes =
         Attributes.defineSimpleScalarWithEquality<float list> "DashStyle_Dashes" (fun _ newValueOpt node ->
@@ -23,7 +23,6 @@ module DashStyle =
                 target.SetValue(DashStyle.DashesProperty, coll) |> ignore)
 
     let Offset = Attributes.defineAvaloniaPropertyWithEquality DashStyle.OffsetProperty
-
 
 [<AutoOpen>]
 module DashStyleBuilders =

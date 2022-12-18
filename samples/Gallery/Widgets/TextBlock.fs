@@ -21,9 +21,7 @@ module TextBlock =
         | Decrement -> { model with Count = model.Count - 1 }
 
     let view model =
-        VStack(spacing = 15.) {
-            TextBlock("Disabled button")
-        }
+        VStack(spacing = 15.) { TextBlock("Disabled button") }
 
     let sample =
         { Name = "TextBlock"

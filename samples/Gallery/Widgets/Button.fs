@@ -45,6 +45,7 @@ module Button =
             })
                 .centerHorizontal()
         }
+
     let sample =
         { Name = "Button"
           Description = "A button widget that reacts to touch events."

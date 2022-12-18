@@ -7,7 +7,7 @@ type IFabSolidColorBrush =
     inherit IFabBrush
 
 module SolidColorBrush =
-    let WidgetKey = Widgets.register<SolidColorBrush> ()
+    let WidgetKey = Widgets.register<SolidColorBrush>()
 
     let Color =
         Attributes.defineAvaloniaPropertyWithEquality SolidColorBrush.ColorProperty

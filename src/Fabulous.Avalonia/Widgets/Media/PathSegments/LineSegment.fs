@@ -8,7 +8,7 @@ type IFabLineSegment =
     inherit IFabPathSegment
 
 module LineSegment =
-    let WidgetKey = Widgets.register<LineSegment> ()
+    let WidgetKey = Widgets.register<LineSegment>()
 
     let Point = Attributes.defineAvaloniaPropertyWithEquality LineSegment.PointProperty
 

@@ -9,7 +9,7 @@ type IFabCanvas =
 
 module Canvas =
 
-    let WidgetKey = Widgets.register<Canvas> ()
+    let WidgetKey = Widgets.register<Canvas>()
 
     let Left = Attributes.defineAvaloniaPropertyWithEquality Canvas.LeftProperty
 

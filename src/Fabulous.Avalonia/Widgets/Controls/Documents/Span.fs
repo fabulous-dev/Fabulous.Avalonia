@@ -9,7 +9,7 @@ type IFabSpan =
     inherit IFabInline
 
 module Span =
-    let WidgetKey = Widgets.register<Span> ()
+    let WidgetKey = Widgets.register<Span>()
 
     let Inlines =
         Attributes.defineAvaloniaListWidgetCollection "Span_Inlines" (fun target -> (target :?> Span).Inlines)

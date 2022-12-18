@@ -8,7 +8,7 @@ type IFabWindow =
     inherit IFabElement
 
 module Window =
-    let WidgetKey = Widgets.register<Window> ()
+    let WidgetKey = Widgets.register<Window>()
 
     let Content = Attributes.defineAvaloniaPropertyWidget Window.ContentProperty
 
@@ -20,7 +20,7 @@ module WindowBuilders =
             WidgetBuilder<'msg, IFabWindow>(
                 Window.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome [| Window.Content.WithValue(content.Compile()) |],
                     ValueNone
                 )

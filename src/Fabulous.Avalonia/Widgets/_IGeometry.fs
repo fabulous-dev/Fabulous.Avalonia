@@ -11,7 +11,6 @@ module Geometry =
 
     let Transform = Attributes.defineAvaloniaPropertyWidget Geometry.TransformProperty
 
-
 [<Extension>]
 type GeometryModifiers =
     [<Extension>]
