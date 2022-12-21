@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-
 open Avalonia
 open Avalonia.Media
 open Avalonia.Media.Imaging

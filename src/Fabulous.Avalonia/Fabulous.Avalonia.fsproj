@@ -97,6 +97,12 @@
     <Compile Include="Widgets\Controls\Primitives\Track.fs" />
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
+    <Compile Include="Widgets\Controls\_HeaderedContentControl.fs" />
+    <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
+    <Compile Include="Widgets\Controls\TabItem.fs" />
+    <Compile Include="Widgets\Controls\TabControl.fs" />
+    <Compile Include="Widgets\Controls\ListBoxItem.fs" />
+    <Compile Include="Widgets\Controls\ListBox.fs" />
     <Compile Include="Widgets\Controls\_RangeBase.fs" />
     <Compile Include="Widgets\Controls\_Spinner.fs" />
     <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />
@@ -113,6 +119,7 @@
     <Compile Include="Widgets\Controls\Button.fs" />
     <Compile Include="Widgets\Controls\ButtonSpinner.fs" />
     <Compile Include="Widgets\Controls\RepeatButton.fs" />
+    <Compile Include="Widgets\Controls\SliptView.fs" />
     <Compile Include="Widgets\Controls\CheckBox.fs" />
     <Compile Include="Widgets\Controls\NumericUpDown.fs" />
     <Compile Include="Widgets\Controls\ScrollViewer.fs" />

@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Collections.Generic
 open Avalonia.Controls.Shapes
 open Avalonia
+open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
@@ -13,7 +14,9 @@ type IFabPath =
 module Path =
     let WidgetKey = Widgets.register<Path> ()
 
-    let Data = Attributes.defineAvaloniaPropertyWidget Path.DataProperty
+    let DataWidget = Attributes.defineAvaloniaPropertyWidget Path.DataProperty
+
+    let DataString = Attributes.defineAvaloniaPropertyWithEquality Path.DataProperty
 
 [<AutoOpen>]
 module PathBuilders =
@@ -22,5 +25,12 @@ module PathBuilders =
         static member Path(content: WidgetBuilder<'msg, #IFabGeometry>) =
             WidgetBuilder<'msg, IFabPath>(
                 Path.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueSome [| Path.Data.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(
+                    StackList.empty (),
+                    ValueSome [| Path.DataWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
             )
+
+        static member Path(pathData: string) =
+            WidgetBuilder<'msg, IFabPath>(Path.WidgetKey, Path.DataString.WithValue(Geometry.Parse(pathData)))

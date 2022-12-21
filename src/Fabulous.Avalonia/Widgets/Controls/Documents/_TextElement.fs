@@ -52,7 +52,6 @@ type TextElementModifiers =
     static member inline fontSize(this: WidgetBuilder<'msg, #IFabTextElement>, value: double) =
         this.AddScalar(TextElement.FontSize.WithValue(value))
 
-
     [<Extension>]
     static member inline fontStyle(this: WidgetBuilder<'msg, #IFabTextElement>, value: FontStyle) =
         this.AddScalar(TextElement.FontStyle.WithValue(value))

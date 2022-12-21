@@ -19,7 +19,6 @@ module RotateTransform =
     let CenterY =
         Attributes.defineAvaloniaPropertyWithEquality RotateTransform.CenterYProperty
 
-
 [<AutoOpen>]
 module RotateTransformBuilders =
     type Fabulous.Avalonia.View with

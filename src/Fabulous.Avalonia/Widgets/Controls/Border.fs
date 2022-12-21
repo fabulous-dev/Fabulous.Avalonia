@@ -99,7 +99,6 @@ type BorderModifiers =
     static member inline borderDashOffset(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
         this.AddScalar(Border.BorderDashOffset.WithValue(value))
 
-
 [<Extension>]
 type BorderExtraModifiers =
     [<Extension>]
