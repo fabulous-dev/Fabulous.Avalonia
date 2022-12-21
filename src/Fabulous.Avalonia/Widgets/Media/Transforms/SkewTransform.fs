@@ -16,7 +16,6 @@ module SkewTransform =
     let AngleY =
         Attributes.defineAvaloniaPropertyWithEquality SkewTransform.AngleYProperty
 
-
 [<AutoOpen>]
 module SkewTransformBuilders =
     type Fabulous.Avalonia.View with

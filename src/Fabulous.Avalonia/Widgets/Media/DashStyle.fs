@@ -24,7 +24,6 @@ module DashStyle =
 
     let Offset = Attributes.defineAvaloniaPropertyWithEquality DashStyle.OffsetProperty
 
-
 [<AutoOpen>]
 module DashStyleBuilders =
     type Fabulous.Avalonia.View with

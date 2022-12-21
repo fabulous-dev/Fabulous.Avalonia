@@ -33,7 +33,6 @@ module Track =
     let IgnoreThumbDrag =
         Attributes.defineAvaloniaPropertyWithEquality Track.IgnoreThumbDragProperty
 
-
 [<AutoOpen>]
 module TrackBuilders =
     type Fabulous.Avalonia.View with

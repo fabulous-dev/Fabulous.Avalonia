@@ -17,7 +17,6 @@ module GlyphRunDrawing =
     let GlyphRun =
         Attributes.defineAvaloniaPropertyWithEquality GlyphRunDrawing.GlyphRunProperty
 
-
 [<AutoOpen>]
 module GlyphRunDrawingBuilders =
     type Fabulous.Avalonia.View with
