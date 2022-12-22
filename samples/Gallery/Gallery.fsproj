@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.props" />
+  
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
+    <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\*" />
+    <EmbeddedResource Include="Assets\Fonts\icomoon.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="Common.fs" />
+    <Compile Include="Widgets\Button.fs" />
+    <Compile Include="Widgets\TextBlock.fs" />
+    <Compile Include="WidgetPage.fs" />
+    <Compile Include="Overview.fs" />
+    <Compile Include="App.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\Icons\fabulous-icon.png" />
+  </ItemGroup>
+
+  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.targets" />
+</Project>

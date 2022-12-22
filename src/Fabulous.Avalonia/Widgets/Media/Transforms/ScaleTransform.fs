@@ -16,7 +16,6 @@ module ScaleTransform =
     let ScaleY =
         Attributes.defineAvaloniaPropertyWithEquality ScaleTransform.ScaleYProperty
 
-
 [<AutoOpen>]
 module ScaleTransformBuilders =
     type Fabulous.Avalonia.View with

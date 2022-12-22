@@ -58,7 +58,6 @@ module ScrollViewer =
     let VerticalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarVisibilityProperty
 
-
     let AllowAutoHide =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.AllowAutoHideProperty
 
@@ -77,7 +76,7 @@ module ScrollViewerBuilders =
                 ScrollViewer.WidgetKey,
                 AttributesBundle(
                     StackList.empty (),
-                    ValueSome [| ContentControl.Content.WithValue(content.Compile()) |],
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )

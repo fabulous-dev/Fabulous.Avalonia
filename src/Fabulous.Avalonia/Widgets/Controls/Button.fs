@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabButton =
     inherit IFabContentControl
@@ -38,6 +39,17 @@ module ButtonBuilders =
                 Button.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 Button.Clicked.WithValue(fun _ -> box onClicked)
+            )
+
+        static member inline Button(content: WidgetBuilder<'msg, #IFabControl>, onClicked: 'msg) =
+            WidgetBuilder<'msg, IFabButton>(
+                Button.WidgetKey,
+                AttributesBundle(
+                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
+
             )
 
 [<Extension>]

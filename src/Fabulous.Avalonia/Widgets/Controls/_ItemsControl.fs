@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Collections
 open Avalonia.Controls
 open Fabulous
@@ -15,5 +16,8 @@ module ItemsControl =
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty
 
-    let ItemsPanel =
-        Attributes.defineAvaloniaPropertyWidget ItemsControl.ItemsPanelProperty
+[<Extension>]
+type ItemsControlModifiers =
+    [<Extension>]
+    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value) =
+        this.AddScalar(ItemsControl.ItemCount.WithValue(value))

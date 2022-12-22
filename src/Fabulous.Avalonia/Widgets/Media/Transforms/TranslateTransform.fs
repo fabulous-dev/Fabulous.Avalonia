@@ -14,7 +14,6 @@ module TranslateTransform =
 
     let Y = Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.YProperty
 
-
 [<AutoOpen>]
 module TranslateTransformBuilders =
     type Fabulous.Avalonia.View with
