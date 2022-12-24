@@ -14,6 +14,7 @@ module WidgetPage =
 
     let samples =
         [ Button.sample
+          DropDownButton.sample
           ProgressBar.sample
           RepeatButton.sample
           TextBlock.sample
