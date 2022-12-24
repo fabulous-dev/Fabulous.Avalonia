@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList

@@ -1,9 +1,6 @@
 namespace Fabulous.Avalonia
 
-open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList

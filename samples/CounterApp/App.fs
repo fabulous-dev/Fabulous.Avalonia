@@ -1,11 +1,9 @@
 namespace CounterApp
 
-open System
 open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Avalonia.Interactivity
 
 module App =
     type Model =

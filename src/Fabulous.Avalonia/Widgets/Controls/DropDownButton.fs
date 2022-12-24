@@ -1,11 +1,7 @@
 ﻿namespace Fabulous.Avalonia
 
 open Avalonia.Controls
-open Avalonia.Data.Converters
-open Avalonia.Layout
 open Fabulous
-open System.Globalization
-open System.Runtime.CompilerServices
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 

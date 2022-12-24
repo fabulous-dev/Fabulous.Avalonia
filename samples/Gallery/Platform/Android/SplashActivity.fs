@@ -4,7 +4,6 @@ open Android.App
 open Android.Content
 open Avalonia
 open Avalonia.Android
-open Gallery
 open Fabulous.Avalonia
 
 [<Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)>]

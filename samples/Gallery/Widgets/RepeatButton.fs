@@ -1,6 +1,5 @@
 namespace Gallery
 
-open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View

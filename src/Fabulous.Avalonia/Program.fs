@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System
 open System.Diagnostics
 open Avalonia
-open Avalonia.Themes.Fluent
 open Avalonia.Threading
 
 open Fabulous
