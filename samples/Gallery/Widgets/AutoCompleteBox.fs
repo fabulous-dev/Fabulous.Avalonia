@@ -16,11 +16,10 @@ module AutoCompleteBox =
         | Id -> model
 
     let view _ =
-        VStack(spacing = 15.) {
-            AutoCompleteBox([ "Item 1"; "Item 2"; "Item 3" ])
-        }
+        VStack(spacing = 15.) { AutoCompleteBox([ "Item 1"; "Item 2"; "Item 3" ]) }
 
     let sample =
         { Name = "AutoCompleteBox"
-          Description = "Represents a control that provides a text box for user input and a drop-down that contains possible matches based on the input in the text box."
+          Description =
+            "Represents a control that provides a text box for user input and a drop-down that contains possible matches based on the input in the text box."
           Program = Helper.createProgram init update view }
