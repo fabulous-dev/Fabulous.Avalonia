@@ -34,8 +34,3 @@ module OverViewPage =
             TextBlock("macOS").centerHorizontal ()
         })
             .margin (Thickness(32.))
-
-// let sample =
-//     { Name = "Button"
-//       Description = "A button widget that reacts to touch events."
-//       Program = Helper.createProgram init update view }
