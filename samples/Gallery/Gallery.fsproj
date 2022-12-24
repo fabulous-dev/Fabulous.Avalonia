@@ -22,6 +22,7 @@
     <Compile Include="Widgets\ProgressBar.fs" />
     <Compile Include="Widgets\TextBlock.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
+    <Compile Include="Widgets\AutoCompleteBox.fs" />
     <Compile Include="WidgetPage.fs" />
     <Compile Include="Overview.fs" />
     <Compile Include="App.fs" />
