@@ -67,6 +67,7 @@
     <Compile Include="Widgets\Controls\_Control.fs" />
     <Compile Include="Widgets\Controls\_Decorator.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
+    <Compile Include="Widgets\Controls\_IconElement.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\Panels\_Panel.fs" />
     <Compile Include="Widgets\Controls\Panels\Canvas.fs" />
@@ -132,6 +133,7 @@
     <Compile Include="Widgets\Controls\Slider.fs" />
     <Compile Include="Widgets\Controls\ToggleSwitch.fs" />
     <Compile Include="Widgets\Controls\Separator.fs" />
+    <Compile Include="Widgets\Controls\PathIcon.fs" />
     <Compile Include="Widgets\Application.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

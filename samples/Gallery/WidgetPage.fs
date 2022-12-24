@@ -13,7 +13,11 @@ module WidgetPage =
     type Msg = SampleMsg of obj
 
     let samples =
-        [ Button.sample; DropDownButton.sample; ProgressBar.sample; TextBlock.sample ]
+        [ Button.sample
+          DropDownButton.sample
+          ProgressBar.sample
+          TextBlock.sample
+          PathIcon.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
