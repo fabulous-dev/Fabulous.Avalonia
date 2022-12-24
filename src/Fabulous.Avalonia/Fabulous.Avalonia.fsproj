@@ -126,6 +126,7 @@
     <Compile Include="Widgets\Controls\TimePicker.fs" />
     <Compile Include="Widgets\Controls\UserControl.fs" />
     <Compile Include="Widgets\Controls\Window.fs" />
+    <Compile Include="Widgets\Controls\ProgressBar.fs" />
     <Compile Include="Widgets\Controls\Slider.fs" />
     <Compile Include="Widgets\Controls\ToggleSwitch.fs" />
     <Compile Include="Widgets\Controls\Separator.fs" />
