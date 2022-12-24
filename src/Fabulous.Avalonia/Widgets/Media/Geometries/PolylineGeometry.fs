@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open Avalonia
-open Avalonia.Collections
 open Avalonia.Media
 open Fabulous
 

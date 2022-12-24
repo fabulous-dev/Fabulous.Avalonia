@@ -2,8 +2,6 @@
 
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
 
 type IFabButtonSpinner =

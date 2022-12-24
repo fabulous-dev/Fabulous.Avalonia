@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Runtime.CompilerServices
 open Avalonia
 open Foundation
 open UIKit
@@ -9,7 +8,6 @@ open UIKit
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.iOS
 
-open Fabulous
 
 type SingleViewLifetime() =
     member val View: AvaloniaView = null with get, set

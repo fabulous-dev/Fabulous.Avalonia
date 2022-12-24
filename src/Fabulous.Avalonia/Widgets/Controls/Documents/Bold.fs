@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Controls.Documents
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabBold =
     inherit IFabSpan
