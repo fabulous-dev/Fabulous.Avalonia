@@ -121,6 +121,7 @@
     <Compile Include="Widgets\Controls\Button.fs" />
     <Compile Include="Widgets\Controls\ButtonSpinner.fs" />
     <Compile Include="Widgets\Controls\DropDownButton.fs" />
+    <Compile Include="Widgets\Controls\RepeatButton.fs" />
     <Compile Include="Widgets\Controls\SliptView.fs" />
     <Compile Include="Widgets\Controls\CheckBox.fs" />
     <Compile Include="Widgets\Controls\NumericUpDown.fs" />

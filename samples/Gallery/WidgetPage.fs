@@ -16,6 +16,7 @@ module WidgetPage =
         [ Button.sample
           DropDownButton.sample
           ProgressBar.sample
+          RepeatButton.sample
           TextBlock.sample
           PathIcon.sample ]
 
