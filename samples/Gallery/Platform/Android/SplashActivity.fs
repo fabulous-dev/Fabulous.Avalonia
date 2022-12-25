@@ -5,6 +5,7 @@ open Android.Content
 open Avalonia
 open Avalonia.Android
 open Fabulous.Avalonia
+open Gallery
 
 [<Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)>]
 type SplashActivity() =
