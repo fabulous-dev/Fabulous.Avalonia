@@ -1,7 +1,8 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.ComponentModel
+open System.Collections.Generic
+open System.Collections
 open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
@@ -32,17 +33,8 @@ module AutoCompleteBox =
     let IsDropDownOpen =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.IsDropDownOpenProperty
 
-    //let SelectedItem = Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.SelectedItemProperty
-    let SelectedItem<'T when 'T: equality> =
-        Attributes.defineSimpleScalar<'T>
-            "AutoCompleteBox_SelectedItem"
-            ScalarAttributeComparers.equalityCompare
-            (fun _ newValueOpt node ->
-                let control = node.Target :?> AutoCompleteBox
-
-                match newValueOpt with
-                | ValueNone -> control.ClearValue(AutoCompleteBox.SelectedItemProperty)
-                | ValueSome value -> control.SetValue(AutoCompleteBox.SelectedItemProperty, value))
+    let SelectedItem =
+        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.SelectedItemProperty
 
     let Text =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
@@ -62,16 +54,8 @@ module AutoCompleteBox =
     let TextSelector =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextSelectorProperty
 
-    let Items<'T when 'T: equality> =
-        Attributes.defineSimpleScalar<'T>
-            "AutoCompleteBox_Items"
-            ScalarAttributeComparers.equalityCompare
-            (fun _ newValueOpt node ->
-                let autoCompleteBox = node.Target :?> AutoCompleteBox
-
-                match newValueOpt with
-                | ValueNone -> autoCompleteBox.ClearValue(AutoCompleteBox.ItemsProperty)
-                | ValueSome value -> autoCompleteBox.SetValue(AutoCompleteBox.ItemsProperty, value) |> ignore)
+    let Items =
+        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemsProperty
 
     let AsyncPopulator =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
@@ -88,21 +72,10 @@ module AutoCompleteBox =
         Attributes.defineEvent<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target ->
             (target :?> AutoCompleteBox).Populated)
 
-    let DropDownOpening =
-        Attributes.defineEvent<CancelEventArgs> "AutoCompleteBox_DropDownOpening" (fun target ->
-            (target :?> AutoCompleteBox).DropDownOpening)
-
     let DropDownOpened =
-        Attributes.defineEventNoArg "AutoCompleteBox_DropDownOpened" (fun target ->
-            (target :?> AutoCompleteBox).DropDownOpened)
-
-    let DropDownClosing =
-        Attributes.defineEvent<CancelEventArgs> "AutoCompleteBox_DropDownClosing" (fun target ->
-            (target :?> AutoCompleteBox).DropDownClosing)
-
-    let DropDownClosed =
-        Attributes.defineEventNoArg "AutoCompleteBox_DropDownClosed" (fun target ->
-            (target :?> AutoCompleteBox).DropDownClosed)
+        Attributes.defineAvaloniaPropertyWithChangedEvent'
+            "AutoCompleteBox_onDropDownOpened"
+            AutoCompleteBox.IsDropDownOpenProperty
 
     let SelectionChanged =
         Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
@@ -117,6 +90,17 @@ module AutoCompleteBoxBuilders =
                 AutoCompleteBox.WidgetKey,
                 AutoCompleteBox.Watermark.WithValue(watermark),
                 AutoCompleteBox.Items.WithValue(items)
+            )
+
+        static member AutoCompleteBox
+            (
+                watermark: string,
+                populator: string -> CancellationToken -> Task<IEnumerable<obj>>
+            ) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(
+                AutoCompleteBox.WidgetKey,
+                AutoCompleteBox.Watermark.WithValue(watermark),
+                AutoCompleteBox.AsyncPopulator.WithValue(populator)
             )
 
 [<Extension>]
@@ -142,7 +126,7 @@ type AutoCompleteBoxModifiers =
         this.AddScalar(AutoCompleteBox.IsDropDownOpen.WithValue(value))
 
     [<Extension>]
-    static member inline selectedItem(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: 'T) =
+    static member inline selectedItem(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: obj) =
         this.AddScalar(AutoCompleteBox.SelectedItem.WithValue(value))
 
     [<Extension>]
@@ -178,14 +162,6 @@ type AutoCompleteBoxModifiers =
         this.AddScalar(AutoCompleteBox.TextSelector.WithValue(selector))
 
     [<Extension>]
-    static member inline asyncPopulator
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            populator: string -> CancellationToken -> Task<obj seq>
-        ) =
-        this.AddScalar(AutoCompleteBox.AsyncPopulator.WithValue(populator))
-
-    [<Extension>]
     static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onTextChanged: string -> 'msg) =
         this.AddScalar(
             AutoCompleteBox.TextChanged.WithValue(fun args ->
@@ -194,44 +170,29 @@ type AutoCompleteBoxModifiers =
         )
 
     [<Extension>]
-    static member inline onPopulating
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            onPopulating: PopulatingEventArgs -> 'msg
-        ) =
-        this.AddScalar(AutoCompleteBox.Populating.WithValue(fun args -> onPopulating args |> box))
+    static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulating: string -> 'msg) =
+        this.AddScalar(AutoCompleteBox.Populating.WithValue(fun args -> onPopulating args.Parameter |> box))
 
     [<Extension>]
     static member inline onPopulated
         (
             this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            onPopulated: PopulatedEventArgs -> 'msg
+            onPopulated: IEnumerable -> 'msg
         ) =
-        this.AddScalar(AutoCompleteBox.Populated.WithValue(fun args -> onPopulated args |> box))
+        this.AddScalar(AutoCompleteBox.Populated.WithValue(fun args -> onPopulated args.Data |> box))
 
     [<Extension>]
-    static member inline onDropDownOpening
+    static member inline onDropDownOpened
         (
             this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            onDropDownOpening: bool -> 'msg
+            isOpen: bool,
+            onDropDownOpened: bool -> 'msg
         ) =
-        this.AddScalar(AutoCompleteBox.DropDownOpening.WithValue(fun args -> onDropDownOpening args.Cancel |> box))
-
-    [<Extension>]
-    static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onDropDownOpened: 'msg) =
-        this.AddScalar(AutoCompleteBox.DropDownOpened.WithValue(fun _ -> onDropDownOpened |> box))
-
-    [<Extension>]
-    static member inline onDropDownClosing
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            onDropDownClosing: bool -> 'msg
-        ) =
-        this.AddScalar(AutoCompleteBox.DropDownClosing.WithValue(fun args -> onDropDownClosing args.Cancel |> box))
-
-    [<Extension>]
-    static member inline onDropDownClosed(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onDropDownClosed: 'msg) =
-        this.AddScalar(AutoCompleteBox.DropDownClosed.WithValue(fun _ -> onDropDownClosed |> box))
+        this.AddScalar(
+            AutoCompleteBox.DropDownOpened.WithValue(
+                ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box)
+            )
+        )
 
     [<Extension>]
     static member inline onSelectionChanged
