@@ -1,7 +1,9 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia.Controls
 open Avalonia.Controls.Primitives
+open Avalonia.Markup.Xaml.Templates
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 open Avalonia.Layout
@@ -45,14 +47,10 @@ module Track =
 module TrackBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline Track(content: WidgetBuilder<'msg, IFabThumb>) =
+        static member inline Track(value: float, onValueChanged: float -> 'msg) =
             WidgetBuilder<'msg, IFabTrack>(
                 Track.WidgetKey,
-                AttributesBundle(
-                    StackList.three(Track.Minimum.WithValue 0.0, Track.Maximum.WithValue 100.0, Track.Value.WithValue 50.),
-                    ValueSome [| Track.Thumb.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                Track.ValueChanged.WithValue(ValueEventData.create value (fun x -> onValueChanged x |> box))
             )
 
 [<Extension>]
@@ -65,7 +63,7 @@ type TrackModifiers =
     [<Extension>]
     static member inline maximum(this: WidgetBuilder<'msg, #IFabTrack>, value: float) =
         this.AddScalar(Track.Maximum.WithValue(value))
-        
+
     [<Extension>]
     static member inline value(this: WidgetBuilder<'msg, #IFabTrack>, value: float) =
         this.AddScalar(Track.Value.WithValue(value))

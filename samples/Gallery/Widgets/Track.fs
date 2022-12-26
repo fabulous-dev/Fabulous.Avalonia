@@ -10,9 +10,7 @@ open type Fabulous.Avalonia.View
 module Track =
     type Model = { TrackValue: float }
 
-
-    type Msg =
-        | TrackValueChanged of float
+    type Msg = TrackValueChanged of float
 
     let init () = { TrackValue = 50. }
 
@@ -21,18 +19,20 @@ module Track =
         | TrackValueChanged value -> { model with TrackValue = value }
 
     let view model =
-        (VStack() {
-            Track(Thumb()
-                      .size(24.0, 24.0)
-                      .clip(RectangleGeometry(Rect(0.0, 0.0, 24.0, 24.0)))
-                      .background(SolidColorBrush(Colors.Green)))
-                .orientation(Orientation.Vertical)
+        VStack() {
+            Track(model.TrackValue, TrackValueChanged)
                 .minimum(0.0)
-                .value(model.TrackValue)
                 .maximum(100.0)
-                .height(200.0)
-                
-        }).background(SolidColorBrush(Colors.Red))
+                .thumb (
+                    Thumb()
+                        .borderBrush(SolidColorBrush(Colors.Black))
+                        .background(SolidColorBrush(Colors.Transparent))
+                        .borderThickness(Thickness(3.))
+                        .cornerRadius(CornerRadius(10.))
+                        .width(20.0)
+                        .height (20.0)
+                )
+        }
     //     <Grid ColumnDefinitions="*">
     //     <Track Minimum="0" Maximum="100" Value="50" Orientation="Vertical">
     //         <Track.DecreaseButton>
