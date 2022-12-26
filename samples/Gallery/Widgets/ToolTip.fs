@@ -22,7 +22,7 @@ module ToolTip =
             Border(TextBlock("Hover over me!"))
                 .padding(10.)
                 .background(SolidColorBrush(Colors.LightGray))
-                .tooltip("Im a tooltip!")
+                .tooltip ("Im a tooltip!")
 
             Border(TextBlock("Hover over me!"))
                 .padding(10.)
@@ -32,7 +32,8 @@ module ToolTip =
                         TextBlock("ToolTip")
                         TextBlock("A control which pops up a hint when a control is hovered")
                     }
-                ).tooltipShowDelay(1000)
+                )
+                .tooltipShowDelay (1000)
         }
 
 
