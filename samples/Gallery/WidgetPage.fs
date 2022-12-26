@@ -19,7 +19,8 @@ module WidgetPage =
           ProgressBar.sample
           RepeatButton.sample
           TextBlock.sample
-          PathIcon.sample ]
+          PathIcon.sample
+          Expander.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
