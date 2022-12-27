@@ -24,7 +24,8 @@ module WidgetPage =
           ToolTip.sample
           Grid.sample
           GridSplitter.sample
-          ViewBox.sample ]
+          ViewBox.sample
+          Shapes.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
