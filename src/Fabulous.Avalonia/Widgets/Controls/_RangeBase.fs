@@ -58,7 +58,7 @@ type RangeBaserModifiers =
     [<Extension>]
     static member inline largeChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.LargeChange.WithValue(value))
-        
+
     [<Extension>]
     static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragStarted: Vector -> 'msg) =
         this.AddScalar(Thumb.DragStarted.WithValue(fun args -> onDragStarted args.Vector |> box))
