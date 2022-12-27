@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Controls.Primitives
 open Fabulous
 
@@ -57,3 +58,15 @@ type RangeBaserModifiers =
     [<Extension>]
     static member inline largeChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.LargeChange.WithValue(value))
+        
+    [<Extension>]
+    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragStarted: Vector -> 'msg) =
+        this.AddScalar(Thumb.DragStarted.WithValue(fun args -> onDragStarted args.Vector |> box))
+
+    [<Extension>]
+    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragDelta: Vector -> 'msg) =
+        this.AddScalar(Thumb.DragDelta.WithValue(fun args -> onDragDelta args.Vector |> box))
+
+    [<Extension>]
+    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragCompleted: Vector -> 'msg) =
+        this.AddScalar(Thumb.DragCompleted.WithValue(fun args -> onDragCompleted args.Vector |> box))

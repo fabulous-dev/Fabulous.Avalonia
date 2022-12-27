@@ -97,7 +97,7 @@
     <Compile Include="Widgets\Controls\Primitives\AccessText.fs" />
     <Compile Include="Widgets\Controls\Primitives\AdornerLayer.fs" />
     <Compile Include="Widgets\Controls\Primitives\Flyout.fs" />
-    <Compile Include="Widgets\Controls\Primitives\Thumb.fs" />
+    <Compile Include="Widgets\Controls\Primitives\_Thumb.fs" />
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
     <Compile Include="Widgets\Controls\_HeaderedContentControl.fs" />
     <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
@@ -122,7 +122,6 @@
     <Compile Include="Widgets\Controls\ButtonSpinner.fs" />
     <Compile Include="Widgets\Controls\DropDownButton.fs" />
     <Compile Include="Widgets\Controls\RepeatButton.fs" />
-    <Compile Include="Widgets\Controls\Track.fs" />
     <Compile Include="Widgets\Controls\SliptView.fs" />
     <Compile Include="Widgets\Controls\CheckBox.fs" />
     <Compile Include="Widgets\Controls\NumericUpDown.fs" />
