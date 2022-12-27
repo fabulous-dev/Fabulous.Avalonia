@@ -97,8 +97,7 @@
     <Compile Include="Widgets\Controls\Primitives\AccessText.fs" />
     <Compile Include="Widgets\Controls\Primitives\AdornerLayer.fs" />
     <Compile Include="Widgets\Controls\Primitives\Flyout.fs" />
-    <Compile Include="Widgets\Controls\Primitives\Thumb.fs" />
-    <Compile Include="Widgets\Controls\Primitives\Track.fs" />
+    <Compile Include="Widgets\Controls\Primitives\_Thumb.fs" />
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
     <Compile Include="Widgets\Controls\_HeaderedContentControl.fs" />
     <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
