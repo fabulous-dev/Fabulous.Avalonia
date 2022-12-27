@@ -67,6 +67,8 @@
     <Compile Include="Widgets\Controls\_Control.fs" />
     <Compile Include="Widgets\Controls\_Decorator.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
+    <Compile Include="Widgets\Controls\_ContentControl.fs" />
+    <Compile Include="Widgets\Controls\Tooltip.fs" />
     <Compile Include="Widgets\Controls\_IconElement.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
     <Compile Include="Widgets\Controls\Panels\_Panel.fs" />
@@ -98,7 +100,6 @@
     <Compile Include="Widgets\Controls\Primitives\Thumb.fs" />
     <Compile Include="Widgets\Controls\Primitives\Track.fs" />
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
-    <Compile Include="Widgets\Controls\_ContentControl.fs" />
     <Compile Include="Widgets\Controls\_HeaderedContentControl.fs" />
     <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
     <Compile Include="Widgets\Controls\TabItem.fs" />

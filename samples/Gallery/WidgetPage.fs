@@ -20,7 +20,8 @@ module WidgetPage =
           RepeatButton.sample
           TextBlock.sample
           PathIcon.sample
-          Expander.sample ]
+          Expander.sample
+          ToolTip.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
