@@ -23,7 +23,8 @@ module WidgetPage =
           Expander.sample
           ToolTip.sample
           Grid.sample
-          GridSplitter.sample ]
+          GridSplitter.sample
+          ViewBox.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
@@ -45,8 +46,11 @@ module WidgetPage =
         ScrollViewer(
             VStack(spacing = 20.) {
                 TextBlock(model.Sample.Name).centerHorizontal ()
-                TextBlock(model.Sample.Description)
+
+                TextBlock(model.Sample.Description).textWrapping (TextWrapping.Wrap)
+
                 Separator().background (SolidColorBrush(Colors.Gray))
+
                 View.map SampleMsg (model.Sample.Program.view model.SampleModel)
             }
         )

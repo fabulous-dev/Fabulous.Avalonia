@@ -135,6 +135,7 @@
     <Compile Include="Widgets\Controls\Slider.fs" />
     <Compile Include="Widgets\Controls\ToggleSwitch.fs" />
     <Compile Include="Widgets\Controls\Separator.fs" />
+    <Compile Include="Widgets\Controls\Viewbox.fs" />
     <Compile Include="Widgets\Controls\GridSplitter.fs" />
     <Compile Include="Widgets\Controls\Expander.fs" />
     <Compile Include="Widgets\Controls\AutoCompleteBox.fs" />
