@@ -39,7 +39,7 @@ module AutoCompleteBox =
 
     let getItemsAsync (_: string) (token: CancellationToken) : Task<IEnumerable<obj>> =
         task {
-            Task.Delay(1000, token) |> ignore
+            do Task.Delay(250, token) |> ignore
 
             return
                 [ "Async Item 1"
@@ -77,9 +77,7 @@ module AutoCompleteBox =
                 .onPopulated(OnPopulated)
                 .onDropDownOpened (model.IsOpen, OnDropDownOpen)
 
-
             AutoCompleteBox("Select an async item", getItemsAsync)
-        //.asyncPopulator(getItemsAsync)
         }
 
     let sample =
