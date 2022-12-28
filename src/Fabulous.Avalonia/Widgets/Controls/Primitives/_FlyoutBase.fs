@@ -59,3 +59,11 @@ type FlyoutBaseModifiers =
             attachedFlyout: WidgetBuilder<'msg, IFabFlyoutBase>
         ) =
         this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(attachedFlyout.Compile()))
+
+    [<Extension>]
+    static member inline contextFlyout
+        (
+            this: WidgetBuilder<'msg, #IFabControl>,
+            content: WidgetBuilder<'msg, #IFabFlyoutBase>
+        ) =
+        this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))
