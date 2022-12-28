@@ -24,6 +24,7 @@
     <Compile Include="Widgets\RepeatButton.fs" />
     <Compile Include="Widgets\TextBlock.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
+    <Compile Include="Widgets\Popup.fs" />
     <Compile Include="Widgets\Shapes.fs" />
     <Compile Include="Widgets\ViewBox.fs" />
     <Compile Include="Widgets\GridSplitter.fs" />

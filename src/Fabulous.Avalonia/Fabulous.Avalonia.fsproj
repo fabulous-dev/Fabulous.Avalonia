@@ -92,12 +92,12 @@
     <Compile Include="Widgets\Controls\SelectableTextBlock.fs" />
     <Compile Include="Widgets\Controls\TextBox.fs" />
     <Compile Include="Widgets\Controls\MaskedTextBox.fs" />
-    <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
+    <Compile Include="Widgets\Controls\Primitives\_Thumb.fs" />
     <Compile Include="Widgets\Controls\Primitives\_FlyoutBase.fs" />
     <Compile Include="Widgets\Controls\Primitives\AccessText.fs" />
     <Compile Include="Widgets\Controls\Primitives\AdornerLayer.fs" />
     <Compile Include="Widgets\Controls\Primitives\Flyout.fs" />
-    <Compile Include="Widgets\Controls\Primitives\_Thumb.fs" />
+    <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
     <Compile Include="Widgets\Controls\_HeaderedContentControl.fs" />
     <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
