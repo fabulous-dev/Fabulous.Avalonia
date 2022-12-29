@@ -26,7 +26,8 @@ module WidgetPage =
           GridSplitter.sample
           ViewBox.sample
           Shapes.sample
-          Popup.sample ]
+          Popup.sample
+          UniformGrid.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
