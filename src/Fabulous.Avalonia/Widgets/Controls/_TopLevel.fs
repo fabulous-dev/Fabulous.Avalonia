@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Layout
 open Fabulous
 
 type IFabTopLevel =

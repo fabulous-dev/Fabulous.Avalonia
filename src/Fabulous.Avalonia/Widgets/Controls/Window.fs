@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Platform
 open Fabulous
@@ -12,8 +11,6 @@ type IFabWindow =
 
 module Window =
     let WidgetKey = Widgets.register<Window> ()
-
-    let Content = Attributes.defineAvaloniaPropertyWidget Window.ContentProperty
 
     let SizeToContent =
         Attributes.defineAvaloniaPropertyWithEquality Window.SizeToContentProperty
@@ -26,15 +23,6 @@ module Window =
 
     let ExtendClientAreaTitleBarHeightHint =
         Attributes.defineAvaloniaPropertyWithEquality Window.ExtendClientAreaTitleBarHeightHintProperty
-
-    let IsExtendedIntoWindowDecorations =
-        Attributes.defineAvaloniaPropertyWithEquality Window.IsExtendedIntoWindowDecorationsProperty
-
-    let WindowDecorationMargin =
-        Attributes.defineAvaloniaPropertyWithEquality Window.WindowDecorationMarginProperty
-
-    let OffScreenMargin =
-        Attributes.defineAvaloniaPropertyWithEquality Window.OffScreenMarginProperty
 
     let SystemDecorations =
         Attributes.defineAvaloniaPropertyWithEquality Window.SystemDecorationsProperty
@@ -68,7 +56,7 @@ module WindowBuilders =
                 Window.WidgetKey,
                 AttributesBundle(
                     StackList.empty (),
-                    ValueSome [| Window.Content.WithValue(content.Compile()) |],
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
@@ -94,18 +82,6 @@ type WindowModifiers =
     [<Extension>]
     static member inline extendClientAreaTitleBarHeightHint(this: WidgetBuilder<'msg, #IFabWindow>, value: float) =
         this.AddScalar(Window.ExtendClientAreaTitleBarHeightHint.WithValue(value))
-
-    [<Extension>]
-    static member inline isExtendedIntoWindowDecorations(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
-        this.AddScalar(Window.IsExtendedIntoWindowDecorations.WithValue(value))
-
-    [<Extension>]
-    static member inline windowDecorationMargin(this: WidgetBuilder<'msg, #IFabWindow>, value: Thickness) =
-        this.AddScalar(Window.WindowDecorationMargin.WithValue(value))
-
-    [<Extension>]
-    static member inline offScreenMargin(this: WidgetBuilder<'msg, #IFabWindow>, value: Thickness) =
-        this.AddScalar(Window.OffScreenMargin.WithValue(value))
 
     [<Extension>]
     static member inline systemDecorations(this: WidgetBuilder<'msg, #IFabWindow>, value: SystemDecorations) =
