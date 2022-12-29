@@ -28,7 +28,7 @@ module App =
 
     let init () =
         { WidgetModel = None
-          IsPanOpen = false
+          IsPanOpen = true
           OverviewModel = OverViewPage.init ()
           Controls = WidgetPage.getSamplesNames ()
           SelectedIndex = -1 },
