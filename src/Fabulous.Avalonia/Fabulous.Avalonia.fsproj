@@ -18,6 +18,7 @@
     <Compile Include="ViewNode.fs" />
     <Compile Include="Attributes.fs" />
     <Compile Include="Widgets.fs" />
+    <Compile Include="Widgets\_RenderOptions.fs" />
     <Compile Include="Widgets\_Animatable.fs" />
     <Compile Include="Widgets\_StyledElement.fs" />
     <Compile Include="Widgets\Styling\Style.fs" />
@@ -100,8 +101,10 @@
     <Compile Include="Widgets\Controls\Primitives\Flyout.fs" />
     <Compile Include="Widgets\Controls\Primitives\Popup.fs" />
     <Compile Include="Widgets\Controls\_ItemsControl.fs" />
+    <Compile Include="Widgets\Controls\_HeaderedItemsControl.fs" />
     <Compile Include="Widgets\Controls\_HeaderedContentControl.fs" />
     <Compile Include="Widgets\Controls\_SelectingItemsControl.fs" />
+    <Compile Include="Widgets\Controls\_HeaderedSelectingItemsControl.fs" />
     <Compile Include="Widgets\Controls\_MenuBase.fs" />
     <Compile Include="Widgets\Controls\TabItem.fs" />
     <Compile Include="Widgets\Controls\TabControl.fs" />
