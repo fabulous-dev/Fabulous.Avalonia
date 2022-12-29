@@ -67,19 +67,21 @@ module App =
             .fill (SolidColorBrush(Colors.Black))
 
     let buttonSpinnerHeader (model: Model) =
-        (VStack(0.) {
-            Image(Bitmap.create "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                .size (100., 100.)
+        ScrollViewer(
+            (VStack(0.) {
+                Image(Bitmap.create "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    .size (100., 100.)
 
-            TextBlock("Fabulous Gallery").centerHorizontal ()
+                TextBlock("Fabulous Gallery").centerHorizontal ()
 
-            Button("Overview", ShowOverview)
+                Button("Overview", ShowOverview)
 
-            (ListBox (model.Controls) (fun x -> ListBoxItem(TextBlock(x))))
-                .selectionMode(SelectionMode.Multiple)
-                .onSelectedIndexChanged (model.SelectedIndex, ItemSelected)
-        })
-            .margin (Thickness(0., 20., 0., 0.))
+                (ListBox (model.Controls) (fun x -> ListBoxItem(TextBlock(x))))
+                    .selectionMode(SelectionMode.Multiple)
+                    .onSelectedIndexChanged (model.SelectedIndex, ItemSelected)
+            })
+                .margin (Thickness(0., 20., 0., 0.))
+        )
 
     let view model =
         Grid() {
