@@ -11,7 +11,7 @@ module RenderOptions =
         Attributes.defineAvaloniaPropertyWithEquality RenderOptions.BitmapInterpolationModeProperty
 
 [<Extension>]
-type AnimatableModifiers =
+type RenderOptionsModifiers =
     [<Extension>]
     static member inline bitmapInterpolationMode
         (

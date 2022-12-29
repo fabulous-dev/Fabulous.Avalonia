@@ -16,10 +16,3 @@ module HeaderedItemsControl =
 
     let HeaderWidget =
         Attributes.defineAvaloniaPropertyWidget HeaderedContentControl.HeaderProperty
-
-
-[<Extension>]
-type ItemsControlModifiers =
-    [<Extension>]
-    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value) =
-        this.AddScalar(ItemsControl.ItemCount.WithValue(value))
