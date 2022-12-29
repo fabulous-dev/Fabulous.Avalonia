@@ -68,6 +68,7 @@
     <Compile Include="Widgets\Controls\_Decorator.fs" />
     <Compile Include="Widgets\Controls\_TemplatedControl.fs" />
     <Compile Include="Widgets\Controls\_ContentControl.fs" />
+    <Compile Include="Widgets\Controls\_TopLevel.fs" />
     <Compile Include="Widgets\Controls\Tooltip.fs" />
     <Compile Include="Widgets\Controls\_IconElement.fs" />
     <Compile Include="Widgets\Controls\Any.fs" />
@@ -130,6 +131,7 @@
     <Compile Include="Widgets\Controls\DatePicker.fs" />
     <Compile Include="Widgets\Controls\TimePicker.fs" />
     <Compile Include="Widgets\Controls\UserControl.fs" />
+    <Compile Include="Widgets\Controls\WindowBase.fs" />
     <Compile Include="Widgets\Controls\Window.fs" />
     <Compile Include="Widgets\Controls\ProgressBar.fs" />
     <Compile Include="Widgets\Controls\Slider.fs" />
