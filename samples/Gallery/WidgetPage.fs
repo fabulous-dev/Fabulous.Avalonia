@@ -30,7 +30,9 @@ module WidgetPage =
           UniformGrid.sample
           TabControl.sample
           TabStrip.sample
-          ScrollBar.sample ]
+          ScrollBar.sample
+          Calendar.sample
+          CalendarDatePicker.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
