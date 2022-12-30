@@ -29,7 +29,8 @@ module WidgetPage =
           Popup.sample
           UniformGrid.sample
           TabControl.sample
-          TabStrip.sample ]
+          TabStrip.sample
+          ScrollBar.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
