@@ -22,6 +22,7 @@ module WidgetPage =
           TextBlock.sample
           PathIcon.sample
           Slider.sample
+          TickBar.sample
           Expander.sample
           ToolTip.sample
           Grid.sample
