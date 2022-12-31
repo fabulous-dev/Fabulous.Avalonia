@@ -21,7 +21,3 @@ type SpinnerModifiers =
     [<Extension>]
     static member inline validSpinDirection(this: WidgetBuilder<'msg, #IFabSpinner>, value: ValidSpinDirections) =
         this.AddScalar(Spinner.ValidSpinDirection.WithValue(value))
-
-    [<Extension>]
-    static member inline onSpin(this: WidgetBuilder<'msg, #IFabSpinner>, onSpin: SpinEventArgs -> 'msg) =
-        this.AddScalar(Spinner.Spin.WithValue(fun args -> onSpin args |> box))
