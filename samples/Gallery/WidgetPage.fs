@@ -21,6 +21,7 @@ module WidgetPage =
           ButtonSpinner.sample
           TextBlock.sample
           PathIcon.sample
+          Slider.sample
           Expander.sample
           ToolTip.sample
           Grid.sample

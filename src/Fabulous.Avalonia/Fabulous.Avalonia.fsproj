@@ -81,6 +81,7 @@
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\UniformGrid.fs" />
     <Compile Include="Widgets\Controls\Border.fs" />
+    <Compile Include="Widgets\Controls\DataValidationErrors.fs" />
     <Compile Include="Widgets\Controls\TextDecoration.fs" />
     <Compile Include="Widgets\Controls\Documents\_TextElement.fs" />
     <Compile Include="Widgets\Controls\Documents\_Inline.fs" />

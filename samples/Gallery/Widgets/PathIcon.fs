@@ -15,7 +15,6 @@ module PathIcon =
         match msg with
         | Id -> model
 
-
     let view _ =
         VStack(spacing = 15.) {
             PathIcon("M 10,100 L 100,100 100,50Z").size (100., 100.)
