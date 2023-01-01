@@ -19,11 +19,19 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Widgets\Button.fs" />
+    <Compile Include="Widgets\SplitButton.fs" />
+    <Compile Include="Widgets\ToggleSplitButton.fs" />
     <Compile Include="Widgets\DropDownButton.fs" />
     <Compile Include="Widgets\ProgressBar.fs" />
     <Compile Include="Widgets\RepeatButton.fs" />
+    <Compile Include="Widgets\ButtonSpinner.fs" />
     <Compile Include="Widgets\TextBlock.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
+    <Compile Include="Widgets\ToggleSwitch.fs" />
+    <Compile Include="Widgets\ToggleButton.fs" />
+    <Compile Include="Widgets\RadioButton.fs" />
+    <Compile Include="Widgets\TickBar.fs" />
+    <Compile Include="Widgets\Slider.fs" />
     <Compile Include="Widgets\Calendar.fs" />
     <Compile Include="Widgets\CalendarDatePicker.fs" />
     <Compile Include="Widgets\ScrollBar.fs" />

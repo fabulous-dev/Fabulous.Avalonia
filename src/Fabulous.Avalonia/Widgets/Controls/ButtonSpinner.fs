@@ -23,10 +23,11 @@ module ButtonSpinner =
 module ButtonSpinnerBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ButtonSpinner(text: string) =
+        static member inline ButtonSpinner(text: string, onSpin: SpinEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabButtonSpinner>(
                 ButtonSpinner.WidgetKey,
-                ContentControl.ContentString.WithValue(text)
+                ContentControl.ContentString.WithValue(text),
+                Spinner.Spin.WithValue(fun args -> onSpin args |> box)
             )
 
 [<Extension>]

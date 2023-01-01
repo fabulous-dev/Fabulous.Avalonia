@@ -1,5 +1,6 @@
 namespace Gallery
 
+open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
@@ -14,12 +15,20 @@ module WidgetPage =
 
     let samples =
         [ Button.sample
+          SplitButton.sample
+          ToggleSplitButton.sample
           AutoCompleteBox.sample
           DropDownButton.sample
           ProgressBar.sample
           RepeatButton.sample
+          ButtonSpinner.sample
           TextBlock.sample
           PathIcon.sample
+          Slider.sample
+          TickBar.sample
+          ToggleSwitch.sample
+          ToggleButton.sample
+          RadioButton.sample
           Expander.sample
           ToolTip.sample
           Grid.sample
