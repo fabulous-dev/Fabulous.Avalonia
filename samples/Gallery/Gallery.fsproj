@@ -29,6 +29,7 @@
     <Compile Include="Widgets\PathIcon.fs" />
     <Compile Include="Widgets\ToggleSwitch.fs" />
     <Compile Include="Widgets\ToggleButton.fs" />
+    <Compile Include="Widgets\RadioButton.fs" />
     <Compile Include="Widgets\TickBar.fs" />
     <Compile Include="Widgets\Slider.fs" />
     <Compile Include="Widgets\Calendar.fs" />

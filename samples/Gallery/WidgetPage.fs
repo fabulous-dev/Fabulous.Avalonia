@@ -28,6 +28,7 @@ module WidgetPage =
           TickBar.sample
           ToggleSwitch.sample
           ToggleButton.sample
+          RadioButton.sample
           Expander.sample
           ToolTip.sample
           Grid.sample
