@@ -42,7 +42,8 @@ module WidgetPage =
           ScrollBar.sample
           Calendar.sample
           CalendarDatePicker.sample
-          SplitView.sample ]
+          SplitView.sample
+          CheckBox.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 

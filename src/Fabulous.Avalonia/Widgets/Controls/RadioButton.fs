@@ -9,7 +9,8 @@ type IFabRadioButton =
     inherit IFabToggleButton
 
 module RadioButton =
-    let WidgetKey = Widgets.register<RadioButton> ()
+    let WidgetKey =
+        Widgets.registerWithFactory (fun () -> RadioButton(IsThreeState = false))
 
     let IsChecked =
         Attributes.defineAvaloniaPropertyWithEquality RadioButton.IsCheckedProperty
