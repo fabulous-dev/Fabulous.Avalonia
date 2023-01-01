@@ -130,6 +130,8 @@
     <Compile Include="Widgets\Controls\CroppedBitmap.fs" />
     <Compile Include="Widgets\Controls\Image.fs" />
     <Compile Include="Widgets\Controls\Button.fs" />
+    <Compile Include="Widgets\Controls\SplitButton.fs" />
+    <Compile Include="Widgets\Controls\ToggleSplitButton.fs" />
     <Compile Include="Widgets\Controls\ToggleButton.fs" />
     <Compile Include="Widgets\Controls\ButtonSpinner.fs" />
     <Compile Include="Widgets\Controls\DropDownButton.fs" />

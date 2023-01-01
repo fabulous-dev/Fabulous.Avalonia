@@ -15,6 +15,8 @@ module WidgetPage =
 
     let samples =
         [ Button.sample
+          SplitButton.sample
+          ToggleSplitButton.sample
           AutoCompleteBox.sample
           DropDownButton.sample
           ProgressBar.sample
