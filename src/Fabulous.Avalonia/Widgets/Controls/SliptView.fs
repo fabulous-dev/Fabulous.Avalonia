@@ -35,6 +35,12 @@ module SplitView =
     let UseLightDismissOverlayMode =
         Attributes.defineAvaloniaPropertyWithEquality SplitView.UseLightDismissOverlayModeProperty
 
+    let ClosedPaneWidth =
+        Attributes.defineAvaloniaPropertyWithEquality SplitViewTemplateSettings.ClosedPaneWidthProperty
+
+    let PaneColumnGridLength =
+        Attributes.defineAvaloniaPropertyWithEquality SplitViewTemplateSettings.PaneColumnGridLengthProperty
+
     let PanClosed =
         Attributes.defineEvent "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
 
@@ -104,6 +110,14 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline useLightDismissOverlayMode(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool) =
         this.AddScalar(SplitView.UseLightDismissOverlayMode.WithValue(value))
+
+    [<Extension>]
+    static member inline closedPaneWidth(this: WidgetBuilder<'msg, #IFabSplitView>, value: float) =
+        this.AddScalar(SplitView.ClosedPaneWidth.WithValue(value))
+
+    [<Extension>]
+    static member inline paneColumnGridLength(this: WidgetBuilder<'msg, #IFabSplitView>, value: GridLength) =
+        this.AddScalar(SplitView.PaneColumnGridLength.WithValue(value))
 
     [<Extension>]
     static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, onPanClosed: 'msg) =
