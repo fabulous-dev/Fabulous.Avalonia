@@ -1,5 +1,6 @@
 namespace Gallery
 
+open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
@@ -23,6 +24,8 @@ module WidgetPage =
           PathIcon.sample
           Slider.sample
           TickBar.sample
+          ToggleSwitch.sample
+          ToggleButton.sample
           Expander.sample
           ToolTip.sample
           Grid.sample
