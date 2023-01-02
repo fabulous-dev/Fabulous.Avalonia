@@ -5,6 +5,7 @@ open System.Collections.Generic
 open Avalonia
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
+open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.WidgetCollectionAttributeDefinitions
 
 [<AbstractClass; Sealed>]
@@ -96,3 +97,6 @@ module WidgetHelpers =
               Template = template }
 
         WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
+
+    let inline buildWidgets<'msg, 'marker> (key: WidgetKey) (scalars) (attrs: WidgetAttribute[]) =
+        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone))

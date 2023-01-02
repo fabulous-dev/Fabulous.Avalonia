@@ -23,9 +23,6 @@ module FlyoutBase =
     let OverlayInputPassThrough =
         Attributes.defineAvaloniaPropertyWidget FlyoutBase.OverlayInputPassThroughElementProperty
 
-    let AttachedFlyout =
-        Attributes.defineAvaloniaPropertyWidget FlyoutBase.AttachedFlyoutProperty
-
 [<Extension>]
 type FlyoutBaseModifiers =
     [<Extension>]
@@ -51,14 +48,6 @@ type FlyoutBaseModifiers =
             overlayInputPassThrough: WidgetBuilder<'msg, IFabInputElement>
         ) =
         this.AddWidget(FlyoutBase.OverlayInputPassThrough.WithValue(overlayInputPassThrough.Compile()))
-
-    [<Extension>]
-    static member inline attachedFlyout
-        (
-            this: WidgetBuilder<'msg, #IFabFlyoutBase>,
-            attachedFlyout: WidgetBuilder<'msg, IFabFlyoutBase>
-        ) =
-        this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(attachedFlyout.Compile()))
 
     [<Extension>]
     static member inline contextFlyout

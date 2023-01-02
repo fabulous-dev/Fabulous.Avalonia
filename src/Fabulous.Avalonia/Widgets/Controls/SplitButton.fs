@@ -44,6 +44,6 @@ type SplitButtonModifiers =
     static member inline flyout
         (
             this: WidgetBuilder<'msg, #IFabSplitButton>,
-            content: WidgetBuilder<'msg, IFabFlyoutBase>
+            content: WidgetBuilder<'msg, #IFabFlyoutBase>
         ) =
         this.AddWidget(SplitButton.Flyout.WithValue(content.Compile()))

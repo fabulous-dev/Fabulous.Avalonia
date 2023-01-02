@@ -75,5 +75,5 @@ type ButtonModifiers =
         this.AddScalar(Button.IsPressed.WithValue(value))
 
     [<Extension>]
-    static member inline flyout(this: WidgetBuilder<'msg, #IFabButton>, content: WidgetBuilder<'msg, IFabFlyoutBase>) =
+    static member inline flyout(this: WidgetBuilder<'msg, #IFabButton>, content: WidgetBuilder<'msg, #IFabFlyoutBase>) =
         this.AddWidget(Button.Flyout.WithValue(content.Compile()))
