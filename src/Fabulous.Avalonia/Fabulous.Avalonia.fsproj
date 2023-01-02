@@ -150,6 +150,8 @@
     <Compile Include="Widgets\Controls\Slider.fs" />
     <Compile Include="Widgets\Controls\ToggleSwitch.fs" />
     <Compile Include="Widgets\Controls\Separator.fs" />
+    <Compile Include="Widgets\Controls\ComboBoxItem.fs" />
+    <Compile Include="Widgets\Controls\ComboBox.fs" />
     <Compile Include="Widgets\Controls\Calendar.fs" />
     <Compile Include="Widgets\Controls\CalendarDatePicker.fs" />
     <Compile Include="Widgets\Controls\Viewbox.fs" />
