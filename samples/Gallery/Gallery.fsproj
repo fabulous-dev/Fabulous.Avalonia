@@ -27,6 +27,8 @@
     <Compile Include="Widgets\ButtonSpinner.fs" />
     <Compile Include="Widgets\TextBlock.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
+    <Compile Include="Widgets\CheckBox.fs" />
+    <Compile Include="Widgets\SplitView.fs" />
     <Compile Include="Widgets\ToggleSwitch.fs" />
     <Compile Include="Widgets\ToggleButton.fs" />
     <Compile Include="Widgets\RadioButton.fs" />

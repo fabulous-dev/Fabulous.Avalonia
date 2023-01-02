@@ -10,10 +10,8 @@ type IFabToggleButton =
     inherit IFabButton
 
 module ToggleButton =
-    let WidgetKey = Widgets.register<ToggleButton> ()
-
-    let IsThreeState =
-        Attributes.defineAvaloniaPropertyWithEquality ToggleButton.IsThreeStateProperty
+    let WidgetKey =
+        Widgets.registerWithFactory (fun _ -> ToggleButton(IsThreeState = false))
 
     let Indeterminate =
         Attributes.defineEvent "ToggleButton_Indeterminate" (fun target -> (target :?> ToggleButton).Indeterminate)
@@ -54,10 +52,6 @@ module ToggleButtonBuilders =
 
 [<Extension>]
 type ToggleButtonModifiers =
-    [<Extension>]
-    static member inline isThreeState(this: WidgetBuilder<'msg, #IFabToggleButton>, value: bool) =
-        this.AddScalar(ToggleButton.IsThreeState.WithValue(value))
-
     [<Extension>]
     static member inline onIndeterminate(this: WidgetBuilder<'msg, #IFabToggleButton>, onIndeterminate: 'msg) =
         this.AddScalar(ToggleButton.Indeterminate.WithValue(fun _ -> onIndeterminate |> box))

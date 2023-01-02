@@ -39,8 +39,6 @@ module AutoCompleteBox =
 
     let getItemsAsync (_: string) (token: CancellationToken) : Task<IEnumerable<obj>> =
         task {
-            do Task.Delay(250, token) |> ignore
-
             return
                 [ "Async Item 1"
                   "Async Item 2"

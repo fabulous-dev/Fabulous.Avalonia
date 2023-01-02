@@ -1,29 +1,46 @@
 namespace Fabulous.Avalonia
 
-open System
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabCheckBox =
-    inherit IFabTemplatedControl
+    inherit IFabToggleButton
 
 module CheckBox =
     let WidgetKey =
         Widgets.registerWithFactory (fun () -> CheckBox(IsThreeState = false))
 
-    let IsChecked =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "CheckBox_IsChecked"
-            CheckBox.IsCheckedProperty
-            Nullable
-            Nullable.op_Explicit
-
 [<AutoOpen>]
 module CheckBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline CheckBox<'msg>(value: bool, onValueChanged: bool -> 'msg) =
+        static member inline CheckBox(content: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
-                CheckBox.IsChecked.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
+                ContentControl.ContentString.WithValue(content),
+                ToggleButton.CheckedChanged.WithValue(
+                    ValueEventData.create isChecked (fun args -> onValueChanged args |> box)
+                )
+            )
+
+        static member inline CheckBox
+            (
+                content: WidgetBuilder<'msg, #IFabControl>,
+                isChecked: bool,
+                onValueChanged: bool -> 'msg
+            ) =
+            WidgetBuilder<'msg, IFabCheckBox>(
+                CheckBox.WidgetKey,
+                AttributesBundle(
+                    StackList.one (
+                        ToggleButton.CheckedChanged.WithValue(
+                            ValueEventData.create isChecked (fun args -> onValueChanged args |> box)
+                        )
+                    ),
+
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
             )
