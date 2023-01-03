@@ -38,11 +38,12 @@ module MaskedTextBox =
 module MaskedTextBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline MaskedTextBox<'msg>(text: string, mask: string) =
+        static member inline MaskedTextBox<'msg>(text: string, mask: string, valueChanged: string -> 'msg) =
             WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 TextBlock.Text.WithValue(text),
-                MaskedTextBox.Mask.WithValue(mask)
+                MaskedTextBox.Mask.WithValue(mask),
+                TextBox.TextChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
             )
 
 [<Extension>]
