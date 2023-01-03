@@ -23,6 +23,8 @@ module WidgetPage =
           RepeatButton.sample
           ButtonSpinner.sample
           TextBlock.sample
+          SelectableTextBlock.sample
+          TextBox.sample
           PathIcon.sample
           Slider.sample
           TickBar.sample

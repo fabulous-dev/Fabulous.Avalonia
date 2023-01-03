@@ -26,6 +26,8 @@
     <Compile Include="Widgets\RepeatButton.fs" />
     <Compile Include="Widgets\ButtonSpinner.fs" />
     <Compile Include="Widgets\TextBlock.fs" />
+    <Compile Include="Widgets\SelectableTextBlock.fs" />
+    <Compile Include="Widgets\TextBox.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
     <Compile Include="Widgets\MenuFlyout.fs" />
     <Compile Include="Widgets\ComboBox.fs" />
