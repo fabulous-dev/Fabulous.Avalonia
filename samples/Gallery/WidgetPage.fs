@@ -25,6 +25,7 @@ module WidgetPage =
           TextBlock.sample
           SelectableTextBlock.sample
           TextBox.sample
+          MaskedTextBox.sample
           PathIcon.sample
           Slider.sample
           TickBar.sample

@@ -28,6 +28,7 @@
     <Compile Include="Widgets\TextBlock.fs" />
     <Compile Include="Widgets\SelectableTextBlock.fs" />
     <Compile Include="Widgets\TextBox.fs" />
+    <Compile Include="Widgets\MaskedTextBox.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
     <Compile Include="Widgets\MenuFlyout.fs" />
     <Compile Include="Widgets\ContextMenu.fs" />
