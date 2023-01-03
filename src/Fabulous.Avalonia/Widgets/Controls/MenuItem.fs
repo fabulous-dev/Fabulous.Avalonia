@@ -107,7 +107,7 @@ type MenuItemModifiers =
         this.AddScalar(MenuItem.HotKey.WithValue(value))
 
     [<Extension>]
-    static member inline icon(this: WidgetBuilder<'msg, #IFabMenuItem>, content: WidgetBuilder<'msg, IFabImage>) =
+    static member inline icon(this: WidgetBuilder<'msg, #IFabMenuItem>, content: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(MenuItem.Icon.WithValue(content.Compile()))
 
     [<Extension>]

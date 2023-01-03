@@ -45,7 +45,8 @@ module WidgetPage =
           SplitView.sample
           CheckBox.sample
           ComboBox.sample
-          MenuFlyout.sample ]
+          MenuFlyout.sample
+          ContextMenu.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
