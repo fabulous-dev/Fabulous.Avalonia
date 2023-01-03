@@ -121,3 +121,27 @@ type TemplatedControlExtraModifiers =
             bottom: float
         ) =
         TemplatedControlModifiers.padding (this, Thickness(left, top, right, bottom))
+
+    [<Extension>]
+    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: float) =
+        TemplatedControlModifiers.borderThickness (this, Thickness(value))
+
+    [<Extension>]
+    static member inline borderThickness
+        (
+            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
+            horizontal: float,
+            vertical: float
+        ) =
+        TemplatedControlModifiers.borderThickness (this, Thickness(horizontal, vertical))
+
+    [<Extension>]
+    static member inline borderThickness
+        (
+            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
+            left: float,
+            top: float,
+            right: float,
+            bottom: float
+        ) =
+        TemplatedControlModifiers.borderThickness (this, Thickness(left, top, right, bottom))
