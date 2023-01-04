@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.ComponentModel
 open Avalonia.Input
 open Fabulous.Avalonia
 
@@ -8,19 +9,24 @@ open type Fabulous.Avalonia.View
 module ContextMenu =
     type Model = { Counter: int; IsChecked: bool }
 
-    type Msg = ValueChanged of bool
+    type Msg =
+        | ContextMenuOpening of CancelEventArgs
+        | ContextMenuClosing of CancelEventArgs
+        | ValueChanged of bool
 
     let init () = { Counter = 0; IsChecked = false }
 
     let update msg model =
         match msg with
         | ValueChanged value -> { model with IsChecked = value }
+        | ContextMenuOpening _ -> model
+        | ContextMenuClosing _ -> model
 
     let view model =
         VStack(spacing = 15.) {
             Border(TextBlock("Right click me to open the context menu"))
                 .contextMenu (
-                    ContextMenu() {
+                    (ContextMenu() {
                         MenuItem("Standard _Menu Item")
                             .inputGesture (KeyGesture(Key.A, KeyModifiers.Control))
 
@@ -54,7 +60,9 @@ module ContextMenu =
                         MenuItem("Menu Item that won't close on click").staysOpenOnClick (true)
 
                         MenuItem("Menu Item that will close on click")
-                    }
+                    })
+                        .onContextMenuOpening(ContextMenuOpening)
+                        .onContextMenuClosing (ContextMenuClosing)
                 )
         }
 
