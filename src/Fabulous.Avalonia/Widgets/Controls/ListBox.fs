@@ -10,8 +10,8 @@ type IFabListBox =
 module ListBox =
     let WidgetKey = Widgets.register<ListBox> ()
 
-    let ItemsSource<'T> =
-        Attributes.defineSimpleScalar<WidgetItems<'T>>
+    let ItemsSource =
+        Attributes.defineSimpleScalar<WidgetItems>
             "ListBox_Items"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
