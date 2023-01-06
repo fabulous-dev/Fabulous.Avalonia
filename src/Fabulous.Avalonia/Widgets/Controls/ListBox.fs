@@ -42,7 +42,8 @@ module ListBox =
 module ListBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabListBoxItem> (items: seq<'itemData>)
+        static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabListBoxItem>
+            (items: seq<'itemData>)
             =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker>
                 ListBox.WidgetKey
