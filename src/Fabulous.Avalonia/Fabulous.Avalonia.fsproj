@@ -116,6 +116,7 @@
     <Compile Include="Widgets\Controls\MenuItem.fs" />
     <Compile Include="Widgets\Controls\MenuFlyout.fs" />
     <Compile Include="Widgets\Controls\ContextMenu.fs" />
+    <Compile Include="Widgets\Controls\Menu.fs" />
     <Compile Include="Widgets\Controls\TabItem.fs" />
     <Compile Include="Widgets\Controls\TabControl.fs" />
     <Compile Include="Widgets\Controls\ListBoxItem.fs" />
