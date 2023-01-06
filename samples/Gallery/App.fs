@@ -47,16 +47,13 @@ module App =
                 let m, c = WidgetPage.update msg widgetModel
                 { model with WidgetModel = Some m }, (Cmd.map WidgetPageMsg c)
         | ItemSelected index ->
-            if index = - 1 then
-                model, Cmd.none
-            else
-                let model =
-                    { model with
-                        WidgetModel = Some(WidgetPage.init index)
-                        SelectedIndex = index
-                        IsPanOpen = true }
+            let model =
+                { model with
+                    WidgetModel = Some(WidgetPage.init index)
+                    SelectedIndex = index
+                    IsPanOpen = true }
 
-                model, Cmd.none
+            model, Cmd.none
 
         | OpenPanChanged x -> { model with IsPanOpen = x }, Cmd.none
 

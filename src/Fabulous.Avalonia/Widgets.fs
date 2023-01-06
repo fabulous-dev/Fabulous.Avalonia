@@ -1,7 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Collections.Generic
+open System.Collections
 open Avalonia
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
@@ -17,9 +17,9 @@ type IFabElement =
     interface
     end
 
-type WidgetItems<'T> =
-    { OriginalItems: IEnumerable<'T>
-      Template: 'T -> Widget }
+type WidgetItems =
+    { OriginalItems: IEnumerable
+      Template: obj -> Widget }
 
 module Widgets =
     let registerWithFactory<'T when 'T :> IAvaloniaObject> (factory: unit -> 'T) =
@@ -84,7 +84,7 @@ module WidgetHelpers =
 
     let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
         key
-        (attrDef: SimpleScalarAttributeDefinition<WidgetItems<'itemData>>)
+        (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
         (items: seq<'itemData>)
         (itemTemplate: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
         =
@@ -92,7 +92,7 @@ module WidgetHelpers =
             let item = unbox<'itemData> item
             (itemTemplate item).Compile()
 
-        let data: WidgetItems<'itemData> =
+        let data: WidgetItems =
             { OriginalItems = items
               Template = template }
 

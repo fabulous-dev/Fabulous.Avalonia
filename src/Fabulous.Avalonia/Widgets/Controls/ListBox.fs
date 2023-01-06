@@ -10,8 +10,8 @@ type IFabListBox =
 module ListBox =
     let WidgetKey = Widgets.register<ListBox> ()
 
-    let ItemsSource<'T> =
-        Attributes.defineSimpleScalar<WidgetItems<'T>>
+    let ItemsSource =
+        Attributes.defineSimpleScalar<WidgetItems>
             "ListBox_Items"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
@@ -42,8 +42,7 @@ module ListBox =
 module ListBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabListBoxItem>
-            (items: seq<'itemData>)
+        static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabListBoxItem> (items: seq<'itemData>)
             =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker>
                 ListBox.WidgetKey
