@@ -15,7 +15,7 @@ module TextBlock =
 
     let update msg model =
         match msg with
-        | Id -> model 
+        | Id -> model
 
     let view _ =
         VStack(spacing = 15.) {
@@ -66,12 +66,12 @@ module TextBlock =
                         .fontFamily(FontFamily "SourceSansPro, Bold")
                         .fontStyle(FontStyle.Normal)
                         .fontWeight (FontWeight.Bold)
-                    
+
                     TextBlock("Custom font italic")
                         .fontFamily(FontFamily "SourceSansPro, Italic")
                         .fontStyle(FontStyle.Italic)
                         .fontWeight (FontWeight.Normal)
-                    
+
                     TextBlock("Custom font italic bold")
                         .fontFamily(FontFamily "SourceSansPro, Bold Italic")
                         .fontStyle(FontStyle.Italic)
@@ -178,5 +178,5 @@ module TextBlock =
 
     let sample =
         { Name = "TextBlock"
-          Description = "A simple text block"
+          Description = "The TextBlock control allows for the display of label-like text in the interface."
           Program = Helper.createProgram init update view }
