@@ -12,8 +12,7 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\*" />
-    <EmbeddedResource Include="Assets\Fonts\icomoon.ttf" />
-    <EmbeddedResource Include="Assets\Fonts\JetBrainsMono-Regular.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\*" />
   </ItemGroup>
   
   <ItemGroup>

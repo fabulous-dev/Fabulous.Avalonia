@@ -95,7 +95,7 @@ module AutoCompleteBoxBuilders =
         static member AutoCompleteBox
             (
                 watermark: string,
-                populator: string -> CancellationToken -> Task<IEnumerable<obj>>
+                populator: string -> CancellationToken -> Task<seq<obj>>
             ) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,

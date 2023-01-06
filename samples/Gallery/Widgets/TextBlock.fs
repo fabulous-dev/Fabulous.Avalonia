@@ -131,48 +131,41 @@ module TextBlock =
                             TextBlock("🏽 👌🏽")
                             TextBlock("🏾 👌🏾")
                             TextBlock("🏿 👌🏿")
-
-
                         }
                     )
 
                     Border(TextBlock("👪 👨‍👩‍👧 👨‍👩‍👧‍👦"))
-
                 }
             )
 
-            Border(
-                SelectableTextBlock() {
-                    Run("This ")
+            TextBlock() {
+                Run("This ")
 
-                    Span() { Run("is").fontWeight (FontWeight.Bold) }
+                Span() { Run("is").fontWeight (FontWeight.Bold) }
 
-                    Run(" a ")
+                Run(" a ")
 
-                    Span() {
-                        Run("TextBlock")
-                            .background(SolidColorBrush(Colors.Silver))
-                            .foreground (SolidColorBrush(Colors.Maroon))
-                    }
-
-                    Run(" with ")
-
-                    Span() { Run("several").textDecorations () { TextDecoration(TextDecorationLocation.Underline) } }
-
-                    Span() { Run("Span").fontStyle (FontStyle.Italic) }
-
-                    Run(" elements, ")
-
-                    Span() {
-                        Run("using a ")
-                        Bold("variety")
-                        Run(" of ")
-                        Italic("styles")
-                    }
+                Span() {
+                    Run("TextBlock")
+                        .background(SolidColorBrush(Colors.Silver))
+                        .foreground (SolidColorBrush(Colors.Maroon))
                 }
-            )
 
-            TextBlock() { Run("Hello") }
+                Run(" with ")
+
+                Span() { Run("several").textDecorations () { TextDecoration(TextDecorationLocation.Underline) } }
+
+                Span() { Run("Span").fontStyle (FontStyle.Italic) }
+
+                Run(" elements, ")
+
+                Span() {
+                    Run("using a ")
+                    Bold("variety")
+                    Run(" of ")
+                    Italic("styles")
+                }
+            }
 
         }
 
