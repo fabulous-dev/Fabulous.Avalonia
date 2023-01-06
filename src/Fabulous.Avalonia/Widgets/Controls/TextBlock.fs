@@ -7,7 +7,6 @@ open Avalonia.Controls.Documents
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabTextBlock =
     inherit IFabControl
@@ -88,14 +87,11 @@ module TextBlock =
 module TextBlockBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline TextBlock<'msg>(?text: string) =
-            match text with
-            | Some text -> WidgetBuilder<'msg, IFabTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
-            | None ->
-                WidgetBuilder<'msg, IFabTextBlock>(
-                    TextBlock.WidgetKey,
-                    AttributesBundle(StackList.empty (), ValueNone, ValueNone)
-                )
+        static member inline TextBlock<'msg>(text: string) =
+            WidgetBuilder<'msg, IFabTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
+
+        static member inline TextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>() =
+            CollectionBuilder<'msg, IFabTextBlock, 'childMarker>(TextBlock.WidgetKey, TextBlock.Inlines)
 
 [<Extension>]
 type TextBlockModifiers =
@@ -172,10 +168,6 @@ type TextBlockModifiers =
         (this: WidgetBuilder<'msg, 'marker>)
         =
         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> TextBlock.TextDecorations this
-
-    [<Extension>]
-    static member inline textInlines<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabInline> TextBlock.Inlines this
 
 [<Extension>]
 type TextBlockExtraModifiers =
