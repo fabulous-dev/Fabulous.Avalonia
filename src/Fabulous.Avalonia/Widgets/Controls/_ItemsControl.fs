@@ -1,7 +1,7 @@
 namespace Fabulous.Avalonia
 
+open System.Collections.Generic
 open System.Runtime.CompilerServices
-open Avalonia.Collections
 open Avalonia.Controls
 open Fabulous
 
@@ -10,8 +10,8 @@ type IFabItemsControl =
 
 module ItemsControl =
     let Items =
-        Attributes.defineAvaloniaListWidgetCollection "ItemsControl_Items" (fun target ->
-            (target :?> ItemsControl).Items :?> IAvaloniaList<_>)
+        Attributes.defineListWidgetCollection "ItemsControl_Items" (fun target ->
+            (target :?> ItemsControl).Items :?> IList<_>)
 
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty

@@ -49,7 +49,9 @@ module WidgetPage =
           CheckBox.sample
           ComboBox.sample
           MenuFlyout.sample
-          ContextMenu.sample ]
+          ContextMenu.sample
+          Menu.sample
+          DockPanel.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 

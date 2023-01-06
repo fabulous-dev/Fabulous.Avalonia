@@ -80,6 +80,13 @@ module MenuItemBuilders =
                 HeaderedContentControl.HeaderString.WithValue(header)
             )
 
+        static member inline MenuItems'(header: string) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabControl>(
+                MenuItem.WidgetKey,
+                ItemsControl.Items,
+                HeaderedContentControl.HeaderString.WithValue(header)
+            )
+
         static member inline MenuItems(header: string, onClick: 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
@@ -156,6 +163,22 @@ type MenuItemCollectionBuilderExtensions =
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
         (
             _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabDecorator>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabControl>,
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

@@ -1,30 +1,25 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
-type IFabMenuFlyout =
-    inherit IFabFlyoutBase
+type IFabMenu =
+    inherit IFabMenuBase
 
-module MenuFlyout =
-    let WidgetKey = Widgets.register<MenuFlyout> ()
-
-    let Items =
-        Attributes.defineListWidgetCollection "MenuFlyout_Items" (fun target ->
-            (target :?> MenuFlyout).Items :?> IList<_>)
+module Menu =
+    let WidgetKey = Widgets.register<Menu> ()
 
 [<AutoOpen>]
-module MenuFlyoutBuilders =
+module MenuBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline MenuFlyout() =
-            CollectionBuilder<'msg, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, MenuFlyout.Items)
+        static member inline Menu() =
+            CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ItemsControl.Items)
 
 [<Extension>]
-type MenuFlyoutCollectionBuilderExtensions =
+type MenuCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
         (
