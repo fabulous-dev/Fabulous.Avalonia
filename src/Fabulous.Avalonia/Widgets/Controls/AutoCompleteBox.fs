@@ -92,11 +92,7 @@ module AutoCompleteBoxBuilders =
                 AutoCompleteBox.Items.WithValue(items)
             )
 
-        static member AutoCompleteBox
-            (
-                watermark: string,
-                populator: string -> CancellationToken -> Task<IEnumerable<obj>>
-            ) =
+        static member AutoCompleteBox(watermark: string, populator: string -> CancellationToken -> Task<seq<obj>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
                 AutoCompleteBox.Watermark.WithValue(watermark),

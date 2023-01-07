@@ -1,7 +1,6 @@
 namespace Gallery
 
 open System
-open System.Collections.Generic
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
@@ -37,7 +36,7 @@ module AutoCompleteBox =
         | OnPopulated _ -> model
         | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }
 
-    let getItemsAsync (_: string) (token: CancellationToken) : Task<IEnumerable<obj>> =
+    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
         task {
             return
                 [ "Async Item 1"
@@ -50,7 +49,7 @@ module AutoCompleteBox =
 
     let view model =
         VStack(spacing = 15.) {
-            TextBlock().textInlines () {
+            TextBlock() {
                 Bold("Text: ")
                 Run(model.Text)
                 LineBreak()

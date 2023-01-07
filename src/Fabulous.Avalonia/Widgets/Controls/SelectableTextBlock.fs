@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
 open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabSelectableTextBlock =
     inherit IFabTextBlock
@@ -18,11 +17,6 @@ module SelectableTextBlock =
     let SelectionEnd =
         Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionEndProperty
 
-    let SelectedTextChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent'
-            "SelectableTextBlock_SelectedTextChanged"
-            SelectableTextBlock.SelectedTextProperty
-
     let SelectionBrush =
         Attributes.defineAvaloniaPropertyWidget SelectableTextBlock.SelectionBrushProperty
 
@@ -34,18 +28,25 @@ module SelectableTextBlock =
 module SelectableTextBlockBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline SelectableTextBlock<'msg>(?text: string) =
-            match text with
-            | Some text ->
-                WidgetBuilder<'msg, IFabSelectableTextBlock>(
-                    SelectableTextBlock.WidgetKey,
-                    TextBlock.Text.WithValue(text)
-                )
-            | None ->
-                WidgetBuilder<'msg, IFabSelectableTextBlock>(
-                    SelectableTextBlock.WidgetKey,
-                    AttributesBundle(StackList.empty (), ValueNone, ValueNone)
-                )
+        static member inline SelectableTextBlock<'msg>(text: string, onCopyingToClipboard: string -> 'msg) =
+            WidgetBuilder<'msg, IFabSelectableTextBlock>(
+                SelectableTextBlock.WidgetKey,
+                TextBlock.Text.WithValue(text),
+                SelectableTextBlock.CopyingToClipboard.WithValue(fun args ->
+                    let control = args.Source :?> SelectableTextBlock
+                    onCopyingToClipboard control.SelectedText |> box)
+            )
+
+        static member inline SelectableTextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>
+            (onCopyingToClipboard: string -> 'msg)
+            =
+            CollectionBuilder<'msg, IFabSelectableTextBlock, 'childMarker>(
+                SelectableTextBlock.WidgetKey,
+                TextBlock.Inlines,
+                SelectableTextBlock.CopyingToClipboard.WithValue(fun args ->
+                    let control = args.Source :?> SelectableTextBlock
+                    onCopyingToClipboard control.SelectedText |> box)
+            )
 
 [<Extension>]
 type SelectableTextBlockModifiers =
@@ -66,14 +67,20 @@ type SelectableTextBlockModifiers =
         ) =
         this.AddWidget(SelectableTextBlock.SelectionBrush.WithValue(content.Compile()))
 
+[<Extension>]
+type SelectableTextBlockCollectionBuilderExtensions =
     [<Extension>]
-    static member inline onCopyingToClipboard
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
         (
-            this: WidgetBuilder<'msg, #IFabSelectableTextBlock>,
-            onCopyingToClipboard: string -> 'msg
-        ) =
-        this.AddScalar(
-            SelectableTextBlock.CopyingToClipboard.WithValue(fun args ->
-                let control = args.Source :?> SelectableTextBlock
-                onCopyingToClipboard control.SelectedText |> box)
-        )
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
