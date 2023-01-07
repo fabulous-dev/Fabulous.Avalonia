@@ -66,7 +66,7 @@ module App =
     let buttonSpinnerHeader (model: Model) =
         ScrollViewer(
             (VStack(0.) {
-                Image(Bitmap.create "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .size (100., 100.)
 
                 TextBlock("Fabulous Gallery").centerHorizontal ()

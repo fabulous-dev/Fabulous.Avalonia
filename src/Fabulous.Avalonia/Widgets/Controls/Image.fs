@@ -13,8 +13,8 @@ open Fabulous.StackAllocatedCollections.StackList
 type IFabImage =
     inherit IFabControl
 
-module Bitmap =
-    let create (source: string) =
+module ImageSource =
+    let fromString (source: string) =
         let uri =
             if source.StartsWith("/") then
                 Uri(source, UriKind.Relative)
@@ -43,7 +43,7 @@ module Image =
 module ImageBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Image(source: IImage, ?stretch: Stretch) =
+        static member Image<'msg>(source: IImage, ?stretch: Stretch) =
             match stretch with
             | Some value ->
                 WidgetBuilder<'msg, IFabImage>(
@@ -58,62 +58,40 @@ module ImageBuilders =
                     Image.Stretch.WithValue(Stretch.Uniform)
                 )
 
-        static member Image(source: string, ?stretch: Stretch) =
+        static member Image<'msg>(source: string, ?stretch: Stretch) =
             match stretch with
             | Some value ->
                 WidgetBuilder<'msg, IFabImage>(
                     Image.WidgetKey,
-                    Image.Source.WithValue(Bitmap.create source),
+                    Image.Source.WithValue(ImageSource.fromString source),
                     Image.Stretch.WithValue(value)
                 )
             | None ->
                 WidgetBuilder<'msg, IFabImage>(
                     Image.WidgetKey,
-                    Image.Source.WithValue(Bitmap.create source),
+                    Image.Source.WithValue(ImageSource.fromString source),
                     Image.Stretch.WithValue(Stretch.Uniform)
                 )
 
-        static member Image<'msg>(source: WidgetBuilder<'msg, IFabDrawingImage>, ?stretch: Stretch) =
-            match stretch with
-            | Some value ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    AttributesBundle(
-                        StackList.one (Image.Stretch.WithValue(value)),
-                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                        ValueNone
-                    )
+        static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
+            WidgetBuilder<'msg, IFabImage>(
+                Image.WidgetKey,
+                AttributesBundle(
+                    StackList.one (Image.Stretch.WithValue(stretch)),
+                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    ValueNone
                 )
-            | None ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    AttributesBundle(
-                        StackList.one (Image.Stretch.WithValue(Stretch.Uniform)),
-                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                        ValueNone
-                    )
-                )
+            )
 
-        static member Image<'msg>(source: WidgetBuilder<'msg, IFabCroppedBitmap>, ?stretch: Stretch) =
-            match stretch with
-            | Some value ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    AttributesBundle(
-                        StackList.one (Image.Stretch.WithValue(value)),
-                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                        ValueNone
-                    )
+        static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
+            WidgetBuilder<'msg, IFabImage>(
+                Image.WidgetKey,
+                AttributesBundle(
+                    StackList.one (Image.Stretch.WithValue(stretch)),
+                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    ValueNone
                 )
-            | None ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    AttributesBundle(
-                        StackList.one (Image.Stretch.WithValue(Stretch.Uniform)),
-                        ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                        ValueNone
-                    )
-                )
+            )
 
 [<Extension>]
 type ImageModifiers =
