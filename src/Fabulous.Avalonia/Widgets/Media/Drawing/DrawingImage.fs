@@ -5,7 +5,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabDrawingImage =
-    inherit IFabElement
+    inherit IFabDrawing
 
 module DrawingImage =
     let WidgetKey = Widgets.register<DrawingImage> ()

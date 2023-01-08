@@ -30,7 +30,7 @@ module MenuFlyout =
                 .flyout (
                     (MenuFlyout() {
                         MenuItem("Item 1")
-                            .icon (Image(Bitmap.create "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                            .icon (Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
                         MenuItems("Item 2", Increment) {
                             MenuItem("Subitem 1")

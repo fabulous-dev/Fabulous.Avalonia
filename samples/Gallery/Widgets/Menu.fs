@@ -40,7 +40,7 @@ module Menu =
 
                     MenuItem("Menu Item with _Icon")
                         .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
-                        .icon (Image(Bitmap.create "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                        .icon (Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
                     MenuItem("Menu Item with _Checkbox")
                         .icon(CheckBox(model.IsChecked, ValueChanged))
