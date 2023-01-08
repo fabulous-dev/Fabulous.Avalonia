@@ -52,7 +52,9 @@ module WidgetPage =
           ContextMenu.sample
           Menu.sample
           DockPanel.sample
-          Image.sample ]
+          Image.sample
+          Border.sample
+          Canvas.sample ]
 
     let getSamplesNames () = samples |> List.map (fun s -> s.Name)
 
