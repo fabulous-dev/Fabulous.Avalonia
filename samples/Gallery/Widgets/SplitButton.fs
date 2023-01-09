@@ -1,47 +1,88 @@
 namespace Gallery
 
 open Avalonia.Controls
+open Avalonia.Input
+open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
 module SplitButton =
-    type Model = { Count: int }
+    type Model = { Colors: Color list }
 
-    type Msg =
-        | Clicked
-        | Increment
-        | Decrement
-        | Reset
+    type Msg = | Clicked
 
-    let init () = { Count = 0 }
+    let init () =
+        { Colors =
+            [ Colors.Red
+              Colors.Green
+              Colors.Blue
+              Colors.Yellow
+              Colors.Purple
+              Colors.Orange
+              Colors.Pink
+              Colors.Brown
+              Colors.Black
+              Colors.White
+              Colors.Gray
+              Colors.Cyan
+              Colors.Magenta
+              Colors.Lime
+              Colors.Turquoise
+              Colors.Black
+              Colors.Red
+              Colors.Bisque
+              Colors.White ] }
 
     let update msg model =
         match msg with
         | Clicked -> model
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-        | Reset -> { model with Count = 0 }
+
+    let menuFlyout () =
+        (MenuFlyout() {
+            MenuItems("Item 1") {
+                MenuItem("Subitem 1")
+                MenuItem("Subitem 2")
+                MenuItem("Subitem 3")
+            }
+
+            MenuItem("Item 2").inputGesture (KeyGesture(Key.A, KeyModifiers.Control))
+            MenuItem("Item 3")
+        })
+            .placement (FlyoutPlacementMode.Bottom)
+
+    let availableColors colors =
+        (MenuFlyout() {
+            MenuItem(
+                ScrollViewer(
+                    (HWrap() {
+                        for color in colors do
+                            Rectangle(0., 0.).size(50., 50.).fill (SolidColorBrush(color))
+                    })
+                )
+
+            )
+        })
+            .placement (FlyoutPlacementMode.Bottom)
+
 
     let view model =
-        VStack(spacing = 15.) {
+        (VStack(spacing = 16.) {
+            SplitButton("Content", Clicked).flyout (menuFlyout ())
 
-            TextBlock($"Count: i {model.Count}")
+            SplitButton("Disabled", Clicked).isEnabled (false)
 
-            SplitButton("Press me!", Clicked)
-                .flyout(
-                    Flyout(
-                        VStack() {
-                            Button("Increment", Increment).width(100)
-                            Button("Decrement", Decrement).width(100)
-                            Button("Reset", Reset).width(100)
-                        }
-                    )
-                        .showMode(FlyoutShowMode.Standard)
-                        .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
-                )
-        }
+            SplitButton("Disabled", Clicked).flyout(menuFlyout ()).isEnabled (false)
+
+            SplitButton("Re-themed", Clicked)
+                .flyout(menuFlyout ())
+                .foreground (SolidColorBrush(Colors.White))
+
+            SplitButton(Clicked, Rectangle(0., 0.).size(32., 32.).fill (SolidColorBrush(Colors.Red)))
+                .flyout (availableColors model.Colors)
+        })
+            .horizontalAlignment (HorizontalAlignment.Center)
 
     let sample =
         { Name = "SplitButton"

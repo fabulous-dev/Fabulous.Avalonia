@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRepeatButton =
     inherit IFabButton
@@ -19,11 +20,21 @@ module RepeatButton =
 module RepeatButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline RepeatButton(text: string, onClicked: 'msg) =
+        static member inline RepeatButton<'msg>(text: string, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 Button.Clicked.WithValue(fun _ -> box onClicked)
+            )
+
+        static member inline RepeatButton(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabRepeatButton>(
+                RepeatButton.WidgetKey,
+                AttributesBundle(
+                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
             )
 
 [<Extension>]

@@ -1,50 +1,65 @@
 namespace Gallery
 
+open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
 module Button =
-    type Model = { Count: int }
+    type Model = Id
 
-    type Msg =
-        | Clicked
-        | Increment
-        | Decrement
+    type Msg = | Clicked
 
-    let init () = { Count = 0 }
+    let init () = Id
 
     let update msg model =
         match msg with
         | Clicked -> model
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock("Regular button")
-            Button("Click me!", Clicked)
+    let view _ =
+        (VStack(spacing = 15.) {
+            Button("Regular button", Clicked)
 
-            TextBlock("Disabled button")
-            Button("Disabled button", Clicked).isEnabled(false)
+            Button("Disabled button", Clicked).isEnabled (false)
 
-            TextBlock("Button with styling")
+            Button("White text, red background", Clicked)
+                .background(SolidColorBrush(Colors.Red))
+                .foreground(SolidColorBrush(Colors.White))
+                .width (200.)
 
-            (HStack(spacing = 15.) {
-                Button("Decrement", Decrement)
-                    .background(SolidColorBrush(Color.Parse("#FF0000")))
-                    .foreground(SolidColorBrush(Color.Parse("#FFFFFF")))
-                    .padding(5.)
+            Button(
+                Clicked,
+                HStack() {
+                    Image(
+                        ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png",
+                        Stretch.UniformToFill
+                    )
+                        .size (32., 32.)
 
-                TextBlock($"Count: {model.Count}").centerVertical()
+                    TextBlock("Button with image")
+                }
+            )
 
-                Button("Increment", Increment)
-                    .background(SolidColorBrush(Color.Parse("#43ab2f")))
-                    .padding(5.)
-            })
-                .centerHorizontal()
-        }
+            Button("No Border", Clicked).borderThickness (0.)
+
+            Button("Border Color", Clicked)
+                .borderBrush (SolidColorBrush(Color.Parse("#FF0000")))
+
+            Button("Thick Border", Clicked)
+                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                .borderThickness (4.)
+
+            Button("Disabled", Clicked)
+                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                .borderThickness(4.)
+                .isEnabled (false)
+
+            Button("IsTabStop=False", Clicked)
+                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                .isTabStop (false)
+        })
+            .horizontalAlignment (HorizontalAlignment.Center)
 
     let sample =
         { Name = "Button"
