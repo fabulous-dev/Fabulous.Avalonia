@@ -29,17 +29,17 @@ module CanvasBuilders =
 [<Extension>]
 type CanvasModifiers =
     [<Extension>]
-    static member inline left(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
+    static member inline canvasLeft(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
         this.AddScalar(Canvas.Left.WithValue(value))
 
     [<Extension>]
-    static member inline top(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
+    static member inline canvasTop(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
         this.AddScalar(Canvas.Top.WithValue(value))
 
     [<Extension>]
-    static member inline right(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
+    static member inline canvasRight(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
         this.AddScalar(Canvas.Right.WithValue(value))
 
     [<Extension>]
-    static member inline bottom(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
+    static member inline canvasBottom(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
         this.AddScalar(Canvas.Bottom.WithValue(value))
