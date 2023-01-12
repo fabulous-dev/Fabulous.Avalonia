@@ -1,49 +1,92 @@
+# Fabulous for Avalonia
 # 🚧 🚧 Work in progress
 
-*F# Functional App Development, using declarative dynamic UI.*
+[![build](https://img.shields.io/github/actions/workflow/status/fabulous-dev/Fabulous.Avalonia/build.yml?branch=main)](https://github.com/fabulous-dev/Fabulous.Avalonia/actions/workflows/build.yml) [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia)](https://www.nuget.org/packages/Fabulous.Avalonia) [![NuGet downloads](https://img.shields.io/nuget/dt/Fabulous.Avalonia)](https://www.nuget.org/packages/Fabulous.Avalonia) [![Discord](https://img.shields.io/discord/716980335593914419?label=discord&logo=discord)](https://discord.gg/bpTJMbSSYK) [![Twitter Follow](https://img.shields.io/twitter/follow/FabulousAppDev?style=social)](https://twitter.com/FabulousAppDev)
 
-![build](https://github.com/fabulous-dev/Fabulous.Avalonia/actions/workflows/build.yml/badge.svg)
-[![Discord](https://img.shields.io/discord/716980335593914419?label=discord&logo=discord)](https://discord.gg/bpTJMbSSYK)
+Fabulous.Avalonia brings the great development experience of Fabulous to Avalonia, allowing you to take advantage of the latest cross-platform UI framework from Microsoft with a tailored declarative UI DSL and clean architecture.
 
-Never write a ViewModel class again! Conquer the world with clean dynamic UIs!
+Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windows, Linux and more!
 
-Fabulous allows you to combine the power of functional programming and the simple Model-View-Update architecture to build any kind of mobile and desktop applications with an expressive, dynamic and clean UI DSL. Go cross-platform with Fabulous for Avalonia and target iOS, Android, Mac, WPF and more!
+```fs
+/// A simple Counter app
 
-## Documentation
+type Model =
+    { Count: int }
 
-Documentation is available at https://docs.fabulous.dev
+type Msg =
+    | Increment
+    | Decrement
 
-## About Fabulous
-
-Fabulous aims to provide all the tools to let you create your own mobile and desktop apps using only F# and the [Model-View-Update architecture](https://guide.elm-lang.org/architecture/) (shorten to MVU), with a great F# DSL for building dynamic UIs.  
-The combination of F# and MVU makes for a great development experience.
-
-Note that Fabulous itself does not provide UI controls, so you'll need to combine it with another framework like Avalonia.
-
-### Fabulous for Avalonia
-
-Fabulous for Avalonia combines both frameworks with a tailored DSL to let you take advantage of everything 
-has to offer while keeping all the benefits of Fabulous.
-
-With Fabulous for Avalonia, you will be able to write complete applications in F# like this:
-
-```fsharp
-type Model = { Text: string }
-type Msg = ButtonClicked
-
-let init () = { Text = "Hello Fabulous!" }
+let init () =
+    { Count = 0 }
 
 let update msg model =
     match msg with
-    | ButtonClicked -> { model with Text = "Thanks for using Fabulous!" }
+    | Increment -> { model with Count = model.Count + 1 }
+    | Decrement -> { model with Count = model.Count - 1 }
 
-let view model =              
-    VStack() {
-        Image(ImageSource.fromFile "fabulous.png")
-        TextBlock(model.Text)
-        Button("Click me", ButtonClicked)
-    }    
+let view model =
+    VStack(spacing = 16.) {
+        Image(Aspect.AspectFit, "fabulous.png")
+
+        Label($"Count is {model.Count}")
+
+        Button("Increment", Increment)
+        Button("Decrement", Decrement)
+    }
+    
+#if MOBILE
+    let app model = SingleViewApplication(view model)
+#else
+    let app model = DesktopApplication(Window(view model))
+#endif
 ```
 
-## Credits
-This repository is inspired by [Elmish.WPF](https://github.com/Prolucid/Elmish.WPF), [Elmish.Forms](https://github.com/dboris/elmish-forms) and [elmish](https://github.com/elmish/elmish).
+## Getting Started
+
+You can start your new Fabulous.Avalonia app in a matter of seconds using the dotnet CLI templates.  
+For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulous.dev/avalonia/get-started).
+
+```sh
+dotnet new install Fabulous.Avalonia.Templates
+dotnet new fabulous-avalonia -n MyApp
+```
+
+## Documentation
+
+The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/v2/avalonia](https://docs.fabulous.dev/v2/avalonia).
+
+Other useful links:
+- [The official Fabulous website](https://fabulous.dev)
+- [Get started](https://fabulous.dev/avalonia/get-started)
+- [API Reference](https://api.fabulous.dev/v2/avalonia)
+- [Contributor Guide](CONTRIBUTING.md)
+
+Additionally, we have the [Fabulous Discord server](https://discord.gg/bpTJMbSSYK) where you can ask any of your Fabulous related questions.
+
+## Supporting Fabulous
+
+The simplest way to show us your support is by giving this project and the [Fabulous project](https://github.com/fabulous-dev/Fabulous) a star.
+
+You can also support us by becoming our sponsor on the GitHub Sponsors program.  
+This is a fantastic way to support all the efforts going into making Fabulous the best declarative UI framework for dotnet.
+
+If you need support see Commercial Support section below.
+
+## Contributing
+
+Have you found a bug or have a suggestion of how to enhance Fabulous? Open an issue and we will take a look at it as soon as possible.
+
+Do you want to contribute with a PR? PRs are always welcome, just make sure to create it from the correct branch (main) and follow the [Contributor Guide](CONTRIBUTING.md).
+
+For bigger changes, or if in doubt, make sure to talk about your contribution to the team. Either via an issue, GitHub discussion, or reach out to the team either using the [Discord server](https://discord.gg/bpTJMbSSYK).
+
+## Commercial support
+
+If you would like us to provide you with:
+
+- training and workshops,
+- support services,
+- and consulting services.
+
+Feel free to contact us: [support@fabulous.dev](mailto:support@fabulous.dev)
