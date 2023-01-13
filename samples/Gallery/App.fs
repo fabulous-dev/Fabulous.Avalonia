@@ -114,6 +114,6 @@ module App =
     let program =
         Program.statefulWithCmd init update app
 #if DEBUG
-        |> Program.withLogger { ViewHelpers.defaultLogger() with MinLogLevel = LogLevel.Debug }
+        |> Program.withLogger { ViewHelpers.defaultLogger () with MinLogLevel = LogLevel.Debug }
         |> Program.withTrace (fun (format, args) -> Debug.WriteLine(format, box args))
 #endif
