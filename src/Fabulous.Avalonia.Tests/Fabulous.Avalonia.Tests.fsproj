@@ -6,6 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Setup.fs" />
+        <Compile Include="Generators.fs" />
         <Compile Include="ViewHelperTests.fs" />
     </ItemGroup>
     

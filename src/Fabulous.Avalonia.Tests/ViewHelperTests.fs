@@ -7,36 +7,23 @@ open FsUnit
 open FsCheck.NUnit
 open Fabulous.Avalonia
 
-module Generators =
-    // This is a hack to know how many widgets are currently registered
-    // Fabulous needs to expose all the registered widget definitions
-    let lastKey = WidgetDefinitionStore.getNextKey()
-    
-    let widgetKey =
-        Arb.generate<int>
-        |> Gen.where (fun v -> v > 0 && v < lastKey)
-        
-    let nonNullString =
-        Arb.generate<string>
-        |> Gen.where (fun v -> v <> null)
-
 [<TestFixture>]
 type ViewHelpers() =
-    [<Property>]
+    [<Test>]
     member _.``Existing Avalonia control can be reused if previous and current widgets are of the same type``() =
-        let arb = Arb.fromGen Generators.widgetKey
-        
-        Prop.forAll arb (fun widgetKey ->
+        for widgetKey in Setup.RegisteredWidgets do
+            let def = WidgetDefinitionStore.get widgetKey
+            
             let prev: Widget =
                 { Key = widgetKey
-                  DebugName = $"Widget-{widgetKey}"
+                  DebugName = def.Name
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
                   WidgetCollectionAttributes = ValueNone }
                 
             let curr: Widget =
                 { Key = widgetKey
-                  DebugName = $"Widget-{widgetKey}"
+                  DebugName = def.Name
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
                   WidgetCollectionAttributes = ValueNone }
@@ -44,7 +31,6 @@ type ViewHelpers() =
             let actual = ViewHelpers.canReuseView prev curr
             
             actual |> should equal true
-        )
         
     [<Property>]
     member _.``Existing TextBlock control can not be reused if previous widget uses Text and current widget uses Inlines``() =
