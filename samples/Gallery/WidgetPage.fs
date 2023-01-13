@@ -52,6 +52,7 @@ module WidgetPage =
           ContextMenu.sample
           Menu.sample
           DockPanel.sample
+          StackPanel.sample
           Image.sample
           Border.sample
           Canvas.sample ]

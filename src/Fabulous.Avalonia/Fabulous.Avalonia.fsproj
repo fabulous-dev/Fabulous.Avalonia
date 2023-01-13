@@ -77,6 +77,7 @@
     <Compile Include="Widgets\Controls\Panels\Canvas.fs" />
     <Compile Include="Widgets\Controls\Panels\Grid.fs" />
     <Compile Include="Widgets\Controls\Panels\StackPanel.fs" />
+    <Compile Include="Widgets\Controls\Panels\ReversibleStackPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\DockPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\UniformGrid.fs" />
