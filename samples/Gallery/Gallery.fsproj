@@ -55,6 +55,7 @@
     <Compile Include="Widgets\GridSplitter.fs" />
     <Compile Include="Widgets\Grid.fs" />
     <Compile Include="Widgets\DockPanel.fs" />
+    <Compile Include="Widgets\StackPanel.fs" />
     <Compile Include="Widgets\ToolTip.fs" />
     <Compile Include="Widgets\Expander.fs" />
     <Compile Include="Widgets\AutoCompleteBox.fs" />
