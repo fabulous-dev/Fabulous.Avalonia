@@ -31,7 +31,7 @@ module ViewHelpers =
     let rec canReuseView (prev: Widget) (curr: Widget) =
         if ViewHelpers.canReuseView prev curr then
             let def = WidgetDefinitionStore.get curr.Key
-            
+
             // TargetType can be null for MemoWidget
             // but it has already been checked by Fabulous.ViewHelpers.canReuseView
             if def.TargetType <> null then
@@ -43,7 +43,7 @@ module ViewHelpers =
                 true
         else
             false
-            
+
     /// TextBlock's text can be defined by both the Text and Inlines property
     /// Except when switching between the two, Avalonia will automatically clear out the other property
     /// Depending on the order of execution, this can lead to a desync between Avalonia and Fabulous
@@ -52,11 +52,11 @@ module ViewHelpers =
         let switchingFromTextToInlines =
             (tryGetScalarValue prev TextBlock.Text).IsSome
             && (tryGetWidgetCollectionValue curr TextBlock.Inlines).IsSome
-            
+
         let switchingFromInlinesToText =
             (tryGetWidgetCollectionValue prev TextBlock.Inlines).IsSome
             && (tryGetScalarValue curr TextBlock.Text).IsSome
-            
+
         not switchingFromTextToInlines && not switchingFromInlinesToText
 
     let defaultLogger () =
