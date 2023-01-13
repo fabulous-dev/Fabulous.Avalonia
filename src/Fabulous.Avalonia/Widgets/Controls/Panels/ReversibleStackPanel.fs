@@ -43,7 +43,7 @@ module ReversibleStackPanelBuilders =
                 Panel.Children
             )
 
-        static member HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
+        static member inline HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
             let spacing =
                 match spacing with
                 | Some spacing -> spacing
