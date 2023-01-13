@@ -19,7 +19,7 @@ module ReversibleStackPanel =
 module ReversibleStackPanelBuilders =
     type Fabulous.Avalonia.View with
 
-        static member VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
+        static member inline VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
             let spacing =
                 match spacing with
                 | Some spacing -> spacing
