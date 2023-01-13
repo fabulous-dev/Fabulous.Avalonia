@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -25,6 +25,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Themes.Fl
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\Gallery.fsproj", "{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Tests", "src\Fabulous.Avalonia.Tests\Fabulous.Avalonia.Tests.fsproj", "{ACA3C16C-4537-479A-B420-0718B2A2BF0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,11 +52,16 @@ Global
 		{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9EB9291D-09F8-43DD-9A95-154D4E6BA78E} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{3CABE580-CB56-4853-926E-411BECD2BAB9} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
 		{74A67DCD-5093-4CC6-B421-77376153C714} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
+		{ACA3C16C-4537-479A-B420-0718B2A2BF0B} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 	EndGlobalSection
 EndGlobal
