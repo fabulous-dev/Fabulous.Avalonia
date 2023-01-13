@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
@@ -110,4 +111,9 @@ module App =
     let app model = DesktopApplication(Window(view model))
 #endif
 
-    let program = Program.statefulWithCmd init update app
+    let program =
+        Program.statefulWithCmd init update app
+#if DEBUG
+        |> Program.withLogger { ViewHelpers.defaultLogger () with MinLogLevel = LogLevel.Debug }
+        |> Program.withTrace (fun (format, args) -> Debug.WriteLine(format, box args))
+#endif
