@@ -54,7 +54,17 @@ module ReversibleStackPanelBuilders =
                 | Some reverseOrder -> reverseOrder
                 | None -> false
 
-            let scalers: StackAllocatedCollections.StackList.StackList<ScalarAttribute> =
+            let scalars =
+                StackList.StackList.three
+                    (StackPanel.Orientation.WithValue(Orientation.Vertical),
+                     StackPanel.Spacing.WithValue(spacing),
+                     ReversibleStackPanel.ReverseOrder.WithValue(reverseOrder))
+
+            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(
+                ReversibleStackPanel.WidgetKey,
+                scalars,
+                Panel.Children
+            )
                 StackAllocatedCollections.StackList.StackList<ScalarAttribute>.three
                     (StackPanel.Orientation.WithValue(Orientation.Horizontal),
                      StackPanel.Spacing.WithValue(spacing),
