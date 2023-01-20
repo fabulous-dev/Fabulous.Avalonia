@@ -74,7 +74,7 @@ module App =
 
                 Button("Overview", ShowOverview)
 
-                (ListBox (model.Controls) (fun x -> ListBoxItem(TextBlock(x))))
+                (ListBox model.Controls)
                     .selectionMode(SelectionMode.Multiple)
                     .onSelectedIndexChanged (model.SelectedIndex, ItemSelected)
             })

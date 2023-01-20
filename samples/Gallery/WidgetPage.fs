@@ -47,6 +47,7 @@ module WidgetPage =
           CalendarDatePicker.sample
           SplitView.sample
           CheckBox.sample
+          ListBox.sample
           ComboBox.sample
           MenuFlyout.sample
           ContextMenu.sample

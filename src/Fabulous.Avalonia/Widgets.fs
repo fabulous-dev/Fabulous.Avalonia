@@ -17,9 +17,13 @@ type IFabElement =
     interface
     end
 
-type WidgetItems =
+type ItemTemplate<'templateResult> =
     { OriginalItems: IEnumerable
-      Template: obj -> Widget }
+      Template: obj -> 'templateResult }
+
+type WidgetTemplate = ItemTemplate<Widget>
+
+type StringTemplate = ItemTemplate<string>
 
 module Widgets =
     let registerWithFactory<'T when 'T :> IAvaloniaObject> (factory: unit -> 'T) =
@@ -82,9 +86,25 @@ module WidgetHelpers =
         =
         AttributeCollectionBuilder<'msg, 'marker, 'item>(widget, collectionAttributeDefinition)
 
-    let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
+    let buildItems<'msg, 'marker, 'itemData, 'templateResult>
         key
-        (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
+        (attrDef: SimpleScalarAttributeDefinition<ItemTemplate<'templateResult>>)
+        (items: seq<'itemData>)
+        (itemTemplate: 'itemData -> 'templateResult)
+        =
+        let template (item: obj) =
+            let item = unbox<'itemData> item
+            itemTemplate item
+
+        let data: ItemTemplate<'templateResult> =
+            { OriginalItems = items
+              Template = template }
+
+        WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
+
+    let buildWidgetItems<'msg, 'marker, 'itemData, 'itemMarker>
+        key
+        (attrDef: SimpleScalarAttributeDefinition<WidgetTemplate>)
         (items: seq<'itemData>)
         (itemTemplate: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
         =
@@ -92,7 +112,7 @@ module WidgetHelpers =
             let item = unbox<'itemData> item
             (itemTemplate item).Compile()
 
-        let data: WidgetItems =
+        let data: WidgetTemplate =
             { OriginalItems = items
               Template = template }
 
