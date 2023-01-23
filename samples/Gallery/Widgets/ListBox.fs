@@ -70,7 +70,7 @@ module ListBox =
 
                 ListBoxItem(TextBlock("TextBlock"))
             }
-                
+
             TextBlock("ListBox with 1.000 items with recycling")
                 .fontWeight (FontWeight.Bold)
 
