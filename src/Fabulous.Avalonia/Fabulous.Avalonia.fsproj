@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="ViewNode.fs" />
     <Compile Include="Attributes.fs" />
+    <Compile Include="VirtualizedCollection.fs" />
     <Compile Include="Widgets.fs" />
     <Compile Include="Widgets\_RenderOptions.fs" />
     <Compile Include="Widgets\_Animatable.fs" />

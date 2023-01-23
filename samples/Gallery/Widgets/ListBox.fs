@@ -47,32 +47,17 @@ module ListBox =
     let view model =
         VStack(spacing = 15.) {
 
-            TextBlock("ListBox using a collection with a string template")
+            TextBlock("ListBox using a collection with a WidgetDataTemplate")
                 .fontWeight (FontWeight.Bold)
 
-            ListBox(model.SampleData, fun x -> TextBlock($"{x.Name} ({x.Species})"))
+            ListBox(model.SampleData, (fun x -> TextBlock($"{x.Name} ({x.Species})")))
                 .onSelectedIndexChanged (model.SelectedIndex, SelectedIndexChanged)
-                
-            TextBlock("ListBox with 10.000 items with recycling")
-                .fontWeight (FontWeight.Bold)
-
-            ListBox(Seq.init 10000 id, fun x -> TextBlock($"Row {x}"))
-                .onSelectedIndexChanged (model.SelectedIndex, SelectedIndexChanged)
-
-            TextBlock(model.Notification)
-
-            //TextBlock("ListBox using a ListBoxItem template [INCOMPLETE]")
-            //  .fontWeight(FontWeight.Bold)
-            //  .margin (0,30,0,0)
-
-            //ListBox(model.SampleData, (fun x -> ListBoxItem(TextBlock(x.Name))))
-            //  .onSelectionChanged (SelectionChanged)
 
             TextBlock("ListBox using explicit ListBoxItem controls")
                 .fontWeight(FontWeight.Bold)
                 .margin (0, 30, 0, 0)
 
-            (ListBox() {
+            ListBox() {
                 ListBoxItem(
                     HStack(30.) {
                         TextBlock("Stack Item1")
@@ -81,17 +66,15 @@ module ListBox =
                     }
                 )
 
-                ListBoxItem(
-                    Ellipse()
-                        .size(50., 50.)
-                        .fill(SolidColorBrush(Colors.Yellow))
-                )
+                ListBoxItem(Ellipse().size(50., 50.).fill (SolidColorBrush(Colors.Yellow)))
 
-                ListBoxItem(
-                    TextBlock("TextBlock")
-                )
-            })
-                .selectedIndex (0)
+                ListBoxItem(TextBlock("TextBlock"))
+            }
+                
+            TextBlock("ListBox with 1.000 items with recycling")
+                .fontWeight (FontWeight.Bold)
+
+            ListBox(Seq.init 1000 id, (fun x -> TextBlock($"Row {x}")))
         }
 
     let sample =
