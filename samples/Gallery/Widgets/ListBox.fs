@@ -50,7 +50,13 @@ module ListBox =
             TextBlock("ListBox using a collection with a string template")
                 .fontWeight (FontWeight.Bold)
 
-            ListBox(model.SampleData, (fun x -> $"{x.Name} ({x.Species})"))
+            ListBox(model.SampleData, fun x -> TextBlock($"{x.Name} ({x.Species})"))
+                .onSelectedIndexChanged (model.SelectedIndex, SelectedIndexChanged)
+                
+            TextBlock("ListBox with 10.000 items with recycling")
+                .fontWeight (FontWeight.Bold)
+
+            ListBox(Seq.init 10000 id, fun x -> TextBlock($"Row {x}"))
                 .onSelectedIndexChanged (model.SelectedIndex, SelectedIndexChanged)
 
             TextBlock(model.Notification)
@@ -62,7 +68,7 @@ module ListBox =
             //ListBox(model.SampleData, (fun x -> ListBoxItem(TextBlock(x.Name))))
             //  .onSelectionChanged (SelectionChanged)
 
-            TextBlock("ListBox using explict ListBoxItem controls")
+            TextBlock("ListBox using explicit ListBoxItem controls")
                 .fontWeight(FontWeight.Bold)
                 .margin (0, 30, 0, 0)
 
@@ -75,9 +81,15 @@ module ListBox =
                     }
                 )
 
-                ListBoxItem(Ellipse().size(50., 50.).fill (SolidColorBrush(Colors.Yellow)))
+                ListBoxItem(
+                    Ellipse()
+                        .size(50., 50.)
+                        .fill(SolidColorBrush(Colors.Yellow))
+                )
 
-                ListBoxItem(TextBlock("TextBlock"))
+                ListBoxItem(
+                    TextBlock("TextBlock")
+                )
             })
                 .selectedIndex (0)
         }

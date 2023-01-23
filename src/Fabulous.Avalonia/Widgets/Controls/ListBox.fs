@@ -1,5 +1,7 @@
 namespace Fabulous.Avalonia
 
+open System
+open System.Collections.Generic
 open Avalonia.Controls
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -10,34 +12,54 @@ type IFabListBox =
 
 module ListBox =
     let WidgetKey = Widgets.register<ListBox> ()
+    
+    type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
+        inherit Avalonia.Controls.Templates.FuncDataTemplate(
+            typeof<obj>,
+            System.Func<obj, INameScope, IControl>(fun data n -> this.Build(data, n)),
+            supportsRecycling = true
+        )
+        
+        member this.Recycle(newData: obj, prevWidget: Widget, rowNode: IViewNode): Widget =
+            let currWidget = templateFn newData
+            Reconciler.update node.TreeContext.CanReuseView (ValueSome prevWidget) currWidget rowNode
+            currWidget
+        
+        member this.Build(data: obj, _: INameScope) =            
+            let widget = templateFn data
+            let definition = WidgetDefinitionStore.get widget.Key
+            let struct (rowNode, view) = definition.CreateView(widget, node.TreeContext, ValueSome node)
+            let item = ListBoxItem()
+            item.Content <- (view :?> IControl)
+            
+            let mutable prevWidget = widget
+            
+            item.DataContextChanged.AddHandler(
+                EventHandler(fun sender args ->
+                    let currWidget = this.Recycle((sender :?> IControl).DataContext, prevWidget, rowNode)
+                    prevWidget <- currWidget
+                )
+            )
+            
+            item
 
+    let Items =
+        Attributes.defineListWidgetCollection "ListBox_Items" (fun target -> (target :?> ListBox).Items :?> IList<_>)
+        
     let ItemsSource =
-        Attributes.defineSimpleScalar<StringTemplate>
-            "ListBox_Items"
+        Attributes.defineSimpleScalar<WidgetItems>
+            "ListBox_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
                 let itemsView = node.Target :?> ListBox
 
                 match newValueOpt with
-                | ValueNone -> itemsView.ClearValue(ListBox.ItemsProperty)
+                | ValueNone ->
+                    itemsView.ClearValue(ListBox.ItemTemplateProperty)
+                    itemsView.ClearValue(ListBox.ItemsProperty)
                 | ValueSome value ->
-                    itemsView.SetValue(
-                        ListBox.ItemsProperty,
-                        value.OriginalItems :?> seq<obj> |> Seq.map (fun x -> value.Template x)
-                    ))
-
-    (*
-    let WidgetItemsSource =
-        Attributes.defineSimpleScalar<WidgetTemplate>
-            "ListBox_Items"
-            (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
-            (fun _ newValueOpt node ->
-                let itemsView = node.Target :?> ListBox
-
-                match newValueOpt with
-                | ValueNone -> itemsView.ClearValue(ListBox.ItemsProperty)
-                | ValueSome value -> itemsView.SetValue(ListBox.ItemsProperty, value.OriginalItems :?> seq<obj> |> Seq.map (fun x -> value.Template x)))
-    *)
+                    itemsView.SetValue(ListBox.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template)) |> ignore
+                    itemsView.SetValue(ListBox.ItemsProperty, value.OriginalItems))
 
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionModeProperty
@@ -60,35 +82,22 @@ module ListBox =
 module ListBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ListBox<'msg>(items: seq<string>) =
-            WidgetHelpers.buildItems<'msg, IFabListBox, string, string>
-                ListBox.WidgetKey
-                ListBox.ItemsSource
-                items
-                (fun x -> x)
-
-        static member inline ListBox<'msg, 'itemData>(items: seq<'itemData>, template: 'itemData -> string) =
-            WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, string>
-                ListBox.WidgetKey
-                ListBox.ItemsSource
-                items
-                template
-
-        static member ListBox() =
-            CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
-
-(*
-        static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabListBoxItem>
+        static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildWidgetItems<'msg, IFabListBox, 'itemData, 'itemMarker>
+            WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker>
                 ListBox.WidgetKey
-                ListBox.WidgetItemsSource
+                ListBox.ItemsSource
                 items
                 template
-        *)
+                
+        static member inline ListBox<'msg>() =
+            CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(
+                ListBox.WidgetKey,
+                ListBox.Items
+            )
 
 [<Extension>]
 type ListBoxModifiers =
