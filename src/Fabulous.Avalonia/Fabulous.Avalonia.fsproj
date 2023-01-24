@@ -180,7 +180,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
-    <PackageReference Include="Fabulous" Version="2.2.0-preview.1" />
+    <PackageReference Include="Fabulous" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
