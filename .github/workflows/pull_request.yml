@@ -27,7 +27,7 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Install dotnet workload
-      run: dotnet workload install android ios --from-rollback-file .github/workflows/WorkloadManifest.json
+      run: dotnet workload install android ios
     - name: Restore
       run: dotnet restore ${SLN_FILE}
     - name: Build
