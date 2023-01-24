@@ -9,11 +9,10 @@ type IFabGeometryGroup =
     inherit IFabGeometry
 
 module GeometryGroup =
-    let WidgetKey = Widgets.register<GeometryGroup> ()
+    let WidgetKey = Widgets.register<GeometryGroup>()
 
     let Children =
-        Attributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target ->
-            (target :?> GeometryGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
 
     let FillRule =
         Attributes.defineAvaloniaPropertyWithEquality GeometryGroup.FillRuleProperty

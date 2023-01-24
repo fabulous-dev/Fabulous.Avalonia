@@ -24,27 +24,26 @@ module Calendar =
     let view model =
         VStack(spacing = 15.) {
             TextBlock($"Selected: {model.Date1}")
-            TextBlock("SingleDate").centerHorizontal ()
+            TextBlock("SingleDate").centerHorizontal()
 
             Calendar(model.Date1, SelectedDateChanged)
                 .displayDateStart(startFromYesterday)
                 .displayDateEnd(showUpToTomorrow)
-                .centerHorizontal ()
+                .centerHorizontal()
 
-            TextBlock("MultipleRange").centerHorizontal ()
+            TextBlock("MultipleRange").centerHorizontal()
 
             Calendar(model.Date1, SelectedDateChanged, CalendarSelectionMode.MultipleRange)
                 .displayMode(CalendarMode.Month)
-                .center ()
+                .center()
 
-            TextBlock("SingleRange").centerHorizontal ()
+            TextBlock("SingleRange").centerHorizontal()
 
             Calendar(model.Date1, SelectedDateChanged, CalendarSelectionMode.SingleRange)
-                .centerHorizontal ()
+                .centerHorizontal()
         }
 
     let sample =
         { Name = "Calendar"
-          Description =
-            "The Calendar control is a standard Calendar control for users to select date(s) or date ranges."
+          Description = "The Calendar control is a standard Calendar control for users to select date(s) or date ranges."
           Program = Helper.createProgram init update view }

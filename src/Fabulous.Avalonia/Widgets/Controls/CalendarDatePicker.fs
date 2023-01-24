@@ -10,20 +10,16 @@ type IFabCalendarDatePicker =
     inherit IFabTemplatedControl
 
 module CalendarDatePicker =
-    let WidgetKey = Widgets.register<CalendarDatePicker> ()
+    let WidgetKey = Widgets.register<CalendarDatePicker>()
 
     let DisplayDate =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.DisplayDateProperty
 
     let DisplayDateStart =
-        Attributes.defineAvaloniaPropertyWithEqualityConverter
-            CalendarDatePicker.DisplayDateStartProperty
-            Option.toNullable
+        Attributes.defineAvaloniaPropertyWithEqualityConverter CalendarDatePicker.DisplayDateStartProperty Option.toNullable
 
     let DisplayDateEnd =
-        Attributes.defineAvaloniaPropertyWithEqualityConverter
-            CalendarDatePicker.DisplayDateEndProperty
-            Option.toNullable
+        Attributes.defineAvaloniaPropertyWithEqualityConverter CalendarDatePicker.DisplayDateEndProperty Option.toNullable
 
     let FirstDayOfWeek =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.FirstDayOfWeekProperty
@@ -66,16 +62,13 @@ module CalendarDatePicker =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.VerticalContentAlignmentProperty
 
     let DateValidationError =
-        Attributes.defineEvent "CalendarDatePicker_DateValidationError" (fun target ->
-            (target :?> CalendarDatePicker).DateValidationError)
+        Attributes.defineEvent "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
 
     let CalendarClosed =
-        Attributes.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target ->
-            (target :?> CalendarDatePicker).CalendarClosed)
+        Attributes.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
 
     let CalendarOpened =
-        Attributes.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target ->
-            (target :?> CalendarDatePicker).CalendarOpened)
+        Attributes.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
 
 [<AutoOpen>]
 module CalendarDatePickerBuilders =
@@ -85,9 +78,7 @@ module CalendarDatePickerBuilders =
             WidgetBuilder<'msg, IFabCalendarDatePicker>(
                 CalendarDatePicker.WidgetKey,
                 CalendarDatePicker.SelectedDate.WithValue(date),
-                CalendarDatePicker.SelectedDateChanged.WithValue(
-                    ValueEventData.create date (fun args -> onValueChanged args |> box)
-                )
+                CalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onValueChanged args |> box))
             )
 
 [<Extension>]
@@ -117,11 +108,7 @@ type CalendarDatePickerModifiers =
         this.AddScalar(CalendarDatePicker.IsTodayHighlighted.WithValue(value))
 
     [<Extension>]
-    static member inline selectedDateFormat
-        (
-            this: WidgetBuilder<'msg, #IFabCalendarDatePicker>,
-            value: CalendarDatePickerFormat
-        ) =
+    static member inline selectedDateFormat(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, value: CalendarDatePickerFormat) =
         this.AddScalar(CalendarDatePicker.SelectedDateFormat.WithValue(value))
 
     [<Extension>]
@@ -141,19 +128,11 @@ type CalendarDatePickerModifiers =
         this.AddScalar(CalendarDatePicker.UseFloatingWatermark.WithValue(value))
 
     [<Extension>]
-    static member inline horizontalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabCalendarDatePicker>,
-            value: HorizontalAlignment
-        ) =
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, value: HorizontalAlignment) =
         this.AddScalar(CalendarDatePicker.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]
-    static member inline verticalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabCalendarDatePicker>,
-            value: VerticalAlignment
-        ) =
+    static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, value: VerticalAlignment) =
         this.AddScalar(CalendarDatePicker.VerticalContentAlignment.WithValue(value))
 
     [<Extension>]

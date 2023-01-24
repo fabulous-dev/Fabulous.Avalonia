@@ -8,7 +8,7 @@ type IFabInlineUIContainer =
     inherit IFabInline
 
 module InlineUIContainer =
-    let WidgetKey = Widgets.register<InlineUIContainer> ()
+    let WidgetKey = Widgets.register<InlineUIContainer>()
 
     let Children =
         Attributes.defineAvaloniaPropertyWidget InlineUIContainer.ChildProperty
@@ -20,9 +20,5 @@ module InlineUIContainerBuilders =
         static member InlineUIContainer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabInlineUIContainer>(
                 InlineUIContainer.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| InlineUIContainer.Children.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| InlineUIContainer.Children.WithValue(content.Compile()) |], ValueNone)
             )

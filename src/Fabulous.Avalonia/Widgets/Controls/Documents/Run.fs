@@ -7,7 +7,7 @@ type IFabRun =
     inherit IFabInline
 
 module Run =
-    let WidgetKey = Widgets.register<Run> ()
+    let WidgetKey = Widgets.register<Run>()
 
     let Text = Attributes.defineAvaloniaPropertyWithEquality Run.TextProperty
 

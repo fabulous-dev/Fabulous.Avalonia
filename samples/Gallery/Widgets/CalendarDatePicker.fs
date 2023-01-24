@@ -31,7 +31,7 @@ module CalendarDatePicker =
                 .isTodayHighlighted(true)
                 .useFloatingWatermark(true)
                 .isDropDownOpen(true)
-                .centerHorizontal ()
+                .centerHorizontal()
         }
 
     let sample =

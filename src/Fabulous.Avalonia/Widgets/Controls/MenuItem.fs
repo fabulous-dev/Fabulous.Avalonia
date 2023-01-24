@@ -12,7 +12,7 @@ type IFabMenuItem =
     inherit IFabHeaderedSelectingItemsControl
 
 module MenuItem =
-    let WidgetKey = Widgets.register<MenuItem> ()
+    let WidgetKey = Widgets.register<MenuItem>()
 
     let HotKey = Attributes.defineAvaloniaPropertyWithEquality MenuItem.HotKeyProperty
 
@@ -56,36 +56,24 @@ module MenuItemBuilders =
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
             )
 
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>, onClick: 'msg) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(
-                    StackList.one (MenuItem.Clicked.WithValue(fun _ -> box onClick)),
+                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
             )
 
         static member inline MenuItems(header: string) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                ItemsControl.Items,
-                HeaderedContentControl.HeaderString.WithValue(header)
-            )
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
 
         static member inline MenuItems'(header: string) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabControl>(
-                MenuItem.WidgetKey,
-                ItemsControl.Items,
-                HeaderedContentControl.HeaderString.WithValue(header)
-            )
+            CollectionBuilder<'msg, IFabMenuItem, IFabControl>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
 
         static member inline MenuItems(header: string, onClick: 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
@@ -98,13 +86,13 @@ module MenuItemBuilders =
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>) =
             WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
                 MenuItem.WidgetKey
-                (StackList.empty ())
+                (StackList.empty())
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>, onClick: 'msg) =
             WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
                 MenuItem.WidgetKey
-                (StackList.one (MenuItem.Clicked.WithValue(fun _ -> box onClick)))
+                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)))
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
 [<Extension>]
@@ -134,11 +122,7 @@ type MenuItemModifiers =
         this.AddScalar(MenuItem.StaysOpenOnClick.WithValue(value))
 
     [<Extension>]
-    static member inline onPointerEnteredItem
-        (
-            this: WidgetBuilder<'msg, #IFabMenuItem>,
-            onPointerEnteredItem: PointerEventArgs -> 'msg
-        ) =
+    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerEnteredItem: PointerEventArgs -> 'msg) =
         this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fun args -> onPointerEnteredItem args |> box))
 
     [<Extension>]

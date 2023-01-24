@@ -10,7 +10,7 @@ type IFabCroppedBitmap =
 
 module CroppedBitmap =
 
-    let WidgetKey = Widgets.register<CroppedBitmap> ()
+    let WidgetKey = Widgets.register<CroppedBitmap>()
 
     let Source =
         Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceProperty
@@ -23,8 +23,4 @@ module CroppedBitmapBuilders =
     type Fabulous.Avalonia.View with
 
         static member CroppedBitmap(source: IImage, rect: PixelRect) =
-            WidgetBuilder<'msg, IFabCroppedBitmap>(
-                CroppedBitmap.WidgetKey,
-                CroppedBitmap.Source.WithValue(source),
-                CroppedBitmap.SourceRect.WithValue(rect)
-            )
+            WidgetBuilder<'msg, IFabCroppedBitmap>(CroppedBitmap.WidgetKey, CroppedBitmap.Source.WithValue(source), CroppedBitmap.SourceRect.WithValue(rect))

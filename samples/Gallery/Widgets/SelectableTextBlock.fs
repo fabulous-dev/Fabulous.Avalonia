@@ -24,27 +24,27 @@ module SelectableTextBlock =
             SelectableTextBlock("Select some text. You can use the cursor to change the selection.", CopyingToClipboard)
                 .selectionBrush(SolidColorBrush(Colors.LightBlue))
                 .selectionStart(7)
-                .selectionEnd (11)
+                .selectionEnd(11)
 
             Border(
                 SelectableTextBlock(CopyingToClipboard) {
                     Run("This ")
 
-                    Span() { Run("is").fontWeight (FontWeight.Bold) }
+                    Span() { Run("is").fontWeight(FontWeight.Bold) }
 
                     Run(" a ")
 
                     Span() {
                         Run("TextBlock")
                             .background(SolidColorBrush(Colors.Silver))
-                            .foreground (SolidColorBrush(Colors.Maroon))
+                            .foreground(SolidColorBrush(Colors.Maroon))
                     }
 
                     Run(" with ")
 
-                    Span() { Run("several").textDecorations () { TextDecoration(TextDecorationLocation.Underline) } }
+                    Span() { Run("several").textDecorations() { TextDecoration(TextDecorationLocation.Underline) } }
 
-                    Span() { Run("Span").fontStyle (FontStyle.Italic) }
+                    Span() { Run("Span").fontStyle(FontStyle.Italic) }
 
                     Run(" elements, ")
 

@@ -22,29 +22,28 @@ module DockPanel =
             Rectangle(0., 0.)
                 .fill(SolidColorBrush(Colors.Red))
                 .height(100.)
-                .dockPanelDock (Dock.Top)
+                .dockPanelDock(Dock.Top)
 
             Rectangle(0., 0.)
                 .fill(SolidColorBrush(Colors.Blue))
                 .width(100.)
-                .dockPanelDock (Dock.Left)
+                .dockPanelDock(Dock.Left)
 
             Rectangle(0., 0.)
                 .fill(SolidColorBrush(Colors.Green))
                 .height(100.)
-                .dockPanelDock (Dock.Bottom)
+                .dockPanelDock(Dock.Bottom)
 
             Rectangle(0., 0.)
                 .fill(SolidColorBrush(Colors.Orange))
                 .width(100.)
-                .dockPanelDock (Dock.Right)
+                .dockPanelDock(Dock.Right)
 
-            Rectangle(0., 0.).fill (SolidColorBrush(Colors.Gray))
+            Rectangle(0., 0.).fill(SolidColorBrush(Colors.Gray))
         })
-            .size (300., 300.)
+            .size(300., 300.)
 
     let sample =
         { Name = "DockPanel"
-          Description =
-            "The DockPanel control is a Panel which lays out its children by 'docking' them to the sides or floating in the center."
+          Description = "The DockPanel control is a Panel which lays out its children by 'docking' them to the sides or floating in the center."
           Program = Helper.createProgram init update view }

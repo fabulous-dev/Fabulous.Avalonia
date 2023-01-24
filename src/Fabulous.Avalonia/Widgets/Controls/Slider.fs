@@ -13,7 +13,7 @@ type IFabSlider =
     inherit IFabRangeBase
 
 module Slider =
-    let WidgetKey = Widgets.register<Slider> ()
+    let WidgetKey = Widgets.register<Slider>()
 
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality Slider.OrientationProperty

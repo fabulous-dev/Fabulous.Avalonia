@@ -34,9 +34,9 @@ module TextBox =
                 .selectionBrush(SolidColorBrush(Colors.DarkBlue))
                 .selectionForegroundBrush(SolidColorBrush(Colors.White))
                 .width(300)
-                .horizontalAlignment (HorizontalAlignment.Left)
+                .horizontalAlignment(HorizontalAlignment.Left)
 
-            TextBlock($"You Entered: {model.SingleLineText}").margin (0, 0, 0, 30)
+            TextBlock($"You Entered: {model.SingleLineText}").margin(0, 0, 0, 30)
 
             TextBox(model.MultiLineText, MultiLineTextChanged)
                 .height(120)
@@ -49,7 +49,7 @@ module TextBox =
                 .useFloatingWatermark(true)
                 .caretBrush(SolidColorBrush(Colors.DarkBlue))
                 .selectionBrush(SolidColorBrush(Colors.DarkBlue))
-                .selectionForegroundBrush (SolidColorBrush(Colors.White))
+                .selectionForegroundBrush(SolidColorBrush(Colors.White))
 
             TextBlock($"You Entered: {model.MultiLineText}")
         }

@@ -9,7 +9,7 @@ type IFabSelectableTextBlock =
     inherit IFabTextBlock
 
 module SelectableTextBlock =
-    let WidgetKey = Widgets.register<SelectableTextBlock> ()
+    let WidgetKey = Widgets.register<SelectableTextBlock>()
 
     let SelectionStart =
         Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionStartProperty
@@ -21,8 +21,7 @@ module SelectableTextBlock =
         Attributes.defineAvaloniaPropertyWidget SelectableTextBlock.SelectionBrushProperty
 
     let CopyingToClipboard =
-        Attributes.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target ->
-            (target :?> SelectableTextBlock).CopyingToClipboard)
+        Attributes.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
 
 [<AutoOpen>]
 module SelectableTextBlockBuilders =
@@ -37,9 +36,7 @@ module SelectableTextBlockBuilders =
                     onCopyingToClipboard control.SelectedText |> box)
             )
 
-        static member inline SelectableTextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>
-            (onCopyingToClipboard: string -> 'msg)
-            =
+        static member inline SelectableTextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>(onCopyingToClipboard: string -> 'msg) =
             CollectionBuilder<'msg, IFabSelectableTextBlock, 'childMarker>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Inlines,
@@ -60,11 +57,7 @@ type SelectableTextBlockModifiers =
         this.AddScalar(SelectableTextBlock.SelectionEnd.WithValue(value))
 
     [<Extension>]
-    static member inline selectionBrush
-        (
-            this: WidgetBuilder<'msg, #IFabSelectableTextBlock>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(SelectableTextBlock.SelectionBrush.WithValue(content.Compile()))
 
 [<Extension>]

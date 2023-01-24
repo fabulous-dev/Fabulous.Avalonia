@@ -42,17 +42,9 @@ type FlyoutBaseModifiers =
         this.AddScalar(FlyoutBase.ShowMode.WithValue(showMode))
 
     [<Extension>]
-    static member inline overlayInputPassThrough
-        (
-            this: WidgetBuilder<'msg, #IFabFlyoutBase>,
-            overlayInputPassThrough: WidgetBuilder<'msg, IFabInputElement>
-        ) =
+    static member inline overlayInputPassThrough(this: WidgetBuilder<'msg, #IFabFlyoutBase>, overlayInputPassThrough: WidgetBuilder<'msg, IFabInputElement>) =
         this.AddWidget(FlyoutBase.OverlayInputPassThrough.WithValue(overlayInputPassThrough.Compile()))
 
     [<Extension>]
-    static member inline contextFlyout
-        (
-            this: WidgetBuilder<'msg, #IFabControl>,
-            content: WidgetBuilder<'msg, #IFabFlyoutBase>
-        ) =
+    static member inline contextFlyout(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabFlyoutBase>) =
         this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))

@@ -12,7 +12,7 @@ type IFabTextBlock =
     inherit IFabControl
 
 module TextBlock =
-    let WidgetKey = Widgets.register<TextBlock> ()
+    let WidgetKey = Widgets.register<TextBlock>()
 
     let Background =
         Attributes.defineAvaloniaPropertyWidget TextBlock.BackgroundProperty
@@ -96,11 +96,7 @@ module TextBlockBuilders =
 [<Extension>]
 type TextBlockModifiers =
     [<Extension>]
-    static member inline background
-        (
-            this: WidgetBuilder<'msg, #IFabTextBlock>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBlock.Background.WithValue(content.Compile()))
 
     [<Extension>]
@@ -128,11 +124,7 @@ type TextBlockModifiers =
         this.AddScalar(TextBlock.FontStretch.WithValue(value))
 
     [<Extension>]
-    static member inline foreground
-        (
-            this: WidgetBuilder<'msg, #IFabTextBlock>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBlock.Foreground.WithValue(content.Compile()))
 
     [<Extension>]
@@ -164,9 +156,7 @@ type TextBlockModifiers =
         this.AddScalar(TextBlock.TextTrimming.WithValue(value))
 
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>
-        (this: WidgetBuilder<'msg, 'marker>)
-        =
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> TextBlock.TextDecorations this
 
 [<Extension>]
@@ -177,22 +167,15 @@ type TextBlockExtraModifiers =
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
-        TextBlockModifiers.padding (this, Thickness(value))
+        TextBlockModifiers.padding(this, Thickness(value))
 
     [<Extension>]
-    static member inline padding
-        (
-            this: WidgetBuilder<'msg, #IFabTextBlock>,
-            left: float,
-            top: float,
-            right: float,
-            bottom: float
-        ) =
-        TextBlockModifiers.padding (this, Thickness(left, top, right, bottom))
+    static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, left: float, top: float, right: float, bottom: float) =
+        TextBlockModifiers.padding(this, Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
-        TextBlockModifiers.padding (this, Thickness(horizontal, vertical))
+        TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
 
 [<Extension>]
 type TextBlockCollectionBuilderExtensions =

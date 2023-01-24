@@ -46,19 +46,11 @@ module TemplatedControl =
 [<Extension>]
 type TemplatedControlModifiers =
     [<Extension>]
-    static member inline background
-        (
-            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
-            value: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.Background.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline borderBrush
-        (
-            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
-            value: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.BorderBrush.WithValue(value.Compile()))
 
     [<Extension>]
@@ -90,11 +82,7 @@ type TemplatedControlModifiers =
         this.AddScalar(TemplatedControl.FontStretch.WithValue(value))
 
     [<Extension>]
-    static member inline foreground
-        (
-            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
-            value: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.Foreground.WithValue(value.Compile()))
 
     [<Extension>]
@@ -105,43 +93,24 @@ type TemplatedControlModifiers =
 type TemplatedControlExtraModifiers =
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: float) =
-        TemplatedControlModifiers.padding (this, Thickness(value))
+        TemplatedControlModifiers.padding(this, Thickness(value))
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, horizontal: float, vertical: float) =
-        TemplatedControlModifiers.padding (this, Thickness(horizontal, vertical))
+        TemplatedControlModifiers.padding(this, Thickness(horizontal, vertical))
 
     [<Extension>]
-    static member inline padding
-        (
-            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
-            left: float,
-            top: float,
-            right: float,
-            bottom: float
-        ) =
-        TemplatedControlModifiers.padding (this, Thickness(left, top, right, bottom))
+    static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, left: float, top: float, right: float, bottom: float) =
+        TemplatedControlModifiers.padding(this, Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: float) =
-        TemplatedControlModifiers.borderThickness (this, Thickness(value))
+        TemplatedControlModifiers.borderThickness(this, Thickness(value))
 
     [<Extension>]
-    static member inline borderThickness
-        (
-            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
-            horizontal: float,
-            vertical: float
-        ) =
-        TemplatedControlModifiers.borderThickness (this, Thickness(horizontal, vertical))
+    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabTemplatedControl>, horizontal: float, vertical: float) =
+        TemplatedControlModifiers.borderThickness(this, Thickness(horizontal, vertical))
 
     [<Extension>]
-    static member inline borderThickness
-        (
-            this: WidgetBuilder<'msg, #IFabTemplatedControl>,
-            left: float,
-            top: float,
-            right: float,
-            bottom: float
-        ) =
-        TemplatedControlModifiers.borderThickness (this, Thickness(left, top, right, bottom))
+    static member inline borderThickness(this: WidgetBuilder<'msg, #IFabTemplatedControl>, left: float, top: float, right: float, bottom: float) =
+        TemplatedControlModifiers.borderThickness(this, Thickness(left, top, right, bottom))

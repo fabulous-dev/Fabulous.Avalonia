@@ -9,7 +9,7 @@ type IFabMenu =
     inherit IFabMenuBase
 
 module Menu =
-    let WidgetKey = Widgets.register<Menu> ()
+    let WidgetKey = Widgets.register<Menu>()
 
 [<AutoOpen>]
 module MenuBuilders =

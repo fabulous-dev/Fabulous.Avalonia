@@ -22,7 +22,7 @@ module ToolTip =
             Border(TextBlock("Hover over me!"))
                 .padding(10.)
                 .background(SolidColorBrush(Colors.LightGray))
-                .tooltip ("Im a tooltip!")
+                .tooltip("Im a tooltip!")
 
             Border(TextBlock("Hover over me!"))
                 .padding(10.)
@@ -33,12 +33,11 @@ module ToolTip =
                         TextBlock("A control which pops up a hint when a control is hovered")
                     }
                 )
-                .tooltipShowDelay (1000)
+                .tooltipShowDelay(1000)
         }
 
 
     let sample =
         { Name = "ToolTip"
-          Description =
-            "The ToolTip is a control that pops up with hint text when hovered over the appropriate control."
+          Description = "The ToolTip is a control that pops up with hint text when hovered over the appropriate control."
           Program = Helper.createProgram init update view }

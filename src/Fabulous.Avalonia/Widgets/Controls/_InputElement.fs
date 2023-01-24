@@ -42,12 +42,10 @@ module InputElement =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
 
     let GotFocus =
-        Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target ->
-            (target :?> InputElement).GotFocus)
+        Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
 
     let LostFocus =
-        Attributes.defineEvent<RoutedEventArgs> "InputElement_LostFocus" (fun target ->
-            (target :?> InputElement).LostFocus)
+        Attributes.defineEvent<RoutedEventArgs> "InputElement_LostFocus" (fun target -> (target :?> InputElement).LostFocus)
 
     let KeyDown =
         Attributes.defineEvent<KeyEventArgs> "InputElement_KeyDown" (fun target -> (target :?> InputElement).KeyDown)
@@ -56,44 +54,35 @@ module InputElement =
         Attributes.defineEvent<KeyEventArgs> "InputElement_KeyUp" (fun target -> (target :?> InputElement).KeyUp)
 
     let TextInputMethodClientRequested =
-        Attributes.defineEvent<TextInputMethodClientRequestedEventArgs>
-            "InputElement_TextInputMethodClientRequested"
-            (fun target -> (target :?> InputElement).TextInputMethodClientRequested)
+        Attributes.defineEvent<TextInputMethodClientRequestedEventArgs> "InputElement_TextInputMethodClientRequested" (fun target ->
+            (target :?> InputElement).TextInputMethodClientRequested)
 
     let PointerEntered =
-        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerEntered" (fun target ->
-            (target :?> InputElement).PointerEntered)
+        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerEntered" (fun target -> (target :?> InputElement).PointerEntered)
 
     let PointerExited =
-        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerExited" (fun target ->
-            (target :?> InputElement).PointerExited)
+        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerExited" (fun target -> (target :?> InputElement).PointerExited)
 
     let PointerMoved =
-        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerMoved" (fun target ->
-            (target :?> InputElement).PointerMoved)
+        Attributes.defineEvent<PointerEventArgs> "InputElement_PointerMoved" (fun target -> (target :?> InputElement).PointerMoved)
 
     let PointerPressed =
-        Attributes.defineEvent<PointerPressedEventArgs> "InputElement_PointerPressed" (fun target ->
-            (target :?> InputElement).PointerPressed)
+        Attributes.defineEvent<PointerPressedEventArgs> "InputElement_PointerPressed" (fun target -> (target :?> InputElement).PointerPressed)
 
     let PointerReleased =
-        Attributes.defineEvent<PointerReleasedEventArgs> "InputElement_PointerReleased" (fun target ->
-            (target :?> InputElement).PointerReleased)
+        Attributes.defineEvent<PointerReleasedEventArgs> "InputElement_PointerReleased" (fun target -> (target :?> InputElement).PointerReleased)
 
     let PointerCaptureLost =
-        Attributes.defineEvent<PointerCaptureLostEventArgs> "InputElement_PointerCaptureLost" (fun target ->
-            (target :?> InputElement).PointerCaptureLost)
+        Attributes.defineEvent<PointerCaptureLostEventArgs> "InputElement_PointerCaptureLost" (fun target -> (target :?> InputElement).PointerCaptureLost)
 
     let PointerWheelChanged =
-        Attributes.defineEvent<PointerWheelEventArgs> "InputElement_PointerWheelChanged" (fun target ->
-            (target :?> InputElement).PointerWheelChanged)
+        Attributes.defineEvent<PointerWheelEventArgs> "InputElement_PointerWheelChanged" (fun target -> (target :?> InputElement).PointerWheelChanged)
 
     let Tapped =
         Attributes.defineEvent<TappedEventArgs> "InputElement_Tapped" (fun target -> (target :?> InputElement).Tapped)
 
     let DoubleTapped =
-        Attributes.defineEvent<TappedEventArgs> "InputElement_DoubleTapped" (fun target ->
-            (target :?> InputElement).DoubleTapped)
+        Attributes.defineEvent<TappedEventArgs> "InputElement_DoubleTapped" (fun target -> (target :?> InputElement).DoubleTapped)
 
 [<Extension>]
 type InputElementModifiers =
@@ -138,19 +127,11 @@ type InputElementModifiers =
         this.AddScalar(InputElement.TabIndex.WithValue(value))
 
     [<Extension>]
-    static member inline onGotFocus
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onGotFocus: GotFocusEventArgs -> 'msg
-        ) =
+    static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
         this.AddScalar(InputElement.GotFocus.WithValue(fun args -> onGotFocus args |> box))
 
     [<Extension>]
-    static member inline onLostFocus
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onLostFocus: RoutedEventArgs -> 'msg
-        ) =
+    static member inline onLostFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onLostFocus: RoutedEventArgs -> 'msg) =
         this.AddScalar(InputElement.LostFocus.WithValue(fun args -> onLostFocus args |> box))
 
     [<Extension>]
@@ -167,65 +148,34 @@ type InputElementModifiers =
             this: WidgetBuilder<'msg, #IFabInputElement>,
             onTextInputMethodClientRequested: TextInputMethodClientRequestedEventArgs -> 'msg
         ) =
-        this.AddScalar(
-            InputElement.TextInputMethodClientRequested.WithValue(fun args ->
-                onTextInputMethodClientRequested args |> box)
-        )
+        this.AddScalar(InputElement.TextInputMethodClientRequested.WithValue(fun args -> onTextInputMethodClientRequested args |> box))
 
     [<Extension>]
-    static member inline onPointerEnter
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerEnter: PointerEventArgs -> 'msg
-        ) =
+    static member inline onPointerEnter(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerEnter: PointerEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerEntered.WithValue(fun args -> onPointerEnter args |> box))
 
     [<Extension>]
-    static member inline onPointerExited
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerExited: PointerEventArgs -> 'msg
-        ) =
+    static member inline onPointerExited(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerExited: PointerEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerExited.WithValue(fun args -> onPointerExited args |> box))
 
     [<Extension>]
-    static member inline onPointerMoved
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerMoved: PointerEventArgs -> 'msg
-        ) =
+    static member inline onPointerMoved(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerMoved: PointerEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerMoved.WithValue(fun args -> onPointerMoved args |> box))
 
     [<Extension>]
-    static member inline onPointerPressed
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerPressed: PointerPressedEventArgs -> 'msg
-        ) =
+    static member inline onPointerPressed(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerPressed: PointerPressedEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerPressed.WithValue(fun args -> onPointerPressed args |> box))
 
     [<Extension>]
-    static member inline onPointerReleased
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerReleased: PointerReleasedEventArgs -> 'msg
-        ) =
+    static member inline onPointerReleased(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerReleased: PointerReleasedEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerReleased.WithValue(fun args -> onPointerReleased args |> box))
 
     [<Extension>]
-    static member inline onPointerCaptureLost
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerCaptureLost: PointerCaptureLostEventArgs -> 'msg
-        ) =
+    static member inline onPointerCaptureLost(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerCaptureLost: PointerCaptureLostEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerCaptureLost.WithValue(fun args -> onPointerCaptureLost args |> box))
 
     [<Extension>]
-    static member inline onPointerWheelChanged
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onPointerWheelChanged: PointerWheelEventArgs -> 'msg
-        ) =
+    static member inline onPointerWheelChanged(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerWheelChanged: PointerWheelEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerWheelChanged.WithValue(fun args -> onPointerWheelChanged args |> box))
 
     [<Extension>]
@@ -233,9 +183,5 @@ type InputElementModifiers =
         this.AddScalar(InputElement.Tapped.WithValue(fun args -> onTapped args |> box))
 
     [<Extension>]
-    static member inline onDoubleTapped
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onDoubleTapped: RoutedEventArgs -> 'msg
-        ) =
+    static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onDoubleTapped: RoutedEventArgs -> 'msg) =
         this.AddScalar(InputElement.DoubleTapped.WithValue(fun args -> onDoubleTapped args |> box))

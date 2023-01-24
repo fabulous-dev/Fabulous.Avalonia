@@ -30,8 +30,8 @@ module App =
     let init () =
         { WidgetModel = None
           IsPanOpen = true
-          OverviewModel = OverViewPage.init ()
-          Controls = WidgetPage.getSamplesNames ()
+          OverviewModel = OverViewPage.init()
+          Controls = WidgetPage.getSamplesNames()
           SelectedIndex = -1 },
         Cmd.none
 
@@ -58,27 +58,30 @@ module App =
 
         | OpenPanChanged x -> { model with IsPanOpen = x }, Cmd.none
 
-        | OpenPan -> { model with IsPanOpen = not model.IsPanOpen }, Cmd.none
+        | OpenPan ->
+            { model with
+                IsPanOpen = not model.IsPanOpen },
+            Cmd.none
 
     let hamburgerMenuIcon () =
         Path("M1,4 H18 V6 H1 V4 M1,9 H18 V11 H1 V7 M3,14 H18 V16 H1 V14")
-            .fill (SolidColorBrush(Colors.Black))
+            .fill(SolidColorBrush(Colors.Black))
 
     let buttonSpinnerHeader (model: Model) =
         ScrollViewer(
             (VStack(0.) {
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .size (100., 100.)
+                    .size(100., 100.)
 
-                TextBlock("Fabulous Gallery").centerHorizontal ()
+                TextBlock("Fabulous Gallery").centerHorizontal()
 
                 Button("Overview", ShowOverview)
 
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
                     .selectionMode(SelectionMode.Multiple)
-                    .onSelectedIndexChanged (model.SelectedIndex, ItemSelected)
+                    .onSelectedIndexChanged(model.SelectedIndex, ItemSelected)
             })
-                .margin (Thickness(0., 20., 0., 0.))
+                .margin(Thickness(0., 20., 0., 0.))
         )
 
     let view model =
@@ -90,19 +93,19 @@ module App =
                 SplitView(buttonSpinnerHeader model, content)
                     .isPresented(model.IsPanOpen, OpenPanChanged)
                     .displayMode(SplitViewDisplayMode.Inline)
-                    .panePlacement (SplitViewPanePlacement.Left)
+                    .panePlacement(SplitViewPanePlacement.Left)
 
             | Some widgetModel ->
                 let content = View.map WidgetPageMsg (WidgetPage.view widgetModel)
 
-                SplitView(buttonSpinnerHeader model, content.margin (16.))
+                SplitView(buttonSpinnerHeader model, content.margin(16.))
                     .isPresented(model.IsPanOpen, OpenPanChanged)
                     .displayMode(SplitViewDisplayMode.Inline)
-                    .panePlacement (SplitViewPanePlacement.Left)
+                    .panePlacement(SplitViewPanePlacement.Left)
 
-            Button(hamburgerMenuIcon (), OpenPan)
+            Button(hamburgerMenuIcon(), OpenPan)
                 .verticalAlignment(VerticalAlignment.Top)
-                .horizontalAlignment (HorizontalAlignment.Left)
+                .horizontalAlignment(HorizontalAlignment.Left)
         }
 
 #if MOBILE
@@ -114,6 +117,8 @@ module App =
     let program =
         Program.statefulWithCmd init update app
 #if DEBUG
-        |> Program.withLogger { ViewHelpers.defaultLogger () with MinLogLevel = LogLevel.Debug }
-        |> Program.withTrace (fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withLogger
+            { ViewHelpers.defaultLogger() with
+                MinLogLevel = LogLevel.Debug }
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
 #endif

@@ -8,7 +8,7 @@ type IFabPolylineGeometry =
     inherit IFabGeometry
 
 module PolylineGeometry =
-    let WidgetKey = Widgets.register<PolylineGeometry> ()
+    let WidgetKey = Widgets.register<PolylineGeometry>()
 
     let Points =
         Attributes.defineSimpleScalarWithEquality<Point list> "PolylineGeometry_Points" (fun _ newValueOpt node ->

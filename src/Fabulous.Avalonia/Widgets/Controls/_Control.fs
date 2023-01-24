@@ -45,11 +45,7 @@ type ControlModifiers =
         this.AddScalar(Control.FlowDirection.WithValue(value))
 
     [<Extension>]
-    static member inline onContextRequested
-        (
-            this: WidgetBuilder<'msg, #IFabControl>,
-            onContextRequested: ContextRequestedEventArgs -> 'msg
-        ) =
+    static member inline onContextRequested(this: WidgetBuilder<'msg, #IFabControl>, onContextRequested: ContextRequestedEventArgs -> 'msg) =
         this.AddScalar(Control.ContextRequested.WithValue(fun args -> onContextRequested args |> box))
 
     [<Extension>]
@@ -69,9 +65,5 @@ type ControlModifiers =
         )
 
     [<Extension>]
-    static member inline onSizeChanged
-        (
-            this: WidgetBuilder<'msg, #IFabControl>,
-            onSizeChanged: SizeChangedEventArgs -> 'msg
-        ) =
+    static member inline onSizeChanged(this: WidgetBuilder<'msg, #IFabControl>, onSizeChanged: SizeChangedEventArgs -> 'msg) =
         this.AddScalar(Control.SizeChanged.WithValue(fun args -> onSizeChanged args |> box))

@@ -7,7 +7,7 @@ type IFabArc =
     inherit IFabShape
 
 module Arc =
-    let WidgetKey = Widgets.register<Arc> ()
+    let WidgetKey = Widgets.register<Arc>()
 
     let StartAngle =
         Attributes.defineAvaloniaPropertyWithEquality Arc.StartAngleProperty
@@ -20,8 +20,4 @@ module ArcBuilders =
     type Fabulous.Avalonia.View with
 
         static member Arc(startAngle: float, sweepAngle: float) =
-            WidgetBuilder<'msg, IFabArc>(
-                Arc.WidgetKey,
-                Arc.StartAngle.WithValue(startAngle),
-                Arc.SweepAngle.WithValue(sweepAngle)
-            )
+            WidgetBuilder<'msg, IFabArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))

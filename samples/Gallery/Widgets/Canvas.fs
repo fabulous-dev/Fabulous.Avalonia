@@ -56,7 +56,7 @@ module Canvas =
                     .fill(SolidColorBrush(Colors.Blue))
                     .canvasLeft(40.)
                     .canvasTop(31.)
-                    .opacityMask (
+                    .opacityMask(
                         LinearGradientBrush(RelativePoint.Center, RelativePoint.BottomRight) {
                             GradientStop(0., Colors.Black)
                             GradientStop(1., Colors.Transparent)
@@ -69,18 +69,18 @@ module Canvas =
                     .stroke(SolidColorBrush(Color.ToHsl(byte 5., byte 85., byte 85.).ToRgb()))
                     .strokeThickness(2.)
                     .canvasLeft(150.)
-                    .canvasTop (10.)
+                    .canvasTop(10.)
 
                 Ellipse()
                     .size(58., 58.)
                     .fill(SolidColorBrush(Colors.Green))
                     .canvasLeft(88.)
-                    .canvasTop (100.)
+                    .canvasTop(100.)
 
                 Path("M 0,0 c 0,0 50,0 50,-50 c 0,0 50,0 50,50 h -50 v 50 l -50,-50 Z")
                     .fill(SolidColorBrush(Colors.Orange))
                     .canvasLeft(30.)
-                    .canvasTop (250.)
+                    .canvasTop(250.)
 
 
                 Path(
@@ -96,12 +96,12 @@ module Canvas =
                 )
                     .fill(SolidColorBrush(Colors.OrangeRed))
                     .canvasLeft(180.)
-                    .canvasTop (250.)
+                    .canvasTop(250.)
 
 
                 Line(Point(120., 185.), Point(30., 115.))
                     .stroke(SolidColorBrush(Colors.Red))
-                    .strokeThickness (2.)
+                    .strokeThickness(2.)
 
                 Polygon(
                     [ Point(75., 0.)
@@ -114,7 +114,7 @@ module Canvas =
                     .strokeThickness(1.)
                     .fill(SolidColorBrush(Colors.Violet))
                     .canvasLeft(150.)
-                    .canvasTop (31.)
+                    .canvasTop(31.)
 
                 Polyline(
                     [ Point(0., 0.)
@@ -128,10 +128,10 @@ module Canvas =
                 )
                     .stroke(SolidColorBrush(Colors.Brown))
                     .canvasLeft(30.)
-                    .canvasTop (350.)
+                    .canvasTop(350.)
             })
                 .background(SolidColorBrush(Colors.Yellow))
-                .size (300., 400.)
+                .size(300., 400.)
 
         }
 

@@ -72,16 +72,12 @@ module Attributes =
         (directProperty: AvaloniaProperty<'T>)
         (convert: 'modelType -> 'valueType)
         =
-        Attributes.defineScalar<'modelType, 'valueType>
-            directProperty.Name
-            convert
-            ScalarAttributeComparers.noCompare
-            (fun _ newValueOpt node ->
-                let target = node.Target :?> IAvaloniaObject
+        Attributes.defineScalar<'modelType, 'valueType> directProperty.Name convert ScalarAttributeComparers.noCompare (fun _ newValueOpt node ->
+            let target = node.Target :?> IAvaloniaObject
 
-                match newValueOpt with
-                | ValueNone -> target.ClearValue(directProperty)
-                | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
+            match newValueOpt with
+            | ValueNone -> target.ClearValue(directProperty)
+            | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
 
     /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
     let defineAvaloniaListWidgetCollection<'itemType> name (getCollection: obj -> IAvaloniaList<'itemType>) =
@@ -151,16 +147,13 @@ module Attributes =
 
     /// Define an attribute storing a Widget for an AvaloniaProperty
     let inline defineAvaloniaPropertyWidget (property: AvaloniaProperty<'T>) =
-        Attributes.definePropertyWidget
-            property.Name
-            (fun target -> (target :?> IAvaloniaObject).GetValue(property))
-            (fun target value ->
-                let avaloniaObject = target :?> IAvaloniaObject
+        Attributes.definePropertyWidget property.Name (fun target -> (target :?> IAvaloniaObject).GetValue(property)) (fun target value ->
+            let avaloniaObject = target :?> IAvaloniaObject
 
-                if value = null then
-                    avaloniaObject.ClearValue(property)
-                else
-                    avaloniaObject.SetValue(property, value) |> ignore)
+            if value = null then
+                avaloniaObject.ClearValue(property)
+            else
+                avaloniaObject.SetValue(property, value) |> ignore)
 
     let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
         name
@@ -210,8 +203,5 @@ module Attributes =
 
         { Key = key; Name = name }
 
-    let defineAvaloniaPropertyWithChangedEvent'<'T>
-        name
-        (property: AvaloniaProperty<'T>)
-        : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
+    let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id

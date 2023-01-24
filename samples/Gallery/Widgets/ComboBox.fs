@@ -18,7 +18,7 @@ module ComboBox =
 
     let fontComboBox () =
         FontManager.Current.GetInstalledFontFamilyNames()
-        |> Seq.map (fun x -> FontFamily(x))
+        |> Seq.map(fun x -> FontFamily(x))
 
     let view model =
         HStack(16) {
@@ -28,27 +28,27 @@ module ComboBox =
                 ComboBoxItem("Inline Item 3")
                 ComboBoxItem("Inline Item 4")
             })
-                .selectedIndex (0)
+                .selectedIndex(0)
 
             (ComboBox() {
                 ComboBoxItem(
                     VStack() {
-                        Rectangle(0., 0.).fill (SolidColorBrush(Colors.Red))
-                        TextBlock("Control Items").margin (8.)
+                        Rectangle(0., 0.).fill(SolidColorBrush(Colors.Red))
+                        TextBlock("Control Items").margin(8.)
                     }
                 )
 
-                ComboBoxItem(Ellipse().size(50., 50.).fill (SolidColorBrush(Colors.Yellow)))
+                ComboBoxItem(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow)))
 
                 ComboBoxItem(TextBlock("TextBox"))
             })
-                .selectedIndex (0)
+                .selectedIndex(0)
 
             (ComboBox(model.IsDropDownOpen, DropDownOpened) {
-                for item in fontComboBox () do
+                for item in fontComboBox() do
                     ComboBoxItem(item.Name)
             })
-                .selectedIndex (0)
+                .selectedIndex(0)
         }
 
     let sample =

@@ -8,7 +8,7 @@ type IFabDockPanel =
     inherit IFabPanel
 
 module DockPanel =
-    let WidgetKey = Widgets.register<DockPanel> ()
+    let WidgetKey = Widgets.register<DockPanel>()
 
     let Dock = Attributes.defineAvaloniaPropertyWithEquality DockPanel.DockProperty
 
@@ -21,18 +21,8 @@ module DockPanelBuilders =
 
         static member Dock(?lastChildFill: bool) =
             match lastChildFill with
-            | Some value ->
-                CollectionBuilder<'msg, IFabDockPanel, IFabControl>(
-                    DockPanel.WidgetKey,
-                    Panel.Children,
-                    DockPanel.LastChildFill.WithValue(value)
-                )
-            | None ->
-                CollectionBuilder<'msg, IFabDockPanel, IFabControl>(
-                    DockPanel.WidgetKey,
-                    Panel.Children,
-                    DockPanel.LastChildFill.WithValue(true)
-                )
+            | Some value -> CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(value))
+            | None -> CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(true))
 
 [<Extension>]
 type DockPanelModifiers =

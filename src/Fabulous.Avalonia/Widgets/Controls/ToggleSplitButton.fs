@@ -9,12 +9,10 @@ type IFabToggleSplitButton =
     inherit IFabSplitButton
 
 module ToggleSplitButton =
-    let WidgetKey = Widgets.register<ToggleSplitButton> ()
+    let WidgetKey = Widgets.register<ToggleSplitButton>()
 
     let CheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent'
-            "ToggleSplitButton_CheckedChanged"
-            ToggleSplitButton.IsCheckedProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "ToggleSplitButton_CheckedChanged" ToggleSplitButton.IsCheckedProperty
 
 [<AutoOpen>]
 module ToggleSplitButtonBuilders =
@@ -31,7 +29,7 @@ module ToggleSplitButtonBuilders =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one (SplitButton.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(SplitButton.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -40,14 +38,5 @@ module ToggleSplitButtonBuilders =
 [<Extension>]
 type ToggleSplitButtonModifiers =
     [<Extension>]
-    static member inline onCheckedChanged
-        (
-            splitButton: WidgetBuilder<'msg, #IFabToggleSplitButton>,
-            isChecked: bool,
-            onCheckedChanged: bool -> 'msg
-        ) =
-        splitButton.AddScalar(
-            ToggleSplitButton.CheckedChanged.WithValue(
-                ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box)
-            )
-        )
+    static member inline onCheckedChanged(splitButton: WidgetBuilder<'msg, #IFabToggleSplitButton>, isChecked: bool, onCheckedChanged: bool -> 'msg) =
+        splitButton.AddScalar(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box)))

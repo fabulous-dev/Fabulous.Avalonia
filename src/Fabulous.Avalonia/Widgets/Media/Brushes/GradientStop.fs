@@ -10,7 +10,7 @@ type IFabGradientStop =
 
 module GradientStop =
 
-    let WidgetKey = Widgets.register<GradientStop> ()
+    let WidgetKey = Widgets.register<GradientStop>()
 
     let Color = Attributes.defineAvaloniaPropertyWithEquality GradientStop.ColorProperty
 
@@ -22,11 +22,7 @@ module GradientStopBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline GradientStop(offset: float, color: Color) =
-            WidgetBuilder<'msg, IFabGradientStop>(
-                GradientStop.WidgetKey,
-                GradientStop.Color.WithValue(color),
-                GradientStop.Offset.WithValue(offset)
-            )
+            WidgetBuilder<'msg, IFabGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(color), GradientStop.Offset.WithValue(offset))
 
 [<Extension>]
 type GradientStopBuilderExtensions =

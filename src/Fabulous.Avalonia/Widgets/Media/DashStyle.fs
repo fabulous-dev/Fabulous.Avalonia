@@ -9,7 +9,7 @@ type IFaDashStyle =
     inherit IFabAnimatable
 
 module DashStyle =
-    let WidgetKey = Widgets.register<DashStyle> ()
+    let WidgetKey = Widgets.register<DashStyle>()
 
     let Dashes =
         Attributes.defineSimpleScalarWithEquality<float list> "DashStyle_Dashes" (fun _ newValueOpt node ->
@@ -29,8 +29,4 @@ module DashStyleBuilders =
     type Fabulous.Avalonia.View with
 
         static member DashStyle(dashes: float list, offset: float) =
-            WidgetBuilder<'msg, IFaDashStyle>(
-                DashStyle.WidgetKey,
-                DashStyle.Dashes.WithValue(dashes),
-                DashStyle.Offset.WithValue(offset)
-            )
+            WidgetBuilder<'msg, IFaDashStyle>(DashStyle.WidgetKey, DashStyle.Dashes.WithValue(dashes), DashStyle.Offset.WithValue(offset))

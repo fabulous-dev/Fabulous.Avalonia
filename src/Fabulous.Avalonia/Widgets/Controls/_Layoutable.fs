@@ -93,15 +93,8 @@ type LayoutableModifiers =
         this.AddScalar(Layoutable.UseLayoutRounding.WithValue(value))
 
     [<Extension>]
-    static member inline onEffectiveViewportChanged
-        (
-            this: WidgetBuilder<'msg, #IFabLayoutable>,
-            onEffectiveViewportChanged: Rect -> 'msg
-        ) =
-        this.AddScalar(
-            Layoutable.EffectiveViewportChanged.WithValue(fun args ->
-                onEffectiveViewportChanged args.EffectiveViewport |> box)
-        )
+    static member inline onEffectiveViewportChanged(this: WidgetBuilder<'msg, #IFabLayoutable>, onEffectiveViewportChanged: Rect -> 'msg) =
+        this.AddScalar(Layoutable.EffectiveViewportChanged.WithValue(fun args -> onEffectiveViewportChanged args.EffectiveViewport |> box))
 
     [<Extension>]
     static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, onLayoutUpdated: 'msg) =
@@ -111,35 +104,26 @@ type LayoutableModifiers =
 type LayoutableExtraModifiers =
     [<Extension>]
     static member inline centerHorizontal(this: WidgetBuilder<'msg, #IFabLayoutable>) =
-        this.horizontalAlignment (HorizontalAlignment.Center)
+        this.horizontalAlignment(HorizontalAlignment.Center)
 
     [<Extension>]
     static member inline centerVertical(this: WidgetBuilder<'msg, #IFabLayoutable>) =
-        this.verticalAlignment (VerticalAlignment.Center)
+        this.verticalAlignment(VerticalAlignment.Center)
 
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabLayoutable>) =
-        this.centerHorizontal().centerVertical ()
+        this.centerHorizontal().centerVertical()
 
     [<Extension>]
-    static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, uniformValue: float) =
-        this.margin (Thickness(uniformValue))
+    static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, uniformValue: float) = this.margin(Thickness(uniformValue))
 
     [<Extension>]
     static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, horizontal: float, vertical: float) =
-        this.margin (Thickness(horizontal, vertical))
+        this.margin(Thickness(horizontal, vertical))
 
     [<Extension>]
-    static member inline margin
-        (
-            this: WidgetBuilder<'msg, #IFabLayoutable>,
-            left: float,
-            top: float,
-            right: float,
-            bottom: float
-        ) =
-        this.margin (Thickness(left, top, right, bottom))
+    static member inline margin(this: WidgetBuilder<'msg, #IFabLayoutable>, left: float, top: float, right: float, bottom: float) =
+        this.margin(Thickness(left, top, right, bottom))
 
     [<Extension>]
-    static member inline size(this: WidgetBuilder<'msg, #IFabLayoutable>, width: float, height: float) =
-        this.width(width).height (height)
+    static member inline size(this: WidgetBuilder<'msg, #IFabLayoutable>, width: float, height: float) = this.width(width).height(height)

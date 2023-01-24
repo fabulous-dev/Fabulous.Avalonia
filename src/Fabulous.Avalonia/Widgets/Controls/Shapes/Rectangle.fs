@@ -7,7 +7,7 @@ type IFabRectangle =
     inherit IFabShape
 
 module Rectangle =
-    let WidgetKey = Widgets.register<Rectangle> ()
+    let WidgetKey = Widgets.register<Rectangle>()
 
     let RadiusX =
         Attributes.defineAvaloniaPropertyWithEquality Rectangle.RadiusXProperty
@@ -20,8 +20,4 @@ module RectangleBuilders =
     type Fabulous.Avalonia.View with
 
         static member Rectangle(radiusX: float, radiusY: float) =
-            WidgetBuilder<'msg, IFabRectangle>(
-                Rectangle.WidgetKey,
-                Rectangle.RadiusX.WithValue(radiusX),
-                Rectangle.RadiusY.WithValue(radiusY)
-            )
+            WidgetBuilder<'msg, IFabRectangle>(Rectangle.WidgetKey, Rectangle.RadiusX.WithValue(radiusX), Rectangle.RadiusY.WithValue(radiusY))

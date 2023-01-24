@@ -11,7 +11,7 @@ type IFabScrollViewer =
     inherit IFabContentControl
 
 module ScrollViewer =
-    let WidgetKey = Widgets.register<ScrollViewer> ()
+    let WidgetKey = Widgets.register<ScrollViewer>()
 
     let CanHorizontallyScroll =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.CanHorizontallyScrollProperty
@@ -74,11 +74,7 @@ module ScrollViewerBuilders =
         static member inline ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabScrollViewer>(
                 ScrollViewer.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
 [<Extension>]
@@ -124,11 +120,7 @@ type ScrollViewerModifiers =
         this.AddScalar(ScrollViewer.HorizontalScrollBarViewportSize.WithValue(value))
 
     [<Extension>]
-    static member inline horizontalScrollBarVisibility
-        (
-            this: WidgetBuilder<'msg, #IFabScrollViewer>,
-            value: ScrollBarVisibility
-        ) =
+    static member inline horizontalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
         this.AddScalar(ScrollViewer.HorizontalScrollBarVisibility.WithValue(value))
 
     [<Extension>]
@@ -144,11 +136,7 @@ type ScrollViewerModifiers =
         this.AddScalar(ScrollViewer.VerticalScrollBarViewportSize.WithValue(value))
 
     [<Extension>]
-    static member inline verticalScrollBarVisibility
-        (
-            this: WidgetBuilder<'msg, #IFabScrollViewer>,
-            value: ScrollBarVisibility
-        ) =
+    static member inline verticalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
         this.AddScalar(ScrollViewer.VerticalScrollBarVisibility.WithValue(value))
 
     [<Extension>]
@@ -160,9 +148,5 @@ type ScrollViewerModifiers =
         this.AddScalar(ScrollViewer.IsScrollChainingEnabled.WithValue(value))
 
     [<Extension>]
-    static member inline onScrollChanged
-        (
-            this: WidgetBuilder<'msg, #IFabScrollViewer>,
-            onScrollChanged: ScrollChangedEventArgs -> 'msg
-        ) =
+    static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, onScrollChanged: ScrollChangedEventArgs -> 'msg) =
         this.AddScalar(ScrollViewer.ScrollChanged.WithValue(fun args -> onScrollChanged args |> box))

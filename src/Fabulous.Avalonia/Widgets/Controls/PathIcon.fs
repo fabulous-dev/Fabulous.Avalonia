@@ -9,7 +9,7 @@ type IFabPathIcon =
     inherit IFabIconElement
 
 module PathIcon =
-    let WidgetKey = Widgets.register<PathIcon> ()
+    let WidgetKey = Widgets.register<PathIcon>()
 
     let DataWidget = Attributes.defineAvaloniaPropertyWidget PathIcon.DataProperty
 
@@ -22,15 +22,8 @@ module PathIconBuilders =
         static member PathIcon(content: WidgetBuilder<'msg, #IFabGeometry>) =
             WidgetBuilder<'msg, IFabPathIcon>(
                 PathIcon.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| PathIcon.DataWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| PathIcon.DataWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
         static member PathIcon(pathData: string) =
-            WidgetBuilder<'msg, IFabPathIcon>(
-                PathIcon.WidgetKey,
-                PathIcon.DataString.WithValue(Geometry.Parse(pathData))
-            )
+            WidgetBuilder<'msg, IFabPathIcon>(PathIcon.WidgetKey, PathIcon.DataString.WithValue(Geometry.Parse(pathData)))

@@ -26,11 +26,11 @@ module Border =
                     .background(SolidColorBrush(Colors.ForestGreen))
                     .borderBrush(SolidColorBrush(Colors.BlueViolet))
                     .borderThickness(2.)
-                    .padding (16.)
+                    .padding(16.)
 
             })
                 .margin(0., 16.)
-                .horizontalAlignment (HorizontalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Center)
 
 
             Border(TextBlock("Border and Background"))
@@ -38,28 +38,28 @@ module Border =
                 .borderBrush(SolidColorBrush(Colors.BlueViolet))
                 .borderThickness(4.)
                 .padding(16.)
-                .horizontalAlignment (HorizontalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Center)
 
             Border(TextBlock("Rounded Corners"))
                 .borderBrush(SolidColorBrush(Colors.BlueViolet))
                 .borderThickness(4.)
                 .cornerRadius(8.)
                 .padding(16.)
-                .horizontalAlignment (HorizontalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Center)
 
             Border(TextBlock("Rounded Corners"))
                 .background(SolidColorBrush(Colors.Magenta))
                 .cornerRadius(8.)
                 .padding(16.)
-                .horizontalAlignment (HorizontalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Center)
 
-            Border(Image(ImageSource.fromString ("avares://Gallery/Assets/Icons/fabulous-icon.png")))
+            Border(Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png")))
                 .width(100.)
                 .height(100.)
                 .borderThickness(0.)
                 .background(SolidColorBrush(Colors.Green))
                 .cornerRadius(100.)
-                .clipToBounds (true)
+                .clipToBounds(true)
         }
 
     let sample =

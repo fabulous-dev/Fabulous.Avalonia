@@ -11,7 +11,7 @@ type IFabTextBox =
     inherit IFabTemplatedControl
 
 module TextBox =
-    let WidgetKey = Widgets.register<TextBox> ()
+    let WidgetKey = Widgets.register<TextBox>()
 
     let Text = Attributes.defineAvaloniaPropertyWithEquality TextBox.TextProperty
 
@@ -89,16 +89,13 @@ module TextBox =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_ValueChanged" TextBox.TextProperty
 
     let CopyingToClipboard =
-        Attributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target ->
-            (target :?> TextBox).CopyingToClipboard)
+        Attributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target -> (target :?> TextBox).CopyingToClipboard)
 
     let CuttingToClipboard =
-        Attributes.defineEvent<RoutedEventArgs> "TextBox_CuttingToClipboard" (fun target ->
-            (target :?> TextBox).CuttingToClipboard)
+        Attributes.defineEvent<RoutedEventArgs> "TextBox_CuttingToClipboard" (fun target -> (target :?> TextBox).CuttingToClipboard)
 
     let PastingFromClipboard =
-        Attributes.defineEvent<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target ->
-            (target :?> TextBox).PastingFromClipboard)
+        Attributes.defineEvent<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target -> (target :?> TextBox).PastingFromClipboard)
 
 [<AutoOpen>]
 module TextBoxBuilders =
@@ -123,11 +120,7 @@ type TextBoxModifiers =
         this.AddScalar(TextBox.TextWrapping.WithValue(value))
 
     [<Extension>]
-    static member inline horizontalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabTextBox>,
-            value: HorizontalAlignment
-        ) =
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabTextBox>, value: HorizontalAlignment) =
         this.AddScalar(TextBox.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]
@@ -207,27 +200,15 @@ type TextBoxModifiers =
         this.AddWidget(TextBox.CaretBrush.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline selectionBrush
-        (
-            this: WidgetBuilder<'msg, #IFabTextBox>,
-            value: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.SelectionBrush.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline selectionForegroundBrush
-        (
-            this: WidgetBuilder<'msg, #IFabTextBox>,
-            value: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.SelectionForegroundBrush.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline onCopyingToClipboard
-        (
-            this: WidgetBuilder<'msg, #IFabTextBox>,
-            onCopyingToClipboard: string -> 'msg
-        ) =
+    static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCopyingToClipboard: string -> 'msg) =
         this.AddScalar(
             TextBox.CopyingToClipboard.WithValue(fun args ->
                 let control = args.Source :?> TextBox
@@ -235,11 +216,7 @@ type TextBoxModifiers =
         )
 
     [<Extension>]
-    static member inline onCuttingToClipboard
-        (
-            this: WidgetBuilder<'msg, #IFabTextBox>,
-            onCuttingToClipboard: string -> 'msg
-        ) =
+    static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCuttingToClipboard: string -> 'msg) =
         this.AddScalar(
             TextBox.CuttingToClipboard.WithValue(fun args ->
                 let control = args.Source :?> TextBox

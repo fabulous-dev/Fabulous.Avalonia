@@ -8,7 +8,7 @@ type IFabBezierSegment =
     inherit IFabPathSegment
 
 module BezierSegment =
-    let WidgetKey = Widgets.register<BezierSegment> ()
+    let WidgetKey = Widgets.register<BezierSegment>()
 
     let Point1 =
         Attributes.defineAvaloniaPropertyWithEquality BezierSegment.Point1Property

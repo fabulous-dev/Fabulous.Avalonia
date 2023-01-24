@@ -24,19 +24,11 @@ module TopLevel =
 [<Extension>]
 type TopLevelModifiers =
     [<Extension>]
-    static member inline transparencyLevelHint
-        (
-            this: WidgetBuilder<'msg, #IFabTopLevel>,
-            alignment: WindowTransparencyLevel
-        ) =
+    static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, alignment: WindowTransparencyLevel) =
         this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(alignment))
 
     [<Extension>]
-    static member inline transparencyBackgroundFallback
-        (
-            this: WidgetBuilder<'msg, #IFabTopLevel>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TopLevel.TransparencyBackgroundFallback.WithValue(content.Compile()))
 
     [<Extension>]

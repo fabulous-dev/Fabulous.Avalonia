@@ -13,8 +13,7 @@ module GradientBrush =
         Attributes.defineAvaloniaPropertyWithEquality GradientBrush.SpreadMethodProperty
 
     let GradientStops =
-        Attributes.defineAvaloniaListWidgetCollection "GradientBrush_GradientStops" (fun target ->
-            (target :?> GradientBrush).GradientStops)
+        Attributes.defineAvaloniaListWidgetCollection "GradientBrush_GradientStops" (fun target -> (target :?> GradientBrush).GradientStops)
 
 [<Extension>]
 type GradientBrushModifiers =

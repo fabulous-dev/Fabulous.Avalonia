@@ -40,11 +40,7 @@ type FabApplication() =
         this.UpdateLifetime()
         base.OnFrameworkInitializationCompleted()
 
-type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>
-    (
-        program: Program<'arg, 'model, 'msg, 'marker>,
-        arg: 'arg
-    ) =
+type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
     inherit FabApplication()
 
     override this.Initialize() =
@@ -90,13 +86,10 @@ module ApplicationUpdaters =
             target.MainView <- view :?> Control
 
 module Application =
-    let WidgetKey = Widgets.register<FabApplication> ()
+    let WidgetKey = Widgets.register<FabApplication>()
 
     let MainWindow =
-        Attributes.defineWidget
-            "MainWindow"
-            ApplicationUpdaters.mainWindowApplyDiff
-            ApplicationUpdaters.mainWindowUpdateNode
+        Attributes.defineWidget "MainWindow" ApplicationUpdaters.mainWindowApplyDiff ApplicationUpdaters.mainWindowUpdateNode
 
     let MainView =
         Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode
@@ -111,21 +104,13 @@ module ApplicationBuilders =
         static member DesktopApplication(mainWindow: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| Application.MainWindow.WithValue(mainWindow.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(mainWindow.Compile()) |], ValueNone)
             )
 
         static member SingleViewApplication(mainView: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| Application.MainView.WithValue(mainView.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(mainView.Compile()) |], ValueNone)
             )
 
 [<Extension>]

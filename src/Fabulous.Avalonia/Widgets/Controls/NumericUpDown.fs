@@ -11,7 +11,7 @@ type IFabNumericUpDown =
     inherit IFabTemplatedControl
 
 module NumericUpDown =
-    let WidgetKey = Widgets.register<NumericUpDown> ()
+    let WidgetKey = Widgets.register<NumericUpDown>()
 
     let AllowSpin =
         Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.AllowSpinProperty
@@ -64,11 +64,7 @@ module NumericUpDown =
         Attributes.defineAvaloniaPropertyWithEqualityConverter NumericUpDown.ValueProperty Option.toNullable
 
     let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "NumericUpDown_ValueChanged"
-            NumericUpDown.ValueProperty
-            Option.toNullable
-            Option.ofNullable
+        Attributes.defineAvaloniaPropertyWithChangedEvent "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty Option.toNullable Option.ofNullable
 
 [<AutoOpen>]
 module NumericUpDownBuilders =
@@ -101,19 +97,11 @@ type NumericUpDownModifiers =
         this.AddScalar(NumericUpDown.FormatString.WithValue(value))
 
     [<Extension>]
-    static member inline horizontalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: HorizontalAlignment
-        ) =
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: HorizontalAlignment) =
         this.AddScalar(NumericUpDown.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]
-    static member inline verticalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabNumericUpDown>,
-            value: VerticalAlignment
-        ) =
+    static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: VerticalAlignment) =
         this.AddScalar(NumericUpDown.VerticalContentAlignment.WithValue(value))
 
     [<Extension>]

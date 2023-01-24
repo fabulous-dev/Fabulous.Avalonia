@@ -33,11 +33,7 @@ module TextElement =
 [<Extension>]
 type TextElementModifiers =
     [<Extension>]
-    static member inline background
-        (
-            this: WidgetBuilder<'msg, #IFabTextElement>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextElement.Background.WithValue(content.Compile()))
 
     [<Extension>]
@@ -61,9 +57,5 @@ type TextElementModifiers =
         this.AddScalar(TextElement.FontStretch.WithValue(value))
 
     [<Extension>]
-    static member inline foreground
-        (
-            this: WidgetBuilder<'msg, #IFabTextElement>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextElement.Foreground.WithValue(content.Compile()))

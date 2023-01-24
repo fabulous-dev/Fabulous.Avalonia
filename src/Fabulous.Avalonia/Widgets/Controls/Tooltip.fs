@@ -9,7 +9,7 @@ type IFabToolTip =
     inherit IFabContentControl
 
 module ToolTip =
-    let WidgetKey = Widgets.register<ToolTip> ()
+    let WidgetKey = Widgets.register<ToolTip>()
 
     let TipString =
         Attributes.defineAvaloniaProperty<string, obj> ToolTip.TipProperty box ScalarAttributeComparers.equalityCompare

@@ -13,9 +13,5 @@ module RenderOptions =
 [<Extension>]
 type RenderOptionsModifiers =
     [<Extension>]
-    static member inline bitmapInterpolationMode
-        (
-            this: WidgetBuilder<'msg, #IFabElement>,
-            value: BitmapInterpolationMode
-        ) =
+    static member inline bitmapInterpolationMode(this: WidgetBuilder<'msg, #IFabElement>, value: BitmapInterpolationMode) =
         this.AddScalar(RenderOptions.BitmapInterpolationMode.WithValue(value))

@@ -10,7 +10,7 @@ type IFabCombinedGeometry =
 
 module CombinedGeometry =
 
-    let WidgetKey = Widgets.register<CombinedGeometry> ()
+    let WidgetKey = Widgets.register<CombinedGeometry>()
 
     let Geometry1 =
         Attributes.defineAvaloniaPropertyWidget CombinedGeometry.Geometry1Property
@@ -25,15 +25,11 @@ module CombinedGeometry =
 module CombinedGeometryBuilders =
     type Fabulous.Avalonia.View with
 
-        static member CombinedGeometry
-            (
-                geometry1: WidgetBuilder<'msg, #IFabGeometry>,
-                geometry2: WidgetBuilder<'msg, #IFabGeometry>
-            ) =
+        static member CombinedGeometry(geometry1: WidgetBuilder<'msg, #IFabGeometry>, geometry2: WidgetBuilder<'msg, #IFabGeometry>) =
             WidgetBuilder<'msg, IFabCombinedGeometry>(
                 CombinedGeometry.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| CombinedGeometry.Geometry1.WithValue(geometry1.Compile())
                            CombinedGeometry.Geometry2.WithValue(geometry2.Compile()) |],
@@ -44,9 +40,5 @@ module CombinedGeometryBuilders =
 [<Extension>]
 type CombinedGeometryModifiers =
     [<Extension>]
-    static member inline geometryCombineMode
-        (
-            this: WidgetBuilder<'msg, #IFabCombinedGeometry>,
-            value: GeometryCombineMode
-        ) =
+    static member inline geometryCombineMode(this: WidgetBuilder<'msg, #IFabCombinedGeometry>, value: GeometryCombineMode) =
         this.AddScalar(CombinedGeometry.GeometryCombineMode.WithValue(value))

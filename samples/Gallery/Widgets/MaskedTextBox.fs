@@ -27,6 +27,5 @@ module MaskedTextBox =
 
     let sample =
         { Name = "MaskedTextBox"
-          Description =
-            "A control for text input restricted by a mask. The Mask Property follows the same configuration as WPF masks."
+          Description = "A control for text input restricted by a mask. The Mask Property follows the same configuration as WPF masks."
           Program = Helper.createProgram init update view }

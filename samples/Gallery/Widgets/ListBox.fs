@@ -42,20 +42,22 @@ module ListBox =
             { model with
                 SelectedIndex = index
                 Notification = $"Family: {model.SampleData[index].Family}" }
-        | SelectionChanged args -> { model with Notification = $"Selection: %A{args.AddedItems}" }
+        | SelectionChanged args ->
+            { model with
+                Notification = $"Selection: %A{args.AddedItems}" }
 
     let view model =
         VStack(spacing = 15.) {
 
             TextBlock("ListBox using a collection with a WidgetDataTemplate")
-                .fontWeight (FontWeight.Bold)
+                .fontWeight(FontWeight.Bold)
 
             ListBox(model.SampleData, (fun x -> TextBlock($"{x.Name} ({x.Species})")))
-                .onSelectedIndexChanged (model.SelectedIndex, SelectedIndexChanged)
+                .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
 
             TextBlock("ListBox using explicit ListBoxItem controls")
                 .fontWeight(FontWeight.Bold)
-                .margin (0, 30, 0, 0)
+                .margin(0, 30, 0, 0)
 
             ListBox() {
                 ListBoxItem(
@@ -66,13 +68,12 @@ module ListBox =
                     }
                 )
 
-                ListBoxItem(Ellipse().size(50., 50.).fill (SolidColorBrush(Colors.Yellow)))
+                ListBoxItem(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow)))
 
                 ListBoxItem(TextBlock("TextBlock"))
             }
 
-            TextBlock("ListBox with 1.000 items with recycling")
-                .fontWeight (FontWeight.Bold)
+            TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
 
             ListBox(Seq.init 1000 id, (fun x -> TextBlock($"Row {x}")))
         }

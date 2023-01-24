@@ -9,7 +9,7 @@ type IFabGridSplitter =
     inherit IFabTemplatedControl
 
 module GridSplitter =
-    let WidgetKey = Widgets.register<GridSplitter> ()
+    let WidgetKey = Widgets.register<GridSplitter>()
 
     let ResizeDirection =
         Attributes.defineAvaloniaPropertyWithEquality GridSplitter.ResizeDirectionProperty
@@ -34,11 +34,7 @@ module GridSplitterBuilders =
         static member GridSplitter(resizeDirection: GridResizeDirection) =
             WidgetBuilder<'msg, IFabGridSplitter>(
                 GridSplitter.WidgetKey,
-                AttributesBundle(
-                    StackList.one (GridSplitter.ResizeDirection.WithValue(resizeDirection)),
-                    ValueNone,
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(GridSplitter.ResizeDirection.WithValue(resizeDirection)), ValueNone, ValueNone)
             )
 
 [<Extension>]

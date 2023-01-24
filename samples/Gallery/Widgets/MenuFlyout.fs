@@ -18,7 +18,9 @@ module MenuFlyout =
     let update msg model =
         match msg with
         | PressMe -> model
-        | Increment -> { model with Counter = model.Counter + 1 }
+        | Increment ->
+            { model with
+                Counter = model.Counter + 1 }
 
 
     let view model =
@@ -27,10 +29,10 @@ module MenuFlyout =
             TextBlock($"{model.Counter}")
 
             Button("Open Flyout", PressMe)
-                .flyout (
+                .flyout(
                     (MenuFlyout() {
                         MenuItem("Item 1")
-                            .icon (Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
                         MenuItems("Item 2", Increment) {
                             MenuItem("Subitem 1")
@@ -40,12 +42,12 @@ module MenuFlyout =
                             MenuItem("Subitem 5")
                         }
 
-                        MenuItem("Item 4").inputGesture (KeyGesture.Parse("Ctrl+A"))
-                        MenuItem("Item 5").inputGesture (KeyGesture.Parse("Ctrl+A"))
+                        MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
+                        MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
                         MenuItem(TextBlock("Item 6"), Increment)
                         MenuItem("Item 7")
                     })
-                        .placement (FlyoutPlacementMode.BottomEdgeAlignedRight)
+                        .placement(FlyoutPlacementMode.BottomEdgeAlignedRight)
                 )
         }
 

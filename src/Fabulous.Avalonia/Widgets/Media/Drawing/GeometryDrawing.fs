@@ -8,7 +8,7 @@ type IFabGeometryDrawing =
     inherit IFabDrawing
 
 module GeometryDrawing =
-    let WidgetKey = Widgets.register<GeometryDrawing> ()
+    let WidgetKey = Widgets.register<GeometryDrawing>()
 
     let Geometry =
         Attributes.defineAvaloniaPropertyWithEquality GeometryDrawing.GeometryProperty
@@ -24,16 +24,11 @@ module GeometryDrawing =
 module GeometryDrawingBuilders =
     type Fabulous.Avalonia.View with
 
-        static member GeometryDrawing
-            (
-                geometry: string,
-                pen: WidgetBuilder<'msg, #IFabPen>,
-                brush: WidgetBuilder<'msg, #IFabBrush>
-            ) =
+        static member GeometryDrawing(geometry: string, pen: WidgetBuilder<'msg, #IFabPen>, brush: WidgetBuilder<'msg, #IFabBrush>) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
-                    StackList.one (GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
+                    StackList.one(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
                     ValueSome
                         [| GeometryDrawing.Brush.WithValue(brush.Compile())
                            GeometryDrawing.Pen.WithValue(pen.Compile()) |],
@@ -50,7 +45,7 @@ module GeometryDrawingBuilders =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile())
                            GeometryDrawing.Brush.WithValue(brush.Compile())

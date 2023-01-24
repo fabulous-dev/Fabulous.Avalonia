@@ -9,7 +9,7 @@ type IFabDropDownButton =
     inherit IFabButton
 
 module DropDownButton =
-    let WidgetKey = Widgets.register<DropDownButton> ()
+    let WidgetKey = Widgets.register<DropDownButton>()
 
 [<AutoOpen>]
 module DropDownButtonBuilders =
@@ -26,7 +26,7 @@ module DropDownButtonBuilders =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

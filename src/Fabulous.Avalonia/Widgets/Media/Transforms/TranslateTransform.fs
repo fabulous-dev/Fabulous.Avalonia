@@ -8,7 +8,7 @@ type IFabTranslateTransform =
 
 module TranslateTransform =
 
-    let WidgetKey = Widgets.register<TranslateTransform> ()
+    let WidgetKey = Widgets.register<TranslateTransform>()
 
     let X = Attributes.defineAvaloniaPropertyWithEquality TranslateTransform.XProperty
 
@@ -19,8 +19,4 @@ module TranslateTransformBuilders =
     type Fabulous.Avalonia.View with
 
         static member TranslateTransform(x: float, y: float) =
-            WidgetBuilder<'msg, IFabTranslateTransform>(
-                TranslateTransform.WidgetKey,
-                TranslateTransform.X.WithValue(x),
-                TranslateTransform.Y.WithValue(y)
-            )
+            WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, TranslateTransform.X.WithValue(x), TranslateTransform.Y.WithValue(y))

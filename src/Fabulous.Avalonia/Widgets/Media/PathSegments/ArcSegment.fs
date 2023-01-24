@@ -9,7 +9,7 @@ type IFabArcSegment =
     inherit IFabPathSegment
 
 module ArcSegment =
-    let WidgetKey = Widgets.register<ArcSegment> ()
+    let WidgetKey = Widgets.register<ArcSegment>()
 
     let IsLargeArc =
         Attributes.defineAvaloniaPropertyWithEquality ArcSegment.IsLargeArcProperty
@@ -30,11 +30,7 @@ module ArcSegmentBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline ArcSegment<'msg>(point: Point, size: Size) =
-            WidgetBuilder<'msg, IFabArcSegment>(
-                ArcSegment.WidgetKey,
-                ArcSegment.Point.WithValue(point),
-                ArcSegment.Size.WithValue(size)
-            )
+            WidgetBuilder<'msg, IFabArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
 
 [<Extension>]
 type ArcSegmentModifiers =

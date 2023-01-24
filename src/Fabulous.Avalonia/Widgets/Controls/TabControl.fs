@@ -10,7 +10,7 @@ type IFabTabControl =
     inherit IFabSelectingItemsControl
 
 module TabControl =
-    let WidgetKey = Widgets.register<TabControl> ()
+    let WidgetKey = Widgets.register<TabControl>()
 
     let TabStripPlacement =
         Attributes.defineAvaloniaPropertyWithEquality TabControl.TabStripPlacementProperty
@@ -34,28 +34,16 @@ module TabControlBuilders =
                     TabControl.TabStripPlacement.WithValue(tabStripPlacement)
                 )
             | None ->
-                CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(
-                    TabControl.WidgetKey,
-                    ItemsControl.Items,
-                    TabControl.TabStripPlacement.WithValue(Dock.Top)
-                )
+                CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, ItemsControl.Items, TabControl.TabStripPlacement.WithValue(Dock.Top))
 
 [<Extension>]
 type TabControlModifiers =
     [<Extension>]
-    static member inline horizontalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabTabControl>,
-            value: HorizontalAlignment
-        ) =
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabTabControl>, value: HorizontalAlignment) =
         this.AddScalar(TabControl.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]
-    static member inline verticalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabTabControl>,
-            value: VerticalAlignment
-        ) =
+    static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabTabControl>, value: VerticalAlignment) =
         this.AddScalar(TabControl.VerticalContentAlignment.WithValue(value))
 
 [<Extension>]
@@ -63,15 +51,15 @@ type TabControlExtraModifiers =
 
     [<Extension>]
     static member inline centerHorizontal(this: WidgetBuilder<'msg, #IFabTabControl>) =
-        TabControlModifiers.horizontalContentAlignment (this, HorizontalAlignment.Center)
+        TabControlModifiers.horizontalContentAlignment(this, HorizontalAlignment.Center)
 
     [<Extension>]
     static member inline centerVertical(this: WidgetBuilder<'msg, #IFabTabControl>) =
-        TabControlModifiers.verticalContentAlignment (this, VerticalAlignment.Center)
+        TabControlModifiers.verticalContentAlignment(this, VerticalAlignment.Center)
 
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabTabControl>) =
-        this.centerHorizontal().centerVertical ()
+        this.centerHorizontal().centerVertical()
 
 [<Extension>]
 type TabControlCollectionBuilderExtensions =

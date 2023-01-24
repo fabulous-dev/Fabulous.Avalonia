@@ -21,7 +21,7 @@ module ToggleButton =
         | UnChecked -> { model with Value1 = false }
 
     let view _ =
-        VStack(spacing = 15.) { ToggleButton("Toggle me", ToggleMe).onChecked(Checked).onUnchecked (UnChecked) }
+        VStack(spacing = 15.) { ToggleButton("Toggle me", ToggleMe).onChecked(Checked).onUnchecked(UnChecked) }
 
     let sample =
         { Name = "ToggleButton"

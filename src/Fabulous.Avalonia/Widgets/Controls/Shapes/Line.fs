@@ -8,7 +8,7 @@ type IFabLine =
     inherit IFabShape
 
 module Line =
-    let WidgetKey = Widgets.register<Line> ()
+    let WidgetKey = Widgets.register<Line>()
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality Line.StartPointProperty
@@ -20,8 +20,4 @@ module LineBuilders =
     type Fabulous.Avalonia.View with
 
         static member Line(starPoint: Point, endPoint: Point) =
-            WidgetBuilder<'msg, IFabLine>(
-                Line.WidgetKey,
-                Line.StartPoint.WithValue(starPoint),
-                Line.EndPoint.WithValue(endPoint)
-            )
+            WidgetBuilder<'msg, IFabLine>(Line.WidgetKey, Line.StartPoint.WithValue(starPoint), Line.EndPoint.WithValue(endPoint))

@@ -11,7 +11,7 @@ type IFabTickBar =
     inherit IFabControl
 
 module TickBar =
-    let WidgetKey = Widgets.register<TickBar> ()
+    let WidgetKey = Widgets.register<TickBar>()
 
     let Fill = Attributes.defineAvaloniaPropertyWidget TickBar.FillProperty
 
@@ -50,11 +50,7 @@ module TickBarBuilders =
     type Fabulous.Avalonia.View with
 
         static member TickBar(min: float, max: float) =
-            WidgetBuilder<'msg, IFabTickBar>(
-                TickBar.WidgetKey,
-                TickBar.Minimum.WithValue(min),
-                TickBar.Maximum.WithValue(max)
-            )
+            WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
 
 [<Extension>]
 type TickBarModifiers =

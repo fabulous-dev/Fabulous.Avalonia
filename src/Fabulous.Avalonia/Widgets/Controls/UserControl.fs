@@ -8,7 +8,7 @@ type IFabUserControl =
     inherit IFabContentControl
 
 module UserControl =
-    let WidgetKey = Widgets.register<UserControl> ()
+    let WidgetKey = Widgets.register<UserControl>()
 
 [<AutoOpen>]
 module UserControlBuilders =
@@ -17,9 +17,5 @@ module UserControlBuilders =
         static member inline UserControl(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabUserControl>(
                 UserControl.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

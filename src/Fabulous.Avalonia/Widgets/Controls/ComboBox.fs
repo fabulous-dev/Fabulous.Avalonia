@@ -10,7 +10,7 @@ type IFabComboBox =
     inherit IFabSelectingItemsControl
 
 module ComboBox =
-    let WidgetKey = Widgets.register<ComboBox> ()
+    let WidgetKey = Widgets.register<ComboBox>()
 
     let IsDropDownOpen =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.IsDropDownOpenProperty
@@ -47,9 +47,7 @@ module ComboBoxBuilders =
             CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(
                 ComboBox.WidgetKey,
                 ItemsControl.Items,
-                ComboBox.DropDownOpened.WithValue(
-                    ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box)
-                )
+                ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box))
             )
 
 
@@ -72,19 +70,11 @@ type ComboBoxModifiers =
         this.AddScalar(ComboBox.PlaceholderText.WithValue(value))
 
     [<Extension>]
-    static member inline placeholderForeground
-        (
-            this: WidgetBuilder<'msg, #IFabComboBox>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(ComboBox.PlaceholderForeground.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline horizontalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabComboBox>,
-            value: HorizontalAlignment
-        ) =
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabComboBox>, value: HorizontalAlignment) =
         this.AddScalar(ComboBox.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]

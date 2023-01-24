@@ -10,8 +10,7 @@ type IFabItemsControl =
 
 module ItemsControl =
     let Items =
-        Attributes.defineListWidgetCollection "ItemsControl_Items" (fun target ->
-            (target :?> ItemsControl).Items :?> IList<_>)
+        Attributes.defineListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items :?> IList<_>)
 
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty

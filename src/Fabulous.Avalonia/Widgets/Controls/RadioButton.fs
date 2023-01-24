@@ -10,7 +10,7 @@ type IFabRadioButton =
 
 module RadioButton =
     let WidgetKey =
-        Widgets.registerWithFactory (fun () -> RadioButton(IsThreeState = false))
+        Widgets.registerWithFactory(fun () -> RadioButton(IsThreeState = false))
 
     let IsChecked =
         Attributes.defineAvaloniaPropertyWithEquality RadioButton.IsCheckedProperty
@@ -33,7 +33,7 @@ module RadioButtonBuilders =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one (RadioButton.IsChecked.WithValue(isChecked)),
+                    StackList.one(RadioButton.IsChecked.WithValue(isChecked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

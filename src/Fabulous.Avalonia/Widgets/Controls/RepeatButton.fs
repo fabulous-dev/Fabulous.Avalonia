@@ -8,7 +8,7 @@ type IFabRepeatButton =
     inherit IFabButton
 
 module RepeatButton =
-    let WidgetKey = Widgets.register<RepeatButton> ()
+    let WidgetKey = Widgets.register<RepeatButton>()
 
     let Delay = Attributes.defineAvaloniaPropertyWithEquality RepeatButton.DelayProperty
 

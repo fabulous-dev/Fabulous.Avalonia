@@ -25,7 +25,7 @@ module TickBar =
                 .tickFrequency(10.0)
                 .placement(TickBarPlacement.Top)
                 .width(300.)
-                .height (50.)
+                .height(50.)
 
 
             TickBar(0., 300.)
@@ -35,7 +35,7 @@ module TickBar =
                 .placement(TickBarPlacement.Bottom)
                 .gridColumn(1)
                 .width(300.)
-                .height (50.)
+                .height(50.)
 
             TickBar(0., 300.)
                 .fill(SolidColorBrush(Colors.LightGreen))
@@ -44,7 +44,7 @@ module TickBar =
                 .gridRow(1)
                 .gridColumn(0)
                 .width(50.)
-                .height (300.)
+                .height(300.)
 
             TickBar(0., 100.)
                 .fill(SolidColorBrush(Colors.LightGreen))
@@ -53,7 +53,7 @@ module TickBar =
                 .gridRow(1)
                 .gridColumn(1)
                 .width(50.)
-                .height (300.)
+                .height(300.)
         }
 
     let sample =

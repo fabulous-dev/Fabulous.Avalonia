@@ -55,17 +55,13 @@ module GridUpdaters =
                 grid.RowDefinitions.Add(RowDefinition(Height = gridLength))
 
 module Grid =
-    let WidgetKey = Widgets.register<Grid> ()
+    let WidgetKey = Widgets.register<Grid>()
 
     let ColumnDefinitions =
-        Attributes.defineSimpleScalarWithEquality<Dimension array>
-            "Grid_ColumnDefinitions"
-            GridUpdaters.updateGridColumnDefinitions
+        Attributes.defineSimpleScalarWithEquality<Dimension array> "Grid_ColumnDefinitions" GridUpdaters.updateGridColumnDefinitions
 
     let RowDefinitions =
-        Attributes.defineSimpleScalarWithEquality<Dimension array>
-            "Grid_RowDefinitions"
-            GridUpdaters.updateGridRowDefinitions
+        Attributes.defineSimpleScalarWithEquality<Dimension array> "Grid_RowDefinitions" GridUpdaters.updateGridRowDefinitions
 
     let ShowGridLines =
         Attributes.defineAvaloniaPropertyWithEquality Grid.ShowGridLinesProperty

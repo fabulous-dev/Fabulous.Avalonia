@@ -30,16 +30,16 @@ module SplitButton =
             TextBlock($"Count: i {model.Count}")
 
             SplitButton("Press me!", Clicked)
-                .flyout (
+                .flyout(
                     Flyout(
                         VStack() {
-                            Button("Increment", Increment).width (100)
-                            Button("Decrement", Decrement).width (100)
-                            Button("Reset", Reset).width (100)
+                            Button("Increment", Increment).width(100)
+                            Button("Decrement", Decrement).width(100)
+                            Button("Reset", Reset).width(100)
                         }
                     )
                         .showMode(FlyoutShowMode.Standard)
-                        .placement (FlyoutPlacementMode.RightEdgeAlignedTop)
+                        .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
                 )
         }
 

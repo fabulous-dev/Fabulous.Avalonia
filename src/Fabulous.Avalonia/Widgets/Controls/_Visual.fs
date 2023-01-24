@@ -73,11 +73,7 @@ type VisualModifiers =
         this.AddScalar(Visual.HasMirroredTransform.WithValue(hasMirror))
 
     [<Extension>]
-    static member inline renderTransform
-        (
-            this: WidgetBuilder<'msg, #IFabVisual>,
-            transform: WidgetBuilder<'msg, #IFabTransform>
-        ) =
+    static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, transform: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Visual.RenderTransform.WithValue(transform.Compile()))
 
     [<Extension>]

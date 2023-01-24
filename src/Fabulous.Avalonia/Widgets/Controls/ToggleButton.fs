@@ -11,7 +11,7 @@ type IFabToggleButton =
 
 module ToggleButton =
     let WidgetKey =
-        Widgets.registerWithFactory (fun _ -> ToggleButton(IsThreeState = false))
+        Widgets.registerWithFactory(fun _ -> ToggleButton(IsThreeState = false))
 
     let Indeterminate =
         Attributes.defineEvent "ToggleButton_Indeterminate" (fun target -> (target :?> ToggleButton).Indeterminate)
@@ -23,11 +23,7 @@ module ToggleButton =
         Attributes.defineEvent "ToggleButton_Unchecked" (fun target -> (target :?> ToggleButton).Unchecked)
 
     let CheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "ToggleButton_CheckedChanged"
-            ToggleButton.IsCheckedProperty
-            Nullable
-            Nullable.op_Explicit
+        Attributes.defineAvaloniaPropertyWithChangedEvent "ToggleButton_CheckedChanged" ToggleButton.IsCheckedProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
 module ToggleButtonBuilders =
@@ -44,7 +40,7 @@ module ToggleButtonBuilders =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

@@ -10,7 +10,7 @@ type IFabProgressBar =
     inherit IFabRangeBase
 
 module ProgressBar =
-    let WidgetKey = Widgets.register<ProgressBar> ()
+    let WidgetKey = Widgets.register<ProgressBar>()
 
     let IndeterminateEndingOffset =
         Attributes.defineAvaloniaPropertyWithEquality ProgressBar.IndeterminateEndingOffsetProperty

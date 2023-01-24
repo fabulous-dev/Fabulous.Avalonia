@@ -24,19 +24,12 @@ type DecoratorModifiers =
 type DecoratorExtraModifiers =
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabDecorator>, value: float) =
-        DecoratorModifiers.padding (this, Thickness(value))
+        DecoratorModifiers.padding(this, Thickness(value))
 
     [<Extension>]
-    static member inline padding
-        (
-            this: WidgetBuilder<'msg, #IFabDecorator>,
-            left: float,
-            top: float,
-            right: float,
-            bottom: float
-        ) =
-        DecoratorModifiers.padding (this, Thickness(left, top, right, bottom))
+    static member inline padding(this: WidgetBuilder<'msg, #IFabDecorator>, left: float, top: float, right: float, bottom: float) =
+        DecoratorModifiers.padding(this, Thickness(left, top, right, bottom))
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabDecorator>, horizontal: float, vertical) =
-        DecoratorModifiers.padding (this, Thickness(horizontal, vertical))
+        DecoratorModifiers.padding(this, Thickness(horizontal, vertical))

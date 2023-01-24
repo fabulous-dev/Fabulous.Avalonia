@@ -20,10 +20,10 @@ module Expander =
 
     let view model =
         VStack(spacing = 15.) {
-            Expander("Title", "Mr.").isExpanded (model.IsExpanded)
+            Expander("Title", "Mr.").isExpanded(model.IsExpanded)
 
             Expander(TextBlock("Title"), "Mr.")
-                .onExpandedChanged (model.IsExpanded, ExpandChanged)
+                .onExpandedChanged(model.IsExpanded, ExpandChanged)
 
             Expander(
                 "Title",
@@ -34,7 +34,7 @@ module Expander =
                     TextBlock("Mr.")
                 }
             )
-                .contentTransition (CrossFade(TimeSpan.FromSeconds(2.5)) :> IPageTransition)
+                .contentTransition(CrossFade(TimeSpan.FromSeconds(2.5)) :> IPageTransition)
 
 
             Expander(
@@ -49,7 +49,7 @@ module Expander =
                     TextBlock("Widowed")
                 }
             )
-                .expandDirection (ExpandDirection.Right)
+                .expandDirection(ExpandDirection.Right)
         }
 
     let sample =

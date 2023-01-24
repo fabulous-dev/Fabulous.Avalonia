@@ -13,10 +13,7 @@ module ContentControl =
         Attributes.defineAvaloniaPropertyWidget ContentControl.ContentProperty
 
     let ContentString =
-        Attributes.defineAvaloniaProperty<string, obj>
-            ContentControl.ContentProperty
-            box
-            ScalarAttributeComparers.equalityCompare
+        Attributes.defineAvaloniaProperty<string, obj> ContentControl.ContentProperty box ScalarAttributeComparers.equalityCompare
 
     let HorizontalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality ContentControl.HorizontalContentAlignmentProperty
@@ -27,17 +24,9 @@ module ContentControl =
 [<Extension>]
 type ContentControlModifiers =
     [<Extension>]
-    static member inline horizontalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabContentControl>,
-            alignment: HorizontalAlignment
-        ) =
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, alignment: HorizontalAlignment) =
         this.AddScalar(ContentControl.HorizontalContentAlignment.WithValue(alignment))
 
     [<Extension>]
-    static member inline verticalContentAlignment
-        (
-            this: WidgetBuilder<'msg, #IFabContentControl>,
-            alignment: VerticalAlignment
-        ) =
+    static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, alignment: VerticalAlignment) =
         this.AddScalar(ContentControl.VerticalContentAlignment.WithValue(alignment))

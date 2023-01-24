@@ -10,7 +10,7 @@ type IFabTextDecoration =
     inherit IFabElement
 
 module TextDecoration =
-    let WidgetKey = Widgets.register<TextDecoration> ()
+    let WidgetKey = Widgets.register<TextDecoration>()
 
     let Location =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.LocationProperty
@@ -21,17 +21,15 @@ module TextDecoration =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.StrokeThicknessUnitProperty
 
     let StrokeDashArray =
-        Attributes.defineSimpleScalarWithEquality<float list>
-            "TextDecoration_StrokeDashArray"
-            (fun _ newValueOpt node ->
-                let target = node.Target :?> AvaloniaObject
+        Attributes.defineSimpleScalarWithEquality<float list> "TextDecoration_StrokeDashArray" (fun _ newValueOpt node ->
+            let target = node.Target :?> AvaloniaObject
 
-                match newValueOpt with
-                | ValueNone -> target.ClearValue(TextDecoration.StrokeDashArrayProperty)
-                | ValueSome points ->
-                    let coll = AvaloniaList<float>()
-                    points |> List.iter coll.Add
-                    target.SetValue(TextDecoration.StrokeDashArrayProperty, coll) |> ignore)
+            match newValueOpt with
+            | ValueNone -> target.ClearValue(TextDecoration.StrokeDashArrayProperty)
+            | ValueSome points ->
+                let coll = AvaloniaList<float>()
+                points |> List.iter coll.Add
+                target.SetValue(TextDecoration.StrokeDashArrayProperty, coll) |> ignore)
 
     let StrokeDashOffset =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.StrokeDashOffsetProperty
@@ -53,27 +51,16 @@ module TextDecorationBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline TextDecoration<'msg>(location: TextDecorationLocation) =
-            WidgetBuilder<'msg, IFabTextDecoration>(
-                TextDecoration.WidgetKey,
-                TextDecoration.Location.WithValue(location)
-            )
+            WidgetBuilder<'msg, IFabTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
 [<Extension>]
 type TextDecorationModifiers =
     [<Extension>]
-    static member inline stroke
-        (
-            this: WidgetBuilder<'msg, #IFabTextDecoration>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextDecoration.Stroke.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline strokeThicknessUnit
-        (
-            this: WidgetBuilder<'msg, #IFabTextDecoration>,
-            value: TextDecorationUnit
-        ) =
+    static member inline strokeThicknessUnit(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: TextDecorationUnit) =
         this.AddScalar(TextDecoration.StrokeThicknessUnit.WithValue(value))
 
     [<Extension>]

@@ -31,11 +31,10 @@ module ScrollBar =
                 .allowAutoHide(false)
                 .background(SolidColorBrush(Colors.LightSalmon))
                 .margin(10., 10., 0., 0.)
-                .onScroll (ScrollBarChanged)
+                .onScroll(ScrollBarChanged)
         }
 
     let sample =
         { Name = "ScrollBar"
-          Description =
-            "A ScrollBar control is a control that allows the user to select a value from a range of values by moving a slider along a track."
+          Description = "A ScrollBar control is a control that allows the user to select a value from a range of values by moving a slider along a track."
           Program = Helper.createProgram init update view }

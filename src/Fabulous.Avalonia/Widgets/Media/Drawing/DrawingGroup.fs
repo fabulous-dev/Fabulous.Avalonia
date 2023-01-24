@@ -9,7 +9,7 @@ type IFabDrawingGroup =
     inherit IFabDrawing
 
 module DrawingGroup =
-    let WidgetKey = Widgets.register<DrawingGroup> ()
+    let WidgetKey = Widgets.register<DrawingGroup>()
 
     let Opacity =
         Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityProperty
@@ -27,8 +27,7 @@ module DrawingGroup =
         Attributes.defineAvaloniaPropertyWidget DrawingGroup.OpacityMaskProperty
 
     let Children =
-        Attributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target ->
-            (target :?> DrawingGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
 
 [<AutoOpen>]
 module DrawingGroupBuilders =
@@ -37,35 +36,18 @@ module DrawingGroupBuilders =
         static member DrawingGroup<'msg>(?opacity: float) =
             match opacity with
             | Some value ->
-                CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(
-                    DrawingGroup.WidgetKey,
-                    DrawingGroup.Children,
-                    DrawingGroup.Opacity.WithValue(value)
-                )
-            | None ->
-                CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(
-                    DrawingGroup.WidgetKey,
-                    DrawingGroup.Children,
-                    DrawingGroup.Opacity.WithValue(1.0)
-                )
+                CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(value))
+            | None -> CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
 
 [<Extension>]
 type DrawingGroupModifiers =
 
     [<Extension>]
-    static member inline opacityMask
-        (
-            this: WidgetBuilder<'msg, #IFabDrawingGroup>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(DrawingGroup.OpacityMask.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline transform
-        (
-            this: WidgetBuilder<'msg, #IFabDrawingGroup>,
-            content: WidgetBuilder<'msg, #IFabTransform>
-        ) =
+    static member inline transform(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(DrawingGroup.TransformWidget.WithValue(content.Compile()))
 
     [<Extension>]
@@ -73,11 +55,7 @@ type DrawingGroupModifiers =
         this.AddScalar(DrawingGroup.Transform.WithValue(Transform.Parse(content)))
 
     [<Extension>]
-    static member inline clipGeometry
-        (
-            this: WidgetBuilder<'msg, #IFabDrawingGroup>,
-            content: WidgetBuilder<'msg, #IFabGeometry>
-        ) =
+    static member inline clipGeometry(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabGeometry>) =
         this.AddWidget(DrawingGroup.ClipGeometry.WithValue(content.Compile()))
 
 [<Extension>]

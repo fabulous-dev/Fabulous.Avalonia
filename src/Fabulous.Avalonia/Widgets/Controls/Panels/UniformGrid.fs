@@ -8,7 +8,7 @@ type IFabUniformGrid =
     inherit IFabPanel
 
 module UniformGrid =
-    let WidgetKey = Widgets.register<UniformGrid> ()
+    let WidgetKey = Widgets.register<UniformGrid>()
 
     let Rows = Attributes.defineAvaloniaPropertyWithEquality UniformGrid.RowsProperty
 

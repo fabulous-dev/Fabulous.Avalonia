@@ -38,17 +38,17 @@ module RadioButton =
         VStack() {
             VStack() {
                 TextBlock("Are you ready?")
-                RadioButton("Yes", model.IsChecked1).groupName ("ready")
-                RadioButton("No", model.IsChecked2).groupName ("ready")
-                RadioButton("Maybe", model.IsChecked3).groupName ("ready")
+                RadioButton("Yes", model.IsChecked1).groupName("ready")
+                RadioButton("No", model.IsChecked2).groupName("ready")
+                RadioButton("Maybe", model.IsChecked3).groupName("ready")
             }
 
             VStack() {
                 TextBlock("Male or female?")
-                RadioButton("Male", false).groupName("sex").onChecked (Checked1)
+                RadioButton("Male", false).groupName("sex").onChecked(Checked1)
 
-                RadioButton("Female", false).groupName ("sex")
-                RadioButton("Prefer not to say", true).groupName ("sex")
+                RadioButton("Female", false).groupName("sex")
+                RadioButton("Prefer not to say", true).groupName("sex")
             }
         }
 

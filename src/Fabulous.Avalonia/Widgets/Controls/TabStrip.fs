@@ -10,7 +10,7 @@ type IFabTabStrip =
     inherit IFabSelectingItemsControl
 
 module TabStrip =
-    let WidgetKey = Widgets.register<TabStrip> ()
+    let WidgetKey = Widgets.register<TabStrip>()
 
 [<AutoOpen>]
 module TabStripBuilders =

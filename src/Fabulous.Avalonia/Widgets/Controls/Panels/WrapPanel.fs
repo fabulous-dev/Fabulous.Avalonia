@@ -9,7 +9,7 @@ type IFabWrapPanel =
     inherit IFabPanel
 
 module WrapPanel =
-    let WidgetKey = Widgets.register<WrapPanel> ()
+    let WidgetKey = Widgets.register<WrapPanel>()
 
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality WrapPanel.OrientationProperty
@@ -25,18 +25,10 @@ module WrapPanelBuilders =
     type Fabulous.Avalonia.View with
 
         static member VWrap<'msg>() =
-            CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(
-                WrapPanel.WidgetKey,
-                Panel.Children,
-                WrapPanel.Orientation.WithValue(Orientation.Vertical)
-            )
+            CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Vertical))
 
         static member HWrap<'msg>() =
-            CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(
-                WrapPanel.WidgetKey,
-                Panel.Children,
-                WrapPanel.Orientation.WithValue(Orientation.Horizontal)
-            )
+            CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
 
 [<Extension>]
 type WrapPanelModifiers =

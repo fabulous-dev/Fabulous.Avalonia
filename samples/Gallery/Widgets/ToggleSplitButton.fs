@@ -32,16 +32,16 @@ module ToggleSplitButton =
 
             ToggleSplitButton("Press me!", Clicked)
                 .onCheckedChanged(model.IsChecked, CheckedChanged)
-                .flyout (
+                .flyout(
                     Flyout(
                         VStack() {
-                            Button("Increment", Increment).width (100)
-                            Button("Decrement", Decrement).width (100)
-                            Button("Reset", Reset).width (100)
+                            Button("Increment", Increment).width(100)
+                            Button("Decrement", Decrement).width(100)
+                            Button("Reset", Reset).width(100)
                         }
                     )
                         .showMode(FlyoutShowMode.Standard)
-                        .placement (FlyoutPlacementMode.RightEdgeAlignedTop)
+                        .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
                 )
         }
 

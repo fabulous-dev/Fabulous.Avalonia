@@ -11,7 +11,7 @@ type IFabReversibleStackPanel =
     inherit IFabStackPanel
 
 module ReversibleStackPanel =
-    let WidgetKey = Widgets.register<ReversibleStackPanel> ()
+    let WidgetKey = Widgets.register<ReversibleStackPanel>()
 
     let ReverseOrder =
         Attributes.defineAvaloniaPropertyWithEquality ReversibleStackPanel.ReverseOrderProperty
@@ -23,37 +23,29 @@ module ReversibleStackPanelBuilders =
         static member inline VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalers =
-                StackList.one (StackPanel.Orientation.WithValue(Orientation.Vertical))
+                StackList.one(StackPanel.Orientation.WithValue(Orientation.Vertical))
 
             match spacing with
             | None -> ()
-            | Some v -> scalers <- StackList.add (&scalers, StackPanel.Spacing.WithValue(v))
+            | Some v -> scalers <- StackList.add(&scalers, StackPanel.Spacing.WithValue(v))
 
             match reverseOrder with
             | None -> ()
-            | Some v -> scalers <- StackList.add (&scalers, ReversibleStackPanel.ReverseOrder.WithValue(v))
+            | Some v -> scalers <- StackList.add(&scalers, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(
-                ReversibleStackPanel.WidgetKey,
-                scalers,
-                Panel.Children
-            )
+            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalers, Panel.Children)
 
         static member inline HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalers =
-                StackList.one (StackPanel.Orientation.WithValue(Orientation.Horizontal))
+                StackList.one(StackPanel.Orientation.WithValue(Orientation.Horizontal))
 
             match spacing with
             | None -> ()
-            | Some v -> scalers <- StackList.add (&scalers, StackPanel.Spacing.WithValue(v))
+            | Some v -> scalers <- StackList.add(&scalers, StackPanel.Spacing.WithValue(v))
 
             match reverseOrder with
             | None -> ()
-            | Some v -> scalers <- StackList.add (&scalers, ReversibleStackPanel.ReverseOrder.WithValue(v))
+            | Some v -> scalers <- StackList.add(&scalers, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(
-                ReversibleStackPanel.WidgetKey,
-                scalers,
-                Panel.Children
-            )
+            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalers, Panel.Children)

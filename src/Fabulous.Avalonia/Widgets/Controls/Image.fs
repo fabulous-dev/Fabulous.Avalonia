@@ -28,7 +28,7 @@ module ImageSource =
             new Bitmap(assets.Open(uri))
 
 module Image =
-    let WidgetKey = Widgets.register<Image> ()
+    let WidgetKey = Widgets.register<Image>()
 
     let Source = Attributes.defineAvaloniaPropertyWithEquality Image.SourceProperty
 
@@ -45,52 +45,26 @@ module ImageBuilders =
 
         static member Image<'msg>(source: IImage, ?stretch: Stretch) =
             match stretch with
-            | Some value ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    Image.Source.WithValue(source),
-                    Image.Stretch.WithValue(value)
-                )
-            | None ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    Image.Source.WithValue(source),
-                    Image.Stretch.WithValue(Stretch.Uniform)
-                )
+            | Some value -> WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(value))
+            | None -> WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(Stretch.Uniform))
 
         static member Image<'msg>(source: string, ?stretch: Stretch) =
             match stretch with
             | Some value ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    Image.Source.WithValue(ImageSource.fromString source),
-                    Image.Stretch.WithValue(value)
-                )
+                WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(value))
             | None ->
-                WidgetBuilder<'msg, IFabImage>(
-                    Image.WidgetKey,
-                    Image.Source.WithValue(ImageSource.fromString source),
-                    Image.Stretch.WithValue(Stretch.Uniform)
-                )
+                WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(Stretch.Uniform))
 
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
-                AttributesBundle(
-                    StackList.one (Image.Stretch.WithValue(stretch)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
-                AttributesBundle(
-                    StackList.one (Image.Stretch.WithValue(stretch)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
 [<Extension>]

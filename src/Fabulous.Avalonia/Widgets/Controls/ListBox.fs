@@ -10,7 +10,7 @@ type IFabListBox =
     inherit IFabSelectingItemsControl
 
 module ListBox =
-    let WidgetKey = Widgets.register<ListBox> ()
+    let WidgetKey = Widgets.register<ListBox>()
 
     let Items =
         Attributes.defineListWidgetCollection "ListBox_Items" (fun target -> (target :?> ListBox).Items :?> IList<_>)
@@ -39,15 +39,12 @@ module ListBox =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.VirtualizationModeProperty
 
     let SelectedItems<'T when 'T: equality> =
-        Attributes.defineSimpleScalar
-            "SelectingItemsControl_SelectedItems"
-            ScalarAttributeComparers.equalityCompare
-            (fun _ newValueOpt node ->
-                let control = node.Target :?> ListBox
+        Attributes.defineSimpleScalar "SelectingItemsControl_SelectedItems" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
+            let control = node.Target :?> ListBox
 
-                match newValueOpt with
-                | ValueNone -> control.ClearValue(ListBox.SelectedItemsProperty)
-                | ValueSome value -> control.SetValue(ListBox.SelectedItemsProperty, value))
+            match newValueOpt with
+            | ValueNone -> control.ClearValue(ListBox.SelectedItemsProperty)
+            | ValueSome value -> control.SetValue(ListBox.SelectedItemsProperty, value))
 
 [<AutoOpen>]
 module ListBoxBuilders =
@@ -58,11 +55,7 @@ module ListBoxBuilders =
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker>
-                ListBox.WidgetKey
-                ListBox.ItemsSource
-                items
-                template
+            WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ListBox.ItemsSource items template
 
         static member inline ListBox<'msg>() =
             CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ListBox.Items)

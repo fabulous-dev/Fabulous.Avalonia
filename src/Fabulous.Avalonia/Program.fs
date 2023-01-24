@@ -79,18 +79,14 @@ module ViewHelpers =
         false
 
 module Program =
-    let inline private define
-        (init: 'arg -> 'model * Cmd<'msg>)
-        (update: 'msg -> 'model -> 'model * Cmd<'msg>)
-        (view: 'model -> WidgetBuilder<'msg, 'marker>)
-        =
+    let inline private define (init: 'arg -> 'model * Cmd<'msg>) (update: 'msg -> 'model -> 'model * Cmd<'msg>) (view: 'model -> WidgetBuilder<'msg, 'marker>) =
         { Init = init
           Update = (fun (msg, model) -> update msg model)
           Subscribe = fun _ -> Cmd.none
           View = view
           CanReuseView = ViewHelpers.canReuseView
           SyncAction = Dispatcher.UIThread.Post
-          Logger = ViewHelpers.defaultLogger ()
+          Logger = ViewHelpers.defaultLogger()
           ExceptionHandler = ViewHelpers.defaultExceptionHandler }
 
     /// Create a program for a static view
@@ -98,11 +94,7 @@ module Program =
         define (fun () -> (), Cmd.none) (fun () () -> (), Cmd.none) view
 
     /// Create a program using an MVU loop
-    let stateful
-        (init: 'arg -> 'model)
-        (update: 'msg -> 'model -> 'model)
-        (view: 'model -> WidgetBuilder<'msg, 'marker>)
-        =
+    let stateful (init: 'arg -> 'model) (update: 'msg -> 'model -> 'model) (view: 'model -> WidgetBuilder<'msg, 'marker>) =
         define (fun arg -> init arg, Cmd.none) (fun msg model -> update msg model, Cmd.none) view
 
     /// Create a program using an MVU loop. Add support for Cmd
@@ -122,10 +114,7 @@ module Program =
         =
         let mapCmds cmdMsgs = cmdMsgs |> List.map mapCmd |> Cmd.batch
 
-        define
-            (fun arg -> let m, c = init arg in m, mapCmds c)
-            (fun msg model -> let m, c = update msg model in m, mapCmds c)
-            view
+        define (fun arg -> let m, c = init arg in m, mapCmds c) (fun msg model -> let m, c = update msg model in m, mapCmds c) view
 
     /// Start the program
     let startApplicationWithArgs (arg: 'arg) (program: Program<'arg, 'model, 'msg, #IFabApplication>) : Application =
@@ -151,33 +140,33 @@ module Program =
         let traceInit arg =
             try
                 let initModel, cmd = program.Init(arg)
-                trace ("Initial model: {0}", $"%0A{initModel}")
+                trace("Initial model: {0}", $"%0A{initModel}")
                 initModel, cmd
             with e ->
-                trace ("Error in init function: {0}", $"%0A{e}")
-                reraise ()
+                trace("Error in init function: {0}", $"%0A{e}")
+                reraise()
 
         let traceUpdate (msg, model) =
-            trace ("Message: {0}", $"%0A{msg}")
+            trace("Message: {0}", $"%0A{msg}")
 
             try
                 let newModel, cmd = program.Update(msg, model)
-                trace ("Updated model: {0}", $"%0A{newModel}")
+                trace("Updated model: {0}", $"%0A{newModel}")
                 newModel, cmd
             with e ->
-                trace ("Error in model function: {0}", $"%0A{e}")
-                reraise ()
+                trace("Error in model function: {0}", $"%0A{e}")
+                reraise()
 
         let traceView model =
-            trace ("View, model = {0}", $"%0A{model}")
+            trace("View, model = {0}", $"%0A{model}")
 
             try
                 let info = program.View(model)
-                trace ("View result: {0}", $"%0A{info}")
+                trace("View result: {0}", $"%0A{info}")
                 info
             with e ->
-                trace ("Error in view function: {0}", $"%0A{e}")
-                reraise ()
+                trace("Error in view function: {0}", $"%0A{e}")
+                reraise()
 
         { program with
             Init = traceInit
@@ -186,9 +175,10 @@ module Program =
 
     /// Configure how the unhandled exceptions happening during the execution of a Fabulous app with be handled
     let withExceptionHandler (handler: exn -> bool) (program: Program<'arg, 'model, 'msg, 'marker>) =
-        { program with ExceptionHandler = handler }
+        { program with
+            ExceptionHandler = handler }
 
 [<RequireQualifiedAccess>]
 module CmdMsg =
     let batch mapCmdMsgFn mapCmdFn cmdMsgs =
-        cmdMsgs |> List.map (mapCmdMsgFn >> Cmd.map mapCmdFn) |> Cmd.batch
+        cmdMsgs |> List.map(mapCmdMsgFn >> Cmd.map mapCmdFn) |> Cmd.batch

@@ -8,14 +8,11 @@ type IFabSeparator =
     inherit IFabTemplatedControl
 
 module Separator =
-    let WidgetKey = Widgets.register<Separator> ()
+    let WidgetKey = Widgets.register<Separator>()
 
 [<AutoOpen>]
 module SeparatorBuilders =
     type Fabulous.Avalonia.View with
 
         static member Separator() =
-            WidgetBuilder<'msg, IFabSeparator>(
-                Separator.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabSeparator>(Separator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

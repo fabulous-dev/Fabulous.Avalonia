@@ -10,7 +10,7 @@ type IFabSplitView =
     inherit IFabContentControl
 
 module SplitView =
-    let WidgetKey = Widgets.register<SplitView> ()
+    let WidgetKey = Widgets.register<SplitView>()
 
     let CompactPaneLength =
         Attributes.defineAvaloniaPropertyWithEquality SplitView.CompactPaneLengthProperty
@@ -60,15 +60,11 @@ module SplitView =
 module SplitViewBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline SplitView
-            (
-                pane: WidgetBuilder<'msg, #IFabControl>,
-                content: WidgetBuilder<'msg, #IFabControl>
-            ) =
+        static member inline SplitView(pane: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabSplitView>(
                 SplitView.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| SplitView.Pane.WithValue(pane.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
@@ -96,11 +92,7 @@ type SplitViewModifiers =
         this.AddScalar(SplitView.OpenPaneLength.WithValue(value))
 
     [<Extension>]
-    static member inline paneBackground
-        (
-            this: WidgetBuilder<'msg, #IFabSplitView>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(SplitView.PaneBackground.WithValue(content.Compile()))
 
     [<Extension>]

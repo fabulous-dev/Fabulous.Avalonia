@@ -10,21 +10,17 @@ type IFabTransformGroup =
 
 module TransformGroup =
 
-    let WidgetKey = Widgets.register<TransformGroup> ()
+    let WidgetKey = Widgets.register<TransformGroup>()
 
     let Children =
-        Attributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target ->
-            (target :?> TransformGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
 
 [<AutoOpen>]
 module TransformGroupBuilders =
     type Fabulous.Avalonia.View with
 
         static member TransformGroup() =
-            CollectionBuilder<'msg, IFabTransformGroup, IFabTransform>(
-                TransformGroup.WidgetKey,
-                TransformGroup.Children
-            )
+            CollectionBuilder<'msg, IFabTransformGroup, IFabTransform>(TransformGroup.WidgetKey, TransformGroup.Children)
 
 [<Extension>]
 type TransformGroupCollectionBuilderExtensions =

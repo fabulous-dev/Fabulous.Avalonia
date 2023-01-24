@@ -9,7 +9,7 @@ type IFabMatrixTransform =
 
 module MatrixTransform =
 
-    let WidgetKey = Widgets.register<MatrixTransform> ()
+    let WidgetKey = Widgets.register<MatrixTransform>()
 
     let Matrix =
         Attributes.defineAvaloniaPropertyWithEquality MatrixTransform.MatrixProperty
@@ -19,7 +19,4 @@ module MatrixTransformBuilders =
     type Fabulous.Avalonia.View with
 
         static member MatrixTransform(matrix: Matrix) =
-            WidgetBuilder<'msg, IFabMatrixTransform>(
-                MatrixTransform.WidgetKey,
-                MatrixTransform.Matrix.WithValue(matrix)
-            )
+            WidgetBuilder<'msg, IFabMatrixTransform>(MatrixTransform.WidgetKey, MatrixTransform.Matrix.WithValue(matrix))

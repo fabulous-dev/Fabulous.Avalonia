@@ -19,11 +19,9 @@ module RepeatButton =
         VStack(spacing = 15.) {
             TextBlock("Repeat button")
 
-            RepeatButton("Click me, or press and hold!", Increment)
-                .delay(400)
-                .interval (200)
+            RepeatButton("Click me, or press and hold!", Increment).delay(400).interval(200)
 
-            TextBlock($"Count: {model.Count}").centerVertical ()
+            TextBlock($"Count: {model.Count}").centerVertical()
         }
 
     let sample =

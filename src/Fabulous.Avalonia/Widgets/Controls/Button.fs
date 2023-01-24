@@ -10,7 +10,7 @@ type IFabButton =
     inherit IFabContentControl
 
 module Button =
-    let WidgetKey = Widgets.register<Button> ()
+    let WidgetKey = Widgets.register<Button>()
 
     let ClickMode =
         Attributes.defineAvaloniaPropertyWithEquality Button.ClickModeProperty
@@ -35,17 +35,13 @@ module ButtonBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline Button(text: string, onClicked: 'msg) =
-            WidgetBuilder<'msg, IFabButton>(
-                Button.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> box onClicked)
-            )
+            WidgetBuilder<'msg, IFabButton>(Button.WidgetKey, ContentControl.ContentString.WithValue(text), Button.Clicked.WithValue(fun _ -> box onClicked))
 
         static member inline Button(content: WidgetBuilder<'msg, #IFabControl>, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabButton>(
                 Button.WidgetKey,
                 AttributesBundle(
-                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

@@ -8,7 +8,7 @@ type IFabPolyLineSegment =
     inherit IFabPathSegment
 
 module PolyLineSegment =
-    let WidgetKey = Widgets.register<PolyLineSegment> ()
+    let WidgetKey = Widgets.register<PolyLineSegment>()
 
     let Points =
         Attributes.defineSimpleScalarWithEquality<Point list> "PolyLineSegment_Points" (fun _ newValueOpt node ->
@@ -27,7 +27,4 @@ module PolyLineSegmentBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline PolyLineSegment<'msg>(points: Point list) =
-            WidgetBuilder<'msg, IFabPolyLineSegment>(
-                PolyLineSegment.WidgetKey,
-                PolyLineSegment.Points.WithValue(points)
-            )
+            WidgetBuilder<'msg, IFabPolyLineSegment>(PolyLineSegment.WidgetKey, PolyLineSegment.Points.WithValue(points))

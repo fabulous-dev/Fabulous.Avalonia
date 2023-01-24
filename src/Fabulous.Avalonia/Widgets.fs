@@ -23,7 +23,7 @@ type WidgetItems =
 
 module Widgets =
     let registerWithFactory<'T when 'T :> IAvaloniaObject> (factory: unit -> 'T) =
-        let key = WidgetDefinitionStore.getNextKey ()
+        let key = WidgetDefinitionStore.getNextKey()
 
         let definition =
             { Key = key
@@ -33,7 +33,7 @@ module Widgets =
                 fun (widget, treeContext, parentNode) ->
                     treeContext.Logger.Debug("Creating view for {0}", typeof<'T>.Name)
 
-                    let view = factory ()
+                    let view = factory()
                     let weakReference = WeakReference(view)
 
                     let parentNode =
@@ -72,8 +72,7 @@ module Widgets =
         WidgetDefinitionStore.set key definition
         key
 
-    let register<'T when 'T :> IAvaloniaObject and 'T: (new: unit -> 'T)> () =
-        registerWithFactory (fun () -> new 'T())
+    let register<'T when 'T :> IAvaloniaObject and 'T: (new: unit -> 'T)> () = registerWithFactory(fun () -> new 'T())
 
 module WidgetHelpers =
     let inline buildAttributeCollection<'msg, 'marker, 'item>

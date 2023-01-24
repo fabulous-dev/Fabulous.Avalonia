@@ -17,11 +17,7 @@ module Geometry =
 [<Extension>]
 type GeometryModifiers =
     [<Extension>]
-    static member inline transform
-        (
-            this: WidgetBuilder<'msg, #IFabGeometry>,
-            content: WidgetBuilder<'msg, #IFabTransform>
-        ) =
+    static member inline transform(this: WidgetBuilder<'msg, #IFabGeometry>, content: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Geometry.Transform.WithValue(content.Compile()))
 
     [<Extension>]

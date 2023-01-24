@@ -9,7 +9,7 @@ type IFabPolygon =
     inherit IFabShape
 
 module Polygon =
-    let WidgetKey = Widgets.register<Polygon> ()
+    let WidgetKey = Widgets.register<Polygon>()
 
     let Points =
         Attributes.defineSimpleScalarWithEquality<Point list> "Polygon_Points" (fun _ newValueOpt node ->

@@ -25,17 +25,17 @@ module ContextMenu =
     let view model =
         VStack(spacing = 15.) {
             Border(TextBlock("Right click me to open the context menu"))
-                .contextMenu (
+                .contextMenu(
                     (ContextMenu() {
                         MenuItem("Standard _Menu Item")
-                            .inputGesture (KeyGesture(Key.A, KeyModifiers.Control))
+                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
                         MenuItem("Standard _Menu Item")
-                            .inputGesture (KeyGesture(Key.A, KeyModifiers.Control))
+                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
                         MenuItem("_Disabled Menu Item")
                             .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
-                            .isEnabled (false)
+                            .isEnabled(false)
 
                         Separator()
 
@@ -48,21 +48,21 @@ module ContextMenu =
 
                         MenuItem("Menu Item with _Icon")
                             .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
-                            .icon (Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
                         MenuItem("Menu Item with _Checkbox")
-                            .icon (
+                            .icon(
                                 CheckBox(model.IsChecked, ValueChanged)
                                     .borderThickness(0.)
-                                    .isHitTestVisible (false)
+                                    .isHitTestVisible(false)
                             )
 
-                        MenuItem("Menu Item that won't close on click").staysOpenOnClick (true)
+                        MenuItem("Menu Item that won't close on click").staysOpenOnClick(true)
 
                         MenuItem("Menu Item that will close on click")
                     })
                         .onContextMenuOpening(ContextMenuOpening)
-                        .onContextMenuClosing (ContextMenuClosing)
+                        .onContextMenuClosing(ContextMenuClosing)
                 )
         }
 

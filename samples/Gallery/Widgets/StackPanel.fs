@@ -18,7 +18,7 @@ module StackPanel =
 
     let init () =
         { Reversed = true
-          Spacing = Option<decimal>.Some (50M) }
+          Spacing = Option<decimal>.Some(50M) }
 
     let update msg model =
         match msg with
@@ -29,24 +29,24 @@ module StackPanel =
         (VStack(15.) {
 
             HStack(10.) {
-                TextBlock("Reversed:").verticalAlignment (VerticalAlignment.Center)
+                TextBlock("Reversed:").verticalAlignment(VerticalAlignment.Center)
 
                 ToggleSwitch(model.Reversed, Reverse)
-                    .verticalAlignment (VerticalAlignment.Center)
+                    .verticalAlignment(VerticalAlignment.Center)
 
                 TextBlock("Item Spacing:")
                     .margin(100, 0, 0, 0)
-                    .verticalAlignment (VerticalAlignment.Center)
+                    .verticalAlignment(VerticalAlignment.Center)
 
                 NumericUpDown(model.Spacing, SetSpacing)
                     .increment(10)
                     .formatString("0")
-                    .verticalAlignment (VerticalAlignment.Center)
+                    .verticalAlignment(VerticalAlignment.Center)
             }
 
-            Separator().background(SolidColorBrush(Colors.Gray)).margin (0, 30, 0, 0)
+            Separator().background(SolidColorBrush(Colors.Gray)).margin(0, 30, 0, 0)
 
-            TextBlock("HStack:").fontWeight (FontWeight.Bold)
+            TextBlock("HStack:").fontWeight(FontWeight.Bold)
 
             let spacing: float =
                 match model.Spacing with
@@ -59,9 +59,9 @@ module StackPanel =
                 TextBlock("Item 3")
             }
 
-            Separator().background(SolidColorBrush(Colors.Gray)).margin (0, 30, 0, 0)
+            Separator().background(SolidColorBrush(Colors.Gray)).margin(0, 30, 0, 0)
 
-            TextBlock("VStack:").fontWeight (FontWeight.Bold)
+            TextBlock("VStack:").fontWeight(FontWeight.Bold)
 
             VStack(spacing, model.Reversed) {
                 TextBlock("Item 1")

@@ -24,38 +24,37 @@ module GridSplitter =
                     .height(200.)
                     .fill(SolidColorBrush(Colors.Blue))
                     .gridRow(0)
-                    .gridColumn (0)
+                    .gridColumn(0)
 
                 GridSplitter(GridResizeDirection.Columns)
                     .background(SolidColorBrush(Colors.White))
                     .gridRow(0)
-                    .gridColumn (1)
+                    .gridColumn(1)
 
                 Rectangle(0., 0.)
                     .height(200.)
                     .fill(SolidColorBrush(Colors.Red))
                     .gridRow(0)
-                    .gridColumn (2)
+                    .gridColumn(2)
             })
-                .height (200.)
+                .height(200.)
 
             (Grid(coldefs = [ Star ], rowdefs = [ Star; Pixel(4); Star ]) {
-                Rectangle(0., 0.).fill(SolidColorBrush(Colors.Blue)).gridRow(0).gridColumn (0)
+                Rectangle(0., 0.).fill(SolidColorBrush(Colors.Blue)).gridRow(0).gridColumn(0)
 
                 GridSplitter(GridResizeDirection.Rows)
                     .background(SolidColorBrush(Colors.White))
                     .gridRow(1)
-                    .gridColumn (0)
+                    .gridColumn(0)
 
-                Rectangle(0., 0.).fill(SolidColorBrush(Colors.Red)).gridRow(2).gridColumn (0)
+                Rectangle(0., 0.).fill(SolidColorBrush(Colors.Red)).gridRow(2).gridColumn(0)
             })
-                .height (200.)
+                .height(200.)
         }
 
 
 
     let sample =
         { Name = "GridSplitter"
-          Description =
-            "The GridSplitter control is a control that allows a user to resize the space between Grid rows or columns."
+          Description = "The GridSplitter control is a control that allows a user to resize the space between Grid rows or columns."
           Program = Helper.createProgram init update view }

@@ -8,7 +8,7 @@ type IFabAdornerLayer =
     inherit IFabCanvas
 
 module AdornerLayer =
-    let WidgetKey = Widgets.register<AdornerLayer> ()
+    let WidgetKey = Widgets.register<AdornerLayer>()
 
     let Adorner = Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornerProperty
 
@@ -19,9 +19,5 @@ module AdornerLayerBuilders =
         static member inline AdornerLayer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabAdornerLayer>(
                 AdornerLayer.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| AdornerLayer.Adorner.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| AdornerLayer.Adorner.WithValue(content.Compile()) |], ValueNone)
             )

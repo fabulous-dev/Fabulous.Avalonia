@@ -8,7 +8,7 @@ type IFabImageBrush =
     inherit IFabTileBrush
 
 module ImageBrush =
-    let WidgetKey = Widgets.register<ImageBrush> ()
+    let WidgetKey = Widgets.register<ImageBrush>()
 
     let Source = Attributes.defineAvaloniaPropertyWithEquality ImageBrush.SourceProperty
 

@@ -10,7 +10,7 @@ type IFabWindow =
     inherit IFabWindowBase
 
 module Window =
-    let WidgetKey = Widgets.register<Window> ()
+    let WidgetKey = Widgets.register<Window>()
 
     let SizeToContent =
         Attributes.defineAvaloniaPropertyWithEquality Window.SizeToContentProperty
@@ -54,11 +54,7 @@ module WindowBuilders =
         static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
             WidgetBuilder<'msg, IFabWindow>(
                 Window.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
 [<Extension>]
@@ -72,11 +68,7 @@ type WindowModifiers =
         this.AddScalar(Window.ExtendClientAreaToDecorationsHint.WithValue(value))
 
     [<Extension>]
-    static member inline extendClientAreaChromeHints
-        (
-            this: WidgetBuilder<'msg, #IFabWindow>,
-            value: ExtendClientAreaChromeHints
-        ) =
+    static member inline extendClientAreaChromeHints(this: WidgetBuilder<'msg, #IFabWindow>, value: ExtendClientAreaChromeHints) =
         this.AddScalar(Window.ExtendClientAreaChromeHints.WithValue(value))
 
     [<Extension>]

@@ -12,7 +12,7 @@ type IFabPopup =
     inherit IFabControl
 
 module Popup =
-    let WidgetKey = Widgets.register<Popup> ()
+    let WidgetKey = Widgets.register<Popup>()
 
     let WindowManagerAddShadowHint =
         Attributes.defineAvaloniaPropertyWithEquality Popup.WindowManagerAddShadowHintProperty
@@ -66,11 +66,7 @@ module PopupBuilders =
         static member Popup(isOpen: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabPopup>(
                 Popup.WidgetKey,
-                AttributesBundle(
-                    StackList.one (Popup.IsOpen.WithValue(isOpen)),
-                    ValueSome [| Popup.Child.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
 [<Extension>]
@@ -88,11 +84,7 @@ type PopupModifiers =
         this.AddScalar(Popup.PlacementAnchor.WithValue(value))
 
     [<Extension>]
-    static member inline placementConstraintAdjustment
-        (
-            this: WidgetBuilder<'msg, #IFabPopup>,
-            value: PopupPositionerConstraintAdjustment
-        ) =
+    static member inline placementConstraintAdjustment(this: WidgetBuilder<'msg, #IFabPopup>, value: PopupPositionerConstraintAdjustment) =
         this.AddScalar(Popup.PlacementConstraintAdjustment.WithValue(value))
 
     [<Extension>]

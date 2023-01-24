@@ -8,7 +8,7 @@ type IFabComboBoxItem =
     inherit IFabListBoxItem
 
 module ComboBoxItem =
-    let WidgetKey = Widgets.register<ComboBoxItem> ()
+    let WidgetKey = Widgets.register<ComboBoxItem>()
 
 [<AutoOpen>]
 module ComboBoxItemBuilders =
@@ -20,7 +20,7 @@ module ComboBoxItemBuilders =
                 WidgetBuilder<'msg, IFabComboBoxItem>(
                     ComboBoxItem.WidgetKey,
                     AttributesBundle(
-                        StackList.one (ListBoxItem.IsSelected.WithValue(isSelected)),
+                        StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                         ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                         ValueNone
                     )
@@ -29,7 +29,7 @@ module ComboBoxItemBuilders =
                 WidgetBuilder<'msg, IFabComboBoxItem>(
                     ComboBoxItem.WidgetKey,
                     AttributesBundle(
-                        StackList.one (ListBoxItem.IsSelected.WithValue(false)),
+                        StackList.one(ListBoxItem.IsSelected.WithValue(false)),
                         ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                         ValueNone
                     )

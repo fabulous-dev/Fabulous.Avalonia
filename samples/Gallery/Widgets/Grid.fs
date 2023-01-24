@@ -20,7 +20,7 @@ module Grid =
     let view _ =
         VStack(16.) {
             (Grid() { TextBlock("By default, a Grid contains one row and one column.") })
-                .margin (16.)
+                .margin(16.)
 
             Separator()
 
@@ -28,25 +28,25 @@ module Grid =
                 TextBlock("Cell[0,0]")
                     .gridRow(0)
                     .gridColumn(0)
-                    .background (SolidColorBrush(Colors.Aquamarine))
+                    .background(SolidColorBrush(Colors.Aquamarine))
 
                 TextBlock("Cell[0,1]")
                     .gridRow(0)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.Beige))
+                    .background(SolidColorBrush(Colors.Beige))
 
                 TextBlock("Cell[1,0]")
                     .gridRow(1)
                     .gridColumn(0)
-                    .background (SolidColorBrush(Colors.Lavender))
+                    .background(SolidColorBrush(Colors.Lavender))
 
                 TextBlock("Cell[1,1]")
                     .gridRow(1)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.LightBlue))
+                    .background(SolidColorBrush(Colors.LightBlue))
             })
                 .showGridLines(true)
-                .margin (16.)
+                .margin(16.)
 
             Separator()
 
@@ -56,27 +56,27 @@ module Grid =
                     .gridRow(0)
                     .gridColumn(0)
                     .size(200., 300.)
-                    .background (SolidColorBrush(Colors.Aquamarine))
+                    .background(SolidColorBrush(Colors.Aquamarine))
 
                 TextBlock("Cell[0,1]")
                     .gridRow(0)
                     .gridColumn(1)
                     .size(200., 300.)
-                    .background (SolidColorBrush(Colors.Beige))
+                    .background(SolidColorBrush(Colors.Beige))
 
                 TextBlock("Cell[1,0]")
                     .gridRow(1)
                     .gridColumn(0)
                     .size(100., 100.)
-                    .background (SolidColorBrush(Colors.Lavender))
+                    .background(SolidColorBrush(Colors.Lavender))
 
                 TextBlock("Cell[1,1]")
                     .gridRow(1)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.LightBlue))
+                    .background(SolidColorBrush(Colors.LightBlue))
 
             })
-                .margin (16.)
+                .margin(16.)
 
             Separator()
 
@@ -85,22 +85,22 @@ module Grid =
                     .gridRow(0)
                     .gridColumn(0)
                     .size(200., 300.)
-                    .background (SolidColorBrush(Colors.Aquamarine))
+                    .background(SolidColorBrush(Colors.Aquamarine))
 
                 TextBlock("Cell[0,1]")
                     .gridRow(0)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.Beige))
+                    .background(SolidColorBrush(Colors.Beige))
 
                 TextBlock("Cell[1,0]")
                     .gridRow(1)
                     .gridColumn(0)
-                    .background (SolidColorBrush(Colors.Lavender))
+                    .background(SolidColorBrush(Colors.Lavender))
 
                 TextBlock("Cell[1,1]")
                     .gridRow(1)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.LightBlue))
+                    .background(SolidColorBrush(Colors.LightBlue))
 
             }
 
@@ -109,32 +109,32 @@ module Grid =
                     .gridRow(0)
                     .gridColumn(0)
                     .size(200., 300.)
-                    .background (SolidColorBrush(Colors.Aquamarine))
+                    .background(SolidColorBrush(Colors.Aquamarine))
 
                 TextBlock("Cell[0,1]")
                     .gridRow(0)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.Beige))
+                    .background(SolidColorBrush(Colors.Beige))
 
                 TextBlock("Cell[0,2]")
                     .gridRow(0)
                     .gridColumn(2)
-                    .background (SolidColorBrush(Colors.Cyan))
+                    .background(SolidColorBrush(Colors.Cyan))
 
                 TextBlock("Cell[1,0]")
                     .gridRow(1)
                     .gridColumn(0)
-                    .background (SolidColorBrush(Colors.Lavender))
+                    .background(SolidColorBrush(Colors.Lavender))
 
                 TextBlock("Cell[1,1]")
                     .gridRow(1)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.White))
+                    .background(SolidColorBrush(Colors.White))
 
                 TextBlock("Cell[1,2]")
                     .gridRow(1)
                     .gridColumn(2)
-                    .background (SolidColorBrush(Colors.Yellow))
+                    .background(SolidColorBrush(Colors.Yellow))
 
             }
 
@@ -143,52 +143,52 @@ module Grid =
                     .gridRow(0)
                     .gridColumn(0)
                     .size(200., 300.)
-                    .background (SolidColorBrush(Colors.Aquamarine))
+                    .background(SolidColorBrush(Colors.Aquamarine))
 
                 TextBlock("Cell[0,1]")
                     .gridRow(0)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.Beige))
+                    .background(SolidColorBrush(Colors.Beige))
 
                 TextBlock("Cell[0,2]")
                     .gridRow(0)
                     .gridColumn(2)
-                    .background (SolidColorBrush(Colors.Cyan))
+                    .background(SolidColorBrush(Colors.Cyan))
 
                 TextBlock("Cell[0,3]")
                     .gridRow(0)
                     .gridColumn(3)
-                    .background (SolidColorBrush(Colors.Magenta))
+                    .background(SolidColorBrush(Colors.Magenta))
 
                 TextBlock("Cell[0,4]")
                     .gridRow(0)
                     .gridColumn(4)
-                    .background (SolidColorBrush(Colors.LightBlue))
+                    .background(SolidColorBrush(Colors.LightBlue))
 
                 TextBlock("Cell[1,0]")
                     .gridRow(1)
                     .gridColumn(0)
-                    .background (SolidColorBrush(Colors.Lavender))
+                    .background(SolidColorBrush(Colors.Lavender))
 
                 TextBlock("Cell[1,1]")
                     .gridRow(1)
                     .gridColumn(1)
-                    .background (SolidColorBrush(Colors.White))
+                    .background(SolidColorBrush(Colors.White))
 
                 TextBlock("Cell[1,2]")
                     .gridRow(1)
                     .gridColumn(2)
-                    .background (SolidColorBrush(Colors.Yellow))
+                    .background(SolidColorBrush(Colors.Yellow))
 
                 TextBlock("Cell[1,3]")
                     .gridRow(1)
                     .gridColumn(3)
-                    .background (SolidColorBrush(Colors.LightGray))
+                    .background(SolidColorBrush(Colors.LightGray))
 
                 TextBlock("Cell[1,4]")
                     .gridRow(1)
                     .gridColumn(4)
-                    .background (SolidColorBrush(Colors.Coral))
+                    .background(SolidColorBrush(Colors.Coral))
 
             }
         }

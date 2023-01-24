@@ -31,17 +31,17 @@ module ToggleSwitch =
             ToggleSwitch(model.Value1, ValueChanged)
                 .offContent(TextBlock("Nooo"))
                 .onContent("Yessss")
-                .content ("Toggle me")
+                .content("Toggle me")
 
             ToggleSwitch(model.Value2, ValueChanged1)
                 .offContent("Nooo")
                 .onContent(TextBlock("Yessss"))
-                .content ("Toggle me")
+                .content("Toggle me")
 
             ToggleSwitch(model.Value3, ValueChanged2)
                 .offContent("Nooo")
                 .onContent("Yessss")
-                .content (TextBlock("Toggle me"))
+                .content(TextBlock("Toggle me"))
         }
 
     let sample =

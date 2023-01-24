@@ -13,7 +13,7 @@ type IFabContextMenu =
     inherit IFabMenuBase
 
 module ContextMenu =
-    let WidgetKey = Widgets.register<ContextMenu> ()
+    let WidgetKey = Widgets.register<ContextMenu>()
 
     let inline defineContextMenuEvent
         name
@@ -70,12 +70,10 @@ module ContextMenu =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
 
     let ContextMenuOpening =
-        defineContextMenuEvent "ContextMenuOpening_ContextMenuOpening" (fun target ->
-            (target :?> ContextMenu).ContextMenuOpening)
+        defineContextMenuEvent "ContextMenuOpening_ContextMenuOpening" (fun target -> (target :?> ContextMenu).ContextMenuOpening)
 
     let ContextMenuClosing =
-        defineContextMenuEvent "ContextMenuClosing_ContextMenuClosing" (fun target ->
-            (target :?> ContextMenu).ContextMenuClosing)
+        defineContextMenuEvent "ContextMenuClosing_ContextMenuClosing" (fun target -> (target :?> ContextMenu).ContextMenuClosing)
 
 [<AutoOpen>]
 module ContextMenuBuilders =
@@ -108,11 +106,7 @@ type ContextMenuModifiers =
         this.AddScalar(ContextMenu.VerticalOffset.WithValue(value))
 
     [<Extension>]
-    static member inline placementConstraintAdjustment
-        (
-            this: WidgetBuilder<'msg, #IFabContextMenu>,
-            value: PopupPositionerConstraintAdjustment
-        ) =
+    static member inline placementConstraintAdjustment(this: WidgetBuilder<'msg, #IFabContextMenu>, value: PopupPositionerConstraintAdjustment) =
         this.AddScalar(ContextMenu.PlacementConstraintAdjustment.WithValue(value))
 
     [<Extension>]
@@ -132,19 +126,11 @@ type ContextMenuModifiers =
         this.AddScalar(ContextMenu.WindowManagerAddShadowHint.WithValue(value))
 
     [<Extension>]
-    static member inline onContextMenuOpening
-        (
-            this: WidgetBuilder<'msg, #IFabContextMenu>,
-            onContextMenuOpening: CancelEventArgs -> 'msg
-        ) =
+    static member inline onContextMenuOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, onContextMenuOpening: CancelEventArgs -> 'msg) =
         this.AddScalar(ContextMenu.ContextMenuOpening.WithValue(fun args -> onContextMenuOpening args |> box))
 
     [<Extension>]
-    static member inline onContextMenuClosing
-        (
-            this: WidgetBuilder<'msg, #IFabContextMenu>,
-            onContextMenuClosing: CancelEventArgs -> 'msg
-        ) =
+    static member inline onContextMenuClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, onContextMenuClosing: CancelEventArgs -> 'msg) =
         this.AddScalar(ContextMenu.ContextMenuClosing.WithValue(fun args -> onContextMenuClosing args |> box))
 
 [<Extension>]

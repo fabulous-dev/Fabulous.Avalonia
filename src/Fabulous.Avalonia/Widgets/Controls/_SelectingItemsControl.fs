@@ -16,15 +16,12 @@ module SelectingItemsControl =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.SelectedIndexProperty
 
     let SelectedItem<'T when 'T: equality> =
-        Attributes.defineSimpleScalar<'T>
-            "SelectingItemsControl_SelectedItem"
-            ScalarAttributeComparers.equalityCompare
-            (fun _ newValueOpt node ->
-                let control = node.Target :?> SelectingItemsControl
+        Attributes.defineSimpleScalar<'T> "SelectingItemsControl_SelectedItem" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
+            let control = node.Target :?> SelectingItemsControl
 
-                match newValueOpt with
-                | ValueNone -> control.ClearValue(SelectingItemsControl.SelectedItemProperty)
-                | ValueSome value -> control.SetValue(SelectingItemsControl.SelectedItemProperty, value))
+            match newValueOpt with
+            | ValueNone -> control.ClearValue(SelectingItemsControl.SelectedItemProperty)
+            | ValueSome value -> control.SetValue(SelectingItemsControl.SelectedItemProperty, value))
 
     let IsTextSearchEnabled =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.IsTextSearchEnabledProperty
@@ -33,9 +30,7 @@ module SelectingItemsControl =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.WrapSelectionProperty
 
     let SelectedIndexChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent'
-            "SelectingItemsControl_SelectedIndexChanged"
-            SelectingItemsControl.SelectedIndexProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
 
     let SelectionChanged =
         Attributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
@@ -64,22 +59,9 @@ type SelectingItemsControlModifiers =
         this.AddScalar(SelectingItemsControl.WrapSelection.WithValue(value))
 
     [<Extension>]
-    static member inline onSelectionChanged
-        (
-            this: WidgetBuilder<'msg, #IFabSelectingItemsControl>,
-            onSelectionChanged: SelectionChangedEventArgs -> 'msg
-        ) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, onSelectionChanged: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(SelectingItemsControl.SelectionChanged.WithValue(fun args -> onSelectionChanged args |> box))
 
     [<Extension>]
-    static member inline onSelectedIndexChanged
-        (
-            this: WidgetBuilder<'msg, #IFabSelectingItemsControl>,
-            index: int,
-            onSelectedIndexChanged: int -> 'msg
-        ) =
-        this.AddScalar(
-            SelectingItemsControl.SelectedIndexChanged.WithValue(
-                ValueEventData.create index (fun args -> onSelectedIndexChanged args |> box)
-            )
-        )
+    static member inline onSelectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, onSelectedIndexChanged: int -> 'msg) =
+        this.AddScalar(SelectingItemsControl.SelectedIndexChanged.WithValue(ValueEventData.create index (fun args -> onSelectedIndexChanged args |> box)))

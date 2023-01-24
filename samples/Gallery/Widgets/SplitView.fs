@@ -26,13 +26,13 @@ module SplitView =
                 TextBlock("Pane")
                     .fontSize(24.)
                     .verticalAlignment(VerticalAlignment.Center)
-                    .horizontalAlignment (HorizontalAlignment.Center),
+                    .horizontalAlignment(HorizontalAlignment.Center),
 
                 Grid() {
                     TextBlock("Content")
                         .fontSize(24.)
                         .verticalAlignment(VerticalAlignment.Center)
-                        .horizontalAlignment (HorizontalAlignment.Center)
+                        .horizontalAlignment(HorizontalAlignment.Center)
 
                 }
             )
@@ -40,10 +40,8 @@ module SplitView =
                 .paneBackground(SolidColorBrush(Colors.LightGray))
                 .useLightDismissOverlayMode(true)
 
-                .displayMode(
-                    SplitViewDisplayMode.Inline
-                )
-                .openPaneLength (296.0)
+                .displayMode(SplitViewDisplayMode.Inline)
+                .openPaneLength(296.0)
         }
 
 

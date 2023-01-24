@@ -9,7 +9,7 @@ type IFabDatePicker =
     inherit IFabTemplatedControl
 
 module DatePicker =
-    let WidgetKey = Widgets.register<DatePicker> ()
+    let WidgetKey = Widgets.register<DatePicker>()
 
     let DayVisible =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.DayVisibleProperty
@@ -39,11 +39,7 @@ module DatePicker =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.SelectedDateProperty
 
     let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "DatePicker_SelectedDateChanged"
-            DatePicker.SelectedDateProperty
-            Nullable
-            Nullable.op_Explicit
+        Attributes.defineAvaloniaPropertyWithChangedEvent "DatePicker_SelectedDateChanged" DatePicker.SelectedDateProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
 module DatePickerBuilders =
@@ -53,9 +49,7 @@ module DatePickerBuilders =
             WidgetBuilder<'msg, IFabDatePicker>(
                 DatePicker.WidgetKey,
                 DatePicker.SelectedDate.WithValue(date),
-                DatePicker.SelectedDateChanged.WithValue(
-                    ValueEventData.create date (fun args -> onValueChanged args |> box)
-                )
+                DatePicker.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onValueChanged args |> box))
             )
 
 [<Extension>]

@@ -8,7 +8,7 @@ type IFabTabStripItem =
     inherit IFabListBoxItem
 
 module TabStripItem =
-    let WidgetKey = Widgets.register<TabStripItem> ()
+    let WidgetKey = Widgets.register<TabStripItem>()
 
 [<AutoOpen>]
 module TabStripItemBuilders =
@@ -20,7 +20,7 @@ module TabStripItemBuilders =
                 WidgetBuilder<'msg, IFabTabStripItem>(
                     TabStripItem.WidgetKey,
                     AttributesBundle(
-                        StackList.one (ListBoxItem.IsSelected.WithValue(isSelected)),
+                        StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                         ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                         ValueNone
                     )
@@ -29,7 +29,7 @@ module TabStripItemBuilders =
                 WidgetBuilder<'msg, IFabTabStripItem>(
                     TabStripItem.WidgetKey,
                     AttributesBundle(
-                        StackList.one (ListBoxItem.IsSelected.WithValue(false)),
+                        StackList.one(ListBoxItem.IsSelected.WithValue(false)),
                         ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                         ValueNone
                     )

@@ -8,14 +8,11 @@ type IFabEllipse =
     inherit IFabShape
 
 module Ellipse =
-    let WidgetKey = Widgets.register<Ellipse> ()
+    let WidgetKey = Widgets.register<Ellipse>()
 
 [<AutoOpen>]
 module EllipseBuilders =
     type Fabulous.Avalonia.View with
 
         static member Ellipse() =
-            WidgetBuilder<'msg, IFabEllipse>(
-                Ellipse.WidgetKey,
-                AttributesBundle(StackList.empty (), ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

@@ -10,7 +10,7 @@ type IFabFlyout =
 
 module Flyout =
 
-    let WidgetKey = Widgets.register<Flyout> ()
+    let WidgetKey = Widgets.register<Flyout>()
 
     let Content = Attributes.defineAvaloniaPropertyWidget Flyout.ContentProperty
 
@@ -21,9 +21,5 @@ module FlyoutBuilders =
         static member Flyout(content: WidgetBuilder<'msg, #IFabElement>) =
             WidgetBuilder<'msg, IFabFlyoutBase>(
                 Flyout.WidgetKey,
-                AttributesBundle(
-                    StackList.empty (),
-                    ValueSome [| Flyout.Content.WithValue(content.Compile()) |],
-                    ValueNone
-                )
+                AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
             )

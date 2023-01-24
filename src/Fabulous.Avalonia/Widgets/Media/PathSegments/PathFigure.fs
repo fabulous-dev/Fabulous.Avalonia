@@ -10,7 +10,7 @@ type IFabPathFigure =
     inherit IFabElement
 
 module PathFigure =
-    let WidgetKey = Widgets.register<PathFigure> ()
+    let WidgetKey = Widgets.register<PathFigure>()
 
     let IsClosed =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsClosedProperty
@@ -19,8 +19,7 @@ module PathFigure =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsFilledProperty
 
     let Segments =
-        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target ->
-            (target :?> PathFigure).Segments)
+        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.StartPointProperty
@@ -30,11 +29,7 @@ module PathFigureBuilders =
     type Fabulous.Avalonia.View with
 
         static member PathFigure(startPoint: Point) =
-            CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(
-                PathFigure.WidgetKey,
-                PathFigure.Segments,
-                PathFigure.StartPoint.WithValue(startPoint)
-            )
+            CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(PathFigure.WidgetKey, PathFigure.Segments, PathFigure.StartPoint.WithValue(startPoint))
 
 [<Extension>]
 type PathFigureModifiers =

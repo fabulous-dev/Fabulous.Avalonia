@@ -22,14 +22,14 @@ module ViewBox =
     let view model =
         Grid(coldefs = [ Pixel(300.); Star ], rowdefs = [ Pixel(300.) ]) {
             Border(
-                ViewBox(Ellipse().size(50., 50.).fill (SolidColorBrush(Colors.CornflowerBlue)))
+                ViewBox(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.CornflowerBlue)))
                     .size(model.Width, model.Height)
-                    .stretch (Stretch.Uniform)
+                    .stretch(Stretch.Uniform)
             )
                 .borderBrush(SolidColorBrush(Colors.Black))
                 .borderThickness(1.)
                 .gridRow(0)
-                .gridColumn (0)
+                .gridColumn(0)
 
             (VStack() {
                 TextBlock($"Height: {model.Height}")
@@ -38,7 +38,7 @@ module ViewBox =
                 Slider(0., 300., model.Width, WidthChanged)
             })
                 .gridRow(0)
-                .gridColumn (1)
+                .gridColumn(1)
         }
 
 

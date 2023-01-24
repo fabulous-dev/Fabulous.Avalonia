@@ -36,9 +36,5 @@ type WindowBaseModifiers =
         this.AddScalar(WindowBase.Deactivated.WithValue(onDeactivated))
 
     [<Extension>]
-    static member inline onPositionChanged
-        (
-            this: WidgetBuilder<'msg, #IFabWindowBase>,
-            onPositionChanged: PixelPointEventArgs -> 'msg
-        ) =
+    static member inline onPositionChanged(this: WidgetBuilder<'msg, #IFabWindowBase>, onPositionChanged: PixelPointEventArgs -> 'msg) =
         this.AddScalar(WindowBase.PositionChanged.WithValue(fun args -> onPositionChanged args |> box))

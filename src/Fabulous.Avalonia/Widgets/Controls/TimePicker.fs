@@ -9,7 +9,7 @@ type IFabTimePicker =
     inherit IFabTemplatedControl
 
 module TimePicker =
-    let WidgetKey = Widgets.register<TimePicker> ()
+    let WidgetKey = Widgets.register<TimePicker>()
 
     let ClockIdentifier =
         Attributes.defineAvaloniaPropertyWithEquality TimePicker.ClockIdentifierProperty
@@ -21,11 +21,7 @@ module TimePicker =
         Attributes.defineAvaloniaPropertyWithEquality TimePicker.SelectedTimeProperty
 
     let SelectedTimeChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "TimePicker_SelectedTimeChanged"
-            TimePicker.SelectedTimeProperty
-            Nullable
-            Nullable.op_Explicit
+        Attributes.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
 module TimePickerBuilders =
@@ -35,9 +31,7 @@ module TimePickerBuilders =
             WidgetBuilder<'msg, IFabTimePicker>(
                 TimePicker.WidgetKey,
                 TimePicker.SelectedTime.WithValue(time),
-                TimePicker.SelectedTimeChanged.WithValue(
-                    ValueEventData.create time (fun args -> onValueChanged args |> box)
-                )
+                TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time (fun args -> onValueChanged args |> box))
             )
 
 [<Extension>]

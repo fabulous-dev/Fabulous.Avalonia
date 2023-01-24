@@ -10,7 +10,7 @@ type IFabExpander =
     inherit IFabHeaderedContentControl
 
 module Expander =
-    let WidgetKey = Widgets.register<Expander> ()
+    let WidgetKey = Widgets.register<Expander>()
 
     let ContentTransition =
         Attributes.defineAvaloniaPropertyWithEquality Expander.ContentTransitionProperty
@@ -39,7 +39,7 @@ module ExpanderBuilders =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
                 AttributesBundle(
-                    StackList.one (ContentControl.ContentString.WithValue(content)),
+                    StackList.one(ContentControl.ContentString.WithValue(content)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
@@ -49,7 +49,7 @@ module ExpanderBuilders =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
                 AttributesBundle(
-                    StackList.one (HeaderedContentControl.HeaderString.WithValue(header)),
+                    StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -59,7 +59,7 @@ module ExpanderBuilders =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
@@ -83,12 +83,5 @@ type ExpanderModifiers =
         this.AddScalar(Expander.IsExpanded.WithValue(value))
 
     [<Extension>]
-    static member inline onExpandedChanged
-        (
-            this: WidgetBuilder<'msg, #IFabExpander>,
-            isExpanded: bool,
-            onExpanded: bool -> 'msg
-        ) =
-        this.AddScalar(
-            Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> onExpanded arg |> box))
-        )
+    static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, onExpanded: bool -> 'msg) =
+        this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> onExpanded arg |> box)))

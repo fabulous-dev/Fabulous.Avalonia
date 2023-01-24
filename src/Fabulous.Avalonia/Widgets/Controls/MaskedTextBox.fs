@@ -9,7 +9,7 @@ type IFabMaskedTextBox =
     inherit IFabTextBox
 
 module MaskedTextBox =
-    let WidgetKey = Widgets.register<MaskedTextBox> ()
+    let WidgetKey = Widgets.register<MaskedTextBox>()
 
     let AsciiOnly =
         Attributes.defineAvaloniaPropertyWithEquality MaskedTextBox.AsciiOnlyProperty

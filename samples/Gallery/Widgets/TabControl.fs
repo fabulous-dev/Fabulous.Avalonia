@@ -27,36 +27,36 @@ module TabControl =
                 Ellipse()
                     .size(100.0, 100.0)
                     .fill(SolidColorBrush(Colors.Red))
-                    .horizontalAlignment (HorizontalAlignment.Left)
+                    .horizontalAlignment(HorizontalAlignment.Left)
             )
 
             TabItem(
-                TextBlock("Triangle").verticalAlignment (VerticalAlignment.Center),
+                TextBlock("Triangle").verticalAlignment(VerticalAlignment.Center),
                 VStack() {
                     TextBlock("I am in the triangle page")
                         .horizontalAlignment(HorizontalAlignment.Left)
-                        .verticalAlignment (VerticalAlignment.Center)
+                        .verticalAlignment(VerticalAlignment.Center)
 
                     Polygon([ Point(40.0, 10.0); Point(70.0, 80.0); Point(10.0, 50.0) ])
                         .fill(SolidColorBrush(Colors.AliceBlue))
                         .stroke(SolidColorBrush(Colors.Green))
-                        .strokeThickness (5.0)
+                        .strokeThickness(5.0)
                 }
             )
 
             TabItem(
-                TextBlock("Square").verticalAlignment (VerticalAlignment.Center),
+                TextBlock("Square").verticalAlignment(VerticalAlignment.Center),
                 HStack() {
                     TextBlock("Square : ")
                         .horizontalAlignment(HorizontalAlignment.Left)
-                        .verticalAlignment (VerticalAlignment.Center)
+                        .verticalAlignment(VerticalAlignment.Center)
 
-                    Rectangle(0., 0.).size(63., 41.).fill (SolidColorBrush(Colors.Blue))
+                    Rectangle(0., 0.).size(63., 41.).fill(SolidColorBrush(Colors.Blue))
                 }
             )
         })
             .horizontalContentAlignment(HorizontalAlignment.Center)
-            .verticalContentAlignment (VerticalAlignment.Center)
+            .verticalContentAlignment(VerticalAlignment.Center)
 
     let sample =
         { Name = "TabControl"

@@ -13,7 +13,7 @@ type IFabAutoCompleteBox =
     inherit IFabTemplatedControl
 
 module AutoCompleteBox =
-    let WidgetKey = Widgets.register<AutoCompleteBox> ()
+    let WidgetKey = Widgets.register<AutoCompleteBox>()
 
     let Watermark =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.WatermarkProperty
@@ -61,25 +61,19 @@ module AutoCompleteBox =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
     let TextChanged =
-        Attributes.defineEvent<TextChangedEventArgs> "AutoCompleteBox_TextChanged" (fun target ->
-            (target :?> AutoCompleteBox).TextChanged)
+        Attributes.defineEvent<TextChangedEventArgs> "AutoCompleteBox_TextChanged" (fun target -> (target :?> AutoCompleteBox).TextChanged)
 
     let Populating =
-        Attributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target ->
-            (target :?> AutoCompleteBox).Populating)
+        Attributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
 
     let Populated =
-        Attributes.defineEvent<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target ->
-            (target :?> AutoCompleteBox).Populated)
+        Attributes.defineEvent<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
 
     let DropDownOpened =
-        Attributes.defineAvaloniaPropertyWithChangedEvent'
-            "AutoCompleteBox_onDropDownOpened"
-            AutoCompleteBox.IsDropDownOpenProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
 
     let SelectionChanged =
-        Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
-            (target :?> AutoCompleteBox).SelectionChanged)
+        Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target -> (target :?> AutoCompleteBox).SelectionChanged)
 
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =
@@ -142,19 +136,11 @@ type AutoCompleteBoxModifiers =
         this.AddScalar(AutoCompleteBox.TextFilter.WithValue(filter))
 
     [<Extension>]
-    static member inline itemSelector
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            selector: string -> obj -> string
-        ) =
+    static member inline itemSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, selector: string -> obj -> string) =
         this.AddScalar(AutoCompleteBox.ItemSelector.WithValue(selector))
 
     [<Extension>]
-    static member inline textSelector
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            selector: string -> string -> string
-        ) =
+    static member inline textSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, selector: string -> string -> string) =
         this.AddScalar(AutoCompleteBox.TextSelector.WithValue(selector))
 
     [<Extension>]
@@ -170,30 +156,13 @@ type AutoCompleteBoxModifiers =
         this.AddScalar(AutoCompleteBox.Populating.WithValue(fun args -> onPopulating args.Parameter |> box))
 
     [<Extension>]
-    static member inline onPopulated
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            onPopulated: IEnumerable -> 'msg
-        ) =
+    static member inline onPopulated(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulated: IEnumerable -> 'msg) =
         this.AddScalar(AutoCompleteBox.Populated.WithValue(fun args -> onPopulated args.Data |> box))
 
     [<Extension>]
-    static member inline onDropDownOpened
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            isOpen: bool,
-            onDropDownOpened: bool -> 'msg
-        ) =
-        this.AddScalar(
-            AutoCompleteBox.DropDownOpened.WithValue(
-                ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box)
-            )
-        )
+    static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, isOpen: bool, onDropDownOpened: bool -> 'msg) =
+        this.AddScalar(AutoCompleteBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box)))
 
     [<Extension>]
-    static member inline onSelectionChanged
-        (
-            this: WidgetBuilder<'msg, #IFabAutoCompleteBox>,
-            onSelectionChanged: SelectionChangedEventArgs -> 'msg
-        ) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onSelectionChanged: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(AutoCompleteBox.SelectionChanged.WithValue(fun args -> onSelectionChanged args |> box))

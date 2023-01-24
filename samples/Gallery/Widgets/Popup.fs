@@ -34,14 +34,14 @@ module Popup =
             Popup(
                 model.IsOpen,
                 (Grid(coldefs = [ Pixel(300) ], rowdefs = [ Auto; Pixel(200.) ]) {
-                    Ellipse().size(100., 100.).fill (SolidColorBrush(Colors.Green))
+                    Ellipse().size(100., 100.).fill(SolidColorBrush(Colors.Green))
 
                     TextBlock("This is a popup content")
                         .centerHorizontal()
                         .centerVertical()
-                        .gridRow (1)
+                        .gridRow(1)
                 })
-                    .background (SolidColorBrush(Colors.LightGray))
+                    .background(SolidColorBrush(Colors.LightGray))
             )
                 .onOpened(OnOpened)
                 .onClosed(OnClosed)
@@ -49,9 +49,9 @@ module Popup =
                 .placementGravity(PopupGravity.Bottom)
                 .placementAnchor(PopupAnchor.Bottom)
                 .placementConstraintAdjustment(PopupPositionerConstraintAdjustment.FlipY)
-                .placementRect (Rect(0., 0., 100., 100.))
+                .placementRect(Rect(0., 0., 100., 100.))
         })
-            .center ()
+            .center()
 
     let sample =
         { Name = "Popup"

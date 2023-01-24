@@ -28,12 +28,12 @@ module Shapes =
                         GradientStop(1., Colors.Transparent)
                     }
                 )
-                .fill (SolidColorBrush(Colors.Blue))
+                .fill(SolidColorBrush(Colors.Blue))
 
             Ellipse()
                 .fill(SolidColorBrush(Colors.Red))
                 .size(100., 100.)
-                .opacityMask (
+                .opacityMask(
                     LinearGradientBrush() {
                         GradientStop(0., Colors.Black)
                         GradientStop(1., Colors.Transparent)
@@ -41,7 +41,7 @@ module Shapes =
                 )
 
             Path("M 0,0 c 0,0 50,0 50,-50 c 0,0 50,0 50,50 h -50 v 50 l -50,-50 Z")
-                .fill (SolidColorBrush(Colors.Orange))
+                .fill(SolidColorBrush(Colors.Orange))
 
             Path(
                 PathGeometry(FillRule.NonZero) {
@@ -51,14 +51,14 @@ module Shapes =
                         LineSegment(Point(50., 0.))
                         LineSegment(Point(50., 50.))
                     })
-                        .isClosed (true)
+                        .isClosed(true)
                 }
             )
-                .fill (SolidColorBrush(Colors.OrangeRed))
+                .fill(SolidColorBrush(Colors.OrangeRed))
 
             Line(Point(120., 185.), Point(30., 115.))
                 .stroke(SolidColorBrush(Colors.Red))
-                .strokeThickness (2.)
+                .strokeThickness(2.)
 
             Polygon(
                 [ Point(75., 0.)
@@ -69,7 +69,7 @@ module Shapes =
             )
                 .stroke(SolidColorBrush(Colors.DarkBlue))
                 .strokeThickness(1.)
-                .fill (SolidColorBrush(Colors.Violet))
+                .fill(SolidColorBrush(Colors.Violet))
 
             Polyline(
                 [ Point(0., 0.)
@@ -81,11 +81,10 @@ module Shapes =
                   Point(130., 0.)
                   Point(195., 0.) ]
             )
-                .stroke (SolidColorBrush(Colors.Brown))
+                .stroke(SolidColorBrush(Colors.Brown))
         }
 
     let sample =
         { Name = "2D Shapes and Geometries"
-          Description =
-            "Avalonia provides a library of common vector-drawn 2D shapes such as Ellipse, Line, Path, Polygon and Rectangle."
+          Description = "Avalonia provides a library of common vector-drawn 2D shapes such as Ellipse, Line, Path, Polygon and Rectangle."
           Program = Helper.createProgram init update view }

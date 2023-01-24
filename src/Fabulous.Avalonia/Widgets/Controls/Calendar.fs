@@ -9,7 +9,7 @@ type IFabCalendar =
     inherit IFabTemplatedControl
 
 module Calendar =
-    let WidgetKey = Widgets.register<Calendar> ()
+    let WidgetKey = Widgets.register<Calendar>()
 
     let FirstDayOfWeek =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.FirstDayOfWeekProperty
@@ -27,11 +27,7 @@ module Calendar =
         Attributes.defineAvaloniaPropertyWithEqualityConverter Calendar.SelectedDateProperty Option.toNullable
 
     let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "Calendar_SelectedDateChanged"
-            Calendar.SelectedDateProperty
-            Option.toNullable
-            Option.ofNullable
+        Attributes.defineAvaloniaPropertyWithChangedEvent "Calendar_SelectedDateChanged" Calendar.SelectedDateProperty Option.toNullable Option.ofNullable
 
     let DisplayDate =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.DisplayDateProperty
@@ -52,21 +48,14 @@ module Calendar =
 module CalendarBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Calendar
-            (
-                date: DateTime option,
-                onSelectionChanged: DateTime option -> 'msg,
-                ?selectionMode: CalendarSelectionMode
-            ) =
+        static member Calendar(date: DateTime option, onSelectionChanged: DateTime option -> 'msg, ?selectionMode: CalendarSelectionMode) =
             match selectionMode with
             | None ->
                 WidgetBuilder<'msg, IFabCalendar>(
                     Calendar.WidgetKey,
                     Calendar.SelectedDate.WithValue(date),
                     Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
-                    Calendar.SelectedDateChanged.WithValue(
-                        ValueEventData.create date (fun args -> onSelectionChanged args |> box)
-                    )
+                    Calendar.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onSelectionChanged args |> box))
                 )
 
             | Some selectionMode ->
@@ -74,9 +63,7 @@ module CalendarBuilders =
                     Calendar.WidgetKey,
                     Calendar.SelectedDate.WithValue(date),
                     Calendar.SelectionMode.WithValue(selectionMode),
-                    Calendar.SelectedDateChanged.WithValue(
-                        ValueEventData.create date (fun args -> onSelectionChanged args |> box)
-                    )
+                    Calendar.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onSelectionChanged args |> box))
                 )
 
 [<Extension>]
@@ -86,11 +73,7 @@ type CalendarModifiers =
         this.AddScalar(Calendar.FirstDayOfWeek.WithValue(value))
 
     [<Extension>]
-    static member inline headerBackground
-        (
-            this: WidgetBuilder<'msg, #IFabCalendar>,
-            content: WidgetBuilder<'msg, #IFabBrush>
-        ) =
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Calendar.HeaderBackground.WithValue(content.Compile()))
 
     [<Extension>]
@@ -110,17 +93,9 @@ type CalendarModifiers =
         this.AddScalar(Calendar.DisplayDateEnd.WithValue(value))
 
     [<Extension>]
-    static member inline onDisplayDateChanged
-        (
-            this: WidgetBuilder<'msg, #IFabCalendar>,
-            onDisplayDateChanged: CalendarDateChangedEventArgs -> 'msg
-        ) =
+    static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabCalendar>, onDisplayDateChanged: CalendarDateChangedEventArgs -> 'msg) =
         this.AddScalar(Calendar.DisplayDateChanged.WithValue(fun args -> onDisplayDateChanged args |> box))
 
     [<Extension>]
-    static member inline onDisplayModeChanged
-        (
-            this: WidgetBuilder<'msg, #IFabCalendar>,
-            onDisplayModeChanged: CalendarModeChangedEventArgs -> 'msg
-        ) =
+    static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabCalendar>, onDisplayModeChanged: CalendarModeChangedEventArgs -> 'msg) =
         this.AddScalar(Calendar.DisplayModeChanged.WithValue(fun args -> onDisplayModeChanged args |> box))

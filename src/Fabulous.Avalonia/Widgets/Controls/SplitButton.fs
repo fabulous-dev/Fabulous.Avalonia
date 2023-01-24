@@ -10,7 +10,7 @@ type IFabSplitButton =
     inherit IFabContentControl
 
 module SplitButton =
-    let WidgetKey = Widgets.register<SplitButton> ()
+    let WidgetKey = Widgets.register<SplitButton>()
 
     let Clicked =
         Attributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
@@ -32,7 +32,7 @@ module SplitButtonBuilders =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one (SplitButton.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(SplitButton.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -41,9 +41,5 @@ module SplitButtonBuilders =
 [<Extension>]
 type SplitButtonModifiers =
     [<Extension>]
-    static member inline flyout
-        (
-            this: WidgetBuilder<'msg, #IFabSplitButton>,
-            content: WidgetBuilder<'msg, #IFabFlyoutBase>
-        ) =
+    static member inline flyout(this: WidgetBuilder<'msg, #IFabSplitButton>, content: WidgetBuilder<'msg, #IFabFlyoutBase>) =
         this.AddWidget(SplitButton.Flyout.WithValue(content.Compile()))

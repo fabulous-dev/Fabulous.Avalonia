@@ -33,9 +33,7 @@ type ViewHelpers() =
             actual |> should equal true
 
     [<Property>]
-    member _.``Existing TextBlock control can not be reused if previous widget uses Text and current widget uses Inlines``
-        ()
-        =
+    member _.``Existing TextBlock control can not be reused if previous widget uses Text and current widget uses Inlines``() =
         let arb = Arb.fromGen Generators.nonNullString
 
         Prop.forAll arb (fun text ->
@@ -60,16 +58,14 @@ type ViewHelpers() =
                     ValueSome
                         [| { Key = TextBlock.Inlines.Key
                              DebugName = TextBlock.Inlines.Name
-                             Value = ArraySlice.emptyWithNull () } |] }
+                             Value = ArraySlice.emptyWithNull() } |] }
 
             let actual = ViewHelpers.canReuseView prev curr
 
             actual |> should equal false)
 
     [<Property>]
-    member _.``Existing TextBlock control can not be reused if previous widget uses Inlines and current widget uses Text``
-        ()
-        =
+    member _.``Existing TextBlock control can not be reused if previous widget uses Inlines and current widget uses Text``() =
         let arb = Arb.fromGen Generators.nonNullString
 
         Prop.forAll arb (fun text ->
@@ -82,7 +78,7 @@ type ViewHelpers() =
                     ValueSome
                         [| { Key = TextBlock.Inlines.Key
                              DebugName = TextBlock.Inlines.Name
-                             Value = ArraySlice.emptyWithNull () } |] }
+                             Value = ArraySlice.emptyWithNull() } |] }
 
             let curr =
                 { Key = TextBlock.WidgetKey

@@ -8,7 +8,7 @@ type IFabRectangleGeometry =
     inherit IFabGeometry
 
 module RectangleGeometry =
-    let WidgetKey = Widgets.register<RectangleGeometry> ()
+    let WidgetKey = Widgets.register<RectangleGeometry>()
 
     let Rect =
         Attributes.defineAvaloniaPropertyWithEquality RectangleGeometry.RectProperty
@@ -18,7 +18,4 @@ module RectangleGeometryBuilders =
     type Fabulous.Avalonia.View with
 
         static member RectangleGeometry(rect: Rect) =
-            WidgetBuilder<'msg, IFabRectangleGeometry>(
-                RectangleGeometry.WidgetKey,
-                RectangleGeometry.Rect.WithValue(rect)
-            )
+            WidgetBuilder<'msg, IFabRectangleGeometry>(RectangleGeometry.WidgetKey, RectangleGeometry.Rect.WithValue(rect))

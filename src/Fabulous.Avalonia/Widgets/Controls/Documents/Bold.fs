@@ -7,7 +7,7 @@ type IFabBold =
     inherit IFabSpan
 
 module Bold =
-    let WidgetKey = Widgets.register<Bold> ()
+    let WidgetKey = Widgets.register<Bold>()
 
 [<AutoOpen>]
 module BoldBuilders =

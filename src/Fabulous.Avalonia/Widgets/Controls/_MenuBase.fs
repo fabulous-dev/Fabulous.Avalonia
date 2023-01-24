@@ -40,9 +40,5 @@ type MenuBaseModifiers =
         )
 
     [<Extension>]
-    static member inline contextMenu
-        (
-            this: WidgetBuilder<'msg, #IFabControl>,
-            content: WidgetBuilder<'msg, #IFabMenuBase>
-        ) =
+    static member inline contextMenu(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabMenuBase>) =
         this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))

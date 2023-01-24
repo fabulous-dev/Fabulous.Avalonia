@@ -72,7 +72,7 @@ module AutoCompleteBox =
                 .onSelectionChanged(SelectionChanged)
                 .onPopulating(OnPopulating)
                 .onPopulated(OnPopulated)
-                .onDropDownOpened (model.IsOpen, OnDropDownOpen)
+                .onDropDownOpened(model.IsOpen, OnDropDownOpen)
 
             AutoCompleteBox("Select an async item", getItemsAsync)
         }

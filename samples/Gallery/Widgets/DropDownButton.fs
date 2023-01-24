@@ -28,23 +28,22 @@ module DropDownButton =
             TextBlock("Dropdown button")
 
             DropDownButton("Open...", Clicked)
-                .flyout (
+                .flyout(
                     Flyout(
                         VStack() {
-                            Button("Increment", Increment).width (100)
-                            Button("Decrement", Decrement).width (100)
-                            Button("Reset", Reset).width (100)
+                            Button("Increment", Increment).width(100)
+                            Button("Decrement", Decrement).width(100)
+                            Button("Reset", Reset).width(100)
                         }
                     )
                         .showMode(FlyoutShowMode.Standard)
-                        .placement (FlyoutPlacementMode.RightEdgeAlignedTop)
+                        .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
                 )
 
-            TextBlock($"Count: {model.Count}").centerVertical ()
+            TextBlock($"Count: {model.Count}").centerVertical()
         }
 
     let sample =
         { Name = "DropDownButton"
-          Description =
-            "A button with an added drop-down chevron to visually indicate it has a flyout with additional actions."
+          Description = "A button with an added drop-down chevron to visually indicate it has a flyout with additional actions."
           Program = Helper.createProgram init update view }

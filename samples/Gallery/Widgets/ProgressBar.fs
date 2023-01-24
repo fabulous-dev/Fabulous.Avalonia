@@ -14,7 +14,9 @@ module ProgressBar =
 
     let update msg model =
         match msg with
-        | Clicked -> { model with Progress = model.Progress % model.Max + 1 }
+        | Clicked ->
+            { model with
+                Progress = model.Progress % model.Max + 1 }
         | ProgressChanged p -> model
 
     let view model =
@@ -22,14 +24,13 @@ module ProgressBar =
             TextBlock("Progress Bar")
 
             ProgressBar(0, model.Max, model.Progress, ProgressChanged)
-                .showProgressText (true)
+                .showProgressText(true)
 
             Button("Advance Progress Bar", Clicked)
 
-            TextBlock("Indeterminate Progress Bar").margin (0, 30, 0, 0)
+            TextBlock("Indeterminate Progress Bar").margin(0, 30, 0, 0)
 
-            ProgressBar(0, model.Max, model.Progress, ProgressChanged)
-                .isIndeterminate (true)
+            ProgressBar(0, model.Max, model.Progress, ProgressChanged).isIndeterminate(true)
         }
 
     let sample =

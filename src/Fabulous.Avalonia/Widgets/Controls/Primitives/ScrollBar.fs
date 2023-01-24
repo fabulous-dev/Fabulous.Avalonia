@@ -10,7 +10,7 @@ type IFabScrollBar =
     inherit IFabRangeBase
 
 module ScrollBar =
-    let WidgetKey = Widgets.register<ScrollBar> ()
+    let WidgetKey = Widgets.register<ScrollBar>()
 
     let ViewportSize =
         Attributes.defineAvaloniaPropertyWithEquality ScrollBar.ViewportSizeProperty

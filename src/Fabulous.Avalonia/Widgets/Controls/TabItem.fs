@@ -9,7 +9,7 @@ type IFabTabItem =
     inherit IFabHeaderedContentControl
 
 module TabItem =
-    let WidgetKey = Widgets.register<TabItem> ()
+    let WidgetKey = Widgets.register<TabItem>()
 
     let TabStripPlacement =
         Attributes.defineAvaloniaPropertyWithEquality TabItem.TabStripPlacementProperty
@@ -25,7 +25,7 @@ module TabItemBuilders =
             WidgetBuilder<'msg, IFabTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
-                    StackList.one (HeaderedContentControl.HeaderString.WithValue(header)),
+                    StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -35,7 +35,7 @@ module TabItemBuilders =
             WidgetBuilder<'msg, IFabTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
-                    StackList.empty (),
+                    StackList.empty(),
                     ValueSome
                         [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
