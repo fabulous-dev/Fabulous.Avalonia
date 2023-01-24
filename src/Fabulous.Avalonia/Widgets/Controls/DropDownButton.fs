@@ -15,14 +15,14 @@ module DropDownButton =
 module DropDownButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline DropDownButton(text: string, onClicked: 'msg) =
+        static member inline DropDownButton<'msg>(text: string, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 Button.Clicked.WithValue(fun _ -> box onClicked)
             )
 
-        static member inline DropDownButton(content: WidgetBuilder<'msg, #IFabControl>, onClicked: 'msg) =
+        static member inline DropDownButton(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(
