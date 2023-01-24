@@ -31,7 +31,7 @@ module RepeatButtonBuilders =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one (Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

@@ -47,10 +47,10 @@ module SplitButton =
                 MenuItem("Subitem 3")
             }
 
-            MenuItem("Item 2").inputGesture (KeyGesture(Key.A, KeyModifiers.Control))
+            MenuItem("Item 2").inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
             MenuItem("Item 3")
         })
-            .placement (FlyoutPlacementMode.Bottom)
+            .placement(FlyoutPlacementMode.Bottom)
 
     let availableColors colors =
         (MenuFlyout() {
@@ -58,31 +58,31 @@ module SplitButton =
                 ScrollViewer(
                     (HWrap() {
                         for color in colors do
-                            Rectangle(0., 0.).size(50., 50.).fill (SolidColorBrush(color))
+                            Rectangle(0., 0.).size(50., 50.).fill(SolidColorBrush(color))
                     })
                 )
 
             )
         })
-            .placement (FlyoutPlacementMode.Bottom)
+            .placement(FlyoutPlacementMode.Bottom)
 
 
     let view model =
         (VStack(spacing = 16.) {
-            SplitButton("Content", Clicked).flyout (menuFlyout ())
+            SplitButton("Content", Clicked).flyout(menuFlyout())
 
-            SplitButton("Disabled", Clicked).isEnabled (false)
+            SplitButton("Disabled", Clicked).isEnabled(false)
 
-            SplitButton("Disabled", Clicked).flyout(menuFlyout ()).isEnabled (false)
+            SplitButton("Disabled", Clicked).flyout(menuFlyout()).isEnabled(false)
 
             SplitButton("Re-themed", Clicked)
-                .flyout(menuFlyout ())
-                .foreground (SolidColorBrush(Colors.White))
+                .flyout(menuFlyout())
+                .foreground(SolidColorBrush(Colors.White))
 
-            SplitButton(Clicked, Rectangle(0., 0.).size(32., 32.).fill (SolidColorBrush(Colors.Red)))
-                .flyout (availableColors model.Colors)
+            SplitButton(Clicked, Rectangle(0., 0.).size(32., 32.).fill(SolidColorBrush(Colors.Red)))
+                .flyout(availableColors model.Colors)
         })
-            .horizontalAlignment (HorizontalAlignment.Center)
+            .horizontalAlignment(HorizontalAlignment.Center)
 
     let sample =
         { Name = "SplitButton"

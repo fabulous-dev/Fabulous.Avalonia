@@ -21,45 +21,42 @@ module Button =
         (VStack(spacing = 15.) {
             Button("Regular button", Clicked)
 
-            Button("Disabled button", Clicked).isEnabled (false)
+            Button("Disabled button", Clicked).isEnabled(false)
 
             Button("White text, red background", Clicked)
                 .background(SolidColorBrush(Colors.Red))
                 .foreground(SolidColorBrush(Colors.White))
-                .width (200.)
+                .width(200.)
 
             Button(
                 Clicked,
                 HStack() {
-                    Image(
-                        ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png",
-                        Stretch.UniformToFill
-                    )
-                        .size (32., 32.)
+                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                        .size(32., 32.)
 
                     TextBlock("Button with image")
                 }
             )
 
-            Button("No Border", Clicked).borderThickness (0.)
+            Button("No Border", Clicked).borderThickness(0.)
 
             Button("Border Color", Clicked)
-                .borderBrush (SolidColorBrush(Color.Parse("#FF0000")))
+                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
 
             Button("Thick Border", Clicked)
                 .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .borderThickness (4.)
+                .borderThickness(4.)
 
             Button("Disabled", Clicked)
                 .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
                 .borderThickness(4.)
-                .isEnabled (false)
+                .isEnabled(false)
 
             Button("IsTabStop=False", Clicked)
                 .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .isTabStop (false)
+                .isTabStop(false)
         })
-            .horizontalAlignment (HorizontalAlignment.Center)
+            .horizontalAlignment(HorizontalAlignment.Center)
 
     let sample =
         { Name = "Button"

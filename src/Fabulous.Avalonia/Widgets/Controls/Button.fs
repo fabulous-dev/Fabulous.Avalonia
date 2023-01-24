@@ -35,11 +35,7 @@ module ButtonBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline Button<'msg>(text: string, onClicked: 'msg) =
-            WidgetBuilder<'msg, IFabButton>(
-                Button.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> box onClicked)
-            )
+            WidgetBuilder<'msg, IFabButton>(Button.WidgetKey, ContentControl.ContentString.WithValue(text), Button.Clicked.WithValue(fun _ -> box onClicked))
 
         static member inline Button(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabButton>(
