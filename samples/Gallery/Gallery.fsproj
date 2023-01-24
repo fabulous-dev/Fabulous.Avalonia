@@ -35,6 +35,7 @@
     <Compile Include="Widgets\MenuFlyout.fs" />
     <Compile Include="Widgets\ContextMenu.fs" />
     <Compile Include="Widgets\Menu.fs" />
+    <Compile Include="Widgets\ListBox.fs" />
     <Compile Include="Widgets\ComboBox.fs" />
     <Compile Include="Widgets\CheckBox.fs" />
     <Compile Include="Widgets\SplitView.fs" />
