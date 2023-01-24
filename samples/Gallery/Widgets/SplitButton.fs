@@ -73,8 +73,6 @@ module SplitButton =
 
             SplitButton("Disabled", Clicked).isEnabled(false)
 
-            SplitButton("Disabled", Clicked).flyout(menuFlyout()).isEnabled(false)
-
             SplitButton("Re-themed", Clicked)
                 .flyout(menuFlyout())
                 .foreground(SolidColorBrush(Colors.White))

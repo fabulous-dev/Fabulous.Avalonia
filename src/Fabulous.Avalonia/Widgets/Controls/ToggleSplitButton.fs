@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -18,25 +17,19 @@ module ToggleSplitButton =
 module ToggleSplitButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleSplitButton(text: string, onClicked: 'msg) =
+        static member inline ToggleSplitButton<'msg>(text: string, onCheckedChanged: bool -> 'msg, isChecked: bool) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                SplitButton.Clicked.WithValue(fun _ -> box onClicked)
+                ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box))
             )
 
-        static member inline ToggleSplitButton(content: WidgetBuilder<'msg, #IFabControl>, onClicked: 'msg) =
+        static member inline ToggleSplitButton(onCheckedChanged: bool -> 'msg, isChecked: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(SplitButton.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
-
-[<Extension>]
-type ToggleSplitButtonModifiers =
-    [<Extension>]
-    static member inline onCheckedChanged(splitButton: WidgetBuilder<'msg, #IFabToggleSplitButton>, isChecked: bool, onCheckedChanged: bool -> 'msg) =
-        splitButton.AddScalar(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box)))

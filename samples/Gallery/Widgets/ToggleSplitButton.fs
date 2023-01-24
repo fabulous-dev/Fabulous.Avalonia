@@ -7,7 +7,10 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module ToggleSplitButton =
-    type Model = { Count: int; IsChecked: bool }
+    type Model =
+        { Count: int
+          IsChecked: bool
+          IsChecked2: bool }
 
     type Msg =
         | Clicked
@@ -15,8 +18,12 @@ module ToggleSplitButton =
         | Decrement
         | Reset
         | CheckedChanged of bool
+        | CheckedChanged2 of bool
 
-    let init () = { Count = 0; IsChecked = false }
+    let init () =
+        { Count = 0
+          IsChecked = false
+          IsChecked2 = false }
 
     let update msg model =
         match msg with
@@ -25,24 +32,35 @@ module ToggleSplitButton =
         | Decrement -> { model with Count = model.Count - 1 }
         | Reset -> { model with Count = 0 }
         | CheckedChanged b -> { model with IsChecked = b }
+        | CheckedChanged2 b -> { model with IsChecked2 = b }
+
+    let menu () =
+        Flyout(
+            VStack() {
+                Button("Increment", Increment).width(100)
+                Button("Decrement", Decrement).width(100)
+                Button("Reset", Reset).width(100)
+            }
+        )
+            .showMode(FlyoutShowMode.Standard)
+            .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
+
 
     let view model =
         VStack(spacing = 15.) {
             TextBlock($"Count: i {model.Count}")
 
-            ToggleSplitButton("Press me!", Clicked)
-                .onCheckedChanged(model.IsChecked, CheckedChanged)
-                .flyout(
-                    Flyout(
-                        VStack() {
-                            Button("Increment", Increment).width(100)
-                            Button("Decrement", Decrement).width(100)
-                            Button("Reset", Reset).width(100)
-                        }
-                    )
-                        .showMode(FlyoutShowMode.Standard)
-                        .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
-                )
+            ToggleSplitButton("Press me!", CheckedChanged, model.IsChecked).flyout(menu())
+
+            ToggleSplitButton(
+                CheckedChanged2,
+                model.IsChecked2,
+                HStack() {
+                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                        .size(32., 32.)
+                }
+            )
+                .flyout(menu())
         }
 
     let sample =
