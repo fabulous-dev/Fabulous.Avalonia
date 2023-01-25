@@ -78,7 +78,6 @@ module App =
                 Button("Overview", ShowOverview)
 
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
-                    .selectionMode(SelectionMode.Multiple)
                     .onSelectedIndexChanged(model.SelectedIndex, ItemSelected)
             })
                 .margin(Thickness(0., 20., 0., 0.))

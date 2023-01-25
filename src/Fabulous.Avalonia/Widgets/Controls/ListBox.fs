@@ -58,36 +58,4 @@ module ListBoxBuilders =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ListBox.ItemsSource items template
 
         static member inline ListBox<'msg>() =
-            CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ListBox.Items)
-
-[<Extension>]
-type ListBoxModifiers =
-    [<Extension>]
-    static member inline selectionMode(this: WidgetBuilder<'msg, #IFabListBox>, value: SelectionMode) =
-        this.AddScalar(ListBox.SelectionMode.WithValue(value))
-
-    [<Extension>]
-    static member inline virtualizationMode(this: WidgetBuilder<'msg, #IFabListBox>, value: ItemVirtualizationMode) =
-        this.AddScalar(ListBox.VirtualizationMode.WithValue(value))
-
-    [<Extension>]
-    static member inline selectedItems(this: WidgetBuilder<'msg, #IFabListBox>, value: obj list) =
-        this.AddScalar(ListBox.SelectedItems.WithValue(ResizeArray(value)))
-
-[<Extension>]
-type ListBoxCollectionBuilderExtensions =
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabListBoxItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabListBoxItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
+            CollectionBuilder<'msg, IFabListBox, IFabControl>(ListBox.WidgetKey, ListBox.Items)

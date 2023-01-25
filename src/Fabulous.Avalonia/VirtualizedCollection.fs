@@ -24,7 +24,7 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
         let struct (rowNode, view) =
             definition.CreateView(widget, node.TreeContext, ValueSome node)
 
-        let item = ListBoxItem()
+        let item = ContentControl()
         item.Content <- (view :?> IControl)
 
         let mutable prevWidget = widget
