@@ -60,17 +60,23 @@ module ListBox =
                 .margin(0, 30, 0, 0)
 
             ListBox() {
-                ListBoxItem(
-                    HStack(30.) {
-                        TextBlock("Stack Item1")
-                        TextBlock("Stack Item2")
-                        TextBlock("Stack Item3")
-                    }
-                )
 
-                ListBoxItem(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow)))
+                ListBoxItem(TextBlock("Text with ListBoxIem and selected = true"), true)
 
-                ListBoxItem(TextBlock("TextBlock"))
+                HStack(30.) {
+                    TextBlock("Stack Item1")
+                    TextBlock("Stack Item2")
+                    TextBlock("Stack Item3")
+                }
+
+                TextBlock("Text with not ListBoxIem")
+
+                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    .size(32., 32.)
+
+                Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow))
+
+                TextBlock("TextBlock")
             }
 
             TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
