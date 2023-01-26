@@ -43,7 +43,7 @@ module Menu =
                         .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
                     MenuItem("Menu Item with _Checkbox")
-                        .icon(CheckBox(model.IsChecked, ValueChanged))
+                        .icon(CheckBox(ValueChanged, model.IsChecked))
                         .borderThickness(0.)
                         .isHitTestVisible(false)
                 }

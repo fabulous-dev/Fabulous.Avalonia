@@ -8,8 +8,7 @@ type IFabToggleSwitch =
     inherit IFabToggleButton
 
 module ToggleSwitch =
-    let WidgetKey =
-        Widgets.registerWithFactory(fun () -> ToggleSwitch(IsThreeState = false))
+    let WidgetKey = Widgets.register<ToggleSwitch>()
 
     let OffContent =
         Attributes.defineAvaloniaProperty<string, obj> ToggleSwitch.OffContentProperty box ScalarAttributeComparers.equalityCompare
@@ -28,10 +27,20 @@ module ToggleSwitch =
 module ToggleSwitchBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleSwitch<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
+        static member inline ToggleSwitch<'msg>(onValueChanged: bool -> 'msg, isChecked: bool) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
+                ToggleButton.IsThreeState.WithValue(false),
                 ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
+            )
+
+        static member inline ThreeStateToggleSwitch<'msg>(onValueChanged: bool option -> 'msg, isChecked: bool option) =
+            WidgetBuilder<'msg, IFabToggleSwitch>(
+                ToggleSwitch.WidgetKey,
+                ToggleButton.IsThreeState.WithValue(true),
+                ToggleButton.ThreeStateCheckedChanged.WithValue(
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                )
             )
 
 [<Extension>]

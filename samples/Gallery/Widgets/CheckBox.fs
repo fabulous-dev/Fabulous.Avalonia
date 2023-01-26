@@ -1,5 +1,6 @@
 namespace Gallery
 
+open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
@@ -8,17 +9,17 @@ module CheckBox =
     type Model =
         { IsChecked1: bool
           IsChecked2: bool
-          IsChecked3: bool }
+          IsChecked3: bool option }
 
     type Msg =
         | ValueChanged of bool
         | ValueChanged2 of bool
-        | ValueChanged3 of bool
+        | ValueChanged3 of bool option
 
     let init () =
         { IsChecked1 = false
           IsChecked2 = true
-          IsChecked3 = false }
+          IsChecked3 = Some false }
 
     let update msg model =
         match msg with
@@ -28,9 +29,19 @@ module CheckBox =
 
     let view model =
         VStack(spacing = 15.) {
-            CheckBox("Not checked by default", model.IsChecked1, ValueChanged)
-            CheckBox("Checked by default", model.IsChecked2, ValueChanged2)
-            CheckBox(model.IsChecked3, ValueChanged3)
+            CheckBox(ValueChanged, model.IsChecked1)
+            CheckBox("Checked by default", ValueChanged2, model.IsChecked2)
+
+            ThreeStateCheckBox(
+                ValueChanged3,
+                model.IsChecked3,
+                VStack() {
+                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                        .size(100., 100.)
+
+                    TextBlock("Fabulous")
+                }
+            )
         }
 
     let sample =
