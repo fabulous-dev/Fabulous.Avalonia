@@ -16,8 +16,7 @@ module StackPanel =
         | SetSpacing of Option<decimal>
 
     let init () =
-        { Reversed = true
-          Spacing = Some(50M) }
+        { Reversed = true; Spacing = Some(50M) }
 
     let update msg model =
         match msg with
@@ -26,7 +25,6 @@ module StackPanel =
 
     let view model =
         (VStack(15.) {
-
             HStack(10.) {
                 TextBlock("Reversed:").verticalAlignment(VerticalAlignment.Center)
 

@@ -5,51 +5,61 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module RadioButton =
-    type Model =
-        { IsChecked1: bool
-          IsChecked2: bool
-          IsChecked3: bool
-          IsChecked4: bool
-          IsChecked5: bool
-          IsChecked6: bool option }
+    type Model = Id
 
     type Msg =
         | Checked
         | UnChecked
 
-    let init () =
-        { IsChecked1 = false
-          IsChecked2 = false
-          IsChecked3 = true
-          IsChecked4 = false
-          IsChecked5 = false
-          IsChecked6 = Some false }
+    let init () = Id
 
     let update msg model =
         match msg with
         | Checked -> model
         | UnChecked -> model
 
-
-    let view model =
+    let view _ =
         VStack() {
-            VStack() {
-                TextBlock("Are you ready?")
+            TextBlock("Allows the selection of a single option of many")
 
-                RadioButton("Yes", model.IsChecked1)
-                    .groupName("ready")
-                    .onChecked(Checked)
-                    .onUnchecked(UnChecked)
+            HStack(16.) {
+                VStack(16.) {
+                    RadioButton("Option 1", true).onChecked(Checked).onUnchecked(UnChecked)
 
-                RadioButton("No", model.IsChecked2).groupName("ready")
-                RadioButton("Maybe", model.IsChecked3).groupName("ready")
-            }
+                    RadioButton("Option 1", true)
+                    RadioButton("Option 2", false)
+                    ThreeStateRadioButton("Option 3", None)
+                    ThreeStateRadioButton("Option 3", None)
+                    RadioButton("Disabled", false).isEnabled(false)
+                }
 
-            VStack() {
-                TextBlock("Male or female?")
-                RadioButton("Male", model.IsChecked4).groupName("sex")
-                RadioButton("Female", model.IsChecked5).groupName("sex")
-                ThreeStateRadioButton("Prefer not to say", model.IsChecked6).groupName("sex")
+                VStack(16.) {
+                    ThreeStateRadioButton("Three States: Option 1", Some true)
+                    ThreeStateRadioButton("Three States: Option 1", Some true)
+                    ThreeStateRadioButton("Three States: Option 2", Some false)
+                    ThreeStateRadioButton("Three States: Option 2", Some false)
+                    ThreeStateRadioButton("Three States: Option 3", None)
+                    ThreeStateRadioButton("Three States: Option 3", None)
+                    ThreeStateRadioButton("Disabled", None).isEnabled(false)
+                    ThreeStateRadioButton("Disabled", None).isEnabled(false)
+                }
+
+                VStack(16.) {
+                    RadioButton("Group A: Option 1", true).groupName("A")
+                    RadioButton("Group A: Option 1", true).groupName("A")
+                    RadioButton("Group A: Disabled", false).groupName("A").isEnabled(false)
+                    RadioButton("Group B: Option 1", false).groupName("B")
+                    ThreeStateRadioButton("Group B: Option 3", None).groupName("B")
+                    ThreeStateRadioButton("Group B: Option 3", None).groupName("B")
+                }
+
+                VStack(16.) {
+                    RadioButton("Group A: Option 2", true).groupName("A")
+                    RadioButton("Group A: Option 2", true).groupName("A")
+                    RadioButton("Group B: Option 2", false).groupName("B")
+                    ThreeStateRadioButton("Group B: Option 4", None).groupName("B")
+                    ThreeStateRadioButton("Group B: Option 4", None).groupName("B")
+                }
             }
         }
 
