@@ -16,6 +16,12 @@ module ThreeState =
         | Some false -> ValueSome(Nullable(false))
         | None -> ValueNone
 
+    let inline fromOption' (value: bool option) =
+        match value with
+        | Some true -> Nullable(true)
+        | Some false -> Nullable(false)
+        | None -> Nullable()
+
     let inline toOption (value: Nullable<bool>) = Option.ofNullable value
 
 module ToggleButton =

@@ -3,7 +3,6 @@ namespace Gallery
 open Avalonia.Media
 open Avalonia.Layout
 open Fabulous.Avalonia
-open Avalonia.Controls
 
 open type Fabulous.Avalonia.View
 
@@ -18,7 +17,7 @@ module StackPanel =
 
     let init () =
         { Reversed = true
-          Spacing = Option<decimal>.Some(50M) }
+          Spacing = Some(50M) }
 
     let update msg model =
         match msg with
@@ -31,7 +30,7 @@ module StackPanel =
             HStack(10.) {
                 TextBlock("Reversed:").verticalAlignment(VerticalAlignment.Center)
 
-                ToggleSwitch(model.Reversed, Reverse)
+                ToggleSwitch(Reverse, model.Reversed)
                     .verticalAlignment(VerticalAlignment.Center)
 
                 TextBlock("Item Spacing:")
