@@ -125,6 +125,7 @@
     <Compile Include="Widgets\Controls\TabStripItem.fs" />
     <Compile Include="Widgets\Controls\TabStrip.fs" />
     <Compile Include="Widgets\Controls\ListBox.fs" />
+    <Compile Include="Widgets\Controls\Carousel.fs" />
     <Compile Include="Widgets\Controls\_Spinner.fs" />
     <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />
     <Compile Include="Widgets\Controls\Shapes\Polyline.fs" />
