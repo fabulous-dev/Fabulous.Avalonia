@@ -60,7 +60,7 @@ module App =
             (HStack() {
                 TextBlock("Timer").centerVertical()
 
-                ToggleSwitch(model.TimerOn, TimerToggled)
+                ToggleSwitch(TimerToggled, model.TimerOn)
             })
                 .margin(20.)
                 .centerHorizontal()
