@@ -15,23 +15,14 @@ module CheckBox =
 module CheckBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline CheckBox<'msg>(onValueChanged: bool -> 'msg, isChecked: bool) =
+        static member inline CheckBox<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
                 ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
-        static member inline ThreeStateCheckBox<'msg>(onValueChanged: bool option -> 'msg, isChecked: bool option) =
-            WidgetBuilder<'msg, IFabCheckBox>(
-                CheckBox.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(true),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
-                )
-            )
-
-        static member inline CheckBox<'msg>(text: string, onValueChanged: bool -> 'msg, isChecked: bool) =
+        static member inline CheckBox<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
@@ -39,17 +30,7 @@ module CheckBoxBuilders =
                 ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged(args) |> box))
             )
 
-        static member inline ThreeStateCheckBox<'msg>(text: string, onValueChanged: bool option -> 'msg, isChecked: bool option) =
-            WidgetBuilder<'msg, IFabCheckBox>(
-                CheckBox.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(true),
-                ContentControl.ContentString.WithValue(text),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
-                )
-            )
-
-        static member inline CheckBox(onValueChanged: bool -> 'msg, isChecked: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline CheckBox(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
@@ -62,7 +43,26 @@ module CheckBoxBuilders =
                 )
             )
 
-        static member inline ThreeStateCheckBox(onValueChanged: bool option -> 'msg, isChecked: bool option, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline ThreeStateCheckBox<'msg>(isChecked: bool option, onValueChanged: bool option -> 'msg) =
+            WidgetBuilder<'msg, IFabCheckBox>(
+                CheckBox.WidgetKey,
+                ToggleButton.IsThreeState.WithValue(true),
+                ToggleButton.ThreeStateCheckedChanged.WithValue(
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                )
+            )
+
+        static member inline ThreeStateCheckBox<'msg>(text: string, isChecked: bool option, onValueChanged: bool option -> 'msg) =
+            WidgetBuilder<'msg, IFabCheckBox>(
+                CheckBox.WidgetKey,
+                ToggleButton.IsThreeState.WithValue(true),
+                ContentControl.ContentString.WithValue(text),
+                ToggleButton.ThreeStateCheckedChanged.WithValue(
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                )
+            )
+
+        static member inline ThreeStateCheckBox(isChecked: bool option, onValueChanged: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(

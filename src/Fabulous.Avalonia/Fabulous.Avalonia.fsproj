@@ -136,15 +136,15 @@
     <Compile Include="Widgets\Controls\Shapes\Ellipse.fs" />
     <Compile Include="Widgets\Controls\Shapes\Path.fs" />
     <Compile Include="Widgets\Controls\Button.fs" />
+    <Compile Include="Widgets\Controls\RepeatButton.fs" />
     <Compile Include="Widgets\Controls\SplitButton.fs" />
     <Compile Include="Widgets\Controls\ToggleSplitButton.fs" />
     <Compile Include="Widgets\Controls\ToggleButton.fs" />
     <Compile Include="Widgets\Controls\RadioButton.fs" />
     <Compile Include="Widgets\Controls\ButtonSpinner.fs" />
     <Compile Include="Widgets\Controls\DropDownButton.fs" />
-    <Compile Include="Widgets\Controls\RepeatButton.fs" />
-    <Compile Include="Widgets\Controls\SliptView.fs" />
     <Compile Include="Widgets\Controls\CheckBox.fs" />
+    <Compile Include="Widgets\Controls\SliptView.fs" />
     <Compile Include="Widgets\Controls\NumericUpDown.fs" />
     <Compile Include="Widgets\Controls\ScrollViewer.fs" />
     <Compile Include="Widgets\Controls\DatePicker.fs" />

@@ -17,18 +17,18 @@ module ToggleSplitButton =
 module ToggleSplitButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleSplitButton<'msg>(text: string, onCheckedChanged: bool -> 'msg, isChecked: bool) =
+        static member inline ToggleSplitButton<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box))
+                ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
-        static member inline ToggleSplitButton(onCheckedChanged: bool -> 'msg, isChecked: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline ToggleSplitButton(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onCheckedChanged args |> box))),
+                    StackList.one(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

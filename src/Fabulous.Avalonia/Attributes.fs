@@ -196,7 +196,7 @@ module Attributes =
                         | ValueNone -> ()
                         | ValueSome v ->
                             let newValue = convert v
-                            target.SetValue(property, unbox newValue) |> ignore
+                            target.SetValue(property, box newValue) |> ignore
 
                         // Set the new event handler
                         let disposable =

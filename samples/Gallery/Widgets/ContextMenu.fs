@@ -52,7 +52,7 @@ module ContextMenu =
 
                         MenuItem("Menu Item with _Checkbox")
                             .icon(
-                                CheckBox(ValueChanged, model.IsChecked)
+                                CheckBox(model.IsChecked, ValueChanged)
                                     .borderThickness(0.)
                                     .isHitTestVisible(false)
                             )

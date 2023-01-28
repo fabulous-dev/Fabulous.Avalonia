@@ -29,12 +29,12 @@ module CheckBox =
 
     let view model =
         VStack(spacing = 15.) {
-            CheckBox(ValueChanged, model.IsChecked1)
-            CheckBox("Checked by default", ValueChanged2, model.IsChecked2)
+            CheckBox(model.IsChecked1, ValueChanged)
+            CheckBox("Checked by default", model.IsChecked2, ValueChanged2)
 
             ThreeStateCheckBox(
-                ValueChanged3,
                 model.IsChecked3,
+                ValueChanged3,
                 VStack() {
                     Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(100., 100.)

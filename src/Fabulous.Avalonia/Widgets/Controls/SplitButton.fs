@@ -20,7 +20,7 @@ module SplitButton =
 module SplitButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline SplitButton(text: string, onClicked: 'msg) =
+        static member inline SplitButton<'msg>(text: string, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),

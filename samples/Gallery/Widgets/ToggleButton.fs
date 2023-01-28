@@ -77,11 +77,11 @@ module ToggleButton =
 
     let view model =
         VStack(spacing = 15.) {
-            ToggleButton(model.Text1, CheckedChanged, model.Value1)
+            ToggleButton(model.Text1, model.Value1, CheckedChanged)
 
             ToggleButton(
-                CheckedChanged2,
                 model.Value2,
+                CheckedChanged2,
                 HStack() {
                     Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(16., 16.)
@@ -90,12 +90,12 @@ module ToggleButton =
                 }
             )
 
-            ThreeStateToggleButton(model.Text3, CheckedChanged3, model.Value3)
+            ThreeStateToggleButton(model.Text3, model.Value3, CheckedChanged3)
                 .onIndeterminate(IntermediaryState3)
 
             ThreeStateToggleButton(
-                CheckedChanged4,
                 model.Value4,
+                CheckedChanged4,
                 HStack() {
                     Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(16., 16.)

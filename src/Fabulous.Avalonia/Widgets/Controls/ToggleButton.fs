@@ -43,7 +43,7 @@ module ToggleButton =
 module ToggleButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleButton<'msg>(text: string, onValueChanged: bool -> 'msg, isChecked: bool) =
+        static member inline ToggleButton<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -51,7 +51,7 @@ module ToggleButtonBuilders =
                 ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
-        static member inline ThreeStateToggleButton<'msg>(text: string, onValueChanged: bool option -> 'msg, isChecked: bool option) =
+        static member inline ThreeStateToggleButton<'msg>(text: string, isChecked: bool option, onValueChanged: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -61,7 +61,7 @@ module ToggleButtonBuilders =
                 )
             )
 
-        static member inline ToggleButton(onValueChanged: bool -> 'msg, isChecked: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline ToggleButton(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
@@ -74,7 +74,7 @@ module ToggleButtonBuilders =
                 )
             )
 
-        static member inline ThreeStateToggleButton(onValueChanged: bool option -> 'msg, isChecked: bool option, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline ThreeStateToggleButton(isChecked: bool option, onValueChanged: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(

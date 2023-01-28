@@ -50,11 +50,11 @@ module ToggleSplitButton =
         VStack(spacing = 15.) {
             TextBlock($"Count: i {model.Count}")
 
-            ToggleSplitButton("Press me!", CheckedChanged, model.IsChecked).flyout(menu())
+            ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged).flyout(menu())
 
             ToggleSplitButton(
-                CheckedChanged2,
                 model.IsChecked2,
+                CheckedChanged2,
                 HStack() {
                     Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(32., 32.)
