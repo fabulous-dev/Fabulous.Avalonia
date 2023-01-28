@@ -28,7 +28,7 @@ module StackPanel =
             HStack(10.) {
                 TextBlock("Reversed:").verticalAlignment(VerticalAlignment.Center)
 
-                ToggleSwitch(Reverse, model.Reversed)
+                ToggleSwitch(model.Reversed, Reverse)
                     .verticalAlignment(VerticalAlignment.Center)
 
                 TextBlock("Item Spacing:")
