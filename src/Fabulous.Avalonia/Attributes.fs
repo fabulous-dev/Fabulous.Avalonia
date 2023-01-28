@@ -8,11 +8,15 @@ open Fabulous.ScalarAttributeDefinitions
 
 [<Struct>]
 type ValueEventData<'data, 'eventArgs> =
-    { Value: 'data
+    { Value: 'data voption
       Event: 'eventArgs -> obj }
 
 module ValueEventData =
-    let create (value: 'data) (event: 'eventArgs -> obj) = { Value = value; Event = event }
+    let create (value: 'data) (event: 'eventArgs -> obj) =
+        { Value = ValueSome value
+          Event = event }
+
+    let createVOption (value: 'data voption) (event: 'eventArgs -> obj) = { Value = value; Event = event }
 
 module Attributes =
     /// Define an attribute for EventHandler<'T>
@@ -187,8 +191,12 @@ module Attributes =
                         | ValueSome handler -> handler.Dispose()
 
                         // Set the new value
-                        let newValue = convert curr.Value
-                        target.SetValue(property, newValue) |> ignore
+
+                        match curr.Value with
+                        | ValueNone -> ()
+                        | ValueSome v ->
+                            let newValue = convert v
+                            target.SetValue(property, box newValue) |> ignore
 
                         // Set the new event handler
                         let disposable =

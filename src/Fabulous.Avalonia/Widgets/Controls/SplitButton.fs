@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Input
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -21,14 +20,14 @@ module SplitButton =
 module SplitButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline SplitButton(text: string, onClicked: 'msg) =
+        static member inline SplitButton<'msg>(text: string, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 SplitButton.Clicked.WithValue(fun _ -> box onClicked)
             )
 
-        static member inline SplitButton(content: WidgetBuilder<'msg, #IFabControl>, onClicked: 'msg) =
+        static member inline SplitButton(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 AttributesBundle(

@@ -7,41 +7,46 @@ open type Fabulous.Avalonia.View
 module ToggleSwitch =
     type Model =
         { Value1: bool
-          Value2: bool
-          Value3: bool }
+          Value2: bool option
+          Text2: string }
 
     type Msg =
         | ValueChanged of bool
-        | ValueChanged1 of bool
-        | ValueChanged2 of bool
+        | ValueChanged1 of bool option
+        | IntermediaryChanged
 
     let init () =
         { Value1 = false
-          Value2 = false
-          Value3 = false }
+          Value2 = Some false
+          Text2 = "Toggle me" }
 
     let update msg model =
         match msg with
         | ValueChanged value -> { model with Value1 = value }
-        | ValueChanged1 value -> { model with Value2 = value }
-        | ValueChanged2 value -> { model with Value3 = value }
+        | ValueChanged1 value ->
+            let text =
+                match value with
+                | Some true -> "Yessss"
+                | Some false -> "Nooo"
+                | None -> "Intermediary"
+
+            { model with
+                Value2 = value
+                Text2 = text }
+        | IntermediaryChanged -> model
 
     let view model =
         VStack(spacing = 15.) {
-            ToggleSwitch(model.Value1, ValueChanged)
+            ToggleSwitch(ValueChanged, model.Value1)
                 .offContent(TextBlock("Nooo"))
                 .onContent("Yessss")
                 .content("Toggle me")
 
-            ToggleSwitch(model.Value2, ValueChanged1)
+            ThreeStateToggleSwitch(ValueChanged1, model.Value2)
                 .offContent("Nooo")
                 .onContent(TextBlock("Yessss"))
-                .content("Toggle me")
-
-            ToggleSwitch(model.Value3, ValueChanged2)
-                .offContent("Nooo")
-                .onContent("Yessss")
-                .content(TextBlock("Toggle me"))
+                .content(model.Text2)
+                .onIndeterminate(IntermediaryChanged)
         }
 
     let sample =

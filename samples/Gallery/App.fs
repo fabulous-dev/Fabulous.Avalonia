@@ -102,7 +102,7 @@ module App =
                     .displayMode(SplitViewDisplayMode.Inline)
                     .panePlacement(SplitViewPanePlacement.Left)
 
-            Button(hamburgerMenuIcon(), OpenPan)
+            Button(OpenPan, hamburgerMenuIcon())
                 .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Left)
         }

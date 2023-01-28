@@ -1,6 +1,7 @@
 namespace Gallery
 
 open Avalonia.Controls
+open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
@@ -10,6 +11,7 @@ module DropDownButton =
 
     type Msg =
         | Clicked
+        | Clicked2
         | Increment
         | Decrement
         | Reset
@@ -19,28 +21,36 @@ module DropDownButton =
     let update msg model =
         match msg with
         | Clicked -> model
+        | Clicked2 -> model
         | Increment -> { model with Count = model.Count + 1 }
         | Decrement -> { model with Count = model.Count - 1 }
         | Reset -> { model with Count = 0 }
 
+    let menu () =
+        Flyout(
+            VStack() {
+                Button("Increment", Increment).width(100)
+                Button("Decrement", Decrement).width(100)
+                Button("Reset", Reset).width(100)
+            }
+        )
+            .showMode(FlyoutShowMode.Standard)
+            .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
+
     let view model =
         VStack(spacing = 15.) {
-            TextBlock("Dropdown button")
-
-            DropDownButton("Open...", Clicked)
-                .flyout(
-                    Flyout(
-                        VStack() {
-                            Button("Increment", Increment).width(100)
-                            Button("Decrement", Decrement).width(100)
-                            Button("Reset", Reset).width(100)
-                        }
-                    )
-                        .showMode(FlyoutShowMode.Standard)
-                        .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
-                )
-
             TextBlock($"Count: {model.Count}").centerVertical()
+
+            DropDownButton("Open...", Clicked).flyout(menu())
+
+            DropDownButton(
+                Clicked2,
+                HStack() {
+                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                        .size(32., 32.)
+                }
+            )
+                .flyout(menu())
         }
 
     let sample =
