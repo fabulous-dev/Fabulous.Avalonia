@@ -27,14 +27,14 @@ module ToggleSwitch =
 module ToggleSwitchBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleSwitch<'msg>(onValueChanged: bool -> 'msg, isChecked: bool) =
+        static member inline ToggleSwitch<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
                 ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
-        static member inline ThreeStateToggleSwitch<'msg>(onValueChanged: bool option -> 'msg, isChecked: bool option) =
+        static member inline ThreeStateToggleSwitch<'msg>(isChecked: bool option, onValueChanged: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),

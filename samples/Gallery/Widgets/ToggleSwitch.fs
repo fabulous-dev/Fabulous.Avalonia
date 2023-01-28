@@ -37,12 +37,12 @@ module ToggleSwitch =
 
     let view model =
         VStack(spacing = 15.) {
-            ToggleSwitch(ValueChanged, model.Value1)
+            ToggleSwitch( model.Value1, ValueChanged)
                 .offContent(TextBlock("Nooo"))
                 .onContent("Yessss")
                 .content("Toggle me")
 
-            ThreeStateToggleSwitch(ValueChanged1, model.Value2)
+            ThreeStateToggleSwitch(model.Value2, ValueChanged1)
                 .offContent("Nooo")
                 .onContent(TextBlock("Yessss"))
                 .content(model.Text2)
