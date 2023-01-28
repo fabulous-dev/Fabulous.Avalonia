@@ -3,8 +3,6 @@ namespace Fabulous.Avalonia
 open System.Collections.Generic
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections
-open System.Runtime.CompilerServices
 
 type IFabListBox =
     inherit IFabSelectingItemsControl
@@ -37,14 +35,6 @@ module ListBox =
 
     let VirtualizationMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.VirtualizationModeProperty
-
-    let SelectedItems<'T when 'T: equality> =
-        Attributes.defineSimpleScalar "SelectingItemsControl_SelectedItems" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
-            let control = node.Target :?> ListBox
-
-            match newValueOpt with
-            | ValueNone -> control.ClearValue(ListBox.SelectedItemsProperty)
-            | ValueSome value -> control.SetValue(ListBox.SelectedItemsProperty, value))
 
 [<AutoOpen>]
 module ListBoxBuilders =

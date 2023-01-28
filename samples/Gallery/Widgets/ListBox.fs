@@ -1,6 +1,5 @@
 namespace Gallery
 
-open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 
@@ -18,9 +17,7 @@ module ListBox =
           SelectedIndex: int
           Notification: string }
 
-    type Msg =
-        | SelectedIndexChanged of int
-        | SelectionChanged of SelectionChangedEventArgs
+    type Msg = SelectedIndexChanged of int
 
     let init () =
         { SampleData =
@@ -42,9 +39,6 @@ module ListBox =
             { model with
                 SelectedIndex = index
                 Notification = $"Family: {model.SampleData[index].Family}" }
-        | SelectionChanged args ->
-            { model with
-                Notification = $"Selection: %A{args.AddedItems}" }
 
     let view model =
         VStack(spacing = 15.) {
