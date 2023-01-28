@@ -37,7 +37,7 @@ module ToggleSwitch =
 
     let view model =
         VStack(spacing = 15.) {
-            ToggleSwitch( model.Value1, ValueChanged)
+            ToggleSwitch(model.Value1, ValueChanged)
                 .offContent(TextBlock("Nooo"))
                 .onContent("Yessss")
                 .content("Toggle me")
