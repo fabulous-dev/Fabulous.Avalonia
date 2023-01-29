@@ -18,11 +18,10 @@ module Carousel =
           Image: string }
 
     type Model =
-        { SampleData: DataType list
-          SelectedIndex: int }
+        { SampleData: DataType list }
 
     type Msg =
-        | SelectedIndexChanged of int
+        | SelectionChanged of SelectionChangedEventArgs
         | Next
         | Previous
 
@@ -36,28 +35,23 @@ module Carousel =
                 Image = "fsharp-icon" }
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
-                Image = "github-icon" } ]
-          SelectedIndex = 0 }
+                Image = "github-icon" } ] }
 
     let carouselRef = ViewRef<Carousel>()
 
     let update msg model =
         match msg with
-        // FIXME the SelectedIndexChanged event is not working
-        | SelectedIndexChanged index -> { model with SelectedIndex = index }
-
+        | SelectionChanged args -> model
+            
         | Next ->
             carouselRef.Value.Next()
             model
-
         | Previous ->
             carouselRef.Value.Previous()
             model
 
-
     let view model =
         (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
-
             Button(
                 Previous,
                 Path("M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z")
@@ -153,6 +147,7 @@ module Carousel =
                 .reference(carouselRef)
                 .centerHorizontal()
                 .centerVertical()
+                .onSelectionChanged(SelectionChanged)
 
             Button(
                 Next,

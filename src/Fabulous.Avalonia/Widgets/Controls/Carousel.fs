@@ -9,7 +9,6 @@ open Fabulous
 type IFabCarousel =
     inherit IFabSelectingItemsControl
 
-
 module Carousel =
     let WidgetKey = Widgets.register<Carousel>()
 
@@ -27,17 +26,17 @@ module Carousel =
             "Carousel_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
-                let itemsView = node.Target :?> Carousel
+                let carousel = node.Target :?> Carousel
 
                 match newValueOpt with
                 | ValueNone ->
-                    itemsView.ClearValue(Carousel.ItemTemplateProperty)
-                    itemsView.ClearValue(Carousel.ItemsProperty)
+                    carousel.ClearValue(Carousel.ItemTemplateProperty)
+                    carousel.ClearValue(Carousel.ItemsProperty)
                 | ValueSome value ->
-                    itemsView.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    carousel.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
-
-                    itemsView.SetValue(Carousel.ItemsProperty, value.OriginalItems))
+                                        
+                    carousel.SetValue(Carousel.ItemsProperty, value.OriginalItems))
 
 [<AutoOpen>]
 module CarouselBuilders =
