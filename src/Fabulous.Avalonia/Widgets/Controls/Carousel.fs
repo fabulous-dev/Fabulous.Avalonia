@@ -35,7 +35,7 @@ module Carousel =
                 | ValueSome value ->
                     carousel.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
-                                        
+
                     carousel.SetValue(Carousel.ItemsProperty, value.OriginalItems))
 
 [<AutoOpen>]

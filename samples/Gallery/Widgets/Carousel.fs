@@ -17,8 +17,7 @@ module Carousel =
           Desc: string
           Image: string }
 
-    type Model =
-        { SampleData: DataType list }
+    type Model = { SampleData: DataType list }
 
     type Msg =
         | SelectionChanged of SelectionChangedEventArgs
@@ -42,7 +41,7 @@ module Carousel =
     let update msg model =
         match msg with
         | SelectionChanged args -> model
-            
+
         | Next ->
             carouselRef.Value.Next()
             model
