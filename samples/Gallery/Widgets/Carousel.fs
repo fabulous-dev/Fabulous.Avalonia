@@ -17,10 +17,12 @@ module Carousel =
           Desc: string
           Image: string }
 
-    type Model = { SampleData: DataType list }
+    type Model =
+        { SampleData: DataType list
+          SelectedIndex: int }
 
     type Msg =
-        | SelectionChanged of SelectionChangedEventArgs
+        | SelectionChanged of int
         | Next
         | Previous
 
@@ -34,19 +36,19 @@ module Carousel =
                 Image = "fsharp-icon" }
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
-                Image = "github-icon" } ] }
+                Image = "github-icon" } ]
+          SelectedIndex = 1 }
 
-    let carouselRef = ViewRef<Carousel>()
+    let carouselController = new CarouselController()
 
     let update msg model =
         match msg with
-        | SelectionChanged args -> model
-
+        | SelectionChanged _ -> model
         | Next ->
-            carouselRef.Value.Next()
+            carouselController.DoNext()
             model
         | Previous ->
-            carouselRef.Value.Previous()
+            carouselController.DoPrevious()
             model
 
     let view model =
@@ -60,65 +62,6 @@ module Carousel =
                 .verticalAlignment(VerticalAlignment.Center)
                 .padding(10., 20.)
                 .margin(4.)
-
-            // (Carousel() {
-            //
-            //     VStack() {
-            //         TextBlock("Fabulous")
-            //             .fontSize(20.)
-            //             .textWrapping(TextWrapping.Wrap)
-            //             .textAlignment(TextAlignment.Center)
-            //             .horizontalAlignment(HorizontalAlignment.Center)
-            //
-            //         TextBlock("Fabulous is a library to write cross-platform mobile and desktop applications with F# and Avalonia.")
-            //             .fontSize(14.)
-            //             .textWrapping(TextWrapping.Wrap)
-            //             .textAlignment(TextAlignment.Center)
-            //             .horizontalAlignment(HorizontalAlignment.Center)
-            //
-            //         Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png"))
-            //
-            //     }
-            //
-            //     VStack() {
-            //         TextBlock("F#")
-            //             .fontSize(20.)
-            //             .textWrapping(TextWrapping.Wrap)
-            //             .textAlignment(TextAlignment.Center)
-            //             .horizontalAlignment(HorizontalAlignment.Center)
-            //
-            //         TextBlock("F# is a cross-platform, open source, functional-first programming language.")
-            //             .fontSize(14.)
-            //             .textWrapping(TextWrapping.Wrap)
-            //             .textAlignment(TextAlignment.Center)
-            //             .horizontalAlignment(HorizontalAlignment.Center)
-            //
-            //         Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fsharp-icon.png"))
-            //
-            //     }
-            //
-            //     VStack() {
-            //         TextBlock("GitHub")
-            //             .fontSize(20.)
-            //             .textWrapping(TextWrapping.Wrap)
-            //             .textAlignment(TextAlignment.Center)
-            //             .horizontalAlignment(HorizontalAlignment.Center)
-            //
-            //         TextBlock("GitHub is a web-based hosting service for version control using Git.")
-            //             .fontSize(14.)
-            //             .textWrapping(TextWrapping.Wrap)
-            //             .textAlignment(TextAlignment.Center)
-            //             .horizontalAlignment(HorizontalAlignment.Center)
-            //
-            //         Image(ImageSource.fromString("avares://Gallery/Assets/Icons/github-icon.png"))
-            //     }
-            // })
-            //     .pageTransition(PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
-            //     .margin(16)
-            //     .gridColumn(1)
-            //     .reference(carouselRef)
-            //     .centerHorizontal()
-            //     .centerVertical()
 
             Carousel(
                 model.SampleData,
@@ -143,10 +86,9 @@ module Carousel =
                 .pageTransition(Rotate3DTransition(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
                 .margin(16)
                 .gridColumn(1)
-                .reference(carouselRef)
+                .controller(carouselController)
                 .centerHorizontal()
                 .centerVertical()
-                .onSelectionChanged(SelectionChanged)
 
             Button(
                 Next,

@@ -1,16 +1,61 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Avalonia.Controls
+open Avalonia.Styling
 open Fabulous
 
 type IFabCarousel =
     inherit IFabSelectingItemsControl
 
+type CarouselController() =
+    let next = Event<EventHandler, EventArgs>()
+    let previous = Event<EventHandler, EventArgs>()
+
+    [<CLIEvent>]
+    member _.Next = next.Publish
+
+    [<CLIEvent>]
+    member _.Previous = previous.Publish
+
+    member this.DoNext() = next.Trigger(this, EventArgs.Empty)
+
+    member this.DoPrevious() = previous.Trigger(this, EventArgs.Empty)
+
+type CustomCarousel() as this =
+    inherit Carousel()
+
+    let _nextHandler = EventHandler(this.CustomNext)
+
+    let _previousHandler = EventHandler(this.CustomPrevious)
+
+    let mutable _oldController: CarouselController option = None
+
+    member this.Controller
+        with get () = _oldController
+        and set (newController: CarouselController option) =
+            match newController with
+            | Some controller ->
+                controller.Next.AddHandler(_nextHandler)
+                controller.Previous.AddHandler(_previousHandler)
+                _oldController <- Some controller
+            | None -> _oldController <- None
+
+    member private this.CustomNext _ _ = this.Next()
+
+    member private this.CustomPrevious _ _ = this.Previous()
+
+    interface IStyleable with
+        member this.StyleKey = typeof<Carousel>
+
 module Carousel =
-    let WidgetKey = Widgets.register<Carousel>()
+    let WidgetKey = Widgets.register<CustomCarousel>()
+
+    let Controller =
+        Attributes.defineProperty "Carousel_Controller" None (fun target value -> (target :?> CustomCarousel).Controller <- value)
 
     let IsVirtualized =
         Attributes.defineAvaloniaPropertyWithEquality Carousel.IsVirtualizedProperty
@@ -64,5 +109,5 @@ type CarouselModifiers =
         this.AddScalar(Carousel.PageTransition.WithValue(value))
 
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabCarousel>, value: ViewRef<Carousel>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+    static member inline controller(this: WidgetBuilder<'msg, #IFabCarousel>, value: CarouselController) =
+        this.AddScalar(Carousel.Controller.WithValue(Some value))
