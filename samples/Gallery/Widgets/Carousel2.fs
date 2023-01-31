@@ -10,21 +10,18 @@ open type Fabulous.Avalonia.View
 
 module Carousel2 =
 
-    type Model = { SelectedIndex: int }
+    type Model = Id
 
     type Msg =
-        | SelectionChanged of int
         | Next
         | Previous
 
-    let init () = { SelectedIndex = 1 }
+    let init () = Id
 
     let carouselController = new CarouselController()
 
     let update msg model =
         match msg with
-        | SelectionChanged _ -> model
-
         | Next ->
             carouselController.DoNext()
             model

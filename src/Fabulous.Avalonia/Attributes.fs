@@ -71,7 +71,7 @@ module Attributes =
             | ValueNone -> target.ClearValue(directProperty)
             | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
 
-    /// Define an attribute for an AvaloniaProperty supporting equality comparison
+    /// Define an attribute for an AvaloniaProperty supporting equality comparison with a default value and setter
     let inline defineProperty<'T when 'T: equality> name (defaultValue: 'T) (setter: obj -> 'T -> unit) =
         Attributes.defineSimpleScalarWithEquality<'T> name (fun _ newValueOpt node ->
             let target = node.Target :?> IAvaloniaObject

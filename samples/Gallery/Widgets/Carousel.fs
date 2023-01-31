@@ -2,10 +2,8 @@ namespace Gallery
 
 open System
 open Avalonia.Animation
-open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
-open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
@@ -17,12 +15,9 @@ module Carousel =
           Desc: string
           Image: string }
 
-    type Model =
-        { SampleData: DataType list
-          SelectedIndex: int }
+    type Model = { SampleData: DataType list }
 
     type Msg =
-        | SelectionChanged of int
         | Next
         | Previous
 
@@ -36,14 +31,12 @@ module Carousel =
                 Image = "fsharp-icon" }
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
-                Image = "github-icon" } ]
-          SelectedIndex = 1 }
+                Image = "github-icon" } ] }
 
     let carouselController = new CarouselController()
 
     let update msg model =
         match msg with
-        | SelectionChanged _ -> model
         | Next ->
             carouselController.DoNext()
             model
