@@ -78,7 +78,7 @@ module Carousel =
                     carousel.ClearValue(Carousel.ItemTemplateProperty)
                     carousel.ClearValue(Carousel.ItemsProperty)
                 | ValueSome value ->
-                    carousel.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    carousel.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, false))
                     |> ignore
 
                     carousel.SetValue(Carousel.ItemsProperty, value.OriginalItems))

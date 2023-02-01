@@ -40,6 +40,7 @@
     <Compile Include="Widgets\ListBox3.fs" />
     <Compile Include="Widgets\Carousel.fs" />
     <Compile Include="Widgets\Carousel2.fs" />
+    <Compile Include="Widgets\ItemsRepeater.fs" />
     <Compile Include="Widgets\ComboBox.fs" />
     <Compile Include="Widgets\CheckBox.fs" />
     <Compile Include="Widgets\SplitView.fs" />
