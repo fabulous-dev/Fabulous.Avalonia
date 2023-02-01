@@ -35,8 +35,12 @@ module ViewHelpers =
             // TargetType can be null for MemoWidget
             // but it has already been checked by Fabulous.ViewHelpers.canReuseView
             if def.TargetType <> null then
-                if def.TargetType.IsAssignableFrom(typeof<TextBlock>) then
+                if def.TargetType.IsAssignableTo(typeof<TextBlock>) then
                     canReuseTextBlock prev curr
+                elif def.TargetType.IsAssignableTo(typeof<Carousel>) then
+                    canReuseCarousel prev curr
+                elif def.TargetType.IsAssignableTo(typeof<ListBox>) then
+                    canReuseListBox prev curr
                 else
                     true
             else
@@ -58,6 +62,28 @@ module ViewHelpers =
             && (tryGetScalarValue curr TextBlock.Text).IsSome
 
         not switchingFromTextToInlines && not switchingFromInlinesToText
+
+    and canReuseCarousel (prev: Widget) (curr: Widget) =
+        let switchingFromItemsSourceToItems =
+            (tryGetScalarValue prev Carousel.ItemsSource).IsSome
+            && (tryGetWidgetCollectionValue curr Carousel.Items).IsSome
+
+        let switchingFromItemsToItemsSource =
+            (tryGetWidgetCollectionValue prev Carousel.Items).IsSome
+            && (tryGetScalarValue curr Carousel.ItemsSource).IsSome
+
+        not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
+
+    and canReuseListBox (prev: Widget) (curr: Widget) =
+        let switchingFromItemsSourceToItems =
+            (tryGetScalarValue prev ListBox.ItemsSource).IsSome
+            && (tryGetWidgetCollectionValue curr ListBox.Items).IsSome
+
+        let switchingFromItemsToItemsSource =
+            (tryGetWidgetCollectionValue prev ListBox.Items).IsSome
+            && (tryGetScalarValue curr ListBox.ItemsSource).IsSome
+
+        not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
 
     let defaultLogger () =
         let log (level, message) =

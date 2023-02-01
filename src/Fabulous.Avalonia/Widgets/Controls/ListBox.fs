@@ -18,17 +18,17 @@ module ListBox =
             "ListBox_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
-                let itemsView = node.Target :?> ListBox
+                let listBox = node.Target :?> ListBox
 
                 match newValueOpt with
                 | ValueNone ->
-                    itemsView.ClearValue(ListBox.ItemTemplateProperty)
-                    itemsView.ClearValue(ListBox.ItemsProperty)
+                    listBox.ClearValue(ListBox.ItemTemplateProperty)
+                    listBox.ClearValue(ListBox.ItemsProperty)
                 | ValueSome value ->
-                    itemsView.SetValue(ListBox.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    listBox.SetValue(ListBox.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
 
-                    itemsView.SetValue(ListBox.ItemsProperty, value.OriginalItems))
+                    listBox.SetValue(ListBox.ItemsProperty, value.OriginalItems))
 
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionModeProperty

@@ -21,9 +21,6 @@ module SelectingItemsControl =
     let WrapSelection =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.WrapSelectionProperty
 
-    let SelectedIndexChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
-
     let SelectionChanged =
         Attributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
             (target :?> SelectingItemsControl).SelectionChanged)
@@ -49,7 +46,3 @@ type SelectingItemsControlModifiers =
     [<Extension>]
     static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, onSelectionChanged: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(SelectingItemsControl.SelectionChanged.WithValue(fun args -> onSelectionChanged args |> box))
-
-    [<Extension>]
-    static member inline onSelectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, onSelectedIndexChanged: int -> 'msg) =
-        this.AddScalar(SelectingItemsControl.SelectedIndexChanged.WithValue(ValueEventData.create index (fun args -> onSelectedIndexChanged args |> box)))

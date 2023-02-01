@@ -71,6 +71,15 @@ module Attributes =
             | ValueNone -> target.ClearValue(directProperty)
             | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
 
+    /// Define an attribute for an AvaloniaProperty supporting equality comparison with a default value and setter
+    let inline defineProperty<'T when 'T: equality> name (defaultValue: 'T) (setter: obj -> 'T -> unit) =
+        Attributes.defineSimpleScalarWithEquality<'T> name (fun _ newValueOpt node ->
+            let target = node.Target :?> IAvaloniaObject
+
+            match newValueOpt with
+            | ValueNone -> setter target defaultValue
+            | ValueSome v -> setter target v)
+
     /// Define an attribute for an AvaloniaProperty supporting equality comparison and converter
     let inline defineAvaloniaPropertyWithEqualityConverter<'T, 'modelType, 'valueType when 'T: equality>
         (directProperty: AvaloniaProperty<'T>)
@@ -202,8 +211,10 @@ module Attributes =
                         let disposable =
                             observable.Subscribe(fun args ->
                                 if args.Sender = target then
-                                    let r = curr.Event(convertToModel args.NewValue.Value)
-                                    Dispatcher.dispatch node r)
+                                    if args.NewValue.HasValue then
+                                        let args = args.NewValue.Value
+                                        let r = curr.Event(convertToModel args)
+                                        Dispatcher.dispatch node r)
 
                         node.SetHandler(property.Name, ValueSome disposable))
             )

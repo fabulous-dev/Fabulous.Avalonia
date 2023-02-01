@@ -1,5 +1,6 @@
 namespace Gallery
 
+open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 
@@ -14,10 +15,9 @@ module ListBox =
 
     type Model =
         { SampleData: DataType list
-          SelectedIndex: int
-          Notification: string }
+          SelectedIndex: int }
 
-    type Msg = SelectedIndexChanged of int
+    type Msg = SelectedChanged of SelectionChangedEventArgs
 
     let init () =
         { SampleData =
@@ -30,15 +30,15 @@ module ListBox =
               { Name = "Mouse"
                 Species = "Mus musculus"
                 Family = "Muridae" } ]
-          SelectedIndex = -1
-          Notification = "" }
+          SelectedIndex = -1 }
 
     let update msg model =
         match msg with
-        | SelectedIndexChanged index ->
+        | SelectedChanged args ->
+            let control = args.Source :?> ListBox
+
             { model with
-                SelectedIndex = index
-                Notification = $"Family: {model.SampleData[index].Family}" }
+                SelectedIndex = control.SelectedIndex }
 
     let view model =
         VStack(spacing = 15.) {
@@ -47,38 +47,10 @@ module ListBox =
                 .fontWeight(FontWeight.Bold)
 
             ListBox(model.SampleData, (fun x -> TextBlock($"{x.Name} ({x.Species})")))
-                .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
-
-            TextBlock("ListBox using explicit ListBoxItem controls")
-                .fontWeight(FontWeight.Bold)
-                .margin(0, 30, 0, 0)
-
-            ListBox() {
-
-                ListBoxItem(TextBlock("Text with ListBoxIem and selected = true"), true)
-
-                HStack(30.) {
-                    TextBlock("Stack Item1")
-                    TextBlock("Stack Item2")
-                    TextBlock("Stack Item3")
-                }
-
-                TextBlock("Text with not ListBoxIem")
-
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .size(32., 32.)
-
-                Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow))
-
-                TextBlock("TextBlock")
-            }
-
-            TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
-
-            ListBox(Seq.init 1000 id, (fun x -> TextBlock($"Row {x}")))
+                .onSelectionChanged(SelectedChanged)
         }
 
     let sample =
         { Name = "ListBox"
-          Description = "A list box control"
+          Description = "A list box control using a collection with a WidgetDataTemplate"
           Program = Helper.createProgram init update view }
