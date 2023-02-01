@@ -1,5 +1,6 @@
 namespace Gallery
 
+open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 
@@ -9,20 +10,24 @@ module ListBox3 =
 
     type Model = { SelectedIndex: int }
 
-    type Msg = SelectedIndexChanged of int
+    type Msg = SelectedChanged of SelectionChangedEventArgs
 
     let init () = { SelectedIndex = -1 }
 
     let update msg model =
         match msg with
-        | SelectedIndexChanged index -> { model with SelectedIndex = index }
+        | SelectedChanged args ->
+            let control = args.Source :?> ListBox
+
+            { model with
+                SelectedIndex = control.SelectedIndex }
 
     let view model =
         VStack(spacing = 15.) {
             TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
 
             ListBox(Seq.init 1000 id, (fun x -> TextBlock($"Row {x}")))
-                .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
+                .onSelectionChanged(SelectedChanged)
         }
 
     let sample =

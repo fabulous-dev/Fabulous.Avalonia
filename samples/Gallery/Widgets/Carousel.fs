@@ -2,6 +2,7 @@ namespace Gallery
 
 open System
 open Avalonia.Animation
+open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
@@ -15,11 +16,14 @@ module Carousel =
           Desc: string
           Image: string }
 
-    type Model = { SampleData: DataType list }
+    type Model =
+        { SampleData: DataType list
+          SelectedIndex: int }
 
     type Msg =
         | Next
         | Previous
+        | SelectionChanged of SelectionChangedEventArgs
 
     let init () =
         { SampleData =
@@ -31,7 +35,8 @@ module Carousel =
                 Image = "fsharp-icon" }
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
-                Image = "github-icon" } ] }
+                Image = "github-icon" } ]
+          SelectedIndex = 1 }
 
     let carouselController = new CarouselController()
 
@@ -43,6 +48,12 @@ module Carousel =
         | Previous ->
             carouselController.DoPrevious()
             model
+
+        | SelectionChanged args ->
+            let control = args.Source :?> Carousel
+
+            { model with
+                SelectedIndex = control.SelectedIndex }
 
     let view model =
         (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
@@ -82,6 +93,7 @@ module Carousel =
                 .controller(carouselController)
                 .centerHorizontal()
                 .centerVertical()
+                .onSelectionChanged(SelectionChanged)
 
             Button(
                 Next,

@@ -23,7 +23,7 @@ module App =
         | WidgetPageMsg of WidgetPage.Msg
         | OverViewPageMsg of OverViewPage.Msg
         | ShowOverview
-        | SelectedIndexChanged of int
+        | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
 
@@ -47,11 +47,14 @@ module App =
             | Some widgetModel ->
                 let m, c = WidgetPage.update msg widgetModel
                 { model with WidgetModel = Some m }, (Cmd.map WidgetPageMsg c)
-        | SelectedIndexChanged index ->
+        | SelectedChanged args ->
+            let control = args.Source :?> ListBox
+            let controlSelectedIndex = control.SelectedIndex
+
             let model =
                 { model with
-                    WidgetModel = Some(WidgetPage.init index)
-                    SelectedIndex = index
+                    WidgetModel = Some(WidgetPage.init controlSelectedIndex)
+                    SelectedIndex = controlSelectedIndex
                     IsPanOpen = true }
 
             model, Cmd.none
@@ -78,7 +81,7 @@ module App =
                 Button("Overview", ShowOverview)
 
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
-                    .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
+                    .onSelectionChanged(SelectedChanged)
             })
                 .margin(Thickness(0., 20., 0., 0.))
         )
