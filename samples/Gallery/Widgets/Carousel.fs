@@ -99,5 +99,5 @@ module Carousel =
 
     let sample =
         { Name = "Carousel"
-          Description = "The Carousel control is an items control that displays its items as pages that fill the control."
+          Description = "The Carousel control using a collection with a WidgetDataTemplate"
           Program = Helper.createProgram init update view }

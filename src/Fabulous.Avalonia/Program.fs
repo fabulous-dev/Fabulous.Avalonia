@@ -39,6 +39,8 @@ module ViewHelpers =
                     canReuseTextBlock prev curr
                 elif def.TargetType.IsAssignableTo(typeof<Carousel>) then
                     canReuseCarousel prev curr
+                elif def.TargetType.IsAssignableTo(typeof<ListBox>) then
+                    canReuseListBox prev curr
                 else
                     true
             else
@@ -69,6 +71,17 @@ module ViewHelpers =
         let switchingFromItemsToItemsSource =
             (tryGetWidgetCollectionValue prev Carousel.Items).IsSome
             && (tryGetScalarValue curr Carousel.ItemsSource).IsSome
+
+        not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
+
+    and canReuseListBox (prev: Widget) (curr: Widget) =
+        let switchingFromItemsSourceToItems =
+            (tryGetScalarValue prev ListBox.ItemsSource).IsSome
+            && (tryGetWidgetCollectionValue curr ListBox.Items).IsSome
+
+        let switchingFromItemsToItemsSource =
+            (tryGetWidgetCollectionValue prev ListBox.Items).IsSome
+            && (tryGetScalarValue curr ListBox.ItemsSource).IsSome
 
         not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
 

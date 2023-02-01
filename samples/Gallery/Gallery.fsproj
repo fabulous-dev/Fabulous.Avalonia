@@ -36,6 +36,8 @@
     <Compile Include="Widgets\ContextMenu.fs" />
     <Compile Include="Widgets\Menu.fs" />
     <Compile Include="Widgets\ListBox.fs" />
+    <Compile Include="Widgets\ListBox2.fs" />
+    <Compile Include="Widgets\ListBox3.fs" />
     <Compile Include="Widgets\Carousel.fs" />
     <Compile Include="Widgets\Carousel2.fs" />
     <Compile Include="Widgets\ComboBox.fs" />

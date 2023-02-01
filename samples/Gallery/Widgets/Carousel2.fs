@@ -112,6 +112,6 @@ module Carousel2 =
             .horizontalAlignment(HorizontalAlignment.Stretch)
 
     let sample =
-        { Name = "Carousel2"
-          Description = "The Carousel control is an items control that displays its items as pages that fill the control."
+        { Name = "Carousel"
+          Description = "The Carousel control using explicit controls"
           Program = Helper.createProgram init update view }
