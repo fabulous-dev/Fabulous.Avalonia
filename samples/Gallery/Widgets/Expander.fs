@@ -10,13 +10,18 @@ open type Fabulous.Avalonia.View
 module Expander =
     type Model = { IsExpanded: bool }
 
-    type Msg = ExpandChanged of bool
+    type Msg =
+        | ExpandChanged of bool
+        | Expanding
+        | Collapsing
 
     let init () = { IsExpanded = true }
 
     let update msg model =
         match msg with
         | ExpandChanged b -> { model with IsExpanded = b }
+        | Expanding -> model
+        | Collapsing -> model
 
     let view model =
         VStack(spacing = 15.) {
@@ -50,6 +55,8 @@ module Expander =
                 }
             )
                 .expandDirection(ExpandDirection.Right)
+                .onCollapsing(Collapsing)
+                .onExpanding(Expanding)
         }
 
     let sample =

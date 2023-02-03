@@ -24,6 +24,12 @@ module Expander =
     let ExpandedChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
+    let Collapsing =
+        Attributes.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
+
+    let Expanding =
+        Attributes.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
+
 [<AutoOpen>]
 module ExpanderBuilders =
     type Fabulous.Avalonia.View with
@@ -85,3 +91,11 @@ type ExpanderModifiers =
     [<Extension>]
     static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, onExpanded: bool -> 'msg) =
         this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> onExpanded arg |> box)))
+
+    [<Extension>]
+    static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabExpander>, onCollapsing: 'msg) =
+        this.AddScalar(Expander.Collapsing.WithValue(fun _ -> onCollapsing |> box))
+
+    [<Extension>]
+    static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, onExpanding: 'msg) =
+        this.AddScalar(Expander.Expanding.WithValue(fun _ -> onExpanding |> box))
