@@ -44,7 +44,7 @@ type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>
     inherit FabApplication()
 
     override this.Initialize() =
-        this.Styles.Add(FluentTheme(baseUri = null, Mode = FluentThemeMode.Light))
+        this.Styles.Add(FluentTheme())
         base.Initialize()
 
     override this.OnFrameworkInitializationCompleted() =

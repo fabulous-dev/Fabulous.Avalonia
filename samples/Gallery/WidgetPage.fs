@@ -52,7 +52,6 @@ module WidgetPage =
           ListBox3.sample
           Carousel.sample
           Carousel2.sample
-          ItemsRepeater.sample
           ComboBox.sample
           MenuFlyout.sample
           ContextMenu.sample

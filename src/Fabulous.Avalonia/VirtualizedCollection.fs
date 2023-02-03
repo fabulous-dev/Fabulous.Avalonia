@@ -8,7 +8,7 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget, supportsRecy
     inherit
         Avalonia.Controls.Templates.FuncDataTemplate(
             typeof<obj>,
-            System.Func<obj, INameScope, IControl>(fun data n -> this.Build(data, n)),
+            System.Func<obj, INameScope, Control>(fun data n -> this.Build(data, n)),
             supportsRecycling = supportsRecycling
         )
 
@@ -25,15 +25,14 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget, supportsRecy
             definition.CreateView(widget, node.TreeContext, ValueSome node)
 
         let item = ContentControl()
-        item.Content <- (view :?> IControl)
+        item.Content <- (view :?> Control)
 
         let mutable prevWidget = widget
 
         item.DataContextChanged.AddHandler(
             EventHandler(fun sender args ->
                 if supportsRecycling then
-                    let currWidget =
-                        this.Recycle((sender :?> IControl).DataContext, prevWidget, rowNode)
+                    let currWidget = this.Recycle((sender :?> Control).DataContext, prevWidget, rowNode)
 
                     prevWidget <- currWidget)
 

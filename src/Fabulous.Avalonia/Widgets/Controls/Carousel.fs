@@ -57,9 +57,6 @@ module Carousel =
     let Controller =
         Attributes.defineProperty "Carousel_Controller" None (fun target value -> (target :?> CustomCarousel).Controller <- value)
 
-    let IsVirtualized =
-        Attributes.defineAvaloniaPropertyWithEquality Carousel.IsVirtualizedProperty
-
     let PageTransition =
         Attributes.defineAvaloniaPropertyWithEquality Carousel.PageTransitionProperty
 
@@ -99,10 +96,6 @@ module CarouselBuilders =
 
 [<Extension>]
 type CarouselModifiers =
-
-    [<Extension>]
-    static member inline isVirtualized(this: WidgetBuilder<'msg, #IFabCarousel>, value: bool) =
-        this.AddScalar(Carousel.IsVirtualized.WithValue(value))
 
     [<Extension>]
     static member inline pageTransition(this: WidgetBuilder<'msg, #IFabCarousel>, value: IPageTransition) =

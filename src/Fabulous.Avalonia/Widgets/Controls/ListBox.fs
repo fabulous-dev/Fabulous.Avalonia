@@ -34,8 +34,6 @@ module ListBox =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionModeProperty
 
-    let VirtualizationMode =
-        Attributes.defineAvaloniaPropertyWithEquality ListBox.VirtualizationModeProperty
 
 [<AutoOpen>]
 module ListBoxBuilders =
@@ -56,7 +54,3 @@ type ListBoxModifiers =
     [<Extension>]
     static member inline selectionMode(this: WidgetBuilder<'msg, #IFabListBox>, value: SelectionMode) =
         this.AddScalar(ListBox.SelectionMode.WithValue(value))
-
-    [<Extension>]
-    static member inline virtualizationMode(this: WidgetBuilder<'msg, #IFabListBox>, value: ItemVirtualizationMode) =
-        this.AddScalar(ListBox.VirtualizationMode.WithValue(value))

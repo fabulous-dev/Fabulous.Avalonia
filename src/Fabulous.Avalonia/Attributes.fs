@@ -56,7 +56,7 @@ module Attributes =
         ([<InlineIfLambda>] compare: 'modelType -> 'modelType -> ScalarAttributeComparison)
         =
         Attributes.defineScalar<'modelType, 'valueType> property.Name convertValue compare (fun _ newValueOpt node ->
-            let target = node.Target :?> IAvaloniaObject
+            let target = node.Target :?> AvaloniaObject
 
             match newValueOpt with
             | ValueNone -> target.ClearValue(property)
@@ -65,7 +65,7 @@ module Attributes =
     /// Define an attribute for an AvaloniaProperty supporting equality comparison
     let inline defineAvaloniaPropertyWithEquality<'T when 'T: equality> (directProperty: AvaloniaProperty<'T>) =
         Attributes.defineSimpleScalarWithEquality<'T> directProperty.Name (fun _ newValueOpt node ->
-            let target = node.Target :?> IAvaloniaObject
+            let target = node.Target :?> AvaloniaObject
 
             match newValueOpt with
             | ValueNone -> target.ClearValue(directProperty)
@@ -74,7 +74,7 @@ module Attributes =
     /// Define an attribute for an AvaloniaProperty supporting equality comparison with a default value and setter
     let inline defineProperty<'T when 'T: equality> name (defaultValue: 'T) (setter: obj -> 'T -> unit) =
         Attributes.defineSimpleScalarWithEquality<'T> name (fun _ newValueOpt node ->
-            let target = node.Target :?> IAvaloniaObject
+            let target = node.Target :?> AvaloniaObject
 
             match newValueOpt with
             | ValueNone -> setter target defaultValue
@@ -86,7 +86,7 @@ module Attributes =
         (convert: 'modelType -> 'valueType)
         =
         Attributes.defineScalar<'modelType, 'valueType> directProperty.Name convert ScalarAttributeComparers.noCompare (fun _ newValueOpt node ->
-            let target = node.Target :?> IAvaloniaObject
+            let target = node.Target :?> AvaloniaObject
 
             match newValueOpt with
             | ValueNone -> target.ClearValue(directProperty)
@@ -160,8 +160,8 @@ module Attributes =
 
     /// Define an attribute storing a Widget for an AvaloniaProperty
     let inline defineAvaloniaPropertyWidget (property: AvaloniaProperty<'T>) =
-        Attributes.definePropertyWidget property.Name (fun target -> (target :?> IAvaloniaObject).GetValue(property)) (fun target value ->
-            let avaloniaObject = target :?> IAvaloniaObject
+        Attributes.definePropertyWidget property.Name (fun target -> (target :?> AvaloniaObject).GetValue(property)) (fun target value ->
+            let avaloniaObject = target :?> AvaloniaObject
 
             if value = null then
                 avaloniaObject.ClearValue(property)

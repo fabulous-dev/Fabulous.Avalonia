@@ -125,7 +125,6 @@
     <Compile Include="Widgets\Controls\TabStripItem.fs" />
     <Compile Include="Widgets\Controls\TabStrip.fs" />
     <Compile Include="Widgets\Controls\ListBox.fs" />
-    <Compile Include="Widgets\Controls\ItemsRepeater.fs" />
     <Compile Include="Widgets\Controls\Carousel.fs" />
     <Compile Include="Widgets\Controls\_Spinner.fs" />
     <Compile Include="Widgets\Controls\Shapes\_Shape.fs" />
@@ -180,20 +179,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
-    <PackageReference Include="Fabulous" Version="2.2.0" />
+    <PackageReference Include="Avalonia" Version="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview5" />
+    <PackageReference Include="Fabulous" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" Version="11.0.0-preview4" />
+    <PackageReference Include="Avalonia.Android" Version="11.0.0-preview5" />
   </ItemGroup>
 
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview4" />
+    <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview5" />
   </ItemGroup>
 
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview5" />
   </ItemGroup>
 </Project>

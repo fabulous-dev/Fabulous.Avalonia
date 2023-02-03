@@ -12,9 +12,6 @@ module Visual =
 
     let Bounds = Attributes.defineAvaloniaPropertyWithEquality Visual.BoundsProperty
 
-    let TransformedBounds =
-        Attributes.defineAvaloniaPropertyWithEquality Visual.TransformedBoundsProperty
-
     let ClipToBounds =
         Attributes.defineAvaloniaPropertyWithEquality Visual.ClipToBoundsProperty
 
@@ -43,10 +40,6 @@ type VisualModifiers =
     [<Extension>]
     static member inline bounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: Rect) =
         this.AddScalar(Visual.Bounds.WithValue(rect))
-
-    [<Extension>]
-    static member inline transformedBounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: TransformedBounds) =
-        this.AddScalar(Visual.TransformedBounds.WithValue(rect))
 
     [<Extension>]
     static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabVisual>, clip: bool) =

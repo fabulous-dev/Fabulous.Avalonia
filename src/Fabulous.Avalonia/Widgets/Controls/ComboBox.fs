@@ -18,8 +18,6 @@ module ComboBox =
     let MaxDropDownHeight =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.MaxDropDownHeightProperty
 
-    let VirtualizationMode =
-        Attributes.defineAvaloniaPropertyWithEquality ComboBox.VirtualizationModeProperty
 
     let PlaceholderText =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.PlaceholderTextProperty
@@ -60,10 +58,6 @@ type ComboBoxModifiers =
     [<Extension>]
     static member inline maxDropDownHeight(this: WidgetBuilder<'msg, #IFabComboBox>, value: double) =
         this.AddScalar(ComboBox.MaxDropDownHeight.WithValue(value))
-
-    [<Extension>]
-    static member inline virtualizationMode(this: WidgetBuilder<'msg, #IFabComboBox>, value: ItemVirtualizationMode) =
-        this.AddScalar(ComboBox.VirtualizationMode.WithValue(value))
 
     [<Extension>]
     static member inline placeholderText(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
