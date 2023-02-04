@@ -80,6 +80,15 @@ module Attributes =
             | ValueNone -> setter target defaultValue
             | ValueSome v -> setter target v)
 
+    /// Define an attribute for an AvaloniaProperty supporting equality comparison with getter and setter
+    let inline definePropertyWithGetSet<'T when 'T: equality> name (getter: obj -> 'T) (setter: obj -> 'T -> unit) =
+        Attributes.defineSimpleScalarWithEquality<'T> name (fun _ newValueOpt node ->
+            let target = node.Target :?> AvaloniaObject
+
+            match newValueOpt with
+            | ValueNone -> setter target (getter target)
+            | ValueSome v -> setter target v)
+
     /// Define an attribute for an AvaloniaProperty supporting equality comparison and converter
     let inline defineAvaloniaPropertyWithEqualityConverter<'T, 'modelType, 'valueType when 'T: equality>
         (directProperty: AvaloniaProperty<'T>)
