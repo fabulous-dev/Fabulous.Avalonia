@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
+open Avalonia.Media
 open Avalonia.VisualTree
 open Fabulous
 
@@ -24,9 +25,6 @@ module Visual =
 
     let OpacityMask = Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
 
-    let HasMirroredTransform =
-        Attributes.defineAvaloniaPropertyWithEquality Visual.HasMirrorTransformProperty
-
     let RenderTransform =
         Attributes.defineAvaloniaPropertyWidget Visual.RenderTransformProperty
 
@@ -34,6 +32,9 @@ module Visual =
         Attributes.defineAvaloniaPropertyWithEquality Visual.RenderTransformOriginProperty
 
     let ZIndex = Attributes.defineAvaloniaPropertyWithEquality Visual.ZIndexProperty
+
+    let FlowDirection =
+        Attributes.defineAvaloniaPropertyWithEquality Visual.FlowDirectionProperty
 
 [<Extension>]
 type VisualModifiers =
@@ -62,10 +63,6 @@ type VisualModifiers =
         this.AddWidget(Visual.OpacityMask.WithValue(mask.Compile()))
 
     [<Extension>]
-    static member inline hasMirroredTransform(this: WidgetBuilder<'msg, #IFabVisual>, hasMirror: bool) =
-        this.AddScalar(Visual.HasMirroredTransform.WithValue(hasMirror))
-
-    [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, transform: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Visual.RenderTransform.WithValue(transform.Compile()))
 
@@ -76,3 +73,7 @@ type VisualModifiers =
     [<Extension>]
     static member inline zIndex(this: WidgetBuilder<'msg, #IFabVisual>, index: int) =
         this.AddScalar(Visual.ZIndex.WithValue(index))
+
+    [<Extension>]
+    static member inline flowDirection(this: WidgetBuilder<'msg, #IFabVisual>, direction: FlowDirection) =
+        this.AddScalar(Visual.FlowDirection.WithValue(direction))

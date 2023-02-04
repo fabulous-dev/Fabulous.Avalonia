@@ -15,8 +15,22 @@ module ItemsControl =
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty
 
+    let AreHorizontalSnapPointsRegular =
+        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.AreHorizontalSnapPointsRegularProperty
+
+    let AreVerticalSnapPointsRegular =
+        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.AreVerticalSnapPointsRegularProperty
+
 [<Extension>]
 type ItemsControlModifiers =
     [<Extension>]
-    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value) =
+    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value: int) =
         this.AddScalar(ItemsControl.ItemCount.WithValue(value))
+
+    [<Extension>]
+    static member inline areHorizontalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
+        this.AddScalar(ItemsControl.AreHorizontalSnapPointsRegular.WithValue(value))
+
+    [<Extension>]
+    static member inline areVerticalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
+        this.AddScalar(ItemsControl.AreVerticalSnapPointsRegular.WithValue(value))
