@@ -4,12 +4,12 @@ open System
 open Avalonia.Controls
 open Fabulous
 
-type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
+type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget, supportsRecycling: bool) as this =
     inherit
         Avalonia.Controls.Templates.FuncDataTemplate(
             typeof<obj>,
-            System.Func<obj, INameScope, IControl>(fun data n -> this.Build(data, n)),
-            supportsRecycling = true
+            System.Func<obj, INameScope, Control>(fun data n -> this.Build(data, n)),
+            supportsRecycling = supportsRecycling
         )
 
     member this.Recycle(newData: obj, prevWidget: Widget, rowNode: IViewNode) : Widget =
@@ -25,16 +25,17 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
             definition.CreateView(widget, node.TreeContext, ValueSome node)
 
         let item = ContentControl()
-        item.Content <- (view :?> IControl)
+        item.Content <- (view :?> Control)
 
         let mutable prevWidget = widget
 
         item.DataContextChanged.AddHandler(
             EventHandler(fun sender args ->
-                let currWidget =
-                    this.Recycle((sender :?> IControl).DataContext, prevWidget, rowNode)
+                if supportsRecycling then
+                    let currWidget = this.Recycle((sender :?> Control).DataContext, prevWidget, rowNode)
 
-                prevWidget <- currWidget)
+                    prevWidget <- currWidget)
+
         )
 
         item

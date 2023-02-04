@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Collections.Generic
+open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
 
@@ -25,7 +26,7 @@ module ListBox =
                     listBox.ClearValue(ListBox.ItemTemplateProperty)
                     listBox.ClearValue(ListBox.ItemsProperty)
                 | ValueSome value ->
-                    listBox.SetValue(ListBox.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    listBox.SetValue(ListBox.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
                     |> ignore
 
                     listBox.SetValue(ListBox.ItemsProperty, value.OriginalItems))
@@ -33,8 +34,6 @@ module ListBox =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionModeProperty
 
-    let VirtualizationMode =
-        Attributes.defineAvaloniaPropertyWithEquality ListBox.VirtualizationModeProperty
 
 [<AutoOpen>]
 module ListBoxBuilders =
@@ -49,3 +48,9 @@ module ListBoxBuilders =
 
         static member inline ListBox<'msg>() =
             CollectionBuilder<'msg, IFabListBox, IFabControl>(ListBox.WidgetKey, ListBox.Items)
+
+[<Extension>]
+type ListBoxModifiers =
+    [<Extension>]
+    static member inline selectionMode(this: WidgetBuilder<'msg, #IFabListBox>, value: SelectionMode) =
+        this.AddScalar(ListBox.SelectionMode.WithValue(value))

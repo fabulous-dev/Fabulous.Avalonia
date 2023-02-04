@@ -8,14 +8,14 @@ type IFabFluentTheme =
     inherit IFabStyle
 
 module FluentTheme =
-    let WidgetKey =
-        Widgets.registerWithFactory<FluentTheme>(fun () -> FluentTheme(baseUri = null))
+    let WidgetKey = Widgets.registerWithFactory<FluentTheme>(fun () -> FluentTheme())
 
-    let Mode = Attributes.defineAvaloniaPropertyWithEquality FluentTheme.ModeProperty
+    let DensityStyle =
+        Attributes.defineAvaloniaPropertyWithEquality FluentTheme.DensityStyleProperty
 
 [<AutoOpen>]
 module FluentThemeBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline FluentTheme<'msg>(mode: FluentThemeMode) =
-            WidgetBuilder<'msg, IFabFluentTheme>(FluentTheme.WidgetKey, FluentTheme.Mode.WithValue(mode))
+        static member inline FluentTheme<'msg>(density: DensityStyle) =
+            WidgetBuilder<'msg, IFabFluentTheme>(FluentTheme.WidgetKey, FluentTheme.DensityStyle.WithValue(density))

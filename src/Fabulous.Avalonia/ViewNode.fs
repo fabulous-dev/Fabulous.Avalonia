@@ -5,10 +5,10 @@ open Avalonia
 
 module ViewNode =
     let ViewNodeProperty =
-        StyledProperty.RegisterAttached<ViewNode, IAvaloniaObject, IViewNode>("ViewNode")
+        StyledProperty.RegisterAttached<ViewNode, AvaloniaObject, IViewNode>("ViewNode")
 
     let get (target: obj) =
-        (target :?> IAvaloniaObject).GetValue(ViewNodeProperty)
+        (target :?> AvaloniaObject).GetValue(ViewNodeProperty)
 
     let set (node: IViewNode) (target: obj) =
-        (target :?> IAvaloniaObject).SetValue(ViewNodeProperty, node) |> ignore
+        (target :?> AvaloniaObject).SetValue(ViewNodeProperty, node) |> ignore

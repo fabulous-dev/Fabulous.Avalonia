@@ -22,7 +22,7 @@ type WidgetItems =
       Template: obj -> Widget }
 
 module Widgets =
-    let registerWithFactory<'T when 'T :> IAvaloniaObject> (factory: unit -> 'T) =
+    let registerWithFactory<'T when 'T :> AvaloniaObject> (factory: unit -> 'T) =
         let key = WidgetDefinitionStore.getNextKey()
 
         let definition =
@@ -72,7 +72,7 @@ module Widgets =
         WidgetDefinitionStore.set key definition
         key
 
-    let register<'T when 'T :> IAvaloniaObject and 'T: (new: unit -> 'T)> () = registerWithFactory(fun () -> new 'T())
+    let register<'T when 'T :> AvaloniaObject and 'T: (new: unit -> 'T)> () = registerWithFactory(fun () -> new 'T())
 
 module WidgetHelpers =
     let inline buildAttributeCollection<'msg, 'marker, 'item>

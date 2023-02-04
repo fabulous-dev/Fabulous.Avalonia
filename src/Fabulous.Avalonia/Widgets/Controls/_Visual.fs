@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
+open Avalonia.Media
 open Avalonia.VisualTree
 open Fabulous
 
@@ -11,9 +12,6 @@ type IFabVisual =
 module Visual =
 
     let Bounds = Attributes.defineAvaloniaPropertyWithEquality Visual.BoundsProperty
-
-    let TransformedBounds =
-        Attributes.defineAvaloniaPropertyWithEquality Visual.TransformedBoundsProperty
 
     let ClipToBounds =
         Attributes.defineAvaloniaPropertyWithEquality Visual.ClipToBoundsProperty
@@ -27,9 +25,6 @@ module Visual =
 
     let OpacityMask = Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
 
-    let HasMirroredTransform =
-        Attributes.defineAvaloniaPropertyWithEquality Visual.HasMirrorTransformProperty
-
     let RenderTransform =
         Attributes.defineAvaloniaPropertyWidget Visual.RenderTransformProperty
 
@@ -38,15 +33,14 @@ module Visual =
 
     let ZIndex = Attributes.defineAvaloniaPropertyWithEquality Visual.ZIndexProperty
 
+    let FlowDirection =
+        Attributes.defineAvaloniaPropertyWithEquality Visual.FlowDirectionProperty
+
 [<Extension>]
 type VisualModifiers =
     [<Extension>]
     static member inline bounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: Rect) =
         this.AddScalar(Visual.Bounds.WithValue(rect))
-
-    [<Extension>]
-    static member inline transformedBounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: TransformedBounds) =
-        this.AddScalar(Visual.TransformedBounds.WithValue(rect))
 
     [<Extension>]
     static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabVisual>, clip: bool) =
@@ -69,10 +63,6 @@ type VisualModifiers =
         this.AddWidget(Visual.OpacityMask.WithValue(mask.Compile()))
 
     [<Extension>]
-    static member inline hasMirroredTransform(this: WidgetBuilder<'msg, #IFabVisual>, hasMirror: bool) =
-        this.AddScalar(Visual.HasMirroredTransform.WithValue(hasMirror))
-
-    [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, transform: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Visual.RenderTransform.WithValue(transform.Compile()))
 
@@ -83,3 +73,7 @@ type VisualModifiers =
     [<Extension>]
     static member inline zIndex(this: WidgetBuilder<'msg, #IFabVisual>, index: int) =
         this.AddScalar(Visual.ZIndex.WithValue(index))
+
+    [<Extension>]
+    static member inline flowDirection(this: WidgetBuilder<'msg, #IFabVisual>, direction: FlowDirection) =
+        this.AddScalar(Visual.FlowDirection.WithValue(direction))
