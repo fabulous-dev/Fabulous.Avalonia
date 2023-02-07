@@ -10,6 +10,8 @@ open Fabulous
 type IFabTransition =
     inherit IFabElement
 
+type IDoubleTransition =
+    inherit IFabTransition
 
 module DoubleTransition =
     let WidgetKey = Widgets.register<DoubleTransition>()
@@ -36,7 +38,7 @@ module DoubleTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member DoubleTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IDoubleTransition>(
                 DoubleTransition.WidgetKey,
                 DoubleTransition.Property.WithValue(property),
                 DoubleTransition.Duration.WithValue(duration)
@@ -45,12 +47,15 @@ module DoubleTransitionBuilders =
 [<Extension>]
 type DoubleTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IDoubleTransition>, value: TimeSpan) =
         this.AddScalar(DoubleTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IDoubleTransition>, value: Easing) =
         this.AddScalar(DoubleTransition.Easing.WithValue(value))
+
+type IFabBoxShadowsTransition =
+    inherit IFabTransition
 
 module BoxShadowsTransition =
 
@@ -79,7 +84,7 @@ module BoxShadowsTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member BoxShadowsTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabBoxShadowsTransition>(
                 BoxShadowsTransition.WidgetKey,
                 BoxShadowsTransition.Property.WithValue(property),
                 BoxShadowsTransition.Duration.WithValue(duration)
@@ -88,12 +93,16 @@ module BoxShadowsTransitionBuilders =
 [<Extension>]
 type BoxShadowsTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabBoxShadowsTransition>, value: TimeSpan) =
         this.AddScalar(BoxShadowsTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabBoxShadowsTransition>, value: Easing) =
         this.AddScalar(BoxShadowsTransition.Easing.WithValue(value))
+
+
+type IFabBrushTransition =
+    inherit IFabTransition
 
 module BrushTransition =
 
@@ -121,7 +130,7 @@ module BrushTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member BrushTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabBrushTransition>(
                 BrushTransition.WidgetKey,
                 BrushTransition.Property.WithValue(property),
                 BrushTransition.Duration.WithValue(duration)
@@ -130,12 +139,15 @@ module BrushTransitionBuilders =
 [<Extension>]
 type BrushTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabBrushTransition>, value: TimeSpan) =
         this.AddScalar(BrushTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabBrushTransition>, value: Easing) =
         this.AddScalar(BrushTransition.Easing.WithValue(value))
+
+type IFabColorTransition =
+    inherit IFabTransition
 
 module ColorTransition =
     let WidgetKey = Widgets.register<ColorTransition>()
@@ -162,7 +174,7 @@ module ColorTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member ColorTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabColorTransition>(
                 ColorTransition.WidgetKey,
                 ColorTransition.Property.WithValue(property),
                 ColorTransition.Duration.WithValue(duration)
@@ -171,12 +183,15 @@ module ColorTransitionBuilders =
 [<Extension>]
 type ColorTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabColorTransition>, value: TimeSpan) =
         this.AddScalar(ColorTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabColorTransition>, value: Easing) =
         this.AddScalar(ColorTransition.Easing.WithValue(value))
+
+type IFabCornerRadiusTransition =
+    inherit IFabTransition
 
 module CornerRadiusTransition =
 
@@ -205,7 +220,7 @@ module CornerRadiusTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member CornerRadiusTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabCornerRadiusTransition>(
                 CornerRadiusTransition.WidgetKey,
                 CornerRadiusTransition.Property.WithValue(property),
                 CornerRadiusTransition.Duration.WithValue(duration)
@@ -214,12 +229,15 @@ module CornerRadiusTransitionBuilders =
 [<Extension>]
 type CornerRadiusTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabCornerRadiusTransition>, value: TimeSpan) =
         this.AddScalar(CornerRadiusTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabCornerRadiusTransition>, value: Easing) =
         this.AddScalar(CornerRadiusTransition.Easing.WithValue(value))
+
+type IFabFloatTransition =
+    inherit IFabTransition
 
 module FloatTransition =
     let WidgetKey = Widgets.register<FloatTransition>()
@@ -246,7 +264,7 @@ module FloatTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member FloatTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabFloatTransition>(
                 FloatTransition.WidgetKey,
                 FloatTransition.Property.WithValue(property),
                 FloatTransition.Duration.WithValue(duration)
@@ -255,13 +273,15 @@ module FloatTransitionBuilders =
 [<Extension>]
 type FloatTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabFloatTransition>, value: TimeSpan) =
         this.AddScalar(FloatTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabFloatTransition>, value: Easing) =
         this.AddScalar(FloatTransition.Easing.WithValue(value))
 
+type IFabIntegerTransition =
+    inherit IFabTransition
 
 module IntegerTransition =
     let WidgetKey = Widgets.register<IntegerTransition>()
@@ -288,7 +308,7 @@ module IntegerTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member IntegerTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabIntegerTransition>(
                 IntegerTransition.WidgetKey,
                 IntegerTransition.Property.WithValue(property),
                 IntegerTransition.Duration.WithValue(duration)
@@ -297,12 +317,15 @@ module IntegerTransitionBuilders =
 [<Extension>]
 type IntegerTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabIntegerTransition>, value: TimeSpan) =
         this.AddScalar(IntegerTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabIntegerTransition>, value: Easing) =
         this.AddScalar(IntegerTransition.Easing.WithValue(value))
+
+type IFabPointTransition =
+    inherit IFabTransition
 
 module PointTransition =
 
@@ -330,7 +353,7 @@ module PointTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member PointTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabPointTransition>(
                 PointTransition.WidgetKey,
                 PointTransition.Property.WithValue(property),
                 PointTransition.Duration.WithValue(duration)
@@ -339,12 +362,15 @@ module PointTransitionBuilders =
 [<Extension>]
 type PointTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabPointTransition>, value: TimeSpan) =
         this.AddScalar(PointTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabPointTransition>, value: Easing) =
         this.AddScalar(PointTransition.Easing.WithValue(value))
+
+type IFabSizeTransition =
+    inherit IFabTransition
 
 module SizeTransition =
 
@@ -373,7 +399,7 @@ module SizeTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member SizeTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabSizeTransition>(
                 SizeTransition.WidgetKey,
                 SizeTransition.Property.WithValue(property),
                 SizeTransition.Duration.WithValue(duration)
@@ -382,12 +408,15 @@ module SizeTransitionBuilders =
 [<Extension>]
 type SizeTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabSizeTransition>, value: TimeSpan) =
         this.AddScalar(SizeTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabSizeTransition>, value: Easing) =
         this.AddScalar(SizeTransition.Easing.WithValue(value))
+
+type IFabThicknessTransition =
+    inherit IFabTransition
 
 module ThicknessTransition =
 
@@ -415,7 +444,7 @@ module ThicknessTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member ThicknessTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabThicknessTransition>(
                 ThicknessTransition.WidgetKey,
                 ThicknessTransition.Property.WithValue(property),
                 ThicknessTransition.Duration.WithValue(duration)
@@ -424,12 +453,15 @@ module ThicknessTransitionBuilders =
 [<Extension>]
 type ThicknessTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabThicknessTransition>, value: TimeSpan) =
         this.AddScalar(ThicknessTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabThicknessTransition>, value: Easing) =
         this.AddScalar(ThicknessTransition.Easing.WithValue(value))
+
+type IFabTransformOperationsTransition =
+    inherit IFabTransition
 
 module TransformOperationsTransition =
 
@@ -465,7 +497,7 @@ module TransformOperationsTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member TransformOperationsTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabTransition>(
+            WidgetBuilder<'msg, IFabTransformOperationsTransition>(
                 TransformOperationsTransition.WidgetKey,
                 TransformOperationsTransition.Property.WithValue(property),
                 TransformOperationsTransition.Duration.WithValue(duration)
@@ -474,9 +506,9 @@ module TransformOperationsTransitionBuilders =
 [<Extension>]
 type TransformOperationsTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IFabTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabTransformOperationsTransition>, value: TimeSpan) =
         this.AddScalar(TransformOperationsTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IFabTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabTransformOperationsTransition>, value: Easing) =
         this.AddScalar(TransformOperationsTransition.Easing.WithValue(value))

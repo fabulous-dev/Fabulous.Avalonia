@@ -3,15 +3,11 @@ namespace Gallery
 open System
 open Avalonia
 open Avalonia.Animation
-open Avalonia.Animation.Easings
 open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Media.Transformation
-open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Controls
 
 open type Fabulous.Avalonia.View
 
@@ -20,12 +16,50 @@ module Transitions =
         { Acorn: string
           Heart: string
           IsPlaying: bool
+          Angle: float
           AngleX: float
+          ScaleX: float
+          SkewX: float
+          Translate: float
+          Height: float
+          CornerRadius: float
+          Padding: Thickness
+          BoxShadow: BoxShadows
+          Background: Color
           PlayStateText: string }
 
     type Msg =
         | TogglePlayState
-        | OnPointerEnter of PointerEventArgs
+        | OnPointerEnter1 of PointerEventArgs
+        | OnPointerExited1 of PointerEventArgs
+
+        | OnPointerEnter2 of PointerEventArgs
+        | OnPointerExited2 of PointerEventArgs
+
+        | OnPointerEnter3 of PointerEventArgs
+        | OnPointerExited3 of PointerEventArgs
+
+        | OnPointerEnter4 of PointerEventArgs
+        | OnPointerExited4 of PointerEventArgs
+
+
+        | OnPointerEnter5 of PointerEventArgs
+        | OnPointerExited5 of PointerEventArgs
+
+        | OnPointerEnter6 of PointerEventArgs
+        | OnPointerExited6 of PointerEventArgs
+
+        | OnPointerEnter7 of PointerEventArgs
+        | OnPointerExited7 of PointerEventArgs
+
+        | OnPointerEnter8 of PointerEventArgs
+        | OnPointerExited8 of PointerEventArgs
+
+        | OnPointerEnter9 of PointerEventArgs
+        | OnPointerExited9 of PointerEventArgs
+
+        | OnPointerEnter10 of PointerEventArgs
+        | OnPointerExited10 of PointerEventArgs
 
     let init () =
         { Acorn =
@@ -33,6 +67,15 @@ module Transitions =
           IsPlaying = true
           PlayStateText = "Pause animations on this page"
           AngleX = 0.
+          Angle = 0.
+          ScaleX = 1.
+          SkewX = 0.
+          Translate = 0.
+          Height = 100.
+          CornerRadius = 0.
+          Padding = Thickness(0.)
+          BoxShadow = BoxShadows.Parse("2 2 2 2 Blue")
+          Background = Colors.Red
           Heart =
             "M 272.70141,238.71731 C 206.46141,238.71731 152.70146,292.4773 152.70146,358.71731 C 152.70146,493.47282 288.63461,528.80461 381.26391,662.02535 C 468.83815,529.62199 609.82641,489.17075 609.82641,358.71731 C 609.82641,292.47731 556.06651,238.7173 489.82641,238.71731 C 441.77851,238.71731 400.42481,267.08774 381.26391,307.90481 C 362.10311,267.08773 320.74941,238.7173 272.70141,238.71731 z" }
 
@@ -46,7 +89,52 @@ module Transitions =
                         "Resume animations on this page"
                     else
                         "Pause animations on this page" }
-        | OnPointerEnter _ -> { model with AngleX = 90. }
+        | OnPointerEnter1 _ -> { model with AngleX = 90. }
+
+        | OnPointerExited1 _ -> { model with AngleX = 0. }
+
+        | OnPointerEnter2 _ -> { model with ScaleX = 0.4 }
+
+        | OnPointerExited2 _ ->
+
+            { model with ScaleX = 1. }
+
+        | OnPointerEnter3 _ -> { model with Angle = 90. }
+
+        | OnPointerExited3 _ -> { model with Angle = 0. }
+
+        | OnPointerEnter4 _ -> { model with Translate = 90. }
+
+        | OnPointerExited4 _ -> { model with Translate = 0. }
+
+        | OnPointerEnter5 _ -> { model with SkewX = 90. }
+
+        | OnPointerExited5 _ -> { model with SkewX = 0. }
+
+        | OnPointerEnter6 _ -> { model with Height = 50. }
+
+        | OnPointerExited6 _ -> { model with Height = 100. }
+
+        | OnPointerEnter7 _ -> { model with CornerRadius = 50. }
+
+        | OnPointerExited7 _ -> { model with CornerRadius = 0. }
+
+
+        | OnPointerEnter8 _ -> { model with Padding = Thickness(50.) }
+
+        | OnPointerExited8 _ -> { model with Padding = Thickness(0.) }
+
+        | OnPointerEnter9 _ ->
+            { model with
+                BoxShadow = BoxShadows.Parse("5 5 10 2 Green") }
+
+        | OnPointerExited9 _ ->
+            { model with
+                BoxShadow = BoxShadows.Parse("2 2 2 2 Blue") }
+
+        | OnPointerEnter10 _ -> { model with Background = Colors.Green }
+
+        | OnPointerExited10 _ -> { model with Background = Colors.Red }
 
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) = this.margin(15.).size(100., 100.)
 
@@ -57,7 +145,7 @@ module Transitions =
             .background(SolidColorBrush(Colors.Transparent))
             .borderBrush(SolidColorBrush(Colors.Black))
             .borderThickness(1.)
-            .boxShadow("5 5 10 2 Blue")
+
 
     let acorn (path: string) =
         Path(path)
@@ -83,66 +171,135 @@ module Transitions =
                     Border(acorn model.Acorn)
                         .style(borderTestStyle)
                         .background(SolidColorBrush(Colors.DarkRed))
-                        .onPointerEnter(OnPointerEnter)
+                        .onPointerEnter(OnPointerEnter1)
+                        .onPointerExited(OnPointerExited1)
                         .renderTransform(
                             Rotate3DTransform(model.AngleX, 0., 0., 0., 0., -100., 200.).transitions() {
                                 DoubleTransition(Rotate3DTransform.AngleXProperty, TimeSpan.FromSeconds(1.))
-                                    .delay(TimeSpan.FromMilliseconds(0.5))
-                                    .easing(BounceEaseIn())
                             }
                         )
 
                     Border(acorn model.Acorn)
                         .style(borderTestStyle)
                         .background(SolidColorBrush(Colors.Magenta))
+                        .onPointerEnter(OnPointerEnter2)
+                        .onPointerExited(OnPointerExited2)
+                        .renderTransform(
+                            ScaleTransform(model.ScaleX, 1.).transitions() { DoubleTransition(ScaleTransform.ScaleXProperty, TimeSpan.FromSeconds(1.)) }
+                        )
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.Brown))
+                        .onPointerEnter(OnPointerEnter3)
+                        .onPointerExited(OnPointerExited3)
+                        .renderTransform(
+                            RotateTransform(model.Angle, 0., 0.).transitions() { DoubleTransition(RotateTransform.AngleProperty, TimeSpan.FromSeconds(1.)) }
+                        )
 
                     Border(acorn model.Acorn)
                         .background(SolidColorBrush(Colors.Navy))
                         .style(borderTestStyle)
+                        .onPointerEnter(OnPointerEnter4)
+                        .onPointerExited(OnPointerExited4)
+                        .renderTransform(
+                            TranslateTransform(model.Translate, 0.).transitions() { DoubleTransition(TranslateTransform.XProperty, TimeSpan.FromSeconds(1.)) }
+                        )
 
                     Border(acorn model.Acorn)
                         .background(SolidColorBrush(Colors.SeaGreen))
                         .style(borderTestStyle)
+                        .onPointerEnter(OnPointerEnter5)
+                        .onPointerExited(OnPointerExited5)
+                        .renderTransform(
+                            SkewTransform(model.SkewX, 0.).transitions() { DoubleTransition(SkewTransform.AngleXProperty, TimeSpan.FromSeconds(1.)) }
+                        )
 
                     Border(acorn model.Acorn)
                         .background(SolidColorBrush(Colors.Orange))
-                        .style(borderTestStyle)
+                        .onPointerEnter(OnPointerEnter6)
+                        .onPointerExited(OnPointerExited6)
+                        .margin(15.)
+                        .height(model.Height)
+                        .width(100.)
+                        .transitions() {
+                        DoubleTransition(Layoutable.HeightProperty, TimeSpan.FromSeconds(1.))
+                    }
+
 
                     Border(acorn model.Acorn)
                         .background(SolidColorBrush(Colors.Gold))
                         .style(borderTestStyle)
+                        .cornerRadius(CornerRadius(model.CornerRadius))
+                        .onPointerEnter(OnPointerEnter7)
+                        .onPointerExited(OnPointerExited7)
+                        .transitions() {
+                        CornerRadiusTransition(Avalonia.Controls.Border.CornerRadiusProperty, TimeSpan.FromSeconds(1.))
+                    }
 
                     Border(acorn model.Acorn)
                         .background(SolidColorBrush(Colors.Gray))
                         .style(borderTestStyle)
+                        .padding(model.Padding)
+                        .onPointerEnter(OnPointerEnter8)
+                        .onPointerExited(OnPointerExited8)
+                        .transitions() {
+                        ThicknessTransition(Avalonia.Controls.Decorator.PaddingProperty, TimeSpan.FromSeconds(1.))
+                    }
 
-                    Border(acorn model.Acorn)
-                        .background(SolidColorBrush(Colors.Red))
-                        .style(borderTestStyle)
 
-                    Border(heart model.Heart).cornerRadius(10.).style(borderShadowStyle)
+                    Border(heart model.Heart)
+                        .style(borderShadowStyle)
+                        .boxShadows(model.BoxShadow)
+                        .onPointerEnter(OnPointerEnter9)
+                        .onPointerExited(OnPointerExited9)
+                        .transitions() {
+                        BoxShadowsTransition(Avalonia.Controls.Border.BoxShadowProperty, TimeSpan.FromSeconds(1.))
+                    }
+
 
                     Border(heart model.Heart)
                         .cornerRadius(0., 30., 60., 0.)
-                        .style(borderShadowStyle)
+                        .margin(15.)
+                        .size(100., 100.)
+                        .background(
+                            SolidColorBrush(model.Background).transitions() { ColorTransition(SolidColorBrush.ColorProperty, TimeSpan.FromSeconds(1.)) }
+                        )
+                        .onPointerEnter(OnPointerEnter10)
+                        .onPointerExited(OnPointerExited10)
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
-                    Border(acorn model.Acorn).style(borderTestStyle)
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
+
+                    Border(acorn model.Acorn)
+                        .style(borderTestStyle)
+                        .background(SolidColorBrush(Colors.DarkRed))
 
                 })
                     .clipToBounds(false)

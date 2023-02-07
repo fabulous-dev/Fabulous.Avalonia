@@ -76,7 +76,7 @@ type BorderModifiers =
         this.AddScalar(Border.CornerRadius.WithValue(value))
 
     [<Extension>]
-    static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
+    static member inline boxShadows(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
         this.AddScalar(Border.BoxShadow.WithValue(value))
 
     [<Extension>]
@@ -123,9 +123,9 @@ type BorderExtraModifiers =
 
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(value)))
+        BorderModifiers.boxShadows(this, BoxShadows(BoxShadow.Parse(value)))
 
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
-        BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))
+        BorderModifiers.boxShadows(this, BoxShadows(BoxShadow.Parse(first), rest))
