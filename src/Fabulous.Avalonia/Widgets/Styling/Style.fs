@@ -21,8 +21,8 @@ module Style =
             let target = (target :?> Style)
             target.Setters.Clear()
 
-            for an in value do
-                target.Setters.Add(an))
+            for a in value do
+                target.Setters.Add(a))
 
 [<AutoOpen>]
 module StyleBuilders =

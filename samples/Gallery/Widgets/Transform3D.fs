@@ -58,7 +58,7 @@ module Transform3D =
         | AngleYChanged value -> { model with AngleY = value }
         | AngleZChanged value -> { model with AngleZ = value }
 
-    let border depth =
+    let border () =
         Border(
             Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                 .margin(5)
@@ -71,7 +71,7 @@ module Transform3D =
 
     let view model =
         (Grid(coldefs = [ Auto; Star; Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto; Auto ]) {
-            (border model.Depth)
+            border()
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkRed))
                 .styles() {
@@ -98,7 +98,7 @@ module Transform3D =
                 }
             }
 
-            (border model.Depth)
+            (border())
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkGreen))
                 .gridRow(0)
@@ -132,10 +132,9 @@ module Transform3D =
                             .cue(Cue(1.))
                     }
                 }
-
             }
 
-            (border model.Depth)
+            (border())
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkBlue))
                 .gridRow(0)
@@ -171,7 +170,7 @@ module Transform3D =
                 }
             }
 
-            (border model.Depth)
+            (border())
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.Orange))
                 .gridRow(0)
@@ -211,7 +210,7 @@ module Transform3D =
 
             Slider(100., 300., model.Depth, ValueChanged).gridRow(1).gridColumn(1)
 
-            (border model.Depth)
+            (border())
                 .background(
                     LinearGradientBrush(RelativePoint(Point(0., 0.), RelativeUnit.Relative), RelativePoint(Point(0., 1.), RelativeUnit.Relative)) {
                         GradientStop(0., Colors.Red)
@@ -247,6 +246,7 @@ module Transform3D =
             TextBlock("Angle Z: ").gridRow(6).gridColumn(2)
 
             Slider(-180., 180., model.AngleZ, AngleZChanged).gridRow(6).gridColumn(3)
+
         })
             .clock(Clock())
 

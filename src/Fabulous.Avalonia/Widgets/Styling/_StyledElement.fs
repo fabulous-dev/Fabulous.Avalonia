@@ -33,7 +33,7 @@ module StyledElement =
             target.Classes.AddRange(value))
 
     let Styles =
-        Attributes.defineAvaloniaListWidgetCollection "Styles" (fun target -> (target :?> StyledElement).Styles)
+        Attributes.defineAvaloniaListWidgetCollection "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles)
 
 [<Extension>]
 type StyledElementModifiers =
