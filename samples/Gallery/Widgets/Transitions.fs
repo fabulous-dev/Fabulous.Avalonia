@@ -257,7 +257,6 @@ module Transitions =
                         BoxShadowsTransition(Avalonia.Controls.Border.BoxShadowProperty, TimeSpan.FromSeconds(1.))
                     }
 
-
                     Border(heart model.Heart)
                         .cornerRadius(0., 30., 60., 0.)
                         .margin(15.)
@@ -267,40 +266,6 @@ module Transitions =
                         )
                         .onPointerEnter(OnPointerEnter10)
                         .onPointerExited(OnPointerExited10)
-
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
-                    Border(acorn model.Acorn)
-                        .style(borderTestStyle)
-                        .background(SolidColorBrush(Colors.DarkRed))
-
                 })
                     .clipToBounds(false)
             })
