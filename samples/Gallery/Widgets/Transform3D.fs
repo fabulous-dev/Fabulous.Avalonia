@@ -12,12 +12,6 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-module Styles =
-    let textBlockStyle (this: WidgetBuilder<'msg, IFabTextBlock>) =
-        this
-            .verticalAlignment(VerticalAlignment.Center)
-            .foreground(SolidColorBrush(Colors.White))
-
 module Transform3D =
     type Model =
         { Depth: float
@@ -75,8 +69,8 @@ module Transform3D =
             border()
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkRed))
-                .styles() {
-                Style().animations() {
+                .withAnimation() {
+                Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 0.)
@@ -105,8 +99,8 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.DarkGreen))
                 .gridRow(0)
                 .gridColumn(0)
-                .styles() {
-                Style().animations() {
+                .withAnimation() {
+                Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
@@ -141,8 +135,8 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.DarkBlue))
                 .gridRow(0)
                 .gridColumn(0)
-                .styles() {
-                Style().animations() {
+                .withAnimation() {
+                Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
@@ -177,8 +171,8 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.Orange))
                 .gridRow(0)
                 .gridColumn(0)
-                .styles() {
-                Style().animations() {
+                .withAnimation() {
+                Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 270.)

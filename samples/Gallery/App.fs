@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
+open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 
@@ -113,7 +114,9 @@ module App =
 #if MOBILE
     let app model = SingleViewApplication(view model)
 #else
-    let app model = DesktopApplication(Window(view model))
+    let app model =
+        DesktopApplication(Window(view model))
+            .styles("avares://Gallery/Styles/Styles.xaml")
 #endif
 
     let program =

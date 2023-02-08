@@ -68,7 +68,7 @@ type StyledElementModifiers =
         this.AddScalar(StyledElement.RequestedThemeVariantChanged.WithValue(ValueEventData.create theme (fun args -> onThemeChanged args |> box)))
 
     [<Extension>]
-    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>) =
+    static member inline withAnimation(this: WidgetBuilder<'msg, #IFabStyledElement>) =
         AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
 
     [<Extension>]

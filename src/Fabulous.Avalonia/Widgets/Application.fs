@@ -1,9 +1,11 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Markup.Xaml.Styling
 open Avalonia.Styling
 open Avalonia.Themes.Fluent
 open Fabulous
@@ -97,7 +99,11 @@ module Application =
         Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode
 
     let Styles =
-        Attributes.defineAvaloniaListWidgetCollection "Styles" (fun target -> (target :?> Application).Styles)
+        Attributes.defineProperty "Styles" Unchecked.defaultof<string> (fun target value ->
+            let styles = (target :?> FabApplication).Styles
+            let style = StyleInclude(baseUri = null)
+            style.Source <- Uri(value)
+            styles.Add(style))
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality Application.NameProperty
 
@@ -138,8 +144,9 @@ module ApplicationBuilders =
 [<Extension>]
 type ApplicationModifiers =
     [<Extension>]
-    static member inline styles(this: WidgetBuilder<'msg, #IFabApplication>) =
-        AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>(this, Application.Styles)
+    static member inline styles(this: WidgetBuilder<'msg, #IFabApplication>, url: string) =
+        this.AddScalar(Application.Styles.WithValue(url))
+
 
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
