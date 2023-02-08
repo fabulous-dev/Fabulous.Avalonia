@@ -43,11 +43,20 @@ module StyleBuilders =
         static member Style() =
             WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-        static member Style(setters: ISetter seq) =
-            WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, Style.Style.WithValue(Style()), Style.Setters.WithValue(setters))
+        static member Style(fn: System.Func<Selector, Selector>) =
+            WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, Style.Style.WithValue(Style(fn)))
+
+        static member Style(fn: System.Func<Selector, Selector>, setters: ISetter seq) =
+            WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, Style.Style.WithValue(Style(fn)), Style.Setters.WithValue(setters))
+
+        static member Style(selector: string) =
+            WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, Style.Style.WithValue(Style(fun x -> x.Class(selector))))
 
         static member Style(selector: string, setters: ISetter seq) =
             WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, Style.Style.WithValue(Style(fun x -> x.Class(selector))), Style.Setters.WithValue(setters))
+
+        static member Style(setters: ISetter seq) =
+            WidgetBuilder<'msg, IFabStyle>(Style.WidgetKey, Style.Style.WithValue(Style()), Style.Setters.WithValue(setters))
 
 [<Extension>]
 type StyleModifiers =

@@ -77,7 +77,7 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.DarkRed))
                 .styles() {
                 Style().animations() {
-                    Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
+                    (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 0.)
                               Setter(Visual.ZIndexProperty, 4) ]
@@ -95,7 +95,8 @@ module Transform3D =
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
                             .cue(Cue(1.))
-                    }
+                    })
+                        .iterationCount(IterationCount.Infinite)
                 }
             }
 
@@ -106,7 +107,7 @@ module Transform3D =
                 .gridColumn(0)
                 .styles() {
                 Style().animations() {
-                    Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
+                    (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
                               Setter(Visual.ZIndexProperty, 1) ]
@@ -130,7 +131,8 @@ module Transform3D =
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(1.))
-                    }
+                    })
+                        .iterationCount(IterationCount.Infinite)
                 }
             }
 
@@ -141,7 +143,7 @@ module Transform3D =
                 .gridColumn(0)
                 .styles() {
                 Style().animations() {
-                    Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
+                    (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
                               Setter(Visual.ZIndexProperty, 1) ]
@@ -165,7 +167,8 @@ module Transform3D =
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(1.))
-                    }
+                    })
+                        .iterationCount(IterationCount.Infinite)
                 }
             }
 
@@ -176,7 +179,7 @@ module Transform3D =
                 .gridColumn(0)
                 .styles() {
                 Style().animations() {
-                    Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
+                    (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 270.)
                               Setter(Visual.ZIndexProperty, 1) ]
@@ -200,7 +203,8 @@ module Transform3D =
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(1.))
-                    }
+                    })
+                        .iterationCount(IterationCount.Infinite)
                 }
             }
 
