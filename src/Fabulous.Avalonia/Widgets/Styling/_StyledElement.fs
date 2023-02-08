@@ -2,7 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
-open Avalonia.Controls
+open Avalonia.Collections
 open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -27,10 +27,15 @@ module StyledElement =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "StyledElement_RequestedThemeVariantChangedEvent" StyledElement.RequestedThemeVariantProperty
 
     let Classes =
-        Attributes.definePropertyWithGetSet "StyledElement_Classes" (fun target -> (target :?> StyledElement).Classes) (fun target value ->
-            let target = (target :?> StyledElement)
-            target.Classes.Clear()
-            target.Classes.AddRange(value))
+        Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
+            let target = node.Target :?> StyledElement
+
+            match newValueOpt with
+            | ValueNone -> target.Classes.Clear()
+            | ValueSome classes ->
+                let coll = AvaloniaList<string>()
+                classes |> List.iter coll.Add
+                target.Classes.AddRange coll)
 
     let Styles =
         Attributes.defineAvaloniaListWidgetCollection "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles)
@@ -68,7 +73,7 @@ type StyledElementModifiers =
 
     [<Extension>]
     static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, classes: string list) =
-        this.AddScalar(StyledElement.Classes.WithValue(Classes(classes)))
+        this.AddScalar(StyledElement.Classes.WithValue(classes))
 
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this

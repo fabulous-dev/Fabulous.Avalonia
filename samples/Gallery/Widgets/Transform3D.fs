@@ -3,6 +3,7 @@ namespace Gallery
 open System
 open Avalonia
 open Avalonia.Animation
+open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
@@ -75,7 +76,7 @@ module Transform3D =
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkRed))
                 .styles() {
-                Animations() {
+                Style().animations() {
                     Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 0.)
@@ -98,15 +99,14 @@ module Transform3D =
                 }
             }
 
-            (border())
+            border()
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkGreen))
                 .gridRow(0)
                 .gridColumn(0)
                 .styles() {
-                Animations() {
+                Style().animations() {
                     Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
-
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
                               Setter(Visual.ZIndexProperty, 1) ]
@@ -134,15 +134,14 @@ module Transform3D =
                 }
             }
 
-            (border())
+            border()
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkBlue))
                 .gridRow(0)
                 .gridColumn(0)
                 .styles() {
-                Animations() {
+                Style().animations() {
                     Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
-
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
                               Setter(Visual.ZIndexProperty, 1) ]
@@ -170,15 +169,14 @@ module Transform3D =
                 }
             }
 
-            (border())
+            border()
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.Orange))
                 .gridRow(0)
                 .gridColumn(0)
                 .styles() {
-                Animations() {
+                Style().animations() {
                     Animation(TimeSpan.FromSeconds(3.), IterationCount.Infinite) {
-
                         KeyFrame(
                             [ Setter(Rotate3DTransform.AngleXProperty, 270.)
                               Setter(Visual.ZIndexProperty, 1) ]
@@ -210,7 +208,7 @@ module Transform3D =
 
             Slider(100., 300., model.Depth, ValueChanged).gridRow(1).gridColumn(1)
 
-            (border())
+            border()
                 .background(
                     LinearGradientBrush(RelativePoint(Point(0., 0.), RelativeUnit.Relative), RelativePoint(Point(0., 1.), RelativeUnit.Relative)) {
                         GradientStop(0., Colors.Red)
