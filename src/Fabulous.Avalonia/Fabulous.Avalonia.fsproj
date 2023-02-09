@@ -23,6 +23,7 @@
     <Compile Include="Widgets\Styling\KeyFrame.fs" />
     <Compile Include="Widgets\Styling\Animation.fs" />
     <Compile Include="Widgets\Styling\Transition.fs" />
+    <Compile Include="Widgets\Styling\PageTransition.fs" />
     <Compile Include="Widgets\Styling\Style.fs" />
     <Compile Include="Widgets\Styling\_Animatable.fs" />
     <Compile Include="Widgets\Styling\_StyledElement.fs" />

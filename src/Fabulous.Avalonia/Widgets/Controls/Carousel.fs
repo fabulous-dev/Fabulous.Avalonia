@@ -98,7 +98,7 @@ module CarouselBuilders =
 type CarouselModifiers =
 
     [<Extension>]
-    static member inline pageTransition(this: WidgetBuilder<'msg, #IFabCarousel>, value: IPageTransition) =
+    static member inline transition(this: WidgetBuilder<'msg, #IFabCarousel>, value: IPageTransition) =
         this.AddScalar(Carousel.PageTransition.WithValue(value))
 
     [<Extension>]

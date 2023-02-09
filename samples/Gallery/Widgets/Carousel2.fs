@@ -90,7 +90,7 @@ module Carousel2 =
                     Image(ImageSource.fromString("avares://Gallery/Assets/Icons/github-icon.png"))
                 }
             })
-                .pageTransition(PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
+                .transition(PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
                 .margin(16)
                 .gridColumn(1)
                 .controller(carouselController)
