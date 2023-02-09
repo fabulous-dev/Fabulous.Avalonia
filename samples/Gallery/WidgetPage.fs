@@ -60,7 +60,11 @@ module WidgetPage =
           StackPanel.sample
           Image.sample
           Border.sample
-          Canvas.sample ]
+          Canvas.sample
+          Transform3D.sample
+          Transitions.sample
+          Styles.sample
+          PageTransitions.sample ]
 
     let getSamplesNames () = samples |> List.map(fun s -> s.Name)
 

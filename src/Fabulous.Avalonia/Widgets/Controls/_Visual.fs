@@ -25,8 +25,11 @@ module Visual =
 
     let OpacityMask = Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
 
-    let RenderTransform =
+    let RenderTransformWidget =
         Attributes.defineAvaloniaPropertyWidget Visual.RenderTransformProperty
+
+    let RenderTransform =
+        Attributes.defineAvaloniaPropertyWithEquality Visual.RenderTransformProperty
 
     let RenderTransformOrigin =
         Attributes.defineAvaloniaPropertyWithEquality Visual.RenderTransformOriginProperty
@@ -64,7 +67,11 @@ type VisualModifiers =
 
     [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, transform: WidgetBuilder<'msg, #IFabTransform>) =
-        this.AddWidget(Visual.RenderTransform.WithValue(transform.Compile()))
+        this.AddWidget(Visual.RenderTransformWidget.WithValue(transform.Compile()))
+
+    [<Extension>]
+    static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, transform: ITransform) =
+        this.AddScalar(Visual.RenderTransform.WithValue(transform))
 
     [<Extension>]
     static member inline renderTransformOrigin(this: WidgetBuilder<'msg, #IFabVisual>, origin: RelativePoint) =

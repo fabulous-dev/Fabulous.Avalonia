@@ -87,7 +87,7 @@ module Carousel =
 
                     })
             )
-                .pageTransition(Rotate3DTransition(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
+                .transition(Rotate3DTransition(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
                 .margin(16)
                 .gridColumn(1)
                 .controller(carouselController)
