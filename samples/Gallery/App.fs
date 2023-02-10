@@ -131,7 +131,7 @@ module App =
                 .title("Fabulous Gallery")
                 .transparencyLevelHint(WindowTransparencyLevel.AcrylicBlur)
                 .extendClientAreaToDecorationsHint(true)
-                //.icon(WindowIcon("avares://Gallery/Assets/Icons/fabulous-icon.ico"))
+        //.icon(WindowIcon("avares://Gallery/Assets/Icons/fabulous-icon.ico"))
         )
             .styles("avares://Gallery/Styles/Styles.xaml")
 #endif
