@@ -115,7 +115,24 @@ module App =
     let app model = SingleViewApplication(view model)
 #else
     let app model =
-        DesktopApplication(Window(view model))
+        DesktopApplication(
+            Window(
+                ExperimentalAcrylicBorder(view model)
+                    .isHitTestVisible(false)
+                    .material(
+                        ExperimentalAcrylicMaterial()
+                            .backgroundSource(AcrylicBackgroundSource.Digger)
+                            .tintColor(Colors.Black)
+                            .tintOpacity(0.5)
+                            .materialOpacity(0.65)
+                    )
+            )
+                .background(SolidColorBrush(Colors.Transparent))
+                .title("Fabulous Gallery")
+                .transparencyLevelHint(WindowTransparencyLevel.AcrylicBlur)
+                .extendClientAreaToDecorationsHint(true)
+                //.icon(WindowIcon("avares://Gallery/Assets/Icons/fabulous-icon.ico"))
+        )
             .styles("avares://Gallery/Styles/Styles.xaml")
 #endif
 
