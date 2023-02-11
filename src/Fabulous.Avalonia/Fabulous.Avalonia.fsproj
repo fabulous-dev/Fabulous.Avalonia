@@ -90,6 +90,7 @@
     <Compile Include="Widgets\Controls\Border.fs" />
     <Compile Include="Widgets\Controls\ExperimentalAcrylicMaterial.fs" />
     <Compile Include="Widgets\Controls\ExperimentalAcrylicBorder.fs" />
+    <Compile Include="Widgets\Controls\LayoutTransformControl.fs" />
     <Compile Include="Widgets\Controls\TickBar.fs" />
     <Compile Include="Widgets\Controls\DataValidationErrors.fs" />
     <Compile Include="Widgets\Controls\TextDecoration.fs" />
