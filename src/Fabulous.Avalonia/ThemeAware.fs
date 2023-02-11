@@ -35,4 +35,5 @@ module ThemeAwareProgram =
             { model with Model = subModel }, Cmd.map ModelMsg cmd
 
     let view (subView: 'model -> WidgetBuilder<'msg, #IFabApplication>) (model: Model<'model>) =
-        (View.map ModelMsg (subView model.Model)).onRequestedThemeVariantChanged(model.Theme, ThemeChanged)
+        (View.map ModelMsg (subView model.Model))
+            .onRequestedThemeVariantChanged(model.Theme, ThemeChanged)
