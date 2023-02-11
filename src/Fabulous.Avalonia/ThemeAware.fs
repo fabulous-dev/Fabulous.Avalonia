@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 [<AbstractClass; Sealed>]
 type ThemeAware =
     static member With(light: 'T, dark: 'T) =
-        if Application.Current.RequestedThemeVariant = ThemeVariant.Dark then
+        if Application.Current.ActualThemeVariant = ThemeVariant.Dark then
             dark
         else
             light
@@ -36,4 +36,4 @@ module ThemeAwareProgram =
 
     let view (subView: 'model -> WidgetBuilder<'msg, #IFabApplication>) (model: Model<'model>) =
         (View.map ModelMsg (subView model.Model))
-            .onRequestedThemeVariantChanged(model.Theme, ThemeChanged)
+            .onActualThemeVariantChanged(model.Theme, ThemeChanged)

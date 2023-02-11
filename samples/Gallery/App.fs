@@ -128,8 +128,6 @@ module App =
             )
                 .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
-                .transparencyLevelHint(WindowTransparencyLevel.AcrylicBlur)
-                .extendClientAreaToDecorationsHint(true)
         )
             .styles("avares://Gallery/Styles/Styles.xaml")
 #endif
@@ -141,4 +139,5 @@ module App =
             { ViewHelpers.defaultLogger() with
                 MinLogLevel = LogLevel.Debug }
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withThemeAwareness
 #endif
