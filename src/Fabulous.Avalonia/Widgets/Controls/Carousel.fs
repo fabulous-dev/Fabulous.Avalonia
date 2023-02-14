@@ -32,17 +32,21 @@ type CustomCarousel() as this =
 
     let _previousHandler = EventHandler(this.CustomPrevious)
 
-    let mutable _oldController: CarouselController option = None
+    let mutable _controller: CarouselController option = None
 
     member this.Controller
-        with get () = _oldController
-        and set (newController: CarouselController option) =
-            match newController with
-            | Some controller ->
-                controller.Next.AddHandler(_nextHandler)
-                controller.Previous.AddHandler(_previousHandler)
-                _oldController <- Some controller
-            | None -> _oldController <- None
+        with get () = _controller
+        and set value =
+            if _controller <> value then
+                // Unsubscribe the old controller
+                if _controller.IsSome then
+                    _controller.Value.Next.RemoveHandler(this.CustomNext)
+                    _controller.Value.Previous.RemoveHandler(this.CustomPrevious)
+
+                // Subscribe the new controller
+                _controller <- value
+                _controller.Value.Next.AddHandler(this.CustomNext)
+                _controller.Value.Previous.AddHandler(this.CustomPrevious)
 
     member private this.CustomNext _ _ = this.Next()
 
