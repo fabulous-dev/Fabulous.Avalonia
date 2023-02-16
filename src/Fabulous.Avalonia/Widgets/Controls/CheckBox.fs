@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System
 open Avalonia.Controls
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -18,16 +19,22 @@ module CheckBoxBuilders =
         static member inline CheckBox<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(false),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
+                ToggleButton.IsChecked.WithValue(isChecked),
+                ToggleButton.CheckedChanged.WithValue(fun args ->
+                    let control = args.Source :?> CheckBox
+                    let isChecked = Nullable.op_Explicit(control.IsChecked)
+                    onValueChanged isChecked |> box)
             )
 
         static member inline CheckBox<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(false),
+                ToggleButton.IsChecked.WithValue(isChecked),
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged(args) |> box))
+                ToggleButton.CheckedChanged.WithValue(fun args ->
+                    let control = args.Source :?> CheckBox
+                    let isChecked = Nullable.op_Explicit(control.IsChecked)
+                    onValueChanged isChecked |> box)
             )
 
         static member inline CheckBox(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
@@ -35,8 +42,11 @@ module CheckBoxBuilders =
                 CheckBox.WidgetKey,
                 AttributesBundle(
                     StackList.two(
-                        ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box)),
-                        ToggleButton.IsThreeState.WithValue(false)
+                        ToggleButton.IsChecked.WithValue(isChecked),
+                        ToggleButton.CheckedChanged.WithValue(fun args ->
+                            let control = args.Source :?> CheckBox
+                            let isChecked = Nullable.op_Explicit(control.IsChecked)
+                            onValueChanged isChecked |> box)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
