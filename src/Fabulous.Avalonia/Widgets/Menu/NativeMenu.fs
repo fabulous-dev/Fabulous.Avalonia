@@ -40,7 +40,7 @@ type NativeMenuModifiers =
 [<Extension>]
 type NativeMenuAttachedModifiers =
     [<Extension>]
-    static member inline nativeMenu(this: WidgetBuilder<'msg, #IFabWindow>, menu: WidgetBuilder<'msg, #IFabNativeMenu>) =
+    static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, menu: WidgetBuilder<'msg, #IFabNativeMenu>) =
         this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(menu.Compile()))
 
 [<Extension>]
