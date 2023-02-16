@@ -14,7 +14,7 @@ open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabApplication =
-    inherit IFabElement
+    inherit IFabObject
 
 type FabApplication() =
     inherit Application()

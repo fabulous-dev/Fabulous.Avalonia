@@ -13,9 +13,12 @@ type View =
     class
     end
 
-type IFabElement =
+type IFabObject =
     interface
     end
+
+type IFabElement =
+    inherit IFabObject
 
 type WidgetItems =
     { OriginalItems: IEnumerable
