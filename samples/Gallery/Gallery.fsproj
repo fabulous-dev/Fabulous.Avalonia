@@ -11,9 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="**\*.xaml" />
-    <AvaloniaResource Include="Assets\*" />
-    <AvaloniaResource Include="Assets\Fonts\*" />
+    <AvaloniaResource Include="Styles\*.xaml" />
+    <AvaloniaResource Include="Assets\**\*" />
   </ItemGroup>
   
   <ItemGroup>
@@ -78,16 +77,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Include="Assets\Icons\fabulous-icon.png" />
-    <AvaloniaResource Include="Assets\Icons\fsharp-icon.png" />
-    <AvaloniaResource Include="Assets\Icons\github-icon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Styles\Styles.xaml" />
   </ItemGroup>
 
   <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.targets" />

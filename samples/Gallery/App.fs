@@ -5,7 +5,6 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 
@@ -27,6 +26,7 @@ module App =
         | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
+        | DoNothing
 
     let init () =
         { WidgetModel = None
@@ -38,6 +38,7 @@ module App =
 
     let update msg model =
         match msg with
+        | DoNothing -> model, Cmd.none
         | ShowOverview -> { model with WidgetModel = None }, Cmd.none
         | OverViewPageMsg msg ->
             let m, c = OverViewPage.update msg model.OverviewModel
@@ -136,19 +137,50 @@ module App =
                             .menu(
                                 NativeMenu() {
                                     NativeMenuItem("Show Overview", ShowOverview)
-
                                     NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
+                                    NativeMenuItemSeparator()
+
+                                    NativeMenuItem("After separator", DoNothing)
                                         .toggleType(NativeMenuItemToggleType.CheckBox)
                                         .isChecked(model.IsPanOpen)
-
-                                    NativeMenuItemSeparator()
-                                    NativeMenuItem("After separator")
                                 }
                             )
                     }
                 )
         )
             .styles("avares://Gallery/Styles/Styles.xaml")
+            .trayIcons() {
+            TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
+                .menu(
+                    NativeMenu() {
+                        NativeMenuItem("Settings")
+                            .menu(
+                                NativeMenu() {
+                                    NativeMenuItem("Option 1", DoNothing)
+                                        .toggleType(NativeMenuItemToggleType.Radio)
+                                        .isChecked(true)
+
+                                    NativeMenuItem("Option 2", DoNothing)
+                                        .toggleType(NativeMenuItemToggleType.Radio)
+                                        .isChecked(true)
+
+                                    NativeMenuItemSeparator()
+
+                                    NativeMenuItem("Option 3", DoNothing)
+                                        .toggleType(NativeMenuItemToggleType.CheckBox)
+                                        .isChecked(true)
+
+                                    NativeMenuItem("Restore defaults", DoNothing)
+                                        .icon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico")
+
+                                    NativeMenuItem("Disabled option", DoNothing).isEnabled(false)
+                                }
+                            )
+
+                        NativeMenuItem("Exit", DoNothing)
+                    }
+                )
+        }
 #endif
 
     let program =
