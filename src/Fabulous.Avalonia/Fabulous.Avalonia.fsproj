@@ -175,6 +175,9 @@
     <Compile Include="Widgets\Controls\AutoCompleteBox.fs" />
     <Compile Include="Widgets\Controls\PathIcon.fs" />
     <Compile Include="Widgets\Application.fs" />
+    <Compile Include="Widgets\Menu\NativeMenuItem.fs" />
+    <Compile Include="Widgets\Menu\NativeMenu.fs" />
+    <Compile Include="Widgets\Menu\NativeMenuSeparator.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

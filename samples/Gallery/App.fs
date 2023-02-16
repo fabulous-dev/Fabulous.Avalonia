@@ -130,6 +130,23 @@ module App =
                 .title("Fabulous Gallery")
                 .transparencyLevelHint(WindowTransparencyLevel.AcrylicBlur)
                 .extendClientAreaToDecorationsHint(true)
+                .nativeMenu(
+                    NativeMenu() {
+                        NativeMenuItem("Edit")
+                            .menu(
+                                NativeMenu() {
+                                    NativeMenuItem("Show Overview", ShowOverview)
+
+                                    NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
+                                        .toggleType(NativeMenuItemToggleType.CheckBox)
+                                        .isChecked(model.IsPanOpen)
+
+                                    NativeMenuItemSeparator()
+                                    NativeMenuItem("After separator")
+                                }
+                            )
+                    }
+                )
         )
             .styles("avares://Gallery/Styles/Styles.xaml")
 #endif
