@@ -178,6 +178,7 @@
     <Compile Include="Widgets\Menu\NativeMenuItem.fs" />
     <Compile Include="Widgets\Menu\NativeMenu.fs" />
     <Compile Include="Widgets\Menu\NativeMenuSeparator.fs" />
+    <Compile Include="Widgets\Menu\TrayIcon.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
