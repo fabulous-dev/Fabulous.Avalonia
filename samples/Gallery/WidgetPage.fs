@@ -65,7 +65,8 @@ module WidgetPage =
           Transitions.sample
           Styles.sample
           PageTransitions.sample
-          LayoutTransformControl.sample ]
+          LayoutTransformControl.sample
+          TreeView.sample ]
 
     let getSamplesNames () = samples |> List.map(fun s -> s.Name)
 
