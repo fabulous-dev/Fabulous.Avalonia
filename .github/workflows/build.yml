@@ -56,8 +56,8 @@ jobs:
       run: |
         LOCAL_NUGET_PATH=$(readlink -f ${NUPKG_FOLDER})
         dotnet nuget add source $LOCAL_NUGET_PATH --name local
-        dotnet new install Fabulous.MauiControls.Templates::${NIGHTLY_VERSION}
-        dotnet new fabulous-mauicontrols -n TestTemplates
+        dotnet new install Fabulous.Avalonia.Templates::${NIGHTLY_VERSION}
+        dotnet new fabulous-avalonia -n TestTemplates
         dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false -f net7.0-android -t:CompileResourceDesignerForFSharp
         dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false
     - name: Push
