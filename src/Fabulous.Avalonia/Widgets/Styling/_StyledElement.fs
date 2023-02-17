@@ -14,18 +14,6 @@ module StyledElement =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality StyledElement.NameProperty
 
-    let ActualThemeVariant =
-        Attributes.defineAvaloniaPropertyWithEquality StyledElement.ActualThemeVariantProperty
-
-    let RequestedThemeVariant =
-        Attributes.defineAvaloniaPropertyWithEquality StyledElement.RequestedThemeVariantProperty
-
-    let ActualThemeVariantChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "StyledElement_ActualThemeVariantChangedEvent" StyledElement.ActualThemeVariantProperty
-
-    let RequestedThemeVariantChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "StyledElement_RequestedThemeVariantChangedEvent" StyledElement.RequestedThemeVariantProperty
-
     let Classes =
         Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
             let target = node.Target :?> StyledElement
@@ -47,27 +35,6 @@ type StyledElementModifiers =
         this.AddScalar(StyledElement.Name.WithValue(name))
 
     [<Extension>]
-    static member inline actualThemeVariant(this: WidgetBuilder<'msg, #IFabStyledElement>, themeVariant: ThemeVariant) =
-        this.AddScalar(StyledElement.ActualThemeVariant.WithValue(themeVariant))
-
-    [<Extension>]
-    static member inline requestedThemeVariant(this: WidgetBuilder<'msg, #IFabStyledElement>, themeVariant: ThemeVariant) =
-        this.AddScalar(StyledElement.RequestedThemeVariant.WithValue(themeVariant))
-
-    [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, theme: ThemeVariant, onThemeChanged: ThemeVariant -> 'msg) =
-        this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(ValueEventData.create theme (fun args -> onThemeChanged args |> box)))
-
-    [<Extension>]
-    static member inline onRequestedThemeVariantChanged
-        (
-            this: WidgetBuilder<'msg, #IFabStyledElement>,
-            theme: ThemeVariant,
-            onThemeChanged: ThemeVariant -> 'msg
-        ) =
-        this.AddScalar(StyledElement.RequestedThemeVariantChanged.WithValue(ValueEventData.create theme (fun args -> onThemeChanged args |> box)))
-
-    [<Extension>]
     static member inline withAnimation(this: WidgetBuilder<'msg, #IFabStyledElement>) =
         AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
 
@@ -81,17 +48,13 @@ type StyledElementModifiers =
 [<Extension>]
 type StyledElementCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabStyledElement and 'itemType :> IFabStyle>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabStyle>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabStyledElement and 'itemType :> IFabStyle>
+    static member inline Yield
         (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
+            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

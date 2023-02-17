@@ -107,23 +107,17 @@ module Application =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality Application.NameProperty
 
-    let ActualThemeVariant =
-        Attributes.defineAvaloniaPropertyWithEquality Application.ActualThemeVariantProperty
+    let ThemeVariant =
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_ThemeVariant" Application.RequestedThemeVariantProperty
 
-    let RequestedThemeVariant =
-        Attributes.defineAvaloniaPropertyWithEquality Application.RequestedThemeVariantProperty
+    let ThemeVariantChanged =
+        Attributes.defineEventNoArg "Application_ThemeVariantChanged" (fun target -> (target :?> Application).ActualThemeVariantChanged)
 
     let ResourcesChanged =
         Attributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> Application).ResourcesChanged)
 
     let UrlsOpened =
         Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> Application).UrlsOpened)
-
-    let ActualThemeVariantChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_ActualThemeVariantChangedEvent" Application.ActualThemeVariantProperty
-
-    let RequestedThemeVariantChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_RequestedThemeVariantChangedEvent" Application.RequestedThemeVariantProperty
 
 [<AutoOpen>]
 module ApplicationBuilders =
@@ -153,12 +147,12 @@ type ApplicationModifiers =
         this.AddScalar(Application.Name.WithValue(value))
 
     [<Extension>]
-    static member inline actualThemeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant) =
-        this.AddScalar(Application.ActualThemeVariant.WithValue(value))
+    static member inline themeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
+        this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value (fun args -> fn args |> box)))
 
     [<Extension>]
-    static member inline requestedThemeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant) =
-        this.AddScalar(Application.RequestedThemeVariant.WithValue(value))
+    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ThemeVariant -> 'msg) =
+        this.AddScalar(Application.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
 
     [<Extension>]
     static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, onResourcesChanged: ResourcesChangedEventArgs -> 'msg) =
@@ -168,33 +162,16 @@ type ApplicationModifiers =
     static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, onUrlsOpened: UrlOpenedEventArgs -> 'msg) =
         this.AddScalar(Application.UrlsOpened.WithValue(fun target -> onUrlsOpened target |> box))
 
-    [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, theme: ThemeVariant, onThemeChanged: ThemeVariant -> 'msg) =
-        this.AddScalar(Application.ActualThemeVariantChanged.WithValue(ValueEventData.create theme (fun args -> onThemeChanged args |> box)))
-
-    [<Extension>]
-    static member inline onRequestedThemeVariantChanged
-        (
-            this: WidgetBuilder<'msg, #IFabApplication>,
-            theme: ThemeVariant,
-            onThemeChanged: ThemeVariant -> 'msg
-        ) =
-        this.AddScalar(Application.RequestedThemeVariantChanged.WithValue(ValueEventData.create theme (fun args -> onThemeChanged args |> box)))
-
 [<Extension>]
 type ApplicationCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabApplication and 'itemType :> IFabStyle>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabStyle>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabApplication and 'itemType :> IFabStyle>
+    static member inline Yield
         (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+            _: AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>,
+            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

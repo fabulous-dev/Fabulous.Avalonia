@@ -70,6 +70,7 @@
     <Compile Include="Widgets\ToolTip.fs" />
     <Compile Include="Widgets\Expander.fs" />
     <Compile Include="Widgets\AutoCompleteBox.fs" />
+    <Compile Include="Widgets\ThemeAware.fs" />
     <Compile Include="WidgetPage.fs" />
     <Compile Include="Overview.fs" />
     <Compile Include="App.fs" />

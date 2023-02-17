@@ -105,6 +105,7 @@
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\UniformGrid.fs" />
     <Compile Include="Widgets\Controls\Border.fs" />
+    <Compile Include="Widgets\Controls\ThemeVariantScope.fs" />
     <Compile Include="Widgets\Controls\ExperimentalAcrylicMaterial.fs" />
     <Compile Include="Widgets\Controls\ExperimentalAcrylicBorder.fs" />
     <Compile Include="Widgets\Controls\LayoutTransformControl.fs" />
@@ -196,6 +197,7 @@
     <Compile Include="Widgets\Menu\NativeMenu.fs" />
     <Compile Include="Widgets\Menu\NativeMenuSeparator.fs" />
     <Compile Include="Widgets\Menu\TrayIcon.fs" />
+    <Compile Include="ThemeAware.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
