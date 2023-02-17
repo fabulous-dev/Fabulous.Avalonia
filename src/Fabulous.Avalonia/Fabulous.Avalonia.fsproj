@@ -1,19 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
-
+  <!-- NuGet Package -->
+  <PropertyGroup>
+    <Description>Declarative UIs for AvaloniaUI with F# and MVU, using Fabulous</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+  <!-- SourceLink -->
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(GITHUB_ACTIONS) == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
-
     <!-- Normalize casing -->
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="README.md" PackagePath="\" Pack="true" />
+    <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
+    <None Include="..\Fabulous.Avalonia.SingleProject.props" PackagePath="build/Fabulous.Avalonia.SingleProject.props" Pack="true" />
+    <None Include="..\Fabulous.Avalonia.SingleProject.targets" PackagePath="build/Fabulous.Avalonia.SingleProject.targets" Pack="true" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewNode.fs" />
     <Compile Include="Attributes.fs" />
@@ -181,30 +198,29 @@
     <Compile Include="Widgets\Menu\TrayIcon.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
     <Compile Include="Platform\Android\FabSplashActivity.fs" />
   </ItemGroup>
-  
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <Compile Include="Platform\iOS\FabAppDelegate.fs" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-preview5" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview5" />
-    <PackageReference Include="Fabulous" Version="2.2.1" />
+    <!--
+      FSharp.Core is fixed to a specific version that is not necessarily the latest one.
+      This version will be used as the lower bound in the NuGet package
+    -->
+    <PackageReference Include="Fabulous" VersionOverride="[2.2.0, 2.3.0)" />
+    <PackageReference Include="Avalonia" VersionOverride="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-preview5" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
-
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" Version="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.0-preview5" />
   </ItemGroup>
-
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" Version="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0-preview5" />
   </ItemGroup>
-
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-preview5" />
   </ItemGroup>
 </Project>
