@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -11,69 +12,67 @@ type IFabRadioButton =
 module RadioButton =
     let WidgetKey = Widgets.register<RadioButton>()
 
-    let IsChecked =
-        Attributes.defineAvaloniaPropertyWithEquality RadioButton.IsCheckedProperty
-
     let GroupName =
         Attributes.defineAvaloniaPropertyWithEquality RadioButton.GroupNameProperty
-
-    let Checked =
-        Attributes.defineEvent "RadioButton_Checked" (fun target -> (target :?> RadioButton).Checked)
-
-    let Unchecked =
-        Attributes.defineEvent "RadioButton_Unchecked" (fun target -> (target :?> RadioButton).Unchecked)
 
 [<AutoOpen>]
 module RadioButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline RadioButton<'msg>(text: string, isChecked: bool) =
+        static member inline RadioButton<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(false),
                 ContentControl.ContentString.WithValue(text),
-                RadioButton.IsChecked.WithValue(isChecked)
+                ToggleButton.IsChecked.WithValue(isChecked),
+                ToggleButton.CheckedChanged.WithValue(fun args ->
+                    let control = args.Source :?> RadioButton
+                    let isChecked = Nullable.op_Explicit(control.IsChecked)
+                    onValueChanged isChecked |> box)
             )
 
-        static member inline ThreeStateRadioButton<'msg>(text: string, isChecked: bool option) =
+        static member inline ThreeStateRadioButton<'msg>(text: string, isChecked: bool option, onValueChanged: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
-                RadioButton.IsChecked.WithValue(Option.toNullable(isChecked))
+                ToggleButton.ThreeStateCheckedChanged.WithValue(
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                )
             )
 
-        static member inline RadioButton(isChecked: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline RadioButton(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
-                    StackList.two(RadioButton.IsChecked.WithValue(isChecked), ToggleButton.IsThreeState.WithValue(false)),
+                    StackList.two(
+                        ToggleButton.IsChecked.WithValue(isChecked),
+                        ToggleButton.CheckedChanged.WithValue(fun args ->
+                            let control = args.Source :?> RadioButton
+                            let isChecked = Nullable.op_Explicit(control.IsChecked)
+                            onValueChanged isChecked |> box)
+                    ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
 
-        static member inline ThreeStateRadioButton(isChecked: bool option, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline ThreeStateRadioButton(isChecked: bool option, onValueChanged: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
-                    StackList.two(RadioButton.IsChecked.WithValue(ThreeState.fromOption'(isChecked)), ToggleButton.IsThreeState.WithValue(true)),
+                    StackList.two(
+                        ToggleButton.ThreeStateCheckedChanged.WithValue(
+                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                        ),
+                        ToggleButton.IsThreeState.WithValue(true)
+                    ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
 
 [<Extension>]
-type RadioButtonModifiers =
+type RadioButtonAttachedModifiers =
     [<Extension>]
     static member inline groupName(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
         this.AddScalar(RadioButton.GroupName.WithValue(value))
-
-
-    [<Extension>]
-    static member inline onChecked(this: WidgetBuilder<'msg, #IFabRadioButton>, onChecked: 'msg) =
-        this.AddScalar(RadioButton.Checked.WithValue(fun _ -> onChecked |> box))
-
-    [<Extension>]
-    static member inline onUnchecked(this: WidgetBuilder<'msg, #IFabRadioButton>, onUnchecked: 'msg) =
-        this.AddScalar(RadioButton.Unchecked.WithValue(fun _ -> onUnchecked |> box))

@@ -20,12 +20,8 @@ module ToggleButton =
         | CheckedChanged of bool
         | CheckedChanged2 of bool
 
-        | IntermediaryState3
-        | CheckedChanged3 of bool option
-        | CheckedChanged4 of bool option
-        | IntermediaryState4
-
-
+        | ThreeStateChanged3 of bool option
+        | ThreeStateChanged4 of bool option
 
     let init () =
         { Text1 = "Unchecked"
@@ -55,8 +51,7 @@ module ToggleButton =
 
             { model with Value2 = b; Text2 = text }
 
-        | IntermediaryState3 -> model
-        | CheckedChanged3 b ->
+        | ThreeStateChanged3 b ->
             let text =
                 match b with
                 | Some true -> "Checked"
@@ -65,8 +60,7 @@ module ToggleButton =
 
             { model with Value3 = b; Text3 = text }
 
-        | IntermediaryState4 -> model
-        | CheckedChanged4 b ->
+        | ThreeStateChanged4 b ->
             let text =
                 match b with
                 | Some true -> "Checked"
@@ -90,12 +84,11 @@ module ToggleButton =
                 }
             )
 
-            ThreeStateToggleButton(model.Text3, model.Value3, CheckedChanged3)
-                .onIndeterminate(IntermediaryState3)
+            ThreeStateToggleButton(model.Text3, model.Value3, ThreeStateChanged3)
 
             ThreeStateToggleButton(
                 model.Value4,
-                CheckedChanged4,
+                ThreeStateChanged4,
                 HStack() {
                     Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(16., 16.)
@@ -103,7 +96,6 @@ module ToggleButton =
                     TextBlock(model.Text4)
                 }
             )
-                .onIndeterminate(IntermediaryState4)
         }
 
     let sample =

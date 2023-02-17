@@ -46,10 +46,9 @@ module ToggleSwitch =
                 .offContent("Nooo")
                 .onContent(TextBlock("Yessss"))
                 .content(model.Text2)
-                .onIndeterminate(IntermediaryChanged)
         }
 
     let sample =
         { Name = "ToggleSwitch"
-          Description = "Control that can be toggled between two states"
+          Description = "Control that can be toggled between two/three states"
           Program = Helper.createProgram init update view }
