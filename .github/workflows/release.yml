@@ -51,8 +51,8 @@ jobs:
     - name: Pack
       run: |
         find templates -type f -name template.json | xargs sed -i bak "s/PKG_VERSION/${RELEASE_VERSION}/g"
-        dotnet pack ${SLN_FILE} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.changelog_reader.outputs.changes }}" -c ${CONFIG} --no-build --output nupkgs
-        dotnet pack ${TEMPLATE_PROJ} -p:Version=${RELEASE_VERSION} -c ${CONFIG} --output nupkgs
+        dotnet pack ${SLN_FILE} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.changelog_reader.outputs.changes }}" -c ${CONFIG} --no-build --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${TEMPLATE_PROJ} -p:Version=${RELEASE_VERSION} -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
