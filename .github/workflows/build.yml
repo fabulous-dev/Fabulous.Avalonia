@@ -1,25 +1,24 @@
 name: Build
 on:
-   push:
-     branches: [ 'main' ]
-     paths-ignore: [ 'docs/**' ]
+  push:
+    branches: [ 'main' ]
+    paths-ignore: [ 'docs/**' ]
 
 permissions: write-all
 
 env:
-  VERSION: 0.0.1
+  CONFIG: Release
   SLN_FILE: Fabulous.Avalonia.NoSamples.sln
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
   TEMPLATE_PKG: nupkgs/Fabulous.Avalonia.Templates
   NUPKG_FOLDER: nupkgs
 
 jobs:
-  avalonia:
-    name: Fabulous.Avalonia
+  build:
     runs-on: macos-12
-    env:
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout sources
+      uses: actions/checkout@v3
     - name: Read last version from CHANGELOG.md
       id: changelog_reader
       uses: mindsers/changelog-reader-action@v2
@@ -40,14 +39,14 @@ jobs:
     - name: Restore
       run: dotnet restore ${SLN_FILE}
     - name: Build
-      run: dotnet build ${SLN_FILE} -p:Version=${VERSION}-nightly-${GITHUB_RUN_ID} --no-restore --configuration Release
+      run: dotnet build ${SLN_FILE} -p:Version=${NIGHTLY_VERSION} -c ${CONFIG} --no-restore
     - name: Test
-      run: dotnet test ${SLN_FILE} -p:Version=${VERSION}-nightly-${GITHUB_RUN_ID} --no-build --configuration Release
+      run: dotnet test ${SLN_FILE} -p:Version=${NIGHTLY_VERSION} -c ${CONFIG} --no-build
     - name: Pack
       run: |
         
         dotnet pack ${SLN_FILE} -p:Version=${NIGHTLY_VERSION} -c ${CONFIG} --no-build --property PackageOutputPath=${PWD}/${NUPKG_FOLDER}
-        
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -57,8 +56,8 @@ jobs:
     #   run: |
     #     LOCAL_NUGET_PATH=$(readlink -f ${NUPKG_FOLDER})
     #     dotnet nuget add source $LOCAL_NUGET_PATH --name local
-    #     dotnet new install Fabulous.Avalonia.Templates::${NIGHTLY_VERSION}
-    #     dotnet new fabulous-avalonia -n TestTemplates
+    #     dotnet new install Fabulous.MauiControls.Templates::${NIGHTLY_VERSION}
+    #     dotnet new fabulous-mauicontrols -n TestTemplates
     #     dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false -f net7.0-android -t:CompileResourceDesignerForFSharp
     #     dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false
     - name: Push
