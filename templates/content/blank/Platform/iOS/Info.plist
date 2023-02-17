@@ -5,7 +5,7 @@
         <key>CFBundleDisplayName</key>
         <string>NewApp</string>
         <key>CFBundleIdentifier</key>
-        <string>org.fabulous.avalonia.NewApp</string>
+        <string>AppIdentifier.NewApp</string>
         <key>CFBundleShortVersionString</key>
         <string>1.0</string>
         <key>CFBundleVersion</key>
