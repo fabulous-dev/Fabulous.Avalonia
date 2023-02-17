@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 	ProjectSection(SolutionItems) = preProject
 					.gitignore = .gitignore
 		README.md = README.md
+		CHANGELOG.md = CHANGELOG.md
 		.github/workflows/build.yml = .github/workflows/build.yml
 		.github\workflows\pull_request.yml = .github\workflows\pull_request.yml
 	EndProjectSection
