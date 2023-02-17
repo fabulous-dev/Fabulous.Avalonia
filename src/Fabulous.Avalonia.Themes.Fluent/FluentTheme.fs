@@ -8,7 +8,8 @@ type IFabFluentTheme =
     inherit IFabStyle
 
 module FluentTheme =
-    let WidgetKey = Widgets.registerWithFactory<FluentTheme>(fun () -> FluentTheme())
+    let WidgetKey =
+        Widgets.registerWithFactory<FluentTheme>(fun () -> FluentTheme(null))
 
     let DensityStyle =
         Attributes.defineAvaloniaPropertyWithEquality FluentTheme.DensityStyleProperty

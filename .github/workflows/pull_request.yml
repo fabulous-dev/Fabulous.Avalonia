@@ -1,11 +1,16 @@
 name: Pull Request
 on: pull_request
 
+env:
+  SLN_FILE: Fabulous.Avalonia.NoSamples.sln
+  CONFIG: Release
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  pull_request:
+    runs-on: macos-12
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout sources
+      uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -13,24 +18,12 @@ jobs:
     - name: Check code formatting
       run: |
         dotnet tool restore
-        dotnet fantomas --check -r src samples
-
-  avalonia:
-    name: Fabulous.Avalonia
-    runs-on: macos-12
-    env:
-      SLN_FILE: Fabulous.Avalonia.NoSamples.sln
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
+        dotnet fantomas --check -r src samples templates
     - name: Install dotnet workload
       run: dotnet workload install android ios
     - name: Restore
       run: dotnet restore ${SLN_FILE}
     - name: Build
-      run: dotnet build ${SLN_FILE} --no-restore --configuration Release
+      run: dotnet build ${SLN_FILE} -c ${CONFIG} --no-restore
     - name: Test
-      run: dotnet test ${SLN_FILE} --no-build --configuration Release
+      run: dotnet test ${SLN_FILE} -c ${CONFIG} --no-build

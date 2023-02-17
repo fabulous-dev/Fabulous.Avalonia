@@ -8,15 +8,29 @@ permissions: write-all
 
 env:
   VERSION: 0.0.1
+  SLN_FILE: Fabulous.Avalonia.NoSamples.sln
+  TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
+  TEMPLATE_PKG: nupkgs/Fabulous.Avalonia.Templates
+  NUPKG_FOLDER: nupkgs
 
 jobs:
   avalonia:
     name: Fabulous.Avalonia
     runs-on: macos-12
     env:
-      SLN_FILE: Fabulous.Avalonia.NoSamples.sln
     steps:
     - uses: actions/checkout@v3
+    - name: Read last version from CHANGELOG.md
+      id: changelog_reader
+      uses: mindsers/changelog-reader-action@v2
+      with:
+        validation_level: warn
+        path: ./CHANGELOG.md
+    - name: Set nightly version
+      run: |
+        NIGHTLY_VERSION=${{ steps.changelog_reader.outputs.version }}-nightly-${GITHUB_RUN_ID}
+        echo "Nightly version is $NIGHTLY_VERSION"
+        echo "NIGHTLY_VERSION=$NIGHTLY_VERSION" >> "$GITHUB_ENV"
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -29,3 +43,23 @@ jobs:
       run: dotnet build ${SLN_FILE} -p:Version=${VERSION}-nightly-${GITHUB_RUN_ID} --no-restore --configuration Release
     - name: Test
       run: dotnet test ${SLN_FILE} -p:Version=${VERSION}-nightly-${GITHUB_RUN_ID} --no-build --configuration Release
+    - name: Pack
+      run: |
+        
+        dotnet pack ${SLN_FILE} -p:Version=${NIGHTLY_VERSION} -c ${CONFIG} --no-build --property PackageOutputPath=${PWD}/${NUPKG_FOLDER}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Packages
+        path: nupkgs/
+    # - name: Test templates
+    #   run: |
+    #     LOCAL_NUGET_PATH=$(readlink -f ${NUPKG_FOLDER})
+    #     dotnet nuget add source $LOCAL_NUGET_PATH --name local
+    #     dotnet new install Fabulous.Avalonia.Templates::${NIGHTLY_VERSION}
+    #     dotnet new fabulous-avalonia -n TestTemplates
+    #     dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false -f net7.0-android -t:CompileResourceDesignerForFSharp
+    #     dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false
+    - name: Push
+      run: dotnet nuget push "nupkgs/*" -s https://nuget.pkg.github.com/fabulous-dev/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
