@@ -204,6 +204,17 @@ module Program =
         { program with
             ExceptionHandler = handler }
 
+    /// Allow the app to react to theme changes
+    let withThemeAwareness (program: Program<'arg, 'model, 'msg, #IFabApplication>) =
+        { Init = ThemeAwareProgram.init program.Init
+          Update = ThemeAwareProgram.update program.Update
+          Subscribe = fun model -> program.Subscribe model.Model |> Cmd.map ThemeAwareProgram.Msg.ModelMsg
+          View = ThemeAwareProgram.view program.View
+          CanReuseView = program.CanReuseView
+          SyncAction = program.SyncAction
+          Logger = program.Logger
+          ExceptionHandler = program.ExceptionHandler }
+
 [<RequireQualifiedAccess>]
 module CmdMsg =
     let batch mapCmdMsgFn mapCmdFn cmdMsgs =

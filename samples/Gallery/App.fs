@@ -185,6 +185,7 @@ module App =
 
     let program =
         Program.statefulWithCmd init update app
+        |> Program.withThemeAwareness
 #if DEBUG
         |> Program.withLogger
             { ViewHelpers.defaultLogger() with
