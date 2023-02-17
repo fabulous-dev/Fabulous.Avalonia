@@ -28,8 +28,8 @@
   <ItemGroup>
     <None Include="README.md" PackagePath="\" Pack="true" />
     <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-    <None Include="..\Fabulous.Avalonia.SingleProject.props" PackagePath="build/Fabulous.Avalonia.SingleProject.props" Pack="true" />
-    <None Include="..\Fabulous.Avalonia.SingleProject.targets" PackagePath="build/Fabulous.Avalonia.SingleProject.targets" Pack="true" />
+    <None Include="..\Fabulous.Avalonia.props" PackagePath="build/Fabulous.Avalonia.props" Pack="true" />
+    <None Include="..\Fabulous.Avalonia.targets" PackagePath="build/Fabulous.Avalonia.targets" Pack="true" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewNode.fs" />
