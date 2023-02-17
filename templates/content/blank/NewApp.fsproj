@@ -3,14 +3,22 @@
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
+    <!-- Normalize casing -->
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.fs" />
   </ItemGroup>
-  
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="FSharpCorePkgVersion" />
     <PackageReference Include="Fabulous" Version="FabulousPkgVersion" />
     <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
+    <PackageReference Include="FSharp.Android.Resource" Version="FSharpAndroidResourcePkgVersion" />
   </ItemGroup>
 </Project>
