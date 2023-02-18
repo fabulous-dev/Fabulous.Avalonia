@@ -19,27 +19,27 @@ module DockPanel =
 
     let view _ =
         (Dock() {
-            Rectangle(0., 0.)
+            Rectangle()
                 .fill(SolidColorBrush(Colors.Red))
                 .height(100.)
                 .dockPanelDock(Dock.Top)
 
-            Rectangle(0., 0.)
+            Rectangle()
                 .fill(SolidColorBrush(Colors.Blue))
                 .width(100.)
                 .dockPanelDock(Dock.Left)
 
-            Rectangle(0., 0.)
+            Rectangle()
                 .fill(SolidColorBrush(Colors.Green))
                 .height(100.)
                 .dockPanelDock(Dock.Bottom)
 
-            Rectangle(0., 0.)
+            Rectangle()
                 .fill(SolidColorBrush(Colors.Orange))
                 .width(100.)
                 .dockPanelDock(Dock.Right)
 
-            Rectangle(0., 0.).fill(SolidColorBrush(Colors.Gray))
+            Rectangle().fill(SolidColorBrush(Colors.Gray))
         })
             .size(300., 300.)
 

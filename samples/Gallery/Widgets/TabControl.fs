@@ -51,7 +51,7 @@ module TabControl =
                         .horizontalAlignment(HorizontalAlignment.Left)
                         .verticalAlignment(VerticalAlignment.Center)
 
-                    Rectangle(0., 0.).size(63., 41.).fill(SolidColorBrush(Colors.Blue))
+                    Rectangle().size(63., 41.).fill(SolidColorBrush(Colors.Blue))
                 }
             )
         })

@@ -58,7 +58,7 @@ module SplitButton =
                 ScrollViewer(
                     (HWrap() {
                         for color in colors do
-                            Rectangle(0., 0.).size(50., 50.).fill(SolidColorBrush(color))
+                            Rectangle().size(50., 50.).fill(SolidColorBrush(color))
                     })
                 )
 
@@ -77,7 +77,7 @@ module SplitButton =
                 .flyout(menuFlyout())
                 .foreground(SolidColorBrush(Colors.White))
 
-            SplitButton(Clicked, Rectangle(0., 0.).size(32., 32.).fill(SolidColorBrush(Colors.Red)))
+            SplitButton(Clicked, Rectangle().size(32., 32.).fill(SolidColorBrush(Colors.Red)))
                 .flyout(availableColors model.Colors)
         })
             .horizontalAlignment(HorizontalAlignment.Center)
