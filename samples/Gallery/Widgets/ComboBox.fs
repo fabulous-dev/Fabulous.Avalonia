@@ -33,7 +33,7 @@ module ComboBox =
             (ComboBox() {
                 ComboBoxItem(
                     VStack() {
-                        Rectangle(0., 0.).fill(SolidColorBrush(Colors.Red))
+                        Rectangle().height(10.).fill(SolidColorBrush(Colors.Red))
                         TextBlock("Control Items").margin(8.)
                     }
                 )

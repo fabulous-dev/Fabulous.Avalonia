@@ -20,7 +20,7 @@ module Shapes =
 
     let view _ =
         VStack(spacing = 15.) {
-            Rectangle(0., 0.)
+            Rectangle()
                 .size(100., 80.)
                 .opacityMask(
                     LinearGradientBrush() {
