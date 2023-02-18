@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.props" />
+  <Import Project="..\..\src\Fabulous.Avalonia.props" />
   
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -86,5 +86,5 @@
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
   </ItemGroup>
 
-  <Import Project="..\..\src\Fabulous.Avalonia.SingleProject.targets" />
+  <Import Project="..\..\src\Fabulous.Avalonia.targets" />
 </Project>
