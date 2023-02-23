@@ -3,6 +3,8 @@ namespace Fabulous.Avalonia
 open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabCalendar =
@@ -14,8 +16,11 @@ module Calendar =
     let FirstDayOfWeek =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.FirstDayOfWeekProperty
 
-    let HeaderBackground =
+    let HeaderBackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget Calendar.HeaderBackgroundProperty
+        
+    let HeaderBackground =
+        Attributes.defineAvaloniaPropertyWithEquality Calendar.HeaderBackgroundProperty
 
     let DisplayMode =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.DisplayModeProperty
@@ -74,7 +79,11 @@ type CalendarModifiers =
 
     [<Extension>]
     static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Calendar.HeaderBackground.WithValue(content.Compile()))
+        this.AddWidget(Calendar.HeaderBackgroundWidget.WithValue(content.Compile()))
+        
+    [<Extension>]
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, brush: string) =
+        this.AddScalar(Calendar.HeaderBackground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline displayMode(this: WidgetBuilder<'msg, #IFabCalendar>, value: CalendarMode) =

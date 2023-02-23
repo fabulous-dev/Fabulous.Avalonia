@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -23,8 +24,11 @@ module DrawingGroup =
     let ClipGeometry =
         Attributes.defineAvaloniaPropertyWidget DrawingGroup.ClipGeometryProperty
 
-    let OpacityMask =
+    let OpacityMaskWidget =
         Attributes.defineAvaloniaPropertyWidget DrawingGroup.OpacityMaskProperty
+        
+    let OpacityMask =
+        Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityMaskProperty
 
     let Children =
         Attributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
@@ -44,7 +48,11 @@ type DrawingGroupModifiers =
 
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(DrawingGroup.OpacityMask.WithValue(content.Compile()))
+        this.AddWidget(DrawingGroup.OpacityMaskWidget.WithValue(content.Compile()))
+        
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, brush: string) =
+        this.AddScalar(DrawingGroup.OpacityMask.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline transform(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabTransform>) =

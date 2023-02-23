@@ -2,6 +2,8 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -9,7 +11,10 @@ type IFabPanel =
     inherit IFabControl
 
 module Panel =
-    let Background = Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
+    let BackgroundWidget = Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
+    
+    let Background =
+        Attributes.defineAvaloniaPropertyWithEquality Panel.BackgroundProperty
 
     let Children =
         Attributes.defineAvaloniaListWidgetCollection "Children" (fun x -> (x :?> Panel).Children)
@@ -18,7 +23,11 @@ module Panel =
 type PanelModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Panel.Background.WithValue(brush.Compile()))
+        this.AddWidget(Panel.BackgroundWidget.WithValue(brush.Compile()))
+        
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: string) =
+        this.AddScalar(Panel.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
 [<Extension>]
 type PanelCollectionBuilderExtensions =

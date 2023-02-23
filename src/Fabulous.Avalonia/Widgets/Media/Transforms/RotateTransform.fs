@@ -2,6 +2,8 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRotateTransform =
     inherit IFabTransform
@@ -30,3 +32,9 @@ module RotateTransformBuilders =
                 RotateTransform.CenterX.WithValue(centerX),
                 RotateTransform.CenterY.WithValue(centerY)
             )
+
+        static member RotateTransform(angle: float) =
+            WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey, RotateTransform.Angle.WithValue(angle))
+
+        static member RotateTransform() =
+            WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

@@ -43,8 +43,24 @@ type TileBrushModifiers =
         this.AddScalar(TileBrush.DestinationRect.WithValue(value))
 
     [<Extension>]
+    static member inline destinationRect(this: WidgetBuilder<'msg, #IFabTileBrush>, rect: Rect, unit: RelativeUnit) =
+        this.AddScalar(TileBrush.DestinationRect.WithValue(RelativeRect(rect, unit)))
+
+    [<Extension>]
+    static member inline destinationRect(this: WidgetBuilder<'msg, #IFabTileBrush>, point: Point, size: Size, unit: RelativeUnit) =
+        this.AddScalar(TileBrush.DestinationRect.WithValue(RelativeRect(point, size, unit)))
+
+    [<Extension>]
     static member inline sourceRect(this: WidgetBuilder<'msg, #IFabTileBrush>, value: RelativeRect) =
         this.AddScalar(TileBrush.SourceRect.WithValue(value))
+        
+    [<Extension>]
+    static member inline sourceRect(this: WidgetBuilder<'msg, #IFabTileBrush>, rect: Rect, unit: RelativeUnit) =
+        this.AddScalar(TileBrush.SourceRect.WithValue(RelativeRect(rect, unit)))
+
+    [<Extension>]
+    static member inline sourceRect(this: WidgetBuilder<'msg, #IFabTileBrush>, point: Point, size: Size, unit: RelativeUnit) =
+        this.AddScalar(TileBrush.SourceRect.WithValue(RelativeRect(point, size, unit)))
 
     [<Extension>]
     static member inline stretch(this: WidgetBuilder<'msg, #IFabTileBrush>, value: Stretch) =

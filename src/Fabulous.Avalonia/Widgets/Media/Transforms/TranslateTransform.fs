@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabTranslateTransform =
     inherit IFabTransform
@@ -20,3 +21,9 @@ module TranslateTransformBuilders =
 
         static member TranslateTransform(x: float, y: float) =
             WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, TranslateTransform.X.WithValue(x), TranslateTransform.Y.WithValue(y))
+
+        static member TranslateTransform(x: float) =
+            WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, TranslateTransform.X.WithValue(x))
+
+        static member TranslateTransform() =
+            WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

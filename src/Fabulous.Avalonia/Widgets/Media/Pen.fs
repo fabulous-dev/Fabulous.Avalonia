@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -11,7 +12,9 @@ type IFabPen =
 module Pen =
     let WidgetKey = Widgets.register<Pen>()
 
-    let Brush = Attributes.defineAvaloniaPropertyWidget Pen.BrushProperty
+    let BrushWidget = Attributes.defineAvaloniaPropertyWidget Pen.BrushProperty
+    
+    let Brush = Attributes.defineAvaloniaPropertyWithEquality Pen.BrushProperty
 
     let Thickness = Attributes.defineAvaloniaPropertyWithEquality Pen.ThicknessProperty
 
@@ -31,7 +34,14 @@ module PenBuilders =
         static member Pen(brush: WidgetBuilder<'msg, #IFabBrush>, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(
                 Pen.WidgetKey,
-                AttributesBundle(StackList.one(Pen.Thickness.WithValue(thickness)), ValueSome [| Pen.Brush.WithValue(brush.Compile()) |], ValueNone)
+                AttributesBundle(StackList.one(Pen.Thickness.WithValue(thickness)), ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |], ValueNone)
+            )
+         
+        static member Pen(brush: string, thickness: float) =
+            WidgetBuilder<'msg, IFabPen>(
+                Pen.WidgetKey,
+                Pen.Thickness.WithValue(thickness),
+                Pen.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
             )
 
 [<Extension>]

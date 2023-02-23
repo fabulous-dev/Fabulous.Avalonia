@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Documents
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -14,8 +15,11 @@ type IFabTextBlock =
 module TextBlock =
     let WidgetKey = Widgets.register<TextBlock>()
 
-    let Background =
+    let BackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextBlock.BackgroundProperty
+        
+    let Background =
+        Attributes.defineAvaloniaPropertyWithEquality TextBlock.BackgroundProperty
 
     let Padding =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.PaddingProperty
@@ -35,8 +39,11 @@ module TextBlock =
     let FontStretch =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.FontStretchProperty
 
-    let Foreground =
+    let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextBlock.ForegroundProperty
+        
+    let Foreground =
+        Attributes.defineAvaloniaPropertyWithEquality TextBlock.ForegroundProperty
 
     let BaseLineOffset =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.BaselineOffsetProperty
@@ -97,7 +104,11 @@ module TextBlockBuilders =
 type TextBlockModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextBlock.Background.WithValue(content.Compile()))
+        this.AddWidget(TextBlock.BackgroundWidget.WithValue(content.Compile()))
+        
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, brush: string) =
+        this.AddScalar(TextBlock.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Thickness) =
@@ -125,7 +136,11 @@ type TextBlockModifiers =
 
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextBlock.Foreground.WithValue(content.Compile()))
+        this.AddWidget(TextBlock.ForegroundWidget.WithValue(content.Compile()))
+        
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, brush: string) =
+        this.AddScalar(TextBlock.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline baselineOffset(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =

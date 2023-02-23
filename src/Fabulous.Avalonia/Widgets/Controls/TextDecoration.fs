@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTextDecoration =
@@ -15,7 +16,10 @@ module TextDecoration =
     let Location =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.LocationProperty
 
-    let Stroke = Attributes.defineAvaloniaPropertyWidget TextDecoration.StrokeProperty
+    let StrokeWidget = Attributes.defineAvaloniaPropertyWidget TextDecoration.StrokeProperty
+    
+    let Stroke =
+        Attributes.defineAvaloniaPropertyWithEquality TextDecoration.StrokeProperty
 
     let StrokeThicknessUnit =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.StrokeThicknessUnitProperty
@@ -57,7 +61,11 @@ module TextDecorationBuilders =
 type TextDecorationModifiers =
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextDecoration.Stroke.WithValue(content.Compile()))
+        this.AddWidget(TextDecoration.StrokeWidget.WithValue(content.Compile()))
+        
+    [<Extension>]
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, brush: string) =
+        this.AddScalar(TextDecoration.Stroke.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline strokeThicknessUnit(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: TextDecorationUnit) =
