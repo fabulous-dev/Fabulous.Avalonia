@@ -13,13 +13,13 @@ type IFabTemplatedControl =
 module TemplatedControl =
     let BackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget TemplatedControl.BackgroundProperty
-        
+
     let Background =
         Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.BackgroundProperty
 
     let BorderBrushWidget =
         Attributes.defineAvaloniaPropertyWidget TemplatedControl.BorderBrushProperty
-        
+
     let BorderBrush =
         Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.BorderBrushProperty
 
@@ -46,7 +46,7 @@ module TemplatedControl =
 
     let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget TemplatedControl.ForegroundProperty
-        
+
     let Foreground =
         Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.ForegroundProperty
 
@@ -58,7 +58,7 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.BackgroundWidget.WithValue(value.Compile()))
-        
+
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: string) =
         this.AddScalar(TemplatedControl.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
@@ -66,7 +66,7 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.BorderBrushWidget.WithValue(value.Compile()))
-        
+
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: string) =
         this.AddScalar(TemplatedControl.BorderBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
@@ -102,7 +102,7 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.ForegroundWidget.WithValue(value.Compile()))
-        
+
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: string) =
         this.AddScalar(TemplatedControl.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

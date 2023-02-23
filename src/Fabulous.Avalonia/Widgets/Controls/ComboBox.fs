@@ -26,7 +26,7 @@ module ComboBox =
 
     let PlaceholderForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget ComboBox.PlaceholderForegroundProperty
-        
+
     let PlaceholderForeground =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.PlaceholderForegroundProperty
 
@@ -71,7 +71,7 @@ type ComboBoxModifiers =
     [<Extension>]
     static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(ComboBox.PlaceholderForegroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabComboBox>, brush: string) =
         this.AddScalar(ComboBox.PlaceholderForeground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

@@ -16,8 +16,9 @@ module TextDecoration =
     let Location =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.LocationProperty
 
-    let StrokeWidget = Attributes.defineAvaloniaPropertyWidget TextDecoration.StrokeProperty
-    
+    let StrokeWidget =
+        Attributes.defineAvaloniaPropertyWidget TextDecoration.StrokeProperty
+
     let Stroke =
         Attributes.defineAvaloniaPropertyWithEquality TextDecoration.StrokeProperty
 
@@ -62,7 +63,7 @@ type TextDecorationModifiers =
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextDecoration.StrokeWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, brush: string) =
         this.AddScalar(TextDecoration.Stroke.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

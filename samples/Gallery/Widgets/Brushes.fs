@@ -91,14 +91,14 @@ module Brushes =
                             }
                         )
                 )
-                
+
             Rectangle()
                 .canvasLeft(20.0)
                 .canvasTop(260.0)
                 .width(440.0)
                 .height(50.0)
                 .fill(
-                    ConicGradientBrush(Point(30., 30.), RelativeUnit.Absolute, 90.){
+                    ConicGradientBrush(Point(30., 30.), RelativeUnit.Absolute, 90.) {
                         GradientStop(0., Colors.Red)
                         GradientStop(0.25, Colors.Blue)
                         GradientStop(0.5, Colors.Brown)

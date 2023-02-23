@@ -21,7 +21,7 @@ module SelectableTextBlock =
 
     let SelectionBrushWidget =
         Attributes.defineAvaloniaPropertyWidget SelectableTextBlock.SelectionBrushProperty
-        
+
     let SelectionBrush =
         Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionBrushProperty
 
@@ -64,7 +64,7 @@ type SelectableTextBlockModifiers =
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(SelectableTextBlock.SelectionBrushWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, brush: string) =
         this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

@@ -27,7 +27,7 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Center.WithValue(center),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
-            
+
         static member ConicGradientBrush<'msg>(center: RelativePoint) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -35,8 +35,7 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Center.WithValue(center),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
-            
-            
+
         static member ConicGradientBrush<'msg>(center: Point, unit: RelativeUnit, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -44,7 +43,7 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
-            
+
         static member ConicGradientBrush<'msg>(center: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -52,7 +51,7 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
-            
+
         static member ConicGradientBrush<'msg>(angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -60,7 +59,7 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Center.WithValue(RelativePoint.Center),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
-            
+
         static member ConicGradientBrush<'msg>() =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,

@@ -13,7 +13,7 @@ module GlyphRunDrawing =
 
     let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget GlyphRunDrawing.ForegroundProperty
-        
+
     let Foreground =
         Attributes.defineAvaloniaPropertyWithEquality GlyphRunDrawing.ForegroundProperty
 
@@ -33,11 +33,11 @@ module GlyphRunDrawingBuilders =
                     ValueNone
                 )
             )
-            
+
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,
                 GlyphRunDrawing.GlyphRun.WithValue(glyphRun),
                 GlyphRunDrawing.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
-                   
+
             )

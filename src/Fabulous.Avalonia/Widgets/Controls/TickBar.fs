@@ -16,7 +16,7 @@ module TickBar =
     let WidgetKey = Widgets.register<TickBar>()
 
     let FillWidget = Attributes.defineAvaloniaPropertyWidget TickBar.FillProperty
-    
+
     let Fill = Attributes.defineAvaloniaPropertyWithEquality TickBar.FillProperty
 
     let Minimum = Attributes.defineAvaloniaPropertyWithEquality TickBar.MinimumProperty
@@ -61,7 +61,7 @@ type TickBarModifiers =
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TickBar.FillWidget.WithValue(value.Compile()))
-        
+
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, brush: string) =
         this.AddScalar(TickBar.Fill.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

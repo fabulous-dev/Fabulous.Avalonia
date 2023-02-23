@@ -17,7 +17,7 @@ module TextBlock =
 
     let BackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextBlock.BackgroundProperty
-        
+
     let Background =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.BackgroundProperty
 
@@ -41,7 +41,7 @@ module TextBlock =
 
     let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextBlock.ForegroundProperty
-        
+
     let Foreground =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.ForegroundProperty
 
@@ -105,7 +105,7 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBlock.BackgroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, brush: string) =
         this.AddScalar(TextBlock.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
@@ -137,7 +137,7 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBlock.ForegroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, brush: string) =
         this.AddScalar(TextBlock.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

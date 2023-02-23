@@ -28,7 +28,7 @@ module SplitView =
 
     let PaneBackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget SplitView.PaneBackgroundProperty
-        
+
     let PaneBackground =
         Attributes.defineAvaloniaPropertyWithEquality SplitView.PaneBackgroundProperty
 
@@ -99,7 +99,7 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(SplitView.PaneBackgroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, brush: string) =
         this.AddScalar(SplitView.PaneBackground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

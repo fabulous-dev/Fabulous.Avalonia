@@ -26,7 +26,7 @@ module DrawingGroup =
 
     let OpacityMaskWidget =
         Attributes.defineAvaloniaPropertyWidget DrawingGroup.OpacityMaskProperty
-        
+
     let OpacityMask =
         Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityMaskProperty
 
@@ -49,7 +49,7 @@ type DrawingGroupModifiers =
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(DrawingGroup.OpacityMaskWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, brush: string) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

@@ -23,8 +23,9 @@ module Visual =
 
     let Opacity = Attributes.defineAvaloniaPropertyWithEquality Visual.OpacityProperty
 
-    let OpacityMaskWidget = Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
-    
+    let OpacityMaskWidget =
+        Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
+
     let OpacityMask =
         Attributes.defineAvaloniaPropertyWithEquality Visual.OpacityMaskProperty
 
@@ -67,7 +68,7 @@ type VisualModifiers =
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, mask: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Visual.OpacityMaskWidget.WithValue(mask.Compile()))
-        
+
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, brush: string) =
         this.AddScalar(Visual.OpacityMask.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

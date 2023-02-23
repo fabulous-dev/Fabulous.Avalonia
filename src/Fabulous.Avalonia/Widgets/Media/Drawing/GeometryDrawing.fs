@@ -17,9 +17,11 @@ module GeometryDrawing =
     let GeometryWidget =
         Attributes.defineAvaloniaPropertyWidget GeometryDrawing.GeometryProperty
 
-    let BrushWidget = Attributes.defineAvaloniaPropertyWidget GeometryDrawing.BrushProperty
-    
-    let Brush = Attributes.defineAvaloniaPropertyWithEquality GeometryDrawing.BrushProperty
+    let BrushWidget =
+        Attributes.defineAvaloniaPropertyWidget GeometryDrawing.BrushProperty
+
+    let Brush =
+        Attributes.defineAvaloniaPropertyWithEquality GeometryDrawing.BrushProperty
 
     let Pen = Attributes.defineAvaloniaPropertyWidget GeometryDrawing.PenProperty
 
@@ -38,14 +40,16 @@ module GeometryDrawingBuilders =
                     ValueNone
                 )
             )
-            
-        static member GeometryDrawing(geometry: string, pen: WidgetBuilder<'msg, #IFabPen>, brush:string) =
+
+        static member GeometryDrawing(geometry: string, pen: WidgetBuilder<'msg, #IFabPen>, brush: string) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
-                    StackList.two(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry)), GeometryDrawing.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)),
-                    ValueSome
-                        [| GeometryDrawing.Pen.WithValue(pen.Compile()) |],
+                    StackList.two(
+                        GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry)),
+                        GeometryDrawing.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
+                    ),
+                    ValueSome [| GeometryDrawing.Pen.WithValue(pen.Compile()) |],
                     ValueNone
                 )
             )
@@ -67,13 +71,8 @@ module GeometryDrawingBuilders =
                     ValueNone
                 )
             )
-            
-        static member GeometryDrawing
-            (
-                geometry: WidgetBuilder<'msg, #IFabGeometry>,
-                pen: WidgetBuilder<'msg, #IFabPen>,
-                brush: string
-            ) =
+
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, pen: WidgetBuilder<'msg, #IFabPen>, brush: string) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(

@@ -23,9 +23,13 @@ module GradientStopBuilders =
 
         static member inline GradientStop(offset: float, color: Color) =
             WidgetBuilder<'msg, IFabGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(color), GradientStop.Offset.WithValue(offset))
-            
+
         static member inline GradientStop(offset: float, color: string) =
-            WidgetBuilder<'msg, IFabGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(Color.Parse(color)), GradientStop.Offset.WithValue(offset))
+            WidgetBuilder<'msg, IFabGradientStop>(
+                GradientStop.WidgetKey,
+                GradientStop.Color.WithValue(Color.Parse(color)),
+                GradientStop.Offset.WithValue(offset)
+            )
 
 [<Extension>]
 type GradientStopBuilderExtensions =

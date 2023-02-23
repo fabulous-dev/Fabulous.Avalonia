@@ -53,7 +53,7 @@ type TileBrushModifiers =
     [<Extension>]
     static member inline sourceRect(this: WidgetBuilder<'msg, #IFabTileBrush>, value: RelativeRect) =
         this.AddScalar(TileBrush.SourceRect.WithValue(value))
-        
+
     [<Extension>]
     static member inline sourceRect(this: WidgetBuilder<'msg, #IFabTileBrush>, rect: Rect, unit: RelativeUnit) =
         this.AddScalar(TileBrush.SourceRect.WithValue(RelativeRect(rect, unit)))

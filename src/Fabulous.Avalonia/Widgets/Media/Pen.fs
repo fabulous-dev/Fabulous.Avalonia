@@ -13,7 +13,7 @@ module Pen =
     let WidgetKey = Widgets.register<Pen>()
 
     let BrushWidget = Attributes.defineAvaloniaPropertyWidget Pen.BrushProperty
-    
+
     let Brush = Attributes.defineAvaloniaPropertyWithEquality Pen.BrushProperty
 
     let Thickness = Attributes.defineAvaloniaPropertyWithEquality Pen.ThicknessProperty
@@ -36,7 +36,7 @@ module PenBuilders =
                 Pen.WidgetKey,
                 AttributesBundle(StackList.one(Pen.Thickness.WithValue(thickness)), ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |], ValueNone)
             )
-         
+
         static member Pen(brush: string, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(
                 Pen.WidgetKey,

@@ -18,7 +18,7 @@ module Calendar =
 
     let HeaderBackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget Calendar.HeaderBackgroundProperty
-        
+
     let HeaderBackground =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.HeaderBackgroundProperty
 
@@ -80,7 +80,7 @@ type CalendarModifiers =
     [<Extension>]
     static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Calendar.HeaderBackgroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, brush: string) =
         this.AddScalar(Calendar.HeaderBackground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

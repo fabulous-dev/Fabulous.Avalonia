@@ -14,13 +14,13 @@ type IFabShape =
 module Shape =
 
     let FillWidget = Attributes.defineAvaloniaPropertyWidget Shape.FillProperty
-    
+
     let Fill = Attributes.defineAvaloniaPropertyWithEquality Shape.FillProperty
 
     let Stretch = Attributes.defineAvaloniaPropertyWithEquality Shape.StretchProperty
 
     let StrokeWidget = Attributes.defineAvaloniaPropertyWidget Shape.StrokeProperty
-    
+
     let Stroke = Attributes.defineAvaloniaPropertyWithEquality Shape.StrokeProperty
 
     let StrokeDashArray =
@@ -51,7 +51,7 @@ type ShapeModifiers =
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Shape.FillWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, brush: string) =
         this.AddScalar(Shape.Fill.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
@@ -63,7 +63,7 @@ type ShapeModifiers =
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Shape.StrokeWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, brush: string) =
         this.AddScalar(Shape.Stroke.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

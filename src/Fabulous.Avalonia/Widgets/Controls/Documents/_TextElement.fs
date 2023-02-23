@@ -12,7 +12,7 @@ type IFabTextElement =
 module TextElement =
     let BackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextElement.BackgroundProperty
-        
+
     let Background =
         Attributes.defineAvaloniaPropertyWithEquality TextElement.BackgroundProperty
 
@@ -33,7 +33,7 @@ module TextElement =
 
     let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextElement.ForegroundProperty
-        
+
     let Foreground =
         Attributes.defineAvaloniaPropertyWithEquality TextElement.ForegroundProperty
 
@@ -42,7 +42,7 @@ type TextElementModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextElement.BackgroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, brush: string) =
         this.AddScalar(TextElement.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
@@ -70,7 +70,7 @@ type TextElementModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextElement.ForegroundWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, brush: string) =
         this.AddScalar(TextElement.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

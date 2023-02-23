@@ -16,7 +16,7 @@ module TopLevel =
 
     let TransparencyBackgroundFallbackWidget =
         Attributes.defineAvaloniaPropertyWidget TopLevel.TransparencyBackgroundFallbackProperty
-        
+
     let TransparencyBackgroundFallback =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyBackgroundFallbackProperty
 
@@ -35,7 +35,7 @@ type TopLevelModifiers =
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TopLevel.TransparencyBackgroundFallbackWidget.WithValue(content.Compile()))
-        
+
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: string) =
         this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

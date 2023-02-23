@@ -11,8 +11,9 @@ type IFabPanel =
     inherit IFabControl
 
 module Panel =
-    let BackgroundWidget = Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
-    
+    let BackgroundWidget =
+        Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
+
     let Background =
         Attributes.defineAvaloniaPropertyWithEquality Panel.BackgroundProperty
 
@@ -24,7 +25,7 @@ type PanelModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Panel.BackgroundWidget.WithValue(brush.Compile()))
-        
+
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: string) =
         this.AddScalar(Panel.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
