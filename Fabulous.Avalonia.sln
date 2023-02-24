@@ -20,9 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		README.md = README.md
 		CHANGELOG.md = CHANGELOG.md
 		.gitignore = .gitignore
-        pull_request.yml = .github/workflows/pull_request.yml
-        build.yml = .github/workflows/build.yml
-        release.yml = .github/workflows/release.yml
+								pull_request.yml = .github/workflows/pull_request.yml
+								build.yml = .github/workflows/build.yml
+								release.yml = .github/workflows/release.yml
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Themes.Fluent", "src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj", "{74A67DCD-5093-4CC6-B421-77376153C714}"
@@ -30,6 +30,8 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\Gallery.fsproj", "{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Tests", "src\Fabulous.Avalonia.Tests\Fabulous.Avalonia.Tests.fsproj", "{ACA3C16C-4537-479A-B420-0718B2A2BF0B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TicTacToe", "samples\TicTacToe\TicTacToe.fsproj", "{1A2D8405-73D6-4944-8ECA-865CA649BF48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,10 @@ Global
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A2D8405-73D6-4944-8ECA-865CA649BF48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2D8405-73D6-4944-8ECA-865CA649BF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2D8405-73D6-4944-8ECA-865CA649BF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2D8405-73D6-4944-8ECA-865CA649BF48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9EB9291D-09F8-43DD-9A95-154D4E6BA78E} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
@@ -67,5 +73,6 @@ Global
 		{74A67DCD-5093-4CC6-B421-77376153C714} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
+		{1A2D8405-73D6-4944-8ECA-865CA649BF48} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
 	EndGlobalSection
 EndGlobal

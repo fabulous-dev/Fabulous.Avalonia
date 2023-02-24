@@ -1,0 +1,241 @@
+namespace TicTacToe
+
+open System
+open Avalonia
+open Avalonia.Layout
+open Avalonia.Media
+open Avalonia.Styling
+open Fabulous
+open Fabulous.Avalonia
+
+open type Fabulous.Avalonia.View
+
+type Player =
+    | X
+    | O
+
+    member p.Swap =
+        match p with
+        | X -> O
+        | O -> X
+
+    member p.Name =
+        match p with
+        | X -> "X"
+        | O -> "O"
+
+type GameCell =
+    | Empty
+    | Full of Player
+
+    member x.CanPlay = (x = Empty)
+
+type GameResult =
+    | StillPlaying
+    | Win of Player
+    | Draw
+
+type Pos = int * int
+
+type Board = Map<Pos, GameCell>
+
+type Row = GameCell list
+
+
+module App =
+    type Msg =
+        | SwitchThemeVariant of bool
+        | Play of Pos
+        | Restart
+        | VisualBoardSizeChanged of size: float
+        | ClientSizeChanged of ClientSizeEventArgs
+
+    type Model =
+        { NextUp: Player
+          Board: Board
+          GameScore: int * int
+          VisualBoardSize: float
+          IsChecked: bool }
+
+    let positions =
+        [ for x in 0..2 do
+              for y in 0..2 do
+                  yield (x, y) ]
+
+    let initialBoard = Map.ofList [ for p in positions -> p, Empty ]
+
+    let init () =
+        { NextUp = X
+          Board = initialBoard
+          GameScore = (0, 0)
+          VisualBoardSize = 0.
+          IsChecked = false },
+        Cmd.none
+
+    let anyMoreMoves m =
+        m.Board |> Map.exists(fun _ c -> c = Empty)
+
+    let lines =
+        [
+          // rows
+          for row in 0..2 do
+              yield [ (row, 0); (row, 1); (row, 2) ]
+          // columns
+          for col in 0..2 do
+              yield [ (0, col); (1, col); (2, col) ]
+          // diagonals
+          yield [ (0, 0); (1, 1); (2, 2) ]
+          yield [ (0, 2); (1, 1); (2, 0) ] ]
+
+    let getLine (board: Board) line = line |> List.map(fun p -> board.[p])
+
+    let getLineWinner line =
+        if
+            line
+            |> List.forall (function
+                | Full X -> true
+                | _ -> false)
+        then
+            Some X
+        elif
+            line
+            |> List.forall (function
+                | Full O -> true
+                | _ -> false)
+        then
+            Some O
+        else
+            None
+
+    let getGameResult model =
+        match lines |> Seq.tryPick(getLine model.Board >> getLineWinner) with
+        | Some p -> Win p
+        | _ -> if anyMoreMoves model then StillPlaying else Draw
+
+    let getMessage model =
+        match getGameResult model with
+        | StillPlaying -> $"%s{model.NextUp.Name}'s turn"
+        | Win p -> $"%s{p.Name} wins!"
+        | Draw -> "It is a draw!"
+
+    let update msg model =
+        match msg with
+        | ClientSizeChanged args ->
+            let size = Math.Min(args.Width, args.Height) / args.AspectRatio
+            { model with VisualBoardSize = size - 40. }, Cmd.none
+        | Play pos ->
+            let newModel =
+                { model with
+                    Board = model.Board.Add(pos, Full model.NextUp)
+                    NextUp = model.NextUp.Swap }
+
+            // Make an announcement in the middle of the game.
+            let result = getGameResult newModel
+
+            let newModel2 =
+                let x, y = newModel.GameScore
+
+                match result with
+                | Win p ->
+                    { newModel with
+                        GameScore = (if p = X then (x + 1, y) else (x, y + 1)) }
+                | _ -> newModel
+
+            newModel2, Cmd.none
+        | Restart ->
+            { model with
+                NextUp = X
+                Board = initialBoard
+                GameScore = (0, 0) },
+            Cmd.none
+        | VisualBoardSizeChanged size ->
+            { model with
+                VisualBoardSize = size - 40. },
+            Cmd.none
+        | SwitchThemeVariant isChecked ->
+            if model.IsChecked <> isChecked then
+                Application.Current.RequestedThemeVariant <- if isChecked then ThemeVariant.Dark else ThemeVariant.Light
+                { model with IsChecked = isChecked }, Cmd.none
+            else
+                model, Cmd.none
+
+    let uiText (row, col) = $"%d{row}%d{col}"
+
+    let canPlay model cell =
+        (cell = Empty) && (getGameResult model = StillPlaying)
+
+    let view model =
+        VStack() {
+            Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto; Auto ]) {
+                TextBlock(getMessage model)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(10.)
+                    .gridRow(0)
+
+                (Grid(coldefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ], rowdefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ]) {
+
+                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(1).gridColumnSpan(5)
+
+                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(3).gridColumnSpan(5)
+
+                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(1).gridRowSpan(5)
+
+                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(3).gridRowSpan(5)
+
+                    for row, col as pos in positions do
+                        if canPlay model model.Board.[pos] then
+                            Button("", Play pos)
+                                .gridRow(row * 2)
+                                .gridColumn(col * 2)
+                                .background(SolidColorBrush(Colors.Red))
+                        else
+                            match model.Board.[pos] with
+                            | Empty -> ()
+                            | Full X ->
+                                TextBlock("X")
+                                    .fontSize(model.VisualBoardSize / 3.)
+                                    .centerText()
+                                    .margin(10.)
+                                    .gridRow(row * 2)
+                                    .gridColumn(col * 2)
+                                    .background(SolidColorBrush(Colors.Green))
+
+                            | Full O ->
+                                TextBlock("O")
+                                    .fontSize(model.VisualBoardSize / 3.)
+                                    .centerText()
+                                    .margin(10.)
+                                    .gridRow(row * 2)
+                                    .gridColumn(col * 2)
+                                    .background(SolidColorBrush(Colors.Green))
+                })
+                    .center()
+                    .size(model.VisualBoardSize, model.VisualBoardSize)
+                    //.onSizeChanged(fun args -> VisualBoardSizeChanged args.NewSize.Height)
+                    .gridRow(1)
+
+                Button("Restart game", Restart)
+                        .foreground(SolidColorBrush(Colors.Black))
+                        .background(SolidColorBrush(Colors.LightBlue))
+                        .fontSize(32.)
+                        .verticalAlignment(VerticalAlignment.Bottom)
+                        .gridRow(2)
+
+                ToggleSwitch(model.IsChecked, SwitchThemeVariant)
+                    .onContent("Dark")
+                    .offContent("Light")
+                    .verticalAlignment(VerticalAlignment.Bottom)
+                    .gridRow(3)
+            }
+        }
+
+
+#if MOBILE
+    let app model = SingleViewApplication(view model)
+#else
+    let app model =
+        DesktopApplication(Window(view model))
+            .onClientSizeChanged(ClientSizeChanged)
+#endif
+    let program = Program.statefulWithCmd init update app

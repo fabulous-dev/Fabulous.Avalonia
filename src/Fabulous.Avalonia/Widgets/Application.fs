@@ -15,12 +15,28 @@ open Fabulous.StackAllocatedCollections.StackList
 
 type IFabApplication =
     inherit IFabObject
+    
+type ClientSizeEventArgs(width: float, height: float, aspectRatio: float) =
+    inherit EventArgs()
+    
+    member this.Width = width
+    
+    member this.Height = height
+    
+    member this.AspectRatio = aspectRatio
+    
+    
 
 type FabApplication() =
     inherit Application()
+    
+    let clientSizeChanged = Event<EventHandler<ClientSizeEventArgs>, ClientSizeEventArgs>()
 
     let mutable _mainWindow: Window = null
     let mutable _mainView: Control = null
+    
+    [<CLIEvent>]
+    member _.ClientSizeChanged = clientSizeChanged.Publish
 
     member private this.UpdateLifetime() =
         match this.ApplicationLifetime with
@@ -42,6 +58,17 @@ type FabApplication() =
 
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
+        
+        let clientSize = this.MainWindow.ClientSize
+        clientSizeChanged.Trigger(this, ClientSizeEventArgs(clientSize.Width, clientSize.Height, clientSize.AspectRatio))
+        
+        // Window.ClientSizeProperty.Changed
+        // |> Observable.subscribe(fun args ->
+        //     let clientSize = args.NewValue.GetValueOrDefault()
+        //     clientSizeChanged.Trigger(this, ClientSizeEventArgs(clientSize.Width, clientSize.Height, clientSize.AspectRatio))
+        // )
+        // |> ignore
+        //
         base.OnFrameworkInitializationCompleted()
 
 type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
@@ -118,6 +145,9 @@ module Application =
 
     let UrlsOpened =
         Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> Application).UrlsOpened)
+        
+    let ClientSizeChanged =
+        Attributes.defineEvent "Application_ClientSizeChanged" (fun target -> (target :?> FabApplication).ClientSizeChanged)
 
 [<AutoOpen>]
 module ApplicationBuilders =
@@ -157,21 +187,18 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, onResourcesChanged: ResourcesChangedEventArgs -> 'msg) =
         this.AddScalar(Application.ResourcesChanged.WithValue(fun target -> onResourcesChanged target |> box))
+        
+    [<Extension>]
+    static member inline onClientSizeChanged(this: WidgetBuilder<'msg, #IFabApplication>, onClientSizeChanged: ClientSizeEventArgs -> 'msg) =
+        this.AddScalar(Application.ClientSizeChanged.WithValue(fun target -> onClientSizeChanged target |> box))
 
     [<Extension>]
     static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, onUrlsOpened: UrlOpenedEventArgs -> 'msg) =
         this.AddScalar(Application.UrlsOpened.WithValue(fun target -> onUrlsOpened target |> box))
 
-[<Extension>]
-type ApplicationCollectionBuilderExtensions =
+    /// <summary>Link a ViewRef to access the direct CheckBox control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
     [<Extension>]
-    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
+    static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
