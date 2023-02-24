@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabSkewTransform =
     inherit IFabTransform
@@ -22,3 +23,9 @@ module SkewTransformBuilders =
 
         static member SkewTransform(angleX: float, angleY: float) =
             WidgetBuilder<'msg, IFabSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX), SkewTransform.AngleY.WithValue(angleY))
+
+        static member SkewTransform(angleX: float) =
+            WidgetBuilder<'msg, IFabSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX))
+
+        static member SkewTransform() =
+            WidgetBuilder<'msg, IFabSkewTransform>(SkewTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabScaleTransform =
     inherit IFabTransform
@@ -22,3 +23,9 @@ module ScaleTransformBuilders =
 
         static member ScaleTransform(scaleX: float, scaleY: float) =
             WidgetBuilder<'msg, IFabScaleTransform>(ScaleTransform.WidgetKey, ScaleTransform.ScaleX.WithValue(scaleX), ScaleTransform.ScaleY.WithValue(scaleY))
+
+        static member ScaleTransform(scaleX: float) =
+            WidgetBuilder<'msg, IFabScaleTransform>(ScaleTransform.WidgetKey, ScaleTransform.ScaleX.WithValue(scaleX))
+
+        static member ScaleTransform() =
+            WidgetBuilder<'msg, IFabScaleTransform>(ScaleTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

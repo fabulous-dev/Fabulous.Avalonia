@@ -3,14 +3,18 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTextElement =
     inherit IFabStyledElement
 
 module TextElement =
-    let Background =
+    let BackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextElement.BackgroundProperty
+
+    let Background =
+        Attributes.defineAvaloniaPropertyWithEquality TextElement.BackgroundProperty
 
     let FontFamily =
         Attributes.defineAvaloniaPropertyWithEquality TextElement.FontFamilyProperty
@@ -27,14 +31,21 @@ module TextElement =
     let FontStretch =
         Attributes.defineAvaloniaPropertyWithEquality TextElement.FontStretchProperty
 
-    let Foreground =
+    let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget TextElement.ForegroundProperty
+
+    let Foreground =
+        Attributes.defineAvaloniaPropertyWithEquality TextElement.ForegroundProperty
 
 [<Extension>]
 type TextElementModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextElement.Background.WithValue(content.Compile()))
+        this.AddWidget(TextElement.BackgroundWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, brush: string) =
+        this.AddScalar(TextElement.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline fontFamily(this: WidgetBuilder<'msg, #IFabTextElement>, value: FontFamily) =
@@ -58,4 +69,8 @@ type TextElementModifiers =
 
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextElement.Foreground.WithValue(content.Compile()))
+        this.AddWidget(TextElement.ForegroundWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, brush: string) =
+        this.AddScalar(TextElement.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))

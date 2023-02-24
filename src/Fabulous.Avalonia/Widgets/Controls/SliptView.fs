@@ -1,6 +1,8 @@
 ﻿namespace Fabulous.Avalonia
 
 open Avalonia.Controls
+open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
@@ -24,8 +26,11 @@ module SplitView =
     let OpenPaneLength =
         Attributes.defineAvaloniaPropertyWithEquality SplitView.OpenPaneLengthProperty
 
-    let PaneBackground =
+    let PaneBackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget SplitView.PaneBackgroundProperty
+
+    let PaneBackground =
+        Attributes.defineAvaloniaPropertyWithEquality SplitView.PaneBackgroundProperty
 
     let PanePlacement =
         Attributes.defineAvaloniaPropertyWithEquality SplitView.PanePlacementProperty
@@ -93,7 +98,11 @@ type SplitViewModifiers =
 
     [<Extension>]
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(SplitView.PaneBackground.WithValue(content.Compile()))
+        this.AddWidget(SplitView.PaneBackgroundWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, brush: string) =
+        this.AddScalar(SplitView.PaneBackground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline panePlacement(this: WidgetBuilder<'msg, #IFabSplitView>, value: SplitViewPanePlacement) =

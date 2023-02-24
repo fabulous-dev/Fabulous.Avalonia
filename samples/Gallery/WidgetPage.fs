@@ -66,7 +66,8 @@ module WidgetPage =
           Styles.sample
           PageTransitions.sample
           LayoutTransformControl.sample
-          ThemeAware.sample ]
+          ThemeAware.sample
+          Brushes.sample ]
 
     let getSamplesNames () = samples |> List.map(fun s -> s.Name)
 

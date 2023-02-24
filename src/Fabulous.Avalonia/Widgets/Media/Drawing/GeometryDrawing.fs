@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -16,7 +17,11 @@ module GeometryDrawing =
     let GeometryWidget =
         Attributes.defineAvaloniaPropertyWidget GeometryDrawing.GeometryProperty
 
-    let Brush = Attributes.defineAvaloniaPropertyWidget GeometryDrawing.BrushProperty
+    let BrushWidget =
+        Attributes.defineAvaloniaPropertyWidget GeometryDrawing.BrushProperty
+
+    let Brush =
+        Attributes.defineAvaloniaPropertyWithEquality GeometryDrawing.BrushProperty
 
     let Pen = Attributes.defineAvaloniaPropertyWidget GeometryDrawing.PenProperty
 
@@ -30,8 +35,21 @@ module GeometryDrawingBuilders =
                 AttributesBundle(
                     StackList.one(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
                     ValueSome
-                        [| GeometryDrawing.Brush.WithValue(brush.Compile())
+                        [| GeometryDrawing.BrushWidget.WithValue(brush.Compile())
                            GeometryDrawing.Pen.WithValue(pen.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        static member GeometryDrawing(geometry: string, pen: WidgetBuilder<'msg, #IFabPen>, brush: string) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.two(
+                        GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry)),
+                        GeometryDrawing.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
+                    ),
+                    ValueSome [| GeometryDrawing.Pen.WithValue(pen.Compile()) |],
                     ValueNone
                 )
             )
@@ -48,7 +66,19 @@ module GeometryDrawingBuilders =
                     StackList.empty(),
                     ValueSome
                         [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile())
-                           GeometryDrawing.Brush.WithValue(brush.Compile())
+                           GeometryDrawing.BrushWidget.WithValue(brush.Compile())
+                           GeometryDrawing.Pen.WithValue(pen.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, pen: WidgetBuilder<'msg, #IFabPen>, brush: string) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.one(GeometryDrawing.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)),
+                    ValueSome
+                        [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile())
                            GeometryDrawing.Pen.WithValue(pen.Compile()) |],
                     ValueNone
                 )

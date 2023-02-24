@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Avalonia.Layout
 open Avalonia.Interactivity
@@ -77,13 +78,24 @@ module TextBox =
 
     let NewLine = Attributes.defineAvaloniaPropertyWithEquality TextBox.NewLineProperty
 
-    let CaretBrush = Attributes.defineAvaloniaPropertyWidget TextBox.CaretBrushProperty
+    let CaretBrushWidget =
+        Attributes.defineAvaloniaPropertyWidget TextBox.CaretBrushProperty
 
-    let SelectionBrush =
+    let CaretBrush =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.CaretBrushProperty
+
+    let SelectionBrushWidget =
         Attributes.defineAvaloniaPropertyWidget TextBox.SelectionBrushProperty
 
-    let SelectionForegroundBrush =
+
+    let SelectionBrush =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionBrushProperty
+
+    let SelectionForegroundBrushWidget =
         Attributes.defineAvaloniaPropertyWidget TextBox.SelectionForegroundBrushProperty
+
+    let SelectionForegroundBrush =
+        Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionForegroundBrushProperty
 
     let TextChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_ValueChanged" TextBox.TextProperty
@@ -197,15 +209,27 @@ type TextBoxModifiers =
 
     [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextBox.CaretBrush.WithValue(value.Compile()))
+        this.AddWidget(TextBox.CaretBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =
+        this.AddScalar(TextBox.CaretBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextBox.SelectionBrush.WithValue(value.Compile()))
+        this.AddWidget(TextBox.SelectionBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =
+        this.AddScalar(TextBox.SelectionBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TextBox.SelectionForegroundBrush.WithValue(value.Compile()))
+        this.AddWidget(TextBox.SelectionForegroundBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =
+        this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCopyingToClipboard: string -> 'msg) =

@@ -2,6 +2,8 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -17,8 +19,11 @@ module SelectableTextBlock =
     let SelectionEnd =
         Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionEndProperty
 
-    let SelectionBrush =
+    let SelectionBrushWidget =
         Attributes.defineAvaloniaPropertyWidget SelectableTextBlock.SelectionBrushProperty
+
+    let SelectionBrush =
+        Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionBrushProperty
 
     let CopyingToClipboard =
         Attributes.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
@@ -58,7 +63,11 @@ type SelectableTextBlockModifiers =
 
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(SelectableTextBlock.SelectionBrush.WithValue(content.Compile()))
+        this.AddWidget(SelectableTextBlock.SelectionBrushWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, brush: string) =
+        this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
 [<Extension>]
 type SelectableTextBlockCollectionBuilderExtensions =

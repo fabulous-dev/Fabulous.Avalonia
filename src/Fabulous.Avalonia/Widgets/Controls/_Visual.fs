@@ -3,7 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Media
-open Avalonia.VisualTree
+open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabVisual =
@@ -23,7 +23,11 @@ module Visual =
 
     let Opacity = Attributes.defineAvaloniaPropertyWithEquality Visual.OpacityProperty
 
-    let OpacityMask = Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
+    let OpacityMaskWidget =
+        Attributes.defineAvaloniaPropertyWidget Visual.OpacityMaskProperty
+
+    let OpacityMask =
+        Attributes.defineAvaloniaPropertyWithEquality Visual.OpacityMaskProperty
 
     let RenderTransformWidget =
         Attributes.defineAvaloniaPropertyWidget Visual.RenderTransformProperty
@@ -63,7 +67,11 @@ type VisualModifiers =
 
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, mask: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Visual.OpacityMask.WithValue(mask.Compile()))
+        this.AddWidget(Visual.OpacityMaskWidget.WithValue(mask.Compile()))
+
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, brush: string) =
+        this.AddScalar(Visual.OpacityMask.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, transform: WidgetBuilder<'msg, #IFabTransform>) =

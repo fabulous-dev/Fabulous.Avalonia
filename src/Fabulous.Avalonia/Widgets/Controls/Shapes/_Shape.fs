@@ -5,6 +5,7 @@ open Avalonia.Controls.Shapes
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabShape =
@@ -12,11 +13,15 @@ type IFabShape =
 
 module Shape =
 
-    let Fill = Attributes.defineAvaloniaPropertyWidget Shape.FillProperty
+    let FillWidget = Attributes.defineAvaloniaPropertyWidget Shape.FillProperty
+
+    let Fill = Attributes.defineAvaloniaPropertyWithEquality Shape.FillProperty
 
     let Stretch = Attributes.defineAvaloniaPropertyWithEquality Shape.StretchProperty
 
-    let Stroke = Attributes.defineAvaloniaPropertyWidget Shape.StrokeProperty
+    let StrokeWidget = Attributes.defineAvaloniaPropertyWidget Shape.StrokeProperty
+
+    let Stroke = Attributes.defineAvaloniaPropertyWithEquality Shape.StrokeProperty
 
     let StrokeDashArray =
         Attributes.defineSimpleScalarWithEquality<float list> "Shape_StrokeDashArray" (fun _ newValueOpt node ->
@@ -45,7 +50,11 @@ module Shape =
 type ShapeModifiers =
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Shape.Fill.WithValue(content.Compile()))
+        this.AddWidget(Shape.FillWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, brush: string) =
+        this.AddScalar(Shape.Fill.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline stretch(this: WidgetBuilder<'msg, #IFabShape>, value: Stretch) =
@@ -53,7 +62,11 @@ type ShapeModifiers =
 
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Shape.Stroke.WithValue(content.Compile()))
+        this.AddWidget(Shape.StrokeWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, brush: string) =
+        this.AddScalar(Shape.Stroke.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline strokeDashCap(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =

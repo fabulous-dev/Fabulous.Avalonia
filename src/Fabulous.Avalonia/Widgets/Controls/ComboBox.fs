@@ -3,6 +3,8 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Layout
+open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -22,8 +24,11 @@ module ComboBox =
     let PlaceholderText =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.PlaceholderTextProperty
 
-    let PlaceholderForeground =
+    let PlaceholderForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget ComboBox.PlaceholderForegroundProperty
+
+    let PlaceholderForeground =
+        Attributes.defineAvaloniaPropertyWithEquality ComboBox.PlaceholderForegroundProperty
 
     let HorizontalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.HorizontalContentAlignmentProperty
@@ -65,7 +70,11 @@ type ComboBoxModifiers =
 
     [<Extension>]
     static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(ComboBox.PlaceholderForeground.WithValue(content.Compile()))
+        this.AddWidget(ComboBox.PlaceholderForegroundWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabComboBox>, brush: string) =
+        this.AddScalar(ComboBox.PlaceholderForeground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabComboBox>, value: HorizontalAlignment) =

@@ -24,37 +24,29 @@ module RadialGradientBrush =
 module RadialGradientBrushBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline RadialGradientBrush<'msg>(?center: RelativePoint, ?origin: RelativePoint) =
-            match center, origin with
-            | Some s, None ->
-                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
-                    RadialGradientBrush.WidgetKey,
-                    GradientBrush.GradientStops,
-                    RadialGradientBrush.Center.WithValue(s),
-                    RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
-                )
-            | None, Some e ->
-                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
-                    RadialGradientBrush.WidgetKey,
-                    GradientBrush.GradientStops,
-                    RadialGradientBrush.Center.WithValue(RelativePoint.Center),
-                    RadialGradientBrush.GradientOrigin.WithValue(e)
-                )
-            | Some s, Some e ->
-                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
-                    RadialGradientBrush.WidgetKey,
-                    GradientBrush.GradientStops,
-                    RadialGradientBrush.Center.WithValue(s),
-                    RadialGradientBrush.GradientOrigin.WithValue(e)
-                )
+        static member inline RadialGradientBrush<'msg>(center: RelativePoint, origin: RelativePoint) =
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                RadialGradientBrush.WidgetKey,
+                GradientBrush.GradientStops,
+                RadialGradientBrush.Center.WithValue(center),
+                RadialGradientBrush.GradientOrigin.WithValue(origin)
+            )
 
-            | None, None ->
-                CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
-                    RadialGradientBrush.WidgetKey,
-                    GradientBrush.GradientStops,
-                    RadialGradientBrush.Center.WithValue(RelativePoint.Center),
-                    RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
-                )
+        static member inline RadialGradientBrush<'msg>(center: Point, origin: Point, unit: RelativeUnit) =
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                RadialGradientBrush.WidgetKey,
+                GradientBrush.GradientStops,
+                RadialGradientBrush.Center.WithValue(RelativePoint(center, unit)),
+                RadialGradientBrush.GradientOrigin.WithValue(RelativePoint(origin, unit))
+            )
+
+        static member inline RadialGradientBrush<'msg>() =
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                RadialGradientBrush.WidgetKey,
+                GradientBrush.GradientStops,
+                RadialGradientBrush.Center.WithValue(RelativePoint.Center),
+                RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
+            )
 
 [<Extension>]
 type RadialGradientBrushModifiers =

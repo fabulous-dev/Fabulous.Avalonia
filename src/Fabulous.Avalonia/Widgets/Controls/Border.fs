@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Collections
 open Avalonia.Controls
 open Avalonia.Media
+open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -14,9 +15,17 @@ type IFabBorder =
 module Border =
     let WidgetKey = Widgets.register<Border>()
 
-    let Background = Attributes.defineAvaloniaPropertyWidget Border.BackgroundProperty
+    let BackgroundWidget =
+        Attributes.defineAvaloniaPropertyWidget Border.BackgroundProperty
 
-    let BorderBrush = Attributes.defineAvaloniaPropertyWidget Border.BorderBrushProperty
+    let Background =
+        Attributes.defineAvaloniaPropertyWithEquality Border.BackgroundProperty
+
+    let BorderBrushWidget =
+        Attributes.defineAvaloniaPropertyWidget Border.BorderBrushProperty
+
+    let BorderBrush =
+        Attributes.defineAvaloniaPropertyWithEquality Border.BorderBrushProperty
 
     let BorderThickness =
         Attributes.defineAvaloniaPropertyWithEquality Border.BorderThicknessProperty
@@ -64,11 +73,19 @@ module BorderBuilders =
 type BorderModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Border.Background.WithValue(value.Compile()))
+        this.AddWidget(Border.BackgroundWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, brush: string) =
+        this.AddScalar(Border.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Border.BorderBrush.WithValue(value.Compile()))
+        this.AddWidget(Border.BorderBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, brush: string) =
+        this.AddScalar(Border.BorderBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, value: Thickness) =
