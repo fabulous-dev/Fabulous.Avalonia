@@ -19,6 +19,7 @@
     <PackageVersion Include="Avalonia.Android" Version="11.0.0-preview5" />
     <PackageVersion Include="Avalonia.iOS" Version="11.0.0-preview5" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.0.0-preview5" />
+    <PackageVersion Include="Avalonia.Browser" Version="11.0.0-preview5" />
   </ItemGroup>
 
 </Project>

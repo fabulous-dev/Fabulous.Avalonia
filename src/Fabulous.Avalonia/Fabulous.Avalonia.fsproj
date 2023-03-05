@@ -24,6 +24,7 @@
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'browser'">Browser</AvaloniaPlatform>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" PackagePath="\" Pack="true" />
@@ -207,6 +208,9 @@
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <Compile Include="Platform\iOS\FabAppDelegate.fs" />
   </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
+    <Compile Include="Platform\Browser\Program.fs" />
+  </ItemGroup>
   <ItemGroup>
     <!--
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
@@ -225,5 +229,8 @@
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
     <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-preview5" />
+  </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
+    <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0-preview5" />
   </ItemGroup>
 </Project>

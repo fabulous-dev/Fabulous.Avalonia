@@ -17,6 +17,14 @@
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
     </ItemGroup>
+
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
+        <Compile Include="$(BorwserPlatformFolder)Program.fs" />
+        <None Include="$(BrowserPlatformFolder)\Properties\**" />
+        <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
+        <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
+        <Content Include="$(BrowserPlatformFolder)\runtimeconfig.template.json" />
+    </ItemGroup>
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->
 <!--        <Error Text="AvaloniaPlatform is '$(AppBundleManifest)'" />-->
