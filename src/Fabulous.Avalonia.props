@@ -27,16 +27,16 @@
         <DefineConstants>MOBILE;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
     
-    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
+    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Desktop' And $(IsBrowser) != 'true'">
         <DesktopPlatformFolder Condition="$(DesktopPlatformFolder) == ''">Platform\Desktop\</DesktopPlatformFolder>
         <BuiltInCodeInteropSupport>true</BuiltInCodeInteropSupport>
         <DefineConstants>DESKTOP;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Browser'">
+    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Browser' And $(IsBrowser) == 'true'">
         <BrowserPlatformFolder Condition="$(BrowserPlatformFolder) == ''">Platform\Browser\</BrowserPlatformFolder>
         <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
         <WasmMainJSPath>$(BrowserPlatformFolder)\AppBundle\main.js</WasmMainJSPath>
-        <DefineConstants>Browser;$(DefineConstants)</DefineConstants>
+        <DefineConstants>BROWSER;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
 </Project>

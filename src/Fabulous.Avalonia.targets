@@ -14,16 +14,16 @@
         <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
     </ItemGroup>
 
-    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'And $(IsBrowser) != 'true'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
     </ItemGroup>
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
-        <Compile Include="$(BorwserPlatformFolder)Program.fs" />
+        <Compile Include="$(BrowserPlatformFolder)Program.fs" />
         <None Include="$(BrowserPlatformFolder)\Properties\**" />
         <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
         <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
-        <Content Include="$(BrowserPlatformFolder)\runtimeconfig.template.json" />
+        <Content Include="$(BrowserPlatformFolder)runtimeconfig.template.json" />
     </ItemGroup>
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->

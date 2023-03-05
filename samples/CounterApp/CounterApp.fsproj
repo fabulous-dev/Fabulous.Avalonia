@@ -6,7 +6,6 @@
     <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
     <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
   </PropertyGroup>
