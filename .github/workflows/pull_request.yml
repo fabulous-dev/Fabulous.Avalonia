@@ -20,7 +20,7 @@ jobs:
         dotnet tool restore
         dotnet fantomas --check -r src samples templates
     - name: Install dotnet workload
-      run: dotnet workload install android ios
+      run: dotnet workload retore
     - name: Restore
       run: dotnet restore ${SLN_FILE}
     - name: Build
