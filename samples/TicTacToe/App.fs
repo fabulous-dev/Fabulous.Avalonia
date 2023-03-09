@@ -44,18 +44,13 @@ type Row = GameCell list
 
 module App =
     type Msg =
-        | SwitchThemeVariant of bool
         | Play of Pos
         | Restart
-        | VisualBoardSizeChanged of size: float
-        | ClientSizeChanged of ClientSizeEventArgs
 
     type Model =
         { NextUp: Player
           Board: Board
-          GameScore: int * int
-          VisualBoardSize: float
-          IsChecked: bool }
+          GameScore: int * int }
 
     let positions =
         [ for x in 0..2 do
@@ -67,9 +62,7 @@ module App =
     let init () =
         { NextUp = X
           Board = initialBoard
-          GameScore = (0, 0)
-          VisualBoardSize = 0.
-          IsChecked = false },
+          GameScore = (0, 0) },
         Cmd.none
 
     let anyMoreMoves m =
@@ -120,9 +113,6 @@ module App =
 
     let update msg model =
         match msg with
-        | ClientSizeChanged args ->
-            let size = Math.Min(args.Width, args.Height) / args.AspectRatio
-            { model with VisualBoardSize = size - 40. }, Cmd.none
         | Play pos ->
             let newModel =
                 { model with
@@ -148,16 +138,6 @@ module App =
                 Board = initialBoard
                 GameScore = (0, 0) },
             Cmd.none
-        | VisualBoardSizeChanged size ->
-            { model with
-                VisualBoardSize = size - 40. },
-            Cmd.none
-        | SwitchThemeVariant isChecked ->
-            if model.IsChecked <> isChecked then
-                Application.Current.RequestedThemeVariant <- if isChecked then ThemeVariant.Dark else ThemeVariant.Light
-                { model with IsChecked = isChecked }, Cmd.none
-            else
-                model, Cmd.none
 
     let uiText (row, col) = $"%d{row}%d{col}"
 
@@ -165,77 +145,70 @@ module App =
         (cell = Empty) && (getGameResult model = StillPlaying)
 
     let view model =
-        VStack() {
-            Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto; Auto ]) {
-                TextBlock(getMessage model)
-                    .fontSize(32.)
-                    .centerHorizontal()
-                    .margin(10.)
-                    .gridRow(0)
+        VStack(16.) {
+            
+            TextBlock(getMessage model)
+                .textAlignment(TextAlignment.Center)
+                .fontSize(32.)
+                .margin(16., 50., 16., 16.)
 
-                (Grid(coldefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ], rowdefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ]) {
+            (Grid(coldefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ], rowdefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ]) {
 
-                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(1).gridColumnSpan(5)
+                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(1).gridColumnSpan(5)
 
-                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(3).gridColumnSpan(5)
+                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(3).gridColumnSpan(5)
 
-                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(1).gridRowSpan(5)
+                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(1).gridRowSpan(5)
 
-                    Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(3).gridRowSpan(5)
+                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(3).gridRowSpan(5)
 
-                    for row, col as pos in positions do
-                        if canPlay model model.Board.[pos] then
-                            Button("", Play pos)
+                for row, col as pos in positions do
+                    if canPlay model model.Board.[pos] then
+                        TextBlock("")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .centerText()
+                            .gridRow(row * 2)
+                            .gridColumn(col * 2)
+                            .fontSize(70.)
+                            .background(SolidColorBrush(Colors.Transparent))
+                            .onTapped(fun _ -> Play pos)
+                    else
+                        match model.Board.[pos] with
+                        | Empty -> ()
+                        | Full X ->
+                            TextBlock("X")
+                                .verticalAlignment(VerticalAlignment.Center)
+                                .centerText()
+                                .fontSize(70.)
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                                .background(SolidColorBrush(Colors.Red))
-                        else
-                            match model.Board.[pos] with
-                            | Empty -> ()
-                            | Full X ->
-                                TextBlock("X")
-                                    .fontSize(model.VisualBoardSize / 3.)
-                                    .centerText()
-                                    .margin(10.)
-                                    .gridRow(row * 2)
-                                    .gridColumn(col * 2)
-                                    .background(SolidColorBrush(Colors.Green))
+                                .background("#F9F2E7")
 
-                            | Full O ->
-                                TextBlock("O")
-                                    .fontSize(model.VisualBoardSize / 3.)
-                                    .centerText()
-                                    .margin(10.)
-                                    .gridRow(row * 2)
-                                    .gridColumn(col * 2)
-                                    .background(SolidColorBrush(Colors.Green))
-                })
-                    .center()
-                    .size(model.VisualBoardSize, model.VisualBoardSize)
-                    //.onSizeChanged(fun args -> VisualBoardSizeChanged args.NewSize.Height)
-                    .gridRow(1)
+                        | Full O ->
+                            TextBlock("O")
+                                .centerText()
+                                .verticalAlignment(VerticalAlignment.Center)
+                                .fontSize(70.)
+                                .gridRow(row * 2)
+                                .gridColumn(col * 2)
+                                .background("#F9F2E7")
+            })
+                .height(600.)
 
-                Button("Restart game", Restart)
-                        .foreground(SolidColorBrush(Colors.Black))
-                        .background(SolidColorBrush(Colors.LightBlue))
-                        .fontSize(32.)
-                        .verticalAlignment(VerticalAlignment.Bottom)
-                        .gridRow(2)
-
-                ToggleSwitch(model.IsChecked, SwitchThemeVariant)
-                    .onContent("Dark")
-                    .offContent("Light")
-                    .verticalAlignment(VerticalAlignment.Bottom)
-                    .gridRow(3)
-            }
+            Button("Restart game", Restart)
+                .foreground(SolidColorBrush(Colors.Black))
+                .background(SolidColorBrush(Colors.LightBlue))
+                .fontSize(32.)
+                .centerHorizontal()
         }
 
 
 #if MOBILE
-    let app model = SingleViewApplication(view model)
+    let app model =
+        SingleViewApplication(view model)
+
 #else
     let app model =
         DesktopApplication(Window(view model))
-            .onClientSizeChanged(ClientSizeChanged)
 #endif
     let program = Program.statefulWithCmd init update app
