@@ -12,6 +12,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
+    <PackageVersion Include="FsUnit" Version="5.2.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageVersion Include="Avalonia" Version="11.0.0-preview5" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.0.0-preview5" />
