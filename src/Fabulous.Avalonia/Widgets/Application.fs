@@ -21,6 +21,7 @@ type FabApplication() =
 
     let mutable _mainWindow: Window = null
     let mutable _mainView: Control = null
+
     member private this.UpdateLifetime() =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime -> desktopLifetime.MainWindow <- _mainWindow
@@ -41,7 +42,7 @@ type FabApplication() =
 
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
-        
+
         base.OnFrameworkInitializationCompleted()
 
 type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
