@@ -46,10 +46,12 @@ module App =
     type Msg =
         | Play of Pos
         | Restart
+        | Loaded of bool
 
     type Model =
         { NextUp: Player
           Board: Board
+          VisualBoardSize: double
           GameScore: int * int }
 
     let positions =
@@ -60,8 +62,10 @@ module App =
     let initialBoard = Map.ofList [ for p in positions -> p, Empty ]
 
     let init () =
+
         { NextUp = X
           Board = initialBoard
+          VisualBoardSize = 0.
           GameScore = (0, 0) },
         Cmd.none
 
@@ -113,6 +117,27 @@ module App =
 
     let update msg model =
         match msg with
+        | Loaded _ ->
+            let app = Application.Current :?> FabApplication
+#if MOBILE
+            let desiredSize = app.MainView.Bounds
+
+            let size =
+                Math.Min(desiredSize.Width, desiredSize.Height)
+                / app.MainView.DesiredSize.AspectRatio
+
+            { model with VisualBoardSize = size }, Cmd.none
+#else
+            let desiredSize = app.MainWindow.Screens.Primary
+
+            let size =
+                Math.Min(float desiredSize.Bounds.Width, float desiredSize.Bounds.Height)
+                / desiredSize.Scaling
+
+            { model with
+                VisualBoardSize = size - 40. },
+            Cmd.none
+#endif
         | Play pos ->
             let newModel =
                 { model with
@@ -145,8 +170,7 @@ module App =
         (cell = Empty) && (getGameResult model = StillPlaying)
 
     let view model =
-        VStack(16.) {
-            
+        (Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto ]) {
             TextBlock(getMessage model)
                 .textAlignment(TextAlignment.Center)
                 .fontSize(32.)
@@ -154,19 +178,29 @@ module App =
 
             (Grid(coldefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ], rowdefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ]) {
 
-                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(1).gridColumnSpan(5)
+                Rectangle()
+                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
+                    .gridRow(1)
+                    .gridColumnSpan(5)
 
-                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridRow(3).gridColumnSpan(5)
+                Rectangle()
+                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
+                    .gridRow(3)
+                    .gridColumnSpan(5)
 
-                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(1).gridRowSpan(5)
+                Rectangle()
+                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
+                    .gridColumn(1)
+                    .gridRowSpan(5)
 
-                Rectangle().fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White))).gridColumn(3).gridRowSpan(5)
+                Rectangle()
+                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
+                    .gridColumn(3)
+                    .gridRowSpan(5)
 
                 for row, col as pos in positions do
                     if canPlay model model.Board.[pos] then
                         TextBlock("")
-                            .verticalAlignment(VerticalAlignment.Center)
-                            .centerText()
                             .gridRow(row * 2)
                             .gridColumn(col * 2)
                             .fontSize(70.)
@@ -176,39 +210,34 @@ module App =
                         match model.Board.[pos] with
                         | Empty -> ()
                         | Full X ->
-                            TextBlock("X")
-                                .verticalAlignment(VerticalAlignment.Center)
-                                .centerText()
-                                .fontSize(70.)
+                            Border(TextBlock("X").fontSize(model.VisualBoardSize / 3.).center())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                                .background("#F9F2E7")
-
+                                .background(SolidColorBrush(ThemeAware.With(Colors.White, Colors.Black)))
                         | Full O ->
-                            TextBlock("O")
-                                .centerText()
-                                .verticalAlignment(VerticalAlignment.Center)
-                                .fontSize(70.)
+                            Border(TextBlock("O").fontSize(model.VisualBoardSize / 3.).center())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                                .background("#F9F2E7")
+                                .background(SolidColorBrush(ThemeAware.With(Colors.White, Colors.Black)))
             })
-                .height(600.)
+                .size(model.VisualBoardSize, model.VisualBoardSize)
+                .gridRow(1)
 
             Button("Restart game", Restart)
                 .foreground(SolidColorBrush(Colors.Black))
                 .background(SolidColorBrush(Colors.LightBlue))
                 .fontSize(32.)
                 .centerHorizontal()
-        }
+                .margin(16., 16., 16., 50.)
+                .gridRow(2)
+        })
+            .onLoaded(Loaded)
 
 
 #if MOBILE
-    let app model =
-        SingleViewApplication(view model)
+    let app model = SingleViewApplication(view model)
 
 #else
-    let app model =
-        DesktopApplication(Window(view model))
+    let app model = DesktopApplication(Window(view model))
 #endif
     let program = Program.statefulWithCmd init update app

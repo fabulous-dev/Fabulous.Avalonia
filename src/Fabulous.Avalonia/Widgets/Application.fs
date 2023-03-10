@@ -15,14 +15,12 @@ open Fabulous.StackAllocatedCollections.StackList
 
 type IFabApplication =
     inherit IFabObject
-    
-    
 
 type FabApplication() =
     inherit Application()
+
     let mutable _mainWindow: Window = null
     let mutable _mainView: Control = null
-    
     member private this.UpdateLifetime() =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime -> desktopLifetime.MainWindow <- _mainWindow
