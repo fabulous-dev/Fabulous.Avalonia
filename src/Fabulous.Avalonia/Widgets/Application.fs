@@ -42,6 +42,7 @@ type FabApplication() =
 
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
+
         base.OnFrameworkInitializationCompleted()
 
 type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
@@ -162,16 +163,9 @@ type ApplicationModifiers =
     static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, onUrlsOpened: UrlOpenedEventArgs -> 'msg) =
         this.AddScalar(Application.UrlsOpened.WithValue(fun target -> onUrlsOpened target |> box))
 
-[<Extension>]
-type ApplicationCollectionBuilderExtensions =
+    /// <summary>Link a ViewRef to access the direct CheckBox control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
     [<Extension>]
-    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabApplication, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
+    static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
