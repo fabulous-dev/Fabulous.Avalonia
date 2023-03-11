@@ -43,22 +43,34 @@ module Image =
 module ImageBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Image<'msg>(source: IImage, ?stretch: Stretch) =
-            match stretch with
-            | Some value -> WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(value))
-            | None -> WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(Stretch.Uniform))
+        static member Image<'msg>(source: IImage) =
+            WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(Stretch.Uniform))
 
-        static member Image<'msg>(source: string, ?stretch: Stretch) =
-            match stretch with
-            | Some value ->
-                WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(value))
-            | None ->
-                WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(Stretch.Uniform))
+        static member Image<'msg>(source: IImage, stretch: Stretch) =
+            WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(stretch))
 
+        static member Image<'msg>(source: string) =
+            WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(Stretch.Uniform))
+                
+        static member Image<'msg>(source: string, stretch: Stretch) =
+            WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(stretch))
+
+        static member Image<'msg>(source: WidgetBuilder<'msg, IFabDrawingImage>) =
+            WidgetBuilder<'msg, IFabImage>(
+                Image.WidgetKey,
+                AttributesBundle(StackList.one(Image.Stretch.WithValue(Stretch.Uniform)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
+            )
+            
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
+            )
+
+        static member Image<'msg>(source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
+            WidgetBuilder<'msg, IFabImage>(
+                Image.WidgetKey,
+                AttributesBundle(StackList.one(Image.Stretch.WithValue(Stretch.Uniform)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabCroppedBitmap>) =

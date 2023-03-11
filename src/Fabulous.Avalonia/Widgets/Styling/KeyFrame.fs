@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System
+open System.Globalization
 open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Fabulous
@@ -44,8 +45,16 @@ type KeyFrameModifiers =
         this.AddScalar(KeyFrame.Cue.WithValue(clock))
 
     [<Extension>]
+    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, clock: string) =
+        this.AddScalar(KeyFrame.Cue.WithValue(Cue.Parse(clock, CultureInfo.InvariantCulture)))
+
+    [<Extension>]
     static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, spline: KeySpline) =
         this.AddScalar(KeyFrame.KeySpline.WithValue(spline))
+        
+    [<Extension>]
+    static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, spline: string) =
+        this.AddScalar(KeyFrame.KeySpline.WithValue(KeySpline.Parse(spline, CultureInfo.InvariantCulture)))
 
     [<Extension>]
     static member inline keyTime(this: WidgetBuilder<'msg, #IFabKeyFrame>, time: TimeSpan) =

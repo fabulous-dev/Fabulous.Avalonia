@@ -56,7 +56,7 @@ module Menu =
 
                     MenuItems'("_Second") { MenuItem("Second _Menu Item") }
                 })
-                    .dockPanelDock(Dock.Top)
+                    .dock(Dock.Top)
             }
         }
 

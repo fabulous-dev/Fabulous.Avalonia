@@ -22,22 +22,22 @@ module DockPanel =
             Rectangle()
                 .fill(SolidColorBrush(Colors.Red))
                 .height(100.)
-                .dockPanelDock(Dock.Top)
+                .dock(Dock.Top)
 
             Rectangle()
                 .fill(SolidColorBrush(Colors.Blue))
                 .width(100.)
-                .dockPanelDock(Dock.Left)
+                .dock(Dock.Left)
 
             Rectangle()
                 .fill(SolidColorBrush(Colors.Green))
                 .height(100.)
-                .dockPanelDock(Dock.Bottom)
+                .dock(Dock.Bottom)
 
             Rectangle()
                 .fill(SolidColorBrush(Colors.Orange))
                 .width(100.)
-                .dockPanelDock(Dock.Right)
+                .dock(Dock.Right)
 
             Rectangle().fill(SolidColorBrush(Colors.Gray))
         })
