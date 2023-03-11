@@ -51,16 +51,20 @@ module ImageBuilders =
 
         static member Image<'msg>(source: string) =
             WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(Stretch.Uniform))
-                
+
         static member Image<'msg>(source: string, stretch: Stretch) =
             WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(stretch))
 
         static member Image<'msg>(source: WidgetBuilder<'msg, IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
-                AttributesBundle(StackList.one(Image.Stretch.WithValue(Stretch.Uniform)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
+                AttributesBundle(
+                    StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
+                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    ValueNone
+                )
             )
-            
+
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
@@ -70,7 +74,11 @@ module ImageBuilders =
         static member Image<'msg>(source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
-                AttributesBundle(StackList.one(Image.Stretch.WithValue(Stretch.Uniform)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
+                AttributesBundle(
+                    StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
+                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    ValueNone
+                )
             )
 
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabCroppedBitmap>) =

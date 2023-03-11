@@ -51,7 +51,7 @@ type KeyFrameModifiers =
     [<Extension>]
     static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, spline: KeySpline) =
         this.AddScalar(KeyFrame.KeySpline.WithValue(spline))
-        
+
     [<Extension>]
     static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, spline: string) =
         this.AddScalar(KeyFrame.KeySpline.WithValue(KeySpline.Parse(spline, CultureInfo.InvariantCulture)))
