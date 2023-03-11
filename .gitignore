@@ -351,3 +351,6 @@ MigrationBackup/
 
 .idea/
 .DS_Store
+
+Resource.designer.cs
+nupkgs/
