@@ -19,13 +19,14 @@ module DockPanel =
 module DockPanelBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Dock(?lastChildFill: bool) =
-            match lastChildFill with
-            | Some value -> CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(value))
-            | None -> CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(true))
+        static member Dock() =
+            CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(true))
+
+        static member Dock(lastChildFill: bool) =
+            CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(lastChildFill))
 
 [<Extension>]
 type DockPanelModifiers =
     [<Extension>]
-    static member inline dockPanelDock(this: WidgetBuilder<'msg, #IFabControl>, value: Dock) =
+    static member inline dock(this: WidgetBuilder<'msg, #IFabControl>, value: Dock) =
         this.AddScalar(DockPanel.Dock.WithValue(value))
