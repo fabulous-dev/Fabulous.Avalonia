@@ -210,14 +210,14 @@ module App =
             Button("Start", StartEvolution)
                 .horizontalAlignment(HorizontalAlignment.Stretch)
                 .horizontalContentAlignment(HorizontalAlignment.Center)
-                .dockPanelDock(Dock.Bottom)
+                .dock(Dock.Bottom)
                 .isVisible(not model.evolutionRunning)
                 .background("#16a085")
 
             Button("Stop", StopEvolution)
                 .horizontalAlignment(HorizontalAlignment.Stretch)
                 .horizontalContentAlignment(HorizontalAlignment.Center)
-                .dockPanelDock(Dock.Bottom)
+                .dock(Dock.Bottom)
                 .isVisible(model.evolutionRunning)
                 .background("#d35400")
 
