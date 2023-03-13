@@ -1,6 +1,7 @@
 namespace GameOfLife
 
 open System
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
@@ -158,8 +159,16 @@ module Board =
                 let cellPosition = { x = x; y = y }
 
                 match cell with
-                | Alive -> Button(KillCell cellPosition).background(SolidColorBrush(Colors.Green))
-                | Dead -> Button(ReviveCell cellPosition).background(SolidColorBrush(Colors.Gray))
+                | Alive ->
+                    Rectangle()
+                        .fill(SolidColorBrush(Colors.Green))
+                        .onTapped(fun _ -> KillCell cellPosition)
+                        .size(10., 10.)
+                | Dead ->
+                    Rectangle()
+                        .fill(SolidColorBrush(Colors.Gray))
+                        .onTapped(fun _ -> ReviveCell cellPosition)
+                        .size(10., 10.)
         }
 
 module App =

@@ -37,9 +37,6 @@ module ButtonBuilders =
         static member inline Button<'msg>(text: string, onClicked: 'msg) =
             WidgetBuilder<'msg, IFabButton>(Button.WidgetKey, ContentControl.ContentString.WithValue(text), Button.Clicked.WithValue(fun _ -> box onClicked))
 
-        static member inline Button<'msg>(onClicked: 'msg) =
-            WidgetBuilder<'msg, IFabButton>(Button.WidgetKey, Button.Clicked.WithValue(fun _ -> box onClicked))
-
         static member inline Button(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabButton>(
                 Button.WidgetKey,
