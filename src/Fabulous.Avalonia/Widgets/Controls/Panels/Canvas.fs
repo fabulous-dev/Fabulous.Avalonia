@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabCanvas =
     inherit IFabPanel
@@ -25,6 +26,9 @@ module CanvasBuilders =
 
         static member Canvas<'msg>() =
             CollectionBuilder<'msg, IFabCanvas, IFabControl>(Canvas.WidgetKey, Panel.Children)
+
+        static member Canvas<'msg>(viewRef: ViewRef<Canvas>) =
+            WidgetBuilder<'msg, IFabCanvas>(Canvas.WidgetKey, ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox))
 
 [<Extension>]
 type CanvasModifiers =
