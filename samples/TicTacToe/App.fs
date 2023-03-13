@@ -2,9 +2,7 @@ namespace TicTacToe
 
 open System
 open Avalonia
-open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 
