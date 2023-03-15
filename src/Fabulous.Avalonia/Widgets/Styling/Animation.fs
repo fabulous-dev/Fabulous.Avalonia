@@ -54,8 +54,12 @@ module AnimationBuilders =
 [<Extension>]
 type AnimationModifiers =
     [<Extension>]
-    static member inline iterationCount(this: WidgetBuilder<'msg, #IFabAnimation>, value: IterationCount) =
-        this.AddScalar(Animation.IterationCount.WithValue(value))
+    static member inline repeatForever(this: WidgetBuilder<'msg, #IFabAnimation>) =
+        this.AddScalar(Animation.IterationCount.WithValue(IterationCount.Infinite))
+
+    [<Extension>]
+    static member inline repeatCount(this: WidgetBuilder<'msg, #IFabAnimation>, value: int) =
+        this.AddScalar(Animation.IterationCount.WithValue(IterationCount(uint64 value, IterationType.Many)))
 
     [<Extension>]
     static member inline playbackDirection(this: WidgetBuilder<'msg, #IFabAnimation>, value: PlaybackDirection) =

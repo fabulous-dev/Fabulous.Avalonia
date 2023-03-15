@@ -87,7 +87,7 @@ module Transform3D =
                         )
                             .cue(Cue(1.))
                     })
-                        .iterationCount(IterationCount.Infinite)
+                        .repeatForever()
                 }
             }
 
@@ -123,7 +123,7 @@ module Transform3D =
                         )
                             .cue(Cue(1.))
                     })
-                        .iterationCount(IterationCount.Infinite)
+                        .repeatForever()
                 }
             }
 
@@ -159,7 +159,7 @@ module Transform3D =
                         )
                             .cue(Cue(1.))
                     })
-                        .iterationCount(IterationCount.Infinite)
+                        .repeatForever()
                 }
             }
 
@@ -180,7 +180,7 @@ module Transform3D =
                         KeyFrame(Rotate3DTransform.AngleXProperty, 630.).cue(Cue(1.))
                         KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(1.))
                     })
-                        .iterationCount(IterationCount.Infinite)
+                        .repeatForever()
                 }
             }
 
@@ -227,7 +227,6 @@ module Transform3D =
 
         })
             .clock(Clock())
-
 
     let sample =
         { Name = "Transform3D"
