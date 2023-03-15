@@ -66,6 +66,7 @@ module LinearGradientBrushBuilders =
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint.TopLeft),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint.BottomRight)
             )
+
         static member LinearGradientBrush'<'msg>() =
             WidgetBuilder<'msg, IFabLinearGradientBrush>(
                 LinearGradientBrush.WidgetKey,
