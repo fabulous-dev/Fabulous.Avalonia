@@ -54,8 +54,12 @@ module KeyFrameBuilders =
 [<Extension>]
 type KeyFrameModifiers =
     [<Extension>]
-    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, clock: Cue) =
-        this.AddScalar(KeyFrame.Cue.WithValue(clock))
+    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: Cue) =
+        this.AddScalar(KeyFrame.Cue.WithValue(value))
+
+    [<Extension>]
+    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: float) =
+        this.AddScalar(KeyFrame.Cue.WithValue(Cue(value)))
 
     [<Extension>]
     static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, clock: string) =

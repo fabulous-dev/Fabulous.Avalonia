@@ -69,23 +69,20 @@ module Transform3D =
                 .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrames(
-                            [ Setter(Rotate3DTransform.AngleXProperty, 0.)
-                              Setter(Visual.ZIndexProperty, 4) ]
-                        )
-                            .cue(Cue(0.))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 0.).cue(0.)
+                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(0.25))
+                            .cue(0.25)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 360.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
-                            .cue(Cue(1.))
+                            .cue(1.)
                     })
                         .repeatForever()
                 }
@@ -103,25 +100,25 @@ module Transform3D =
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(0.))
+                            .cue(0.)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(0.25))
+                            .cue(0.25)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 360.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
-                            .cue(Cue(0.75))
+                            .cue(0.75)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 450.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(1.))
+                            .cue(1.)
                     })
                         .repeatForever()
                 }
@@ -139,25 +136,25 @@ module Transform3D =
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(0.))
+                            .cue(0.)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 360.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
-                            .cue(Cue(0.5))
+                            .cue(0.5)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 450.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(0.75))
+                            .cue(0.75)
 
                         KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 540.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
-                            .cue(Cue(1.))
+                            .cue(1.)
                     })
                         .repeatForever()
                 }
@@ -171,14 +168,14 @@ module Transform3D =
                 .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 270.).cue(Cue(0.))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 270.).cue(0.)
                         KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(0.))
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(Cue(0.25))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(0.25)
                         KeyFrame(Visual.ZIndexProperty, 4).cue(Cue(0.25))
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(Cue(0.5))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(0.5)
                         KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(0.5))
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 630.).cue(Cue(1.))
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(1.))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 630.).cue(1.)
+                        KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
                     })
                         .repeatForever()
                 }
