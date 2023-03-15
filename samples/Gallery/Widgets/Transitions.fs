@@ -8,6 +8,7 @@ open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Controls
 
 open type Fabulous.Avalonia.View
 

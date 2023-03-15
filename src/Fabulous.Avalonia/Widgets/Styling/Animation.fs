@@ -48,6 +48,9 @@ module AnimationBuilders =
         static member Animation<'msg>(duration: TimeSpan) =
             CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children, Animation.Duration.WithValue(duration))
 
+        static member Animation<'msg>() =
+            CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children)
+
 [<Extension>]
 type AnimationModifiers =
     [<Extension>]

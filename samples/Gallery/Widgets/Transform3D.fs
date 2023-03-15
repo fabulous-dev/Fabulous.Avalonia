@@ -3,11 +3,9 @@ namespace Gallery
 open System
 open Avalonia
 open Avalonia.Animation
-open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
-open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
@@ -63,28 +61,27 @@ module Transform3D =
             .borderBrush(SolidColorBrush(Colors.Black))
             .gridColumnSpan(2)
 
-
     let view model =
         (Grid(coldefs = [ Auto; Star; Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto; Auto ]) {
             border()
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, model.Depth))
                 .background(SolidColorBrush(Colors.DarkRed))
-                .withAnimation() {
+                .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 0.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
                             .cue(Cue(0.))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(0.25))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 360.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
@@ -99,28 +96,28 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.DarkGreen))
                 .gridRow(0)
                 .gridColumn(0)
-                .withAnimation() {
+                .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 90.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(0.))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(0.25))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 360.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
                             .cue(Cue(0.75))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 450.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
@@ -135,28 +132,28 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.DarkBlue))
                 .gridRow(0)
                 .gridColumn(0)
-                .withAnimation() {
+                .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 180.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(0.))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 360.)
                               Setter(Visual.ZIndexProperty, 4) ]
                         )
                             .cue(Cue(0.5))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 450.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
                             .cue(Cue(0.75))
 
-                        KeyFrame(
+                        KeyFrames(
                             [ Setter(Rotate3DTransform.AngleXProperty, 540.)
                               Setter(Visual.ZIndexProperty, 1) ]
                         )
@@ -171,32 +168,17 @@ module Transform3D =
                 .background(SolidColorBrush(Colors.Orange))
                 .gridRow(0)
                 .gridColumn(0)
-                .withAnimation() {
+                .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(
-                            [ Setter(Rotate3DTransform.AngleXProperty, 270.)
-                              Setter(Visual.ZIndexProperty, 1) ]
-                        )
-                            .cue(Cue(0.))
-
-                        KeyFrame(
-                            [ Setter(Rotate3DTransform.AngleXProperty, 360.)
-                              Setter(Visual.ZIndexProperty, 4) ]
-                        )
-                            .cue(Cue(0.25))
-
-                        KeyFrame(
-                            [ Setter(Rotate3DTransform.AngleXProperty, 450.)
-                              Setter(Visual.ZIndexProperty, 1) ]
-                        )
-                            .cue(Cue(0.5))
-
-                        KeyFrame(
-                            [ Setter(Rotate3DTransform.AngleXProperty, 630.)
-                              Setter(Visual.ZIndexProperty, 1) ]
-                        )
-                            .cue(Cue(1.))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 270.).cue(Cue(0.))
+                        KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(0.))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(Cue(0.25))
+                        KeyFrame(Visual.ZIndexProperty, 4).cue(Cue(0.25))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(Cue(0.5))
+                        KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(0.5))
+                        KeyFrame(Rotate3DTransform.AngleXProperty, 630.).cue(Cue(1.))
+                        KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(1.))
                     })
                         .iterationCount(IterationCount.Infinite)
                 }

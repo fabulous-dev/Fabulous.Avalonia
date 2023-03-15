@@ -25,12 +25,6 @@ module StyleBuilders =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
 
 [<Extension>]
-type StyleModifiers =
-    [<Extension>]
-    static member inline animations(this: WidgetBuilder<'msg, #IFabStyle>) =
-        AttributeCollectionBuilder<'msg, #IFabStyle, IFabAnimation>(this, Style.Animations)
-
-[<Extension>]
 type StyleCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
