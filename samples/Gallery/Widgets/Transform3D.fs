@@ -169,11 +169,11 @@ module Transform3D =
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(Rotate3DTransform.AngleXProperty, 270.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(0.))
+                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
                         KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(0.25)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(Cue(0.25))
+                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.25)
                         KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(0.5)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(Cue(0.5))
+                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.5)
                         KeyFrame(Rotate3DTransform.AngleXProperty, 630.).cue(1.)
                         KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
                     })
@@ -187,7 +187,7 @@ module Transform3D =
 
             border()
                 .background(
-                    LinearGradientBrush(RelativePoint(Point(0., 0.), RelativeUnit.Relative), RelativePoint(Point(0., 1.), RelativeUnit.Relative)) {
+                    LinearGradientBrush(Point(0., 0.), Point(0., 1.)) {
                         GradientStop(0., Colors.Red)
                         GradientStop(1., Colors.Blue)
                     }
