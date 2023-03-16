@@ -24,6 +24,22 @@ module RadialGradientBrush =
 module RadialGradientBrushBuilders =
     type Fabulous.Avalonia.View with
 
+        static member inline RadialGradientBrush<'msg>(center: RelativePoint) =
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                RadialGradientBrush.WidgetKey,
+                GradientBrush.GradientStops,
+                RadialGradientBrush.Center.WithValue(center),
+                RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
+            )
+
+        static member inline RadialGradientBrush<'msg>(center: Point, unit: RelativeUnit) =
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
+                RadialGradientBrush.WidgetKey,
+                GradientBrush.GradientStops,
+                RadialGradientBrush.Center.WithValue((RelativePoint(center, unit))),
+                RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
+            )
+
         static member inline RadialGradientBrush<'msg>(center: RelativePoint, origin: RelativePoint) =
             CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,

@@ -27,7 +27,7 @@ module LinearGradientBrushBuilders =
                 LinearGradientBrush.StartPoint.WithValue(startPoint),
                 LinearGradientBrush.EndPoint.WithValue(endPoint)
             )
-            
+
         static member LinearGradientBrush'<'msg>(startPoint: RelativePoint, endPoint: RelativePoint) =
             WidgetBuilder<'msg, IFabLinearGradientBrush>(
                 LinearGradientBrush.WidgetKey,
@@ -42,7 +42,7 @@ module LinearGradientBrushBuilders =
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint(startPoint, unit)),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint(endPoint, unit))
             )
-            
+
         static member inline LinearGradientBrush<'msg>(startPoint: Point, endPoint: Point) =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
                 LinearGradientBrush.WidgetKey,

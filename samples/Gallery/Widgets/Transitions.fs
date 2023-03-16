@@ -63,21 +63,21 @@ module Transitions =
 
         | OnPointerEnter10 of PointerEventArgs
         | OnPointerExited10 of PointerEventArgs
-        
+
         | OnPointerEnter11 of PointerEventArgs
         | OnPointerExited11 of PointerEventArgs
-        
+
         | OnPointerEnter12 of PointerEventArgs
         | OnPointerExited12 of PointerEventArgs
-        
+
         | OnPointerEnter13 of PointerEventArgs
         | OnPointerExited13 of PointerEventArgs
-        
+
         | OnPointerEnter14 of PointerEventArgs
         | OnPointerExited14 of PointerEventArgs
-        
+
         | OnPointerEnter15 of PointerEventArgs
-        
+
         | OnPointerExited15 of PointerEventArgs
 
     let init () =
@@ -156,26 +156,56 @@ module Transitions =
         | OnPointerEnter10 _ -> { model with Background = Colors.Green }
 
         | OnPointerExited10 _ -> { model with Background = Colors.Red }
-        
-        | OnPointerEnter11 _ -> { model with Background2 = Colors.Red; Background3 = Colors.Blue }
-        
-        | OnPointerExited11 _ -> { model with Background2 = Colors.Transparent; Background3 = Colors.Transparent }
-        
-        | OnPointerEnter12 _ -> { model with Background2 = Colors.Blue; Background3 = Colors.Red }
-        
-        | OnPointerExited12 _ -> { model with Background2 = Colors.Transparent; Background3 = Colors.Transparent }
-        
-        | OnPointerEnter13 _ -> { model with Background2 = Colors.Red; Background3 = Colors.Blue }
-        
-        | OnPointerExited13 _ -> { model with Background2 = Colors.Transparent; Background3 = Colors.Transparent }
-        
-        | OnPointerEnter14 _ -> { model with Background2 = Colors.Blue; Background3 = Colors.Red }
-        
-        | OnPointerExited14 _ -> { model with Background2 = Colors.Transparent; Background3 = Colors.Transparent }
-        
-        | OnPointerEnter15 _ -> { model with Background2 = Colors.Red; Background3 = Colors.Blue }
-        
-        | OnPointerExited15 _ -> { model with Background2 = Colors.Transparent; Background3 = Colors.Transparent }
+
+        | OnPointerEnter11 _ ->
+            { model with
+                Background2 = Colors.Red
+                Background3 = Colors.Blue }
+
+        | OnPointerExited11 _ ->
+            { model with
+                Background2 = Colors.Transparent
+                Background3 = Colors.Transparent }
+
+        | OnPointerEnter12 _ ->
+            { model with
+                Background2 = Colors.Blue
+                Background3 = Colors.Red }
+
+        | OnPointerExited12 _ ->
+            { model with
+                Background2 = Colors.Transparent
+                Background3 = Colors.Transparent }
+
+        | OnPointerEnter13 _ ->
+            { model with
+                Background2 = Colors.Red
+                Background3 = Colors.Blue }
+
+        | OnPointerExited13 _ ->
+            { model with
+                Background2 = Colors.Transparent
+                Background3 = Colors.Transparent }
+
+        | OnPointerEnter14 _ ->
+            { model with
+                Background2 = Colors.Blue
+                Background3 = Colors.Red }
+
+        | OnPointerExited14 _ ->
+            { model with
+                Background2 = Colors.Transparent
+                Background3 = Colors.Transparent }
+
+        | OnPointerEnter15 _ ->
+            { model with
+                Background2 = Colors.Red
+                Background3 = Colors.Blue }
+
+        | OnPointerExited15 _ ->
+            { model with
+                Background2 = Colors.Transparent
+                Background3 = Colors.Transparent }
 
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) = this.margin(15.).size(100., 100.)
 
@@ -306,39 +336,43 @@ module Transitions =
                         )
                         .onPointerEnter(OnPointerEnter10)
                         .onPointerExited(OnPointerExited10)
-                    
+
                     Border(heart model.Heart)
                         .style(borderTestStyle)
                         .background(
                             (LinearGradientBrush(RelativePoint.Parse("0%, 0%"), RelativePoint.Parse("100%, 100%")) {
                                 GradientStop(0., model.Background2)
                                 GradientStop(1., model.Background3)
-                            }).transitions() {
+                            })
+                                .transitions() {
                                 BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
                             }
                         )
                         .onPointerEnter(OnPointerEnter11)
                         .onPointerExited(OnPointerExited11)
+
                     Border(heart model.Heart)
                         .style(borderTestStyle)
                         .background(
                             (ConicGradientBrush(RelativePoint.Parse("50%, 50%"), 0.) {
                                 GradientStop(0., model.Background2)
                                 GradientStop(1., model.Background3)
-                            }).transitions() {
+                            })
+                                .transitions() {
                                 BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
                             }
                         )
                         .onPointerEnter(OnPointerEnter12)
                         .onPointerExited(OnPointerExited12)
-          
+
                     Border(heart model.Heart)
                         .style(borderTestStyle)
                         .background(
                             (ConicGradientBrush(RelativePoint.Parse("70%, 70%"), 90.) {
                                 GradientStop(0., model.Background2)
                                 GradientStop(1., model.Background3)
-                            }).transitions() {
+                            })
+                                .transitions() {
                                 BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
                             }
                         )
@@ -348,33 +382,33 @@ module Transitions =
                     Border(heart model.Heart)
                         .style(borderTestStyle)
                         .background(
-                            (RadialGradientBrush(RelativePoint.Parse("50%"), RelativePoint.Parse("50%")) {
+                            (RadialGradientBrush(RelativePoint.Parse("50%, 50%")) {
                                 GradientStop(0., model.Background2)
                                 GradientStop(1., model.Background3)
                             })
                                 .radius(0.5)
                                 .transitions() {
-                                    BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
-                                }
+                                BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
+                            }
                         )
                         .onPointerEnter(OnPointerEnter14)
                         .onPointerExited(OnPointerExited14)
-                    
+
                     Border(heart model.Heart)
                         .style(borderTestStyle)
                         .background(
-                            (RadialGradientBrush(RelativePoint.Parse("30%"), RelativePoint.Parse("30%")) {
+                            (RadialGradientBrush(RelativePoint.Parse("30%, 30.%")) {
                                 GradientStop(0., model.Background2)
                                 GradientStop(1., model.Background3)
                             })
                                 .radius(0.2)
                                 .transitions() {
-                                    BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
-                                }
+                                BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(3.))
+                            }
                         )
                         .onPointerEnter(OnPointerEnter15)
                         .onPointerExited(OnPointerExited15)
-                        
+
                 })
                     .clipToBounds(false)
             })
