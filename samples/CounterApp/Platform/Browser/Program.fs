@@ -10,14 +10,11 @@ module public Program =
     [<assembly: SupportedOSPlatform("browser")>]
     do ()
 
-    [<CompiledName "BuildAvaloniaApp">] 
-    let public buildAvaloniaApp () = 
-        AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
+    [<CompiledName "BuildAvaloniaApp">]
+    let public buildAvaloniaApp () =
+        AppBuilder.Configure(fun () -> Program.startApplication App.program)
 
     [<EntryPoint>]
     let main argv =
-        buildAvaloniaApp()
-            .SetupBrowserApp("out")
-            |> ignore
+        buildAvaloniaApp().SetupBrowserApp("out") |> ignore
         0
