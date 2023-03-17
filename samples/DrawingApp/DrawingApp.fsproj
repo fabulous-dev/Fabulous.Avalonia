@@ -21,5 +21,9 @@
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="runtimeconfig.template.json" />
+  </ItemGroup>
+
   <Import Project="..\..\src\Fabulous.Avalonia.targets" />
 </Project>
