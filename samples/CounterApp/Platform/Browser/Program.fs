@@ -1,7 +1,10 @@
 namespace CounterApp.Browser
+
 open System.Runtime.Versioning
 open Avalonia
 open Avalonia.Browser
+open Fabulous.Avalonia
+open CounterApp
 
 module public Program =
     [<assembly: SupportedOSPlatform("browser")>]

@@ -3,15 +3,11 @@
   
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+    <TargetFrameworks>net7.0;net7.0-macos;net7.0-android;net7.0-ios</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
     <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'Browser' ">
-    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
-    <WasmMainJSPath>$(BrowserPlatformFolder)\AppBundle\main.js</WasmMainJSPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="runtimeconfig.template.json" />
   </ItemGroup>
   
   <Import Project="..\..\src\Fabulous.Avalonia.targets" />

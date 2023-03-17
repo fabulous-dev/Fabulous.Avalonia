@@ -18,17 +18,13 @@
   <PropertyGroup Condition="$(GITHUB_ACTIONS) == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(AvaloniaPlatform)'== 'Browser' And '$(IsBrowser)' == 'true'">
-    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
-    <WasmMainJSPath>$(BrowserPlatformFolder)\AppBundle\main.js</WasmMainJSPath>
-  </PropertyGroup>
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
     <!-- Normalize casing -->
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == '' And '$(IsBrowser)' != 'true'">Desktop</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)'== '' And '$(IsBrowser)' == 'true'">Browser</AvaloniaPlatform>
+<!--    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)'== '' And '$(IsBrowser)' == 'true'">Browser</AvaloniaPlatform>-->
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" PackagePath="\" Pack="true" />
@@ -227,11 +223,5 @@
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0-preview5" />
-  </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-    <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-preview5" />
-  </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
-    <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0-preview5" />
   </ItemGroup>
 </Project>

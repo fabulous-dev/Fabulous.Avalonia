@@ -4,10 +4,14 @@
         <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
         
         <!-- Normalize casing -->
-        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
+        <!-- 
+            There is no Target Framework Moniker to differentiate when targeting browser or desktop.
+            For now, we'll assume 'net7.0' is browser and OS-specific tfms like 'net7.0-windows' are desktop.
+         -->
+        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Browser</AvaloniaPlatform>
+        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'macos' OR '$(AvaloniaPlatform)' == 'windows'">Desktop</AvaloniaPlatform>
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
-        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'browser'">Browser</AvaloniaPlatform>
     </PropertyGroup>
     
     <PropertyGroup Condition="$(AvaloniaPlatform) == 'Android'">
@@ -27,13 +31,13 @@
         <DefineConstants>MOBILE;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
     
-    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Desktop' And $(IsBrowser) != 'true'">
+    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <DesktopPlatformFolder Condition="$(DesktopPlatformFolder) == ''">Platform\Desktop\</DesktopPlatformFolder>
         <BuiltInCodeInteropSupport>true</BuiltInCodeInteropSupport>
         <DefineConstants>DESKTOP;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Browser' And $(IsBrowser) == 'true'">
+    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Browser'">
         <BrowserPlatformFolder Condition="$(BrowserPlatformFolder) == ''">Platform\Browser\</BrowserPlatformFolder>
         <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
         <WasmMainJSPath>$(BrowserPlatformFolder)\AppBundle\main.js</WasmMainJSPath>

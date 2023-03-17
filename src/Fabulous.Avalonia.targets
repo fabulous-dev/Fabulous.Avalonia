@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project>
+<Project>    
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
         <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
@@ -14,17 +14,19 @@
         <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
     </ItemGroup>
 
-    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'And $(IsBrowser) != 'true'">
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
+        <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-preview5" />
     </ItemGroup>
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
+        <None Include="Properties\**" />
         <Compile Include="$(BrowserPlatformFolder)Program.fs" />
-        <None Include="$(BrowserPlatformFolder)\Properties\**" />
         <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
         <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
-        <Content Include="$(BrowserPlatformFolder)runtimeconfig.template.json" />
+        <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0-preview5" />
     </ItemGroup>
+    
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->
 <!--        <Error Text="AvaloniaPlatform is '$(AppBundleManifest)'" />-->
