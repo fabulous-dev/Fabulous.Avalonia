@@ -4,12 +4,11 @@
         <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
         
         <!-- Normalize casing -->
-        <!-- 
-            There is no Target Framework Moniker to differentiate when targeting browser or desktop.
-            For now, we'll assume 'net7.0' is browser and OS-specific tfms like 'net7.0-windows' are desktop.
-         -->
+        
+        <!-- Enable only one line of the two -->
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Browser</AvaloniaPlatform>
-        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'macos' OR '$(AvaloniaPlatform)' == 'windows'">Desktop</AvaloniaPlatform>
+<!--        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Browser</AvaloniaPlatform>-->
+        
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
     </PropertyGroup>

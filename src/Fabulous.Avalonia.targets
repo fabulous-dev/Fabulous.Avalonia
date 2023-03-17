@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project>    
+<Project>
+    <ItemGroup>
+        <None Include="Properties\**" />
+    </ItemGroup>
+    
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
         <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
@@ -20,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
-        <None Include="Properties\**" />
         <Compile Include="$(BrowserPlatformFolder)Program.fs" />
         <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
         <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
