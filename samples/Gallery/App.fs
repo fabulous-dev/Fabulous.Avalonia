@@ -112,7 +112,7 @@ module App =
                 .horizontalAlignment(HorizontalAlignment.Left)
         }
 
-#if MOBILE
+#if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
 #else
     let app model =
