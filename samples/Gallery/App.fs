@@ -32,7 +32,7 @@ module App =
         { WidgetModel = None
           IsPanOpen = true
           OverviewModel = OverViewPage.init()
-          Controls = WidgetPage.getSamplesNames()
+          Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
           SelectedIndex = -1 },
         Cmd.none
 

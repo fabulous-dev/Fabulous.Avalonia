@@ -7,6 +7,7 @@ open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
+open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabBorder =
@@ -76,12 +77,20 @@ type BorderModifiers =
         this.AddWidget(Border.BackgroundWidget.WithValue(value.Compile()))
 
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
+        this.AddScalar(Border.Background.WithValue(value))
+
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, brush: string) =
         this.AddScalar(Border.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Border.BorderBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, brush: IBrush) =
+        this.AddScalar(Border.BorderBrush.WithValue(brush))
 
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, brush: string) =
@@ -96,7 +105,7 @@ type BorderModifiers =
         this.AddScalar(Border.CornerRadius.WithValue(value))
 
     [<Extension>]
-    static member inline boxShadows(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
+    static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
         this.AddScalar(Border.BoxShadow.WithValue(value))
 
     [<Extension>]
@@ -142,10 +151,18 @@ type BorderExtraModifiers =
         BorderModifiers.borderThickness(this, Thickness(left, top, right, bottom))
 
     [<Extension>]
+    static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadow) =
+        BorderModifiers.boxShadow(this, BoxShadows(value))
+
+    [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.boxShadows(this, BoxShadows(BoxShadow.Parse(value)))
+        BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(value)))
+
+    [<Extension>]
+    static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: BoxShadow, rest: BoxShadow list) =
+        BorderModifiers.boxShadow(this, BoxShadows(first, rest |> List.toArray))
 
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
-        BorderModifiers.boxShadows(this, BoxShadows(BoxShadow.Parse(first), rest))
+        BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))

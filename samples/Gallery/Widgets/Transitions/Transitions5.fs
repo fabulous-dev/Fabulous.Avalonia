@@ -1,0 +1,73 @@
+namespace Gallery
+
+open System
+open Avalonia
+open Avalonia.Animation
+open Avalonia.Input
+open Avalonia.Media
+open Fabulous
+open Fabulous.Avalonia
+open Avalonia.Layout
+
+open type Fabulous.Avalonia.View
+
+
+
+module Transitions5 =
+    type Model = { Height: float; Width: float }
+
+    type Msg =
+        | OnPointerEnter of PointerEventArgs
+        | OnPointerExited of PointerEventArgs
+
+        | OnPointerEnter2 of PointerEventArgs
+        | OnPointerExited2 of PointerEventArgs
+
+    let init () = { Height = 100.; Width = 100. }
+
+    let update msg model =
+        match msg with
+        | OnPointerEnter _ -> { model with Width = 50. }
+        | OnPointerExited _ -> { model with Width = 100. }
+        | OnPointerEnter2 _ -> { model with Height = 50. }
+        | OnPointerExited2 _ -> { model with Height = 100. }
+
+    let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
+        this
+            .child(Path(Paths.Path1).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
+            .margin(15.)
+            .size(100., 100.)
+
+    let borderTestStyle1 (this: WidgetBuilder<'msg, IFabBorder>) =
+        this
+            .child(Path(Paths.Path2).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
+            .margin(15.)
+
+    let view model =
+        (UniformGrid() {
+            Border()
+                .background(SolidColorBrush(Colors.Orange))
+                .onPointerEnter(OnPointerEnter)
+                .onPointerExited(OnPointerExited)
+                .width(model.Width)
+                .height(100.)
+                .transitions() {
+                DoubleTransition(Layoutable.WidthProperty, TimeSpan.FromSeconds(0.5))
+            }
+
+            Border()
+                .background(SolidColorBrush(Colors.Orange))
+                .onPointerEnter(OnPointerEnter2)
+                .onPointerExited(OnPointerExited2)
+                .height(model.Height)
+                .width(100.)
+                .transitions() {
+                DoubleTransition(Layoutable.HeightProperty, TimeSpan.FromSeconds(0.5))
+            }
+        })
+            .clock(Clock())
+
+    let sample =
+        { Name = "Transitions 5"
+          Description = "Transitions sample"
+          Program = Helper.createProgram init update view }
