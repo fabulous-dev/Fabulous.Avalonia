@@ -5,7 +5,6 @@
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
     <IsPackable>false</IsPackable>
-    <UseMauiEssentials>true</UseMauiEssentials>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
@@ -26,5 +25,9 @@
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="runtimeconfig.template.json" />
+  </ItemGroup>
+  
   <Import Project="..\..\src\Fabulous.Avalonia.targets" />
 </Project>
