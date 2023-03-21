@@ -130,7 +130,6 @@ module App =
                 .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
                 .transparencyLevelHint(WindowTransparencyLevel.AcrylicBlur)
-                .extendClientAreaToDecorationsHint(true)
                 .menu(
                     NativeMenu() {
                         NativeMenuItem("Edit")
