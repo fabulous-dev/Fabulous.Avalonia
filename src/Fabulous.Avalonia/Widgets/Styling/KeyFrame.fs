@@ -3,7 +3,9 @@ namespace Fabulous.Avalonia
 open System
 open System.Globalization
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Animation
+open Avalonia.Styling
 open Fabulous
 
 type IFabKeyFrame =
@@ -21,6 +23,14 @@ module KeyFrame =
             for an in value do
                 target.Setters.Add(an))
 
+    let Setter =
+        Attributes.definePropertyWithGetSet<IAnimationSetter>
+            "KeyFrame_Setter"
+            (fun target -> (target :?> KeyFrame).Setters.GetEnumerator().Current)
+            (fun target value ->
+                let target = (target :?> KeyFrame)
+                target.Setters.Add(value))
+
     let Cue =
         Attributes.defineProperty "KeyFrame_Cue" (Cue(0.)) (fun target value -> (target :?> KeyFrame).Cue <- value)
 
@@ -35,14 +45,21 @@ module KeyFrameBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member KeyFrame(setters: IAnimationSetter seq) =
+        static member KeyFrames(setters: IAnimationSetter seq) =
             WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setters.WithValue(setters))
+
+        static member KeyFrame(property: AvaloniaProperty, value: obj) =
+            WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setter.WithValue(Setter(property, value)))
 
 [<Extension>]
 type KeyFrameModifiers =
     [<Extension>]
-    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, clock: Cue) =
-        this.AddScalar(KeyFrame.Cue.WithValue(clock))
+    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: Cue) =
+        this.AddScalar(KeyFrame.Cue.WithValue(value))
+
+    [<Extension>]
+    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: float) =
+        this.AddScalar(KeyFrame.Cue.WithValue(Cue(value)))
 
     [<Extension>]
     static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, clock: string) =

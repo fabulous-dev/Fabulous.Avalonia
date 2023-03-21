@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
+open Avalonia.Animation
 open Avalonia.Collections
 open Avalonia.Styling
 open Fabulous
@@ -35,12 +36,12 @@ type StyledElementModifiers =
         this.AddScalar(StyledElement.Name.WithValue(name))
 
     [<Extension>]
-    static member inline withAnimation(this: WidgetBuilder<'msg, #IFabStyledElement>) =
-        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
-
-    [<Extension>]
     static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, classes: string list) =
         this.AddScalar(StyledElement.Classes.WithValue(classes))
+
+    [<Extension>]
+    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>) =
+        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
 
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this

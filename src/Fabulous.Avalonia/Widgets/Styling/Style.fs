@@ -16,6 +16,14 @@ module Style =
     let Animations =
         Attributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
 
+    let Setters =
+        Attributes.definePropertyWithGetSet<ISetter seq> "Style_Setters" (fun target -> (target :?> Style).Setters) (fun target value ->
+            let target = (target :?> Style)
+            target.Setters.Clear()
+
+            for an in value do
+                target.Setters.Add(an))
+
 [<AutoOpen>]
 module StyleBuilders =
 
@@ -23,12 +31,6 @@ module StyleBuilders =
 
         static member Animations() =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
-
-[<Extension>]
-type StyleModifiers =
-    [<Extension>]
-    static member inline animations(this: WidgetBuilder<'msg, #IFabStyle>) =
-        AttributeCollectionBuilder<'msg, #IFabStyle, IFabAnimation>(this, Style.Animations)
 
 [<Extension>]
 type StyleCollectionBuilderExtensions =

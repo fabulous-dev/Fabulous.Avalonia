@@ -28,6 +28,13 @@ module LinearGradientBrushBuilders =
                 LinearGradientBrush.EndPoint.WithValue(endPoint)
             )
 
+        static member LinearGradientBrush'<'msg>(startPoint: RelativePoint, endPoint: RelativePoint) =
+            WidgetBuilder<'msg, IFabLinearGradientBrush>(
+                LinearGradientBrush.WidgetKey,
+                LinearGradientBrush.StartPoint.WithValue(startPoint),
+                LinearGradientBrush.EndPoint.WithValue(endPoint)
+            )
+
         static member inline LinearGradientBrush<'msg>(startPoint: Point, endPoint: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
                 LinearGradientBrush.WidgetKey,
@@ -35,6 +42,11 @@ module LinearGradientBrushBuilders =
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint(startPoint, unit)),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint(endPoint, unit))
             )
+
+        static member inline LinearGradientBrush<'msg>(startPoint: Point, endPoint: Point) =
+            let startPoint = RelativePoint(startPoint, RelativeUnit.Relative)
+            let endPoint = RelativePoint(endPoint, RelativeUnit.Relative)
+            View.LinearGradientBrush<'msg>(startPoint, endPoint)
 
         static member inline LinearGradientBrush<'msg>(startPoint: Point, endPoint: Point, startUnit: RelativeUnit, endUnit: RelativeUnit) =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
@@ -50,13 +62,6 @@ module LinearGradientBrushBuilders =
                 GradientBrush.GradientStops,
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint.TopLeft),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint.BottomRight)
-            )
-
-        static member LinearGradientBrush'<'msg>(startPoint: RelativePoint, endPoint: RelativePoint) =
-            WidgetBuilder<'msg, IFabLinearGradientBrush>(
-                LinearGradientBrush.WidgetKey,
-                LinearGradientBrush.StartPoint.WithValue(startPoint),
-                LinearGradientBrush.EndPoint.WithValue(endPoint)
             )
 
         static member LinearGradientBrush'<'msg>() =

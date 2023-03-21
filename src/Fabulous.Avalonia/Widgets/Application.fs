@@ -142,7 +142,6 @@ type ApplicationModifiers =
     static member inline styles(this: WidgetBuilder<'msg, #IFabApplication>, url: string) =
         this.AddScalar(Application.Styles.WithValue(url))
 
-
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
         this.AddScalar(Application.Name.WithValue(value))
