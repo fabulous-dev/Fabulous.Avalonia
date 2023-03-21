@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
+    <ItemGroup>
+        <None Include="Properties\**" />
+    </ItemGroup>
+    
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
         <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
@@ -16,7 +20,16 @@
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
+        <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-preview5" />
     </ItemGroup>
+
+    <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
+        <Compile Include="$(BrowserPlatformFolder)Program.fs" />
+        <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
+        <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
+        <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0-preview5" />
+    </ItemGroup>
+    
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->
 <!--        <Error Text="AvaloniaPlatform is '$(AppBundleManifest)'" />-->

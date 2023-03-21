@@ -201,7 +201,7 @@ module App =
         })
             .background(SolidColorBrush(Colors.White))
 
-#if MOBILE
+#if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
 #else
     let app model =

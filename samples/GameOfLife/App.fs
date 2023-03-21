@@ -234,7 +234,7 @@ module App =
         })
             .margin(0., 50., 0., 50.)
 
-#if MOBILE
+#if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
 #else
     let app model = DesktopApplication(Window(view model))
