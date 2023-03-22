@@ -216,15 +216,15 @@
       This version will be used as the lower bound in the NuGet package
     -->
     <PackageReference Include="Fabulous" VersionOverride="[2.2.0, 2.3.0)" />
-    <PackageReference Include="Avalonia" VersionOverride="11.0.0-preview5" />
-    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-preview5" />
+    <PackageReference Include="Avalonia" VersionOverride="11.0.0-preview6" />
+    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-preview6" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.0-preview6" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0-preview6" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
       <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-preview5" />
