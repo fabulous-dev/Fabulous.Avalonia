@@ -106,6 +106,8 @@
     <Compile Include="Widgets\Controls\Panels\WrapPanel.fs" />
     <Compile Include="Widgets\Controls\Panels\UniformGrid.fs" />
     <Compile Include="Widgets\Controls\Border.fs" />
+    <Compile Include="Widgets\Controls\RefreshVisualizer.fs" />
+    <Compile Include="Widgets\Controls\RefreshContainer.fs" />
     <Compile Include="Widgets\Controls\ThemeVariantScope.fs" />
     <Compile Include="Widgets\Controls\ExperimentalAcrylicMaterial.fs" />
     <Compile Include="Widgets\Controls\ExperimentalAcrylicBorder.fs" />
