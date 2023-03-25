@@ -79,7 +79,8 @@ module WidgetPage =
           PageTransitions.sample
           LayoutTransformControl.sample
           ThemeAware.sample
-          Brushes.sample ]
+          Brushes.sample
+          RefreshContainer.sample ]
 
     let init index =
         let sample = samples.[index]

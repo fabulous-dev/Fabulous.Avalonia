@@ -13,12 +13,6 @@ type IFabScrollViewer =
 module ScrollViewer =
     let WidgetKey = Widgets.register<ScrollViewer>()
 
-    let CanHorizontallyScroll =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.CanHorizontallyScrollProperty
-
-    let CanVerticallyScroll =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.CanVerticallyScrollProperty
-
     let Extent =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ExtentProperty
 
@@ -28,32 +22,14 @@ module ScrollViewer =
     let Viewport =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ViewportProperty
 
-    let LargeChange =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.LargeChangeProperty
-
-    let SmallChange =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.SmallChangeProperty
-
-    let HorizontalScrollBarMaximum =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarMaximumProperty
-
     let HorizontalScrollBarValue =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarValueProperty
-
-    let HorizontalScrollBarViewportSize =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarViewportSizeProperty
 
     let HorizontalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarVisibilityProperty
 
-    let VerticalScrollBarMaximum =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarMaximumProperty
-
     let VerticalScrollBarValue =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarValueProperty
-
-    let VerticalScrollBarViewportSize =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarViewportSizeProperty
 
     let VerticalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarVisibilityProperty
@@ -63,6 +39,21 @@ module ScrollViewer =
 
     let IsScrollChainingEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsScrollChainingEnabledProperty
+
+    let HorizontalSnapPointsAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalSnapPointsAlignmentProperty
+
+    let HorizontalSnapPointsType =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalSnapPointsTypeProperty
+
+    let VerticalSnapPointsAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalSnapPointsAlignmentProperty
+
+    let VerticalSnapPointsType =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalSnapPointsTypeProperty
+
+    let IsScrollInertiaEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsScrollInertiaEnabledProperty
 
     let ScrollChanged =
         Attributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
@@ -80,14 +71,6 @@ module ScrollViewerBuilders =
 [<Extension>]
 type ScrollViewerModifiers =
     [<Extension>]
-    static member inline canHorizontallyScroll(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
-        this.AddScalar(ScrollViewer.CanHorizontallyScroll.WithValue(value))
-
-    [<Extension>]
-    static member inline canVerticallyScroll(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
-        this.AddScalar(ScrollViewer.CanVerticallyScroll.WithValue(value))
-
-    [<Extension>]
     static member inline extent(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Size) =
         this.AddScalar(ScrollViewer.Extent.WithValue(value))
 
@@ -100,40 +83,16 @@ type ScrollViewerModifiers =
         this.AddScalar(ScrollViewer.Viewport.WithValue(value))
 
     [<Extension>]
-    static member inline largeChange(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Size) =
-        this.AddScalar(ScrollViewer.LargeChange.WithValue(value))
-
-    [<Extension>]
-    static member inline smallChange(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Size) =
-        this.AddScalar(ScrollViewer.SmallChange.WithValue(value))
-
-    [<Extension>]
-    static member inline horizontalScrollBarMaximum(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.HorizontalScrollBarMaximum.WithValue(value))
-
-    [<Extension>]
     static member inline horizontalScrollBarValue(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
         this.AddScalar(ScrollViewer.HorizontalScrollBarValue.WithValue(value))
-
-    [<Extension>]
-    static member inline horizontalScrollBarViewportSize(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.HorizontalScrollBarViewportSize.WithValue(value))
 
     [<Extension>]
     static member inline horizontalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
         this.AddScalar(ScrollViewer.HorizontalScrollBarVisibility.WithValue(value))
 
     [<Extension>]
-    static member inline verticalScrollBarMaximum(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.VerticalScrollBarMaximum.WithValue(value))
-
-    [<Extension>]
     static member inline verticalScrollBarValue(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
         this.AddScalar(ScrollViewer.VerticalScrollBarValue.WithValue(value))
-
-    [<Extension>]
-    static member inline verticalScrollBarViewportSize(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.VerticalScrollBarViewportSize.WithValue(value))
 
     [<Extension>]
     static member inline verticalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
@@ -146,6 +105,26 @@ type ScrollViewerModifiers =
     [<Extension>]
     static member inline isScrollChainingEnabled(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
         this.AddScalar(ScrollViewer.IsScrollChainingEnabled.WithValue(value))
+
+    [<Extension>]
+    static member inline horizontalSnapPointsAlignment(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: SnapPointsAlignment) =
+        this.AddScalar(ScrollViewer.HorizontalSnapPointsAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline horizontalSnapPointsType(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: SnapPointsType) =
+        this.AddScalar(ScrollViewer.HorizontalSnapPointsType.WithValue(value))
+
+    [<Extension>]
+    static member inline verticalSnapPointsAlignment(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: SnapPointsAlignment) =
+        this.AddScalar(ScrollViewer.VerticalSnapPointsAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline verticalSnapPointsType(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: SnapPointsType) =
+        this.AddScalar(ScrollViewer.VerticalSnapPointsType.WithValue(value))
+
+    [<Extension>]
+    static member inline isScrollInertiaEnabled(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
+        this.AddScalar(ScrollViewer.IsScrollInertiaEnabled.WithValue(value))
 
     [<Extension>]
     static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, onScrollChanged: ScrollChangedEventArgs -> 'msg) =
