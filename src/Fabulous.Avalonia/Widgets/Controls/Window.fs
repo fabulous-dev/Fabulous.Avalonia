@@ -46,6 +46,9 @@ module Window =
     let CanResize =
         Attributes.defineAvaloniaPropertyWithEquality Window.CanResizeProperty
 
+    let WindowClosing =
+        Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
+
 
 [<AutoOpen>]
 module WindowBuilders =
@@ -106,3 +109,7 @@ type WindowModifiers =
     [<Extension>]
     static member inline canResize(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.CanResize.WithValue(value))
+
+    [<Extension>]
+    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, onWindowClosing: WindowClosingEventArgs -> 'msg) =
+        this.AddScalar(Window.WindowClosing.WithValue(fun args -> onWindowClosing args |> box))

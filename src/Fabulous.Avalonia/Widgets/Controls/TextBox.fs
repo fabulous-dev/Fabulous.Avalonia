@@ -87,9 +87,14 @@ module TextBox =
     let SelectionBrushWidget =
         Attributes.defineAvaloniaPropertyWidget TextBox.SelectionBrushProperty
 
-
     let SelectionBrush =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionBrushProperty
+
+    let InnerLeftContentWidget =
+        Attributes.defineAvaloniaPropertyWidget TextBox.InnerLeftContentProperty
+
+    let InnerRightContentWidget =
+        Attributes.defineAvaloniaPropertyWidget TextBox.InnerRightContentProperty
 
     let SelectionForegroundBrushWidget =
         Attributes.defineAvaloniaPropertyWidget TextBox.SelectionForegroundBrushProperty
@@ -210,6 +215,15 @@ type TextBoxModifiers =
     [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.CaretBrushWidget.WithValue(value.Compile()))
+
+
+    [<Extension>]
+    static member inline innerLeftContent(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabControl>) =
+        this.AddWidget(TextBox.InnerLeftContentWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline innerRightContent(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabControl>) =
+        this.AddWidget(TextBox.InnerRightContentWidget.WithValue(value.Compile()))
 
     [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =

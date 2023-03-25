@@ -22,30 +22,30 @@ module ReversibleStackPanelBuilders =
 
         static member inline VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
 
-            let mutable scalers =
+            let mutable scalars =
                 StackList.one(StackPanel.Orientation.WithValue(Orientation.Vertical))
 
             match spacing with
             | None -> ()
-            | Some v -> scalers <- StackList.add(&scalers, StackPanel.Spacing.WithValue(v))
+            | Some v -> scalars <- StackList.add(&scalars, StackPanel.Spacing.WithValue(v))
 
             match reverseOrder with
             | None -> ()
-            | Some v -> scalers <- StackList.add(&scalers, ReversibleStackPanel.ReverseOrder.WithValue(v))
+            | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalers, Panel.Children)
+            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
 
         static member inline HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
 
-            let mutable scalers =
+            let mutable scalars =
                 StackList.one(StackPanel.Orientation.WithValue(Orientation.Horizontal))
 
             match spacing with
             | None -> ()
-            | Some v -> scalers <- StackList.add(&scalers, StackPanel.Spacing.WithValue(v))
+            | Some v -> scalars <- StackList.add(&scalars, StackPanel.Spacing.WithValue(v))
 
             match reverseOrder with
             | None -> ()
-            | Some v -> scalers <- StackList.add(&scalers, ReversibleStackPanel.ReverseOrder.WithValue(v))
+            | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalers, Panel.Children)
+            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
