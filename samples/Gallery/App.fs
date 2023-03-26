@@ -43,8 +43,11 @@ module App =
     let update msg model =
         match msg with
         | OnLoaded b ->
-#if MOBILE            
-            { model with SafeAreaInsets = 32. ; PaneLength = 180. }, Cmd.none
+#if MOBILE
+            { model with
+                SafeAreaInsets = 32.
+                PaneLength = 180. },
+            Cmd.none
 #else
             model, Cmd.none
 #endif
@@ -92,15 +95,15 @@ module App =
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
                     .onSelectionChanged(SelectedChanged)
             }
-        )).padding(0., model.SafeAreaInsets, 0., 0.)
+        ))
+            .padding(0., model.SafeAreaInsets, 0., 0.)
 
     let view model =
         (Grid() {
             match model.WidgetModel with
             | None ->
-                let content =
-                    View.map OverViewPageMsg (OverViewPage.view model.OverviewModel)
-                             
+                let content = View.map OverViewPageMsg (OverViewPage.view model.OverviewModel)
+
                 SplitView(buttonSpinnerHeader model, content)
                     .isPresented(model.IsPanOpen, OpenPanChanged)
                     .displayMode(SplitViewDisplayMode.Inline)
@@ -119,9 +122,10 @@ module App =
                 .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Left)
                 .margin(4., model.SafeAreaInsets, 0., 0.)
-        }).onLoaded(OnLoaded)
-         
-        
+        })
+            .onLoaded(OnLoaded)
+
+
 
 #if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
