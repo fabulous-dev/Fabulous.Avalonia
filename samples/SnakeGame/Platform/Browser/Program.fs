@@ -16,5 +16,5 @@ module public Program =
 
     [<EntryPoint>]
     let main argv =
-        buildAvaloniaApp().SetupBrowserApp("out") |> ignore
+        buildAvaloniaApp().StartBrowserAppAsync("out") |> ignore
         0
