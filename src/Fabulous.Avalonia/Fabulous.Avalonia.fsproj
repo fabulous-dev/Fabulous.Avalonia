@@ -38,6 +38,7 @@
     <Compile Include="VirtualizedCollection.fs" />
     <Compile Include="Widgets.fs" />
     <Compile Include="Widgets\_RenderOptions.fs" />
+    <Compile Include="Widgets\_IDrawing.fs" />
     <Compile Include="Widgets\Styling\KeyFrame.fs" />
     <Compile Include="Widgets\Styling\Animation.fs" />
     <Compile Include="Widgets\Styling\Transition.fs" />
@@ -57,6 +58,7 @@
     <Compile Include="Widgets\Media\Brushes\_TileBrush.fs" />
     <Compile Include="Widgets\Media\Brushes\SolidColorBrush.fs" />
     <Compile Include="Widgets\Media\Brushes\ImageBrush.fs" />
+    <Compile Include="Widgets\Media\Brushes\DrawingBrush.fs" />
     <Compile Include="Widgets\Media\Brushes\GradientStop.fs" />
     <Compile Include="Widgets\Media\Brushes\_GradientBrush.fs" />
     <Compile Include="Widgets\Media\Brushes\ConicGradientBrush.fs" />
@@ -79,7 +81,6 @@
     <Compile Include="Widgets\Media\Geometries\GeometryGroup.fs" />
     <Compile Include="Widgets\Media\DashStyle.fs" />
     <Compile Include="Widgets\Media\Pen.fs" />
-    <Compile Include="Widgets\Media\Drawing\_IDrawing.fs" />
     <Compile Include="Widgets\Media\Drawing\GeometryDrawing.fs" />
     <Compile Include="Widgets\Media\Drawing\GlyphRunDrawing.fs" />
     <Compile Include="Widgets\Media\Drawing\DrawingGroup.fs" />
