@@ -24,12 +24,12 @@ module ListBox =
                 match newValueOpt with
                 | ValueNone ->
                     listBox.ClearValue(ListBox.ItemTemplateProperty)
-                    listBox.ClearValue(ListBox.ItemsProperty)
+                    listBox.ClearValue(ListBox.ItemsSourceProperty)
                 | ValueSome value ->
                     listBox.SetValue(ListBox.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
                     |> ignore
 
-                    listBox.SetValue(ListBox.ItemsProperty, value.OriginalItems))
+                    listBox.SetValue(ListBox.ItemsSourceProperty, value.OriginalItems) |> ignore)
 
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionModeProperty

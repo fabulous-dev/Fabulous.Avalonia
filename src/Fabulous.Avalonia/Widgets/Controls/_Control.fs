@@ -37,6 +37,10 @@ module Control =
 [<Extension>]
 type ControlModifiers =
     [<Extension>]
+    static member inline contextFlyout(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabPopupFlyoutBase>) =
+        this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))
+
+    [<Extension>]
     static member inline tag(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
         this.AddScalar(Control.Tag.WithValue(value))
 

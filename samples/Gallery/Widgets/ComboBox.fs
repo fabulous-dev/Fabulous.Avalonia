@@ -17,8 +17,7 @@ module ComboBox =
         | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }
 
     let fontComboBox () =
-        FontManager.Current.GetInstalledFontFamilyNames()
-        |> Seq.map(fun x -> FontFamily(x))
+        FontManager.Current.SystemFonts |> Seq.map(fun x -> FontFamily(x.Name))
 
     let view model =
         HStack(16) {

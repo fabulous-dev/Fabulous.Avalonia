@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabMenuFlyout =
-    inherit IFabFlyoutBase
+    inherit IFabPopupFlyoutBase
 
 module MenuFlyout =
     let WidgetKey = Widgets.register<MenuFlyout>()

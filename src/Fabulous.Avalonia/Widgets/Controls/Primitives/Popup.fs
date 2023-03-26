@@ -33,8 +33,8 @@ module Popup =
     let PlacementGravity =
         Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementGravityProperty
 
-    let PlacementMode =
-        Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementModeProperty
+    let Placement =
+        Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementProperty
 
     let PlacementRect =
         Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementRectProperty
@@ -52,6 +52,9 @@ module Popup =
         Attributes.defineAvaloniaPropertyWithEquality Popup.VerticalOffsetProperty
 
     let Topmost = Attributes.defineAvaloniaPropertyWithEquality Popup.TopmostProperty
+
+    let OverlayInputPassThroughElement =
+        Attributes.defineAvaloniaPropertyWidget Popup.OverlayInputPassThroughElementProperty
 
     let Closed =
         Attributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
@@ -92,8 +95,8 @@ type PopupModifiers =
         this.AddScalar(Popup.PlacementGravity.WithValue(value))
 
     [<Extension>]
-    static member inline placementMode(this: WidgetBuilder<'msg, #IFabPopup>, value: PlacementMode) =
-        this.AddScalar(Popup.PlacementMode.WithValue(value))
+    static member inline placement(this: WidgetBuilder<'msg, #IFabPopup>, value: PlacementMode) =
+        this.AddScalar(Popup.Placement.WithValue(value))
 
     [<Extension>]
     static member inline placementRect(this: WidgetBuilder<'msg, #IFabPopup>, value: Rect) =
@@ -102,7 +105,6 @@ type PopupModifiers =
     [<Extension>]
     static member inline overlayDismissEventPassThrough(this: WidgetBuilder<'msg, #IFabPopup>, value: bool) =
         this.AddScalar(Popup.OverlayDismissEventPassThrough.WithValue(value))
-
 
     [<Extension>]
     static member inline horizontalOffset(this: WidgetBuilder<'msg, #IFabPopup>, value: double) =
@@ -119,6 +121,10 @@ type PopupModifiers =
     [<Extension>]
     static member inline topmost(this: WidgetBuilder<'msg, #IFabPopup>, value: bool) =
         this.AddScalar(Popup.Topmost.WithValue(value))
+
+    [<Extension>]
+    static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopup>, content: WidgetBuilder<'mag, #IFabInputElement>) =
+        this.AddWidget(Popup.OverlayInputPassThroughElement.WithValue(content.Compile()))
 
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabPopup>, onClosed: 'msg) =

@@ -6,7 +6,7 @@ open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabFlyout =
-    inherit IFabFlyoutBase
+    inherit IFabPopupFlyoutBase
 
 module Flyout =
 
@@ -18,8 +18,8 @@ module Flyout =
 module FlyoutBuilders =
     type Fabulous.Avalonia.View with
 
-        static member Flyout(content: WidgetBuilder<'msg, #IFabElement>) =
-            WidgetBuilder<'msg, IFabFlyoutBase>(
+        static member Flyout(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabFlyout>(
                 Flyout.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
             )

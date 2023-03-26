@@ -60,8 +60,8 @@ module ContextMenu =
     let PlacementGravity =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.PlacementGravityProperty
 
-    let PlacementMode =
-        Attributes.defineAvaloniaPropertyWithEquality ContextMenu.PlacementModeProperty
+    let Placement =
+        Attributes.defineAvaloniaPropertyWithEquality ContextMenu.PlacementProperty
 
     let PlacementRect =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.PlacementRectProperty
@@ -79,21 +79,17 @@ module ContextMenu =
 module ContextMenuBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ContextMenu(?placementMode: PlacementMode) =
-            match placementMode with
+        static member inline ContextMenu(?placement: PlacementMode) =
+            match placement with
             | None ->
                 CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
                     ContextMenu.WidgetKey,
                     ItemsControl.Items,
-                    ContextMenu.PlacementMode.WithValue(PlacementMode.Bottom)
+                    ContextMenu.Placement.WithValue(PlacementMode.Bottom)
                 )
 
-            | Some placementMode ->
-                CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
-                    ContextMenu.WidgetKey,
-                    ItemsControl.Items,
-                    ContextMenu.PlacementMode.WithValue(placementMode)
-                )
+            | Some placement ->
+                CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, ItemsControl.Items, ContextMenu.Placement.WithValue(placement))
 
 [<Extension>]
 type ContextMenuModifiers =

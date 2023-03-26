@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 
 open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
@@ -122,7 +123,7 @@ type MenuItemModifiers =
         this.AddScalar(MenuItem.StaysOpenOnClick.WithValue(value))
 
     [<Extension>]
-    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerEnteredItem: PointerEventArgs -> 'msg) =
+    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerEnteredItem: RoutedEventArgs -> 'msg) =
         this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fun args -> onPointerEnteredItem args |> box))
 
     [<Extension>]

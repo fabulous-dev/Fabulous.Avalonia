@@ -47,7 +47,7 @@ module MenuFlyout =
                         MenuItem(TextBlock("Item 6"), Increment)
                         MenuItem("Item 7")
                     })
-                        .placement(FlyoutPlacementMode.BottomEdgeAlignedRight)
+                        .placement(PlacementMode.BottomEdgeAlignedRight)
                 )
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace Fabulous.Avalonia
 
 open Avalonia.Controls
+open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
