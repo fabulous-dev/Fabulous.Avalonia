@@ -17,29 +17,38 @@ module App =
           OverviewModel: OverViewPage.Model
           Controls: string list
           IsPanOpen: bool
-          SelectedIndex: int }
+          SelectedIndex: int
+          SafeAreaInsets: float
+          PaneLength: float }
 
     type Msg =
         | WidgetPageMsg of WidgetPage.Msg
         | OverViewPageMsg of OverViewPage.Msg
-        | ShowOverview
         | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
         | DoNothing
+        | OnLoaded of bool
 
     let init () =
         { WidgetModel = None
           IsPanOpen = true
           OverviewModel = OverViewPage.init()
           Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
-          SelectedIndex = -1 },
+          SelectedIndex = -1
+          SafeAreaInsets = 0.
+          PaneLength = 250. },
         Cmd.none
 
     let update msg model =
         match msg with
+        | OnLoaded b ->
+#if MOBILE            
+            { model with SafeAreaInsets = 32. ; PaneLength = 180. }, Cmd.none
+#else
+            model, Cmd.none
+#endif
         | DoNothing -> model, Cmd.none
-        | ShowOverview -> { model with WidgetModel = None }, Cmd.none
         | OverViewPageMsg msg ->
             let m, c = OverViewPage.update msg model.OverviewModel
             { model with OverviewModel = m }, (Cmd.map OverViewPageMsg c)
@@ -73,31 +82,30 @@ module App =
             .fill(SolidColorBrush(Colors.Black))
 
     let buttonSpinnerHeader (model: Model) =
-        ScrollViewer(
-            (VStack(0.) {
+        (ScrollViewer(
+            VStack(16.) {
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .size(100., 100.)
 
                 TextBlock("Fabulous Gallery").centerHorizontal()
 
-                Button("Overview", ShowOverview)
-
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
                     .onSelectionChanged(SelectedChanged)
-            })
-                .margin(Thickness(0., 20., 0., 0.))
-        )
+            }
+        )).padding(0., model.SafeAreaInsets, 0., 0.)
 
     let view model =
-        Grid() {
+        (Grid() {
             match model.WidgetModel with
             | None ->
-                let content = View.map OverViewPageMsg (OverViewPage.view model.OverviewModel)
-
+                let content =
+                    View.map OverViewPageMsg (OverViewPage.view model.OverviewModel)
+                             
                 SplitView(buttonSpinnerHeader model, content)
                     .isPresented(model.IsPanOpen, OpenPanChanged)
                     .displayMode(SplitViewDisplayMode.Inline)
                     .panePlacement(SplitViewPanePlacement.Left)
+                    .openPaneLength(model.PaneLength)
 
             | Some widgetModel ->
                 let content = View.map WidgetPageMsg (WidgetPage.view widgetModel)
@@ -110,7 +118,10 @@ module App =
             Button(OpenPan, hamburgerMenuIcon())
                 .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Left)
-        }
+                .margin(4., model.SafeAreaInsets, 0., 0.)
+        }).onLoaded(OnLoaded)
+         
+        
 
 #if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
@@ -135,7 +146,6 @@ module App =
                         NativeMenuItem("Edit")
                             .menu(
                                 NativeMenu() {
-                                    NativeMenuItem("Show Overview", ShowOverview)
                                     NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
                                     NativeMenuItemSeparator()
 
