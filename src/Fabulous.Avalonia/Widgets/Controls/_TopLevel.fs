@@ -1,15 +1,23 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.Immutable
+open Avalonia.Styling
 open Fabulous
 
 type IFabTopLevel =
     inherit IFabContentControl
 
 module TopLevel =
+
+    let ThemeVariant =
+        Attributes.defineAvaloniaPropertyWithEquality TopLevel.RequestedThemeVariantProperty
+
+    let ThemeVariantChanged =
+        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
     let TransparencyLevelHint =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyLevelHintProperty
@@ -31,6 +39,14 @@ module TopLevel =
 
 [<Extension>]
 type TopLevelModifiers =
+    [<Extension>]
+    static member inline themeVariant(this: WidgetBuilder<'msg, #IFabTopLevel>, value: ThemeVariant) =
+        this.AddScalar(TopLevel.ThemeVariant.WithValue(value))
+
+    [<Extension>]
+    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: ThemeVariant -> 'msg) =
+        this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
+
     [<Extension>]
     static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, alignment: WindowTransparencyLevel) =
         this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(alignment))

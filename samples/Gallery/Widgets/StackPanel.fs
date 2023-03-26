@@ -9,11 +9,11 @@ open type Fabulous.Avalonia.View
 module StackPanel =
     type Model =
         { Reversed: bool
-          Spacing: Option<decimal> }
+          Spacing: decimal option }
 
     type Msg =
         | Reverse of bool
-        | SetSpacing of Option<decimal>
+        | SetSpacing of decimal option
 
     let init () =
         { Reversed = true; Spacing = Some(50M) }

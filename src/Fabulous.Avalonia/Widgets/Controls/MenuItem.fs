@@ -37,6 +37,9 @@ module MenuItem =
     let PointerEnteredItem =
         Attributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
 
+    let PointerExitedItem =
+        Attributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
+
     let SubmenuOpened =
         Attributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
 
@@ -125,6 +128,10 @@ type MenuItemModifiers =
     [<Extension>]
     static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerEnteredItem: RoutedEventArgs -> 'msg) =
         this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fun args -> onPointerEnteredItem args |> box))
+
+    [<Extension>]
+    static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerExitedItem: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuItem.PointerExitedItem.WithValue(fun args -> onPointerExitedItem args |> box))
 
     [<Extension>]
     static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, onSubmenuOpened: bool -> 'msg) =

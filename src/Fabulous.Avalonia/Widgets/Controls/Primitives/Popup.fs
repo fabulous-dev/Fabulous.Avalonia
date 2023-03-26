@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Primitives.PopupPositioning
+open Avalonia.Input
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -54,7 +55,7 @@ module Popup =
     let Topmost = Attributes.defineAvaloniaPropertyWithEquality Popup.TopmostProperty
 
     let OverlayInputPassThroughElement =
-        Attributes.defineAvaloniaPropertyWidget Popup.OverlayInputPassThroughElementProperty
+        Attributes.defineAvaloniaPropertyWithEquality Popup.OverlayInputPassThroughElementProperty
 
     let Closed =
         Attributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
@@ -123,8 +124,8 @@ type PopupModifiers =
         this.AddScalar(Popup.Topmost.WithValue(value))
 
     [<Extension>]
-    static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopup>, content: WidgetBuilder<'mag, #IFabInputElement>) =
-        this.AddWidget(Popup.OverlayInputPassThroughElement.WithValue(content.Compile()))
+    static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopup>, value: IInputElement) =
+        this.AddScalar(Popup.OverlayInputPassThroughElement.WithValue(value))
 
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabPopup>, onClosed: 'msg) =

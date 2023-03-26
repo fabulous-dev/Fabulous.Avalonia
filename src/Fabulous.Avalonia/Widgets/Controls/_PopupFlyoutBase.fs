@@ -5,6 +5,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Primitives.PopupPositioning
+open Avalonia.Input
 open Fabulous
 
 type IFabPopupFlyoutBase =
@@ -30,7 +31,7 @@ module PopupFlyoutBase =
         Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.ShowModeProperty
 
     let OverlayInputPassThroughElement =
-        Attributes.defineAvaloniaPropertyWidget PopupFlyoutBase.OverlayInputPassThroughElementProperty
+        Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.OverlayInputPassThroughElementProperty
 
     let Opening =
         Attributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
@@ -65,8 +66,8 @@ type PopupFlyoutBaseModifiers =
         this.AddScalar(PopupFlyoutBase.ShowMode.WithValue(mode))
 
     [<Extension>]
-    static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, content: WidgetBuilder<'mag, #IFabInputElement>) =
-        this.AddWidget(PopupFlyoutBase.OverlayInputPassThroughElement.WithValue(content.Compile()))
+    static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: IInputElement) =
+        this.AddScalar(PopupFlyoutBase.OverlayInputPassThroughElement.WithValue(value))
 
     [<Extension>]
     static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onOpened: 'msg) =

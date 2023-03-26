@@ -1,5 +1,7 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Styling
 open Fabulous
@@ -12,10 +14,10 @@ module ThemeVariantScope =
     let WidgetKey = Widgets.register<ThemeVariantScope>()
 
     let ThemeVariant =
-        Attributes.definePropertyWithGetSet
-            "ThemeVariantScope_ThemeVariant"
-            (fun target -> (target :?> ThemeVariantScope).RequestedThemeVariant)
-            (fun target value -> (target :?> ThemeVariantScope).RequestedThemeVariant <- value)
+        Attributes.defineAvaloniaPropertyWithEquality ThemeVariantScope.RequestedThemeVariantProperty
+
+    let ThemeVariantChanged =
+        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
 
 [<AutoOpen>]
 module ThemeVariantScopeBuilders =
@@ -30,3 +32,10 @@ module ThemeVariantScopeBuilders =
                     ValueNone
                 )
             )
+
+[<Extension>]
+type ThemeVariantScopeModifiers =
+
+    [<Extension>]
+    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabThemeVariantScope>, fn: ThemeVariant -> 'msg) =
+        this.AddScalar(ThemeVariantScope.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))

@@ -168,6 +168,7 @@
     <Compile Include="Widgets\Controls\Shapes\Ellipse.fs" />
     <Compile Include="Widgets\Controls\Shapes\Path.fs" />
     <Compile Include="Widgets\Controls\Button.fs" />
+    <Compile Include="Widgets\Controls\NotificationCard.fs" />
     <Compile Include="Widgets\Controls\RepeatButton.fs" />
     <Compile Include="Widgets\Controls\SplitButton.fs" />
     <Compile Include="Widgets\Controls\ToggleSplitButton.fs" />
