@@ -5,9 +5,6 @@ open Avalonia
 open Avalonia.Media
 open Fabulous
 
-type IFabBrush =
-    inherit IFabAnimatable
-
 module Brush =
 
     let Opacity = Attributes.defineAvaloniaPropertyWithEquality Brush.OpacityProperty

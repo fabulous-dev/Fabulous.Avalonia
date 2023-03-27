@@ -73,16 +73,16 @@ module Carousel =
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
                 let carousel = node.Target :?> Carousel
-
+    
                 match newValueOpt with
                 | ValueNone ->
                     carousel.ClearValue(Carousel.ItemTemplateProperty)
-                    carousel.ClearValue(Carousel.ItemsProperty)
+                    carousel.ClearValue(Carousel.ItemsSourceProperty)
                 | ValueSome value ->
                     carousel.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, false))
                     |> ignore
-
-                    carousel.SetValue(Carousel.ItemsProperty, value.OriginalItems) |> ignore)
+    
+                    carousel.SetValue(Carousel.ItemsSourceProperty, value.OriginalItems ) |> ignore)
 
 [<AutoOpen>]
 module CarouselBuilders =

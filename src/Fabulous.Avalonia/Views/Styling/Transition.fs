@@ -7,9 +7,6 @@ open Avalonia.Animation
 open Avalonia.Animation.Easings
 open Fabulous
 
-type IFabTransition =
-    inherit IFabElement
-
 type IDoubleTransition =
     inherit IFabTransition
 

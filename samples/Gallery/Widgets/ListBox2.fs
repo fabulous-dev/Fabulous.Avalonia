@@ -35,20 +35,20 @@ module ListBox2 =
             (ListBox() {
                 ListBoxItem(TextBlock("Text with ListBoxIem and selected = true"), true)
 
-                HStack(30.) {
+                ListBoxItem(HStack(30.) {
                     TextBlock("Stack Item1")
                     TextBlock("Stack Item2")
                     TextBlock("Stack Item3")
-                }
+                })
 
-                TextBlock("Text with not ListBoxIem")
+                ListBoxItem(TextBlock("Text with not ListBoxIem"))
 
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .size(32., 32.)
+                ListBoxItem(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    .size(32., 32.))
 
-                Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow))
+                ListBoxItem(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow)))
 
-                TextBlock("TextBlock")
+                ListBoxItem(TextBlock("TextBlock"))
             })
                 .onSelectionChanged(SelectedChanged)
         }

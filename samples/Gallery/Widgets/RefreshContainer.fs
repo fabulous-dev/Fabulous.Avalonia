@@ -27,7 +27,7 @@ module RefreshContainer =
         RefreshContainer(
             (ListBox() {
                 for x = 0 to 100 do
-                    TextBlock(sprintf "Item %d" x)
+                    ListBoxItem(TextBlock(sprintf "Item %d" x))
             })
                 .height(500.)
         )

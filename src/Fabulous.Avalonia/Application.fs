@@ -168,3 +168,23 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type TrayIconAttachedModifiers =
+    [<Extension>]
+    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
+        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTrayIcon> TrayIconAttached.TrayIcons this
+
+[<Extension>]
+type TrayIconYieldExtensions =
+    [<Extension>]
+    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, #IFabTrayIcon>) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield
+        (
+            _: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>,
+            x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }

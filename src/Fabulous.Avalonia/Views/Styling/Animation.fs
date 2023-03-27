@@ -8,9 +8,6 @@ open Avalonia.Animation.Easings
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
-type IFabAnimation =
-    inherit IFabElement
-
 module Animation =
 
     let WidgetKey = Widgets.register<Animation>()
