@@ -55,7 +55,7 @@ type ListBoxModifiers =
     [<Extension>]
     static member inline selectionMode(this: WidgetBuilder<'msg, #IFabListBox>, value: SelectionMode) =
         this.AddScalar(ListBox.SelectionMode.WithValue(value))
-        
+
 [<Extension>]
 type ListBoxCollectionBuilderExtensions =
     [<Extension>]

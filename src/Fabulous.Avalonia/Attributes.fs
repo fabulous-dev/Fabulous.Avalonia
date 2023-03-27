@@ -102,7 +102,7 @@ module Attributes =
             match newValueOpt with
             | ValueNone -> target.ClearValue(directProperty)
             | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
-        
+
     /// Define an attribute storing a collection of Widget for a List<T> property
     let inline defineAvaloniaNonGenericListWidgetCollection name ([<InlineIfLambda>] getCollection: obj -> IList) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
@@ -121,7 +121,7 @@ module Attributes =
                     targetColl.RemoveAt(index)
 
                 | _ -> ()
-                
+
             for diff in diffs do
                 match diff with
                 | WidgetCollectionItemChange.Insert(index, widget) ->
