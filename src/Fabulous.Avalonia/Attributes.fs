@@ -1,8 +1,10 @@
 namespace Fabulous.Avalonia
 
 open System
+open System.Collections
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Controls
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
@@ -100,6 +102,72 @@ module Attributes =
             match newValueOpt with
             | ValueNone -> target.ClearValue(directProperty)
             | ValueSome v -> target.SetValue(directProperty, v) |> ignore)
+        
+    /// Define an attribute storing a collection of Widget for a List<T> property
+    let inline defineAvaloniaNonGenericListWidgetCollection name ([<InlineIfLambda>] getCollection: obj -> IList) =
+        let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
+            let targetColl = getCollection node.Target
+
+            for diff in diffs do
+                match diff with
+                | WidgetCollectionItemChange.Remove(index, widget) ->
+                    let itemNode = node.TreeContext.GetViewNode(targetColl.[index])
+
+                    // Trigger the unmounted event
+                    Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
+                    itemNode.Disconnect()
+
+                    // Remove the child from the UI tree
+                    targetColl.RemoveAt(index)
+
+                | _ -> ()
+                
+            for diff in diffs do
+                match diff with
+                | WidgetCollectionItemChange.Insert(index, widget) ->
+                    let struct (itemNode, view) = Helpers.createViewForWidget node widget
+
+                    // Insert the new child into the UI tree
+                    targetColl.Insert(index, unbox view)
+
+                    // Trigger the mounted event
+                    Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Mounted
+
+                | WidgetCollectionItemChange.Update(index, widgetDiff) ->
+                    let childNode = node.TreeContext.GetViewNode(targetColl.[index])
+
+                    childNode.ApplyDiff(&widgetDiff)
+
+                | WidgetCollectionItemChange.Replace(index, oldWidget, newWidget) ->
+                    let prevItemNode = node.TreeContext.GetViewNode(targetColl.[index])
+
+                    let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
+
+                    // Trigger the unmounted event for the old child
+                    Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget Lifecycle.Unmounted
+                    prevItemNode.Disconnect()
+
+                    // Replace the existing child in the UI tree at the index with the new one
+                    targetColl.[index] <- view
+
+                    // Trigger the mounted event for the new child
+                    Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
+
+                | _ -> ()
+
+        let updateNode _ (newValueOpt: ArraySlice<Widget> voption) (node: IViewNode) =
+            let targetColl = getCollection node.Target
+            targetColl.Clear()
+
+            match newValueOpt with
+            | ValueNone -> ()
+            | ValueSome widgets ->
+                for widget in ArraySlice.toSpan widgets do
+                    let struct (_, view) = Helpers.createViewForWidget node widget
+
+                    targetColl.Add(view) |> ignore
+
+        Attributes.defineWidgetCollection name applyDiff updateNode
 
     /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
     let defineAvaloniaListWidgetCollection<'itemType> name (getCollection: obj -> IAvaloniaList<'itemType>) =

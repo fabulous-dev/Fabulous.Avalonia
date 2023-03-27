@@ -10,7 +10,7 @@ type IFabItemsControl =
 
 module ItemsControl =
     let Items =
-        Attributes.defineListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items :?> IList<_>)
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items)
 
     let ItemsSource =
         Attributes.defineListWidgetCollection "ItemsControl_ItemsSource" (fun target -> (target :?> ItemsControl).ItemsSource :?> IList<_>)

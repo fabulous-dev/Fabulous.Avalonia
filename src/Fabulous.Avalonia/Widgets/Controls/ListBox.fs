@@ -12,7 +12,7 @@ module ListBox =
     let WidgetKey = Widgets.register<ListBox>()
 
     let Items =
-        Attributes.defineListWidgetCollection "ListBox_Items" (fun target -> (target :?> ListBox).Items :?> IList<_>)
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "ListBox_Items" (fun target -> (target :?> ListBox).Items)
 
     let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>

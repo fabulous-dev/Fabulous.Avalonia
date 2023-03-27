@@ -25,7 +25,7 @@ module ThemeAware =
         | ThemeVariantChanged of ThemeVariant
 
     let init () =
-        { CurrentTheme = Avalonia.Application.Current.RequestedThemeVariant
+        { CurrentTheme = Avalonia.Application.Current.ActualThemeVariant
           ScopeTheme = ThemeVariant.Default
           Items =
             [ ThemeVariant.Default

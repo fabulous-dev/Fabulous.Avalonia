@@ -65,7 +65,7 @@ module Carousel =
         Attributes.defineAvaloniaPropertyWithEquality Carousel.PageTransitionProperty
 
     let Items =
-        Attributes.defineListWidgetCollection "Carousel_Items" (fun target -> (target :?> Carousel).Items :?> IList<_>)
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "Carousel_Items" (fun target -> (target :?> Carousel).Items)
 
     let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>
