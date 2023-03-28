@@ -42,7 +42,7 @@
     <Compile Include="Views\_Transition.fs" />
     <Compile Include="Views\_Animatable.fs" />
     <Compile Include="Views\_Animation.fs" />
-    <Compile Include="Views\Style.fs" />
+    <Compile Include="Views\_Style.fs" />
     <Compile Include="Views\_StyledElement.fs" />
     <Compile Include="Views\_ITransform.fs" />
     <Compile Include="Views\_IGeometry.fs" />
@@ -65,10 +65,12 @@
     <Compile Include="Views\_HeaderedContentControl.fs" />
     <Compile Include="Views\_SelectingItemsControl.fs" />
     <Compile Include="Views\_HeaderedSelectingItemsControl.fs" />
+    <Compile Include="Views\_WindowBase.fs" />
     <Compile Include="Views\Styling\KeyFrame.fs" />
     <Compile Include="Views\Styling\Animation.fs" />
     <Compile Include="Views\Styling\Transition.fs" />
     <Compile Include="Views\Styling\PageTransition.fs" />
+    <Compile Include="Views\Styling\Style.fs" />
     <Compile Include="Views\Media\Transforms\MatrixTransform.fs" />
     <Compile Include="Views\Media\Transforms\SkewTransform.fs" />
     <Compile Include="Views\Media\Transforms\RotateTransform.fs" />
@@ -109,7 +111,6 @@
     <Compile Include="Views\Media\Drawing\ImageDrawing.fs" />
     <Compile Include="Views\Media\Drawing\DrawingImage.fs" />
     <Compile Include="Views\Controls\Tooltip.fs" />
-    <Compile Include="Views\Controls\Any.fs" />
     <Compile Include="Views\Controls\Border.fs" />
     <Compile Include="Views\Controls\RefreshVisualizer.fs" />
     <Compile Include="Views\Controls\RefreshContainer.fs" />
@@ -160,7 +161,6 @@
     <Compile Include="Views\Controls\NumericUpDown.fs" />
     <Compile Include="Views\Controls\DatePicker.fs" />
     <Compile Include="Views\Controls\TimePicker.fs" />
-    <Compile Include="Views\Controls\WindowBase.fs" />
     <Compile Include="Views\Controls\Window.fs" />
     <Compile Include="Views\Controls\ProgressBar.fs" />
     <Compile Include="Views\Controls\Slider.fs" />
@@ -209,6 +209,7 @@
     <Compile Include="Views\Panels\UniformGrid.fs" />
     <Compile Include="Application.fs" />
     <Compile Include="ThemeAware.fs" />
+    <Compile Include="Any.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">

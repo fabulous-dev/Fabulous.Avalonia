@@ -6,9 +6,6 @@ open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
-type IFabStyle =
-    inherit IFabElement
-
 module Style =
 
     let WidgetKey = Widgets.register<Style>()
