@@ -64,26 +64,6 @@ module Carousel =
     let PageTransition =
         Attributes.defineAvaloniaPropertyWithEquality Carousel.PageTransitionProperty
 
-    let Items =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "Carousel_Items" (fun target -> (target :?> Carousel).Items)
-
-    let ItemsSource =
-        Attributes.defineSimpleScalar<WidgetItems>
-            "Carousel_ItemsSource"
-            (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
-            (fun _ newValueOpt node ->
-                let carousel = node.Target :?> Carousel
-
-                match newValueOpt with
-                | ValueNone ->
-                    carousel.ClearValue(Carousel.ItemTemplateProperty)
-                    carousel.ClearValue(Carousel.ItemsSourceProperty)
-                | ValueSome value ->
-                    carousel.SetValue(Carousel.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, false))
-                    |> ignore
-
-                    carousel.SetValue(Carousel.ItemsSourceProperty, value.OriginalItems) |> ignore)
-
 [<AutoOpen>]
 module CarouselBuilders =
     type Fabulous.Avalonia.View with
@@ -93,10 +73,10 @@ module CarouselBuilders =
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey Carousel.ItemsSource items template
+            WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSource items template
 
         static member inline Carousel<'msg>() =
-            CollectionBuilder<'msg, IFabCarousel, IFabControl>(Carousel.WidgetKey, Carousel.Items)
+            CollectionBuilder<'msg, IFabCarousel, IFabControl>(Carousel.WidgetKey, ItemsControl.Items)
 
 [<Extension>]
 type CarouselModifiers =

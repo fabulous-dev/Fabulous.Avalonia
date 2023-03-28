@@ -65,23 +65,23 @@ module ViewHelpers =
 
     and canReuseCarousel (prev: Widget) (curr: Widget) =
         let switchingFromItemsSourceToItems =
-            (tryGetScalarValue prev Carousel.ItemsSource).IsSome
-            && (tryGetWidgetCollectionValue curr Carousel.Items).IsSome
+            (tryGetScalarValue prev ItemsControl.ItemsSource).IsSome
+            && (tryGetWidgetCollectionValue curr ItemsControl.Items).IsSome
 
         let switchingFromItemsToItemsSource =
-            (tryGetWidgetCollectionValue prev Carousel.Items).IsSome
-            && (tryGetScalarValue curr Carousel.ItemsSource).IsSome
+            (tryGetWidgetCollectionValue prev ItemsControl.Items).IsSome
+            && (tryGetScalarValue curr ItemsControl.ItemsSource).IsSome
 
         not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
 
     and canReuseListBox (prev: Widget) (curr: Widget) =
         let switchingFromItemsSourceToItems =
-            (tryGetScalarValue prev ListBox.ItemsSource).IsSome
-            && (tryGetWidgetCollectionValue curr ListBox.Items).IsSome
+            (tryGetScalarValue prev ItemsControl.ItemsSource).IsSome
+            && (tryGetWidgetCollectionValue curr ItemsControl.Items).IsSome
 
         let switchingFromItemsToItemsSource =
-            (tryGetWidgetCollectionValue prev ListBox.Items).IsSome
-            && (tryGetScalarValue curr ListBox.ItemsSource).IsSome
+            (tryGetWidgetCollectionValue prev ItemsControl.Items).IsSome
+            && (tryGetScalarValue curr ItemsControl.ItemsSource).IsSome
 
         not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
 

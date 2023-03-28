@@ -13,7 +13,22 @@ module ItemsControl =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items)
 
     let ItemsSource =
-        Attributes.defineListWidgetCollection "ItemsControl_ItemsSource" (fun target -> (target :?> ItemsControl).ItemsSource :?> IList<_>)
+        Attributes.defineSimpleScalar<WidgetItems>
+            "ItemsControl_ItemsSource"
+            (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
+            (fun _ newValueOpt node ->
+                let listBox = node.Target :?> ItemsControl
+
+                match newValueOpt with
+                | ValueNone ->
+                    listBox.ClearValue(ItemsControl.ItemTemplateProperty)
+                    listBox.ClearValue(ItemsControl.ItemsSourceProperty)
+                | ValueSome value ->
+                    listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
+                    |> ignore
+
+                    let x = ItemsSourceView.GetOrCreate(value.OriginalItems)
+                    listBox.SetValue(ItemsControl.ItemsSourceProperty, x.Source) |> ignore)
 
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty
