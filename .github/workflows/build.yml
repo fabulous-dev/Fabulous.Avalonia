@@ -59,6 +59,6 @@ jobs:
         dotnet new install Fabulous.Avalonia.Templates::${NIGHTLY_VERSION}
         dotnet new fabulous-avalonia -n TestTemplates
         dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false -f net7.0-android -t:CompileResourceDesignerForFSharp
-        dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false
+        dotnet build TestTemplates /p:ManagePackageVersionsCentrally=false;IsBrowser=False
     - name: Push
       run: dotnet nuget push "nupkgs/*" -s https://nuget.pkg.github.com/fabulous-dev/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
