@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -18,7 +17,7 @@ module ItemsControl =
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
                 let listBox = node.Target :?> ItemsControl
-
+                
                 match newValueOpt with
                 | ValueNone ->
                     listBox.ClearValue(ItemsControl.ItemTemplateProperty)
@@ -27,8 +26,7 @@ module ItemsControl =
                     listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
                     |> ignore
 
-                    let x = ItemsSourceView.GetOrCreate(value.OriginalItems)
-                    listBox.SetValue(ItemsControl.ItemsSourceProperty, x.Source) |> ignore)
+                    listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems) |> ignore)
 
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty

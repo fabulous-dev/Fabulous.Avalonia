@@ -8,56 +8,31 @@ open type Fabulous.Avalonia.View
 
 module ListBox2 =
 
-    type Model =
-        { SelectedIndex: int
-          Notification: string }
+    type Model = {
+        Items: int list
+        SelectedIndex: int
+    }
 
-    type Msg = SelectedChanged of SelectionChangedEventArgs
+    type Msg = SelectedIndexChanged of int
 
     let init () =
-        { SelectedIndex = -1
-          Notification = "" }
+        { Items = [ 1..1000 ]
+          SelectedIndex = 0 }
 
     let update msg model =
         match msg with
-        | SelectedChanged args ->
-            let control = args.Source :?> ListBox
-
-            { model with
-                SelectedIndex = control.SelectedIndex }
+        | SelectedIndexChanged index ->
+            { model with SelectedIndex = index }
 
     let view model =
         VStack(spacing = 15.) {
-            TextBlock("ListBox using explicit ListBoxItem controls")
-                .fontWeight(FontWeight.Bold)
-                .margin(0, 30, 0, 0)
+            TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
 
-            (ListBox() {
-                ListBoxItem(TextBlock("Text with ListBoxIem and selected = true"), true)
-
-                ListBoxItem(
-                    HStack(30.) {
-                        TextBlock("Stack Item1")
-                        TextBlock("Stack Item2")
-                        TextBlock("Stack Item3")
-                    }
-                )
-
-                ListBoxItem(TextBlock("Text with not ListBoxIem"))
-
-                ListBoxItem(
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(32., 32.)
-                )
-
-                ListBoxItem(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow)))
-
-                ListBoxItem(TextBlock("TextBlock"))
-            })
-                .onSelectionChanged(SelectedChanged)
+            ListBox(model.Items, (fun x -> TextBlock($"Row {x}")))
+                .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
         }
 
     let sample =
-        { Name = "ListBox"
-          Description = "A list box control using explicit ListBoxItem controls"
+        { Name = "ListBox2"
+          Description = "A list box control with 1.000 items with recycling"
           Program = Helper.createProgram init update view }

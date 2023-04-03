@@ -9,11 +9,11 @@ open Avalonia.Input
 open type Fabulous.Avalonia.View
 
 module RefreshContainer =
-    type Model = Id
+    type Model = { Items: int seq }
 
     type Msg = RefreshRequested of RefreshRequestedEventArgs
 
-    let init () = Id
+    let init () = { Items = [ 0..100 ] }
 
     let update msg model =
         match msg with
@@ -23,14 +23,8 @@ module RefreshContainer =
         RefreshVisualizer(TextBlock("Pull to refresh").foreground(SolidColorBrush(Colors.Red)))
             .size(100., 100.)
 
-    let view _ =
-        RefreshContainer(
-            (ListBox() {
-                for x = 0 to 100 do
-                    ListBoxItem(TextBlock(sprintf "Item %d" x))
-            })
-                .height(500.)
-        )
+    let view model =
+        RefreshContainer(ListBox(model.Items, (fun x -> TextBlock $"Item %d{x}")).height(500.))
             .visualizer(visualizer)
             .onRefreshRequested(RefreshRequested)
             .pullDirection(PullDirection.TopToBottom)

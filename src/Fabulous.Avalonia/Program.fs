@@ -4,6 +4,7 @@ open System
 open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Controls.Primitives
 open Avalonia.Threading
 
 open Fabulous
@@ -39,8 +40,6 @@ module ViewHelpers =
                     canReuseTextBlock prev curr
                 elif def.TargetType.IsAssignableTo(typeof<Carousel>) then
                     canReuseCarousel prev curr
-                elif def.TargetType.IsAssignableTo(typeof<ListBox>) then
-                    canReuseListBox prev curr
                 else
                     true
             else
@@ -64,17 +63,6 @@ module ViewHelpers =
         not switchingFromTextToInlines && not switchingFromInlinesToText
 
     and canReuseCarousel (prev: Widget) (curr: Widget) =
-        let switchingFromItemsSourceToItems =
-            (tryGetScalarValue prev ItemsControl.ItemsSource).IsSome
-            && (tryGetWidgetCollectionValue curr ItemsControl.Items).IsSome
-
-        let switchingFromItemsToItemsSource =
-            (tryGetWidgetCollectionValue prev ItemsControl.Items).IsSome
-            && (tryGetScalarValue curr ItemsControl.ItemsSource).IsSome
-
-        not switchingFromItemsSourceToItems && not switchingFromItemsToItemsSource
-
-    and canReuseListBox (prev: Widget) (curr: Widget) =
         let switchingFromItemsSourceToItems =
             (tryGetScalarValue prev ItemsControl.ItemsSource).IsSome
             && (tryGetWidgetCollectionValue curr ItemsControl.Items).IsSome

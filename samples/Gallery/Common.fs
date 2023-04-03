@@ -18,7 +18,11 @@ type Sample =
 module Helper =
     let createProgram (init: unit -> 'model) (update: 'msg -> 'model -> 'model) (view: 'model -> WidgetBuilder<'msg, 'marker>) =
         { init = init >> box
-          update = (fun msg model -> update (unbox msg) (unbox model) |> box)
+          update = (fun msg model ->
+              if msg <> null && typeof<'msg>.IsAssignableFrom(msg.GetType()) then
+                    update (unbox msg) (unbox model) |> box
+                else
+                    (unbox model) |> box)
           view = (fun model -> AnyView(View.map box (view(unbox model)))) }
 
 module Paths =

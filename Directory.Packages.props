@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Fabulous" Version="2.2.1" />
+    <PackageVersion Include="Fabulous" Version="2.3.0" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
     <PackageVersion Include="FSharp.Android.Resource" Version="1.0.4" />
     <PackageVersion Include="FSharp.Core" Version="7.0.0" />

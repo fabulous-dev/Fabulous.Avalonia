@@ -49,7 +49,6 @@ module WidgetPage =
           CheckBox.sample
           ListBox.sample
           ListBox2.sample
-          ListBox3.sample
           Carousel.sample
           Carousel2.sample
           ComboBox.sample

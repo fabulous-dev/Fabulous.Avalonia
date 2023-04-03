@@ -1,7 +1,6 @@
 namespace Gallery
 
 open System.Diagnostics
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
@@ -16,15 +15,15 @@ module App =
         { WidgetModel: WidgetPage.Model option
           OverviewModel: OverViewPage.Model
           Controls: string list
-          IsPanOpen: bool
           SelectedIndex: int
+          IsPanOpen: bool
           SafeAreaInsets: float
           PaneLength: float }
 
     type Msg =
         | WidgetPageMsg of WidgetPage.Msg
         | OverViewPageMsg of OverViewPage.Msg
-        | SelectedChanged of SelectionChangedEventArgs
+        | SelectedChanged of int
         | OpenPanChanged of bool
         | OpenPan
         | DoNothing
@@ -35,8 +34,8 @@ module App =
           IsPanOpen = true
           OverviewModel = OverViewPage.init()
           Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
-          SelectedIndex = -1
           SafeAreaInsets = 0.
+          SelectedIndex = 0 
           PaneLength = 250. },
         Cmd.none
 
@@ -60,16 +59,14 @@ module App =
             | None -> model, Cmd.none
             | Some widgetModel ->
                 let m, c = WidgetPage.update msg widgetModel
-                { model with WidgetModel = Some m }, (Cmd.map WidgetPageMsg c)
-        | SelectedChanged args ->
-            let control = args.Source :?> ListBox
-            let controlSelectedIndex = control.SelectedIndex
+                { model with WidgetModel = Some m }, Cmd.batch [ (Cmd.map WidgetPageMsg c) ]
+        | SelectedChanged index ->
 
             let model =
                 { model with
-                    WidgetModel = Some(WidgetPage.init controlSelectedIndex)
-                    SelectedIndex = controlSelectedIndex
-                    IsPanOpen = true }
+                    WidgetModel = Some(WidgetPage.init index)
+                    IsPanOpen = true
+                    SelectedIndex = index }
 
             model, Cmd.none
 
@@ -93,7 +90,7 @@ module App =
                 TextBlock("Fabulous Gallery").centerHorizontal()
 
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
-                    .onSelectionChanged(SelectedChanged)
+                    .onSelectedIndexChanged(model.SelectedIndex, SelectedChanged)
             }
         ))
             .padding(0., model.SafeAreaInsets, 0., 0.)
@@ -198,7 +195,10 @@ module App =
 
     let program =
         Program.statefulWithCmd init update app
-        |> Program.withThemeAwareness
+        //|> Program.withThemeAwareness
+        |> Program.withExceptionHandler(fun ex ->
+            Debug.WriteLine(ex.ToString())
+            true)
 #if DEBUG
         |> Program.withLogger
             { ViewHelpers.defaultLogger() with

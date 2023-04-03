@@ -4,6 +4,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -43,7 +44,6 @@
     <Compile Include="Widgets\Menu.fs" />
     <Compile Include="Widgets\ListBox.fs" />
     <Compile Include="Widgets\ListBox2.fs" />
-    <Compile Include="Widgets\ListBox3.fs" />
     <Compile Include="Widgets\Carousel.fs" />
     <Compile Include="Widgets\Carousel2.fs" />
     <Compile Include="Widgets\ComboBox.fs" />
