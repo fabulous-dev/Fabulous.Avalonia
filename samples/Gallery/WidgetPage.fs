@@ -48,7 +48,6 @@ module WidgetPage =
           SplitView.sample
           CheckBox.sample
           ListBox.sample
-          ListBox2.sample
           Carousel.sample
           ComboBox.sample
           MenuFlyout.sample

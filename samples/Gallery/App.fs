@@ -2,7 +2,6 @@ namespace Gallery
 
 open System.Diagnostics
 open Avalonia.Controls
-open Avalonia.Controls.Selection
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
@@ -16,7 +15,6 @@ module App =
         { WidgetModel: WidgetPage.Model option
           OverviewModel: OverViewPage.Model
           Controls: string list
-          SelectionModel: SelectionModel<string>
           SelectedIndex: int
           IsPanOpen: bool
           SafeAreaInsets: float
@@ -38,7 +36,6 @@ module App =
           OverviewModel = OverViewPage.init()
           Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
           SafeAreaInsets = 0.
-          SelectionModel = SelectionModel()
           SelectedIndex = 0
           PaneLength = 250. },
         Cmd.none
@@ -96,7 +93,6 @@ module App =
 
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
                     .selectionMode(SelectionMode.Single)
-                    .selectionModel(model.SelectionModel)
                     .onSelectionChanged(SelectedChanged)
             }
         ))
@@ -202,7 +198,7 @@ module App =
 
     let program =
         Program.statefulWithCmd init update app
-        //|> Program.withThemeAwareness
+        |> Program.withThemeAwareness
         |> Program.withExceptionHandler(fun ex ->
             Debug.WriteLine(ex.ToString())
             true)

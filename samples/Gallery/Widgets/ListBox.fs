@@ -15,9 +15,11 @@ module ListBox =
 
     type Model =
         { SampleData: DataType list
-          SelectedIndex: int }
+          Items: int list }
 
-    type Msg = SelectionChanged of SelectionChangedEventArgs
+    type Msg =
+        | SelectionChanged1 of SelectionChangedEventArgs
+        | SelectionChanged2 of SelectionChangedEventArgs
 
     let init () =
         { SampleData =
@@ -30,15 +32,12 @@ module ListBox =
               { Name = "Mouse"
                 Species = "Mus musculus"
                 Family = "Muridae" } ]
-          SelectedIndex = 0 }
+          Items = [ 1..1000 ] }
 
     let update (msg: Msg) model =
         match msg with
-        | SelectionChanged args ->
-            let control = args.Source :?> ListBox
-
-            { model with
-                SelectedIndex = control.SelectedIndex }
+        | SelectionChanged1 _ -> model
+        | SelectionChanged2 _ -> model
 
     let view model =
         VStack(spacing = 15.) {
@@ -47,8 +46,15 @@ module ListBox =
                 .fontWeight(FontWeight.Bold)
 
             ListBox(model.SampleData, (fun x -> TextBlock($"{x.Name} ({x.Species})")))
-                .onSelectionChanged(SelectionChanged)
+                .onSelectionChanged(SelectionChanged1)
                 .selectedIndex(1)
+
+            VStack(spacing = 15.) {
+                TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
+
+                ListBox(model.Items, (fun x -> TextBlock($"Row {x}")))
+                    .onSelectionChanged(SelectionChanged2)
+            }
         }
 
     let sample =
