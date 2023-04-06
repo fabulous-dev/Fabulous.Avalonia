@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Controls.Selection
 open Fabulous
 
 type IFabListBox =
@@ -13,6 +14,8 @@ module ListBox =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionModeProperty
 
+    let SelectionModel =
+        Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionProperty
 
 [<AutoOpen>]
 module ListBoxBuilders =
@@ -30,3 +33,7 @@ type ListBoxModifiers =
     [<Extension>]
     static member inline selectionMode(this: WidgetBuilder<'msg, #IFabListBox>, value: SelectionMode) =
         this.AddScalar(ListBox.SelectionMode.WithValue(value))
+
+    [<Extension>]
+    static member inline selectionModel(this: WidgetBuilder<'msg, #IFabListBox>, value: ISelectionModel) =
+        this.AddScalar(ListBox.SelectionModel.WithValue(value))

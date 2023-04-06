@@ -75,9 +75,6 @@ module CarouselBuilders =
             ) =
             WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSource items template
 
-        static member inline Carousel<'msg>() =
-            CollectionBuilder<'msg, IFabCarousel, IFabControl>(Carousel.WidgetKey, ItemsControl.Items)
-
 [<Extension>]
 type CarouselModifiers =
 

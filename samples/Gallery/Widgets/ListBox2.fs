@@ -8,12 +8,9 @@ open type Fabulous.Avalonia.View
 
 module ListBox2 =
 
-    type Model = {
-        Items: int list
-        SelectedIndex: int
-    }
+    type Model = { Items: int list; SelectedIndex: int }
 
-    type Msg = SelectedIndexChanged of int
+    type Msg = SelectionChanged of SelectionChangedEventArgs
 
     let init () =
         { Items = [ 1..1000 ]
@@ -21,15 +18,18 @@ module ListBox2 =
 
     let update msg model =
         match msg with
-        | SelectedIndexChanged index ->
-            { model with SelectedIndex = index }
+        | SelectionChanged args ->
+            let control = args.Source :?> ListBox
+
+            { model with
+                SelectedIndex = control.SelectedIndex }
 
     let view model =
         VStack(spacing = 15.) {
             TextBlock("ListBox with 1.000 items with recycling").fontWeight(FontWeight.Bold)
 
             ListBox(model.Items, (fun x -> TextBlock($"Row {x}")))
-                .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
+                .onSelectionChanged(SelectionChanged)
         }
 
     let sample =

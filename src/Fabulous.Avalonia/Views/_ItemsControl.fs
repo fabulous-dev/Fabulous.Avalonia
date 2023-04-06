@@ -8,6 +8,7 @@ type IFabItemsControl =
     inherit IFabTemplatedControl
 
 module ItemsControl =
+    // TODO Use ItemsSource when possible. As future versions of Avalonia will make this Items read-only, we need to use ItemsSource instead.
     let Items =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items)
 
@@ -17,7 +18,7 @@ module ItemsControl =
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
                 let listBox = node.Target :?> ItemsControl
-                
+
                 match newValueOpt with
                 | ValueNone ->
                     listBox.ClearValue(ItemsControl.ItemTemplateProperty)
@@ -26,7 +27,8 @@ module ItemsControl =
                     listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
                     |> ignore
 
-                    listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems) |> ignore)
+                    listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
+                    |> ignore)
 
     let ItemCount =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty

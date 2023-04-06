@@ -43,16 +43,8 @@ module ComboBox =
 module ComboBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member ComboBox() =
-            CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ItemsControl.Items)
-
-        static member ComboBox(isOpen: bool, onDropDownOpened: bool -> 'msg) =
-            CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(
-                ComboBox.WidgetKey,
-                ItemsControl.Items,
-                ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box))
-            )
-
+        static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
+            WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSource items template
 
 [<Extension>]
 type ComboBoxModifiers =
@@ -84,20 +76,6 @@ type ComboBoxModifiers =
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabComboBox>, value: VerticalAlignment) =
         this.AddScalar(ComboBox.VerticalContentAlignment.WithValue(value))
 
-[<Extension>]
-type ComboBoxCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
+    static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabComboBox>, isOpen: bool, onDropDownOpened: bool -> 'msg) =
+        this.AddScalar(ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box)))

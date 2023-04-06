@@ -172,9 +172,6 @@
     <Compile Include="Views\Controls\GridSplitter.fs" />
     <Compile Include="Views\Controls\Expander.fs" />
     <Compile Include="Views\Controls\AutoCompleteBox.fs" />
-    <Compile Include="Views\MenuItems\ListBoxItem.fs" />
-    <Compile Include="Views\MenuItems\TabStripItem.fs" />
-    <Compile Include="Views\MenuItems\ComboBoxItem.fs" />
     <Compile Include="Views\MenuItems\MenuItem.fs" />
     <Compile Include="Views\MenuItems\TabItem.fs" />
     <Compile Include="Views\Menu\_MenuBase.fs" />

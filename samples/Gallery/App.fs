@@ -2,6 +2,7 @@ namespace Gallery
 
 open System.Diagnostics
 open Avalonia.Controls
+open Avalonia.Controls.Selection
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
@@ -15,6 +16,7 @@ module App =
         { WidgetModel: WidgetPage.Model option
           OverviewModel: OverViewPage.Model
           Controls: string list
+          SelectionModel: SelectionModel<string>
           SelectedIndex: int
           IsPanOpen: bool
           SafeAreaInsets: float
@@ -23,25 +25,27 @@ module App =
     type Msg =
         | WidgetPageMsg of WidgetPage.Msg
         | OverViewPageMsg of OverViewPage.Msg
-        | SelectedChanged of int
+        | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
         | DoNothing
         | OnLoaded of bool
 
     let init () =
+
         { WidgetModel = None
           IsPanOpen = true
           OverviewModel = OverViewPage.init()
           Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
           SafeAreaInsets = 0.
-          SelectedIndex = 0 
+          SelectionModel = SelectionModel()
+          SelectedIndex = 0
           PaneLength = 250. },
         Cmd.none
 
     let update msg model =
         match msg with
-        | OnLoaded b ->
+        | OnLoaded _ ->
 #if MOBILE
             { model with
                 SafeAreaInsets = 32.
@@ -60,13 +64,14 @@ module App =
             | Some widgetModel ->
                 let m, c = WidgetPage.update msg widgetModel
                 { model with WidgetModel = Some m }, Cmd.batch [ (Cmd.map WidgetPageMsg c) ]
-        | SelectedChanged index ->
+        | SelectedChanged args ->
+            let control = args.Source :?> ListBox
 
             let model =
                 { model with
-                    WidgetModel = Some(WidgetPage.init index)
+                    WidgetModel = Some(WidgetPage.init control.SelectedIndex)
                     IsPanOpen = true
-                    SelectedIndex = index }
+                    SelectedIndex = control.SelectedIndex }
 
             model, Cmd.none
 
@@ -90,7 +95,9 @@ module App =
                 TextBlock("Fabulous Gallery").centerHorizontal()
 
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
-                    .onSelectedIndexChanged(model.SelectedIndex, SelectedChanged)
+                    .selectionMode(SelectionMode.Single)
+                    .selectionModel(model.SelectionModel)
+                    .onSelectionChanged(SelectedChanged)
             }
         ))
             .padding(0., model.SafeAreaInsets, 0., 0.)
