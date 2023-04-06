@@ -18,7 +18,8 @@ module PageTransitions =
 
     type Model =
         { SampleData: DataType seq
-          Transition: IPageTransition }
+          Transition: IPageTransition
+          Transitions: string list }
 
     type Msg =
         | Next
@@ -36,7 +37,8 @@ module PageTransitions =
                 Image = "fsharp-icon" }
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
-                Image = "github-icon" } ] }
+                Image = "github-icon" } ]
+          Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] }
 
     let carouselController = CarouselController()
 
@@ -51,8 +53,8 @@ module PageTransitions =
 
         | TransitionChanged selection ->
             let control = selection.Source :?> ComboBox
-            let selectedItem = control.SelectedItem :?> ComboBoxItem
-            let selection = selectedItem.Content :?> string
+            let selectedItem = control.SelectedIndex
+            let selection = control.Items.[selectedItem] :?> string
 
             let transition =
                 match selection with
@@ -125,15 +127,10 @@ module PageTransitions =
             (HStack(16.) {
                 TextBlock("Transition").verticalAlignment(VerticalAlignment.Center)
 
-            // (ComboBox() {
-            //     ComboBoxItem("Slide")
-            //     ComboBoxItem("CrossFade")
-            //     ComboBoxItem("3D Rotation")
-            //     ComboBoxItem("Composite")
-            // })
-            //     .selectedIndex(0)
-            //     .onSelectionChanged(TransitionChanged)
-            //     .verticalAlignment(VerticalAlignment.Center)
+                ComboBox(model.Transitions, (fun x -> TextBlock(x)))
+                    .selectedIndex(0)
+                    .onSelectionChanged(TransitionChanged)
+                    .verticalAlignment(VerticalAlignment.Center)
             })
                 .margin(4.)
                 .centerHorizontal()
