@@ -34,7 +34,6 @@
     <Compile Include="Widgets\RefreshContainer.fs" />
     <Compile Include="Widgets\Brushes.fs" />
     <Compile Include="Widgets\LayoutTransformControl.fs" />
-    <Compile Include="Widgets\Styles.fs" />
     <Compile Include="Widgets\Canvas.fs" />
     <Compile Include="Widgets\Border.fs" />
     <Compile Include="Widgets\Image.fs" />

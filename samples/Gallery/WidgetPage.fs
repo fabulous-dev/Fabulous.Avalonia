@@ -72,7 +72,6 @@ module WidgetPage =
           Transitions10.sample
           Transitions11.sample
           Transitions12.sample
-          Styles.sample
           PageTransitions.sample
           LayoutTransformControl.sample
           ThemeAware.sample

@@ -161,7 +161,7 @@ module App =
                     }
                 )
         )
-            .styles("avares://Gallery/Styles/Styles.xaml")
+
             .trayIcons() {
             TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
                 .menu(
