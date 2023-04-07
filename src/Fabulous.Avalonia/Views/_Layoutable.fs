@@ -9,9 +9,6 @@ type IFabLayoutable =
     inherit IFabVisual
 
 module Layoutable =
-    let DesiredSize =
-        Attributes.defineAvaloniaPropertyWithEquality Layoutable.DesiredSizeProperty
-
     let Width = Attributes.defineAvaloniaPropertyWithEquality Layoutable.WidthProperty
 
     let Height = Attributes.defineAvaloniaPropertyWithEquality Layoutable.HeightProperty
@@ -48,10 +45,6 @@ module Layoutable =
 
 [<Extension>]
 type LayoutableModifiers =
-    [<Extension>]
-    static member inline desiredSize(this: WidgetBuilder<'msg, #IFabLayoutable>, value: Size) =
-        this.AddScalar(Layoutable.DesiredSize.WithValue(value))
-
     [<Extension>]
     static member inline width(this: WidgetBuilder<'msg, #IFabLayoutable>, value: float) =
         this.AddScalar(Layoutable.Width.WithValue(value))
