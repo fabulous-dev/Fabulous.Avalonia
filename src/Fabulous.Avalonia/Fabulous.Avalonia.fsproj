@@ -69,7 +69,6 @@
     <Compile Include="Views\Styling\KeyFrame.fs" />
     <Compile Include="Views\Styling\Animation.fs" />
     <Compile Include="Views\Styling\Transition.fs" />
-    <Compile Include="Views\Styling\PageTransition.fs" />
     <Compile Include="Views\Styling\Style.fs" />
     <Compile Include="Views\Media\Transforms\MatrixTransform.fs" />
     <Compile Include="Views\Media\Transforms\SkewTransform.fs" />

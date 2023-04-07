@@ -62,10 +62,15 @@ module PageTransitions =
                 | "CrossFade" -> CrossFade(TimeSpan.FromSeconds(1.))
                 | "3D Rotation" -> Rotate3DTransition(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
                 | "Composite" ->
-                    PageTransition.CompositePageTransition(
-                        [ Rotate3DTransition(TimeSpan.FromSeconds(2.), PageSlide.SlideAxis.Horizontal)
-                          PageTransition.CrossFade(TimeSpan.FromSeconds(1.), BounceEaseIn(), BounceEaseOut()) ]
-                    )
+                    let crossFade = CrossFade(TimeSpan.FromSeconds(1.))
+                    crossFade.FadeInEasing <- BounceEaseIn()
+                    crossFade.FadeOutEasing <- BounceEaseOut()
+
+                    let compositePageTransition = CompositePageTransition()
+                    compositePageTransition.PageTransitions.Add(Rotate3DTransition(TimeSpan.FromSeconds(2.), PageSlide.SlideAxis.Horizontal))
+                    compositePageTransition.PageTransitions.Add(crossFade)
+                    compositePageTransition
+
                 | _ -> PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
 
             { model with Transition = transition }
