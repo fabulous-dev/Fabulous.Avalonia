@@ -12,8 +12,7 @@ open type Fabulous.Avalonia.View
 module App =
 
     type Model =
-        { WidgetModel: WidgetPage.Model option
-          OverviewModel: OverViewPage.Model
+        { WidgetModel: WidgetPage.Model
           Controls: string list
           SelectedIndex: int
           IsPanOpen: bool
@@ -22,7 +21,6 @@ module App =
 
     type Msg =
         | WidgetPageMsg of WidgetPage.Msg
-        | OverViewPageMsg of OverViewPage.Msg
         | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
@@ -31,9 +29,8 @@ module App =
 
     let init () =
 
-        { WidgetModel = None
+        { WidgetModel = WidgetPage.init(0)
           IsPanOpen = true
-          OverviewModel = OverViewPage.init()
           Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
           SafeAreaInsets = 0.
           SelectedIndex = 0
@@ -52,21 +49,15 @@ module App =
             model, Cmd.none
 #endif
         | DoNothing -> model, Cmd.none
-        | OverViewPageMsg msg ->
-            let m, c = OverViewPage.update msg model.OverviewModel
-            { model with OverviewModel = m }, (Cmd.map OverViewPageMsg c)
         | WidgetPageMsg msg ->
-            match model.WidgetModel with
-            | None -> model, Cmd.none
-            | Some widgetModel ->
-                let m, c = WidgetPage.update msg widgetModel
-                { model with WidgetModel = Some m }, Cmd.batch [ (Cmd.map WidgetPageMsg c) ]
+            let m, c = WidgetPage.update msg model.WidgetModel
+            { model with WidgetModel = m }, Cmd.batch [ (Cmd.map WidgetPageMsg c) ]
         | SelectedChanged args ->
             let control = args.Source :?> ListBox
 
             let model =
                 { model with
-                    WidgetModel = Some(WidgetPage.init control.SelectedIndex)
+                    WidgetModel = WidgetPage.init control.SelectedIndex
                     IsPanOpen = true
                     SelectedIndex = control.SelectedIndex }
 
@@ -100,23 +91,13 @@ module App =
 
     let view model =
         (Grid() {
-            match model.WidgetModel with
-            | None ->
-                let content = View.map OverViewPageMsg (OverViewPage.view model.OverviewModel)
+            let content =
+                View.map WidgetPageMsg ((WidgetPage.view model.WidgetModel).margin(16.))
 
-                SplitView(buttonSpinnerHeader model, content)
-                    .isPresented(model.IsPanOpen, OpenPanChanged)
-                    .displayMode(SplitViewDisplayMode.Inline)
-                    .panePlacement(SplitViewPanePlacement.Left)
-                    .openPaneLength(model.PaneLength)
-
-            | Some widgetModel ->
-                let content = View.map WidgetPageMsg (WidgetPage.view widgetModel)
-
-                SplitView(buttonSpinnerHeader model, content.margin(16.))
-                    .isPresented(model.IsPanOpen, OpenPanChanged)
-                    .displayMode(SplitViewDisplayMode.Inline)
-                    .panePlacement(SplitViewPanePlacement.Left)
+            SplitView(buttonSpinnerHeader model, content)
+                .isPresented(model.IsPanOpen, OpenPanChanged)
+                .displayMode(SplitViewDisplayMode.Inline)
+                .panePlacement(SplitViewPanePlacement.Left)
 
             Button(OpenPan, hamburgerMenuIcon())
                 .verticalAlignment(VerticalAlignment.Top)

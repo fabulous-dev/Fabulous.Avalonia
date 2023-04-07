@@ -84,7 +84,6 @@
     <Compile Include="Widgets\Transitions\Transitions12.fs" />
     <Compile Include="Widgets\Transitions\Transitions.fs" />
     <Compile Include="WidgetPage.fs" />
-    <Compile Include="Overview.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   
