@@ -15,17 +15,6 @@ module StyledElement =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality StyledElement.NameProperty
 
-    let Classes =
-        Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
-            let target = node.Target :?> StyledElement
-
-            match newValueOpt with
-            | ValueNone -> target.Classes.Clear()
-            | ValueSome classes ->
-                let coll = AvaloniaList<string>()
-                classes |> List.iter coll.Add
-                target.Classes.AddRange coll)
-
     let Styles =
         Attributes.defineAvaloniaListWidgetCollection "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles)
 
@@ -34,10 +23,6 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, name: string) =
         this.AddScalar(StyledElement.Name.WithValue(name))
-
-    [<Extension>]
-    static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, classes: string list) =
-        this.AddScalar(StyledElement.Classes.WithValue(classes))
 
     [<Extension>]
     static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>) =
