@@ -5,22 +5,19 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module TabStrip =
-    type Model = Id
+    type Model = { Items: string list }
 
     type Msg = Id
 
-    let init () = Id
+    let init () =
+        { Items = [ "Tab 1"; "Tab 2"; "Tab 3" ] }
 
     let update msg model =
         match msg with
         | Id -> model
 
-    let view _ =
-        TabStrip() {
-            TabStripItem(TextBlock("Tab 1"))
-            TabStripItem("Tab 2")
-            TabStripItem(TextBlock("Tab 3"), true)
-        }
+    let view model =
+        TabStrip(model.Items, (fun x -> TextBlock(x)))
 
     let sample =
         { Name = "TabStrip"

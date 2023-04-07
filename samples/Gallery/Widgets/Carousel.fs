@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System
+open System.Collections
 open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.Layout
@@ -17,7 +18,7 @@ module Carousel =
           Image: string }
 
     type Model =
-        { SampleData: DataType list
+        { SampleData: DataType seq
           SelectedIndex: int }
 
     type Msg =

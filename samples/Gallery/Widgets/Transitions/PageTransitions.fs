@@ -11,8 +11,15 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module PageTransitions =
+    type DataType =
+        { Name: string
+          Desc: string
+          Image: string }
 
-    type Model = { Transition: IPageTransition }
+    type Model =
+        { SampleData: DataType seq
+          Transition: IPageTransition
+          Transitions: string list }
 
     type Msg =
         | Next
@@ -20,7 +27,18 @@ module PageTransitions =
         | TransitionChanged of SelectionChangedEventArgs
 
     let init () =
-        { Transition = PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal) }
+        { Transition = PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
+          SampleData =
+            [ { Name = "Fabulous"
+                Desc = "Fabulous is a library to write cross-platform mobile and desktop applications with F# and Avalonia."
+                Image = "fabulous-icon" }
+              { Name = "F#"
+                Desc = "F# is a cross-platform, open source, functional-first programming language."
+                Image = "fsharp-icon" }
+              { Name = "GitHib"
+                Desc = "GitHub is a web-based hosting service for version control using Git."
+                Image = "github-icon" } ]
+          Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] }
 
     let carouselController = CarouselController()
 
@@ -35,8 +53,8 @@ module PageTransitions =
 
         | TransitionChanged selection ->
             let control = selection.Source :?> ComboBox
-            let selectedItem = control.SelectedItem :?> ComboBoxItem
-            let selection = selectedItem.Content :?> string
+            let selectedItem = control.SelectedIndex
+            let selection = control.Items.[selectedItem] :?> string
 
             let transition =
                 match selection with
@@ -65,55 +83,26 @@ module PageTransitions =
                     .padding(10., 20.)
                     .margin(4.)
 
-                (Carousel() {
-                    VStack() {
-                        TextBlock("Fabulous")
-                            .fontSize(20.)
-                            .textWrapping(TextWrapping.Wrap)
-                            .textAlignment(TextAlignment.Center)
-                            .horizontalAlignment(HorizontalAlignment.Center)
+                Carousel(
+                    model.SampleData,
+                    (fun x ->
+                        VStack() {
+                            TextBlock(x.Name)
+                                .fontSize(20.)
+                                .textWrapping(TextWrapping.Wrap)
+                                .textAlignment(TextAlignment.Center)
+                                .horizontalAlignment(HorizontalAlignment.Center)
 
-                        TextBlock("Fabulous is a library to write cross-platform mobile and desktop applications with F# and Avalonia.")
-                            .fontSize(14.)
-                            .textWrapping(TextWrapping.Wrap)
-                            .textAlignment(TextAlignment.Center)
-                            .horizontalAlignment(HorizontalAlignment.Center)
+                            TextBlock(x.Desc)
+                                .fontSize(14.)
+                                .textWrapping(TextWrapping.Wrap)
+                                .textAlignment(TextAlignment.Center)
+                                .horizontalAlignment(HorizontalAlignment.Center)
 
-                        Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png"))
-                    }
+                            Image(ImageSource.fromString($"avares://Gallery/Assets/Icons/{x.Image}.png"))
 
-                    VStack() {
-                        TextBlock("F#")
-                            .fontSize(20.)
-                            .textWrapping(TextWrapping.Wrap)
-                            .textAlignment(TextAlignment.Center)
-                            .horizontalAlignment(HorizontalAlignment.Center)
-
-                        TextBlock("F# is a cross-platform, open source, functional-first programming language.")
-                            .fontSize(14.)
-                            .textWrapping(TextWrapping.Wrap)
-                            .textAlignment(TextAlignment.Center)
-                            .horizontalAlignment(HorizontalAlignment.Center)
-
-                        Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fsharp-icon.png"))
-                    }
-
-                    VStack() {
-                        TextBlock("GitHub")
-                            .fontSize(20.)
-                            .textWrapping(TextWrapping.Wrap)
-                            .textAlignment(TextAlignment.Center)
-                            .horizontalAlignment(HorizontalAlignment.Center)
-
-                        TextBlock("GitHub is a web-based hosting service for version control using Git.")
-                            .fontSize(14.)
-                            .textWrapping(TextWrapping.Wrap)
-                            .textAlignment(TextAlignment.Center)
-                            .horizontalAlignment(HorizontalAlignment.Center)
-
-                        Image(ImageSource.fromString("avares://Gallery/Assets/Icons/github-icon.png"))
-                    }
-                })
+                        })
+                )
                     .transition(model.Transition)
                     .margin(16)
                     .gridColumn(1)
@@ -138,12 +127,7 @@ module PageTransitions =
             (HStack(16.) {
                 TextBlock("Transition").verticalAlignment(VerticalAlignment.Center)
 
-                (ComboBox() {
-                    ComboBoxItem("Slide")
-                    ComboBoxItem("CrossFade")
-                    ComboBoxItem("3D Rotation")
-                    ComboBoxItem("Composite")
-                })
+                ComboBox(model.Transitions, (fun x -> TextBlock(x)))
                     .selectedIndex(0)
                     .onSelectionChanged(TransitionChanged)
                     .verticalAlignment(VerticalAlignment.Center)

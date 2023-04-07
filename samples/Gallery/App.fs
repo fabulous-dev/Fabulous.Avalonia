@@ -1,7 +1,6 @@
 namespace Gallery
 
 open System.Diagnostics
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
@@ -16,30 +15,43 @@ module App =
         { WidgetModel: WidgetPage.Model option
           OverviewModel: OverViewPage.Model
           Controls: string list
+          SelectedIndex: int
           IsPanOpen: bool
-          SelectedIndex: int }
+          SafeAreaInsets: float
+          PaneLength: float }
 
     type Msg =
         | WidgetPageMsg of WidgetPage.Msg
         | OverViewPageMsg of OverViewPage.Msg
-        | ShowOverview
         | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
         | DoNothing
+        | OnLoaded of bool
 
     let init () =
+
         { WidgetModel = None
           IsPanOpen = true
           OverviewModel = OverViewPage.init()
           Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
-          SelectedIndex = -1 },
+          SafeAreaInsets = 0.
+          SelectedIndex = 0
+          PaneLength = 250. },
         Cmd.none
 
     let update msg model =
         match msg with
+        | OnLoaded _ ->
+#if MOBILE
+            { model with
+                SafeAreaInsets = 32.
+                PaneLength = 180. },
+            Cmd.none
+#else
+            model, Cmd.none
+#endif
         | DoNothing -> model, Cmd.none
-        | ShowOverview -> { model with WidgetModel = None }, Cmd.none
         | OverViewPageMsg msg ->
             let m, c = OverViewPage.update msg model.OverviewModel
             { model with OverviewModel = m }, (Cmd.map OverViewPageMsg c)
@@ -48,16 +60,15 @@ module App =
             | None -> model, Cmd.none
             | Some widgetModel ->
                 let m, c = WidgetPage.update msg widgetModel
-                { model with WidgetModel = Some m }, (Cmd.map WidgetPageMsg c)
+                { model with WidgetModel = Some m }, Cmd.batch [ (Cmd.map WidgetPageMsg c) ]
         | SelectedChanged args ->
             let control = args.Source :?> ListBox
-            let controlSelectedIndex = control.SelectedIndex
 
             let model =
                 { model with
-                    WidgetModel = Some(WidgetPage.init controlSelectedIndex)
-                    SelectedIndex = controlSelectedIndex
-                    IsPanOpen = true }
+                    WidgetModel = Some(WidgetPage.init control.SelectedIndex)
+                    IsPanOpen = true
+                    SelectedIndex = control.SelectedIndex }
 
             model, Cmd.none
 
@@ -73,23 +84,22 @@ module App =
             .fill(SolidColorBrush(Colors.Black))
 
     let buttonSpinnerHeader (model: Model) =
-        ScrollViewer(
-            (VStack(0.) {
+        (ScrollViewer(
+            VStack(16.) {
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .size(100., 100.)
 
                 TextBlock("Fabulous Gallery").centerHorizontal()
 
-                Button("Overview", ShowOverview)
-
                 ListBox(model.Controls, (fun x -> TextBlock(x)))
+                    .selectionMode(SelectionMode.Single)
                     .onSelectionChanged(SelectedChanged)
-            })
-                .margin(Thickness(0., 20., 0., 0.))
-        )
+            }
+        ))
+            .padding(0., model.SafeAreaInsets, 0., 0.)
 
     let view model =
-        Grid() {
+        (Grid() {
             match model.WidgetModel with
             | None ->
                 let content = View.map OverViewPageMsg (OverViewPage.view model.OverviewModel)
@@ -98,6 +108,7 @@ module App =
                     .isPresented(model.IsPanOpen, OpenPanChanged)
                     .displayMode(SplitViewDisplayMode.Inline)
                     .panePlacement(SplitViewPanePlacement.Left)
+                    .openPaneLength(model.PaneLength)
 
             | Some widgetModel ->
                 let content = View.map WidgetPageMsg (WidgetPage.view widgetModel)
@@ -110,7 +121,11 @@ module App =
             Button(OpenPan, hamburgerMenuIcon())
                 .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Left)
-        }
+                .margin(4., model.SafeAreaInsets, 0., 0.)
+        })
+            .onLoaded(OnLoaded)
+
+
 
 #if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
@@ -135,7 +150,6 @@ module App =
                         NativeMenuItem("Edit")
                             .menu(
                                 NativeMenu() {
-                                    NativeMenuItem("Show Overview", ShowOverview)
                                     NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
                                     NativeMenuItemSeparator()
 
@@ -185,6 +199,9 @@ module App =
     let program =
         Program.statefulWithCmd init update app
         |> Program.withThemeAwareness
+        |> Program.withExceptionHandler(fun ex ->
+            Debug.WriteLine(ex.ToString())
+            true)
 #if DEBUG
         |> Program.withLogger
             { ViewHelpers.defaultLogger() with

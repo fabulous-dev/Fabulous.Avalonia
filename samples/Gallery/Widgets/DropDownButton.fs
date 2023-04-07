@@ -35,7 +35,7 @@ module DropDownButton =
             }
         )
             .showMode(FlyoutShowMode.Standard)
-            .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
+            .placement(PlacementMode.RightEdgeAlignedTop)
 
     let view model =
         VStack(spacing = 15.) {

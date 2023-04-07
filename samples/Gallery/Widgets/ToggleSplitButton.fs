@@ -43,7 +43,7 @@ module ToggleSplitButton =
             }
         )
             .showMode(FlyoutShowMode.Standard)
-            .placement(FlyoutPlacementMode.RightEdgeAlignedTop)
+            .placement(PlacementMode.RightEdgeAlignedTop)
 
 
     let view model =

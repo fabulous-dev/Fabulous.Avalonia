@@ -17,6 +17,24 @@ module Brushes =
         match msg with
         | Id -> model
 
+    let createDrawing () =
+        DrawingBrush(
+            GeometryDrawing(
+                GeometryGroup(FillRule.NonZero) {
+                    RectangleGeometry(Rect(50., 25., 25., 25.))
+                    RectangleGeometry(Rect(50., 25., 25., 25.))
+                },
+                Pen(
+                    LinearGradientBrush() {
+                        GradientStop(0., Colors.Blue)
+                        GradientStop(1., Colors.Black)
+                    },
+                    5.
+                ),
+                SolidColorBrush(Colors.Yellow)
+            )
+        )
+
     let view _ =
         (Canvas() {
             Rectangle()
@@ -107,6 +125,12 @@ module Brushes =
                     }
                 )
 
+            Rectangle()
+                .canvasLeft(20.0)
+                .canvasTop(310.0)
+                .width(440.0)
+                .height(50.0)
+                .fill(createDrawing())
         })
             .width(480.0)
             .height(360.0)

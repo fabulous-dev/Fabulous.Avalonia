@@ -50,7 +50,7 @@ module SplitButton =
             MenuItem("Item 2").inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
             MenuItem("Item 3")
         })
-            .placement(FlyoutPlacementMode.Bottom)
+            .placement(PlacementMode.Bottom)
 
     let availableColors colors =
         (MenuFlyout() {
@@ -64,7 +64,7 @@ module SplitButton =
 
             )
         })
-            .placement(FlyoutPlacementMode.Bottom)
+            .placement(PlacementMode.Bottom)
 
 
     let view model =

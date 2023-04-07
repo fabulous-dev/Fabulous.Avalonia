@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System
 open System.Collections
 open Avalonia
+open Avalonia.Controls
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 open Fabulous.StackAllocatedCollections.StackList

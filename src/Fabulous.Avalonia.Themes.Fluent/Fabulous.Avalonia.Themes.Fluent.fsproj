@@ -26,7 +26,7 @@
     <Compile Include="FluentTheme.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-preview5" />
+    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-preview6" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>

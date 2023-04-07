@@ -25,7 +25,7 @@ module ThemeAware =
         | ThemeVariantChanged of ThemeVariant
 
     let init () =
-        { CurrentTheme = Avalonia.Application.Current.RequestedThemeVariant
+        { CurrentTheme = Avalonia.Application.Current.ActualThemeVariant
           ScopeTheme = ThemeVariant.Default
           Items =
             [ ThemeVariant.Default
@@ -75,20 +75,19 @@ module ThemeAware =
                 model.ScopeTheme,
                 Border(
                     Grid(coldefs = [ Pixel(150.); Pixel(150.) ], rowdefs = [ Auto; Pixel(4.); Auto; Pixel(4.); Auto; Pixel(4.); Auto ]) {
-                        (ComboBox() {
-                            for item in model.Items do
-                                ComboBoxItem(
-                                    TextBlock(item.ToString())
-                                        .foreground(
-                                            SolidColorBrush(
-                                                if model.ScopeTheme = ThemeVariant.Light then
-                                                    Colors.Red
-                                                else
-                                                    Colors.Green
-                                            )
+                        ComboBox(
+                            model.Items,
+                            fun item ->
+                                TextBlock(item.ToString())
+                                    .foreground(
+                                        SolidColorBrush(
+                                            if model.ScopeTheme = ThemeVariant.Light then
+                                                Colors.Red
+                                            else
+                                                Colors.Green
                                         )
-                                )
-                        })
+                                    )
+                        )
                             .gridColumn(0)
                             .gridRow(0)
                             .horizontalAlignment(HorizontalAlignment.Stretch)

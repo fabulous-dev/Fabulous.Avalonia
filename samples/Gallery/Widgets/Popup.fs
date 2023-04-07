@@ -45,7 +45,7 @@ module Popup =
             )
                 .onOpened(OnOpened)
                 .onClosed(OnClosed)
-                .placementMode(PlacementMode.Bottom)
+                .placement(PlacementMode.Bottom)
                 .placementGravity(PopupGravity.Bottom)
                 .placementAnchor(PopupAnchor.Bottom)
                 .placementConstraintAdjustment(PopupPositionerConstraintAdjustment.FlipY)
