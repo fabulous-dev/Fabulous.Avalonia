@@ -2,7 +2,6 @@ namespace Gallery
 
 open System
 open Avalonia
-open Avalonia.Animation
 open Avalonia.Input
 open Avalonia.Media
 open Avalonia.Media.Immutable
@@ -45,27 +44,18 @@ module Transitions10 =
             .size(100., 100.)
 
     let view model =
-        (UniformGrid() {
-
-            Border()
-                .style(borderTestStyle)
-                .background(
-                    ImmutableLinearGradientBrush(
-                        [ ImmutableGradientStop(0., model.Background2)
-                          ImmutableGradientStop(1., model.Background3) ],
-                        startPoint = RelativePoint.Parse("0%, 0%"),
-                        endPoint = RelativePoint.Parse("100%, 100%")
-                    )
+        Border()
+            .style(borderTestStyle)
+            .background(
+                ImmutableLinearGradientBrush(
+                    [ ImmutableGradientStop(0., model.Background2)
+                      ImmutableGradientStop(1., model.Background3) ],
+                    startPoint = RelativePoint.Parse("0%, 0%"),
+                    endPoint = RelativePoint.Parse("100%, 100%")
                 )
-                .onPointerEnter(OnPointerEnter)
-                .onPointerExited(OnPointerExited)
-                .transitions() {
-                BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
-            }
-        })
-            .clock(Clock())
-
-    let sample =
-        { Name = "Transitions 10"
-          Description = "Transitions sample"
-          Program = Helper.createProgram init update view }
+            )
+            .onPointerEnter(OnPointerEnter)
+            .onPointerExited(OnPointerExited)
+            .transitions() {
+            BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
+        }

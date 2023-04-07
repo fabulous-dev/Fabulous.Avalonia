@@ -33,19 +33,11 @@ module Transitions9 =
             .size(100., 100.)
 
     let view model =
-        (UniformGrid() {
-            Border()
-                .style(borderTestStyle)
-                .background(model.Background)
-                .onPointerEnter(OnPointerEnter)
-                .onPointerExited(OnPointerExited)
-                .transitions() {
-                BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
-            }
-        })
-            .clock(Clock())
-
-    let sample =
-        { Name = "Transitions 9"
-          Description = "Transitions sample"
-          Program = Helper.createProgram init update view }
+        Border()
+            .style(borderTestStyle)
+            .background(model.Background)
+            .onPointerEnter(OnPointerEnter)
+            .onPointerExited(OnPointerExited)
+            .transitions() {
+            BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
+        }

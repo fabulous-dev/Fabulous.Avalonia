@@ -1,100 +1,143 @@
 namespace Gallery
 
-open System
-open Avalonia
-open Avalonia.Animation
-open Avalonia.Input
-open Avalonia.Media
-open Avalonia.Media.Transformation
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Controls
 
 open type Fabulous.Avalonia.View
 
 module Transitions =
     type Msg =
-        | OnPointerEnter of PointerEventArgs
-        | OnPointerExited of PointerEventArgs
-
-        | OnPointerEnter1 of PointerEventArgs
-        | OnPointerExited1 of PointerEventArgs
-
-        | OnPointerEnter2 of PointerEventArgs
-        | OnPointerExited2 of PointerEventArgs
-
+        | Transition1Msg of Transitions1.Msg
+        | Transition2Msg of Transitions2.Msg
+        | Transition3Msg of Transitions3.Msg
+        | Transition4Msg of Transitions4.Msg
+        | Transition5Msg of Transitions5.Msg
+        | Transition6Msg of Transitions6.Msg
+        | Transition7Msg of Transitions7.Msg
+        | Transition8Msg of Transitions8.Msg
+        | Transition9Msg of Transitions9.Msg
+        | Transition10Msg of Transitions10.Msg
+        | Transition11Msg of Transitions11.Msg
+        | Transition12Msg of Transitions12.Msg
 
     type Model =
-        { Angle: float
-          Angle1: float
-          Scale: float
-          Turn: int }
+        { Transitions1: Transitions1.Model
+          Transitions2: Transitions2.Model
+          Transitions3: Transitions3.Model
+          Transitions4: Transitions4.Model
+          Transitions5: Transitions5.Model
+          Transitions6: Transitions6.Model
+          Transitions7: Transitions7.Model
+          Transitions8: Transitions8.Model
+          Transitions9: Transitions9.Model
+          Transitions10: Transitions10.Model
+          Transitions11: Transitions11.Model
+          Transitions12: Transitions12.Model }
 
     let init () =
-        { Angle = 0.
-          Angle1 = 0.
-          Scale = 1.
-          Turn = 0 }
+        { Transitions1 = Transitions1.init()
+          Transitions2 = Transitions2.init()
+          Transitions3 = Transitions3.init()
+          Transitions4 = Transitions4.init()
+          Transitions5 = Transitions5.init()
+          Transitions6 = Transitions6.init()
+          Transitions7 = Transitions7.init()
+          Transitions8 = Transitions8.init()
+          Transitions9 = Transitions9.init()
+          Transitions10 = Transitions10.init()
+          Transitions11 = Transitions11.init()
+          Transitions12 = Transitions12.init() }
 
     let update msg model =
         match msg with
-        | OnPointerEnter _ -> { model with Angle = 120.; Scale = 2.5 }
-        | OnPointerExited _ -> { model with Angle = 0.; Scale = 1. }
+        | Transition1Msg msg ->
+            let transitions1 = Transitions1.update msg model.Transitions1
 
-        | OnPointerEnter1 _ -> { model with Angle1 = 120. }
+            { model with
+                Transitions1 = transitions1 }
 
-        | OnPointerExited1 _ -> { model with Angle1 = 0. }
+        | Transition2Msg msg ->
+            let transitions2 = Transitions2.update msg model.Transitions2
 
-        | OnPointerEnter2 _ -> { model with Turn = 1 }
+            { model with
+                Transitions2 = transitions2 }
 
-        | OnPointerExited2 _ -> { model with Turn = 0 }
+        | Transition3Msg msg ->
+            let transitions3 = Transitions3.update msg model.Transitions3
 
-    let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
-        this
-            .child(Path(Paths.Path1).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
-            .margin(15.)
-            .size(100., 100.)
+            { model with
+                Transitions3 = transitions3 }
 
-    let borderTestStyle1 (this: WidgetBuilder<'msg, IFabBorder>) =
-        this
-            .child(Path(Paths.Path2).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
-            .margin(15.)
-            .size(100., 100.)
+        | Transition4Msg msg ->
+            let transitions4 = Transitions4.update msg model.Transitions4
+
+            { model with
+                Transitions4 = transitions4 }
+
+        | Transition5Msg msg ->
+            let transitions5 = Transitions5.update msg model.Transitions5
+
+            { model with
+                Transitions5 = transitions5 }
+
+        | Transition6Msg msg ->
+            let transitions6 = Transitions6.update msg model.Transitions6
+
+            { model with
+                Transitions6 = transitions6 }
+
+        | Transition7Msg msg ->
+            let transitions7 = Transitions7.update msg model.Transitions7
+
+            { model with
+                Transitions7 = transitions7 }
+
+        | Transition8Msg msg ->
+            let transitions8 = Transitions8.update msg model.Transitions8
+
+            { model with
+                Transitions8 = transitions8 }
+
+        | Transition9Msg msg ->
+            let transitions9 = Transitions9.update msg model.Transitions9
+
+            { model with
+                Transitions9 = transitions9 }
+
+        | Transition10Msg msg ->
+            let transitions10 = Transitions10.update msg model.Transitions10
+
+            { model with
+                Transitions10 = transitions10 }
+
+        | Transition11Msg msg ->
+            let transitions11 = Transitions11.update msg model.Transitions11
+
+            { model with
+                Transitions11 = transitions11 }
+
+        | Transition12Msg msg ->
+            let transitions12 = Transitions12.update msg model.Transitions12
+
+            { model with
+                Transitions12 = transitions12 }
 
     let view model =
-        (UniformGrid() {
-            Border()
-                .style(borderTestStyle)
-                .background(SolidColorBrush(Colors.DarkRed))
-                .renderTransform(TransformOperations.Parse($"rotate({model.Angle}deg) scale({model.Scale})"))
-                .onPointerEnter(OnPointerEnter)
-                .onPointerExited(OnPointerExited)
-                .transitions() {
-                TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromSeconds(0.5))
-            }
+        Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ]) {
+            View.map Transition1Msg ((Transitions1.view model.Transitions1).gridRow(0))
 
-            Border()
-                .style(borderTestStyle)
-                .background(SolidColorBrush(Colors.DarkRed))
-                .renderTransform(RotateTransform(model.Angle1).transitions() { DoubleTransition(RotateTransform.AngleProperty, TimeSpan.FromSeconds(0.5)) })
-                .onPointerEnter(OnPointerEnter1)
-                .onPointerExited(OnPointerExited1)
-
-            Border()
-                .style(borderTestStyle1)
-                .background(SolidColorBrush(Colors.Brown))
-                .onPointerEnter(OnPointerEnter2)
-                .onPointerExited(OnPointerExited2)
-                .renderTransform(TransformOperations.Parse($"rotate({model.Turn}turn)"))
-                .transitions() {
-                TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromSeconds(0.5))
-            }
-
-        })
-            .clipToBounds(false)
-            .centerVertical()
-            .centerHorizontal()
-            .clock(Clock())
+            View.map Transition2Msg ((Transitions2.view model.Transitions2).gridRow(1))
+            View.map Transition3Msg ((Transitions3.view model.Transitions3).gridRow(2))
+            View.map Transition4Msg ((Transitions4.view model.Transitions4).gridRow(3))
+            View.map Transition5Msg ((Transitions5.view model.Transitions5).gridRow(4))
+            View.map Transition6Msg ((Transitions6.view model.Transitions6).gridRow(5))
+            View.map Transition7Msg ((Transitions7.view model.Transitions7).gridRow(6))
+            View.map Transition8Msg ((Transitions8.view model.Transitions8).gridRow(7))
+            View.map Transition9Msg ((Transitions9.view model.Transitions9).gridRow(8))
+            View.map Transition10Msg ((Transitions10.view model.Transitions10).gridRow(9))
+            View.map Transition11Msg ((Transitions11.view model.Transitions11).gridRow(10))
+            View.map Transition12Msg ((Transitions12.view model.Transitions12).gridRow(11))
+        }
 
     let sample =
         { Name = "Transitions"

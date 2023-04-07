@@ -2,7 +2,6 @@ namespace Gallery
 
 open System
 open Avalonia
-open Avalonia.Animation
 open Avalonia.Input
 open Avalonia.Media
 open Avalonia.Media.Immutable
@@ -42,12 +41,6 @@ module Transitions12 =
                 Background5 = Colors.Blue
                 Radius = 5. }
 
-    let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
-        this
-            .child(Path(Paths.Path1).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
-            .margin(15.)
-            .size(100., 100.)
-
     let borderTestStyle1 (this: WidgetBuilder<'msg, IFabBorder>) =
         this
             .child(Path(Paths.Path2).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
@@ -55,26 +48,18 @@ module Transitions12 =
             .size(100., 100.)
 
     let view model =
-        (UniformGrid() {
-            Border()
-                .style(borderTestStyle1)
-                .background(
-                    ImmutableRadialGradientBrush(
-                        [ ImmutableGradientStop(0., model.Background4)
-                          ImmutableGradientStop(1., model.Background5) ],
-                        center = RelativePoint.Parse("50%, 50%"),
-                        radius = model.Radius
-                    )
+        Border()
+            .style(borderTestStyle1)
+            .background(
+                ImmutableRadialGradientBrush(
+                    [ ImmutableGradientStop(0., model.Background4)
+                      ImmutableGradientStop(1., model.Background5) ],
+                    center = RelativePoint.Parse("50%, 50%"),
+                    radius = model.Radius
                 )
-                .onPointerEnter(OnPointerEnter)
-                .onPointerExited(OnPointerExited)
-                .transitions() {
-                BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
-            }
-        })
-            .clock(Clock())
-
-    let sample =
-        { Name = "Transitions 12"
-          Description = "Transitions sample"
-          Program = Helper.createProgram init update view }
+            )
+            .onPointerEnter(OnPointerEnter)
+            .onPointerExited(OnPointerExited)
+            .transitions() {
+            BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
+        }

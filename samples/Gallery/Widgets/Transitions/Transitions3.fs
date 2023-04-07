@@ -1,7 +1,6 @@
 namespace Gallery
 
 open System
-open Avalonia.Animation
 open Avalonia.Input
 open Avalonia.Media
 open Fabulous
@@ -38,14 +37,8 @@ module Transitions3 =
             .margin(15.)
             .size(100., 100.)
 
-    let borderTestStyle1 (this: WidgetBuilder<'msg, IFabBorder>) =
-        this
-            .child(Path(Paths.Path2).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
-            .margin(15.)
-            .size(100., 100.)
-
     let view model =
-        (UniformGrid() {
+        HStack(16.) {
             Border()
                 .background(SolidColorBrush(Colors.Navy))
                 .style(borderTestStyle)
@@ -63,11 +56,4 @@ module Transitions3 =
                 .renderTransform(
                     TranslateTransform(0., model.TranslateY).transitions() { DoubleTransition(TranslateTransform.YProperty, TimeSpan.FromSeconds(0.5)) }
                 )
-        })
-            .clipToBounds(false)
-            .clock(Clock())
-
-    let sample =
-        { Name = "Transitions 3"
-          Description = "Transitions sample"
-          Program = Helper.createProgram init update view }
+        }

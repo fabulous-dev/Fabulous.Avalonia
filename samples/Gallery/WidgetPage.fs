@@ -59,19 +59,7 @@ module WidgetPage =
           Border.sample
           Canvas.sample
           Animations.sample
-          Transforms2.sample
           Transitions.sample
-          Transitions2.sample
-          Transitions3.sample
-          Transitions4.sample
-          Transitions5.sample
-          Transitions6.sample
-          Transitions7.sample
-          Transitions8.sample
-          Transitions9.sample
-          Transitions10.sample
-          Transitions11.sample
-          Transitions12.sample
           PageTransitions.sample
           LayoutTransformControl.sample
           ThemeAware.sample
