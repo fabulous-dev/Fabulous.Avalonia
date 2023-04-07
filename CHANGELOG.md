@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre3] - 2023-04-07
+
+### Added
+- Add support for AvaloniaUI preview 6
+
 ## [2.0.0-pre2] - 2023-04-02
 
 ### Added
@@ -18,6 +23,7 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre2...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre3...HEAD
+[2.0.0-pre3]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre3
 [2.0.0-pre2]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre2
 [2.0.0-pre1]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre1

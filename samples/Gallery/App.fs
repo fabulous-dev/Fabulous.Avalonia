@@ -84,7 +84,7 @@ module App =
             .fill(SolidColorBrush(Colors.Black))
 
     let buttonSpinnerHeader (model: Model) =
-        (ScrollViewer(
+        ScrollViewer(
             VStack(16.) {
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .size(100., 100.)
@@ -95,7 +95,7 @@ module App =
                     .selectionMode(SelectionMode.Single)
                     .onSelectionChanged(SelectedChanged)
             }
-        ))
+        )
             .padding(0., model.SafeAreaInsets, 0., 0.)
 
     let view model =
