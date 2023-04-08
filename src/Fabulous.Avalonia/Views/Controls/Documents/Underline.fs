@@ -21,7 +21,7 @@ module UnderlineBuilders =
             Fabulous.Avalonia.View.Underline<'msg>() { View.Run<'msg>(text) }
 
 [<Extension>]
-type RunModifiers =
+type UnderlineModifiers =
     /// <summary>Link a ViewRef to access the direct Underline control instance</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
