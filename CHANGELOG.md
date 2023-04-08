@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre4] - 2023-04-08
+
+### Added
+- Add support for ViewRef
+
+### Removed
+- Xaml specific controls
+
 ## [2.0.0-pre3] - 2023-04-07
 
 ### Added
@@ -23,7 +31,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre3...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre4...HEAD
+[2.0.0-pre4]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre4
 [2.0.0-pre3]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre3
 [2.0.0-pre2]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre2
 [2.0.0-pre1]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre1
