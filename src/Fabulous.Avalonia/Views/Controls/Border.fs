@@ -61,17 +61,38 @@ module Border =
 module BorderBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>
+        /// Create a Border widget with a content widget
+        /// <example>
+        /// <code>
+        /// Border(TextBlock("Hello"))
+        ///     .background(SolidColorBrush(Colors.Red))
+        /// </code>
+        /// </example>
+        /// </summary>
         static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabBorder>(
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
+        /// <summary>
+        /// Create a Border widget
+        /// <example>
+        /// <code>
+        /// Border()
+        ///     .background(SolidColorBrush(Colors.Red))
+        /// </code>
+        /// </example>
+        /// </summary>
         static member Border() =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 [<Extension>]
 type BorderModifiers =
+    /// <summary>Set the background color of the Border</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The background color of the Border</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Border.BackgroundWidget.WithValue(value.Compile()))
