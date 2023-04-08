@@ -25,14 +25,27 @@ module Animatable =
 
 [<Extension>]
 type AnimatableModifiers =
+    /// <summary> Set the Clock property.</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The Clock value</param>
     [<Extension>]
-    static member inline clock(this: WidgetBuilder<'msg, #IFabAnimatable>, clock: IClock) =
-        this.AddScalar(Animatable.Clock.WithValue(clock))
+    static member inline clock(this: WidgetBuilder<'msg, #IFabAnimatable>, value: IClock) =
+        this.AddScalar(Animatable.Clock.WithValue(value))
 
+    /// <summary> Set the Transitions property.</summary>
+    /// <param name="this">Current widget</param>
+    /// <example>
+    /// <code>
+    /// Border()
+    ///     .background(Brushes.Red)
+    ///     .transitions() {
+    ///         BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
+    ///     }
+    /// </code>
+    /// </example>
     [<Extension>]
     static member inline transitions(this: WidgetBuilder<'msg, #IFabAnimatable>) =
         AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions)
-
 
 [<Extension>]
 type AnimatableCollectionBuilderExtensions =
