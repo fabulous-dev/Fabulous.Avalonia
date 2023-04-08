@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Collections.Generic
+open System.Runtime.CompilerServices
 open Avalonia.Controls.Shapes
 open Avalonia
 open Fabulous
@@ -28,3 +29,12 @@ module PolylineBuilders =
 
         static member Polyline(points: Point list) =
             WidgetBuilder<'msg, IFabPolyline>(Polyline.WidgetKey, Polyline.Points.WithValue(points))
+
+[<Extension>]
+type PolylineModifiers =
+    /// <summary>Link a ViewRef to access the direct Polyline control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPolyline>, value: ViewRef<Polyline>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

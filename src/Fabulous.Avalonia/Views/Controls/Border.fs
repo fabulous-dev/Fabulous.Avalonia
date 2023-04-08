@@ -166,3 +166,10 @@ type BorderExtraModifiers =
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
         BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))
+
+    /// <summary>Link a ViewRef to access the direct Border control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

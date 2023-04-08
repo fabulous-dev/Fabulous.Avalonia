@@ -49,3 +49,12 @@ module ReversibleStackPanelBuilders =
             | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
             CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
+
+[<Extension>]
+type ReversibleStackPanelModifiers =
+    /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabReversibleStackPanel>, value: ViewRef<ReversibleStackPanel>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

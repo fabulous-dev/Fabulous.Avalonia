@@ -37,3 +37,10 @@ type ListBoxModifiers =
     [<Extension>]
     static member inline selectionModel(this: WidgetBuilder<'msg, #IFabListBox>, value: ISelectionModel) =
         this.AddScalar(ListBox.SelectionModel.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct ListBox control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabListBox>, value: ViewRef<ListBox>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -75,3 +75,10 @@ type ScrollBarModifiers =
     [<Extension>]
     static member inline onScroll(this: WidgetBuilder<'msg, #IFabScrollBar>, onScroll: ScrollEventArgs -> 'msg) =
         this.AddScalar(ScrollBar.Scroll.WithValue(fun args -> onScroll args |> box))
+
+    /// <summary>Link a ViewRef to access the direct ScrollBar control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabScrollBar>, value: ViewRef<ScrollBar>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

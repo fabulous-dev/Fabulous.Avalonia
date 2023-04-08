@@ -129,3 +129,10 @@ type ScrollViewerModifiers =
     [<Extension>]
     static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, onScrollChanged: ScrollChangedEventArgs -> 'msg) =
         this.AddScalar(ScrollViewer.ScrollChanged.WithValue(fun args -> onScrollChanged args |> box))
+
+    /// <summary>Link a ViewRef to access the direct ScrollViewer control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabScrollViewer>, value: ViewRef<ScrollViewer>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

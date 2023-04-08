@@ -108,3 +108,10 @@ type CalendarModifiers =
     [<Extension>]
     static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabCalendar>, onDisplayModeChanged: CalendarModeChangedEventArgs -> 'msg) =
         this.AddScalar(Calendar.DisplayModeChanged.WithValue(fun args -> onDisplayModeChanged args |> box))
+
+    /// <summary>Link a ViewRef to access the direct Calendar control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

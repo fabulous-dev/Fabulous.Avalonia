@@ -95,3 +95,10 @@ type TextDecorationModifiers =
     [<Extension>]
     static member inline strokeOffsetUnit(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: TextDecorationUnit) =
         this.AddScalar(TextDecoration.StrokeOffsetUnit.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct TextDecoration control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabTextDecoration>, value: ViewRef<TextDecoration>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

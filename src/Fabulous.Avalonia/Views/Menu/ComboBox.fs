@@ -78,3 +78,10 @@ type ComboBoxModifiers =
     [<Extension>]
     static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabComboBox>, isOpen: bool, onDropDownOpened: bool -> 'msg) =
         this.AddScalar(ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> onDropDownOpened args |> box)))
+
+    /// <summary>Link a ViewRef to access the direct ComboBox control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabComboBox>, value: ViewRef<ComboBox>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

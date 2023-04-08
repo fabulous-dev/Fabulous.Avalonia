@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Fabulous
 
@@ -17,3 +18,12 @@ module RunBuilders =
 
         static member Run(text: string) =
             WidgetBuilder<'msg, IFabRun>(Run.WidgetKey, Run.Text.WithValue(text))
+
+[<Extension>]
+type RunModifiers =
+    /// <summary>Link a ViewRef to access the direct Run control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabRun>, value: ViewRef<Run>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

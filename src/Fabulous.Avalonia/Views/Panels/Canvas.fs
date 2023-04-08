@@ -47,3 +47,10 @@ type CanvasModifiers =
     [<Extension>]
     static member inline canvasBottom(this: WidgetBuilder<'msg, #IFabControl>, value: float) =
         this.AddScalar(Canvas.Bottom.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct Canvas control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabCanvas>, value: ViewRef<Canvas>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

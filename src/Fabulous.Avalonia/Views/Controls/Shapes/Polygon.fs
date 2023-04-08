@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Collections.Generic
+open System.Runtime.CompilerServices
 open Avalonia.Controls.Shapes
 open Avalonia
 open Fabulous
@@ -28,3 +29,12 @@ module PolygonBuilders =
 
         static member Polygon(points: Point list) =
             WidgetBuilder<'msg, IFabPolygon>(Polygon.WidgetKey, Polygon.Points.WithValue(points))
+
+[<Extension>]
+type PolygonModifiers =
+    /// <summary>Link a ViewRef to access the direct Polygon control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPolygon>, value: ViewRef<Polygon>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

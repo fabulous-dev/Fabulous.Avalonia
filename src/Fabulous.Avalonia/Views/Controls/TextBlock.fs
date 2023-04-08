@@ -174,6 +174,14 @@ type TextBlockModifiers =
     static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> TextBlock.TextDecorations this
 
+    /// <summary>Link a ViewRef to access the direct TextBlock control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabTextBlock>, value: ViewRef<TextBlock>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+
 [<Extension>]
 type TextBlockExtraModifiers =
     [<Extension>]

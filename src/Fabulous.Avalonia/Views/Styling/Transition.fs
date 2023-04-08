@@ -7,7 +7,7 @@ open Avalonia.Animation
 open Avalonia.Animation.Easings
 open Fabulous
 
-type IDoubleTransition =
+type IFabDoubleTransition =
     inherit IFabTransition
 
 module DoubleTransition =
@@ -35,7 +35,7 @@ module DoubleTransitionBuilders =
     type Fabulous.Avalonia.View with
 
         static member DoubleTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<'msg, IDoubleTransition>(
+            WidgetBuilder<'msg, IFabDoubleTransition>(
                 DoubleTransition.WidgetKey,
                 DoubleTransition.Property.WithValue(property),
                 DoubleTransition.Duration.WithValue(duration)
@@ -44,12 +44,19 @@ module DoubleTransitionBuilders =
 [<Extension>]
 type DoubleTransitionModifiers =
     [<Extension>]
-    static member inline delay(this: WidgetBuilder<'msg, #IDoubleTransition>, value: TimeSpan) =
+    static member inline delay(this: WidgetBuilder<'msg, #IFabDoubleTransition>, value: TimeSpan) =
         this.AddScalar(DoubleTransition.Delay.WithValue(value))
 
     [<Extension>]
-    static member inline easing(this: WidgetBuilder<'msg, #IDoubleTransition>, value: Easing) =
+    static member inline easing(this: WidgetBuilder<'msg, #IFabDoubleTransition>, value: Easing) =
         this.AddScalar(DoubleTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct DoubleTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabDoubleTransition>, value: ViewRef<DoubleTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabBoxShadowsTransition =
     inherit IFabTransition
@@ -97,6 +104,13 @@ type BoxShadowsTransitionModifiers =
     static member inline easing(this: WidgetBuilder<'msg, #IFabBoxShadowsTransition>, value: Easing) =
         this.AddScalar(BoxShadowsTransition.Easing.WithValue(value))
 
+    /// <summary>Link a ViewRef to access the direct BoxShadowsTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabBoxShadowsTransition>, value: ViewRef<BoxShadowsTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 
 type IFabBrushTransition =
     inherit IFabTransition
@@ -143,6 +157,13 @@ type BrushTransitionModifiers =
     static member inline easing(this: WidgetBuilder<'msg, #IFabBrushTransition>, value: Easing) =
         this.AddScalar(BrushTransition.Easing.WithValue(value))
 
+    /// <summary>Link a ViewRef to access the direct BrushTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabBrushTransition>, value: ViewRef<BrushTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type IFabColorTransition =
     inherit IFabTransition
 
@@ -186,6 +207,13 @@ type ColorTransitionModifiers =
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabColorTransition>, value: Easing) =
         this.AddScalar(ColorTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct ColorTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabColorTransition>, value: ViewRef<ColorTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabCornerRadiusTransition =
     inherit IFabTransition
@@ -233,6 +261,13 @@ type CornerRadiusTransitionModifiers =
     static member inline easing(this: WidgetBuilder<'msg, #IFabCornerRadiusTransition>, value: Easing) =
         this.AddScalar(CornerRadiusTransition.Easing.WithValue(value))
 
+    /// <summary>Link a ViewRef to access the direct CornerRadiusTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabCornerRadiusTransition>, value: ViewRef<CornerRadiusTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type IFabFloatTransition =
     inherit IFabTransition
 
@@ -276,6 +311,13 @@ type FloatTransitionModifiers =
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabFloatTransition>, value: Easing) =
         this.AddScalar(FloatTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct FloatTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabFloatTransition>, value: ViewRef<FloatTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabIntegerTransition =
     inherit IFabTransition
@@ -321,6 +363,13 @@ type IntegerTransitionModifiers =
     static member inline easing(this: WidgetBuilder<'msg, #IFabIntegerTransition>, value: Easing) =
         this.AddScalar(IntegerTransition.Easing.WithValue(value))
 
+    /// <summary>Link a ViewRef to access the direct IntegerTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabIntegerTransition>, value: ViewRef<IntegerTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type IFabPointTransition =
     inherit IFabTransition
 
@@ -365,6 +414,13 @@ type PointTransitionModifiers =
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabPointTransition>, value: Easing) =
         this.AddScalar(PointTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct PointTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPointTransition>, value: ViewRef<PointTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabSizeTransition =
     inherit IFabTransition
@@ -412,6 +468,13 @@ type SizeTransitionModifiers =
     static member inline easing(this: WidgetBuilder<'msg, #IFabSizeTransition>, value: Easing) =
         this.AddScalar(SizeTransition.Easing.WithValue(value))
 
+    /// <summary>Link a ViewRef to access the direct SizeTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabSizeTransition>, value: ViewRef<SizeTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type IFabThicknessTransition =
     inherit IFabTransition
 
@@ -456,6 +519,13 @@ type ThicknessTransitionModifiers =
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabThicknessTransition>, value: Easing) =
         this.AddScalar(ThicknessTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct ThicknessTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabThicknessTransition>, value: ViewRef<ThicknessTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabTransformOperationsTransition =
     inherit IFabTransition
@@ -509,3 +579,10 @@ type TransformOperationsTransitionModifiers =
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabTransformOperationsTransition>, value: Easing) =
         this.AddScalar(TransformOperationsTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct TransformOperationsTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabTransformOperationsTransition>, value: ViewRef<TransformOperationsTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

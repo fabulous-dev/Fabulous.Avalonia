@@ -143,3 +143,10 @@ type NumericUpDownModifiers =
     [<Extension>]
     static member inline watermark(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
         this.AddScalar(NumericUpDown.Watermark.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct NumericUpDown control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabNumericUpDown>, value: ViewRef<NumericUpDown>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

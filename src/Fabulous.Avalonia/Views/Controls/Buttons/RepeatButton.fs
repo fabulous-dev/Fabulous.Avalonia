@@ -46,3 +46,10 @@ type RepeatButtonModifiers =
     [<Extension>]
     static member inline interval(this: WidgetBuilder<'msg, #IFabRepeatButton>, value: int) =
         this.AddScalar(RepeatButton.Interval.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct RepeatButton control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabRepeatButton>, value: ViewRef<RepeatButton>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
