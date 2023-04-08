@@ -89,3 +89,10 @@ type TickBarModifiers =
     [<Extension>]
     static member inline reservedSpace(this: WidgetBuilder<'msg, #IFabTickBar>, value: Rect) =
         this.AddScalar(TickBar.ReservedSpace.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct TickBar control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabTickBar>, value: ViewRef<TickBar>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

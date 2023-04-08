@@ -99,3 +99,10 @@ type ExpanderModifiers =
     [<Extension>]
     static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, onExpanding: 'msg) =
         this.AddScalar(Expander.Expanding.WithValue(fun _ -> onExpanding |> box))
+
+    /// <summary>Link a ViewRef to access the direct Expander control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabExpander>, value: ViewRef<Expander>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

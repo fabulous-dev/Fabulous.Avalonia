@@ -66,3 +66,10 @@ type ExperimentalAcrylicMaterialModifiers =
     [<Extension>]
     static member inline fallbackColor(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, value: Color) =
         this.AddScalar(ExperimentalAcrylicMaterial.FallbackColor.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct ExperimentalAcrylicMaterial control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabExperimentalAcrylicMaterial>, value: ViewRef<ExperimentalAcrylicMaterial>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

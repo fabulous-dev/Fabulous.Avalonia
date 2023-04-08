@@ -54,3 +54,10 @@ type GridSplitterModifiers =
     [<Extension>]
     static member inline dragIncrement(this: WidgetBuilder<'msg, #IFabGridSplitter>, value: float) =
         this.AddScalar(GridSplitter.DragIncrement.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct GridSplitter control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabGridSplitter>, value: ViewRef<GridSplitter>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

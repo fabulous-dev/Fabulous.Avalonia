@@ -82,6 +82,13 @@ type AnimationModifiers =
     static member inline speedRatio(this: WidgetBuilder<'msg, #IFabAnimation>, value: float) =
         this.AddScalar(Animation.SpeedRatio.WithValue(value))
 
+    /// <summary>Link a ViewRef to access the direct Animation control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabAnimation>, value: ViewRef<Animation>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 [<Extension>]
 type AnimationCollectionBuilderExtensions =
     [<Extension>]

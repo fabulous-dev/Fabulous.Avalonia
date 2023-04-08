@@ -85,3 +85,10 @@ type DatePickerModifiers =
     [<Extension>]
     static member inline maxYear(this: WidgetBuilder<'msg, #IFabDatePicker>, value: DateTimeOffset) =
         this.AddScalar(DatePicker.MaxYear.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct DatePicker control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabDatePicker>, value: ViewRef<DatePicker>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

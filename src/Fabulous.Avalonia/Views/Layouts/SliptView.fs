@@ -141,3 +141,10 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, onChanged: bool -> 'msg) =
         this.AddScalar(SplitView.IsPresented.WithValue(ValueEventData.create value (fun v -> onChanged v |> box)))
+
+    /// <summary>Link a ViewRef to access the direct SplitView control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabSplitView>, value: ViewRef<SplitView>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

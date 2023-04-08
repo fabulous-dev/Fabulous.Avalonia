@@ -216,7 +216,6 @@ type TextBoxModifiers =
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.CaretBrushWidget.WithValue(value.Compile()))
 
-
     [<Extension>]
     static member inline innerLeftContent(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(TextBox.InnerLeftContentWidget.WithValue(value.Compile()))
@@ -264,6 +263,14 @@ type TextBoxModifiers =
     [<Extension>]
     static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onPastingFromClipboard: 'msg) =
         this.AddScalar(TextBox.PastingFromClipboard.WithValue(fun _ -> onPastingFromClipboard |> box))
+
+    /// <summary>Link a ViewRef to access the direct TextBox control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabTextBox>, value: ViewRef<TextBox>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 
 [<Extension>]
 type TextBoxExtraModifiers =

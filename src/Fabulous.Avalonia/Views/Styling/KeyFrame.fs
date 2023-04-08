@@ -76,3 +76,10 @@ type KeyFrameModifiers =
     [<Extension>]
     static member inline keyTime(this: WidgetBuilder<'msg, #IFabKeyFrame>, time: TimeSpan) =
         this.AddScalar(KeyFrame.KeyTime.WithValue(time))
+
+    /// <summary>Link a ViewRef to access the direct KeyFrame control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabKeyFrame>, value: ViewRef<KeyFrame>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

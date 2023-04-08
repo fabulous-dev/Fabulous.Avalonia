@@ -75,3 +75,10 @@ type MaskedTextBoxModifiers =
     [<Extension>]
     static member inline resetOnSpace(this: WidgetBuilder<'msg, #IFabMaskedTextBox>, resetOnSpace: bool) =
         this.AddScalar(MaskedTextBox.ResetOnSpace.WithValue(resetOnSpace))
+
+    /// <summary>Link a ViewRef to access the direct MaskedTextBox control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabMaskedTextBox>, value: ViewRef<MaskedTextBox>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
