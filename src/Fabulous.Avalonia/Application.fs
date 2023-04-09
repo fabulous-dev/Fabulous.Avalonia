@@ -97,7 +97,6 @@ module Application =
     let MainView =
         Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode
 
-
     let Name = Attributes.defineAvaloniaPropertyWithEquality Application.NameProperty
 
     let ThemeVariant =
@@ -116,12 +115,36 @@ module Application =
 module ApplicationBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>
+        /// Create a DesktopApplication widget with a content widget
+        /// <example>
+        /// <code>
+        /// DesktopApplication(
+        ///     Window(...)
+        /// )
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="mainWindow">The main Window of the Application</param>
         static member DesktopApplication(mainWindow: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(mainWindow.Compile()) |], ValueNone)
             )
 
+        /// <summary>
+        /// Create a SingleViewApplication widget with a content widget
+        /// <example>
+        /// <code>
+        /// SingleViewApplication(
+        ///     VStack(){
+        ///         ...
+        ///     }
+        /// )
+        /// </code>
+        /// </example>
+        /// </summary>
+        /// <param name="mainView">The main View of the Application</param>
         static member SingleViewApplication(mainView: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
@@ -130,6 +153,9 @@ module ApplicationBuilders =
 
 [<Extension>]
 type ApplicationModifiers =
+    // <summary>Defines Name property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">Application name to be used for various platform-specific purposes</param>
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
         this.AddScalar(Application.Name.WithValue(value))

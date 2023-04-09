@@ -23,6 +23,21 @@ module ThemeVariantScope =
 module ThemeVariantScopeBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>
+        /// Gets or sets the UI theme variant that is used by the control (and its child elements) for resource determination.
+        /// The UI theme you specify with ThemeVariant can override the app-level ThemeVariant.
+        /// <remarks>
+        /// Setting ThemeVariant to ThemeVariant.Default will apply parent's actual theme variant on the current scope.
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// ThemeVariantScope(
+        ///     ThemeVariant.Light,
+        ///     TextBlock("Hello World")
+        /// )
+        /// </code>
+        /// </example>
+        /// </summary>
         static member ThemeVariantScope(themeVariant: ThemeVariant, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabThemeVariantScope>(
                 ThemeVariantScope.WidgetKey,
@@ -36,6 +51,9 @@ module ThemeVariantScopeBuilders =
 [<Extension>]
 type ThemeVariantScopeModifiers =
 
+    /// <summary>Listen for the ActualThemeVariantChanged changes</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Message to dispatch</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabThemeVariantScope>, fn: ThemeVariant -> 'msg) =
         this.AddScalar(ThemeVariantScope.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
