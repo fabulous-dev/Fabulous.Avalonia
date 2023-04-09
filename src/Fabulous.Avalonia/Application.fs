@@ -153,28 +153,41 @@ module ApplicationBuilders =
 
 [<Extension>]
 type ApplicationModifiers =
-    // <summary>Defines Name property</summary>
+    /// <summary>Sets the application name</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">Application name to be used for various platform-specific purposes</param>
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
         this.AddScalar(Application.Name.WithValue(value))
 
+    /// <summary>Sets the application theme variant</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">Theme variant to be used for the application</param>
+    /// <param name="fn">Function to be called when the theme variant changes</param>
     [<Extension>]
     static member inline themeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
         this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value (fun args -> fn args |> box)))
 
+    /// <summary>Listens to the application theme variant changed event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the theme variant changes</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ThemeVariant -> 'msg) =
         this.AddScalar(Application.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
 
+    /// <summary>Listens to the application resources changed event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the resources change</param>
     [<Extension>]
-    static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, onResourcesChanged: ResourcesChangedEventArgs -> 'msg) =
-        this.AddScalar(Application.ResourcesChanged.WithValue(fun target -> onResourcesChanged target |> box))
+    static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ResourcesChangedEventArgs -> 'msg) =
+        this.AddScalar(Application.ResourcesChanged.WithValue(fun target -> fn target |> box))
 
+    /// <summary>Listens to the application urls opened event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the application receives urls to open</param>
     [<Extension>]
-    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, onUrlsOpened: UrlOpenedEventArgs -> 'msg) =
-        this.AddScalar(Application.UrlsOpened.WithValue(fun target -> onUrlsOpened target |> box))
+    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
+        this.AddScalar(Application.UrlsOpened.WithValue(fun target -> fn target |> box))
 
     /// <summary>Link a ViewRef to access the direct CheckBox control instance</summary>
     /// <param name="this">Current widget</param>
@@ -185,6 +198,17 @@ type ApplicationModifiers =
 
 [<Extension>]
 type TrayIconAttachedModifiers =
+    /// <summary>Sets the tray icon for the application
+    /// <param name="this">Current widget</param>
+    /// <example>
+    /// <code>
+    /// DesktopApplication(...)
+    ///    .trayIcons() {
+    ///        TrayIcon(WindowIcon(ImageSource.fromString ".."), "Avalonia TrayIcon")
+    ///     }
+    /// </code>
+    /// </example>
+    /// </summary>
     [<Extension>]
     static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTrayIcon> TrayIconAttached.TrayIcons this
