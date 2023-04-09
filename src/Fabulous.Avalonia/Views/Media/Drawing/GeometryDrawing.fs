@@ -41,6 +41,16 @@ module GeometryDrawingBuilders =
                 )
             )
 
+        static member GeometryDrawing(geometry: string, pen: WidgetBuilder<'msg, #IFabPen>, brush: #IFabBrush) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.two(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry)), GeometryDrawing.Brush.WithValue(brush)),
+                    ValueSome [| GeometryDrawing.Pen.WithValue(pen.Compile()) |],
+                    ValueNone
+                )
+            )
+
         static member GeometryDrawing(geometry: string, pen: WidgetBuilder<'msg, #IFabPen>, brush: string) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -67,6 +77,18 @@ module GeometryDrawingBuilders =
                     ValueSome
                         [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile())
                            GeometryDrawing.BrushWidget.WithValue(brush.Compile())
+                           GeometryDrawing.Pen.WithValue(pen.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, pen: WidgetBuilder<'msg, #IFabPen>, brush: #IBrush) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.one(GeometryDrawing.Brush.WithValue(brush)),
+                    ValueSome
+                        [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile())
                            GeometryDrawing.Pen.WithValue(pen.Compile()) |],
                     ValueNone
                 )

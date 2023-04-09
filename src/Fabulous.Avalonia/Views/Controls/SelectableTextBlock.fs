@@ -66,6 +66,10 @@ type SelectableTextBlockModifiers =
         this.AddWidget(SelectableTextBlock.SelectionBrushWidget.WithValue(content.Compile()))
 
     [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, brush: #IBrush) =
+        this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(brush))
+
+    [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, brush: string) =
         this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 

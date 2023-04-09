@@ -53,6 +53,10 @@ type ShapeModifiers =
         this.AddWidget(Shape.FillWidget.WithValue(content.Compile()))
 
     [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, brush: #IBrush) =
+        this.AddScalar(Shape.Fill.WithValue(brush))
+
+    [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, brush: string) =
         this.AddScalar(Shape.Fill.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -63,6 +67,10 @@ type ShapeModifiers =
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, content: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Shape.StrokeWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, brush: #IBrush) =
+        this.AddScalar(Shape.Stroke.WithValue(brush))
 
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, brush: string) =

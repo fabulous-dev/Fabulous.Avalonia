@@ -60,12 +60,20 @@ type TemplatedControlModifiers =
         this.AddWidget(TemplatedControl.BackgroundWidget.WithValue(value.Compile()))
 
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: #IBrush) =
+        this.AddScalar(TemplatedControl.Background.WithValue(brush))
+
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: string) =
         this.AddScalar(TemplatedControl.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.BorderBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: #IBrush) =
+        this.AddScalar(TemplatedControl.BorderBrush.WithValue(brush))
 
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: string) =
@@ -102,6 +110,10 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.ForegroundWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: #IBrush) =
+        this.AddScalar(TemplatedControl.Foreground.WithValue(brush))
 
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, brush: string) =
