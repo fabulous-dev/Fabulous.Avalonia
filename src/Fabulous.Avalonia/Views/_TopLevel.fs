@@ -56,6 +56,10 @@ type TopLevelModifiers =
         this.AddWidget(TopLevel.TransparencyBackgroundFallbackWidget.WithValue(content.Compile()))
 
     [<Extension>]
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: #IBrush) =
+        this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(brush))
+
+    [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: string) =
         this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 

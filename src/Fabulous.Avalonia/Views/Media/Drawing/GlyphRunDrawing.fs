@@ -34,6 +34,13 @@ module GlyphRunDrawingBuilders =
                 )
             )
 
+        static member GlyphRunDrawing(brush: #IBrush, glyphRun: GlyphRun) =
+            WidgetBuilder<'msg, IFabGlyphRunDrawing>(
+                GlyphRunDrawing.WidgetKey,
+                GlyphRunDrawing.GlyphRun.WithValue(glyphRun),
+                GlyphRunDrawing.Foreground.WithValue(brush)
+            )
+
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,

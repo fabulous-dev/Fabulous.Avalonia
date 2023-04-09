@@ -217,6 +217,14 @@ type TextBoxModifiers =
         this.AddWidget(TextBox.CaretBrushWidget.WithValue(value.Compile()))
 
     [<Extension>]
+    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: #IBrush) =
+        this.AddScalar(TextBox.CaretBrush.WithValue(brush))
+
+    [<Extension>]
+    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =
+        this.AddScalar(TextBox.CaretBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
+
+    [<Extension>]
     static member inline innerLeftContent(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(TextBox.InnerLeftContentWidget.WithValue(value.Compile()))
 
@@ -225,12 +233,12 @@ type TextBoxModifiers =
         this.AddWidget(TextBox.InnerRightContentWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =
-        this.AddScalar(TextBox.CaretBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
-
-    [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.SelectionBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: #IBrush) =
+        this.AddScalar(TextBox.SelectionBrush.WithValue(brush))
 
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =
@@ -239,6 +247,10 @@ type TextBoxModifiers =
     [<Extension>]
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBox.SelectionForegroundBrushWidget.WithValue(value.Compile()))
+
+    [<Extension>]
+    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: #IBrush) =
+        this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(brush))
 
     [<Extension>]
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: string) =

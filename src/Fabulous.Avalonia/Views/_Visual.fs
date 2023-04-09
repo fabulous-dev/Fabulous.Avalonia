@@ -70,6 +70,10 @@ type VisualModifiers =
         this.AddWidget(Visual.OpacityMaskWidget.WithValue(mask.Compile()))
 
     [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, brush: #IBrush) =
+        this.AddScalar(Visual.OpacityMask.WithValue(brush))
+
+    [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, brush: string) =
         this.AddScalar(Visual.OpacityMask.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
