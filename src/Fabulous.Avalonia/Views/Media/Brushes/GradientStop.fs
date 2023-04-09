@@ -30,21 +30,3 @@ module GradientStopBuilders =
                 GradientStop.Color.WithValue(Color.Parse(color)),
                 GradientStop.Offset.WithValue(offset)
             )
-
-[<Extension>]
-type GradientStopBuilderExtensions =
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGradientStop>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabGradientStop>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGradientStop>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabGradientStop>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }

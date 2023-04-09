@@ -30,7 +30,6 @@ type SpanModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabSpan>, value: ViewRef<Span>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-
 [<Extension>]
 type SpanCollectionBuilderExtensions =
     [<Extension>]

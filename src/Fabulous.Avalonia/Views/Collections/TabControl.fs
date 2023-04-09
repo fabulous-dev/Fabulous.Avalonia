@@ -67,21 +67,3 @@ type TabControlExtraModifiers =
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabTabControl>) =
         this.centerHorizontal().centerVertical()
-
-[<Extension>]
-type TabControlCollectionBuilderExtensions =
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTabItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabTabItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTabItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabTabItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }

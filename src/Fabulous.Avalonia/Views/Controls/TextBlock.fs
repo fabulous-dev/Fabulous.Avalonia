@@ -207,38 +207,3 @@ type TextBlockExtraModifiers =
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
         TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
-
-[<Extension>]
-type TextBlockCollectionBuilderExtensions =
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTextDecoration>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTextDecoration>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
