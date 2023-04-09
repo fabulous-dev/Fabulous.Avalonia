@@ -194,7 +194,6 @@
     <Compile Include="Views\Imaging\PathIcon.fs" />
     <Compile Include="Views\Layouts\SliptView.fs" />
     <Compile Include="Views\Layouts\ScrollViewer.fs" />
-    <Compile Include="Views\Layouts\UserControl.fs" />
     <Compile Include="Views\Panels\Canvas.fs" />
     <Compile Include="Views\Panels\AdornerLayer.fs" />
     <Compile Include="Views\Panels\Grid.fs" />
