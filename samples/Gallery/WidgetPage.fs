@@ -65,7 +65,8 @@ module WidgetPage =
           ThemeAware.sample
           Brushes.sample
           RefreshContainer.sample
-          NumericUpDown.sample ]
+          NumericUpDown.sample
+          Drawing.sample ]
 
     let init index =
         let sample = samples.[index]

@@ -37,9 +37,9 @@ module Image =
                                 LineSegment(Point(50., 50.))
                             }
                         },
-                        Pen(SolidColorBrush(Colors.Red), 0.),
                         SolidColorBrush(Colors.Blue)
                     )
+                        .pen(Pen(SolidColorBrush(Colors.Red), 0.))
                 )
             )
                 .size(200., 200.)
