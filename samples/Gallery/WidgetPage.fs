@@ -67,7 +67,8 @@ module WidgetPage =
           RefreshContainer.sample
           NumericUpDown.sample
           Drawing.sample
-          Clipping.sample ]
+          Clipping.sample
+          FormattedText.sample ]
 
     let init index =
         let sample = samples.[index]
