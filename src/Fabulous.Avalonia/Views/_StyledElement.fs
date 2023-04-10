@@ -30,3 +30,17 @@ type StyledElementModifiers =
 
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
+
+[<Extension>]
+type StyledElementCollectionBuilderExtensions =
+    [<Extension>]
+    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield
+        (
+            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
+            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }

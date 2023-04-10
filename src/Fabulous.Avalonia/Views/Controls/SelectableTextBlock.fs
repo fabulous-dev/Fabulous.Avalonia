@@ -79,3 +79,22 @@ type SelectableTextBlockModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+
+[<Extension>]
+type SelectableTextBlockCollectionBuilderExtensions =
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
