@@ -12,8 +12,11 @@ module PathGeometry =
 
     let WidgetKey = Widgets.register<PathGeometry>()
 
-    let Figures =
+    let FiguresWidget =
         Attributes.defineAvaloniaListWidgetCollection "PathGeometry_Figures" (fun target -> (target :?> PathGeometry).Figures)
+
+    let Figures =
+        Attributes.defineAvaloniaPropertyWithEquality PathGeometry.FiguresProperty
 
     let FillRule =
         Attributes.defineAvaloniaPropertyWithEquality PathGeometry.FillRuleProperty
@@ -23,7 +26,18 @@ module PathGeometryBuilders =
     type Fabulous.Avalonia.View with
 
         static member PathGeometry(fillRule: FillRule) =
-            CollectionBuilder<'msg, IFabPathGeometry, IFabPathFigure>(PathGeometry.WidgetKey, PathGeometry.Figures, PathGeometry.FillRule.WithValue(fillRule))
+            CollectionBuilder<'msg, IFabPathGeometry, IFabPathFigure>(
+                PathGeometry.WidgetKey,
+                PathGeometry.FiguresWidget,
+                PathGeometry.FillRule.WithValue(fillRule)
+            )
+
+        static member PathGeometry(pathData: string, fillRule: FillRule) =
+            WidgetBuilder<'msg, IFabPathGeometry>(
+                PathGeometry.WidgetKey,
+                PathGeometry.Figures.WithValue(PathFigures.Parse(pathData)),
+                PathGeometry.FillRule.WithValue(fillRule)
+            )
 
 [<Extension>]
 type PathGeometryBuilderExtensions =

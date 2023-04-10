@@ -66,7 +66,8 @@ module WidgetPage =
           Brushes.sample
           RefreshContainer.sample
           NumericUpDown.sample
-          Drawing.sample ]
+          Drawing.sample
+          Clipping.sample ]
 
     let init index =
         let sample = samples.[index]
