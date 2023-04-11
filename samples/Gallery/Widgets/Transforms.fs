@@ -8,7 +8,7 @@ open Fabulous
 
 open type Fabulous.Avalonia.View
 
-module Transforms2 =
+module Transforms =
     type Model =
         { CenterX: float
           CenterY: float
@@ -95,6 +95,6 @@ module Transforms2 =
         }
 
     let sample =
-        { Name = "Transforms 2"
-          Description = "Transform3D sample"
+        { Name = "Transforms"
+          Description = "How to use transforms"
           Program = Helper.createProgram init update view }

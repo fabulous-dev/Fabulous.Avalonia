@@ -72,7 +72,6 @@
     <Compile Include="Widgets\AutoCompleteBox.fs" />
     <Compile Include="Widgets\ThemeAware.fs" />
     <Compile Include="Widgets\Transforms.fs" />
-    <Compile Include="Widgets\Animations.fs" />
     <Compile Include="Widgets\PageTransitions.fs" />
     <Compile Include="Widgets\Transitions\Transitions1.fs" />
     <Compile Include="Widgets\Transitions\Transitions2.fs" />
@@ -87,6 +86,7 @@
     <Compile Include="Widgets\Transitions\Transitions11.fs" />
     <Compile Include="Widgets\Transitions\Transitions12.fs" />
     <Compile Include="Widgets\Transitions\Transitions.fs" />
+    <Compile Include="Widgets\Animations\Animations.fs" />
     <Compile Include="WidgetPage.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>

@@ -60,6 +60,7 @@ module WidgetPage =
           Canvas.sample
           Animations.sample
           Transitions.sample
+          Transforms.sample
           PageTransitions.sample
           LayoutTransformControl.sample
           ThemeAware.sample
