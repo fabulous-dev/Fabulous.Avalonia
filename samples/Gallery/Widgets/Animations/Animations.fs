@@ -1,123 +1,45 @@
 namespace Gallery
 
-open System
-open Avalonia
 open Avalonia.Animation
-open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
 
 module Animations =
-    type Model = Id
+    type Model =
+        { Animations1: Animations1.Model
+          Animations2: Animations2.Model }
 
-    type Msg = Id
+    type Msg =
+        | Animations1 of Animations1.Msg
+        | Animations2 of Animations2.Msg
 
-    let init () = Id
+    let init () =
+        { Animations1 = Animations1.init()
+          Animations2 = Animations2.init() }
 
     let update msg model =
         match msg with
-        | Id -> model
+        | Animations1 msg ->
+            let transitions1 = Animations1.update msg model.Animations1
 
-    let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
-        this
-            .child(
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .margin(5)
-            )
-            .size(200., 200.)
-            .borderThickness(2.)
-            .borderBrush(SolidColorBrush(Colors.Black))
+            { model with
+                Animations1 = transitions1 }
 
-    let view _ =
-        (Grid() {
-            Border()
-                .style(borderTestStyle)
-                .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
-                .background(SolidColorBrush(Colors.DarkRed))
-                .styles() {
-                Animations() {
-                    (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 0.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 90.).cue(0.25)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.25)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(1.)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(1.)
-                    })
-                        .repeatForever()
-                }
-            }
+        | Animations2 msg ->
+            let transitions2 = Animations2.update msg model.Animations2
 
-            Border()
-                .style(borderTestStyle)
-                .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
-                .background(SolidColorBrush(Colors.DarkGreen))
-                .gridRow(0)
-                .gridColumn(0)
-                .styles() {
-                Animations() {
-                    (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 90.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 180.).cue(0.25)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.25)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(0.75)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.75)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(1.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
-                    })
-                        .repeatForever()
-                }
-            }
+            { model with
+                Animations2 = transitions2 }
 
-            Border()
-                .style(borderTestStyle)
-                .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
-                .background(SolidColorBrush(Colors.DarkBlue))
-                .gridRow(0)
-                .gridColumn(0)
-                .styles() {
-                Animations() {
-                    (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 180.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(0.5)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.5)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(0.75)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.75)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 540.).cue(1.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
-                    })
-                        .repeatForever()
-                }
-            }
 
-            Border()
-                .style(borderTestStyle)
-                .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
-                .background(SolidColorBrush(Colors.Orange))
-                .gridRow(0)
-                .gridColumn(0)
-                .styles() {
-                Animations() {
-                    (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 270.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(0.25)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.25)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 450.).cue(0.5)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.5)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 630.).cue(1.)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
-                    })
-                        .repeatForever()
-                }
-            }
+    let view model =
+        (VStack(32.) {
+            View.map Animations1 (Animations1.view model)
+            View.map Animations2 (Animations2.view model)
         })
             .clock(Clock())
-
 
     let sample =
         { Name = "Animations"
