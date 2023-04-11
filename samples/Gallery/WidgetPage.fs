@@ -68,7 +68,8 @@ module WidgetPage =
           NumericUpDown.sample
           Drawing.sample
           Clipping.sample
-          FormattedText.sample ]
+          FormattedText.sample
+          GlyphRunControl.sample ]
 
     let init index =
         let sample = samples.[index]

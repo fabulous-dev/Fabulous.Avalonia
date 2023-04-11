@@ -120,6 +120,6 @@ module Animations =
 
 
     let sample =
-        { Name = "Transforms"
-          Description = "Transform3D sample"
+        { Name = "Animations"
+          Description = "Demonstrates how to use animations"
           Program = Helper.createProgram init update view }

@@ -62,7 +62,7 @@ type FormattedTextControl() =
 type IFabFormattedTextControl =
     inherit IFabControl
 
-module FormattedTextControl =
+module FabFormattedTextControl =
     let WidgetKey = Widgets.register<FormattedTextControl>()
 
 [<AutoOpen>]
@@ -70,7 +70,7 @@ module FabFormattedTextControlBuilders =
     type Fabulous.Avalonia.View with
 
         static member FormattedTextControl() =
-            WidgetBuilder<'msg, IFabFormattedTextControl>(FormattedTextControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabFormattedTextControl>(FabFormattedTextControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module FormattedText =
     open type Fabulous.Avalonia.View
