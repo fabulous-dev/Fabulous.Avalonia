@@ -44,7 +44,7 @@ type TextElementModifiers =
         this.AddWidget(TextElement.BackgroundWidget.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, brush: #IBrush) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, brush: IBrush) =
         this.AddScalar(TextElement.Background.WithValue(brush))
 
     [<Extension>]
@@ -76,7 +76,7 @@ type TextElementModifiers =
         this.AddWidget(TextElement.ForegroundWidget.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, brush: #IBrush) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, brush: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(brush))
 
     [<Extension>]

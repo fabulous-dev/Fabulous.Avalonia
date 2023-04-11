@@ -102,7 +102,7 @@ type SplitViewModifiers =
         this.AddWidget(SplitView.PaneBackgroundWidget.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, brush: #IBrush) =
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, brush: IBrush) =
         this.AddScalar(SplitView.PaneBackground.WithValue(brush))
 
     [<Extension>]

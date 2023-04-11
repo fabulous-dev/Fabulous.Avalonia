@@ -217,7 +217,7 @@ type TextBoxModifiers =
         this.AddWidget(TextBox.CaretBrushWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: #IBrush) =
+    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: IBrush) =
         this.AddScalar(TextBox.CaretBrush.WithValue(brush))
 
     [<Extension>]
@@ -237,7 +237,7 @@ type TextBoxModifiers =
         this.AddWidget(TextBox.SelectionBrushWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: #IBrush) =
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: IBrush) =
         this.AddScalar(TextBox.SelectionBrush.WithValue(brush))
 
     [<Extension>]
@@ -249,7 +249,7 @@ type TextBoxModifiers =
         this.AddWidget(TextBox.SelectionForegroundBrushWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: #IBrush) =
+    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, brush: IBrush) =
         this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(brush))
 
     [<Extension>]

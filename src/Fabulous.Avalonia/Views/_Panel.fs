@@ -27,7 +27,7 @@ type PanelModifiers =
         this.AddWidget(Panel.BackgroundWidget.WithValue(brush.Compile()))
 
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: #IBrush) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: IBrush) =
         this.AddScalar(Panel.Background.WithValue(brush))
 
     [<Extension>]

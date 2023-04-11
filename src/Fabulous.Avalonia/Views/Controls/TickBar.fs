@@ -63,7 +63,7 @@ type TickBarModifiers =
         this.AddWidget(TickBar.FillWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, brush: #IBrush) =
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, brush: IBrush) =
         this.AddScalar(TickBar.Fill.WithValue(brush))
 
     [<Extension>]

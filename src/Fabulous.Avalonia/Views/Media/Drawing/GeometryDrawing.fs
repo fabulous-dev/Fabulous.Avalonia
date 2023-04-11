@@ -75,7 +75,7 @@ module GeometryDrawingBuilders =
                 )
             )
 
-        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: #IBrush) =
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: IBrush) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
@@ -85,7 +85,7 @@ module GeometryDrawingBuilders =
                 )
             )
 
-        static member GeometryDrawing(geometry: string, brush: #IBrush) =
+        static member GeometryDrawing(geometry: string, brush: IBrush) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(

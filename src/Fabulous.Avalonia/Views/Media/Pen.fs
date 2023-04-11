@@ -37,7 +37,7 @@ module PenBuilders =
                 AttributesBundle(StackList.one(Pen.Thickness.WithValue(thickness)), ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |], ValueNone)
             )
 
-        static member Pen(brush: #IBrush, thickness: float) =
+        static member Pen(brush: IBrush, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(Pen.WidgetKey, Pen.Thickness.WithValue(thickness), Pen.Brush.WithValue(brush))
 
         static member Pen(brush: string, thickness: float) =
