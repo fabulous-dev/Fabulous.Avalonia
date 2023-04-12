@@ -24,15 +24,17 @@ module Brushes =
                     RectangleGeometry(Rect(50., 25., 25., 25.))
                     RectangleGeometry(Rect(50., 25., 25., 25.))
                 },
-                Pen(
-                    LinearGradientBrush() {
-                        GradientStop(0., Colors.Blue)
-                        GradientStop(1., Colors.Black)
-                    },
-                    5.
-                ),
                 SolidColorBrush(Colors.Yellow)
             )
+                .pen(
+                    Pen(
+                        LinearGradientBrush() {
+                            GradientStop(0., Colors.Blue)
+                            GradientStop(1., Colors.Black)
+                        },
+                        5.
+                    )
+                )
         )
 
     let view _ =

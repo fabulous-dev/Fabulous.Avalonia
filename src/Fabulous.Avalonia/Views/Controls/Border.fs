@@ -77,7 +77,7 @@ type BorderModifiers =
         this.AddWidget(Border.BackgroundWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: #IBrush) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.Background.WithValue(value))
 
     [<Extension>]
@@ -89,7 +89,7 @@ type BorderModifiers =
         this.AddWidget(Border.BorderBrushWidget.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, brush: #IBrush) =
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, brush: IBrush) =
         this.AddScalar(Border.BorderBrush.WithValue(brush))
 
     [<Extension>]

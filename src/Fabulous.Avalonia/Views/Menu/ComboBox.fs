@@ -64,7 +64,7 @@ type ComboBoxModifiers =
         this.AddWidget(ComboBox.PlaceholderForegroundWidget.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, brush: #IBrush) =
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, brush: IBrush) =
         this.AddScalar(ComboBox.PlaceholderForeground.WithValue(brush))
 
     [<Extension>]

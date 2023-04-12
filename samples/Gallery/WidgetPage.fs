@@ -60,12 +60,17 @@ module WidgetPage =
           Canvas.sample
           Animations.sample
           Transitions.sample
+          Transforms.sample
           PageTransitions.sample
           LayoutTransformControl.sample
           ThemeAware.sample
           Brushes.sample
           RefreshContainer.sample
-          NumericUpDown.sample ]
+          NumericUpDown.sample
+          Drawing.sample
+          Clipping.sample
+          FormattedText.sample
+          GlyphRunControl.sample ]
 
     let init index =
         let sample = samples.[index]

@@ -51,7 +51,7 @@ type DrawingGroupModifiers =
         this.AddWidget(DrawingGroup.OpacityMaskWidget.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, brush: #IBrush) =
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, brush: IBrush) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(brush))
 
     [<Extension>]

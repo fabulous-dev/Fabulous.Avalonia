@@ -2,19 +2,18 @@ namespace Gallery
 
 open System
 open Avalonia
-open Avalonia.Animation
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
 
-module Animations =
-    type Model = Id
+module Animations1 =
+    type Model = { Value: int }
 
     type Msg = Id
 
-    let init () = Id
+    let init () = { Value = 0 }
 
     let update msg model =
         match msg with
@@ -31,7 +30,7 @@ module Animations =
             .borderBrush(SolidColorBrush(Colors.Black))
 
     let view _ =
-        (Grid() {
+        Grid() {
             Border()
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
@@ -115,11 +114,10 @@ module Animations =
                         .repeatForever()
                 }
             }
-        })
-            .clock(Clock())
+        }
 
 
     let sample =
-        { Name = "Transforms"
-          Description = "Transform3D sample"
+        { Name = "Animations1"
+          Description = "Demonstrates how to animate renderTransforms"
           Program = Helper.createProgram init update view }

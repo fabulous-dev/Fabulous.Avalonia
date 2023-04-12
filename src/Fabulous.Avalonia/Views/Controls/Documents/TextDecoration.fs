@@ -65,7 +65,7 @@ type TextDecorationModifiers =
         this.AddWidget(TextDecoration.StrokeWidget.WithValue(content.Compile()))
 
     [<Extension>]
-    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, brush: #IBrush) =
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, brush: IBrush) =
         this.AddScalar(TextDecoration.Stroke.WithValue(brush))
 
     [<Extension>]

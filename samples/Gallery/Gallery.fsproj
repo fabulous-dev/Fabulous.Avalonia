@@ -30,6 +30,10 @@
     <Compile Include="Widgets\TextBox.fs" />
     <Compile Include="Widgets\MaskedTextBox.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
+    <Compile Include="Widgets\FormattedTextControl.fs" />
+    <Compile Include="Widgets\GlyphRunControl.fs" />
+    <Compile Include="Widgets\Clipping.fs" />
+    <Compile Include="Widgets\Drawing.fs" />
     <Compile Include="Widgets\NumericUpDown.fs" />
     <Compile Include="Widgets\RefreshContainer.fs" />
     <Compile Include="Widgets\Brushes.fs" />
@@ -68,7 +72,6 @@
     <Compile Include="Widgets\AutoCompleteBox.fs" />
     <Compile Include="Widgets\ThemeAware.fs" />
     <Compile Include="Widgets\Transforms.fs" />
-    <Compile Include="Widgets\Animations.fs" />
     <Compile Include="Widgets\PageTransitions.fs" />
     <Compile Include="Widgets\Transitions\Transitions1.fs" />
     <Compile Include="Widgets\Transitions\Transitions2.fs" />
@@ -83,6 +86,9 @@
     <Compile Include="Widgets\Transitions\Transitions11.fs" />
     <Compile Include="Widgets\Transitions\Transitions12.fs" />
     <Compile Include="Widgets\Transitions\Transitions.fs" />
+    <Compile Include="Widgets\Animations\Animations1.fs" />
+    <Compile Include="Widgets\Animations\Animations2.fs" />
+    <Compile Include="Widgets\Animations\Animations.fs" />
     <Compile Include="WidgetPage.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>

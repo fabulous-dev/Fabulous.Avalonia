@@ -34,7 +34,7 @@ module GlyphRunDrawingBuilders =
                 )
             )
 
-        static member GlyphRunDrawing(brush: #IBrush, glyphRun: GlyphRun) =
+        static member GlyphRunDrawing(brush: IBrush, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,
                 GlyphRunDrawing.GlyphRun.WithValue(glyphRun),
