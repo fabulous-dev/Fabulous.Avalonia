@@ -20,14 +20,43 @@ module StyledElement =
 
 [<Extension>]
 type StyledElementModifiers =
+    /// <summary>Set the Name property.</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
-    static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, name: string) =
-        this.AddScalar(StyledElement.Name.WithValue(name))
+    static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.Name.WithValue(value))
 
+    /// <summary>Set the Styles property.</summary>
+    /// <param name="this">Current widget</param>
+    /// <example>
+    /// <code>
+    /// Label("Hello World!")
+    ///     .styles() {
+    ///         Animations() {
+    ///             ...
+    ///         }
+    ///     }
+    /// </code>
+    /// </example>
     [<Extension>]
     static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>) =
         AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
 
+    /// <summary>Styles a widget.</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">A function that takes the current widget to and returns a new widget styled</param>
+    /// <example>
+    /// <code>
+    /// let borderTestStyle (this: WidgetBuilder&lt;'msg, IFabBorder&gt;) =
+    ///     this
+    ///         .child(Image(ImageSource.fromString "image,png", Stretch.UniformToFill))
+    ///         .size(50.., 50..)
+    ///
+    /// Border()
+    ///     .style(borderTestStyle)
+    /// </code>
+    /// </example>
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
 

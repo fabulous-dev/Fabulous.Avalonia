@@ -125,11 +125,11 @@ module ApplicationBuilders =
         /// </code>
         /// </example>
         /// </summary>
-        /// <param name="mainWindow">The main Window of the Application</param>
-        static member DesktopApplication(mainWindow: WidgetBuilder<'msg, #IFabWindow>) =
+        /// <param name="window">The main Window of the Application</param>
+        static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(mainWindow.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone)
             )
 
         /// <summary>
@@ -144,11 +144,11 @@ module ApplicationBuilders =
         /// </code>
         /// </example>
         /// </summary>
-        /// <param name="mainView">The main View of the Application</param>
-        static member SingleViewApplication(mainView: WidgetBuilder<'msg, #IFabControl>) =
+        /// <param name="view">The main View of the Application</param>
+        static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(mainView.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone)
             )
 
 [<Extension>]

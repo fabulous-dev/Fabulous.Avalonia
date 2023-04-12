@@ -25,14 +25,14 @@ module Animatable =
 
 [<Extension>]
 type AnimatableModifiers =
-    /// <summary> Set the Clock property.</summary>
+    /// <summary>Set the Clock property.</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The Clock value</param>
     [<Extension>]
     static member inline clock(this: WidgetBuilder<'msg, #IFabAnimatable>, value: IClock) =
         this.AddScalar(Animatable.Clock.WithValue(value))
 
-    /// <summary> Set the Transitions property.</summary>
+    /// <summary>Set the Transitions property.</summary>
     /// <param name="this">Current widget</param>
     /// <example>
     /// <code>
