@@ -22,10 +22,16 @@ module FlyoutBase =
 
 [<Extension>]
 type FlyoutBaseModifiers =
+    /// <summary>Listen to the Opened event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">Message to send when the event is raised</param>
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onOpened: 'msg) =
         this.AddScalar(FlyoutBase.Opened.WithValue(onOpened))
 
+    /// <summary>Listen to the Closed event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">Message to send when the event is raised</param>
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onClosed: 'msg) =
         this.AddScalar(FlyoutBase.Closed.WithValue(onClosed))
