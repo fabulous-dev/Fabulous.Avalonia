@@ -26,22 +26,12 @@ module DropDownButton =
         | Decrement -> { model with Count = model.Count - 1 }
         | Reset -> { model with Count = 0 }
 
-    let menu () =
-        Flyout(
-            VStack() {
-                Button("Increment", Increment).width(100)
-                Button("Decrement", Decrement).width(100)
-                Button("Reset", Reset).width(100)
-            }
-        )
-            .showMode(FlyoutShowMode.Standard)
-            .placement(PlacementMode.RightEdgeAlignedTop)
 
     let view model =
         VStack(spacing = 15.) {
             TextBlock($"Count: {model.Count}").centerVertical()
 
-            DropDownButton("Open...", Clicked).flyout(menu())
+            DropDownButton("Open...", Clicked)
 
             DropDownButton(
                 Clicked2,
@@ -50,7 +40,6 @@ module DropDownButton =
                         .size(32., 32.)
                 }
             )
-                .flyout(menu())
         }
 
     let sample =

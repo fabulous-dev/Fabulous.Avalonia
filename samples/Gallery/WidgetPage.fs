@@ -52,6 +52,8 @@ module WidgetPage =
           ComboBox.sample
           MenuFlyout.sample
           ContextMenu.sample
+          ContextFlyout.sample
+          Flyout.sample
           Menu.sample
           DockPanel.sample
           StackPanel.sample

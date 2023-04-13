@@ -6,12 +6,12 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-module ContextMenu =
+module ContextFlyout =
     type Model = { Counter: int; IsChecked: bool }
 
     type Msg =
-        | ContextMenuOpening of CancelEventArgs
-        | ContextMenuClosing of CancelEventArgs
+        | MenuOpening
+        | MenuClosing
         | ValueChanged of bool
 
     let init () = { Counter = 0; IsChecked = false }
@@ -19,14 +19,14 @@ module ContextMenu =
     let update msg model =
         match msg with
         | ValueChanged value -> { model with IsChecked = value }
-        | ContextMenuOpening _ -> model
-        | ContextMenuClosing _ -> model
+        | MenuOpening _ -> model
+        | MenuClosing _ -> model
 
     let view model =
         VStack(spacing = 15.) {
-            Border(TextBlock("A right click menu that can be applied to any control."))
-                .contextMenu(
-                    (ContextMenu() {
+            Border(TextBlock("A right click Flyout that can be applied to any control."))
+                .contextFlyout(
+                    (MenuFlyout() {
                         MenuItem("Standard _Menu Item")
                             .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
@@ -56,18 +56,17 @@ module ContextMenu =
                                     .borderThickness(0.)
                                     .isHitTestVisible(false)
                             )
-                            .staysOpenOnClick(true)
 
                         MenuItem("Menu Item that won't close on click").staysOpenOnClick(true)
 
                         MenuItem("Menu Item that will close on click")
                     })
-                        .onContextMenuOpening(ContextMenuOpening)
-                        .onContextMenuClosing(ContextMenuClosing)
+                        .onClosed(MenuClosing)
+                        .onOpening(MenuOpening)
                 )
         }
 
     let sample =
-        { Name = "ContextMenu"
-          Description = "Control that displays a menu when invoked"
+        { Name = "ContextFlyout"
+          Description = "Control the context flyout of a control"
           Program = Helper.createProgram init update view }
