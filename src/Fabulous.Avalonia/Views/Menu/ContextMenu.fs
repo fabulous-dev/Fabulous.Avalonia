@@ -137,6 +137,12 @@ type ContextMenuModifiers =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
+type ContextMenuAttachedModifiers =
+    [<Extension>]
+    static member inline contextMenu(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, IFabContextMenu>) =
+        this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))
+
+[<Extension>]
 type ContextMenuCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>

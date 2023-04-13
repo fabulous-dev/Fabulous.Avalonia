@@ -64,6 +64,7 @@
     <Compile Include="Views\_HeaderedItemsControl.fs" />
     <Compile Include="Views\_HeaderedContentControl.fs" />
     <Compile Include="Views\_SelectingItemsControl.fs" />
+    <Compile Include="Views\_MenuBase.fs" />
     <Compile Include="Views\_HeaderedSelectingItemsControl.fs" />
     <Compile Include="Views\_WindowBase.fs" />
     <Compile Include="Views\Styling\KeyFrame.fs" />
@@ -173,7 +174,6 @@
     <Compile Include="Views\Controls\AutoCompleteBox.fs" />
     <Compile Include="Views\MenuItems\MenuItem.fs" />
     <Compile Include="Views\MenuItems\TabItem.fs" />
-    <Compile Include="Views\Menu\_MenuBase.fs" />
     <Compile Include="Views\Menu\Flyout.fs" />
     <Compile Include="Views\Menu\Menu.fs" />
     <Compile Include="Views\Menu\NativeMenuBar.fs" />

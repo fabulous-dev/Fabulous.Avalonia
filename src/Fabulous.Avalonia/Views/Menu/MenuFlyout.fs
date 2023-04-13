@@ -20,7 +20,7 @@ module MenuFlyoutBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline MenuFlyout() =
-            CollectionBuilder<'msg, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, MenuFlyout.Items)
+            CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.Items)
 
 [<Extension>]
 type MenuFlyoutModifiers =
@@ -34,17 +34,17 @@ type MenuFlyoutModifiers =
 [<Extension>]
 type MenuFlyoutCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
         (
-            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
+            _: CollectionBuilder<'msg, 'marker, IFabControl>,
             x: WidgetBuilder<'msg, 'itemType>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
         (
-            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
+            _: CollectionBuilder<'msg, 'marker, IFabControl>,
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

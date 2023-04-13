@@ -37,8 +37,8 @@ module Control =
 [<Extension>]
 type ControlModifiers =
     [<Extension>]
-    static member inline contextFlyout(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabPopupFlyoutBase>) =
-        this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))
+    static member inline contextFlyout(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabFlyoutBase>) =
+        this.AddWidget(Control.ContextFlyout.WithValue(content.Compile()))
 
     [<Extension>]
     static member inline tag(this: WidgetBuilder<'msg, #IFabControl>, value: string) =

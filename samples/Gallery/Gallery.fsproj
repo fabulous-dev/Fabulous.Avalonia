@@ -43,6 +43,8 @@
     <Compile Include="Widgets\Image.fs" />
     <Compile Include="Widgets\MenuFlyout.fs" />
     <Compile Include="Widgets\ContextMenu.fs" />
+    <Compile Include="Widgets\ContextFlyout.fs" />
+    <Compile Include="Widgets\Flyout.fs" />
     <Compile Include="Widgets\Menu.fs" />
     <Compile Include="Widgets\ListBox.fs" />
     <Compile Include="Widgets\Carousel.fs" />

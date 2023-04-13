@@ -33,3 +33,9 @@ type FlyoutModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabFlyout>, value: ViewRef<Flyout>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type FlyoutAttachedModifiers =
+    [<Extension>]
+    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabControl>, widget: WidgetBuilder<'msg, IFabFlyout>) =
+        this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(widget.Compile()))
