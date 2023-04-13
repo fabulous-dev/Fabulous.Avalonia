@@ -59,7 +59,7 @@ type VisualModifiers =
     static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabVisual>, value: bool) =
         this.AddScalar(Visual.ClipToBounds.WithValue(value))
 
-    /// <summary>Set the Clip property </summary>
+    /// <summary>Set the Clip property</summary>
     /// <param name="this">Current widget</param>
     /// <param name="widget">The widget to set</param>
     /// <example>

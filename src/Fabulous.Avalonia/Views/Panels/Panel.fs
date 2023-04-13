@@ -31,17 +31,44 @@ module PanelBuilders =
 
 [<Extension>]
 type PanelModifiers =
+    /// <summary>Set the background property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="widget">The value to set</param>
+    /// <example>
+    /// <code>
+    /// TextBlock("Hello world")
+    ///    .background(SolidColorBrush(Colors.Yellow))
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Panel.BackgroundWidget.WithValue(brush.Compile()))
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, widget: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(Panel.BackgroundWidget.WithValue(widget.Compile()))
 
+    /// <summary>Set the background property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
+    /// /// <example>
+    /// <code>
+    /// TextBlock("Hello world")
+    ///    .background(Brushes.Yellow)
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: IBrush) =
-        this.AddScalar(Panel.Background.WithValue(brush))
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: IBrush) =
+        this.AddScalar(Panel.Background.WithValue(value))
 
+    /// <summary>Set the background property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
+    /// // /// <example>
+    /// <code>
+    /// TextBlock("Hello world")
+    ///    .background("#FF00FF00")
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: string) =
-        this.AddScalar(Panel.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
+        this.AddScalar(Panel.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, content: WidgetBuilder<'msg, #IFabBrush>) =
