@@ -24,9 +24,9 @@ module ContentControl =
 [<Extension>]
 type ContentControlModifiers =
     [<Extension>]
-    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, alignment: HorizontalAlignment) =
-        this.AddScalar(ContentControl.HorizontalContentAlignment.WithValue(alignment))
+    static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, value: HorizontalAlignment) =
+        this.AddScalar(ContentControl.HorizontalContentAlignment.WithValue(value))
 
     [<Extension>]
-    static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, alignment: VerticalAlignment) =
-        this.AddScalar(ContentControl.VerticalContentAlignment.WithValue(alignment))
+    static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, value: VerticalAlignment) =
+        this.AddScalar(ContentControl.VerticalContentAlignment.WithValue(value))
