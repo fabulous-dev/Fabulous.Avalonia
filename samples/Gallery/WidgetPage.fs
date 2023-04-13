@@ -14,65 +14,65 @@ module WidgetPage =
     type Msg = SampleMsg of obj
 
     let samples =
-        [ Button.sample
-          SplitButton.sample
-          ToggleSplitButton.sample
-          AutoCompleteBox.sample
-          DropDownButton.sample
-          ProgressBar.sample
-          RepeatButton.sample
+        [ AutoCompleteBox.sample
+          Animations.sample
+          Button.sample
+          Brushes.sample
           ButtonSpinner.sample
-          TextBlock.sample
-          SelectableTextBlock.sample
-          TextBox.sample
+          Border.sample
+          Calendar.sample
+          CalendarDatePicker.sample
+          Canvas.sample
+          CheckBox.sample
+          Carousel.sample
+          ComboBox.sample
+          ContextMenu.sample
+          ContextFlyout.sample
+          Clipping.sample
+          DockPanel.sample
+          DropDownButton.sample
+          Drawing.sample
+          Expander.sample
+          Flyout.sample
+          FormattedText.sample
+          GlyphRunControl.sample
+          Grid.sample
+          GridSplitter.sample
+          Image.sample
+          LayoutTransformControl.sample
+          ListBox.sample
+          MenuFlyout.sample
           MaskedTextBox.sample
+          Menu.sample
+          NumericUpDown.sample
+          ProgressBar.sample
           PathIcon.sample
+          Popup.sample
+          PageTransitions.sample
+          RepeatButton.sample
+          RadioButton.sample
+          RefreshContainer.sample
+          SelectableTextBlock.sample
+          SplitButton.sample
           Slider.sample
+          Shapes.sample
+          ScrollBar.sample
+          SplitView.sample
+          StackPanel.sample
+          ToggleSplitButton.sample
+          TextBlock.sample
+          TextBox.sample
           TickBar.sample
           ToggleSwitch.sample
           ToggleButton.sample
-          RadioButton.sample
-          Expander.sample
           ToolTip.sample
-          Grid.sample
-          GridSplitter.sample
-          ViewBox.sample
-          Shapes.sample
-          Popup.sample
-          UniformGrid.sample
           TabControl.sample
           TabStrip.sample
-          ScrollBar.sample
-          Calendar.sample
-          CalendarDatePicker.sample
-          SplitView.sample
-          CheckBox.sample
-          ListBox.sample
-          Carousel.sample
-          ComboBox.sample
-          MenuFlyout.sample
-          ContextMenu.sample
-          ContextFlyout.sample
-          Flyout.sample
-          Menu.sample
-          DockPanel.sample
-          StackPanel.sample
-          Image.sample
-          Border.sample
-          Canvas.sample
-          Animations.sample
           Transitions.sample
           Transforms.sample
-          PageTransitions.sample
-          LayoutTransformControl.sample
           ThemeAware.sample
-          Brushes.sample
-          RefreshContainer.sample
-          NumericUpDown.sample
-          Drawing.sample
-          Clipping.sample
-          FormattedText.sample
-          GlyphRunControl.sample ]
+          UniformGrid.sample
+          ViewBox.sample ]
 
     let init index =
         let sample = samples.[index]
