@@ -48,13 +48,13 @@ type StyledElementModifiers =
     /// <param name="fn">A function that takes the current widget to and returns a new widget styled</param>
     /// <example>
     /// <code>
-    /// let borderTestStyle (this: WidgetBuilder&lt;'msg, IFabBorder&gt;) =
+    /// let borderStyle (this: WidgetBuilder&lt;'msg, IFabBorder&gt;) =
     ///     this
     ///         .child(Image(ImageSource.fromString "image,png", Stretch.UniformToFill))
     ///         .size(50.., 50..)
     ///
     /// Border()
-    ///     .style(borderTestStyle)
+    ///     .style(borderStyle)
     /// </code>
     /// </example>
     [<Extension>]

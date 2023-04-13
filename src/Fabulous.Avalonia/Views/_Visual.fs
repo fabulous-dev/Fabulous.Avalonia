@@ -175,6 +175,14 @@ type VisualModifiers =
     /// <summary>Set the FlowDirection property </summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
+    /// <example>
+    /// <code>
+    /// [&lt;Struct&gt;>]
+    /// type FlowDirection =
+    /// | LeftToRight = 0
+    /// | RightToLeft = 1
+    /// </code>
+    /// </example>
     [<Extension>]
     static member inline flowDirection(this: WidgetBuilder<'msg, #IFabVisual>, value: FlowDirection) =
         this.AddScalar(Visual.FlowDirection.WithValue(value))
