@@ -98,106 +98,174 @@ module InputElement =
 
 [<Extension>]
 type InputElementModifiers =
+    /// <summary>Set the Focusable property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline focusable(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.Focusable.WithValue(value))
 
+    /// <summary>Set the IsEnabled property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isEnabled(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsEnabled.WithValue(value))
 
+    /// <summary>Set the IsEffectivelyEnabled property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isEffectivelyEnabled(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsEffectivelyEnabled.WithValue(value))
 
+    /// <summary>Set the Cursor property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline cursor(this: WidgetBuilder<'msg, #IFabInputElement>, value: Cursor) =
         this.AddScalar(InputElement.Cursor.WithValue(value))
 
+    /// <summary>Set the IsKeyboardFocusWithin property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isKeyboardFocusWithin(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsKeyboardFocusWithin.WithValue(value))
 
+    /// <summary>Set the IsFocused property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isFocused(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsFocused.WithValue(value))
 
+    /// <summary>Set the IsHitTestVisible property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isHitTestVisible(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsHitTestVisible.WithValue(value))
 
+    /// <summary>Set the IsPointerOver property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isPointerOver(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsPointerOver.WithValue(value))
 
+    /// <summary>Set the IsTabStop property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isTabStop(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsTabStop.WithValue(value))
 
+    /// <summary>Set the TabIndex property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline tabIndex(this: WidgetBuilder<'msg, #IFabInputElement>, value: int) =
         this.AddScalar(InputElement.TabIndex.WithValue(value))
 
+    /// <summary>Listen to the GotFocus event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
+    [<Extension>]
+    static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, fn: GotFocusEventArgs -> 'msg) =
+        this.AddScalar(InputElement.GotFocus.WithValue(fun args -> fn args |> box))
+    
     [<Extension>]
     static member inline gestureRecognizers(this: WidgetBuilder<'msg, #IFabInputElement>, value: IGestureRecognizer seq) =
         this.AddScalar(InputElement.GestureRecognizers.WithValue(value))
 
+    /// <summary>Listen to the LostFocus event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
-        this.AddScalar(InputElement.GotFocus.WithValue(fun args -> onGotFocus args |> box))
+    static member inline onLostFocus(this: WidgetBuilder<'msg, #IFabInputElement>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.LostFocus.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the KeyDown event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onLostFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onLostFocus: RoutedEventArgs -> 'msg) =
-        this.AddScalar(InputElement.LostFocus.WithValue(fun args -> onLostFocus args |> box))
+    static member inline onKeyDown(this: WidgetBuilder<'msg, #IFabInputElement>, fn: KeyEventArgs -> 'msg) =
+        this.AddScalar(InputElement.KeyDown.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the KeyUp event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onKeyDown(this: WidgetBuilder<'msg, #IFabInputElement>, onKeyDown: KeyEventArgs -> 'msg) =
-        this.AddScalar(InputElement.KeyDown.WithValue(fun args -> onKeyDown args |> box))
+    static member inline onKeyUp(this: WidgetBuilder<'msg, #IFabInputElement>, fn: KeyEventArgs -> 'msg) =
+        this.AddScalar(InputElement.KeyUp.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the TextInputMethodClientRequested event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onKeyUp(this: WidgetBuilder<'msg, #IFabInputElement>, onKeyUp: KeyEventArgs -> 'msg) =
-        this.AddScalar(InputElement.KeyUp.WithValue(fun args -> onKeyUp args |> box))
+    static member inline onTextInputMethodClientRequested(this: WidgetBuilder<'msg, #IFabInputElement>, fn: TextInputMethodClientRequestedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.TextInputMethodClientRequested.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerEntered event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onTextInputMethodClientRequested
-        (
-            this: WidgetBuilder<'msg, #IFabInputElement>,
-            onTextInputMethodClientRequested: TextInputMethodClientRequestedEventArgs -> 'msg
-        ) =
-        this.AddScalar(InputElement.TextInputMethodClientRequested.WithValue(fun args -> onTextInputMethodClientRequested args |> box))
+    static member inline onPointerEnter(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerEntered.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerExited event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerEnter(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerEnter: PointerEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerEntered.WithValue(fun args -> onPointerEnter args |> box))
+    static member inline onPointerExited(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerExited.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerMoved event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerExited(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerExited: PointerEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerExited.WithValue(fun args -> onPointerExited args |> box))
+    static member inline onPointerMoved(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerMoved.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerPressed event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerMoved(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerMoved: PointerEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerMoved.WithValue(fun args -> onPointerMoved args |> box))
+    static member inline onPointerPressed(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerPressedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerPressed.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerReleased event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerPressed(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerPressed: PointerPressedEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerPressed.WithValue(fun args -> onPointerPressed args |> box))
+    static member inline onPointerReleased(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerReleasedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerReleased.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerCaptureLost event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerReleased(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerReleased: PointerReleasedEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerReleased.WithValue(fun args -> onPointerReleased args |> box))
+    static member inline onPointerCaptureLost(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerCaptureLostEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerCaptureLost.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the PointerWheelChanged event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerCaptureLost(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerCaptureLost: PointerCaptureLostEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerCaptureLost.WithValue(fun args -> onPointerCaptureLost args |> box))
+    static member inline onPointerWheelChanged(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerWheelEventArgs -> 'msg) =
+        this.AddScalar(InputElement.PointerWheelChanged.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the Tapped event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onPointerWheelChanged(this: WidgetBuilder<'msg, #IFabInputElement>, onPointerWheelChanged: PointerWheelEventArgs -> 'msg) =
-        this.AddScalar(InputElement.PointerWheelChanged.WithValue(fun args -> onPointerWheelChanged args |> box))
+    static member inline onTapped(this: WidgetBuilder<'msg, #IFabInputElement>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.Tapped.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the DoubleTapped event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to be called when the event is raised</param>
     [<Extension>]
-    static member inline onTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onTapped: RoutedEventArgs -> 'msg) =
-        this.AddScalar(InputElement.Tapped.WithValue(fun args -> onTapped args |> box))
-
-    [<Extension>]
-    static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onDoubleTapped: RoutedEventArgs -> 'msg) =
-        this.AddScalar(InputElement.DoubleTapped.WithValue(fun args -> onDoubleTapped args |> box))
+    static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.DoubleTapped.WithValue(fun args -> fn args |> box))
