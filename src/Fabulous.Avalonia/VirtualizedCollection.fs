@@ -2,6 +2,8 @@ namespace Fabulous.Avalonia
 
 open System
 open Avalonia.Controls
+open Avalonia.Controls.Primitives
+open Avalonia.Controls.Templates
 open Fabulous
 
 type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
@@ -11,6 +13,11 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
             System.Func<obj, INameScope, Control>(fun data n -> this.Build(data, n)),
             supportsRecycling = false
         )
+
+        item
+
+type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget, supportsRecycling: bool) as this =
+    inherit FuncDataTemplate(typeof<obj>, System.Func<obj, INameScope, Control>(fun data n -> this.Build(data, n)), supportsRecycling = supportsRecycling)
 
     member this.Recycle(newData: obj, prevWidget: Widget, rowNode: IViewNode) : Widget =
         let currWidget = templateFn newData

@@ -40,6 +40,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ItemsRepe
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ColorPicker", "src\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj", "{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.DataGrid", "src\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj", "{73D2BEA9-C099-4A5D-A5FE-70CFFC03A29E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
