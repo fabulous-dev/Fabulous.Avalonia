@@ -40,7 +40,7 @@ type ControlModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="widget">The widget to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Border(TextBlock("Flyout that can be applied to any control."))
     ///    .contextFlyout(
     ///        MenuFlyout() {
@@ -65,7 +65,7 @@ type ControlModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type FlowDirection =
     /// | LeftToRight = 0

@@ -63,7 +63,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="widget">The widget to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Border()
     ///     .clip(PathGeometry(clip, FillRule.EvenOdd))
     /// </code>
@@ -90,7 +90,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="widget">The widget to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Rectangle(10., 10.)
     ///     .size(50., 50.)
     ///     .opacityMask(
@@ -108,7 +108,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Rectangle(10., 10.)
     ///     .size(50., 50.)
     ///     .opacityMask(GradientBrush.Parse(".."))
@@ -122,7 +122,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Rectangle(10., 10.)
     ///     .size(50., 50.)
     ///     .opacityMask("...")
@@ -136,7 +136,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="widget">The widget to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Border(TextBlock("Hello"))
     ///     .renderTransform(RotateTransform(45.))
     /// </code>
@@ -149,7 +149,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Border(TextBlock("Hello"))
     ///     .renderTransform(TransformOperations.Parse("rotate(90deg) scale(1.5)"))
     /// </code>
@@ -176,7 +176,7 @@ type VisualModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;>]
     /// type FlowDirection =
     /// | LeftToRight = 0

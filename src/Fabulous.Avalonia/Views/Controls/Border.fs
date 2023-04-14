@@ -64,7 +64,7 @@ module BorderBuilders =
         /// <summary>
         /// Create a Border widget with a content widget
         /// <example>
-        /// <code>
+        /// <code lang="fsharp">
         /// Border(TextBlock("Hello"))
         ///     .background(SolidColorBrush(Colors.Red))
         /// </code>
@@ -79,7 +79,7 @@ module BorderBuilders =
         /// <summary>
         /// Create a Border widget
         /// <example>
-        /// <code>
+        /// <code lang="fsharp">
         /// Border()
         ///     .background(SolidColorBrush(Colors.Red))
         /// </code>

@@ -45,7 +45,7 @@ type PopupFlyoutBaseModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type PlacementMode =
     /// | Pointer = 0
@@ -83,7 +83,7 @@ type PopupFlyoutBaseModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type PopupAnchor =
     /// | None = 0
@@ -107,7 +107,7 @@ type PopupFlyoutBaseModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type PopupGravity =
     /// | None = 0
@@ -130,7 +130,7 @@ type PopupFlyoutBaseModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type FlyoutShowMode =
     /// | Standard = 0

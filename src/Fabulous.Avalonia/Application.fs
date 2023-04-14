@@ -118,7 +118,7 @@ module ApplicationBuilders =
         /// <summary>
         /// Create a DesktopApplication widget with a content widget
         /// <example>
-        /// <code>
+        /// <code lang="fsharp">
         /// DesktopApplication(
         ///     Window(...)
         /// )
@@ -135,7 +135,7 @@ module ApplicationBuilders =
         /// <summary>
         /// Create a SingleViewApplication widget with a content widget
         /// <example>
-        /// <code>
+        /// <code lang="fsharp">
         /// SingleViewApplication(
         ///     VStack(){
         ///         ...
@@ -201,7 +201,7 @@ type TrayIconAttachedModifiers =
     /// <summary>Sets the tray icon for the application
     /// <param name="this">Current widget</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// DesktopApplication(...)
     ///    .trayIcons() {
     ///        TrayIcon(WindowIcon(ImageSource.fromString ".."), "Avalonia TrayIcon")

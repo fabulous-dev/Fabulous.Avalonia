@@ -16,7 +16,7 @@ type RenderOptionsModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The BitmapInterpolationMode value</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type BitmapInterpolationMode =
     /// | Default = 0

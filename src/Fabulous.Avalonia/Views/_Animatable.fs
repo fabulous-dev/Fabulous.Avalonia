@@ -35,7 +35,7 @@ type AnimatableModifiers =
     /// <summary>Set the Transitions property.</summary>
     /// <param name="this">Current widget</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Border()
     ///     .background(Brushes.Red)
     ///     .transitions() {

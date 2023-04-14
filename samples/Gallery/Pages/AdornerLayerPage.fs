@@ -7,7 +7,6 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Controls.Primitives
-open Avalonia.Interactivity
 
 open type Fabulous.Avalonia.View
 

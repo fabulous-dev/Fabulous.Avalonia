@@ -98,7 +98,7 @@ type LayoutableModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type HorizontalAlignment =
     /// | Stretch = 0
@@ -115,7 +115,7 @@ type LayoutableModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
     /// type VerticalAlignment =
     /// | Stretch = 0

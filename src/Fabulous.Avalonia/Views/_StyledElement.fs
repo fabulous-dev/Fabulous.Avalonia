@@ -30,7 +30,7 @@ type StyledElementModifiers =
     /// <summary>Set the Styles property.</summary>
     /// <param name="this">Current widget</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// Label("Hello World!")
     ///     .styles() {
     ///         Animations() {
@@ -47,7 +47,7 @@ type StyledElementModifiers =
     /// <param name="this">Current widget</param>
     /// <param name="fn">A function that takes the current widget to and returns a new widget styled</param>
     /// <example>
-    /// <code>
+    /// <code lang="fsharp">
     /// let borderStyle (this: WidgetBuilder&lt;'msg, IFabBorder&gt;) =
     ///     this
     ///         .child(Image(ImageSource.fromString "image,png", Stretch.UniformToFill))

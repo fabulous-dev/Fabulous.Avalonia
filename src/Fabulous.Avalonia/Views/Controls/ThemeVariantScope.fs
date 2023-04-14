@@ -30,7 +30,7 @@ module ThemeVariantScopeBuilders =
         /// Setting ThemeVariant to ThemeVariant.Default will apply parent's actual theme variant on the current scope.
         /// </remarks>
         /// <example>
-        /// <code>
+        /// <code lang="fsharp">
         /// ThemeVariantScope(
         ///     ThemeVariant.Light,
         ///     TextBlock("Hello World")
