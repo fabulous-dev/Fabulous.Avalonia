@@ -30,9 +30,6 @@ module ItemsControl =
                     listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
 
-    let ItemCount =
-        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty
-
     let AreHorizontalSnapPointsRegular =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.AreHorizontalSnapPointsRegularProperty
 
@@ -56,38 +53,51 @@ module ItemsControl =
 
 [<Extension>]
 type ItemsControlModifiers =
-    [<Extension>]
-    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value: int) =
-        this.AddScalar(ItemsControl.ItemCount.WithValue(value))
-
+    // <summary>Set the AreHorizontalSnapPointsRegular property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline areHorizontalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
         this.AddScalar(ItemsControl.AreHorizontalSnapPointsRegular.WithValue(value))
 
+    /// <summary>Set the AreVerticalSnapPointsRegular property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline areVerticalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
         this.AddScalar(ItemsControl.AreVerticalSnapPointsRegular.WithValue(value))
 
+    /// <summary>Listen to the HorizontalSnapPointsChanged event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">The message to send when the event is raised</param>
     [<Extension>]
-    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, onHorizontalSnapPointsChanged: 'msg) =
-        this.AddScalar(ItemsControl.HorizontalSnapPointsChanged.WithValue(fun _ -> onHorizontalSnapPointsChanged |> box))
+    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, msg: 'msg) =
+        this.AddScalar(ItemsControl.HorizontalSnapPointsChanged.WithValue(fun _ -> msg |> box))
 
+    /// <summary>Listen to the VerticalSnapPointsChanged event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">The message to send when the event is raised</param>
     [<Extension>]
-    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, onVerticalSnapPointsChanged: 'msg) =
-        this.AddScalar(ItemsControl.VerticalSnapPointsChanged.WithValue(fun _ -> onVerticalSnapPointsChanged |> box))
+    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, msg: 'msg) =
+        this.AddScalar(ItemsControl.VerticalSnapPointsChanged.WithValue(fun _ -> msg |> box))
 
+    /// <summary>Listen to the ContainerClearing event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to call when the event is raised</param>
     [<Extension>]
-    static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, onContainerClearing: ContainerClearingEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerClearing.WithValue(fun args -> onContainerClearing args |> box))
+    static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerClearingEventArgs -> 'msg) =
+        this.AddScalar(ItemsControl.ContainerClearing.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the ContainerIndexChanged event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to call when the event is raised</param>
     [<Extension>]
-    static member inline onContainerIndexChanged
-        (
-            this: WidgetBuilder<'msg, #IFabItemsControl>,
-            onContainerIndexChanged: ContainerIndexChangedEventArgs -> 'msg
-        ) =
-        this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fun args -> onContainerIndexChanged args |> box))
+    static member inline onContainerIndexChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerIndexChangedEventArgs -> 'msg) =
+        this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listen to the ContainerPrepared event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to call when the event is raised</param>
     [<Extension>]
-    static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, onContainerPrepared: ContainerPreparedEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fun args -> onContainerPrepared args |> box))
+    static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> 'msg) =
+        this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fun args -> fn args |> box))
