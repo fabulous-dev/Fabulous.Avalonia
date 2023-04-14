@@ -39,38 +39,95 @@ module TopLevel =
 
 [<Extension>]
 type TopLevelModifiers =
+    /// <summary>Set the ThemeVariant property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline themeVariant(this: WidgetBuilder<'msg, #IFabTopLevel>, value: ThemeVariant) =
         this.AddScalar(TopLevel.ThemeVariant.WithValue(value))
 
+    /// <summary>Listen to the ThemeVariantChanged event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="fn">Function to call when the event is raised</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: ThemeVariant -> 'msg) =
         this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
 
+    /// <summary>Set the TransparencyLevelHint property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
+    /// <example>
+    /// <code lang="fsharp">
+    /// [&lt;Struct&gt;]
+    /// type WindowTransparencyLevel =
+    /// | None = 0
+    /// | Transparent = 1
+    /// | Blur = 2
+    /// | AcrylicBlur = 3
+    /// | ForceAcrylicBlur = 4
+    /// | Mica = 5
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, alignment: WindowTransparencyLevel) =
-        this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(alignment))
+    static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WindowTransparencyLevel) =
+        this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(value))
 
+    /// <summary>Set the TransparencyBackgroundFallback property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="widget">The value to set</param>
+    /// <example>
+    /// <code lang="fsharp">
+    /// Window(...)
+    ///    .transparencyBackgroundFallback(SolidColorBrush(Colors.Yellow))
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, content: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TopLevel.TransparencyBackgroundFallbackWidget.WithValue(content.Compile()))
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, widget: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(TopLevel.TransparencyBackgroundFallbackWidget.WithValue(widget.Compile()))
 
+    // <summary>Set the TransparencyBackgroundFallback property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
+    /// <example>
+    /// <code lang="fsharp">
+    /// Window(...)
+    ///    .transparencyBackgroundFallback(Brushes.Yellow)
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: IBrush) =
-        this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(brush))
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: IBrush) =
+        this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(value))
 
+    // <summary>Set the TransparencyBackgroundFallback property</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The value to set</param>
+    /// <example>
+    /// <code lang="fsharp">
+    /// Window(...)
+    ///    .transparencyBackgroundFallback("#FF00FF00")
+    /// </code>
+    /// </example>
     [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: string) =
-        this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
+        this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
+    /// <summary>Listen to the Opened event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">Message to send when the event is raised</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, onOpened: 'msg) =
-        this.AddScalar(TopLevel.Opened.WithValue(onOpened))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
+        this.AddScalar(TopLevel.Opened.WithValue(msg))
 
+    /// <summary>Listen to the Closed event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">Message to send when the event is raised</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, onClosed: 'msg) =
-        this.AddScalar(TopLevel.Closed.WithValue(onClosed))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
+        this.AddScalar(TopLevel.Closed.WithValue(msg))
 
+    /// <summary>Listen to the BackRequested event</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="msg">Message to send when the event is raised</param>
     [<Extension>]
-    static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, onBackRequested: 'msg) =
-        this.AddScalar(TopLevel.BackRequested.WithValue(fun _ -> onBackRequested |> box))
+    static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
+        this.AddScalar(TopLevel.BackRequested.WithValue(fun _ -> msg |> box))
