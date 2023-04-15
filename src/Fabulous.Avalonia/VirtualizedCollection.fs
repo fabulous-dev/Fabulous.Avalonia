@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Avalonia.Controls.Templates
 open Fabulous
 
