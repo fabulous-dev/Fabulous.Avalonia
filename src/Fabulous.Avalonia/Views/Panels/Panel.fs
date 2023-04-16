@@ -31,9 +31,9 @@ module PanelBuilders =
 
 [<Extension>]
 type PanelModifiers =
-    /// <summary>Set the Background property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="widget">The value to set</param>
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="widget">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// TextBlock("Hello world")
@@ -44,9 +44,9 @@ type PanelModifiers =
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, widget: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Panel.BackgroundWidget.WithValue(widget.Compile()))
 
-    /// <summary>Set the Background property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// TextBlock("Hello world")
@@ -57,9 +57,9 @@ type PanelModifiers =
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: IBrush) =
         this.AddScalar(Panel.Background.WithValue(value))
 
-    /// <summary>Set the Background property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// TextBlock("Hello world")

@@ -12,9 +12,9 @@ module RenderOptions =
 
 [<Extension>]
 type RenderOptionsModifiers =
-    /// <summary> Set the BitmapInterpolationMode property.</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The BitmapInterpolationMode value</param>
+    /// <summary> Sets the BitmapInterpolationMode property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BitmapInterpolationMode value.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]

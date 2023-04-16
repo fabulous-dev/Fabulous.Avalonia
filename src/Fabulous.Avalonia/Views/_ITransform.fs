@@ -14,9 +14,9 @@ module Transform =
 
 [<Extension>]
 type TransformModifiers =
-    /// <summary>Listens to the Changed event of the current widget</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="msg">Message to send when the event is raised</param>
+    /// <summary>Listens to the Changed event of the current widget.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="msg">Message to send when the event is raised.</param>
     [<Extension>]
     static member inline onChanged(this: WidgetBuilder<'msg, #IFabTransform>, msg: 'msg) =
         this.AddScalar(Transform.Changed.WithValue(msg))

@@ -28,38 +28,38 @@ module SelectingItemsControl =
 
 [<Extension>]
 type SelectingItemsControlModifiers =
-    // <summary>Set the AutoScrollToSelectedItem property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    // <summary>Sets the AutoScrollToSelectedItem property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline autoScrollToSelectedItem(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
         let x = SelectionModel<string>()
         this.AddScalar(SelectingItemsControl.AutoScrollToSelectedItem.WithValue(value))
 
-    /// <summary>Set the SelectedIndex property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the SelectedIndex property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline selectedIndex(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: int) =
         this.AddScalar(SelectingItemsControl.SelectedIndex.WithValue(value))
 
-    /// <summary>Set the IsTextSearchEnabled property</summary>
+    /// <summary>Sets the IsTextSearchEnabled property.</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The value to set</param>
     [<Extension>]
     static member inline isTextSearchEnabled(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
         this.AddScalar(SelectingItemsControl.IsTextSearchEnabled.WithValue(value))
 
-    /// <summary>Set the WrapSelection property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the WrapSelection property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline wrapSelection(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
         this.AddScalar(SelectingItemsControl.WrapSelection.WithValue(value))
 
-    /// <summary>Listens to the SelectionChanged event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="fn">Function to call when the event is raised</param>
+    /// <summary>Listens to the SelectionChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Function to call when the event is raised.</param>
     [<Extension>]
     static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, fn: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(SelectingItemsControl.SelectionChanged.WithValue(fun args -> fn args |> box))

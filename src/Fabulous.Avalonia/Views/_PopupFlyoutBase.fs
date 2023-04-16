@@ -41,9 +41,9 @@ module PopupFlyoutBase =
 
 [<Extension>]
 type PopupFlyoutBaseModifiers =
-    /// <summary>Set the Placement property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the Placement property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
@@ -65,23 +65,23 @@ type PopupFlyoutBaseModifiers =
     static member inline placement(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: PlacementMode) =
         this.AddScalar(PopupFlyoutBase.Placement.WithValue(value))
 
-    /// <summary>Set the HorizontalOffset property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the HorizontalOffset property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline horizontalOffset(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: float) =
         this.AddScalar(PopupFlyoutBase.HorizontalOffset.WithValue(value))
 
-    /// <summary>Set the VerticalOffset property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the VerticalOffset property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline verticalOffset(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: float) =
         this.AddScalar(PopupFlyoutBase.VerticalOffset.WithValue(value))
 
-    /// <summary>Set the PlacementAnchor property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the PlacementAnchor property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
@@ -103,9 +103,9 @@ type PopupFlyoutBaseModifiers =
     static member inline placementAnchor(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: PopupAnchor) =
         this.AddScalar(PopupFlyoutBase.PlacementAnchor.WithValue(value))
 
-    /// <summary>Set the PlacementGravity property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the PlacementGravity property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
@@ -126,9 +126,9 @@ type PopupFlyoutBaseModifiers =
     static member inline placementGravity(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: PopupGravity) =
         this.AddScalar(PopupFlyoutBase.PlacementGravity.WithValue(value))
 
-    /// <summary>Set the ShowMode property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the ShowMode property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
@@ -142,23 +142,23 @@ type PopupFlyoutBaseModifiers =
     static member inline showMode(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: FlyoutShowMode) =
         this.AddScalar(PopupFlyoutBase.ShowMode.WithValue(value))
 
-    /// <summary>Set the OverlayInputPassThroughElement property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the OverlayInputPassThroughElement property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: IInputElement) =
         this.AddScalar(PopupFlyoutBase.OverlayInputPassThroughElement.WithValue(value))
 
-    /// <summary>Listens to the Opening event</summary>
+    /// <summary>Listens to the Opening event.</summary>
     /// <param name="this">Current widget</param>
-    /// <param name="msg">The message to send when the event is raised</param>
+    /// <param name="msg">The message to send when the event is raised.</param>
     [<Extension>]
     static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onOpening: 'msg) =
         this.AddScalar(PopupFlyoutBase.Opening.WithValue(onOpening))
 
     /// <summary>Listens to the Closing event</summary>
     /// <param name="this">Current widget</param>
-    /// <param name="fn">Function to call when the event is raised</param>
+    /// <param name="fn">Function to call when the event is raised.</param>
     [<Extension>]
     static member inline onClosing(this: WidgetBuilder<'msg, #IFabFlyoutBase>, fn: CancelEventArgs -> 'msg) =
         this.AddScalar(PopupFlyoutBase.Closing.WithValue(fun args -> fn args |> box))

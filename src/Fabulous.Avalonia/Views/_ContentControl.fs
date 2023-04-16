@@ -23,9 +23,9 @@ module ContentControl =
 
 [<Extension>]
 type ContentControlModifiers =
-    /// <summary>Set the HorizontalContentAlignment property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the HorizontalContentAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]
@@ -40,9 +40,9 @@ type ContentControlModifiers =
     static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, value: HorizontalAlignment) =
         this.AddScalar(ContentControl.HorizontalContentAlignment.WithValue(value))
 
-    /// <summary>Set the VerticalContentAlignment property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the VerticalContentAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]

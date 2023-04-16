@@ -53,51 +53,51 @@ module ItemsControl =
 
 [<Extension>]
 type ItemsControlModifiers =
-    // <summary>Set the AreHorizontalSnapPointsRegular property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    // <summary>Sets the AreHorizontalSnapPointsRegular property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline areHorizontalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
         this.AddScalar(ItemsControl.AreHorizontalSnapPointsRegular.WithValue(value))
 
-    /// <summary>Set the AreVerticalSnapPointsRegular property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the AreVerticalSnapPointsRegular property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline areVerticalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
         this.AddScalar(ItemsControl.AreVerticalSnapPointsRegular.WithValue(value))
 
-    /// <summary>Listen to the HorizontalSnapPointsChanged event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="msg">The message to send when the event is raised</param>
+    /// <summary>Listens to the HorizontalSnapPointsChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="msg">The message to send when the event is raised.</param>
     [<Extension>]
     static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, msg: 'msg) =
         this.AddScalar(ItemsControl.HorizontalSnapPointsChanged.WithValue(fun _ -> msg |> box))
 
-    /// <summary>Listen to the VerticalSnapPointsChanged event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="msg">The message to send when the event is raised</param>
+    /// <summary>Listens to the VerticalSnapPointsChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="msg">The message to send when the event is raised.</param>
     [<Extension>]
     static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, msg: 'msg) =
         this.AddScalar(ItemsControl.VerticalSnapPointsChanged.WithValue(fun _ -> msg |> box))
 
-    /// <summary>Listen to the ContainerClearing event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="fn">Function to call when the event is raised</param>
+    /// <summary>Listens to the ContainerClearing event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Function to call when the event is raised.</param>
     [<Extension>]
     static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerClearingEventArgs -> 'msg) =
         this.AddScalar(ItemsControl.ContainerClearing.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Listen to the ContainerIndexChanged event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="fn">Function to call when the event is raised</param>
+    /// <summary>Listens to the ContainerIndexChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Function to call when the event is raised.</param>
     [<Extension>]
     static member inline onContainerIndexChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerIndexChangedEventArgs -> 'msg) =
         this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Listen to the ContainerPrepared event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="fn">Function to call when the event is raised</param>
+    /// <summary>Listens to the ContainerPrepared event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Function to call when the event is raised.</param>
     [<Extension>]
     static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> 'msg) =
         this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fun args -> fn args |> box))

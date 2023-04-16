@@ -18,9 +18,9 @@ module Spinner =
 [<Extension>]
 type SpinnerModifiers =
 
-    /// <summary>Set the ValidSpinDirection property</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the ValidSpinDirection property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     /// <example>
     /// <code lang="fsharp">
     /// [&lt;Struct&gt;]

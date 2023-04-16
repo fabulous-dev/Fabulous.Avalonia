@@ -20,9 +20,9 @@ type MenuBaseModifiers =
     static member inline onMenuOpened(this: WidgetBuilder<'msg, #IFabMenuBase>, onMenuOpened: 'msg) =
         this.AddScalar(MenuBase.MenuOpened.WithValue(fun _ -> onMenuOpened |> box))
 
-    /// <summary>Listen for the MenuOpened event</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="fn">Function to call when the event is raised</param>
+    /// <summary>Listens to the MenuOpened event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Function to call when the event is raised.</param>
     [<Extension>]
     static member inline onMenuClosed(this: WidgetBuilder<'msg, #IFabMenuBase>, onMenuClosed: 'msg) =
         this.AddScalar(MenuBase.MenuClosed.WithValue(fun _ -> onMenuClosed |> box))

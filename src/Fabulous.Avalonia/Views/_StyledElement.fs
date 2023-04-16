@@ -20,15 +20,15 @@ module StyledElement =
 
 [<Extension>]
 type StyledElementModifiers =
-    /// <summary>Set the Name property.</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The value to set</param>
+    /// <summary>Sets the Name property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.Name.WithValue(value))
 
-    /// <summary>Set the Styles property.</summary>
-    /// <param name="this">Current widget</param>
+    /// <summary>Sets the Styles property.</summary>
+    /// <param name="this">Current widget.</param>
     /// <example>
     /// <code lang="fsharp">
     /// Label("Hello World!")
@@ -44,8 +44,8 @@ type StyledElementModifiers =
         AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
 
     /// <summary>Styles a widget.</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="fn">A function that takes the current widget to and returns a new widget styled</param>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">A function that takes the current widget to and returns a new widget styled.</param>
     /// <example>
     /// <code lang="fsharp">
     /// let borderStyle (this: WidgetBuilder&lt;'msg, IFabBorder&gt;) =
