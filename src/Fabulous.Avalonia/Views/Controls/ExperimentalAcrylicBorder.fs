@@ -29,6 +29,9 @@ module ExperimentalAcrylicBorderBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
+        static member ExperimentalAcrylicBorder() =
+            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 [<Extension>]
 type ExperimentalAcrylicBorderModifiers =
     [<Extension>]

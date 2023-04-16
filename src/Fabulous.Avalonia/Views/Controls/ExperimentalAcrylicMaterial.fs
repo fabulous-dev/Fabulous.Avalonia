@@ -23,13 +23,11 @@ module ExperimentalAcrylicMaterial =
     let MaterialOpacity =
         Attributes.defineAvaloniaPropertyWithEquality ExperimentalAcrylicMaterial.MaterialOpacityProperty
 
-
     let PlatformTransparencyCompensationLevel =
         Attributes.defineAvaloniaPropertyWithEquality ExperimentalAcrylicMaterial.PlatformTransparencyCompensationLevelProperty
 
     let FallbackColor =
         Attributes.defineAvaloniaPropertyWithEquality ExperimentalAcrylicMaterial.FallbackColorProperty
-
 
 [<AutoOpen>]
 module ExperimentalAcrylicMaterialBuilders =

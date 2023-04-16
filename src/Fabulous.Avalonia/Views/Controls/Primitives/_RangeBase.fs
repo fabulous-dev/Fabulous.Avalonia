@@ -49,6 +49,11 @@ module RangeBase =
 
 [<Extension>]
 type RangeBaserModifiers =
+
+    [<Extension>]
+    static member inline minimumMaximum(this: WidgetBuilder<'msg, #IFabRangeBase>, min: float, max: float) =
+        this.AddScalar(RangeBase.MinimumMaximum.WithValue(struct (min, max)))
+
     [<Extension>]
     static member inline smallChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.SmallChange.WithValue(value))

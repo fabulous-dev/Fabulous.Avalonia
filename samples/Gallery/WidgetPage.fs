@@ -14,7 +14,8 @@ module WidgetPage =
     type Msg = SampleMsg of obj
 
     let samples =
-        [ AdornerLayer.sample
+        [ AcrylicPage.sample
+          AdornerLayer.sample
           AutoCompleteBox.sample
           Animations.sample
           Button.sample
