@@ -34,6 +34,18 @@ module DoubleTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new DoubleTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         DoubleTransition(RotateTransform.AngleProperty, TimeSpan.FromSeconds(0.5))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member DoubleTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabDoubleTransition>(
                 DoubleTransition.WidgetKey,
@@ -43,17 +55,23 @@ module DoubleTransitionBuilders =
 
 [<Extension>]
 type DoubleTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabDoubleTransition>, value: TimeSpan) =
         this.AddScalar(DoubleTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabDoubleTransition>, value: Easing) =
         this.AddScalar(DoubleTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct DoubleTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct DoubleTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabDoubleTransition>, value: ViewRef<DoubleTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -87,6 +105,18 @@ module BoxShadowsTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new BoxShadowsTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         BoxShadowsTransition(Border.BoxShadowProperty, TimeSpan.FromSeconds(0.5))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member BoxShadowsTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabBoxShadowsTransition>(
                 BoxShadowsTransition.WidgetKey,
@@ -96,21 +126,26 @@ module BoxShadowsTransitionBuilders =
 
 [<Extension>]
 type BoxShadowsTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabBoxShadowsTransition>, value: TimeSpan) =
         this.AddScalar(BoxShadowsTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabBoxShadowsTransition>, value: Easing) =
         this.AddScalar(BoxShadowsTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct BoxShadowsTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct BoxShadowsTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabBoxShadowsTransition>, value: ViewRef<BoxShadowsTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 
 type IFabBrushTransition =
     inherit IFabTransition
@@ -140,6 +175,18 @@ module BrushTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new BrushTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member BrushTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabBrushTransition>(
                 BrushTransition.WidgetKey,
@@ -149,17 +196,23 @@ module BrushTransitionBuilders =
 
 [<Extension>]
 type BrushTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabBrushTransition>, value: TimeSpan) =
         this.AddScalar(BrushTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabBrushTransition>, value: Easing) =
         this.AddScalar(BrushTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct BrushTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct BrushTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabBrushTransition>, value: ViewRef<BrushTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -191,6 +244,18 @@ module ColorTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new ColorTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         ColorTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member ColorTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabColorTransition>(
                 ColorTransition.WidgetKey,
@@ -200,17 +265,23 @@ module ColorTransitionBuilders =
 
 [<Extension>]
 type ColorTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabColorTransition>, value: TimeSpan) =
         this.AddScalar(ColorTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabColorTransition>, value: Easing) =
         this.AddScalar(ColorTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct ColorTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct ColorTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabColorTransition>, value: ViewRef<ColorTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -244,6 +315,18 @@ module CornerRadiusTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new CornerRadiusTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         CornerRadiusTransition(Border.CornerRadiusProperty, TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member CornerRadiusTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabCornerRadiusTransition>(
                 CornerRadiusTransition.WidgetKey,
@@ -253,17 +336,23 @@ module CornerRadiusTransitionBuilders =
 
 [<Extension>]
 type CornerRadiusTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabCornerRadiusTransition>, value: TimeSpan) =
         this.AddScalar(CornerRadiusTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabCornerRadiusTransition>, value: Easing) =
         this.AddScalar(CornerRadiusTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct CornerRadiusTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct CornerRadiusTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabCornerRadiusTransition>, value: ViewRef<CornerRadiusTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -295,6 +384,18 @@ module FloatTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new FloatTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         FloatTransition(Border.OpacityProperty, TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member FloatTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabFloatTransition>(
                 FloatTransition.WidgetKey,
@@ -304,17 +405,23 @@ module FloatTransitionBuilders =
 
 [<Extension>]
 type FloatTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabFloatTransition>, value: TimeSpan) =
         this.AddScalar(FloatTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabFloatTransition>, value: Easing) =
         this.AddScalar(FloatTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct FloatTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct FloatTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabFloatTransition>, value: ViewRef<FloatTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -346,6 +453,18 @@ module IntegerTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new IntegerTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         IntegerTransition(..., TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member IntegerTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabIntegerTransition>(
                 IntegerTransition.WidgetKey,
@@ -355,17 +474,23 @@ module IntegerTransitionBuilders =
 
 [<Extension>]
 type IntegerTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabIntegerTransition>, value: TimeSpan) =
         this.AddScalar(IntegerTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabIntegerTransition>, value: Easing) =
         this.AddScalar(IntegerTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct IntegerTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct IntegerTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabIntegerTransition>, value: ViewRef<IntegerTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -398,6 +523,18 @@ module PointTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new PointTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         PointTransition(..., TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member PointTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabPointTransition>(
                 PointTransition.WidgetKey,
@@ -407,17 +544,23 @@ module PointTransitionBuilders =
 
 [<Extension>]
 type PointTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabPointTransition>, value: TimeSpan) =
         this.AddScalar(PointTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabPointTransition>, value: Easing) =
         this.AddScalar(PointTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct PointTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct PointTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabPointTransition>, value: ViewRef<PointTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -432,7 +575,6 @@ module SizeTransition =
     let Duration =
         Attributes.definePropertyWithGetSet "SizeTransition_Duration" (fun target -> (target :?> SizeTransition).Duration) (fun target value ->
             (target :?> SizeTransition).Duration <- value)
-
 
     let Delay =
         Attributes.definePropertyWithGetSet "SizeTransition_Delay" (fun target -> (target :?> SizeTransition).Delay) (fun target value ->
@@ -451,6 +593,18 @@ module SizeTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new SizeTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         SizeTransition(..., TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member SizeTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabSizeTransition>(
                 SizeTransition.WidgetKey,
@@ -460,17 +614,23 @@ module SizeTransitionBuilders =
 
 [<Extension>]
 type SizeTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabSizeTransition>, value: TimeSpan) =
         this.AddScalar(SizeTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabSizeTransition>, value: Easing) =
         this.AddScalar(SizeTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct SizeTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct SizeTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabSizeTransition>, value: ViewRef<SizeTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -503,6 +663,18 @@ module ThicknessTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new ThicknessTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         ThicknessTransition(..., TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member ThicknessTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabThicknessTransition>(
                 ThicknessTransition.WidgetKey,
@@ -512,17 +684,23 @@ module ThicknessTransitionBuilders =
 
 [<Extension>]
 type ThicknessTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabThicknessTransition>, value: TimeSpan) =
         this.AddScalar(ThicknessTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabThicknessTransition>, value: Easing) =
         this.AddScalar(ThicknessTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct ThicknessTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct ThicknessTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabThicknessTransition>, value: ViewRef<ThicknessTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -563,6 +741,18 @@ module TransformOperationsTransitionBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new TransformOperationsTransition widget.
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .transitions() {
+        ///         TransformOperationsTransition(..., TimeSpan.FromSeconds(1.))
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member TransformOperationsTransition(property: AvaloniaProperty, duration: TimeSpan) =
             WidgetBuilder<'msg, IFabTransformOperationsTransition>(
                 TransformOperationsTransition.WidgetKey,
@@ -572,17 +762,23 @@ module TransformOperationsTransitionBuilders =
 
 [<Extension>]
 type TransformOperationsTransitionModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabTransformOperationsTransition>, value: TimeSpan) =
         this.AddScalar(TransformOperationsTransition.Delay.WithValue(value))
 
+    /// <summary>Sets the Easing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The value to set.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabTransformOperationsTransition>, value: Easing) =
         this.AddScalar(TransformOperationsTransition.Easing.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct TransformOperationsTransition control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Links a ViewRef to access the direct TransformOperationsTransition control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTransformOperationsTransition>, value: ViewRef<TransformOperationsTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

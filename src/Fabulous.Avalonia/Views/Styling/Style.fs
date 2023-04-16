@@ -18,6 +18,18 @@ module StyleBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a new Animations widget
+        /// <example>
+        /// <code lang="fsharp">
+        /// Border()
+        ///     .styles() {
+        ///         Animations() {
+        ///             ...
+        ///         }
+        ///     }
+        /// </code>
+        /// </example>
+        /// </summary>
         static member Animations() =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
 
