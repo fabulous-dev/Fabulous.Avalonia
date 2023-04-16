@@ -2,6 +2,7 @@ namespace Gallery.Pages
 
 open System
 open Avalonia
+open Avalonia.Styling
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
@@ -38,12 +39,23 @@ module Animations1 =
                 .styles() {
                 Animations() {
                     (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 0.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 90.).cue(0.25)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.25)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(1.)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(1.)
+                        KeyFrames(
+                            [ Setter(Rotate3DTransform.AngleXProperty, 0.)
+                              Setter(Visual.ZIndexProperty, 4) ]
+                        )
+                            .cue(0.)
+
+                        KeyFrames(
+                            [ Setter(Rotate3DTransform.AngleXProperty, 90.)
+                              Setter(Visual.ZIndexProperty, 1) ]
+                        )
+                            .cue(0.25)
+
+                        KeyFrames(
+                            [ Setter(Rotate3DTransform.AngleXProperty, 360.)
+                              Setter(Visual.ZIndexProperty, 4) ]
+                        )
+                            .cue(1.)
                     })
                         .repeatForever()
                 }
