@@ -11,6 +11,8 @@ type IFabPanel =
     inherit IFabControl
 
 module Panel =
+    let WidgetKey = Widgets.register<Panel>()
+
     let BackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget Panel.BackgroundProperty
 
@@ -18,7 +20,14 @@ module Panel =
         Attributes.defineAvaloniaPropertyWithEquality Panel.BackgroundProperty
 
     let Children =
-        Attributes.defineAvaloniaListWidgetCollection "Children" (fun x -> (x :?> Panel).Children)
+        Attributes.defineAvaloniaListWidgetCollection "Panel_Children" (fun x -> (x :?> Panel).Children)
+
+[<AutoOpen>]
+module PanelBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member Panel<'msg>() =
+            CollectionBuilder<'msg, IFabPanel, IFabControl>(Panel.WidgetKey, Panel.Children)
 
 [<Extension>]
 type PanelModifiers =
@@ -33,6 +42,18 @@ type PanelModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, brush: string) =
         this.AddScalar(Panel.Background.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
+
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, content: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(TextElement.ForegroundWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, brush: IBrush) =
+        this.AddScalar(TextElement.Foreground.WithValue(brush))
+
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, brush: string) =
+        this.AddScalar(TextElement.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
 [<Extension>]
 type PanelCollectionBuilderExtensions =

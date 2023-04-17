@@ -49,9 +49,9 @@ module WidgetPage =
           Menu.sample
           NumericUpDown.sample
           ProgressBar.sample
+          Panel.sample
           PathIcon.sample
           Popup.sample
-          PointerCanvas.sample
           PageTransitions.sample
           RepeatButton.sample
           RadioButton.sample
