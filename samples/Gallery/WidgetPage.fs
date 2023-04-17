@@ -36,7 +36,8 @@ module WidgetPage =
           Drawing.sample
           Expander.sample
           Flyout.sample
-          FormattedText.sample
+          // There seems to be a BUG in Avalonia that causes the FormattedText to not render
+          //FormattedText.sample
           GlyphRunControl.sample
           Grid.sample
           GridSplitter.sample
@@ -50,6 +51,7 @@ module WidgetPage =
           ProgressBar.sample
           PathIcon.sample
           Popup.sample
+          PointerCanvas.sample
           PageTransitions.sample
           RepeatButton.sample
           RadioButton.sample

@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module Clipping =
-    type Model = { IsChecked: bool; Brush: IBrush }
+    type Model = { IsChecked: bool; BrushColor: IBrush }
 
     type Msg =
         | OnPointerEnter of PointerEventArgs
@@ -18,12 +18,16 @@ module Clipping =
 
     let init () =
         { IsChecked = false
-          Brush = Brushes.Yellow }
+          BrushColor = Brushes.Yellow }
 
     let update msg model =
         match msg with
-        | OnPointerEnter _ -> { model with Brush = Brushes.Crimson }
-        | OnPointerExited _ -> { model with Brush = Brushes.Yellow }
+        | OnPointerEnter _ ->
+            { model with
+                BrushColor = Brushes.Crimson }
+        | OnPointerExited _ ->
+            { model with
+                BrushColor = Brushes.Yellow }
         | CheckChanged isChecked -> { model with IsChecked = isChecked }
 
     let clip =
@@ -69,7 +73,7 @@ module Clipping =
                     }
                 )
                     .name("clipped")
-                    .background(model.Brush)
+                    .background(model.BrushColor)
                     .onPointerEnter(OnPointerEnter)
                     .onPointerExited(OnPointerExited)
                     .width(100.)

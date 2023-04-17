@@ -60,7 +60,7 @@ module AcrylicPage =
             .foreground(SolidColorBrush(Colors.Black))
 
     let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
-        this.margin(8., 0.).minimumMaximum(0., 1.).largeChange(0.2).smallChange(0.1)
+        this.margin(8., 0.).minimum(0.).maximum(1.).largeChange(0.2).smallChange(0.1)
 
     let view model =
         VStack(spacing = 20.) {
@@ -68,7 +68,7 @@ module AcrylicPage =
                 (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto; Auto ]) {
                     TextBlock("TintOpacity").gridRow(0).gridColumn(0).style(textBlockStyle)
 
-                    Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
+                    Slider(model.TintOpacitySlider, TintOpacitySliderValueChanged)
                         .gridRow(0)
                         .gridColumn(1)
                         .style(sliderStyle)
@@ -80,7 +80,7 @@ module AcrylicPage =
 
                     TextBlock("MaterialOpacity").gridRow(1).gridColumn(0).style(textBlockStyle)
 
-                    Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
+                    Slider(model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
                         .gridRow(1)
                         .gridColumn(1)
                         .style(sliderStyle)

@@ -45,17 +45,12 @@ module Slider =
 module SliderBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline Slider<'msg>(min: float, max: float, value: float) =
-            WidgetBuilder<'msg, IFabSlider>(Slider.WidgetKey, RangeBase.MinimumMaximum.WithValue(min, max), RangeBase.Value.WithValue(value))
-
-        static member inline Slider<'msg>(min: float, max: float, value: float, onValueChanged: float -> 'msg) =
+        static member inline Slider<'msg>(value: float, onValueChanged: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
-                RangeBase.MinimumMaximum.WithValue(min, max),
                 RangeBase.Value.WithValue(value),
                 RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
             )
-
 
 [<Extension>]
 type SliderModifiers =
