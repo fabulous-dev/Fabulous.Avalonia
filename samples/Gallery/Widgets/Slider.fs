@@ -58,7 +58,7 @@ module Slider =
 
     let view model =
         VStack(spacing = 15.) {
-            Slider(model.SliderValue1, ValueChanged1).style(sliderStyle)
+            Slider(model.SliderValue1, ValueChanged1)
 
             Slider(model.SliderValue2, ValueChanged2)
                 .tickPlacement(TickPlacement.BottomRight)

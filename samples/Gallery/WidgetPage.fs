@@ -63,6 +63,7 @@ module WidgetPage =
           ScrollBar.sample
           SplitView.sample
           StackPanel.sample
+          ScrollViewer.sample
           ToggleSplitButton.sample
           TextBlock.sample
           TextBox.sample
