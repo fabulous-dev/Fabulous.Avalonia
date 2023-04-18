@@ -26,7 +26,9 @@ module LayoutTransformControl =
                     TextBlock($"{model.Angle}")
                 }
 
-                Slider(model.Min, model.Max, model.Angle, SliderValueChanged).width(200.)
+                Slider(model.Angle, SliderValueChanged)
+                    .width(200.)
+                    .minimumMaximum(model.Min, model.Max)
             })
                 .margin(16.)
                 .centerHorizontal()

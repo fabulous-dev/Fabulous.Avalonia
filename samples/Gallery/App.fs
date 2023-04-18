@@ -106,74 +106,65 @@ module App =
         })
             .onLoaded(OnLoaded)
 
+    let createMenu model =
+        NativeMenu() {
+            NativeMenuItem("Edit")
+                .menu(
+                    NativeMenu() {
+                        NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
+                        NativeMenuItemSeparator()
 
+                        NativeMenuItem("After separator", DoNothing)
+                            .toggleType(NativeMenuItemToggleType.CheckBox)
+                            .isChecked(model.IsPanOpen)
+                    }
+                )
+        }
+
+    let trayIcons () =
+        TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
+            .menu(
+                NativeMenu() {
+                    NativeMenuItem("Settings")
+                        .menu(
+                            NativeMenu() {
+                                NativeMenuItem("Option 1", DoNothing)
+                                    .toggleType(NativeMenuItemToggleType.Radio)
+                                    .isChecked(true)
+
+                                NativeMenuItem("Option 2", DoNothing)
+                                    .toggleType(NativeMenuItemToggleType.Radio)
+                                    .isChecked(true)
+
+                                NativeMenuItemSeparator()
+
+                                NativeMenuItem("Option 3", DoNothing)
+                                    .toggleType(NativeMenuItemToggleType.CheckBox)
+                                    .isChecked(true)
+
+                                NativeMenuItem("Restore defaults", DoNothing)
+                                    .icon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico")
+
+                                NativeMenuItem("Disabled option", DoNothing).isEnabled(false)
+                            }
+                        )
+
+                    NativeMenuItem("Exit", DoNothing)
+                }
+            )
 
 #if MOBILE || BROWSER
     let app model = SingleViewApplication(view model)
 #else
     let app model =
         DesktopApplication(
-            Window(
-                ExperimentalAcrylicBorder(view model)
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Colors.Black)
-                            .tintOpacity(0.5)
-                            .materialOpacity(0.65)
-                    )
-            )
+            Window(view model)
                 .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
-                .transparencyLevelHint(WindowTransparencyLevel.AcrylicBlur)
-                .menu(
-                    NativeMenu() {
-                        NativeMenuItem("Edit")
-                            .menu(
-                                NativeMenu() {
-                                    NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
-                                    NativeMenuItemSeparator()
-
-                                    NativeMenuItem("After separator", DoNothing)
-                                        .toggleType(NativeMenuItemToggleType.CheckBox)
-                                        .isChecked(model.IsPanOpen)
-                                }
-                            )
-                    }
-                )
+                .menu(createMenu model)
         )
-
             .trayIcons() {
-            TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
-                .menu(
-                    NativeMenu() {
-                        NativeMenuItem("Settings")
-                            .menu(
-                                NativeMenu() {
-                                    NativeMenuItem("Option 1", DoNothing)
-                                        .toggleType(NativeMenuItemToggleType.Radio)
-                                        .isChecked(true)
-
-                                    NativeMenuItem("Option 2", DoNothing)
-                                        .toggleType(NativeMenuItemToggleType.Radio)
-                                        .isChecked(true)
-
-                                    NativeMenuItemSeparator()
-
-                                    NativeMenuItem("Option 3", DoNothing)
-                                        .toggleType(NativeMenuItemToggleType.CheckBox)
-                                        .isChecked(true)
-
-                                    NativeMenuItem("Restore defaults", DoNothing)
-                                        .icon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico")
-
-                                    NativeMenuItem("Disabled option", DoNothing).isEnabled(false)
-                                }
-                            )
-
-                        NativeMenuItem("Exit", DoNothing)
-                    }
-                )
+            trayIcons()
         }
 #endif
 

@@ -14,7 +14,8 @@ module WidgetPage =
     type Msg = SampleMsg of obj
 
     let samples =
-        [ AdornerLayer.sample
+        [ AcrylicPage.sample
+          AdornerLayer.sample
           AutoCompleteBox.sample
           Animations.sample
           Button.sample
@@ -35,7 +36,8 @@ module WidgetPage =
           Drawing.sample
           Expander.sample
           Flyout.sample
-          FormattedText.sample
+          // There seems to be a BUG in Avalonia that causes the FormattedText to not render
+          //FormattedText.sample
           GlyphRunControl.sample
           Grid.sample
           GridSplitter.sample
@@ -47,6 +49,7 @@ module WidgetPage =
           Menu.sample
           NumericUpDown.sample
           ProgressBar.sample
+          Panel.sample
           PathIcon.sample
           Popup.sample
           PageTransitions.sample
@@ -60,6 +63,7 @@ module WidgetPage =
           ScrollBar.sample
           SplitView.sample
           StackPanel.sample
+          ScrollViewer.sample
           ToggleSplitButton.sample
           TextBlock.sample
           TextBox.sample

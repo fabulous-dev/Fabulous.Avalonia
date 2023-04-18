@@ -1,9 +1,11 @@
 namespace Gallery
 
+
 open System
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 
@@ -45,52 +47,55 @@ module Slider =
         | ValueChanged6 value -> { model with SliderValue6 = value }
         | ValueChanged7 value -> { model with SliderValue7 = value }
 
+    let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
+        this
+            .tickFrequency(10.)
+            .minimum(0.)
+            .maximum(100.)
+            .width(300.)
+            .largeChange(0.2)
+            .smallChange(0.1)
+
     let view model =
         VStack(spacing = 15.) {
-            Slider(0., 100., model.SliderValue1, ValueChanged1)
-                .tickFrequency(10.)
-                .width(300.)
+            Slider(model.SliderValue1, ValueChanged1)
 
-            Slider(0., 100., model.SliderValue2, ValueChanged2)
-                .tickFrequency(10.)
-                .width(300.)
+            Slider(model.SliderValue2, ValueChanged2)
                 .tickPlacement(TickPlacement.BottomRight)
                 .isSnapToTickEnabled(true)
                 .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
+                .style(sliderStyle)
 
-            Slider(0., 100., model.SliderValue3, ValueChanged3)
-                .tickFrequency(10.)
-                .width(300.)
+            Slider(model.SliderValue3, ValueChanged3)
                 .tickPlacement(TickPlacement.BottomRight)
                 .isSnapToTickEnabled(true)
                 .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
                 .tooltip(TextBlock(model.SliderValue3.ToString()))
                 .tooltipPlacement(PlacementMode.Top)
+                .style(sliderStyle)
 
-            Slider(0., 100., model.SliderValue4, ValueChanged4)
-                .tickFrequency(10.)
-                .width(300.)
+            Slider(model.SliderValue4, ValueChanged4)
                 .dataValidationErrors([ Exception() ])
+                .style(sliderStyle)
 
-            Slider(0., 100., model.SliderValue5, ValueChanged5)
-                .tickFrequency(10.)
-                .width(300.)
+            Slider(model.SliderValue5, ValueChanged5)
                 .isDirectionReversed(true)
+                .style(sliderStyle)
 
-            Slider(0., 100., model.SliderValue6, ValueChanged6)
-                .tickFrequency(10.)
+            Slider(model.SliderValue6, ValueChanged6)
                 .height(300.)
                 .orientation(Orientation.Vertical)
                 .tickPlacement(TickPlacement.Outside)
                 .isSnapToTickEnabled(true)
+                .style(sliderStyle)
 
-            Slider(0., 100., model.SliderValue7, ValueChanged7)
-                .tickFrequency(10.)
+            Slider(model.SliderValue7, ValueChanged7)
                 .height(300.)
                 .orientation(Orientation.Vertical)
                 .tickPlacement(TickPlacement.Outside)
                 .isSnapToTickEnabled(true)
                 .isDirectionReversed(true)
+                .style(sliderStyle)
         }
 
     let sample =

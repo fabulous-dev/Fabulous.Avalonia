@@ -54,7 +54,6 @@
     <Compile Include="Views\_FlyoutBase.fs" />
     <Compile Include="Views\_PopupFlyoutBase.fs" />
     <Compile Include="Views\_Control.fs" />
-    <Compile Include="Views\_Panel.fs" />
     <Compile Include="Views\_Decorator.fs" />
     <Compile Include="Views\_TemplatedControl.fs" />
     <Compile Include="Views\_ContentControl.fs" />
@@ -194,6 +193,7 @@
     <Compile Include="Views\Imaging\PathIcon.fs" />
     <Compile Include="Views\Layouts\SliptView.fs" />
     <Compile Include="Views\Layouts\ScrollViewer.fs" />
+    <Compile Include="Views\Panels\Panel.fs" />
     <Compile Include="Views\Panels\Canvas.fs" />
     <Compile Include="Views\Panels\AdornerLayer.fs" />
     <Compile Include="Views\Panels\Grid.fs" />

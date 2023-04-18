@@ -33,9 +33,9 @@ module ViewBox =
 
             (VStack() {
                 TextBlock($"Height: {model.Height}")
-                Slider(0., 300., model.Height, HeightChanged)
+                Slider(model.Height, HeightChanged).minimum(0.).maximum(300.)
                 TextBlock($"Width: {model.Width}")
-                Slider(0., 300., model.Width, WidthChanged)
+                Slider(model.Width, WidthChanged).minimum(0.).maximum(300.)
             })
                 .gridRow(0)
                 .gridColumn(1)

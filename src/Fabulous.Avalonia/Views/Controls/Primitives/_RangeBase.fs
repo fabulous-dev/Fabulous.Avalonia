@@ -36,6 +36,12 @@ module RangeBase =
     let MinimumMaximum =
         Attributes.defineSimpleScalarWithEquality<struct (float * float)> "RangeBase_MinimumMaximum" RangeBaseUpdaters.updateSliderMinMax
 
+    let Minimum =
+        Attributes.defineAvaloniaPropertyWithEquality RangeBase.MinimumProperty
+
+    let Maximum =
+        Attributes.defineAvaloniaPropertyWithEquality RangeBase.MaximumProperty
+
     let Value = Attributes.defineAvaloniaPropertyWithEquality RangeBase.ValueProperty
 
     let SmallChange =
@@ -49,6 +55,19 @@ module RangeBase =
 
 [<Extension>]
 type RangeBaserModifiers =
+
+    [<Extension>]
+    static member inline minimumMaximum(this: WidgetBuilder<'msg, #IFabRangeBase>, min: float, max: float) =
+        this.AddScalar(RangeBase.MinimumMaximum.WithValue(struct (min, max)))
+
+    [<Extension>]
+    static member inline minimum(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
+        this.AddScalar(RangeBase.Minimum.WithValue(value))
+
+    [<Extension>]
+    static member inline maximum(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
+        this.AddScalar(RangeBase.Maximum.WithValue(value))
+
     [<Extension>]
     static member inline smallChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.SmallChange.WithValue(value))

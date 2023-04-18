@@ -43,8 +43,11 @@ module AdornerLayer =
             (Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
                 TextBlock("Rotation").gridColumn(0).gridRow(0)
 
-                Slider(0., 360., model.Angle, ValueChanged).gridColumn(1).gridRow(0)
-
+                Slider(model.Angle, ValueChanged)
+                    .gridColumn(1)
+                    .gridRow(0)
+                    .minimum(0.)
+                    .maximum(360.)
             })
                 .dock(Dock.Top)
 
