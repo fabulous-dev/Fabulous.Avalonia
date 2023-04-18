@@ -65,7 +65,7 @@ module App =
                 .margin(20.)
                 .centerHorizontal()
 
-            Slider(0.0, 10.0, double model.Step, SetStep)
+            Slider(double model.Step, SetStep).minimum(1.).maximum(10.)
 
             TextBlock($"Step size: %d{model.Step}").centerText()
 
