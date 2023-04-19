@@ -26,9 +26,9 @@ let update msg model =
 
 let view model =
     VStack(spacing = 16.) {
-        Image(Aspect.AspectFit, "fabulous.png")
+        Image(ImageSource.fromString "fabulous.png", Aspect.AspectFit)
 
-        Label($"Count is {model.Count}")
+        TextBlock($"Count is {model.Count}")
 
         Button("Increment", Increment)
         Button("Decrement", Decrement)
@@ -49,6 +49,13 @@ For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulou
 ```sh
 dotnet new install Fabulous.Avalonia.Templates
 dotnet new fabulous-avalonia -n MyApp
+```
+If you are using Linux net7.0-android and net7.0-ios are not supported. So we need to remove them from the TargetFrameworks
+
+```fsharp
+<PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+</PropertyGroup>
 ```
 
 ## Documentation

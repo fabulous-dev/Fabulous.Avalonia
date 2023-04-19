@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre6] - 2023-04-19
+
+### Added
+- More samples to Gallery
+
+### Fixed
+- Fix AdornerLayer
+- Improve template by adding some guidance on how to use it on linux
+
+### Changed
+- Minimum and Maximum are now modifiers instead of part of the constructor
+
 ## [2.0.0-pre5] - 2023-04-13
 
 ### Added
@@ -42,7 +54,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre5...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre6...HEAD
+[2.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre6
 [2.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre5
 [2.0.0-pre4]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre4
 [2.0.0-pre3]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre3

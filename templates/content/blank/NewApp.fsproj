@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <!--if you are on Linux net7.0-android;net7.0-ios are not supported. So we need to remove them from the TargetFrameworks-->
     <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
