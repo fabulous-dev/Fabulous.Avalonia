@@ -6,8 +6,8 @@
         <!-- Normalize casing -->
         
         <!-- Enable only one line of the two -->
-<!--        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Browser</AvaloniaPlatform>-->
-        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
+        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Browser</AvaloniaPlatform>
+<!--        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>-->
         
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
