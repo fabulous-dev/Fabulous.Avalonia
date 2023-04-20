@@ -26,7 +26,7 @@
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
-<!--    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)'== '' And '$(IsBrowser)' == 'true'">Browser</AvaloniaPlatform>-->
+    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)'== '' And '$(IsBrowser)' == 'true'">Browser</AvaloniaPlatform>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" PackagePath="\" Pack="true" />
