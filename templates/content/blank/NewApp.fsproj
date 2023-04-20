@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <!--if you are on Linux net7.0-android;net7.0-ios are not supported. So we need to remove them from the TargetFrameworks-->
-    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+    <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks>
+    <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>

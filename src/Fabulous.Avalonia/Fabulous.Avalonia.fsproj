@@ -1,6 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+    <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks>
+    <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
   <!-- NuGet Package -->
