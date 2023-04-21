@@ -7,11 +7,32 @@ open Fabulous
 open System.Globalization
 open System.Runtime.CompilerServices
 
+module NumericUpDownUpdaters =
+    let updateNumericUpDownMinMax _ (newValueOpt: struct (decimal * decimal) voption) (node: IViewNode) =
+        let numericUpDown = node.Target :?> NumericUpDown
+
+        match newValueOpt with
+        | ValueNone ->
+            numericUpDown.ClearValue(NumericUpDown.MinimumProperty)
+            numericUpDown.ClearValue(NumericUpDown.MaximumProperty)
+        | ValueSome(min, max) ->
+            let currMax = numericUpDown.GetValue(NumericUpDown.MaximumProperty)
+
+            if min > currMax then
+                numericUpDown.SetValue(NumericUpDown.MaximumProperty, max) |> ignore
+                numericUpDown.SetValue(NumericUpDown.MinimumProperty, min) |> ignore
+            else
+                numericUpDown.SetValue(NumericUpDown.MinimumProperty, min) |> ignore
+                numericUpDown.SetValue(NumericUpDown.MaximumProperty, max) |> ignore
+
 type IFabNumericUpDown =
     inherit IFabTemplatedControl
 
 module NumericUpDown =
     let WidgetKey = Widgets.register<NumericUpDown>()
+
+    let MinimumMaximum =
+        Attributes.defineSimpleScalarWithEquality<struct (decimal * decimal)> "NumericUpDown_MinimumMaximum" NumericUpDownUpdaters.updateNumericUpDownMinMax
 
     let AllowSpin =
         Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.AllowSpinProperty
@@ -77,6 +98,14 @@ module NumericUpDownBuilders =
                 NumericUpDown.ValueChanged.WithValue(ValueEventData.create value (fun args -> valueChanged args |> box))
             )
 
+        static member inline NumericUpDown<'msg>(min: decimal, max: decimal, value: decimal option, valueChanged: decimal option -> 'msg) =
+            WidgetBuilder<'msg, IFabNumericUpDown>(
+                NumericUpDown.WidgetKey,
+                NumericUpDown.Value.WithValue(value),
+                NumericUpDown.MinimumMaximum.WithValue(min, max),
+                NumericUpDown.ValueChanged.WithValue(ValueEventData.create value (fun args -> valueChanged args |> box))
+            )
+
 [<Extension>]
 type NumericUpDownModifiers =
 
@@ -111,14 +140,6 @@ type NumericUpDownModifiers =
     [<Extension>]
     static member inline isReadOnly(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
         this.AddScalar(NumericUpDown.IsReadOnly.WithValue(value))
-
-    [<Extension>]
-    static member inline maximum(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: decimal) =
-        this.AddScalar(NumericUpDown.Maximum.WithValue(value))
-
-    [<Extension>]
-    static member inline minimum(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: decimal) =
-        this.AddScalar(NumericUpDown.Minimum.WithValue(value))
 
     [<Extension>]
     static member inline numberFormat(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: NumberFormatInfo) =
