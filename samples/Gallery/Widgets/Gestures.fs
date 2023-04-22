@@ -2,25 +2,30 @@ namespace Gallery
 
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Input.GestureRecognizers
 open Avalonia.Layout
 open Avalonia.Media
+open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
+// https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ControlCatalog/Pages/GesturePage.cs
 module Gestures =
-    type Model = Id
+    type Model = { CurrentScale: float }
 
     type Msg = | Reset
 
-    let init () = Id
+    let init () = { CurrentScale = 0 }
+
+    let topBallBorderRef = ViewRef<Border>()
 
     let update msg model =
         match msg with
         | Reset -> model
 
     let view _ =
-        VStack(spacing = 15.) {
+        VStack(spacing = 4.) {
             TextBlock("Pull Gexture (Touch / Pen)").fontSize(18.).margin(5.)
             TextBlock("Pull from colored rectangles").margin(5.)
 
@@ -39,14 +44,13 @@ module Gestures =
                         .dock(Dock.Top)
                         .margin(2.)
                         .name("TopPullZone")
+                        .reference(topBallBorderRef)
                         .background(SolidColorBrush(Colors.Transparent))
                         .borderBrush(SolidColorBrush(Colors.Red))
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers() {
-                        PullGestureRecognizer(PullDirection.TopToBottom)
-                    }
+                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.TopToBottom) ])
 
                     Border(
                         Border()
@@ -66,9 +70,7 @@ module Gestures =
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers() {
-                        PullGestureRecognizer(PullDirection.BottomToTop)
-                    }
+                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.BottomToTop) ])
 
                     Border(
                         Border()
@@ -89,9 +91,7 @@ module Gestures =
                         .verticalAlignment(VerticalAlignment.Stretch)
                         .width(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers() {
-                        PullGestureRecognizer(PullDirection.RightToLeft)
-                    }
+                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.RightToLeft) ])
 
                     Border(
                         Border()
@@ -112,10 +112,7 @@ module Gestures =
                         .verticalAlignment(VerticalAlignment.Stretch)
                         .width(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers() {
-                        PullGestureRecognizer(PullDirection.LeftToRight)
-                    }
-
+                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.LeftToRight) ])
                 })
                     .horizontalAlignment(HorizontalAlignment.Stretch)
                     .clipToBounds(true)
@@ -130,12 +127,10 @@ module Gestures =
 
             Border(
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .margin(5.)
-                    .name("PinchImage")
-            // .gestureRecognizers() {
-            //     ()
-            // }
+                    .size(100., 100.)
+                    .gestureRecognizers([ PinchGestureRecognizer(); ScrollGestureRecognizer() ])
             )
+                .clipToBounds(true)
 
             Button("Reset", Reset)
                 .horizontalAlignment(HorizontalAlignment.Center)

@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Input
 open Avalonia.Input.GestureRecognizers
@@ -45,8 +44,14 @@ module InputElement =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
 
     let GestureRecognizers =
-        Attributes.defineListWidgetCollection<IGestureRecognizer> "InputElement_GestureRecognizers" (fun target ->
-            (target :?> InputElement).GestureRecognizers.GetEnumerator() :?> IList<_>)
+        Attributes.defineSimpleScalarWithEquality<IGestureRecognizer seq> "InputElement_GestureRecognizers" (fun _ newValueOpt node ->
+            let target = node.Target :?> InputElement
+
+            match newValueOpt with
+            | ValueNone -> ()
+            | ValueSome gestures ->
+                for gesture in gestures do
+                    target.GestureRecognizers.Add(gesture))
 
     let GotFocus =
         Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
@@ -134,8 +139,8 @@ type InputElementModifiers =
         this.AddScalar(InputElement.TabIndex.WithValue(value))
 
     [<Extension>]
-    static member inline gestureRecognizers<'msg, 'marker when 'marker :> IFabInputElement>(this: WidgetBuilder<'msg, 'marker>) =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabGestureRecognizer> InputElement.GestureRecognizers this
+    static member inline gestureRecognizers(this: WidgetBuilder<'msg, #IFabInputElement>, value: IGestureRecognizer seq) =
+        this.AddScalar(InputElement.GestureRecognizers.WithValue(value))
 
     [<Extension>]
     static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
@@ -196,21 +201,3 @@ type InputElementModifiers =
     [<Extension>]
     static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onDoubleTapped: RoutedEventArgs -> 'msg) =
         this.AddScalar(InputElement.DoubleTapped.WithValue(fun args -> onDoubleTapped args |> box))
-
-[<Extension>]
-type InputElementYieldExtensions =
-    [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabInputElement, IFabGestureRecognizer>,
-            x: WidgetBuilder<'msg, #IFabGestureRecognizer>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabInputElement, IFabGestureRecognizer>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabGestureRecognizer>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
