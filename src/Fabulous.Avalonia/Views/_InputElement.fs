@@ -1,10 +1,13 @@
 namespace Fabulous.Avalonia
 
+open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Input
+open Avalonia.Input.GestureRecognizers
 open Avalonia.Input.TextInput
 open Avalonia.Interactivity
 open Fabulous
+open Fabulous.StackAllocatedCollections
 
 type IFabInputElement =
     inherit IFabInteractive
@@ -40,6 +43,10 @@ module InputElement =
 
     let TabIndex =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
+
+    let GestureRecognizers =
+        Attributes.defineListWidgetCollection<IGestureRecognizer> "InputElement_GestureRecognizers" (fun target ->
+            (target :?> InputElement).GestureRecognizers.GetEnumerator() :?> IList<_>)
 
     let GotFocus =
         Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
@@ -127,6 +134,10 @@ type InputElementModifiers =
         this.AddScalar(InputElement.TabIndex.WithValue(value))
 
     [<Extension>]
+    static member inline gestureRecognizers<'msg, 'marker when 'marker :> IFabInputElement>(this: WidgetBuilder<'msg, 'marker>) =
+        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabGestureRecognizer> InputElement.GestureRecognizers this
+
+    [<Extension>]
     static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
         this.AddScalar(InputElement.GotFocus.WithValue(fun args -> onGotFocus args |> box))
 
@@ -185,3 +196,21 @@ type InputElementModifiers =
     [<Extension>]
     static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onDoubleTapped: RoutedEventArgs -> 'msg) =
         this.AddScalar(InputElement.DoubleTapped.WithValue(fun args -> onDoubleTapped args |> box))
+
+[<Extension>]
+type InputElementYieldExtensions =
+    [<Extension>]
+    static member inline Yield
+        (
+            _: AttributeCollectionBuilder<'msg, #IFabInputElement, IFabGestureRecognizer>,
+            x: WidgetBuilder<'msg, #IFabGestureRecognizer>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield
+        (
+            _: AttributeCollectionBuilder<'msg, #IFabInputElement, IFabGestureRecognizer>,
+            x: WidgetBuilder<'msg, Memo.Memoized<#IFabGestureRecognizer>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
