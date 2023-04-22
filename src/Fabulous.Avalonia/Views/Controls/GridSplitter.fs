@@ -31,11 +31,11 @@ module GridSplitter =
 module GridSplitterBuilders =
     type Fabulous.Avalonia.View with
 
+        static member GridSplitter() =
+            WidgetBuilder<'msg, IFabGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(GridResizeDirection.Auto))
+
         static member GridSplitter(resizeDirection: GridResizeDirection) =
-            WidgetBuilder<'msg, IFabGridSplitter>(
-                GridSplitter.WidgetKey,
-                AttributesBundle(StackList.one(GridSplitter.ResizeDirection.WithValue(resizeDirection)), ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
 
 [<Extension>]
 type GridSplitterModifiers =

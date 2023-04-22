@@ -43,6 +43,7 @@ module WidgetPage =
           Grid.sample
           GridSplitter.sample
           Image.sample
+          Label.sample
           LayoutTransformControl.sample
           ListBox.sample
           MenuFlyout.sample
