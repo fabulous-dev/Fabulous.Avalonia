@@ -27,8 +27,6 @@ module NumericUpDown =
           MinValue: decimal option
           MaxValue: decimal option
           IncrementValue: decimal option
-          Min: decimal
-          Max: decimal
           Value: decimal option
           DecimalValue: decimal option
           DoubleValue: decimal option
@@ -74,9 +72,7 @@ module NumericUpDown =
               { Name = "Number"; Value = "N" }
               { Name = "Percent"; Value = "P" }
               { Name = "Degrees"; Value = "{0:N2} °" } ]
-          Min = 1M
           MaxValue = None
-          Max = 10M
           IncrementValue = None
           DecimalValue = None
           DoubleValue = None
@@ -92,8 +88,8 @@ module NumericUpDown =
         | ClipValueToMinMaxValueChanged args -> { model with ClipValueToMinMax = args }
         | WatermarkTextChanged s -> { model with Watermark = s }
         | TextChanged s -> { model with Text = s }
-        | MinimumValueChanged min -> { model with Min = min.Value }
-        | MaximumValueChanged max -> { model with Max = max.Value }
+        | MinimumValueChanged min -> { model with MinValue = Some min.Value }
+        | MaximumValueChanged max -> { model with MaxValue = Some max.Value }
         | IncrementValueChanged inc -> { model with IncrementValue = inc }
         | DecimalValueChanged value -> { model with DecimalValue = value }
         | CultureSelectionChanged args ->
@@ -115,8 +111,10 @@ module NumericUpDown =
     let cultureConverter () =
         { new IValueConverter with
             member this.Convert(value, targetType, parameter, culture) =
-                let culture = value :?> CultureInfo
-                culture.NumberFormat
+                if culture <> null then
+                    CultureInfo.CurrentCulture.NumberFormat
+                else
+                    culture.NumberFormat
 
             member this.ConvertBack(value, targetType, parameter, culture) = () }
 
@@ -140,19 +138,15 @@ module NumericUpDown =
             member this.ConvertBack(value, targetType, parameter, culture) =
                 try
                     match value with
-                    | :? decimal as x -> x.ToString("X8")
+                    | :? decimal as x ->
+                        let x = Decimal.ToInt32(x)
+                        x.ToString("X8")
                     | _ -> AvaloniaProperty.UnsetValue
                 with _ ->
                     AvaloniaProperty.UnsetValue }
 
     let view model =
         VStack(spacing = 4.) {
-            TextBlock(
-                "Numeric up-down control provides a TextBox with button spinners that allow incrementing and decrementing numeric values by using the spinner buttons, keyboard up/down arrows, or mouse wheel"
-            )
-                .margin(2.)
-                .textWrapping(TextWrapping.Wrap)
-
             TextBlock("Features:")
                 .margin(2., 5., 2., 2.)
                 .fontSize(14.)
@@ -289,13 +283,13 @@ module NumericUpDown =
                         .gridRow(0)
                         .gridColumn(0)
 
-                    NumericUpDown(model.Min, 10M, model.MinValue, MinimumValueChanged)
+                    NumericUpDown(0M, 10M, model.MinValue, MinimumValueChanged)
+                        .numberFormat(model.NumberFormat)
                         .gridRow(0)
                         .gridColumn(1)
                         .verticalAlignment(VerticalAlignment.Center)
                         .margin(2.)
                         .horizontalAlignment(HorizontalAlignment.Center)
-                        .numberFormat(NumberFormatInfo.InvariantInfo)
 
                     TextBlock("Maximum:")
                         .verticalAlignment(VerticalAlignment.Center)
@@ -303,13 +297,13 @@ module NumericUpDown =
                         .gridRow(1)
                         .gridColumn(0)
 
-                    NumericUpDown(0M, model.Max, model.MaxValue, MaximumValueChanged)
+                    NumericUpDown(0M, 10M, model.MaxValue, MaximumValueChanged)
+                        .numberFormat(model.NumberFormat)
                         .gridRow(1)
                         .gridColumn(1)
                         .verticalAlignment(VerticalAlignment.Center)
                         .margin(2.)
                         .horizontalAlignment(HorizontalAlignment.Center)
-                        .numberFormat(NumberFormatInfo.InvariantInfo)
 
                     TextBlock("Increment:")
                         .verticalAlignment(VerticalAlignment.Center)
@@ -317,7 +311,7 @@ module NumericUpDown =
                         .gridRow(2)
                         .gridColumn(0)
 
-                    NumericUpDown(model.IncrementValue, IncrementValueChanged)
+                    NumericUpDown(0M, 10M, model.IncrementValue, IncrementValueChanged)
                         .gridRow(2)
                         .gridColumn(1)
                         .verticalAlignment(VerticalAlignment.Center)
@@ -330,7 +324,7 @@ module NumericUpDown =
                         .gridRow(3)
                         .gridColumn(0)
 
-                    NumericUpDown(model.DecimalValue, DecimalValueChanged)
+                    NumericUpDown(0M, 10M, model.DecimalValue, DecimalValueChanged)
                         .gridRow(3)
                         .gridColumn(1)
                         .verticalAlignment(VerticalAlignment.Center)
