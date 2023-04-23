@@ -130,6 +130,7 @@
     <Compile Include="Views\Controls\Documents\Italic.fs" />
     <Compile Include="Views\Controls\Documents\Underline.fs" />
     <Compile Include="Views\Controls\TextBlock.fs" />
+    <Compile Include="Views\Controls\Label.fs" />
     <Compile Include="Views\Controls\SelectableTextBlock.fs" />
     <Compile Include="Views\Controls\TextBox.fs" />
     <Compile Include="Views\Controls\MaskedTextBox.fs" />
