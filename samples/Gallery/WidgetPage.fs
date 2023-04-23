@@ -38,6 +38,7 @@ module WidgetPage =
           Flyout.sample
           // There seems to be a BUG in Avalonia that causes the FormattedText to not render
           //FormattedText.sample
+          Gestures.sample
           GlyphRunControl.sample
           Grid.sample
           GridSplitter.sample

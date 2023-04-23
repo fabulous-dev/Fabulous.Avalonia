@@ -30,6 +30,7 @@
     <Compile Include="Widgets\TextBox.fs" />
     <Compile Include="Widgets\MaskedTextBox.fs" />
     <Compile Include="Widgets\PathIcon.fs" />
+    <Compile Include="Widgets\Gestures.fs" />
     <Compile Include="Widgets\ScrollViewer.fs" />
     <Compile Include="Widgets\Panel.fs" />
     <Compile Include="Widgets\AcrylicPage.fs" />

@@ -2,9 +2,11 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Input
+open Avalonia.Input.GestureRecognizers
 open Avalonia.Input.TextInput
 open Avalonia.Interactivity
 open Fabulous
+open Fabulous.StackAllocatedCollections
 
 type IFabInputElement =
     inherit IFabInteractive
@@ -40,6 +42,16 @@ module InputElement =
 
     let TabIndex =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
+
+    let GestureRecognizers =
+        Attributes.defineSimpleScalarWithEquality<IGestureRecognizer seq> "InputElement_GestureRecognizers" (fun _ newValueOpt node ->
+            let target = node.Target :?> InputElement
+
+            match newValueOpt with
+            | ValueNone -> ()
+            | ValueSome gestures ->
+                for gesture in gestures do
+                    target.GestureRecognizers.Add(gesture))
 
     let GotFocus =
         Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
@@ -125,6 +137,10 @@ type InputElementModifiers =
     [<Extension>]
     static member inline tabIndex(this: WidgetBuilder<'msg, #IFabInputElement>, value: int) =
         this.AddScalar(InputElement.TabIndex.WithValue(value))
+
+    [<Extension>]
+    static member inline gestureRecognizers(this: WidgetBuilder<'msg, #IFabInputElement>, value: IGestureRecognizer seq) =
+        this.AddScalar(InputElement.GestureRecognizers.WithValue(value))
 
     [<Extension>]
     static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
