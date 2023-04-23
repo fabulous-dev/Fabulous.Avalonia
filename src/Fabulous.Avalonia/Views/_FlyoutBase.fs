@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Fabulous
 
@@ -10,6 +11,8 @@ type IFabFlyoutBase =
 module FlyoutBase =
     let AttachedFlyout =
         Attributes.defineAvaloniaPropertyWidget FlyoutBase.AttachedFlyoutProperty
+
+    let Target = Attributes.defineAvaloniaPropertyWithEquality FlyoutBase.TargetProperty
 
     let Opened =
         Attributes.defineEventNoArg "FlyoutBase_Opened" (fun target -> (target :?> FlyoutBase).Opened)
@@ -26,3 +29,9 @@ type FlyoutBaseModifiers =
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onClosed: 'msg) =
         this.AddScalar(FlyoutBase.Closed.WithValue(fun _ -> onClosed |> box))
+
+    [<Extension>]
+    static member inline target(this: WidgetBuilder<'msg, #IFabFlyoutBase>, value: ViewRef<#Control>) =
+        match value.TryValue with
+        | None -> this
+        | Some value -> this.AddScalar(FlyoutBase.Target.WithValue(value))

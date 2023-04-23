@@ -66,6 +66,9 @@ module ContextMenu =
     let PlacementRect =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.PlacementRectProperty
 
+    let PlacementTarget =
+        Attributes.defineAvaloniaPropertyWithEquality ContextMenu.PlacementTargetProperty
+
     let WindowManagerAddShadowHint =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
 
@@ -128,6 +131,12 @@ type ContextMenuModifiers =
     [<Extension>]
     static member inline onContextMenuClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, onContextMenuClosing: CancelEventArgs -> 'msg) =
         this.AddScalar(ContextMenu.ContextMenuClosing.WithValue(fun args -> onContextMenuClosing args |> box))
+
+    [<Extension>]
+    static member inline placementTarget(this: WidgetBuilder<'msg, #IFabContextMenu>, value: ViewRef<#Control>) =
+        match value.TryValue with
+        | None -> this
+        | Some value -> this.AddScalar(ContextMenu.PlacementTarget.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct ContextMenu control instance</summary>
     /// <param name="this">Current widget</param>

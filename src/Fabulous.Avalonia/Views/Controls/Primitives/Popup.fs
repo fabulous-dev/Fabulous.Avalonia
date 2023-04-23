@@ -37,6 +37,9 @@ module Popup =
     let Placement =
         Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementProperty
 
+    let PlacementTarget =
+        Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementTargetProperty
+
     let PlacementRect =
         Attributes.defineAvaloniaPropertyWithEquality Popup.PlacementRectProperty
 
@@ -98,6 +101,12 @@ type PopupModifiers =
     [<Extension>]
     static member inline placement(this: WidgetBuilder<'msg, #IFabPopup>, value: PlacementMode) =
         this.AddScalar(Popup.Placement.WithValue(value))
+
+    [<Extension>]
+    static member inline placementTarget(this: WidgetBuilder<'msg, #IFabPopup>, value: ViewRef<#Control>) =
+        match value.TryValue with
+        | None -> this
+        | Some value -> this.AddScalar(Popup.PlacementTarget.WithValue(value))
 
     [<Extension>]
     static member inline placementRect(this: WidgetBuilder<'msg, #IFabPopup>, value: Rect) =
