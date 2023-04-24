@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre7] - 2023-04-24
+
+### Added
+- More samples to Gallery
+- Add Label wrapper
+- Exclude 'net7.0-ios' from build on Linux to make it buildable there @ChristophSchmidpeter
+
+### Fixed
+- Revert to use Minimum and Maximum as part of the constructor
+
+### Changed
+- Use Minimum and Maximum as part of the constructor NumericUpDown
+
 ## [2.0.0-pre6] - 2023-04-19
 
 ### Added
@@ -54,7 +67,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre6...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre7...HEAD
+[2.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre7
 [2.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre6
 [2.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre5
 [2.0.0-pre4]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre4

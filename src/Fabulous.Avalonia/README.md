@@ -13,6 +13,7 @@ For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulou
 dotnet new install Fabulous.Avalonia.Templates
 dotnet new fabulous-avalonia -n MyApp
 ```
+net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on a Linux host.
 
 ## Documentation
 
