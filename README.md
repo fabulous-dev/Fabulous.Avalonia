@@ -50,13 +50,7 @@ For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulou
 dotnet new install Fabulous.Avalonia.Templates
 dotnet new fabulous-avalonia -n MyApp
 ```
-If you are using Linux net7.0-android and net7.0-ios are not supported. So we need to remove them from the TargetFrameworks
-
-```fsharp
-<PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-</PropertyGroup>
-```
+net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on a Linux host.
 
 ## Documentation
 
