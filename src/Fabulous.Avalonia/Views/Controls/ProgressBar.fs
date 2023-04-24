@@ -41,7 +41,6 @@ module ProgressBarBuilders =
             WidgetBuilder<'msg, IFabProgressBar>(
                 ProgressBar.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.Value.WithValue(value),
                 RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
             )
 

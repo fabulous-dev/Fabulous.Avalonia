@@ -19,7 +19,6 @@ module ComboBox =
     let MaxDropDownHeight =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.MaxDropDownHeightProperty
 
-
     let PlaceholderText =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.PlaceholderTextProperty
 
