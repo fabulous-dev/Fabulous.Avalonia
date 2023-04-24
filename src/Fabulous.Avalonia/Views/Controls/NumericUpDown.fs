@@ -81,9 +81,6 @@ module NumericUpDown =
     let Watermark =
         Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.WatermarkProperty
 
-    let Value =
-        Attributes.defineAvaloniaPropertyWithEqualityConverter NumericUpDown.ValueProperty Option.toNullable
-
     let ValueChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty Option.toNullable Option.ofNullable
 
@@ -91,19 +88,43 @@ module NumericUpDown =
 module NumericUpDownBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline NumericUpDown<'msg>(value: decimal option, valueChanged: decimal option -> 'msg) =
+        static member inline NumericUpDown<'msg>(value: float option, valueChanged: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
-                NumericUpDown.Value.WithValue(value),
-                NumericUpDown.ValueChanged.WithValue(ValueEventData.create value (fun args -> valueChanged args |> box))
+                NumericUpDown.ValueChanged.WithValue(
+                    let value =
+                        match value with
+                        | Some v -> Some(decimal v)
+                        | None -> None
+
+                    ValueEventData.create value (fun args ->
+                        let args =
+                            match args with
+                            | Some v -> Some(float v)
+                            | None -> None
+
+                        valueChanged args |> box)
+                )
             )
 
-        static member inline NumericUpDown<'msg>(min: decimal, max: decimal, value: decimal option, valueChanged: decimal option -> 'msg) =
+        static member inline NumericUpDown<'msg>(min: float, max: float, value: float option, valueChanged: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
-                NumericUpDown.Value.WithValue(value),
-                NumericUpDown.MinimumMaximum.WithValue(min, max),
-                NumericUpDown.ValueChanged.WithValue(ValueEventData.create value (fun args -> valueChanged args |> box))
+                NumericUpDown.MinimumMaximum.WithValue(decimal min, decimal max),
+                NumericUpDown.ValueChanged.WithValue(
+                    let value =
+                        match value with
+                        | Some v -> Some(decimal v)
+                        | None -> None
+
+                    ValueEventData.create value (fun args ->
+                        let args =
+                            match args with
+                            | Some v -> Some(float v)
+                            | None -> None
+
+                        valueChanged args |> box)
+                )
             )
 
 [<Extension>]
@@ -134,8 +155,8 @@ type NumericUpDownModifiers =
         this.AddScalar(NumericUpDown.VerticalContentAlignment.WithValue(value))
 
     [<Extension>]
-    static member inline increment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: decimal) =
-        this.AddScalar(NumericUpDown.Increment.WithValue(value))
+    static member inline increment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: float) =
+        this.AddScalar(NumericUpDown.Increment.WithValue(decimal value))
 
     [<Extension>]
     static member inline isReadOnly(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =

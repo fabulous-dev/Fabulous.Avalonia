@@ -9,14 +9,14 @@ open type Fabulous.Avalonia.View
 module StackPanel =
     type Model =
         { Reversed: bool
-          Spacing: decimal option }
+          Spacing: float option }
 
     type Msg =
         | Reverse of bool
-        | SetSpacing of decimal option
+        | SetSpacing of float option
 
     let init () =
-        { Reversed = true; Spacing = Some(50M) }
+        { Reversed = true; Spacing = Some(50.) }
 
     let update msg model =
         match msg with

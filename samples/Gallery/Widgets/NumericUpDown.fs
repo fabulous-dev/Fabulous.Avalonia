@@ -24,12 +24,12 @@ module NumericUpDown =
           ClipValueToMinMax: bool
           Cultures: CultureInfo list
           Formats: FormatObject list
-          MinValue: decimal option
-          MaxValue: decimal option
-          IncrementValue: decimal option
-          Value: decimal option
-          DecimalValue: decimal option
-          DoubleValue: decimal option
+          MinValue: float option
+          MaxValue: float option
+          IncrementValue: float option
+          Value: float option
+          DecimalValue: float option
+          DoubleValue: float option
           NumberFormat: NumberFormatInfo
           SelectedFormat: FormatObject }
 
@@ -40,18 +40,18 @@ module NumericUpDown =
         | ClipValueToMinMaxValueChanged of bool
         | WatermarkTextChanged of string
         | TextChanged of string
-        | MinimumValueChanged of decimal option
-        | MaximumValueChanged of decimal option
-        | IncrementValueChanged of decimal option
-        | DecimalValueChanged of decimal option
-        | DoubleValueChanged of decimal option
-        | ValueChanged of decimal option
+        | MinimumValueChanged of float option
+        | MaximumValueChanged of float option
+        | IncrementValueChanged of float option
+        | DecimalValueChanged of float option
+        | DoubleValueChanged of float option
+        | ValueChanged of float option
         | CultureSelectionChanged of SelectionChangedEventArgs
         | SelectedFormatChanged of SelectionChangedEventArgs
 
 
     let init () =
-        { MinValue = Some(1M)
+        { MinValue = Some(1.)
           ShowButtonSpinner = false
           IsReadOnly = false
           AllowSpin = false
@@ -283,7 +283,7 @@ module NumericUpDown =
                         .gridRow(0)
                         .gridColumn(0)
 
-                    NumericUpDown(0M, 10M, model.MinValue, MinimumValueChanged)
+                    NumericUpDown(0., 10., model.MinValue, MinimumValueChanged)
                         .numberFormat(model.NumberFormat)
                         .gridRow(0)
                         .gridColumn(1)
@@ -297,7 +297,7 @@ module NumericUpDown =
                         .gridRow(1)
                         .gridColumn(0)
 
-                    NumericUpDown(0M, 10M, model.MaxValue, MaximumValueChanged)
+                    NumericUpDown(0., 10., model.MaxValue, MaximumValueChanged)
                         .numberFormat(model.NumberFormat)
                         .gridRow(1)
                         .gridColumn(1)
@@ -311,7 +311,7 @@ module NumericUpDown =
                         .gridRow(2)
                         .gridColumn(0)
 
-                    NumericUpDown(0M, 10M, model.IncrementValue, IncrementValueChanged)
+                    NumericUpDown(0., 10., model.IncrementValue, IncrementValueChanged)
                         .gridRow(2)
                         .gridColumn(1)
                         .verticalAlignment(VerticalAlignment.Center)
@@ -324,7 +324,7 @@ module NumericUpDown =
                         .gridRow(3)
                         .gridColumn(0)
 
-                    NumericUpDown(0M, 10M, model.DecimalValue, DecimalValueChanged)
+                    NumericUpDown(0., 10., model.DecimalValue, DecimalValueChanged)
                         .gridRow(3)
                         .gridColumn(1)
                         .verticalAlignment(VerticalAlignment.Center)
@@ -341,8 +341,8 @@ module NumericUpDown =
                         .fontSize(14.)
                         .margin(2.)
 
-                    NumericUpDown(0M, 10M, model.DecimalValue, DecimalValueChanged)
-                        .increment(0.5M)
+                    NumericUpDown(0., 10., model.DecimalValue, DecimalValueChanged)
+                        .increment(0.5)
                         .verticalAlignment(VerticalAlignment.Center)
                         .numberFormat(model.NumberFormat)
                         .formatString(model.SelectedFormat.Value)
@@ -358,8 +358,8 @@ module NumericUpDown =
                         .fontSize(14.)
                         .margin(2.)
 
-                    NumericUpDown(0.M, 10.M, model.DoubleValue, DoubleValueChanged)
-                        .increment(0.5M)
+                    NumericUpDown(0., 10., model.DoubleValue, DoubleValueChanged)
+                        .increment(0.5)
                         .verticalAlignment(VerticalAlignment.Center)
                         .numberFormat(model.NumberFormat)
                         .formatString(model.SelectedFormat.Value)
@@ -374,8 +374,8 @@ module NumericUpDown =
                         .fontSize(14.)
                         .margin(2.)
 
-                    NumericUpDown(0M, 10M, model.DecimalValue, DecimalValueChanged)
-                        .increment(0.5M)
+                    NumericUpDown(0, 10., model.DecimalValue, DecimalValueChanged)
+                        .increment(0.5)
                         .verticalAlignment(VerticalAlignment.Center)
                         .numberFormat(model.NumberFormat)
                         .formatString(model.SelectedFormat.Value)
@@ -391,8 +391,8 @@ module NumericUpDown =
                         .fontSize(14.)
                         .margin(2.)
 
-                    NumericUpDown(0M, 10M, model.Value, ValueChanged)
-                        .increment(0.5M)
+                    NumericUpDown(0., 10., model.Value, ValueChanged)
+                        .increment(0.5)
                         .verticalAlignment(VerticalAlignment.Center)
                         .numberFormat(model.NumberFormat)
                         .formatString(model.SelectedFormat.Value)

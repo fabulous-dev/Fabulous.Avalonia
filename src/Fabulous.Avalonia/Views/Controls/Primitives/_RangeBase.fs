@@ -36,7 +36,11 @@ module RangeBase =
     let MinimumMaximum =
         Attributes.defineSimpleScalarWithEquality<struct (float * float)> "RangeBase_MinimumMaximum" RangeBaseUpdaters.updateSliderMinMax
 
-    let Value = Attributes.defineAvaloniaPropertyWithEquality RangeBase.ValueProperty
+    let Minimum =
+        Attributes.defineAvaloniaPropertyWithEquality RangeBase.MinimumProperty
+
+    let Maximum =
+        Attributes.defineAvaloniaPropertyWithEquality RangeBase.MaximumProperty
 
     let SmallChange =
         Attributes.defineAvaloniaPropertyWithEquality RangeBase.SmallChangeProperty
