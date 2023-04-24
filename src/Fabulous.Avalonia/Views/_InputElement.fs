@@ -174,7 +174,7 @@ type InputElementModifiers =
     [<Extension>]
     static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, fn: GotFocusEventArgs -> 'msg) =
         this.AddScalar(InputElement.GotFocus.WithValue(fun args -> fn args |> box))
-    
+
     [<Extension>]
     static member inline gestureRecognizers(this: WidgetBuilder<'msg, #IFabInputElement>, value: IGestureRecognizer seq) =
         this.AddScalar(InputElement.GestureRecognizers.WithValue(value))
