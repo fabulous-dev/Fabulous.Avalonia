@@ -55,7 +55,7 @@ module AutoCompleteBox =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextSelectorProperty
 
     let Items =
-        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemsProperty
+        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemsSourceProperty
 
     let AsyncPopulator =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty

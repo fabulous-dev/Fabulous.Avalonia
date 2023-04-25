@@ -22,14 +22,11 @@ module ScrollViewer =
     let Viewport =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ViewportProperty
 
-    let HorizontalScrollBarValue =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarValueProperty
+    let ScrollbarMaximum =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ScrollBarMaximumProperty
 
     let HorizontalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarVisibilityProperty
-
-    let VerticalScrollBarValue =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarValueProperty
 
     let VerticalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarVisibilityProperty
@@ -83,16 +80,12 @@ type ScrollViewerModifiers =
         this.AddScalar(ScrollViewer.Viewport.WithValue(value))
 
     [<Extension>]
-    static member inline horizontalScrollBarValue(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.HorizontalScrollBarValue.WithValue(value))
+    static member inline scrollbarMaximum(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Vector) =
+        this.AddScalar(ScrollViewer.ScrollbarMaximum.WithValue(value))
 
     [<Extension>]
     static member inline horizontalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
         this.AddScalar(ScrollViewer.HorizontalScrollBarVisibility.WithValue(value))
-
-    [<Extension>]
-    static member inline verticalScrollBarValue(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.VerticalScrollBarValue.WithValue(value))
 
     [<Extension>]
     static member inline verticalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =

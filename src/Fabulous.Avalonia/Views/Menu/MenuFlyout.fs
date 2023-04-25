@@ -13,7 +13,7 @@ module MenuFlyout =
     let WidgetKey = Widgets.register<MenuFlyout>()
 
     let Items =
-        Attributes.defineListWidgetCollection "MenuFlyout_Items" (fun target -> (target :?> MenuFlyout).Items :?> IList<_>)
+        Attributes.defineListWidgetCollection "MenuFlyout_Items" (fun target -> (target :?> MenuFlyout).ItemsSource :?> IList<_>)
 
 [<AutoOpen>]
 module MenuFlyoutBuilders =

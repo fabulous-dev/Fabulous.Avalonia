@@ -26,11 +26,11 @@ module RangeBaseUpdaters =
             let currMax = slider.GetValue(RangeBase.MaximumProperty)
 
             if min > currMax then
-                slider.SetValue(RangeBase.MaximumProperty, max)
-                slider.SetValue(RangeBase.MinimumProperty, min)
+                slider.SetValue(RangeBase.MaximumProperty, max) |> ignore
+                slider.SetValue(RangeBase.MinimumProperty, min) |> ignore
             else
-                slider.SetValue(RangeBase.MinimumProperty, min)
-                slider.SetValue(RangeBase.MaximumProperty, max)
+                slider.SetValue(RangeBase.MinimumProperty, min) |> ignore
+                slider.SetValue(RangeBase.MaximumProperty, max) |> ignore
 
 module RangeBase =
     let MinimumMaximum =
