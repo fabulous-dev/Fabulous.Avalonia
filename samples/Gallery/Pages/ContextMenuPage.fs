@@ -1,6 +1,5 @@
 namespace Gallery.Pages
 
-open System.ComponentModel
 open Avalonia.Input
 open Fabulous.Avalonia
 

@@ -15,36 +15,6 @@ type IFabContextMenu =
 module ContextMenu =
     let WidgetKey = Widgets.register<ContextMenu>()
 
-    let inline defineContextMenuEvent
-        name
-        ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
-        : SimpleScalarAttributeDefinition<CancelEventArgs -> obj> =
-        let key =
-            SimpleScalarAttributeDefinition.CreateAttributeData(
-                ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: (CancelEventArgs -> obj) voption) (node: IViewNode) ->
-                    let event = getEvent node.Target
-
-                    match node.TryGetHandler(name) with
-                    | ValueNone -> ()
-                    | ValueSome handler -> event.RemoveHandler handler
-
-                    match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
-
-                    | ValueSome fn ->
-                        let handler =
-                            CancelEventHandler(fun _ args ->
-                                let r = fn args
-                                Dispatcher.dispatch node r)
-
-                        node.SetHandler(name, ValueSome handler)
-                        event.AddHandler handler)
-            )
-            |> AttributeDefinitionStore.registerScalar
-
-        { Key = key; Name = name }
-
     let HorizontalOffset =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.HorizontalOffsetProperty
 
@@ -71,12 +41,6 @@ module ContextMenu =
 
     let WindowManagerAddShadowHint =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
-
-    let ContextMenuOpening =
-        defineContextMenuEvent "ContextMenuOpening_ContextMenuOpening" (fun target -> (target :?> ContextMenu).ContextMenuOpening)
-
-    let ContextMenuClosing =
-        defineContextMenuEvent "ContextMenuClosing_ContextMenuClosing" (fun target -> (target :?> ContextMenu).ContextMenuClosing)
 
 [<AutoOpen>]
 module ContextMenuBuilders =
@@ -121,14 +85,6 @@ type ContextMenuModifiers =
     [<Extension>]
     static member inline windowManagerAddShadowHint(this: WidgetBuilder<'msg, #IFabContextMenu>, value: bool) =
         this.AddScalar(ContextMenu.WindowManagerAddShadowHint.WithValue(value))
-
-    [<Extension>]
-    static member inline onContextMenuOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, onContextMenuOpening: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.ContextMenuOpening.WithValue(fun args -> onContextMenuOpening args |> box))
-
-    [<Extension>]
-    static member inline onContextMenuClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, onContextMenuClosing: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.ContextMenuClosing.WithValue(fun args -> onContextMenuClosing args |> box))
 
     [<Extension>]
     static member inline placementTarget(this: WidgetBuilder<'msg, #IFabContextMenu>, value: ViewRef<#Control>) =

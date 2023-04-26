@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -8,9 +9,16 @@ type IFabItemsControl =
     inherit IFabTemplatedControl
 
 module ItemsControl =
-    // TODO Use ItemsSource when possible. As future versions of Avalonia will make this Items read-only, we need to use ItemsSource instead.
     let Items =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items)
+        Attributes.defineListWidgetCollection "ItemsControl_Items" (fun target ->
+            let target = target :?> ItemsControl
+
+            if target.ItemsSource = null then
+                let newColl = List<Control>()
+                target.ItemsSource <- newColl
+                newColl
+            else
+                target.ItemsSource :?> IList<Control>)
 
     let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>
