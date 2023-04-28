@@ -8,32 +8,98 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module App =
 
     type Model =
-        { WidgetModel: WidgetPage.Model
-          Controls: string list
-          SelectedIndex: int
+        { WidgetModel: Samples.Model
+          Controls: string seq
           IsPanOpen: bool
           SafeAreaInsets: float
           PaneLength: float }
 
     type Msg =
-        | WidgetPageMsg of WidgetPage.Msg
+        | WidgetPageMsg of Samples.Msg
         | SelectedChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
         | DoNothing
         | OnLoaded of bool
 
+    let pages =
+        [| Pages.AcrylicPage
+           Pages.AdornerLayerPage
+           Pages.AutoCompleteBoxPage
+           Pages.AnimationsPage
+           Pages.ButtonsPage
+           Pages.BrushesPage
+           Pages.ButtonSpinnerPage
+           Pages.BorderPage
+           Pages.CalendarPage
+           Pages.CalendarDatePickerPage
+           Pages.CanvasPage
+           Pages.CheckBoxPage
+           Pages.CarouselPage
+           Pages.ComboBoxPage
+           Pages.ContextMenuPage
+           Pages.ContextFlyoutPage
+           Pages.ClippingPage
+           Pages.DockPanelPage
+           Pages.DropDownButtonPage
+           Pages.DrawingPage
+           Pages.ExpanderPage
+           Pages.FlyoutPage
+           Pages.FormattedTextPage
+           Pages.GesturesPage
+           Pages.GlyphRunControlPage
+           Pages.GridPage
+           Pages.GridSplitterPage
+           Pages.ImagePage
+           Pages.LabelPage
+           Pages.LayoutTransformControlPage
+           Pages.ListBoxPage
+           Pages.MenuFlyoutPage
+           Pages.MaskedTextBoxPage
+           Pages.MenuPage
+           Pages.NumericUpDownPage
+           Pages.ProgressBarPage
+           Pages.PanelPage
+           Pages.PathIconPage
+           Pages.PopupPage
+           Pages.PageTransitionsPage
+           Pages.RepeatButtonPage
+           Pages.RadioButtonPage
+           Pages.RefreshContainerPage
+           Pages.SelectableTextBlockPage
+           Pages.SplitButtonPage
+           Pages.SliderPage
+           Pages.ShapesPage
+           Pages.ScrollBarPage
+           Pages.SplitViewPage
+           Pages.StackPanelPage
+           Pages.ScrollViewerPage
+           Pages.ToggleSplitButtonPage
+           Pages.TextBlockPage
+           Pages.TextBoxPage
+           Pages.TickBarPage
+           Pages.ToggleSwitchPage
+           Pages.ToggleButtonPage
+           Pages.ToolTipPage
+           Pages.TabControlPage
+           Pages.TabStripPage
+           Pages.TransitionsPage
+           Pages.TransformsPage
+           Pages.ThemeAwarePage
+           Pages.UniformGridPage
+           Pages.ViewBoxPage |]
+
     let init () =
 
-        { WidgetModel = WidgetPage.init(0)
+        { WidgetModel = Samples.init(Pages.AcrylicPage)
           IsPanOpen = true
-          Controls = WidgetPage.samples |> List.map(fun s -> s.Name)
+          Controls = pages |> Array.map Pages.Translate
           SafeAreaInsets = 0.
-          SelectedIndex = 0
           PaneLength = 250. },
         Cmd.none
 
@@ -50,16 +116,16 @@ module App =
 #endif
         | DoNothing -> model, Cmd.none
         | WidgetPageMsg msg ->
-            let m, c = WidgetPage.update msg model.WidgetModel
+            let m, c = Samples.update msg model.WidgetModel
             { model with WidgetModel = m }, Cmd.batch [ (Cmd.map WidgetPageMsg c) ]
         | SelectedChanged args ->
             let control = args.Source :?> ListBox
 
+            let page = pages.[control.SelectedIndex]
+
             let model =
                 { model with
-                    WidgetModel = WidgetPage.init control.SelectedIndex
-                    IsPanOpen = true
-                    SelectedIndex = control.SelectedIndex }
+                    WidgetModel = Samples.init(page) }
 
             model, Cmd.none
 
@@ -91,8 +157,7 @@ module App =
 
     let view model =
         (Grid() {
-            let content =
-                View.map WidgetPageMsg ((WidgetPage.view model.WidgetModel).margin(16.))
+            let content = View.map WidgetPageMsg (Samples.view model.WidgetModel)
 
             SplitView(buttonSpinnerHeader model, content)
                 .isPresented(model.IsPanOpen, OpenPanChanged)
@@ -171,9 +236,6 @@ module App =
     let program =
         Program.statefulWithCmd init update app
         |> Program.withThemeAwareness
-        |> Program.withExceptionHandler(fun ex ->
-            Debug.WriteLine(ex.ToString())
-            true)
 #if DEBUG
         |> Program.withLogger
             { ViewHelpers.defaultLogger() with

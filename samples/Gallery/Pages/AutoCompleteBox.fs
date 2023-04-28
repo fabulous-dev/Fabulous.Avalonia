@@ -1,0 +1,86 @@
+namespace Gallery
+
+open System
+open System.Threading
+open System.Threading.Tasks
+open Avalonia.Controls
+open Fabulous.Avalonia
+
+open type Fabulous.Avalonia.View
+
+module AutoCompleteBoxPage =
+
+    type StateData =
+        { Name: string
+          Abbreviation: string
+          Capital: string }
+
+        override this.ToString() = this.Name
+
+    type Model =
+        { IsOpen: bool
+          SelectedItem: string
+          Text: string
+          Items: string list }
+
+    type Msg =
+        | TextChanged of string
+        | SelectionChanged of SelectionChangedEventArgs
+        | OnPopulating of string
+        | OnPopulated of System.Collections.IEnumerable
+        | OnDropDownOpen of bool
+
+    let init () =
+        { IsOpen = false
+          SelectedItem = "Item 2"
+          Text = ""
+          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ] }
+
+    let update msg model =
+        match msg with
+        | TextChanged s -> { model with Text = s }
+        | SelectionChanged _ -> model
+        | OnPopulating _ -> model
+        | OnPopulated _ -> model
+        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }
+
+    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
+        task {
+            return
+                [ "Async Item 1"
+                  "Async Item 2"
+                  "Async Item 3"
+                  "Async Product 1"
+                  "Async Product 2"
+                  "Async Product 3" ]
+        }
+
+    let view model =
+        VStack(spacing = 15.) {
+            TextBlock() {
+                Bold("Text: ")
+                Run(model.Text)
+                LineBreak()
+                Bold("Selected item: ")
+                Run(model.SelectedItem)
+                LineBreak()
+                Bold("Is open: ")
+                Run($"{model.IsOpen}")
+                LineBreak()
+                Bold("Items: ")
+                Run(model.Items |> String.concat ", ")
+            }
+
+            AutoCompleteBox("Select an item", model.Items)
+                .minimumPopulateDelay(TimeSpan.FromSeconds(0.5))
+                .isTextCompletionEnabled(true)
+                .isDropDownOpen(true)
+                .filterMode(AutoCompleteFilterMode.Contains)
+                .onTextChanged(TextChanged)
+                .onSelectionChanged(SelectionChanged)
+                .onPopulating(OnPopulating)
+                .onPopulated(OnPopulated)
+                .onDropDownOpened(model.IsOpen, OnDropDownOpen)
+
+            AutoCompleteBox("Select an async item", getItemsAsync)
+        }

@@ -24,11 +24,11 @@ module FlyoutBase =
 type FlyoutBaseModifiers =
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onOpened: 'msg) =
-        this.AddScalar(FlyoutBase.Opened.WithValue(fun _ -> onOpened |> box))
+        this.AddScalar(FlyoutBase.Opened.WithValue(onOpened))
 
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onClosed: 'msg) =
-        this.AddScalar(FlyoutBase.Closed.WithValue(fun _ -> onClosed |> box))
+        this.AddScalar(FlyoutBase.Closed.WithValue(onClosed))
 
     [<Extension>]
     static member inline target(this: WidgetBuilder<'msg, #IFabFlyoutBase>, value: ViewRef<#Control>) =

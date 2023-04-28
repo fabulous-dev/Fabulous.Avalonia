@@ -37,5 +37,5 @@ type FlyoutModifiers =
 [<Extension>]
 type FlyoutAttachedModifiers =
     [<Extension>]
-    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabControl>, widget: WidgetBuilder<'msg, IFabFlyout>) =
+    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabControl>, widget: WidgetBuilder<'msg, #IFabFlyoutBase>) =
         this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(widget.Compile()))

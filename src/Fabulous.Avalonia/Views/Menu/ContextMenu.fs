@@ -82,17 +82,15 @@ module ContextMenu =
 module ContextMenuBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ContextMenu(?placement: PlacementMode) =
-            match placement with
-            | None ->
-                CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
-                    ContextMenu.WidgetKey,
-                    ItemsControl.Items,
-                    ContextMenu.Placement.WithValue(PlacementMode.Bottom)
-                )
+        static member inline ContextMenu(placement: PlacementMode) =
+            CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, ItemsControl.Items, ContextMenu.Placement.WithValue(placement))
 
-            | Some placement ->
-                CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, ItemsControl.Items, ContextMenu.Placement.WithValue(placement))
+        static member inline ContextMenu() =
+            CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
+                ContextMenu.WidgetKey,
+                ItemsControl.Items,
+                ContextMenu.Placement.WithValue(PlacementMode.Bottom)
+            )
 
 [<Extension>]
 type ContextMenuModifiers =
