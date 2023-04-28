@@ -1,4 +1,4 @@
-namespace Gallery
+namespace Gallery.Pages
 
 open Fabulous.Avalonia
 open type Fabulous.Avalonia.View

@@ -21,7 +21,6 @@
 <!--  Pages-->
   <ItemGroup>
     <Compile Include="Common.fs" />
-    <Compile Include="Domain.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\Animations\Animations1.fs" />
@@ -101,7 +100,13 @@
     <Compile Include="Pages\Shapes.fs" />
     <Compile Include="Pages\StackPanel.fs" />
     <Compile Include="Pages\ViewBox.fs" />
-    <Compile Include="Samples.fs" />
+    <Compile Include="Pages\Types.fs" />
+    <Compile Include="Pages\State.fs" />
+    <Compile Include="Pages\View.fs" />
+    <Compile Include="Root\Types.fs" />
+    <Compile Include="Root\State.fs" />
+    <Compile Include="Root\MainWindow.fs" />
+    <Compile Include="Root\MainView.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   

@@ -1,4 +1,4 @@
-namespace Gallery
+namespace Gallery.Pages
 
 open Avalonia.Animation
 open Fabulous.Avalonia

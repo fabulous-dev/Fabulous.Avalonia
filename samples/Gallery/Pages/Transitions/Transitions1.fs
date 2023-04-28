@@ -1,4 +1,4 @@
-namespace Gallery
+namespace Gallery.Pages
 
 open System
 open Avalonia.Input
@@ -7,6 +7,7 @@ open Avalonia.Media.Transformation
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Controls
+open Gallery
 
 open type Fabulous.Avalonia.View
 

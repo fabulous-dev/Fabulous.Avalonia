@@ -1,4 +1,4 @@
-namespace Gallery
+namespace Gallery.Pages
 
 open Avalonia
 open Avalonia.Media
