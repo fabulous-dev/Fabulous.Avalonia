@@ -1,26 +1,5 @@
 namespace Gallery
 
-open Fabulous
-open Fabulous.Avalonia
-
-open type Fabulous.Avalonia.View
-
-type SampleProgram =
-    { init: unit -> obj
-      update: obj -> obj -> obj
-      view: obj -> WidgetBuilder<obj, IFabControl> }
-
-type Sample =
-    { Name: string
-      Description: string
-      Program: SampleProgram }
-
-module Helper =
-    let createProgram (init: unit -> 'model) (update: 'msg -> 'model -> 'model) (view: 'model -> WidgetBuilder<'msg, 'marker>) =
-        { init = init >> box
-          update = (fun msg model -> update (unbox msg) (unbox model) |> box)
-          view = (fun model -> AnyView(View.map box (view(unbox model)))) }
-
 module Paths =
 
     [<Literal>]
@@ -30,3 +9,6 @@ module Paths =
     [<Literal>]
     let Path2 =
         "M 272.70141,238.71731 C 206.46141,238.71731 152.70146,292.4773 152.70146,358.71731 C 152.70146,493.47282 288.63461,528.80461 381.26391,662.02535 C 468.83815,529.62199 609.82641,489.17075 609.82641,358.71731 C 609.82641,292.47731 556.06651,238.7173 489.82641,238.71731 C 441.77851,238.71731 400.42481,267.08774 381.26391,307.90481 C 362.10311,267.08773 320.74941,238.7173 272.70141,238.71731 z"
+
+    [<Literal>]
+    let Path3 = "M1,4 H18 V6 H1 V4 M1,9 H18 V11 H1 V7 M3,14 H18 V16 H1 V14"

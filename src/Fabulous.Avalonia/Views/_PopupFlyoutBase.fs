@@ -70,9 +70,9 @@ type PopupFlyoutBaseModifiers =
         this.AddScalar(PopupFlyoutBase.OverlayInputPassThroughElement.WithValue(value))
 
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onOpened: 'msg) =
-        this.AddScalar(PopupFlyoutBase.Opening.WithValue(fun _ -> onOpened |> box))
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onOpening: 'msg) =
+        this.AddScalar(PopupFlyoutBase.Opening.WithValue(onOpening))
 
     [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onClosed: CancelEventArgs -> 'msg) =
-        this.AddScalar(PopupFlyoutBase.Closing.WithValue(fun args -> onClosed args |> box))
+    static member inline onClosing(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onClosing: CancelEventArgs -> 'msg) =
+        this.AddScalar(PopupFlyoutBase.Closing.WithValue(fun args -> onClosing args |> box))
