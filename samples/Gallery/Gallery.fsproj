@@ -25,6 +25,7 @@
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\Animations\Animations1.fs" />
     <Compile Include="Pages\Animations\Animations2.fs" />
+    <Compile Include="Pages\Animations\Animations3.fs" />
     <Compile Include="Pages\Animations\AnimationsPage.fs" />
     <Compile Include="Pages\AutoCompleteBoxPage.fs" />
     <Compile Include="Pages\BorderPage.fs" />
