@@ -32,6 +32,7 @@ module Types =
         | ImagePage
         | LabelPage
         | LayoutTransformControlPage
+        | LineBoundsDemoControlPage
         | ListBoxPage
         | MenuFlyoutPage
         | MaskedTextBoxPage
@@ -100,6 +101,7 @@ module Types =
             | ImagePage -> "ImagePage"
             | LabelPage -> "LabelPage"
             | LayoutTransformControlPage -> "LayoutTransformControlPage"
+            | LineBoundsDemoControlPage -> "LineBoundsDemoControlPage"
             | ListBoxPage -> "ListBoxPage"
             | MenuFlyoutPage -> "MenuFlyoutPage"
             | MaskedTextBoxPage -> "MaskedTextBoxPage"
@@ -168,6 +170,7 @@ module Types =
           ImagePageModel: ImagePage.Model
           LabelPageModel: LabelPage.Model
           LayoutTransformControlPageModel: LayoutTransformControlPage.Model
+          LineBoundsDemoControlPageModel: LineBoundsDemoControlPage.Model
           ListBoxPageModel: ListBoxPage.Model
           MenuFlyoutPageModel: MenuFlyoutPage.Model
           MaskedTextBoxPageModel: MaskedTextBoxPage.Model
@@ -235,6 +238,7 @@ module Types =
         | ImagePageMsg of ImagePage.Msg
         | LabelPageMsg of LabelPage.Msg
         | LayoutTransformControlPageMsg of LayoutTransformControlPage.Msg
+        | LineBoundsDemoControlPageMsg of LineBoundsDemoControlPage.Msg
         | ListBoxPageMsg of ListBoxPage.Msg
         | MenuFlyoutPageMsg of MenuFlyoutPage.Msg
         | MaskedTextBoxPageMsg of MaskedTextBoxPage.Msg

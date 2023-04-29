@@ -37,6 +37,7 @@ module State =
           ImagePageModel = ImagePage.init()
           LabelPageModel = LabelPage.init()
           LayoutTransformControlPageModel = LayoutTransformControlPage.init()
+          LineBoundsDemoControlPageModel = LineBoundsDemoControlPage.init()
           ListBoxPageModel = ListBoxPage.init()
           MenuFlyoutPageModel = MenuFlyoutPage.init()
           MaskedTextBoxPageModel = MaskedTextBoxPage.init()
@@ -191,6 +192,12 @@ module State =
             { model with
                 LayoutTransformControlPageModel = LayoutTransformControlPage.update msg model.LayoutTransformControlPageModel },
             Cmd.none
+
+        | LineBoundsDemoControlPageMsg msg ->
+            { model with
+                LineBoundsDemoControlPageModel = LineBoundsDemoControlPage.update msg model.LineBoundsDemoControlPageModel },
+            Cmd.none
+
         | ListBoxPageMsg msg ->
             { model with
                 ListBoxPageModel = ListBoxPage.update msg model.ListBoxPageModel },

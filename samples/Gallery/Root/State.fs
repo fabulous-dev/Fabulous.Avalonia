@@ -40,6 +40,7 @@ module State =
            Pages.ImagePage
            Pages.LabelPage
            Pages.LayoutTransformControlPage
+           Pages.LineBoundsDemoControlPage
            Pages.ListBoxPage
            Pages.MenuFlyoutPage
            Pages.MaskedTextBoxPage

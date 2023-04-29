@@ -3,7 +3,6 @@ namespace Gallery.Pages
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Gallery
 
 open Types
 
@@ -229,6 +228,14 @@ module View =
                     Separator().background(SolidColorBrush(Colors.Gray))
 
                     View.map LayoutTransformControlPageMsg (LayoutTransformControlPage.view model.LayoutTransformControlPageModel)
+                }
+
+            | Pages.LineBoundsDemoControlPage ->
+                VStack(spacing = 20.) {
+                    TextBlock("LineBoundsDemoControlPage").fontSize(20.)
+                    Separator().background(SolidColorBrush(Colors.Gray))
+
+                    View.map LineBoundsDemoControlPageMsg (LineBoundsDemoControlPage.view model.LineBoundsDemoControlPageModel)
                 }
             | Pages.ListBoxPage ->
                 VStack(spacing = 20.) {

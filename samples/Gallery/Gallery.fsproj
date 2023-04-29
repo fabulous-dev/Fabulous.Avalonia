@@ -41,7 +41,7 @@
     <Compile Include="Pages\ComboBoxPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
-    <Compile Include="Pages\DockPanel.fs" />
+    <Compile Include="Pages\DockPanelPage.fs" />
     <Compile Include="Pages\DropDownButtonPage.fs" />
     <Compile Include="Pages\DrawingPage.fs" />
     <Compile Include="Pages\ExpanderPage.fs" />
@@ -54,6 +54,7 @@
     <Compile Include="Pages\ImagePage.fs" />
     <Compile Include="Pages\LabelPage.fs" />
     <Compile Include="Pages\LayoutTransformControlPage.fs" />
+    <Compile Include="Pages\LineBoundsDemoControlPage.fs" />
     <Compile Include="Pages\ListBoxPage.fs" />
     <Compile Include="Pages\MaskedTextBoxPage.fs" />
     <Compile Include="Pages\MenuPage.fs" />
@@ -104,7 +105,6 @@
     <Compile Include="Pages\Types.fs" />
     <Compile Include="Pages\State.fs" />
     <Compile Include="Pages\View.fs" />
-    <Folder Include="Pages\Buttons\" />
     <Compile Include="Root\Types.fs" />
     <Compile Include="Root\State.fs" />
     <Compile Include="Root\MainWindow.fs" />
