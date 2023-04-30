@@ -32,7 +32,7 @@ module ItemsControl =
                     listBox.ClearValue(ItemsControl.ItemTemplateProperty)
                     listBox.ClearValue(ItemsControl.ItemsSourceProperty)
                 | ValueSome value ->
-                    listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
+                    listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
 
                     listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
