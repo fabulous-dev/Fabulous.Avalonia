@@ -1,7 +1,6 @@
 namespace Gallery.Root
 
 open Gallery
-open Avalonia.Controls
 
 module Types =
     type Model =
@@ -9,11 +8,12 @@ module Types =
           Pages: string seq
           IsPanOpen: bool
           SafeAreaInsets: float
+          SelectedIndex: int
           PaneLength: float }
 
     type Msg =
         | PageMsg of Pages.Types.Msg
-        | SelectedChanged of SelectionChangedEventArgs
+        | SelectedIndexChanged of int
         | OpenPanChanged of bool
         | OpenPan
         | DoNothing

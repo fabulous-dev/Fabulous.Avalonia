@@ -29,11 +29,13 @@ module SelectingItemsControl =
         Attributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
             (target :?> SelectingItemsControl).SelectionChanged)
 
+    let SelectedIndexChanged =
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
+
 [<Extension>]
 type SelectingItemsControlModifiers =
     [<Extension>]
     static member inline autoScrollToSelectedItem(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
-        let x = SelectionModel<string>()
         this.AddScalar(SelectingItemsControl.AutoScrollToSelectedItem.WithValue(value))
 
     [<Extension>]
@@ -55,3 +57,7 @@ type SelectingItemsControlModifiers =
     [<Extension>]
     static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, onSelectionChanged: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(SelectingItemsControl.SelectionChanged.WithValue(fun args -> onSelectionChanged args |> box))
+
+    [<Extension>]
+    static member inline selectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, selectedIndexChanged: int -> 'msg) =
+        this.AddScalar(SelectingItemsControl.SelectedIndexChanged.WithValue(ValueEventData.create index (fun args -> selectedIndexChanged args |> box)))

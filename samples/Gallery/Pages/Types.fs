@@ -24,7 +24,6 @@ module Types =
         | DrawingPage
         | ExpanderPage
         | FlyoutPage
-        | FormattedTextPage
         | GesturesPage
         | GlyphRunControlPage
         | GridPage
@@ -93,7 +92,6 @@ module Types =
             | DrawingPage -> "DrawingPage"
             | ExpanderPage -> "ExpanderPage"
             | FlyoutPage -> "FlyoutPage"
-            | FormattedTextPage -> "FormattedTextPage"
             | GesturesPage -> "GesturesPage"
             | GlyphRunControlPage -> "GlyphRunControlPage"
             | GridPage -> "GridPage"
@@ -162,7 +160,6 @@ module Types =
           DrawingPageModel: DrawingPage.Model
           ExpanderPageModel: ExpanderPage.Model
           FlyoutPageModel: FlyoutPage.Model
-          FormattedTextPageModel: FormattedTextPage.Model
           GesturesPageModel: GesturesPage.Model
           GlyphRunControlPageModel: GlyphRunControlPage.Model
           GridPageModel: GridPage.Model
@@ -230,7 +227,6 @@ module Types =
         | DrawingPageMsg of DrawingPage.Msg
         | ExpanderPageMsg of ExpanderPage.Msg
         | FlyoutPageMsg of FlyoutPage.Msg
-        | FormattedTextPageMsg of FormattedTextPage.Msg
         | GesturesPageMsg of GesturesPage.Msg
         | GlyphRunControlPageMsg of GlyphRunControlPage.Msg
         | GridPageMsg of GridPage.Msg

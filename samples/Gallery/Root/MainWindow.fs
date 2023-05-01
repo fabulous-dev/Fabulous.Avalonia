@@ -69,7 +69,7 @@ module MainWindow =
 
                 ListBox(model.Pages, (fun x -> TextBlock(x)))
                     .selectionMode(SelectionMode.Single)
-                    .onSelectionChanged(SelectedChanged)
+                    .selectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
             }
         )
             .padding(0., model.SafeAreaInsets, 0., 0.)
