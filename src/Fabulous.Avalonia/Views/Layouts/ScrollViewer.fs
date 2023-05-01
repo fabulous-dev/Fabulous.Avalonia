@@ -19,12 +19,6 @@ module ScrollViewer =
     let Offset =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.OffsetProperty
 
-    let Viewport =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ViewportProperty
-
-    let ScrollbarMaximum =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ScrollBarMaximumProperty
-
     let HorizontalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarVisibilityProperty
 
@@ -74,14 +68,6 @@ type ScrollViewerModifiers =
     [<Extension>]
     static member inline offset(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Vector) =
         this.AddScalar(ScrollViewer.Offset.WithValue(value))
-
-    [<Extension>]
-    static member inline viewport(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Size) =
-        this.AddScalar(ScrollViewer.Viewport.WithValue(value))
-
-    [<Extension>]
-    static member inline scrollbarMaximum(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Vector) =
-        this.AddScalar(ScrollViewer.ScrollbarMaximum.WithValue(value))
 
     [<Extension>]
     static member inline horizontalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
