@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -10,15 +9,15 @@ type IFabItemsControl =
 
 module ItemsControl =
     let Items =
-        Attributes.defineListWidgetCollection "ItemsControl_Items" (fun target ->
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
 
-            if target.ItemsSource = null then
-                let newColl = List<Control>()
-                target.ItemsSource <- newColl
+            if target.Items = null then
+                let newColl = ItemCollection.Empty
+                target.Items.Add newColl |> ignore
                 newColl
             else
-                target.ItemsSource :?> IList<Control>)
+                target.Items)
 
     let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>
