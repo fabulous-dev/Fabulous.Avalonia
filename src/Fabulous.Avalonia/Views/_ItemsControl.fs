@@ -37,9 +37,6 @@ module ItemsControl =
                     listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
 
-    let ItemCount =
-        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty
-
     let AreHorizontalSnapPointsRegular =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.AreHorizontalSnapPointsRegularProperty
 
@@ -63,10 +60,6 @@ module ItemsControl =
 
 [<Extension>]
 type ItemsControlModifiers =
-    [<Extension>]
-    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value: int) =
-        this.AddScalar(ItemsControl.ItemCount.WithValue(value))
-
     [<Extension>]
     static member inline areHorizontalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
         this.AddScalar(ItemsControl.AreHorizontalSnapPointsRegular.WithValue(value))
