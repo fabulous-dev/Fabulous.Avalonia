@@ -58,5 +58,5 @@ type SelectingItemsControlModifiers =
         this.AddScalar(SelectingItemsControl.SelectionChanged.WithValue(fun args -> onSelectionChanged args |> box))
 
     [<Extension>]
-    static member inline selectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, selectedIndexChanged: int -> 'msg) =
+    static member inline onSelectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, selectedIndexChanged: int -> 'msg) =
         this.AddScalar(SelectingItemsControl.SelectedIndexChanged.WithValue(ValueEventData.create index (fun args -> selectedIndexChanged args |> box)))
