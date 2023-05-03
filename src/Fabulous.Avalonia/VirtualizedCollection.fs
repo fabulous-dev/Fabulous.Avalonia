@@ -9,7 +9,7 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
         Avalonia.Controls.Templates.FuncDataTemplate(
             typeof<obj>,
             System.Func<obj, INameScope, Control>(fun data n -> this.Build(data, n)),
-            supportsRecycling = true
+            supportsRecycling = false
         )
 
     member this.Recycle(newData: obj, prevWidget: Widget, rowNode: IViewNode) : Widget =
