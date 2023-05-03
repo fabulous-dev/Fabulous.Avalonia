@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
-open Avalonia.Controls.Selection
 open Fabulous
 
 type IFabSelectingItemsControl =

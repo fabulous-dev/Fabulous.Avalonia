@@ -82,7 +82,7 @@ module State =
           Pages = pages |> Array.map Pages.Translate
           SafeAreaInsets = 0.
           PaneLength = 250.
-          SelectedIndex = -1 },
+          SelectedIndex = 0 },
         Cmd.none
 
     let update msg model =
@@ -101,6 +101,8 @@ module State =
             let m, c = Pages.State.update msg model.PageModel
             { model with PageModel = m }, Cmd.batch [ (Cmd.map PageMsg c) ]
         | SelectedIndexChanged index ->
+            let index = if index < 0 then model.SelectedIndex else index
+
             let model =
                 { model with
                     SelectedIndex = index
