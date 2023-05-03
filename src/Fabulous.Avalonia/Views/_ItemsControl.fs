@@ -8,9 +8,16 @@ type IFabItemsControl =
     inherit IFabTemplatedControl
 
 module ItemsControl =
-    // TODO Use ItemsSource when possible. As future versions of Avalonia will make this Items read-only, we need to use ItemsSource instead.
     let Items =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target -> (target :?> ItemsControl).Items)
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
+            let target = target :?> ItemsControl
+
+            if target.Items = null then
+                let newColl = ItemCollection.Empty
+                target.Items.Add newColl |> ignore
+                newColl
+            else
+                target.Items)
 
     let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>
@@ -24,14 +31,11 @@ module ItemsControl =
                     listBox.ClearValue(ItemsControl.ItemTemplateProperty)
                     listBox.ClearValue(ItemsControl.ItemsSourceProperty)
                 | ValueSome value ->
-                    listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template, true))
+                    listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
 
                     listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
-
-    let ItemCount =
-        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemCountProperty
 
     let AreHorizontalSnapPointsRegular =
         Attributes.defineAvaloniaPropertyWithEquality ItemsControl.AreHorizontalSnapPointsRegularProperty
@@ -56,10 +60,6 @@ module ItemsControl =
 
 [<Extension>]
 type ItemsControlModifiers =
-    [<Extension>]
-    static member inline itemsCount(this: WidgetBuilder<'msg, #IFabItemsControl>, value: int) =
-        this.AddScalar(ItemsControl.ItemCount.WithValue(value))
-
     [<Extension>]
     static member inline areHorizontalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabItemsControl>, value: bool) =
         this.AddScalar(ItemsControl.AreHorizontalSnapPointsRegular.WithValue(value))

@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.Imaging
@@ -24,7 +23,7 @@ module ImageSource =
         if uri.IsAbsoluteUri && uri.IsFile then
             new Bitmap(uri.LocalPath)
         else
-            let assets = AvaloniaLocator.Current.GetService<IAssetLoader>()
+            let assets = AssetLoader()
             new Bitmap(assets.Open(uri))
 
 module Image =

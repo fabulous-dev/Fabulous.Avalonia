@@ -22,6 +22,12 @@ module TopLevel =
     let TransparencyLevelHint =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyLevelHintProperty
 
+    let SystemBarColorWidget =
+        Attributes.defineAvaloniaPropertyWidget TopLevel.SystemBarColorProperty
+
+    let SystemBarColor =
+        Attributes.defineAvaloniaPropertyWithEquality TopLevel.SystemBarColorProperty
+
     let TransparencyBackgroundFallbackWidget =
         Attributes.defineAvaloniaPropertyWidget TopLevel.TransparencyBackgroundFallbackProperty
 
@@ -62,6 +68,14 @@ type TopLevelModifiers =
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: string) =
         this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
+
+    [<Extension>]
+    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, content: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(TopLevel.SystemBarColorWidget.WithValue(content.Compile()))
+
+    [<Extension>]
+    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, brush: string) =
+        this.AddScalar(TopLevel.SystemBarColor.WithValue(brush |> SolidColorBrush.Parse))
 
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, onOpened: 'msg) =

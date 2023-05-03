@@ -21,6 +21,9 @@ module WindowBase =
     let PositionChanged =
         Attributes.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
 
+    let Resized =
+        Attributes.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
+
 [<Extension>]
 type WindowBaseModifiers =
     [<Extension>]
@@ -38,3 +41,7 @@ type WindowBaseModifiers =
     [<Extension>]
     static member inline onPositionChanged(this: WidgetBuilder<'msg, #IFabWindowBase>, onPositionChanged: PixelPointEventArgs -> 'msg) =
         this.AddScalar(WindowBase.PositionChanged.WithValue(fun args -> onPositionChanged args |> box))
+
+    [<Extension>]
+    static member inline onResized(this: WidgetBuilder<'msg, #IFabWindowBase>, onResized: WindowResizedEventArgs -> 'msg) =
+        this.AddScalar(WindowBase.Resized.WithValue(fun args -> onResized args |> box))

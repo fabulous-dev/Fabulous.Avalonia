@@ -16,9 +16,6 @@ module RefreshVisualizer =
     let RefreshRequested =
         Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target -> (target :?> RefreshVisualizer).RefreshRequested)
 
-    let PullDirection =
-        Attributes.defineAvaloniaPropertyWithEquality RefreshVisualizer.PullDirectionProperty
-
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality RefreshVisualizer.OrientationProperty
 
@@ -35,10 +32,6 @@ module RefreshVisualizerBuilders =
 
 [<Extension>]
 type RefreshVisualizerModifiers =
-    [<Extension>]
-    static member inline pullDirection(this: WidgetBuilder<'msg, #IFabRefreshVisualizer>, value: PullDirection) =
-        this.AddScalar(RefreshVisualizer.PullDirection.WithValue(value))
-
     [<Extension>]
     static member inline orientation(this: WidgetBuilder<'msg, #IFabRefreshVisualizer>, value: RefreshVisualizerOrientation) =
         this.AddScalar(RefreshVisualizer.Orientation.WithValue(value))

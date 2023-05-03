@@ -19,7 +19,7 @@ module PolylineGeometry =
             | ValueSome points ->
                 let coll = Points()
                 points |> List.iter coll.Add
-                target.SetValue(PolylineGeometry.PointsProperty, coll) |> ignore)
+                target.SetValue(PolylineGeometry.PointsProperty, coll))
 
     let IsFilled =
         Attributes.defineAvaloniaPropertyWithEquality PolylineGeometry.IsFilledProperty

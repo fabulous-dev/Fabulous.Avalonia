@@ -19,17 +19,8 @@ module ScrollViewer =
     let Offset =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.OffsetProperty
 
-    let Viewport =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.ViewportProperty
-
-    let HorizontalScrollBarValue =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarValueProperty
-
     let HorizontalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarVisibilityProperty
-
-    let VerticalScrollBarValue =
-        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarValueProperty
 
     let VerticalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.VerticalScrollBarVisibilityProperty
@@ -79,20 +70,8 @@ type ScrollViewerModifiers =
         this.AddScalar(ScrollViewer.Offset.WithValue(value))
 
     [<Extension>]
-    static member inline viewport(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: Size) =
-        this.AddScalar(ScrollViewer.Viewport.WithValue(value))
-
-    [<Extension>]
-    static member inline horizontalScrollBarValue(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.HorizontalScrollBarValue.WithValue(value))
-
-    [<Extension>]
     static member inline horizontalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =
         this.AddScalar(ScrollViewer.HorizontalScrollBarVisibility.WithValue(value))
-
-    [<Extension>]
-    static member inline verticalScrollBarValue(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: float) =
-        this.AddScalar(ScrollViewer.VerticalScrollBarValue.WithValue(value))
 
     [<Extension>]
     static member inline verticalScrollBarVisibility(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: ScrollBarVisibility) =

@@ -1,58 +1,88 @@
 namespace Gallery.Pages
 
-open Avalonia
 open Avalonia.Controls
-open Avalonia.Layout
-open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
 module TabControlPage =
-    type Model = { Nothing: bool }
+    type Model =
+        { TabPlacement: Dock
+          Placements: string list
+          SelectedIndex: int }
 
-    type Msg = DoNothing
+    type Msg = SelectedIndexChanged of int
 
-    let init () = { Nothing = true }
+    let init () =
+        { TabPlacement = Dock.Top
+          Placements = [ "Top"; "Bottom"; "Left"; "Right" ]
+          SelectedIndex = 0 }
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | SelectedIndexChanged index ->
+            let dock = model.Placements.[index]
 
-    let view _ =
-        (TabControl(Dock.Top) {
-            TabItem(
-                "Circle",
-                Ellipse()
-                    .size(100.0, 100.0)
-                    .fill(SolidColorBrush(Colors.Red))
-                    .horizontalAlignment(HorizontalAlignment.Left)
-            )
+            let dock =
+                match dock with
+                | "Top" -> Dock.Top
+                | "Bottom" -> Dock.Bottom
+                | "Left" -> Dock.Left
+                | "Right" -> Dock.Right
+                | _ -> Dock.Top
 
-            TabItem(
-                TextBlock("Triangle").verticalAlignment(VerticalAlignment.Center),
-                VStack() {
-                    TextBlock("I am in the triangle page")
-                        .horizontalAlignment(HorizontalAlignment.Left)
-                        .verticalAlignment(VerticalAlignment.Center)
+            { model with
+                SelectedIndex = index
+                TabPlacement = dock }
 
-                    Polygon([ Point(40.0, 10.0); Point(70.0, 80.0); Point(10.0, 50.0) ])
-                        .fill(SolidColorBrush(Colors.AliceBlue))
-                        .stroke(SolidColorBrush(Colors.Green))
-                        .strokeThickness(5.0)
-                }
-            )
+    let view model =
+        Dock() {
+            TextBlock("A tab control that displays a tab strip along with the content of the selected tab")
+                .dock(Dock.Top)
+                .margin(4.)
 
-            TabItem(
-                TextBlock("Square").verticalAlignment(VerticalAlignment.Center),
-                HStack() {
-                    TextBlock("Square : ")
-                        .horizontalAlignment(HorizontalAlignment.Left)
-                        .verticalAlignment(VerticalAlignment.Center)
+            Grid(coldefs = [ Star ], rowdefs = [ Star; Pixel(100.) ]) {
+                (Dock() {
+                    TextBlock("From Inline TabItems").dock(Dock.Top)
 
-                    Rectangle().size(63., 41.).fill(SolidColorBrush(Colors.Blue))
-                }
-            )
-        })
-            .horizontalContentAlignment(HorizontalAlignment.Center)
-            .verticalContentAlignment(VerticalAlignment.Center)
+                    (TabControl(model.TabPlacement) {
+                        TabItem(
+                            "Arch",
+                            VStack() {
+                                TextBlock("This is the first page in the TabControl.")
+
+                                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/delicate-arch.jpg")
+                                    .width(300.)
+                            }
+                        )
+
+                        TabItem(
+                            TextBlock("Leaf"),
+                            VStack() {
+                                TextBlock("This is the second page in the TabControl.")
+
+                                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/maple-leaf.jpg")
+                                    .width(300.)
+                            }
+                        )
+
+                        TabItem(TextBlock("Disabled"), TextBlock(">You should not see this."))
+                            .isEnabled(false)
+                    })
+                        .margin(0., 16.)
+                })
+                    .margin(4.)
+
+                (HStack(8.) {
+                    TextBlock("Tab Placement:").centerVertical()
+
+                    ComboBox(model.Placements, (fun x -> TextBlock(x)))
+                        .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
+
+                })
+                    .gridRow(1)
+                    .centerVertical()
+                    .centerHorizontal()
+
+            }
+        }

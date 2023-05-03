@@ -6,7 +6,6 @@ open Avalonia.Input.GestureRecognizers
 open Avalonia.Input.TextInput
 open Avalonia.Interactivity
 open Fabulous
-open Fabulous.StackAllocatedCollections
 
 type IFabInputElement =
     inherit IFabInteractive
@@ -65,6 +64,9 @@ module InputElement =
     let KeyUp =
         Attributes.defineEvent<KeyEventArgs> "InputElement_KeyUp" (fun target -> (target :?> InputElement).KeyUp)
 
+    let TextInput =
+        Attributes.defineEvent<TextInputEventArgs> "InputElement_TextInput" (fun target -> (target :?> InputElement).TextInput)
+
     let TextInputMethodClientRequested =
         Attributes.defineEvent<TextInputMethodClientRequestedEventArgs> "InputElement_TextInputMethodClientRequested" (fun target ->
             (target :?> InputElement).TextInputMethodClientRequested)
@@ -92,6 +94,9 @@ module InputElement =
 
     let Tapped =
         Attributes.defineEvent<TappedEventArgs> "InputElement_Tapped" (fun target -> (target :?> InputElement).Tapped)
+
+    let Holding =
+        Attributes.defineEvent<HoldingRoutedEventArgs> "InputElement_Holding" (fun target -> (target :?> InputElement).Holding)
 
     let DoubleTapped =
         Attributes.defineEvent<TappedEventArgs> "InputElement_DoubleTapped" (fun target -> (target :?> InputElement).DoubleTapped)
@@ -159,6 +164,10 @@ type InputElementModifiers =
         this.AddScalar(InputElement.KeyUp.WithValue(fun args -> onKeyUp args |> box))
 
     [<Extension>]
+    static member inline onTextInput(this: WidgetBuilder<'msg, #IFabInputElement>, onTextInput: TextInputEventArgs -> 'msg) =
+        this.AddScalar(InputElement.TextInput.WithValue(fun args -> onTextInput args |> box))
+
+    [<Extension>]
     static member inline onTextInputMethodClientRequested
         (
             this: WidgetBuilder<'msg, #IFabInputElement>,
@@ -197,6 +206,10 @@ type InputElementModifiers =
     [<Extension>]
     static member inline onTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onTapped: RoutedEventArgs -> 'msg) =
         this.AddScalar(InputElement.Tapped.WithValue(fun args -> onTapped args |> box))
+
+    [<Extension>]
+    static member inline onHolding(this: WidgetBuilder<'msg, #IFabInputElement>, onHolding: HoldingRoutedEventArgs -> 'msg) =
+        this.AddScalar(InputElement.Holding.WithValue(fun args -> onHolding args |> box))
 
     [<Extension>]
     static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, onDoubleTapped: RoutedEventArgs -> 'msg) =

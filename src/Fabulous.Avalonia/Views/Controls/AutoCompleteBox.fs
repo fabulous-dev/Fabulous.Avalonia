@@ -8,6 +8,7 @@ open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabAutoCompleteBox =
     inherit IFabTemplatedControl
@@ -30,12 +31,6 @@ module AutoCompleteBox =
     let IsTextCompletionEnabled =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.IsTextCompletionEnabledProperty
 
-    let IsDropDownOpen =
-        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.IsDropDownOpenProperty
-
-    let SelectedItem =
-        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.SelectedItemProperty
-
     let Text =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
 
@@ -54,8 +49,8 @@ module AutoCompleteBox =
     let TextSelector =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextSelectorProperty
 
-    let Items =
-        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemsProperty
+    let ItemsSource =
+        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemsSourceProperty
 
     let AsyncPopulator =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
@@ -79,14 +74,14 @@ module AutoCompleteBox =
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member AutoCompleteBox(watermark: string, items: string list) =
+        static member AutoCompleteBox(watermark: string, items: seq<_>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
                 AutoCompleteBox.Watermark.WithValue(watermark),
-                AutoCompleteBox.Items.WithValue(items)
+                AutoCompleteBox.ItemsSource.WithValue(items)
             )
 
-        static member AutoCompleteBox(watermark: string, populator: string -> CancellationToken -> Task<seq<obj>>) =
+        static member AutoCompleteBox(watermark: string, populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
                 AutoCompleteBox.Watermark.WithValue(watermark),
@@ -110,14 +105,6 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline isTextCompletionEnabled(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: bool) =
         this.AddScalar(AutoCompleteBox.IsTextCompletionEnabled.WithValue(value))
-
-    [<Extension>]
-    static member inline isDropDownOpen(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: bool) =
-        this.AddScalar(AutoCompleteBox.IsDropDownOpen.WithValue(value))
-
-    [<Extension>]
-    static member inline selectedItem(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: obj) =
-        this.AddScalar(AutoCompleteBox.SelectedItem.WithValue(value))
 
     [<Extension>]
     static member inline text(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string) =

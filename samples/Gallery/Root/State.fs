@@ -1,7 +1,6 @@
 namespace Gallery.Root
 
 open Fabulous
-open Avalonia.Controls
 
 open Gallery.Pages.Types
 open Gallery
@@ -32,7 +31,6 @@ module State =
            Pages.DrawingPage
            Pages.ExpanderPage
            Pages.FlyoutPage
-           Pages.FormattedTextPage
            Pages.GesturesPage
            Pages.GlyphRunControlPage
            Pages.GridPage
@@ -83,7 +81,8 @@ module State =
           IsPanOpen = true
           Pages = pages |> Array.map Pages.Translate
           SafeAreaInsets = 0.
-          PaneLength = 250. },
+          PaneLength = 250.
+          SelectedIndex = 0 },
         Cmd.none
 
     let update msg model =
@@ -101,14 +100,13 @@ module State =
         | PageMsg msg ->
             let m, c = Pages.State.update msg model.PageModel
             { model with PageModel = m }, Cmd.batch [ (Cmd.map PageMsg c) ]
-        | SelectedChanged args ->
-            let control = args.Source :?> ListBox
-
-            let page = pages.[control.SelectedIndex]
+        | SelectedIndexChanged index ->
+            let index = if index < 0 then model.SelectedIndex else index
 
             let model =
                 { model with
-                    PageModel = Pages.State.init(page) }
+                    SelectedIndex = index
+                    PageModel = Pages.State.init(pages.[index]) }
 
             model, Cmd.none
 

@@ -173,13 +173,6 @@ module View =
 
                     View.map FlyoutPageMsg (FlyoutPage.view model.FlyoutPageModel)
                 }
-            | Pages.FormattedTextPage ->
-                VStack(spacing = 20.) {
-                    TextBlock("FormattedTextPage").fontSize(20.)
-                    Separator().background(SolidColorBrush(Colors.Gray))
-
-                    View.map FormattedTextPageMsg (FormattedTextPage.view model.FormattedTextPageModel)
-                }
             | Pages.GesturesPage ->
                 VStack(spacing = 20.) {
                     TextBlock("GesturesPage").fontSize(20.)

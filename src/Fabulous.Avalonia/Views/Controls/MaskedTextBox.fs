@@ -43,7 +43,9 @@ module MaskedTextBoxBuilders =
                 MaskedTextBox.WidgetKey,
                 TextBlock.Text.WithValue(text),
                 MaskedTextBox.Mask.WithValue(mask),
-                TextBox.TextChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
+                TextBox.TextChanged.WithValue(fun args ->
+                    let control = args.Source :?> TextBox
+                    valueChanged control.Text |> box)
             )
 
 [<Extension>]

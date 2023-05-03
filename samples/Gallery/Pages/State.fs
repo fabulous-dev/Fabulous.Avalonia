@@ -29,7 +29,6 @@ module State =
           DrawingPageModel = DrawingPage.init()
           ExpanderPageModel = ExpanderPage.init()
           FlyoutPageModel = FlyoutPage.init()
-          FormattedTextPageModel = FormattedTextPage.init()
           GesturesPageModel = GesturesPage.init()
           GlyphRunControlPageModel = GlyphRunControlPage.init()
           GridPageModel = GridPage.init()
@@ -337,8 +336,4 @@ module State =
         | ViewBoxPageMsg msg ->
             { model with
                 ViewBoxPageModel = ViewBoxPage.update msg model.ViewBoxPageModel },
-            Cmd.none
-        | FormattedTextPageMsg msg ->
-            { model with
-                FormattedTextPageModel = FormattedTextPage.update msg model.FormattedTextPageModel },
             Cmd.none

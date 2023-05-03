@@ -4,6 +4,9 @@ open System
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
+open Avalonia.Data
+open Avalonia.Data.Converters
+open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
@@ -21,7 +24,9 @@ module AutoCompleteBoxPage =
         { IsOpen: bool
           SelectedItem: string
           Text: string
-          Items: string list }
+          Items: string seq
+          Capitals: StateData seq
+          Custom: string seq }
 
     type Msg =
         | TextChanged of string
@@ -29,12 +34,269 @@ module AutoCompleteBoxPage =
         | OnPopulating of string
         | OnPopulated of System.Collections.IEnumerable
         | OnDropDownOpen of bool
+        | MultiBindingLoaded of bool
+        | CustomAutoBoxLoaded of bool
+
+    let multiBindingBoxRef = ViewRef<AutoCompleteBox>()
+
+    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
 
     let init () =
         { IsOpen = false
           SelectedItem = "Item 2"
           Text = ""
-          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ] }
+          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
+          Capitals =
+            seq {
+                { Name = "Arkansas"
+                  Abbreviation = "AR"
+                  Capital = "Little Rock" }
+
+                { Name = "California"
+                  Abbreviation = "CA"
+                  Capital = "Sacramento" }
+
+                { Name = "Colorado"
+                  Abbreviation = "CO"
+                  Capital = "Denver" }
+
+                { Name = "Connecticut"
+                  Abbreviation = "CT"
+                  Capital = "Hartford" }
+
+                { Name = "Delaware"
+                  Abbreviation = "DE"
+                  Capital = "Dover" }
+
+                { Name = "Florida"
+                  Abbreviation = "FL"
+                  Capital = "Tallahassee" }
+
+                { Name = "Georgia"
+                  Abbreviation = "GA"
+                  Capital = "Atlanta" }
+
+                { Name = "Hawaii"
+                  Abbreviation = "HI"
+                  Capital = "Honolulu" }
+
+                { Name = "Idaho"
+                  Abbreviation = "ID"
+                  Capital = "Boise" }
+
+                { Name = "Illinois"
+                  Abbreviation = "IL"
+                  Capital = "Springfield" }
+
+                { Name = "Indiana"
+                  Abbreviation = "IN"
+                  Capital = "Indianapolis" }
+
+                { Name = "Iowa"
+                  Abbreviation = "IA"
+                  Capital = "Des Moines" }
+
+                { Name = "Kansas"
+                  Abbreviation = "KS"
+                  Capital = "Topeka" }
+
+                { Name = "Kentucky"
+                  Abbreviation = "KY"
+                  Capital = "Frankfort" }
+
+                { Name = "Louisiana"
+                  Abbreviation = "LA"
+                  Capital = "Baton Rouge" }
+
+                { Name = "Maine"
+                  Abbreviation = "ME"
+                  Capital = "Augusta" }
+
+                { Name = "Maryland"
+                  Abbreviation = "MD"
+                  Capital = "Annapolis" }
+
+                { Name = "Massachusetts"
+                  Abbreviation = "MA"
+                  Capital = "Boston" }
+
+                { Name = "Michigan"
+                  Abbreviation = "MI"
+                  Capital = "Lansing" }
+
+                { Name = "Minnesota"
+                  Abbreviation = "MN"
+                  Capital = "St. Paul" }
+
+                { Name = "Mississippi"
+                  Abbreviation = "MS"
+                  Capital = "Jackson" }
+
+                { Name = "Missouri"
+                  Abbreviation = "MO"
+                  Capital = "Jefferson City" }
+
+                { Name = "Montana"
+                  Abbreviation = "MT"
+                  Capital = "Helena" }
+
+                { Name = "Nebraska"
+                  Abbreviation = "NE"
+                  Capital = "Lincoln" }
+
+                { Name = "Nevada"
+                  Abbreviation = "NV"
+                  Capital = "Carson City" }
+
+                { Name = "New Hampshire"
+                  Abbreviation = "NH"
+                  Capital = "Concord" }
+
+                { Name = "New Jersey"
+                  Abbreviation = "NJ"
+                  Capital = "Trenton" }
+
+                { Name = "New Mexico"
+                  Abbreviation = "NM"
+                  Capital = "Santa Fe" }
+
+                { Name = "New York"
+                  Abbreviation = "NY"
+                  Capital = "Albany" }
+
+                { Name = "North Carolina"
+                  Abbreviation = "NC"
+                  Capital = "Raleigh" }
+
+                { Name = "North Dakota"
+                  Abbreviation = "ND"
+                  Capital = "Bismarck" }
+
+                { Name = "Ohio"
+                  Abbreviation = "OH"
+                  Capital = "Columbus" }
+
+                { Name = "Oklahoma"
+                  Abbreviation = "OK"
+                  Capital = "Oklahoma City" }
+
+                { Name = "Oregon"
+                  Abbreviation = "OR"
+                  Capital = "Salem" }
+
+                { Name = "Pennsylvania"
+                  Abbreviation = "PA"
+                  Capital = "Harrisburg" }
+
+                { Name = "Rhode Island"
+                  Abbreviation = "RI"
+                  Capital = "Providence" }
+
+                { Name = "South Carolina"
+                  Abbreviation = "SC"
+                  Capital = "Columbia" }
+
+                { Name = "South Dakota"
+                  Abbreviation = "SD"
+                  Capital = "Pierre" }
+
+                { Name = "Tennessee"
+                  Abbreviation = "TN"
+                  Capital = "Nashville" }
+
+                { Name = "Texas"
+                  Abbreviation = "TX"
+                  Capital = "Austin" }
+
+                { Name = "Utah"
+                  Abbreviation = "UT"
+                  Capital = "Salt Lake City" }
+
+                { Name = "Vermont"
+                  Abbreviation = "VT"
+                  Capital = "Montpelier" }
+
+                { Name = "Virginia"
+                  Abbreviation = "VA"
+                  Capital = "Richmond" }
+
+                { Name = "Washington"
+                  Abbreviation = "WA"
+                  Capital = "Olympia" }
+
+                { Name = "West Virginia"
+                  Abbreviation = "WV"
+                  Capital = "Charleston" }
+
+                { Name = "Wisconsin"
+                  Abbreviation = "WI"
+                  Capital = "Madison" }
+
+                { Name = "Wyoming"
+                  Abbreviation = "WY"
+                  Capital = "Cheyenne" }
+            }
+          Custom = [] }
+
+    let buildAllSentences () =
+        [ "Hello world"
+          "No this is Patrick"
+          "Never gonna give you up"
+          "How does one patch KDE2 under FreeBSD" ]
+        |> List.map(fun x -> x.Split(' '))
+        |> List.toArray
+
+    let lastWordContains (searchText: string, item: string) =
+        let words =
+            if searchText = null then
+                Array.Empty<string>()
+            else
+                searchText.Split(' ')
+
+        let options = buildAllSentences() |> Array.collect id
+
+        for i in 0 .. words.Length do
+            if (i < words.Length) then
+                let word = words[i]
+
+                if (word <> null) then
+                    for j in 0 .. options.Length do
+                        if word <> null && j < options.Length then
+                            let option = options.[j]
+
+                            if (option <> null) then
+
+                                if (i = words.Length - 1) then
+
+                                    options[j] <-
+                                        if option.ToLower().Contains(word.ToLower()) then
+                                            option
+                                        else
+                                            null
+
+                                else
+                                    let foo = option.Equals(word, StringComparison.InvariantCultureIgnoreCase)
+                                    options[j] <- if foo then option else null
+
+        options |> Array.exists(fun x -> x <> null && x = item)
+
+
+    let appendWord (text: string, item: string) =
+        if item <> null then
+            let parts =
+                if text <> null then
+                    text.Split(' ')
+                else
+                    Array.Empty<string>()
+
+            if (parts.Length = 0) then
+                item
+            else
+                parts[parts.Length - 1] <- item
+                String.Join(" ", parts)
+        else
+            String.Empty
+
 
     let update msg model =
         match msg with
@@ -43,44 +305,112 @@ module AutoCompleteBoxPage =
         | OnPopulating _ -> model
         | OnPopulated _ -> model
         | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }
+        | MultiBindingLoaded _ ->
+            let converter =
+                FuncMultiValueConverter<string, string>(fun parts ->
+                    let parts = parts |> Seq.toArray
+                    let first = parts.[0]
+                    let second = parts.[1]
+                    String.Format("{0} ({1})", first, second))
+
+            let binding = MultiBinding()
+            binding.Converter <- converter
+            binding.Bindings.Add(Binding("Name"))
+            binding.Bindings.Add(Binding("Abbreviation"))
+
+            multiBindingBoxRef.Value.ValueMemberBinding <- binding
+            model
+
+        | CustomAutoBoxLoaded _ ->
+            let strings = buildAllSentences() |> Array.concat
+            customAutoCompleteBoxRef.Value.ItemsSource <- strings
+            customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
+            customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item))
+            model
 
     let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
         task {
             return
-                [ "Async Item 1"
-                  "Async Item 2"
-                  "Async Item 3"
-                  "Async Product 1"
-                  "Async Product 2"
-                  "Async Product 3" ]
+                seq {
+                    "Async Item 1"
+                    "Async Item 2"
+                    "Async Item 3"
+                    "Async Product 1"
+                    "Async Product 2"
+                    "Async Product 3"
+                }
         }
 
     let view model =
-        VStack(spacing = 15.) {
-            TextBlock() {
-                Bold("Text: ")
-                Run(model.Text)
-                LineBreak()
-                Bold("Selected item: ")
-                Run(model.SelectedItem)
-                LineBreak()
-                Bold("Is open: ")
-                Run($"{model.IsOpen}")
-                LineBreak()
-                Bold("Items: ")
-                Run(model.Items |> String.concat ", ")
+        VStack() {
+            TextBlock("A control into which the user can input text")
+
+            UniformGrid() {
+                VStack() {
+                    TextBlock("MinimumPrefixLength: 1")
+                    AutoCompleteBox("Select an item", model.Capitals).minimumPrefixLength(1)
+                }
+
+                VStack() {
+                    TextBlock("MinimumPrefixLength: 3")
+                    AutoCompleteBox("Select an item", model.Items).minimumPrefixLength(3)
+                }
+
+                VStack() {
+                    TextBlock("MinimumPopulateDelay: 1s")
+
+                    AutoCompleteBox("Select an item", model.Items)
+                        .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
+                }
+
+                VStack() {
+                    TextBlock("MaxDropDownHeight: 60")
+                    AutoCompleteBox("Select an item", model.Items).maxDropDownHeight(60.0)
+                }
+
+                VStack() {
+                    TextBlock("Watermark")
+                    AutoCompleteBox("Select an item", model.Items)
+                }
+
+                VStack() {
+                    TextBlock("Disabled")
+                    AutoCompleteBox("Select an item", model.Items).isEnabled(false)
+                }
+
+                VStack() {
+                    TextBlock("Multi-Binding")
+
+                    AutoCompleteBox("Select an item", model.Capitals)
+                        .reference(multiBindingBoxRef)
+                        .filterMode(AutoCompleteFilterMode.Contains)
+                        .onLoaded(MultiBindingLoaded)
+                }
+
+                VStack() {
+                    TextBlock("AsyncBox")
+
+                    AutoCompleteBox("Select an item", getItemsAsync)
+                        .filterMode(AutoCompleteFilterMode.Contains)
+                }
+
+                VStack() {
+                    TextBlock("Custom AutoComplete")
+
+                    AutoCompleteBox("Select an item", model.Custom)
+                        .reference(customAutoCompleteBoxRef)
+                        .filterMode(AutoCompleteFilterMode.None)
+                        .onLoaded(CustomAutoBoxLoaded)
+
+                }
+
+                VStack() {
+                    TextBlock("With Validation Errors")
+
+                    AutoCompleteBox("Select an item", model.Items)
+                        .name("ValidationErrors")
+                        .filterMode(AutoCompleteFilterMode.None)
+                        .dataValidationErrors([ Exception() ])
+                }
             }
-
-            AutoCompleteBox("Select an item", model.Items)
-                .minimumPopulateDelay(TimeSpan.FromSeconds(0.5))
-                .isTextCompletionEnabled(true)
-                .isDropDownOpen(true)
-                .filterMode(AutoCompleteFilterMode.Contains)
-                .onTextChanged(TextChanged)
-                .onSelectionChanged(SelectionChanged)
-                .onPopulating(OnPopulating)
-                .onPopulated(OnPopulated)
-                .onDropDownOpened(model.IsOpen, OnDropDownOpen)
-
-            AutoCompleteBox("Select an async item", getItemsAsync)
         }

@@ -12,15 +12,23 @@ type IFabMenuFlyout =
 module MenuFlyout =
     let WidgetKey = Widgets.register<MenuFlyout>()
 
-    let Items =
-        Attributes.defineListWidgetCollection "MenuFlyout_Items" (fun target -> (target :?> MenuFlyout).Items :?> IList<_>)
+    let ItemsSource =
+        Attributes.defineListWidgetCollection "MenuFlyout_Items" (fun target ->
+            let target = target :?> MenuFlyout
+
+            if target.ItemsSource = null then
+                let newColl = List<Control>()
+                target.ItemsSource <- newColl
+                newColl
+            else
+                target.ItemsSource :?> IList<Control>)
 
 [<AutoOpen>]
 module MenuFlyoutBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline MenuFlyout() =
-            CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.Items)
+            CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.ItemsSource)
 
 [<Extension>]
 type MenuFlyoutModifiers =
