@@ -6,6 +6,7 @@ open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
+open Fabulous.StackAllocatedCollections
 
 type IFabComboBox =
     inherit IFabSelectingItemsControl
@@ -43,6 +44,9 @@ module ComboBoxBuilders =
 
         static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
             WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSource items template
+            
+        static member ComboBox() =
+            CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ItemsControl.Items)
 
 [<Extension>]
 type ComboBoxModifiers =
@@ -88,3 +92,21 @@ type ComboBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+        
+[<Extension>]
+type ComboBoxCollectionBuilderExtensions =
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }

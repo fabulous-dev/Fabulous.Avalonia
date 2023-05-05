@@ -12,3 +12,15 @@ module Paths =
 
     [<Literal>]
     let Path3 = "M1,4 H18 V6 H1 V4 M1,9 H18 V11 H1 V7 M3,14 H18 V16 H1 V14"
+
+
+open Fabulous
+
+module Cmd =
+    let perform fn : Cmd<'msg> = [ (fun _ -> fn()) ]
+
+    let performAsync asyncUnit =
+        Cmd.ofMsgOption(
+            Async.Start asyncUnit
+            None
+        )

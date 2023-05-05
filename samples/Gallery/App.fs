@@ -4,19 +4,25 @@ open System.Diagnostics
 open Fabulous
 open Fabulous.Avalonia
 open Gallery
+open Gallery.Root.Types
 
 open type Fabulous.Avalonia.View
 
 module App =
-
-#if MOBILE || BROWSER
-    let app model = Root.MainView.view model
-#else
-    let app model = Root.MainWindow.view model
-#endif
+    let navigationController = NavigationController()
+    
+    let navigationSubscription _model =
+        Cmd.ofSub(fun dispatch ->
+            navigationController.NavigationRequested.Add(fun route -> dispatch(NavigationMsg route))
+            navigationController.BackNavigationRequested.Add(fun () -> dispatch BackButtonPressed))
 
     let program =
-        Program.statefulWithCmd Root.State.init Root.State.update app
+        Program.statefulWithCmdMsg
+            Root.State.init
+            Root.State.update
+            Root.View.view
+            (Root.State.mapCmdMsgToCmd navigationController)
+        |> Program.withSubscription navigationSubscription
         |> Program.withThemeAwareness
 #if DEBUG
         |> Program.withLogger

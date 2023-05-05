@@ -4,17 +4,21 @@ open Gallery
 
 module Types =
     type Model =
-        { PageModel: Pages.Types.Model
-          Pages: string seq
+        { Navigation: NavigationModel
           IsPanOpen: bool
           SafeAreaInsets: float
           SelectedIndex: int
           PaneLength: float }
 
     type Msg =
-        | PageMsg of Pages.Types.Msg
-        | SelectedIndexChanged of int
+        | SubpageMsg of SubpageMsg
         | OpenPanChanged of bool
+        | NavigationMsg of NavigationRoute
+        | BackButtonPressed
         | OpenPan
         | DoNothing
         | OnLoaded of bool
+        
+     type CmdMsg =
+        | NewMsg of Msg
+        | SubpageCmdMsgs of SubpageCmdMsg list

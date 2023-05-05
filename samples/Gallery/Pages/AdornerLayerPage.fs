@@ -10,6 +10,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Interactivity
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module AdornerLayerPage =
     type Model = { Angle: float }
@@ -19,24 +20,33 @@ module AdornerLayerPage =
         | AddAdorner
         | RemoveAdorner
         | DoNothing
+        | Previous
+    
+    type CmdMsg =
+        | NoMsg
 
-    let init () = { Angle = 0. }
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
+        
+    let init () = { Angle = 0. }, []
 
     let buttonRef = ViewRef<Button>()
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with Angle = value }
+        | ValueChanged value -> { model with Angle = value }, []
         | AddAdorner ->
             let adorner = AdornerLayer.GetAdorner(buttonRef.Value)
             AdornerLayer.SetAdorner(buttonRef.Value, adorner)
-            model
+            model, []
         | RemoveAdorner ->
             let adorner = AdornerLayer.GetAdorner(buttonRef.Value)
 
             AdornerLayer.SetAdorner(adorner, null)
-            model
-        | DoNothing -> model
+            model, []
+        | DoNothing -> model, []
+        | Previous -> model, []
 
     let view model =
         Dock() {

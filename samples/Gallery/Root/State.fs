@@ -1,91 +1,25 @@
 namespace Gallery.Root
 
 open Fabulous
-
-open Gallery.Pages.Types
 open Gallery
 open Types
 
 module State =
-
-    let pages =
-        [| Pages.AcrylicPage
-           Pages.AdornerLayerPage
-           Pages.AutoCompleteBoxPage
-           Pages.AnimationsPage
-           Pages.ButtonsPage
-           Pages.BrushesPage
-           Pages.ButtonSpinnerPage
-           Pages.BorderPage
-           Pages.CalendarPage
-           Pages.CalendarDatePickerPage
-           Pages.CanvasPage
-           Pages.CheckBoxPage
-           Pages.CarouselPage
-           Pages.ComboBoxPage
-           Pages.ContextMenuPage
-           Pages.ContextFlyoutPage
-           Pages.ClippingPage
-           Pages.DockPanelPage
-           Pages.DropDownButtonPage
-           Pages.DrawingPage
-           Pages.ExpanderPage
-           Pages.FlyoutPage
-           Pages.GesturesPage
-           Pages.GeometriesPage
-           Pages.GlyphRunControlPage
-           Pages.GridPage
-           Pages.GridSplitterPage
-           Pages.ImagePage
-           Pages.LabelPage
-           Pages.LayoutTransformControlPage
-           Pages.LineBoundsDemoControlPage
-           Pages.ListBoxPage
-           Pages.MenuFlyoutPage
-           Pages.MaskedTextBoxPage
-           Pages.MenuPage
-           Pages.NumericUpDownPage
-           Pages.NotificationsPage
-           Pages.ProgressBarPage
-           Pages.PanelPage
-           Pages.PathIconPage
-           Pages.PopupPage
-           Pages.PageTransitionsPage
-           Pages.RepeatButtonPage
-           Pages.RadioButtonPage
-           Pages.RefreshContainerPage
-           Pages.SelectableTextBlockPage
-           Pages.SplitButtonPage
-           Pages.SliderPage
-           Pages.ShapesPage
-           Pages.ScrollBarPage
-           Pages.SplitViewPage
-           Pages.StackPanelPage
-           Pages.ScrollViewerPage
-           Pages.ToggleSplitButtonPage
-           Pages.TextBlockPage
-           Pages.TextBoxPage
-           Pages.TickBarPage
-           Pages.ToggleSwitchPage
-           Pages.ToggleButtonPage
-           Pages.ToolTipPage
-           Pages.TabControlPage
-           Pages.TabStripPage
-           Pages.TransitionsPage
-           Pages.TransformsPage
-           Pages.ThemeAwarePage
-           Pages.UniformGridPage
-           Pages.ViewBoxPage |]
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NewMsg msg -> Cmd.ofMsg msg
+        | SubpageCmdMsgs cmdMsgs ->
+            let cmd = NavigationState.mapCmdMsgToMsg nav cmdMsgs
+            Cmd.map SubpageMsg cmd
 
     let init () =
-
-        { PageModel = Pages.State.init(Pages.AcrylicPage)
-          IsPanOpen = true
-          Pages = pages |> Array.map Pages.Translate
+        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.HomePage None          
+        { IsPanOpen = true
           SafeAreaInsets = 0.
           PaneLength = 250.
-          SelectedIndex = 0 },
-        Cmd.none
+          SelectedIndex = 0
+          Navigation = NavigationModel.Init(model) }, [ SubpageCmdMsgs cmdMsgs]
+        
 
     let update msg model =
         match msg with
@@ -94,27 +28,36 @@ module State =
             { model with
                 SafeAreaInsets = 32.
                 PaneLength = 180. },
-            Cmd.none
+            []
 #else
-            model, Cmd.none
+            model, []
 #endif
-        | DoNothing -> model, Cmd.none
-        | PageMsg msg ->
-            let m, c = Pages.State.update msg model.PageModel
-            { model with PageModel = m }, Cmd.batch [ (Cmd.map PageMsg c) ]
-        | SelectedIndexChanged index ->
-            let index = if index < 0 then model.SelectedIndex else index
+        | DoNothing -> model, []
+        | SubpageMsg subpageMsg ->
+            let nav, cmdMsgs = NavigationState.update subpageMsg model.Navigation
+            { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
+        // | SelectedIndexChanged index ->
+        //     let index = if index < 0 then model.SelectedIndex else index
+        //
+        //     let model =
+        //         { model with
+        //             SelectedIndex = index
+        //             PageModel = Pages.State.init(pages.[index]) }
+        //
+        //     model, []
 
-            let model =
-                { model with
-                    SelectedIndex = index
-                    PageModel = Pages.State.init(pages.[index]) }
-
-            model, Cmd.none
-
-        | OpenPanChanged x -> { model with IsPanOpen = x }, Cmd.none
+        | OpenPanChanged x -> { model with IsPanOpen = x }, []
 
         | OpenPan ->
             { model with
-                IsPanOpen = not model.IsPanOpen },
-            Cmd.none
+                IsPanOpen = not model.IsPanOpen }, []  
+            
+        | NavigationMsg route ->
+            let m, c = NavigationState.initRoute route (Some model.Navigation)
+            { model with Navigation = model.Navigation.Push(m) }, [ SubpageCmdMsgs c ]
+
+        | BackButtonPressed ->
+            let nav, cmdMsgs =
+                NavigationState.updateBackButtonPressed model.Navigation
+
+            { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
