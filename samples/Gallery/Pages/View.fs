@@ -180,6 +180,14 @@ module View =
 
                     View.map GesturesPageMsg (GesturesPage.view model.GesturesPageModel)
                 }
+
+            | Pages.GeometriesPage ->
+                VStack(spacing = 20.) {
+                    TextBlock("GeometriesPage").fontSize(20.)
+                    Separator().background(SolidColorBrush(Colors.Gray))
+
+                    View.map GeometriesPageMsg (GeometriesPage.view model.GeometriesPageModel)
+                }
             | Pages.GlyphRunControlPage ->
                 VStack(spacing = 20.) {
                     TextBlock("GlyphRunControlPage").fontSize(20.)

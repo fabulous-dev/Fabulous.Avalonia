@@ -25,6 +25,7 @@ module Types =
         | ExpanderPage
         | FlyoutPage
         | GesturesPage
+        | GeometriesPage
         | GlyphRunControlPage
         | GridPage
         | GridSplitterPage
@@ -93,6 +94,7 @@ module Types =
             | ExpanderPage -> "ExpanderPage"
             | FlyoutPage -> "FlyoutPage"
             | GesturesPage -> "GesturesPage"
+            | GeometriesPage -> "GeometriesPage"
             | GlyphRunControlPage -> "GlyphRunControlPage"
             | GridPage -> "GridPage"
             | GridSplitterPage -> "GridSplitterPage"
@@ -161,6 +163,7 @@ module Types =
           ExpanderPageModel: ExpanderPage.Model
           FlyoutPageModel: FlyoutPage.Model
           GesturesPageModel: GesturesPage.Model
+          GeometriesPageModel: GeometriesPage.Model
           GlyphRunControlPageModel: GlyphRunControlPage.Model
           GridPageModel: GridPage.Model
           GridSplitterPageModel: GridSplitterPage.Model
@@ -228,6 +231,7 @@ module Types =
         | ExpanderPageMsg of ExpanderPage.Msg
         | FlyoutPageMsg of FlyoutPage.Msg
         | GesturesPageMsg of GesturesPage.Msg
+        | GeometriesPageMsg of GeometriesPage.Msg
         | GlyphRunControlPageMsg of GlyphRunControlPage.Msg
         | GridPageMsg of GridPage.Msg
         | GridSplitterPageMsg of GridSplitterPage.Msg

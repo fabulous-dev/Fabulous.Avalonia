@@ -32,6 +32,7 @@ module State =
            Pages.ExpanderPage
            Pages.FlyoutPage
            Pages.GesturesPage
+           Pages.GeometriesPage
            Pages.GlyphRunControlPage
            Pages.GridPage
            Pages.GridSplitterPage

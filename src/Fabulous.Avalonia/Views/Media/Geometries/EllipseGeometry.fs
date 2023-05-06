@@ -27,10 +27,9 @@ module EllipseGeometry =
 module EllipseGeometryBuilders =
     type Fabulous.Avalonia.View with
 
-        static member EllipseGeometry(rect: Rect, radiusX: float, radiusY: float) =
+        static member EllipseGeometry(radiusX: float, radiusY: float) =
             WidgetBuilder<'msg, IFabEllipseGeometry>(
                 EllipseGeometry.WidgetKey,
-                EllipseGeometry.Rect.WithValue(rect),
                 EllipseGeometry.RadiusX.WithValue(radiusX),
                 EllipseGeometry.RadiusY.WithValue(radiusY)
             )
@@ -40,3 +39,7 @@ type EllipseGeometryModifiers =
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabEllipseGeometry>, value: Point) =
         this.AddScalar(EllipseGeometry.Center.WithValue(value))
+
+    [<Extension>]
+    static member inline rect(this: WidgetBuilder<'msg, #IFabEllipseGeometry>, value: Rect) =
+        this.AddScalar(EllipseGeometry.Rect.WithValue(value))

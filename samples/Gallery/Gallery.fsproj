@@ -48,6 +48,7 @@
     <Compile Include="Pages\FlyoutPage.fs" />
     <Compile Include="Pages\FormattedTextControlPage.fs" />
     <Compile Include="Pages\GesturesPage.fs" />
+    <Compile Include="Pages\GeometriesPage.fs" />
     <Compile Include="Pages\GlyphRunControlPage.fs" />
     <Compile Include="Pages\GridPage.fs" />
     <Compile Include="Pages\GridSplitterPage.fs" />

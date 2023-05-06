@@ -17,26 +17,6 @@ module BrushesPage =
         match msg with
         | DoNothing -> model
 
-    let createDrawing () =
-        DrawingBrush(
-            GeometryDrawing(
-                GeometryGroup(FillRule.NonZero) {
-                    RectangleGeometry(Rect(50., 25., 25., 25.))
-                    RectangleGeometry(Rect(50., 25., 25., 25.))
-                },
-                SolidColorBrush(Colors.Yellow)
-            )
-                .pen(
-                    Pen(
-                        LinearGradientBrush() {
-                            GradientStop(0., Colors.Blue)
-                            GradientStop(1., Colors.Black)
-                        },
-                        5.
-                    )
-                )
-        )
-
     let view _ =
         (Canvas() {
             Rectangle()
@@ -126,13 +106,6 @@ module BrushesPage =
                         GradientStop(0.1, Colors.Purple)
                     }
                 )
-
-            Rectangle()
-                .canvasLeft(20.0)
-                .canvasTop(310.0)
-                .width(440.0)
-                .height(50.0)
-                .fill(createDrawing())
 
             Rectangle()
                 .canvasLeft(20.0)

@@ -30,6 +30,7 @@ module State =
           ExpanderPageModel = ExpanderPage.init()
           FlyoutPageModel = FlyoutPage.init()
           GesturesPageModel = GesturesPage.init()
+          GeometriesPageModel = GeometriesPage.init()
           GlyphRunControlPageModel = GlyphRunControlPage.init()
           GridPageModel = GridPage.init()
           GridSplitterPageModel = GridSplitterPage.init()
@@ -166,6 +167,10 @@ module State =
         | GesturesPageMsg msg ->
             { model with
                 GesturesPageModel = GesturesPage.update msg model.GesturesPageModel },
+            Cmd.none
+        | GeometriesPageMsg msg ->
+            { model with
+                GeometriesPageModel = GeometriesPage.update msg model.GeometriesPageModel },
             Cmd.none
         | GlyphRunControlPageMsg msg ->
             { model with
