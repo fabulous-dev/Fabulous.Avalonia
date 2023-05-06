@@ -19,7 +19,6 @@ module RefreshVisualizer =
     let Orientation =
         Attributes.defineAvaloniaPropertyWithEquality RefreshVisualizer.OrientationProperty
 
-
 [<AutoOpen>]
 module RefreshVisualizerBuilders =
     type Fabulous.Avalonia.View with

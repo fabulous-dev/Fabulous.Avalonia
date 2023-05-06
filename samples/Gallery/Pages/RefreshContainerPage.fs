@@ -1,5 +1,7 @@
 namespace Gallery.Pages
 
+open System.Collections.ObjectModel
+open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
@@ -9,26 +11,44 @@ open Avalonia.Input
 open type Fabulous.Avalonia.View
 
 module RefreshContainerPage =
-    type Model = { Items: int seq }
+    type Model = { Items: ObservableCollection<string> }
 
     type Msg = RefreshRequested of RefreshRequestedEventArgs
 
-    let init () = { Items = [ 0..100 ] }
+    let init () =
+        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }
 
     let update msg model =
         match msg with
-        | RefreshRequested _ -> model
+        | RefreshRequested args ->
+            let deferral = args.GetDeferral()
 
-    let visualizer =
-        RefreshVisualizer(TextBlock("Pull to refresh").foreground(SolidColorBrush(Colors.Red)))
-            .size(100., 100.)
+            Task.Delay(3000) |> Async.AwaitTask |> Async.RunSynchronously
+
+            model.Items.Insert(0, $"Item %d{200 - model.Items.Count}")
+
+            deferral.Complete()
+
+            model
+
+    let container model =
+        ListBox(model.Items, (fun x -> TextBlock(x)))
+            .horizontalAlignment(HorizontalAlignment.Stretch)
+            .verticalAlignment(VerticalAlignment.Top)
 
     let view model =
-        RefreshContainer(ListBox(model.Items, (fun x -> TextBlock $"Item %d{x}")).height(500.))
-            .visualizer(visualizer)
-            .onRefreshRequested(RefreshRequested)
-            .pullDirection(PullDirection.TopToBottom)
+        (Dock() {
+            Label("A control that supports pull to refresh").dock(Dock.Top)
+
+            RefreshContainer(container model)
+                .onRefreshRequested(RefreshRequested)
+                .pullDirection(PullDirection.TopToBottom)
+                .horizontalAlignment(HorizontalAlignment.Stretch)
+                .verticalAlignment(VerticalAlignment.Stretch)
+                .margin(5.)
+                .dock(Dock.Bottom)
+
+        })
             .horizontalAlignment(HorizontalAlignment.Stretch)
-            .verticalAlignment(VerticalAlignment.Stretch)
-            .margin(5.)
-            .dock(Dock.Bottom)
+            .verticalAlignment(VerticalAlignment.Top)
+            .height(600.)
