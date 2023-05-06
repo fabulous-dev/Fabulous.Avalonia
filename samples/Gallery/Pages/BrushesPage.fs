@@ -133,6 +133,66 @@ module BrushesPage =
                 .width(440.0)
                 .height(50.0)
                 .fill(createDrawing())
+
+            Rectangle()
+                .canvasLeft(20.0)
+                .canvasTop(410.0)
+                .width(440.0)
+                .height(50.0)
+                .fill(
+                    VisualBrush(
+                        (Canvas() {
+                            Rectangle()
+                                .canvasLeft(0.0)
+                                .canvasTop(0.0)
+                                .width(10.0)
+                                .height(10.0)
+                                .fill(SolidColorBrush(Colors.Maroon))
+
+                            Rectangle()
+                                .canvasLeft(10.0)
+                                .canvasTop(0.0)
+                                .width(10.0)
+                                .height(10.0)
+                                .fill(SolidColorBrush(Colors.Green))
+
+                            Rectangle()
+                                .canvasLeft(0.0)
+                                .canvasTop(10.0)
+                                .width(10.0)
+                                .height(10.0)
+                                .fill(SolidColorBrush(Colors.Blue))
+
+                            Rectangle()
+                                .canvasLeft(10.0)
+                                .canvasTop(10.0)
+                                .width(10.0)
+                                .height(10.0)
+                                .fill(SolidColorBrush(Colors.Yellow))
+                        })
+                            .width(20.0)
+                            .height(20.0)
+
+                    )
+                        .stretch(Stretch.None)
+                        .tileMode(TileMode.Tile)
+                        .sourceRect(RelativeRect(0., 0., 20., 20., RelativeUnit.Absolute))
+                        .destinationRect(RelativeRect(0., 0., 20., 20., RelativeUnit.Absolute))
+                        .transform(
+                            TransformGroup() {
+                                ScaleTransform(2., 2.)
+                                SkewTransform(45.)
+                                RotateTransform()
+                                TranslateTransform(5., 5.)
+                            }
+                        )
+                )
+
+            TextBlock("scale(2), skewX(45) on pattern")
+                .canvasLeft(20.0)
+                .canvasTop(460.0)
+                .fontSize(30.0)
+
         })
             .width(480.0)
             .height(360.0)

@@ -82,6 +82,7 @@
     <Compile Include="Views\Media\Brushes\_Brush.fs" />
     <Compile Include="Views\Media\Brushes\_TileBrush.fs" />
     <Compile Include="Views\Media\Brushes\SolidColorBrush.fs" />
+    <Compile Include="Views\Media\Brushes\VisualBrush.fs" />
     <Compile Include="Views\Media\Brushes\ImageBrush.fs" />
     <Compile Include="Views\Media\Brushes\DrawingBrush.fs" />
     <Compile Include="Views\Media\Brushes\GradientStop.fs" />

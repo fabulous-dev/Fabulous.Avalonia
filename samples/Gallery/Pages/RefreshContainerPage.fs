@@ -4,7 +4,6 @@ open System.Collections.ObjectModel
 open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Layout
-open Avalonia.Media
 open Fabulous.Avalonia
 open Avalonia.Input
 
