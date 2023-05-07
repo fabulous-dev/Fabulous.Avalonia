@@ -21,6 +21,7 @@
 <!--  Pages-->
   <ItemGroup>
     <Compile Include="Common.fs" />
+    <Compile Include="Views\CustomNotificationView.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\Animations\Animations1.fs" />
@@ -61,6 +62,7 @@
     <Compile Include="Pages\MenuPage.fs" />
     <Compile Include="Pages\MenuFlyoutPage.fs" />
     <Compile Include="Pages\NumericUpDownPage.fs" />
+    <Compile Include="Pages\NotificationsPage.fs" />
     <Compile Include="Pages\PanelPage.fs" />
     <Compile Include="Pages\PathIconPage.fs" />
     <Compile Include="Pages\PageTransitions.fs" />

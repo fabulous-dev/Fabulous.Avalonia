@@ -4,7 +4,7 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open Types
+open Gallery.Pages.Types
 
 open type Fabulous.Avalonia.View
 
@@ -272,6 +272,14 @@ module View =
                     Separator().background(SolidColorBrush(Colors.Gray))
 
                     View.map NumericUpDownPageMsg (NumericUpDownPage.view model.NumericUpDownPageModel)
+                }
+
+            | Pages.NotificationsPage ->
+                VStack(spacing = 20.) {
+                    TextBlock("NotificationsPage").fontSize(20.)
+                    Separator().background(SolidColorBrush(Colors.Gray))
+
+                    View.map NotificationsPageMsg (NotificationsPage.view model.NotificationsPageModel)
                 }
             | Pages.ProgressBarPage ->
                 VStack(spacing = 20.) {

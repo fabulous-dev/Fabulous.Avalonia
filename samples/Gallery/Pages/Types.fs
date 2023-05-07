@@ -38,6 +38,7 @@ module Types =
         | MaskedTextBoxPage
         | MenuPage
         | NumericUpDownPage
+        | NotificationsPage
         | ProgressBarPage
         | PanelPage
         | PathIconPage
@@ -107,6 +108,7 @@ module Types =
             | MaskedTextBoxPage -> "MaskedTextBoxPage"
             | MenuPage -> "MenuPage"
             | NumericUpDownPage -> "NumericUpDownPage"
+            | NotificationsPage -> "NotificationsPage"
             | ProgressBarPage -> "ProgressBarPage"
             | PanelPage -> "PanelPage"
             | PathIconPage -> "PathIconPage"
@@ -176,6 +178,7 @@ module Types =
           MaskedTextBoxPageModel: MaskedTextBoxPage.Model
           MenuPageModel: MenuPage.Model
           NumericUpDownPageModel: NumericUpDownPage.Model
+          NotificationsPageModel: NotificationsPage.Model
           ProgressBarPageModel: ProgressBarPage.Model
           PanelPageModel: PanelPage.Model
           PathIconPageModel: PathIconPage.Model
@@ -244,6 +247,7 @@ module Types =
         | MaskedTextBoxPageMsg of MaskedTextBoxPage.Msg
         | MenuPageMsg of MenuPage.Msg
         | NumericUpDownPageMsg of NumericUpDownPage.Msg
+        | NotificationsPageMsg of NotificationsPage.Msg
         | ProgressBarPageMsg of ProgressBarPage.Msg
         | PanelPageMsg of PanelPage.Msg
         | PathIconPageMsg of PathIconPage.Msg

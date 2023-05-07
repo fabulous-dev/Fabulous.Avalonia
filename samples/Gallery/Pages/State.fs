@@ -43,6 +43,7 @@ module State =
           MaskedTextBoxPageModel = MaskedTextBoxPage.init()
           MenuPageModel = MenuPage.init()
           NumericUpDownPageModel = NumericUpDownPage.init()
+          NotificationsPageModel = NotificationsPage.init()
           ProgressBarPageModel = ProgressBarPage.init()
           PanelPageModel = PanelPage.init()
           PathIconPageModel = PathIconPage.init()
@@ -221,6 +222,11 @@ module State =
         | NumericUpDownPageMsg msg ->
             { model with
                 NumericUpDownPageModel = NumericUpDownPage.update msg model.NumericUpDownPageModel },
+            Cmd.none
+
+        | NotificationsPageMsg msg ->
+            { model with
+                NotificationsPageModel = NotificationsPage.update msg model.NotificationsPageModel },
             Cmd.none
         | ProgressBarPageMsg msg ->
             { model with

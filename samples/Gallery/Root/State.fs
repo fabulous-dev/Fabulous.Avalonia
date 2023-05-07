@@ -45,6 +45,7 @@ module State =
            Pages.MaskedTextBoxPage
            Pages.MenuPage
            Pages.NumericUpDownPage
+           Pages.NotificationsPage
            Pages.ProgressBarPage
            Pages.PanelPage
            Pages.PathIconPage
