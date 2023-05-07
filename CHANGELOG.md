@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre8] - 2023-05-07
+
+### Added
+- More samples to Gallery
+- Add VisualBrush wrapper
+- Add support for AvaloniaUI preview 7
+
+### Changed
+- Disable `WidgetDataTemplate` recycling  to avoid issues with `DataTemplate` not being applied correctly
+- Rework GalleryApp structure to make it easier to add new samples
+
 ## [2.0.0-pre7] - 2023-04-24
 
 ### Added
@@ -41,7 +52,7 @@ _No unreleased changes_
 ### Fixed
 - Flyouts not available the corresponding controls
 
-### Updated
+### Changed
 - Update to use Fantomas 6.0.0
 
 ## [2.0.0-pre4] - 2023-04-08
@@ -67,7 +78,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre7...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre8...HEAD
+[2.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre8
 [2.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre7
 [2.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre6
 [2.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre5
