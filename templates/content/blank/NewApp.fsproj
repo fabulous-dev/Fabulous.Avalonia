@@ -12,6 +12,12 @@
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS'">
+    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.fs" />
   </ItemGroup>

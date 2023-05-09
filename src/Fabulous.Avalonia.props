@@ -16,6 +16,7 @@
     <PropertyGroup Condition="$(AvaloniaPlatform) == 'Android'">
         <AndroidPlatformFolder Condition="$(AndroidPlatformFolder) == ''">Platform\Android\</AndroidPlatformFolder>
         <AndroidManifest>$(AndroidPlatformFolder)AndroidManifest.xml</AndroidManifest>
+        <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
         <DefineConstants>MOBILE;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
     
