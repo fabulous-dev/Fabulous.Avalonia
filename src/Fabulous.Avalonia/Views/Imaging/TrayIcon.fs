@@ -25,18 +25,6 @@ module TrayIcon =
     let Clicked =
         Attributes.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
 
-module TrayIconAttached =
-    let TrayIcons =
-        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
-            let target = target :?> Application
-            let trayIcons = TrayIcon.GetIcons(target)
-
-            if trayIcons = null then
-                let trayIcons = TrayIcons()
-                TrayIcon.SetIcons(target, trayIcons)
-                trayIcons
-            else
-                trayIcons)
 
 [<AutoOpen>]
 module TrayIconBuilders =

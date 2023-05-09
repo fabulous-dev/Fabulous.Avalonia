@@ -157,14 +157,27 @@ type ApplicationModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
-type TrayIconAttachedModifiers =
-    [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTrayIcon> TrayIconAttached.TrayIcons this
+module ApplicationAttached =
+    let TrayIcons =
+        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
+            let target = target :?> Application
+            let trayIcons = TrayIcon.GetIcons(target)
+
+            if trayIcons = null then
+                let trayIcons = TrayIcons()
+                TrayIcon.SetIcons(target, trayIcons)
+                trayIcons
+            else
+                trayIcons)
 
 [<Extension>]
-type TrayIconYieldExtensions =
+type ApplicationAttachedModifiers =
+    [<Extension>]
+    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
+        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTrayIcon> ApplicationAttached.TrayIcons this
+
+[<Extension>]
+type ApplicationYieldExtensions =
     [<Extension>]
     static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, #IFabTrayIcon>) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
