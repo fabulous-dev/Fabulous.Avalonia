@@ -1,7 +1,9 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Collections.Generic
 open System.Runtime.CompilerServices
+open Avalonia.Media
 open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -29,6 +31,16 @@ type StyleModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabStyle>, value: ViewRef<Style>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+    [<Extension>]
+    static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, animation: WidgetBuilder<'msg, IFabAnimation>) =
+        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles) {
+            CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations) { animation }
+        }
+
+    [<Extension>]
+    static member inline animations(this: WidgetBuilder<'msg, #IFabStyledElement>, animations: WidgetBuilder<'msg, IFabStyle>) =
+        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles) { animations }
 
 [<Extension>]
 type StyleCollectionBuilderExtensions =

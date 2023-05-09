@@ -26,8 +26,7 @@ module Animations2 =
                 .height(100.0)
                 .background(Brushes.Red)
                 .renderTransform(TransformGroup() { TranslateTransform() })
-                .styles() {
-                Animations() {
+                .animation(
                     (Animation(TimeSpan.FromSeconds(1.)) {
                         KeyFrame(TranslateTransform.XProperty, -300.).cue(0.)
                         KeyFrame(TranslateTransform.XProperty, -200.).cue(0.25)
@@ -37,6 +36,5 @@ module Animations2 =
                         .playbackDirection(PlaybackDirection.Normal)
                         .easing(SpringEasing(1., 2000., 20., 0.))
                         .repeatForever()
-                }
-            }
+                )
         }

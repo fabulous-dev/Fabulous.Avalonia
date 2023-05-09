@@ -65,12 +65,10 @@ module ClippingPage =
                         .width(100.)
                         .height(100.)
                         .renderTransform(RotateTransform())
-                        .styles() {
-                        Animations() {
-                            (Animation(TimeSpan.FromSeconds(2.)) { KeyFrame(RotateTransform.AngleProperty, 360.).cue(1.) })
+                        .animation(
+                            Animation(KeyFrame(RotateTransform.AngleProperty, 360.).cue(1.), TimeSpan.FromSeconds(2.))
                                 .repeatForever()
-                        }
-                    }
+                        )
                 )
                     .name("clipped")
                     .background(model.BrushColor)

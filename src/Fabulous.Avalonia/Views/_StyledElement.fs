@@ -25,10 +25,6 @@ type StyledElementModifiers =
         this.AddScalar(StyledElement.Name.WithValue(name))
 
     [<Extension>]
-    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>) =
-        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.Styles)
-
-    [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
 
 [<Extension>]

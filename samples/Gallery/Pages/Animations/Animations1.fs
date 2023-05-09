@@ -35,19 +35,20 @@ module Animations1 =
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
                 .background(SolidColorBrush(Colors.DarkRed))
-                .styles() {
-                Animations() {
-                    (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 0.).cue(0.)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(0.)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 90.).cue(0.25)
-                        KeyFrame(Visual.ZIndexProperty, 1).cue(0.25)
-                        KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(1.)
-                        KeyFrame(Visual.ZIndexProperty, 4).cue(1.)
-                    })
-                        .repeatForever()
-                }
-            }
+                .animations(
+                    Animations() {
+                        (Animation(TimeSpan.FromSeconds(3.)) {
+                            KeyFrame(Rotate3DTransform.AngleXProperty, 0.).cue(0.)
+                            KeyFrame(Visual.ZIndexProperty, 4).cue(0.)
+                            KeyFrame(Rotate3DTransform.AngleXProperty, 90.).cue(0.25)
+                            KeyFrame(Visual.ZIndexProperty, 1).cue(0.25)
+                            KeyFrame(Rotate3DTransform.AngleXProperty, 360.).cue(1.)
+                            KeyFrame(Visual.ZIndexProperty, 4).cue(1.)
+                        })
+                            .repeatForever()
+                    }
+                )
+
 
             Border()
                 .style(borderTestStyle)
@@ -55,8 +56,7 @@ module Animations1 =
                 .background(SolidColorBrush(Colors.DarkGreen))
                 .gridRow(0)
                 .gridColumn(0)
-                .styles() {
-                Animations() {
+                .animation(
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(Rotate3DTransform.AngleXProperty, 90.).cue(0.)
                         KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
@@ -68,8 +68,7 @@ module Animations1 =
                         KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
                     })
                         .repeatForever()
-                }
-            }
+                )
 
             Border()
                 .style(borderTestStyle)
@@ -77,8 +76,8 @@ module Animations1 =
                 .background(SolidColorBrush(Colors.DarkBlue))
                 .gridRow(0)
                 .gridColumn(0)
-                .styles() {
-                Animations() {
+                .animation(
+
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(Rotate3DTransform.AngleXProperty, 180.).cue(0.)
                         KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
@@ -90,8 +89,7 @@ module Animations1 =
                         KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
                     })
                         .repeatForever()
-                }
-            }
+                )
 
             Border()
                 .style(borderTestStyle)
@@ -99,8 +97,7 @@ module Animations1 =
                 .background(SolidColorBrush(Colors.Orange))
                 .gridRow(0)
                 .gridColumn(0)
-                .styles() {
-                Animations() {
+                .animation(
                     (Animation(TimeSpan.FromSeconds(3.)) {
                         KeyFrame(Rotate3DTransform.AngleXProperty, 270.).cue(0.)
                         KeyFrame(Visual.ZIndexProperty, 1).cue(0.)
@@ -112,6 +109,5 @@ module Animations1 =
                         KeyFrame(Visual.ZIndexProperty, 1).cue(1.)
                     })
                         .repeatForever()
-                }
-            }
+                )
         }

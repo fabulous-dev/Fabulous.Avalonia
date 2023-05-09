@@ -13,7 +13,7 @@ open type Fabulous.Avalonia.View
 type CustomStringAnimator() =
     inherit Animator<string>()
 
-    override this.Interpolate(progress, oldValue, newValue) =
+    override this.Interpolate(progress, _oldValue, newValue) =
 
         if newValue.Length = 0 then
             ""
@@ -40,13 +40,11 @@ module Animations3 =
 
     let view _ =
         Grid() {
-            TextBlock("").centerHorizontal().onLoaded(Loaded).styles() {
-                Animations() {
-                    (Animation(TimeSpan.FromSeconds(3.)) {
-                        KeyFrame(TextBlock.TextProperty, "").cue(0.)
-                        KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.)
-                    })
+            TextBlock("")
+                .centerHorizontal()
+                .onLoaded(Loaded)
+                .animation(
+                    Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
                         .repeatForever()
-                }
-            }
+                )
         }
