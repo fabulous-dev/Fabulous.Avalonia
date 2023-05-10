@@ -39,6 +39,4 @@ module Transitions9 =
             .background(model.Background)
             .onPointerEnter(OnPointerEnter)
             .onPointerExited(OnPointerExited)
-            .transitions() {
-            BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
-        }
+            .transition(BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5)))

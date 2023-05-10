@@ -57,6 +57,4 @@ module Transitions10 =
             )
             .onPointerEnter(OnPointerEnter)
             .onPointerExited(OnPointerExited)
-            .transitions() {
-            BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5))
-        }
+            .transition(BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5)))

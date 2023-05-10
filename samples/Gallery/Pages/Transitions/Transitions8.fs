@@ -47,6 +47,4 @@ module Transitions8 =
             .cornerRadius(10.)
             .onPointerEnter(OnPointerEnter)
             .onPointerExited(OnPointerExited)
-            .transitions() {
-            BoxShadowsTransition(Border.BoxShadowProperty, TimeSpan.FromSeconds(0.5))
-        }
+            .transition(BoxShadowsTransition(Border.BoxShadowProperty, TimeSpan.FromSeconds(0.5)))

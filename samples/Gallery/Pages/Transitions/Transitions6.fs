@@ -55,9 +55,8 @@ module Transitions6 =
                 .cornerRadius(model.CornerRadius)
                 .onPointerEnter(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
-                .transitions() {
-                CornerRadiusTransition(Border.CornerRadiusProperty, TimeSpan.FromSeconds(1.))
-            }
+                .transition(CornerRadiusTransition(Border.CornerRadiusProperty, TimeSpan.FromSeconds(1.)))
+
 
             Border()
                 .background(SolidColorBrush(Colors.Gold))
@@ -65,7 +64,6 @@ module Transitions6 =
                 .cornerRadius(model.CornerRadius1)
                 .onPointerEnter(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
-                .transitions() {
-                CornerRadiusTransition(Border.CornerRadiusProperty, TimeSpan.FromSeconds(1.))
-            }
+                .transition(CornerRadiusTransition(Border.CornerRadiusProperty, TimeSpan.FromSeconds(1.)))
+
         }
