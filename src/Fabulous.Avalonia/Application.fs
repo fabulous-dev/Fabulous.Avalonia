@@ -88,6 +88,26 @@ module ApplicationUpdaters =
             let struct (_, view) = Helpers.createViewForWidget node widget
             target.MainView <- view :?> Control
 
+module TrayIconUpdaters =
+    let trayIconApplyDiff (diff: WidgetDiff) (node: IViewNode) =
+        let target = node.Target :?> Application
+        let trayIcons = TrayIcon.GetIcons(target)
+        let childViewNode = node.TreeContext.GetViewNode(trayIcons)
+        childViewNode.ApplyDiff(&diff)
+
+    let trayIconUpdateNode (_: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
+        let target = node.Target :?> Application
+        let trayIcons = TrayIcon.GetIcons(target)
+
+        match currOpt with
+        | ValueNone -> trayIcons.Add(Unchecked.defaultof<_>)
+        | ValueSome widget ->
+            let struct (_, trayIcon) = Helpers.createViewForWidget node widget
+            let trayIcon = trayIcon :?> TrayIcon
+            let trayIcons = if trayIcons = null then TrayIcons() else trayIcons
+            trayIcons.Add(trayIcon)
+            TrayIcon.SetIcons(target, trayIcons)
+
 module Application =
     let WidgetKey = Widgets.register<FabApplication>()
 
@@ -96,7 +116,6 @@ module Application =
 
     let MainView =
         Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode
-
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality Application.NameProperty
 
@@ -170,11 +189,18 @@ module ApplicationAttached =
             else
                 trayIcons)
 
+    let TrayIcon =
+        Attributes.defineWidget "TrayIcon" TrayIconUpdaters.trayIconApplyDiff TrayIconUpdaters.trayIconUpdateNode
+
 [<Extension>]
 type ApplicationAttachedModifiers =
     [<Extension>]
     static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
         WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTrayIcon> ApplicationAttached.TrayIcons this
+
+    [<Extension>]
+    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
+        this.AddWidget(ApplicationAttached.TrayIcon.WithValue(trayIcon.Compile()))
 
 [<Extension>]
 type ApplicationYieldExtensions =

@@ -98,6 +98,4 @@ module MainWindow =
                 .title("Fabulous Gallery")
                 .menu(createMenu model)
         )
-            .trayIcons() {
-            trayIcons()
-        }
+            .trayIcon(trayIcons())
