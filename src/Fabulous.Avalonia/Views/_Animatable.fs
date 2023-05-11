@@ -23,7 +23,7 @@ module AnimatableUpdaters =
         match currOpt with
         | ValueNone -> target.Transitions.Add(Unchecked.defaultof<_>)
         | ValueSome widget ->
-            let struct (_, view) = Helpers.createViewForWidget node widget
+            let struct (_, transition) = Helpers.createViewForWidget node widget
 
             let transitions =
                 if target.Transitions = null then
@@ -33,14 +33,14 @@ module AnimatableUpdaters =
                 else
                     target.Transitions
 
-            match view with
+            match transition with
             | :? Transition<ITransform> as transition -> transitions.Add(transition)
             | :? Transition<IBrush> as transition -> transitions.Add(transition)
             | :? AnimatorDrivenTransition<double, DoubleAnimator> as transition -> transitions.Add(transition)
             | :? AnimatorDrivenTransition<BoxShadows, BoxShadowsAnimator> as transition -> transitions.Add(transition)
             | :? AnimatorDrivenTransition<CornerRadius, CornerRadiusAnimator> as transition -> transitions.Add(transition)
             | :? AnimatorDrivenTransition<Thickness, ThicknessAnimator> as transition -> transitions.Add(transition)
-            | _ -> failwithf $"Unsupported transition type: %A{view}"
+            | _ -> failwithf $"Unsupported transition type: %A{transition}"
 
 module Animatable =
 
