@@ -92,21 +92,24 @@ module TrayIconUpdaters =
     let trayIconApplyDiff (diff: WidgetDiff) (node: IViewNode) =
         let target = node.Target :?> Application
         let trayIcons = TrayIcon.GetIcons(target)
-        let childViewNode = node.TreeContext.GetViewNode(trayIcons)
-        childViewNode.ApplyDiff(&diff)
+
+        if trayIcons <> null then
+            let childViewNode = node.TreeContext.GetViewNode(trayIcons)
+            childViewNode.ApplyDiff(&diff)
 
     let trayIconUpdateNode (_: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
         let target = node.Target :?> Application
         let trayIcons = TrayIcon.GetIcons(target)
 
         match currOpt with
-        | ValueNone -> trayIcons.Add(Unchecked.defaultof<_>)
+        | ValueNone -> trayIcons.Clear()
         | ValueSome widget ->
             let struct (_, trayIcon) = Helpers.createViewForWidget node widget
             let trayIcon = trayIcon :?> TrayIcon
-            let trayIcons = if trayIcons = null then TrayIcons() else trayIcons
-            trayIcons.Add(trayIcon)
-            TrayIcon.SetIcons(target, trayIcons)
+
+            if trayIcons <> null then
+                trayIcons.Add(trayIcon)
+                TrayIcon.SetIcons(target, trayIcons)
 
 module Application =
     let WidgetKey = Widgets.register<FabApplication>()
