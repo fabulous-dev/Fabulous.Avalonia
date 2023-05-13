@@ -40,6 +40,9 @@ module TopLevel =
     let Closed =
         Attributes.defineEventNoArg "TopLevel_ClosedEvent" (fun target -> (target :?> TopLevel).Closed)
 
+    let ScalingChanged =
+        Attributes.defineEventNoArg "TopLevel_ScalingChangedEvent" (fun target -> (target :?> TopLevel).ScalingChanged)
+
     let BackRequested =
         Attributes.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
 
@@ -88,3 +91,7 @@ type TopLevelModifiers =
     [<Extension>]
     static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, onBackRequested: 'msg) =
         this.AddScalar(TopLevel.BackRequested.WithValue(fun _ -> onBackRequested |> box))
+
+    [<Extension>]
+    static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, onScalingChanged: 'msg) =
+        this.AddScalar(TopLevel.ScalingChanged.WithValue(onScalingChanged))

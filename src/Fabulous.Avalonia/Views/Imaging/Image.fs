@@ -23,7 +23,7 @@ module ImageSource =
         if uri.IsAbsoluteUri && uri.IsFile then
             new Bitmap(uri.LocalPath)
         else
-            let assets = AssetLoader()
+            let assets = StandardAssetLoader()
             new Bitmap(assets.Open(uri))
 
 module Image =
