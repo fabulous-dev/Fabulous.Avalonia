@@ -47,12 +47,19 @@ module Transitions4 =
                 .style(borderTestStyle)
                 .onPointerEnter(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
-                .renderTransform(SkewTransform(model.SkewX, 0.).transitions() { DoubleTransition(SkewTransform.AngleXProperty, TimeSpan.FromSeconds(0.5)) })
+                .renderTransform(
+                    SkewTransform(model.SkewX, 0.)
+                        .transition(DoubleTransition(SkewTransform.AngleXProperty, TimeSpan.FromSeconds(0.5)))
+                )
+
 
             Border()
                 .background(SolidColorBrush(Colors.SeaGreen))
                 .style(borderTestStyle)
                 .onPointerEnter(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
-                .renderTransform(SkewTransform(0., model.SkewY).transitions() { DoubleTransition(SkewTransform.AngleYProperty, TimeSpan.FromSeconds(0.5)) })
+                .renderTransform(
+                    SkewTransform(0., model.SkewY)
+                        .transition(DoubleTransition(SkewTransform.AngleYProperty, TimeSpan.FromSeconds(0.5)))
+                )
         }

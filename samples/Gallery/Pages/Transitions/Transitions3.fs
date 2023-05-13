@@ -46,7 +46,8 @@ module Transitions3 =
                 .onPointerEnter(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
                 .renderTransform(
-                    TranslateTransform(model.TranslateX, 0.).transitions() { DoubleTransition(TranslateTransform.XProperty, TimeSpan.FromSeconds(0.5)) }
+                    TranslateTransform(model.TranslateX, 0.)
+                        .transition(DoubleTransition(TranslateTransform.XProperty, TimeSpan.FromSeconds(0.5)))
                 )
 
             Border()
@@ -55,6 +56,8 @@ module Transitions3 =
                 .onPointerEnter(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
                 .renderTransform(
-                    TranslateTransform(0., model.TranslateY).transitions() { DoubleTransition(TranslateTransform.YProperty, TimeSpan.FromSeconds(0.5)) }
+                    TranslateTransform(0., model.TranslateY)
+                        .transition(DoubleTransition(TranslateTransform.YProperty, TimeSpan.FromSeconds(0.5)))
                 )
+
         }

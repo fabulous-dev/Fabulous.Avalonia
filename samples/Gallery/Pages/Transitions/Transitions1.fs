@@ -67,14 +67,16 @@ module Transitions1 =
                 .renderTransform(TransformOperations.Parse($"rotate({model.Angle}deg) scale({model.Scale})"))
                 .onPointerEnter(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
-                .transitions() {
-                TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromSeconds(0.5))
-            }
+                .transition(TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromSeconds(0.5)))
+
 
             Border()
                 .style(borderTestStyle)
                 .background(SolidColorBrush(Colors.DarkRed))
-                .renderTransform(RotateTransform(model.Angle1).transitions() { DoubleTransition(RotateTransform.AngleProperty, TimeSpan.FromSeconds(0.5)) })
+                .renderTransform(
+                    RotateTransform(model.Angle1)
+                        .transition(DoubleTransition(RotateTransform.AngleProperty, TimeSpan.FromSeconds(0.5)))
+                )
                 .onPointerEnter(OnPointerEnter1)
                 .onPointerExited(OnPointerExited1)
 
@@ -84,7 +86,6 @@ module Transitions1 =
                 .onPointerEnter(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
                 .renderTransform(TransformOperations.Parse($"rotate({model.Turn}turn)"))
-                .transitions() {
-                TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromSeconds(0.5))
-            }
+                .transition(TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromSeconds(0.5)))
+
         }

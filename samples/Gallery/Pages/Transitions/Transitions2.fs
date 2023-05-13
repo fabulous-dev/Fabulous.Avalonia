@@ -41,12 +41,18 @@ module Transitions2 =
                 .background(SolidColorBrush(Colors.Magenta))
                 .onPointerEnter(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
-                .renderTransform(ScaleTransform(model.ScaleX).transitions() { DoubleTransition(ScaleTransform.ScaleXProperty, TimeSpan.FromSeconds(0.5)) })
+                .renderTransform(
+                    ScaleTransform(model.ScaleX)
+                        .transition(DoubleTransition(ScaleTransform.ScaleXProperty, TimeSpan.FromSeconds(0.5)))
+                )
 
             Border()
                 .style(borderTestStyle)
                 .background(SolidColorBrush(Colors.Magenta))
                 .onPointerEnter(OnPointerEnter1)
                 .onPointerExited(OnPointerExited1)
-                .renderTransform(ScaleTransform(1., model.ScaleY).transitions() { DoubleTransition(ScaleTransform.ScaleYProperty, TimeSpan.FromSeconds(0.5)) })
+                .renderTransform(
+                    ScaleTransform(1., model.ScaleY)
+                        .transition(DoubleTransition(ScaleTransform.ScaleYProperty, TimeSpan.FromSeconds(0.5)))
+                )
         }

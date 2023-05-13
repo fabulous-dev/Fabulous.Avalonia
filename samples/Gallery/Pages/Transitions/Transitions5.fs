@@ -38,9 +38,8 @@ module Transitions5 =
                 .onPointerExited(OnPointerExited)
                 .width(model.Width)
                 .height(100.)
-                .transitions() {
-                DoubleTransition(Layoutable.WidthProperty, TimeSpan.FromSeconds(0.5))
-            }
+                .transition(DoubleTransition(Layoutable.WidthProperty, TimeSpan.FromSeconds(0.5)))
+
 
             Border()
                 .background(SolidColorBrush(Colors.Orange))
@@ -48,7 +47,5 @@ module Transitions5 =
                 .onPointerExited(OnPointerExited2)
                 .height(model.Height)
                 .width(100.)
-                .transitions() {
-                DoubleTransition(Layoutable.HeightProperty, TimeSpan.FromSeconds(0.5))
-            }
+                .transition(DoubleTransition(Layoutable.HeightProperty, TimeSpan.FromSeconds(0.5)))
         }
