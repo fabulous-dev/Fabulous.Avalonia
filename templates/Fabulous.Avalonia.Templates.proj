@@ -5,6 +5,7 @@
     <PackageType>Template</PackageType>
     <Description>Templates for Fabulous.Avalonia</Description>
     <PackageTags>template;$(PackageTags)</PackageTags>
+    <PublishTrimmed>false</PublishTrimmed>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <!-- https://github.com/dotnet/templating/issues/2350#issuecomment-610431461 -->
     <NoDefaultExcludes>true</NoDefaultExcludes>
