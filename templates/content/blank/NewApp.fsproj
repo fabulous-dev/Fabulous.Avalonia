@@ -4,7 +4,7 @@
     <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks>
     <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
-    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
+<!--    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>-->
   </PropertyGroup>
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
