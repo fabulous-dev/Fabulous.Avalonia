@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre9] - 2023-05-15
+
+### Added
+- More samples to Gallery
+- Add NotificationCard wrapper
+- Add new animation modifiers 
+- Add support for AvaloniaUI preview 8
+
 ## [2.0.0-pre8] - 2023-05-07
 
 ### Added
