@@ -29,7 +29,7 @@ jobs:
       run: |
         NIGHTLY_VERSION=${{ steps.changelog_reader.outputs.version }}-nightly-${GITHUB_RUN_ID}
         echo "Nightly version is $NIGHTLY_VERSION"
-        echo "NIGHTLY_VERSION=$NIGHTLY_VERSION" >> "$GITHUB_ENV"- name: Set nightly version
+        echo "NIGHTLY_VERSION=$NIGHTLY_VERSION" >> "$GITHUB_ENV"
     - name: Update xcode tools
       run: sudo xcode-select -s /Applications/Xcode_14.3.app/Contents/Developer/
     - name: Setup .NET
