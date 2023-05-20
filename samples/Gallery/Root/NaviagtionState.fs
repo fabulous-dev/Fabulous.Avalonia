@@ -80,7 +80,7 @@ module NavigationState =
             match cmdMsg with
             | AcrylicPageCmdMsgs subCmdMsgs -> map AcrylicPage.mapCmdMsgToCmd AcrylicPageMsg subCmdMsgs
             | AdornerLayerPageCmdMsgs subCmdMsgs -> map AdornerLayerPage.mapCmdMsgToCmd AdornerLayerPageMsg subCmdMsgs
-            | HomePageCmdMsgs cmdMsgs -> map Pages.Types.mapCmdMsgToCmd HomePageMsg cmdMsgs
+            | HomePageCmdMsgs cmdMsgs -> map Pages.State.mapCmdMsgToCmd HomePageMsg cmdMsgs
 
         cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
