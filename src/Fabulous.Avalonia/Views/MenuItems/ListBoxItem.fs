@@ -24,13 +24,12 @@ module ListBoxItemBuilders =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
                 ContentControl.ContentString.WithValue(content),
-                ListBoxItem.IsSelected.WithValue(isSelected))
-            
+                ListBoxItem.IsSelected.WithValue(isSelected)
+            )
+
         static member inline ListBoxItem(content: string) =
-            WidgetBuilder<'msg, IFabListBoxItem>(
-                ListBoxItem.WidgetKey,
-                ContentControl.ContentString.WithValue(content))
-            
+            WidgetBuilder<'msg, IFabListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
+
         static member inline ListBoxItem(isSelected: bool, widget: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
@@ -38,16 +37,14 @@ module ListBoxItemBuilders =
                     StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(widget.Compile()) |],
                     ValueNone
-                ))
-            
+                )
+            )
+
         static member inline ListBoxItem(widget: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
-                AttributesBundle(
-                    StackList.empty(),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(widget.Compile()) |],
-                    ValueNone
-                ))
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(widget.Compile()) |], ValueNone)
+            )
 
 [<Extension>]
 type ListBoxItemModifiers =

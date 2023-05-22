@@ -28,7 +28,7 @@ module ListBoxBuilders =
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSource items template
-            
+
         static member ListBox() =
             CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
 
@@ -48,7 +48,7 @@ type ListBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabListBox>, value: ViewRef<ListBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
+
 [<Extension>]
 type ListBoxCollectionBuilderExtensions =
     [<Extension>]

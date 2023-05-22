@@ -21,14 +21,13 @@ module AdornerLayerPage =
         | RemoveAdorner
         | DoNothing
         | Previous
-    
-    type CmdMsg =
-        | NoMsg
+
+    type CmdMsg = | NoMsg
 
     let mapCmdMsgToCmd nav cmdMsg =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
-        
+
     let init () = { Angle = 0. }, []
 
     let buttonRef = ViewRef<Button>()

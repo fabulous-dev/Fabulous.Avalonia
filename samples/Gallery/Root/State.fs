@@ -13,13 +13,14 @@ module State =
             Cmd.map SubpageMsg cmd
 
     let init () =
-        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.HomePage None          
+        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage None
+
         { IsPanOpen = true
           SafeAreaInsets = 0.
           PaneLength = 250.
           SelectedIndex = 0
-          Navigation = NavigationModel.Init(model) }, [ SubpageCmdMsgs cmdMsgs]
-        
+          Navigation = NavigationModel.Init(model) },
+        [ SubpageCmdMsgs cmdMsgs ]
 
     let update msg model =
         match msg with
@@ -36,28 +37,22 @@ module State =
         | SubpageMsg subpageMsg ->
             let nav, cmdMsgs = NavigationState.update subpageMsg model.Navigation
             { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
-        // | SelectedIndexChanged index ->
-        //     let index = if index < 0 then model.SelectedIndex else index
-        //
-        //     let model =
-        //         { model with
-        //             SelectedIndex = index
-        //             PageModel = Pages.State.init(pages.[index]) }
-        //
-        //     model, []
 
         | OpenPanChanged x -> { model with IsPanOpen = x }, []
 
         | OpenPan ->
             { model with
-                IsPanOpen = not model.IsPanOpen }, []  
-            
+                IsPanOpen = not model.IsPanOpen },
+            []
+
         | NavigationMsg route ->
             let m, c = NavigationState.initRoute route (Some model.Navigation)
-            { model with Navigation = model.Navigation.Push(m) }, [ SubpageCmdMsgs c ]
+
+            { model with
+                Navigation = model.Navigation.Push(m) },
+            [ SubpageCmdMsgs c ]
 
         | BackButtonPressed ->
-            let nav, cmdMsgs =
-                NavigationState.updateBackButtonPressed model.Navigation
+            let nav, cmdMsgs = NavigationState.updateBackButtonPressed model.Navigation
 
             { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]

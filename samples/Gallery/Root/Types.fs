@@ -18,7 +18,7 @@ module Types =
         | OpenPan
         | DoNothing
         | OnLoaded of bool
-        
-     type CmdMsg =
+
+    type CmdMsg =
         | NewMsg of Msg
         | SubpageCmdMsgs of SubpageCmdMsg list

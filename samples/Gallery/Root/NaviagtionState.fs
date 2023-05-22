@@ -6,17 +6,17 @@ open Fabulous
 open Fabulous.Avalonia
 
 type SubpageModel =
-    | HomePageModel of Pages.Types.Model
+    //| HomePageModel of Pages.Types.Model
     | AcrylicPageModel of AcrylicPage.Model
     | AdornerLayerPageModel of AdornerLayerPage.Model
 
 type SubpageMsg =
-    | HomePageMsg of Pages.Types.Msg
+    //| HomePageMsg of Pages.Types.Msg
     | AcrylicPageMsg of AcrylicPage.Msg
     | AdornerLayerPageMsg of AdornerLayerPage.Msg
 
 type SubpageCmdMsg =
-    | HomePageCmdMsgs of Pages.Types.CmdMsg list
+    //| HomePageCmdMsgs of Pages.Types.CmdMsg list
     | AcrylicPageCmdMsgs of AcrylicPage.CmdMsg list
     | AdornerLayerPageCmdMsgs of AdornerLayerPage.CmdMsg list
 
@@ -66,12 +66,8 @@ type NavigationModel =
 
 module NavigationState =
     let mapCmdMsgToMsg nav cmdMsgs =
-        let mapSubpageCmdMsg(cmdMsg: SubpageCmdMsg) =
-            let map
-                (mapCmdMsgFn: NavigationController -> 'subCmdMsg -> Cmd<'subMsg>)
-                (mapFn: 'subMsg -> 'msg)
-                (subCmdMsgs: 'subCmdMsg list)
-                =
+        let mapSubpageCmdMsg (cmdMsg: SubpageCmdMsg) =
+            let map (mapCmdMsgFn: NavigationController -> 'subCmdMsg -> Cmd<'subMsg>) (mapFn: 'subMsg -> 'msg) (subCmdMsgs: 'subCmdMsg list) =
                 subCmdMsgs
                 |> List.map(fun c ->
                     let cmd = mapCmdMsgFn nav c
@@ -80,7 +76,7 @@ module NavigationState =
             match cmdMsg with
             | AcrylicPageCmdMsgs subCmdMsgs -> map AcrylicPage.mapCmdMsgToCmd AcrylicPageMsg subCmdMsgs
             | AdornerLayerPageCmdMsgs subCmdMsgs -> map AdornerLayerPage.mapCmdMsgToCmd AdornerLayerPageMsg subCmdMsgs
-            | HomePageCmdMsgs cmdMsgs -> map Pages.State.mapCmdMsgToCmd HomePageMsg cmdMsgs
+        //| HomePageCmdMsgs cmdMsgs -> map Pages.State.mapCmdMsgToCmd HomePageMsg cmdMsgs
 
         cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -94,9 +90,9 @@ module NavigationState =
             let m, c = AdornerLayerPage.init()
             AdornerLayerPageModel m, [ AdornerLayerPageCmdMsgs c ]
 
-        | NavigationRoute.HomePage ->
-            let m, c = Pages.State.init()
-            HomePageModel m, [ HomePageCmdMsgs c ]
+    // | NavigationRoute.HomePage ->
+    //     let m, c = Pages.State.init()
+    //     HomePageModel m, [] //[  HomePageCmdMsgs c ]
 
     let update (msg: SubpageMsg) (model: NavigationModel) =
         let subpageModel, cmdMsgs =
@@ -108,10 +104,14 @@ module NavigationState =
             | AdornerLayerPageMsg subMsg, AdornerLayerPageModel m ->
                 let m, c = AdornerLayerPage.update subMsg m
                 AdornerLayerPageModel m, [ AdornerLayerPageCmdMsgs c ]
-
+            // | HomePageMsg subMsg, HomePageModel m ->
+            //     let m, c = State.update subMsg m
+            //     HomePageModel m, [ HomePageCmdMsgs c ]
             | _, currentPage -> currentPage, []
 
-        { model with CurrentPage = subpageModel }, cmdMsgs
+        { model with
+            CurrentPage = subpageModel },
+        cmdMsgs
 
     let view mapFn (model: SubpageModel) =
         let map viewFn subpageMsg model =
@@ -121,10 +121,10 @@ module NavigationState =
         match model with
         | AcrylicPageModel m -> map AcrylicPage.view AcrylicPageMsg m
         | AdornerLayerPageModel m -> map AdornerLayerPage.view AdornerLayerPageMsg m
-        | HomePageModel model -> map Pages.View.view HomePageMsg model
+    //| HomePageModel model -> map Pages.View.view HomePageMsg model
 
     let updateBackButtonPressed (model: NavigationModel) =
         match model.CurrentPage with
         | AcrylicPageModel _ -> update (AcrylicPageMsg AcrylicPage.Msg.Previous) model
         | AdornerLayerPageModel _ -> update (AdornerLayerPageMsg AdornerLayerPage.Msg.Previous) model
-        | HomePageModel _ -> update (HomePageMsg Pages.Types.Msg.Previous) model
+//| HomePageModel _ -> update (HomePageMsg Pages.Types.Msg.Previous) model

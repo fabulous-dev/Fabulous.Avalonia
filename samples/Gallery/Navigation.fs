@@ -4,7 +4,7 @@ open Gallery
 
 [<RequireQualifiedAccess>]
 type NavigationRoute =
-    | HomePage
+    //| HomePage
     | AcrylicPage
     | AdornerLayerPage
 
@@ -22,10 +22,11 @@ module Navigation =
     let internal navigateTo (nav: NavigationController) route =
         Cmd.perform(fun () -> nav.RequestNavigation(route))
 
-    let goBack(nav: NavigationController) =
+    let goBack (nav: NavigationController) =
         Cmd.perform(fun () -> nav.RequestBackNavigation())
 
     let goToOnboarding nav =
         navigateTo nav NavigationRoute.AcrylicPage
 
-    let goToHome nav = navigateTo nav NavigationRoute.AdornerLayerPage
+    let goToHome nav =
+        navigateTo nav NavigationRoute.AdornerLayerPage

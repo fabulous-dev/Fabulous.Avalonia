@@ -77,14 +77,18 @@ module MainWindow =
     let hamburgerMenuIcon () =
         Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
 
-    let view (model: Gallery.Root.Types.Model) =
+    let view (model: Model) =
         DesktopApplication(
             Window(
                 Grid() {
-                    for page in Seq.rev model.Navigation.BackStack do
-                        NavigationState.view SubpageMsg page
+                    TabControl(Dock.Left){
+                        for page in Seq.rev model.Navigation.BackStack do
+                            let control = NavigationState.view SubpageMsg page
+                            TabItem("Tab 1", control)
 
-                    NavigationState.view SubpageMsg model.Navigation.CurrentPage
+                        let control = NavigationState.view SubpageMsg model.Navigation.CurrentPage
+                        TabItem("Tab 1", control)
+                    }
                 }                            
             )
                 .background(SolidColorBrush(Colors.Transparent))

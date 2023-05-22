@@ -18,25 +18,21 @@ module ComboBoxItemBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline ComboBoxItem(content: string) =
-            WidgetBuilder<'msg, IFabComboBoxItem>(
-                ComboBoxItem.WidgetKey,
-                ContentControl.ContentString.WithValue(content))
-            
+            WidgetBuilder<'msg, IFabComboBoxItem>(ComboBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
+
         static member inline ComboBoxItem(content: string, isSelected: bool) =
             WidgetBuilder<'msg, IFabComboBoxItem>(
                 ComboBoxItem.WidgetKey,
                 ContentControl.ContentString.WithValue(content),
-                ListBoxItem.IsSelected.WithValue(isSelected))
-            
+                ListBoxItem.IsSelected.WithValue(isSelected)
+            )
+
         static member inline ComboBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabComboBoxItem>(
                 ComboBoxItem.WidgetKey,
-                AttributesBundle(
-                    StackList.empty(),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                ))
-            
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+            )
+
         static member inline ComboBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabComboBoxItem>(
                 ComboBoxItem.WidgetKey,
@@ -44,7 +40,8 @@ module ComboBoxItemBuilders =
                     StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
-                ))
+                )
+            )
 
 [<Extension>]
 type ComboBoxItemModifiers =

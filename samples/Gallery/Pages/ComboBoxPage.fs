@@ -47,9 +47,11 @@ module ComboBoxPage =
             ))
                 .selectedIndex(0)
 
-            (ComboBox(){
+            (ComboBox() {
                 ComboBoxItem("Select a font", true)
+
                 for font in model.Fonts do
                     ComboBoxItem(font.Name)
-            }).onDropDownOpened(model.IsDropDownOpen, DropDownOpened)
+            })
+                .onDropDownOpened(model.IsDropDownOpen, DropDownOpened)
         }

@@ -113,9 +113,6 @@
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />
     <Compile Include="Pages\ViewBoxPage.fs" />
-    <Compile Include="Pages\Types.fs" />
-    <Compile Include="Pages\State.fs" />
-    <Compile Include="Pages\View.fs" />
     <Compile Include="Root\NaviagtionState.fs" />
     <Compile Include="Root\Types.fs" />
     <Compile Include="Root\State.fs" />
