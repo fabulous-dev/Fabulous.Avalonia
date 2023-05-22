@@ -4,6 +4,7 @@ open Avalonia.Controls
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TabControlPage =
     type Model =
@@ -12,6 +13,12 @@ module TabControlPage =
           SelectedIndex: int }
 
     type Msg = SelectedIndexChanged of int
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { TabPlacement = Dock.Top

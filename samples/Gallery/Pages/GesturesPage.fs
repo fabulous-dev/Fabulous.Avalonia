@@ -9,12 +9,19 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 // https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ControlCatalog/Pages/GesturePage.cs
 module GesturesPage =
     type Model = { CurrentScale: float }
 
     type Msg = | Reset
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { CurrentScale = 0 }
 

@@ -7,6 +7,7 @@ open Avalonia.Styling
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ThemeAwarePage =
     type Model =
@@ -23,6 +24,12 @@ module ThemeAwarePage =
         | Text2Changed of string
         | DoNothing
         | ThemeVariantChanged of ThemeVariant
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { CurrentTheme = Avalonia.Application.Current.ActualThemeVariant

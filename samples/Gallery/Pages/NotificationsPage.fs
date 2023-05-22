@@ -8,6 +8,7 @@ open Fabulous.Avalonia
 open Avalonia.Controls.Notifications
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 type NotificationViewModel(title, message) =
 
@@ -31,6 +32,12 @@ module NotificationsPage =
         | YesCommand
         | NoCommand
         | Loaded of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { WindowNotificationManager = Unchecked.defaultof<_> }

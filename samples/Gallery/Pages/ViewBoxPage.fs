@@ -4,6 +4,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ViewBoxPage =
     type Model = { Width: float; Height: float }
@@ -11,6 +12,12 @@ module ViewBoxPage =
     type Msg =
         | HeightChanged of float
         | WidthChanged of float
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Width = 300.; Height = 300. }
 

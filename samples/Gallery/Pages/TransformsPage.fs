@@ -7,6 +7,7 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TransformsPage =
     type Model =
@@ -24,6 +25,12 @@ module TransformsPage =
         | AngleXChanged of float
         | AngleYChanged of float
         | AngleZChanged of float
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
 
     let init () =

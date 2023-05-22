@@ -7,6 +7,7 @@ open Avalonia.Controls
 open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
+open Gallery
 
 [<RequireQualifiedAccess>]
 module LineBoundsHelper =
@@ -131,6 +132,12 @@ module LineBoundsDemoControlPage =
     type Model = { Nothing: float }
 
     type Msg = | Nothing
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Nothing = 0. }
 

@@ -3,11 +3,18 @@ namespace Gallery.Pages
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module PathIconPage =
     type Model = { Nothing: bool }
 
     type Msg = | DoNothing
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Nothing = true }
 

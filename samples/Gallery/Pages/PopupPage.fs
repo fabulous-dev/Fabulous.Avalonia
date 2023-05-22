@@ -8,6 +8,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module PopupPage =
     type Model = { IsOpen: bool }
@@ -16,6 +17,12 @@ module PopupPage =
         | OpenPopup
         | OnOpened
         | OnClosed
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { IsOpen = false }
 

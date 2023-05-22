@@ -7,6 +7,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ClippingPage =
     type Model = { IsChecked: bool; BrushColor: IBrush }
@@ -15,6 +16,12 @@ module ClippingPage =
         | OnPointerEnter of PointerEventArgs
         | OnPointerExited of PointerEventArgs
         | CheckChanged of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { IsChecked = false

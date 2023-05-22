@@ -4,9 +4,72 @@ open Gallery
 
 [<RequireQualifiedAccess>]
 type NavigationRoute =
-    //| HomePage
     | AcrylicPage
     | AdornerLayerPage
+    | AutoCompleteBoxPage
+    | AnimationsPage
+    | ButtonsPage
+    | BrushesPage
+    | ButtonSpinnerPage
+    | BorderPage
+    | CalendarPage
+    | CalendarDatePickerPage
+    | CanvasPage
+    | CheckBoxPage
+    | CarouselPage
+    | ComboBoxPage
+    | ContextMenuPage
+    | ContextFlyoutPage
+    | ClippingPage
+    | DockPanelPage
+    | DropDownButtonPage
+    | DrawingPage
+    | ExpanderPage
+    | FlyoutPage
+    | GesturesPage
+    | GeometriesPage
+    | GlyphRunControlPage
+    | GridPage
+    | GridSplitterPage
+    | ImagePage
+    | LabelPage
+    | LayoutTransformControlPage
+    | ListBoxPage
+    | MenuFlyoutPage
+    | MaskedTextBoxPage
+    | MenuPage
+    | NumericUpDownPage
+    | NotificationsPage
+    | ProgressBarPage
+    | PanelPage
+    | PathIconPage
+    | PopupPage
+    | PageTransitionsPage
+    | RepeatButtonPage
+    | RadioButtonPage
+    | RefreshContainerPage
+    | SelectableTextBlockPage
+    | SplitButtonPage
+    | SliderPage
+    | ShapesPage
+    | ScrollBarPage
+    | SplitViewPage
+    | StackPanelPage
+    | ScrollViewerPage
+    | ToggleSplitButton
+    | TextBlockPage
+    | TextBoxPage
+    | TickBarPage
+    | ToggleSwitchPage
+    | ToggleButtonPage
+    | ToolTipPage
+    | TabControlPage
+    | TabStripPage
+    | TransitionsPage
+    | TransformsPage
+    | ThemeAwarePage
+    | UniformGridPage
+    | ViewBoxPage
 
 type NavigationController() =
     let navigationRequested = Event<NavigationRoute>()

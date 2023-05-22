@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module RadioButtonPage =
     type Model =
@@ -60,6 +61,12 @@ module RadioButtonPage =
         | OnThreeStateCheckedChanged12 of bool option
         | OnThreeStateCheckedChanged13 of bool option
         | OnThreeStateCheckedChanged14 of bool option
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { IsChecked1 = false

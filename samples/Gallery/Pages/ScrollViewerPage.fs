@@ -7,6 +7,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ScrollViewerPage =
     type Model =
@@ -31,6 +32,12 @@ module ScrollViewerPage =
         | SnapPointsTypeSelectionChanged of SelectionChangedEventArgs
         | SnapPointsAlignmentSelectionChanged of SelectionChangedEventArgs
         | AreSnapPointsRegularChanged of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { AllowAutoHide = false

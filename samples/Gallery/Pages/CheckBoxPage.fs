@@ -4,6 +4,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module CheckBoxPage =
     type Model =
@@ -15,6 +16,12 @@ module CheckBoxPage =
         | ValueChanged of bool
         | ValueChanged2 of bool
         | ValueChanged3 of bool option
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { IsChecked1 = false

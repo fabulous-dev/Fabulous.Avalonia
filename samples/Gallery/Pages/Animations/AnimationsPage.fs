@@ -5,6 +5,7 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module AnimationsPage =
     type Model =
@@ -16,6 +17,12 @@ module AnimationsPage =
         | Animations1 of Animations1.Msg
         | Animations2 of Animations2.Msg
         | Animations3 of Animations3.Msg
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Animations1 = Animations1.init()

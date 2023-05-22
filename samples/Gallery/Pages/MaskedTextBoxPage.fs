@@ -3,11 +3,18 @@ namespace Gallery.Pages
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module MaskedTextBoxPage =
     type Model = { MaskedText: string }
 
     type Msg = TextChanged of string
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { MaskedText = "" }
 

@@ -4,11 +4,18 @@ open System
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module CalendarDatePickerPage =
     type Model = { Date: DateTime option }
 
     type Msg = SelectedDateChanged of DateTime option
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Date = Some DateTime.Now }
 

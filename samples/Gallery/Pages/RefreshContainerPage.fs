@@ -8,11 +8,18 @@ open Fabulous.Avalonia
 open Avalonia.Input
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module RefreshContainerPage =
     type Model = { Items: ObservableCollection<string> }
 
     type Msg = RefreshRequested of RefreshRequestedEventArgs
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }

@@ -5,6 +5,7 @@ open Avalonia.Input
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module MenuFlyoutPage =
     type Model = { Counter: int }
@@ -12,6 +13,12 @@ module MenuFlyoutPage =
     type Msg =
         | PressMe
         | Increment
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Counter = 0 }
 

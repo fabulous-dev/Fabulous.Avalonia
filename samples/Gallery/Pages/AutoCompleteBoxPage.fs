@@ -10,6 +10,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module AutoCompleteBoxPage =
 
@@ -36,6 +37,12 @@ module AutoCompleteBoxPage =
         | OnDropDownOpen of bool
         | MultiBindingLoaded of bool
         | CustomAutoBoxLoaded of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let multiBindingBoxRef = ViewRef<AutoCompleteBox>()
 
@@ -236,7 +243,8 @@ module AutoCompleteBoxPage =
                   Abbreviation = "WY"
                   Capital = "Cheyenne" }
             }
-          Custom = [] }
+          Custom = [] },
+        []
 
     let buildAllSentences () =
         [ "Hello world"

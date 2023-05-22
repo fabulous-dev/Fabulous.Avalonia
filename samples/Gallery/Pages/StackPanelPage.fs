@@ -5,6 +5,7 @@ open Avalonia.Layout
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module StackPanelPage =
     type Model =
@@ -14,6 +15,12 @@ module StackPanelPage =
     type Msg =
         | Reverse of bool
         | SetSpacing of float option
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Reversed = true; Spacing = Some(50.) }

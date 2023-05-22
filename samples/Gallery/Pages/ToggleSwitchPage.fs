@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ToggleSwitchPage =
     type Model =
@@ -14,6 +15,12 @@ module ToggleSwitchPage =
         | ValueChanged of bool
         | ValueChanged1 of bool option
         | IntermediaryChanged
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Value1 = false

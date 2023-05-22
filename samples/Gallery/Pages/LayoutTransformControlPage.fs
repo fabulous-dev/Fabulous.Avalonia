@@ -5,12 +5,19 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module LayoutTransformControlPage =
     type Model =
         { Min: float; Max: float; Angle: float }
 
     type Msg = SliderValueChanged of float
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Min = 0.; Max = 360.; Angle = 0. }
 

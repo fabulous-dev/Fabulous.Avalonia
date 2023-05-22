@@ -2,6 +2,7 @@ namespace Gallery.Pages
 
 open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ProgressBarPage =
     type Model = { Progress: int; Max: int }
@@ -9,6 +10,12 @@ module ProgressBarPage =
     type Msg =
         | Clicked
         | ProgressChanged of float
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Progress = 5; Max = 20 }
 

@@ -9,6 +9,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module PageTransitionsPage =
     type DataType =
@@ -25,6 +26,12 @@ module PageTransitionsPage =
         | Next
         | Previous
         | TransitionChanged of SelectionChangedEventArgs
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Transition = PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)

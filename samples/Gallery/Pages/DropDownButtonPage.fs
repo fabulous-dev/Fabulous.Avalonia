@@ -6,6 +6,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module DropDownButtonPage =
     type Model = { Count: int }
@@ -16,6 +17,12 @@ module DropDownButtonPage =
         | Increment
         | Decrement
         | Reset
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Count = 0 }
 

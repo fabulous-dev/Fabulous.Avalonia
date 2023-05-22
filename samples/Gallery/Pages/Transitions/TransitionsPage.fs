@@ -4,6 +4,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TransitionsPage =
     type Msg =
@@ -19,6 +20,12 @@ module TransitionsPage =
         | Transition10Msg of Transitions10.Msg
         | Transition11Msg of Transitions11.Msg
         | Transition12Msg of Transitions12.Msg
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     type Model =
         { Transitions1: Transitions1.Model

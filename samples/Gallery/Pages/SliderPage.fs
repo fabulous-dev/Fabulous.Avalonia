@@ -8,6 +8,7 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module SliderPage =
     type Model =
@@ -27,6 +28,12 @@ module SliderPage =
         | ValueChanged5 of float
         | ValueChanged6 of float
         | ValueChanged7 of float
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { SliderValue1 = 0.0

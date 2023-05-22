@@ -59,29 +59,11 @@ module MainWindow =
                 }
             )
 
-    // let buttonSpinnerHeader (model: Model) =
-    //     ScrollViewer(
-    //         VStack(16.) {
-    //             Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-    //                 .size(100., 100.)
-    //
-    //             TextBlock("Fabulous Gallery").centerHorizontal()
-    //
-    //             ListBox(model.Pages, (fun x -> TextBlock(x)))
-    //                 .selectionMode(SelectionMode.Single)
-    //                 //.onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
-    //         }
-    //     )
-    //         .padding(0., model.SafeAreaInsets, 0., 0.)
-
-    let hamburgerMenuIcon () =
-        Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
-
     let view (model: Model) =
         DesktopApplication(
             Window(
                 Grid() {
-                    TabControl(Dock.Left){
+                    TabControl(Dock.Left) {
                         for page in Seq.rev model.Navigation.BackStack do
                             let control = NavigationState.view SubpageMsg page
                             TabItem("Tab 1", control)
@@ -89,7 +71,7 @@ module MainWindow =
                         let control = NavigationState.view SubpageMsg model.Navigation.CurrentPage
                         TabItem("Tab 1", control)
                     }
-                }                            
+                }
             )
                 .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")

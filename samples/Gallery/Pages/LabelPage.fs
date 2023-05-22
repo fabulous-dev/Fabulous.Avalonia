@@ -10,6 +10,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module LabelPage =
     type Model =
@@ -23,6 +24,12 @@ module LabelPage =
         | BannedChanged of bool
         | DoSave
         | DoCancel
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { FirstName = ""

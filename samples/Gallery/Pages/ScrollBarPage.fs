@@ -6,6 +6,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ScrollBarPage =
     type Model = { ScrollValue: float }
@@ -13,6 +14,12 @@ module ScrollBarPage =
     type Msg =
         | ValueChanged of float
         | ScrollBarChanged of ScrollEventArgs
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { ScrollValue = 0.0 }
 

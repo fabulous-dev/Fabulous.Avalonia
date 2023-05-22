@@ -6,6 +6,7 @@ open Avalonia.Controls
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ExpanderPage =
     type Model = { IsExpanded: bool }
@@ -14,6 +15,12 @@ module ExpanderPage =
         | ExpandChanged of bool
         | Expanding
         | Collapsing
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { IsExpanded = true }
 

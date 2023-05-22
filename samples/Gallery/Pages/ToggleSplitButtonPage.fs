@@ -5,6 +5,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ToggleSplitButtonPage =
     type Model =
@@ -19,6 +20,12 @@ module ToggleSplitButtonPage =
         | Reset
         | CheckedChanged of bool
         | CheckedChanged2 of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Count = 0

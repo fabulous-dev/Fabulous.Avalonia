@@ -5,6 +5,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TextBoxPage =
     type Model =
@@ -14,6 +15,12 @@ module TextBoxPage =
     type Msg =
         | SingleLineTextChanged of string
         | MultiLineTextChanged of string
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { SingleLineText = ""

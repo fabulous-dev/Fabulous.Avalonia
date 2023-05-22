@@ -7,6 +7,7 @@ open Avalonia.Controls.Selection
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ListBoxPage =
     type ItemModel =
@@ -34,6 +35,12 @@ module ListBoxPage =
         | AddItem
         | RemoveItem
         | SelectRandomItem
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () =
         { Multiple = false

@@ -5,11 +5,18 @@ open Avalonia.Input
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module MenuPage =
     type Model = { IsChecked: bool }
 
     type Msg = ValueChanged of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { IsChecked = false }
 

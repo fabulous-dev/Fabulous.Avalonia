@@ -5,11 +5,18 @@ open Avalonia.Controls
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ButtonSpinnerPage =
     type Model = { Count: int }
 
     type Msg = Increment of SpinEventArgs
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Count = 0 }
 

@@ -5,6 +5,7 @@ open Avalonia.Input
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ContextMenuPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -15,6 +16,12 @@ module ContextMenuPage =
         | ContextMenuOpening of CancelEventArgs
         | ContextMenuClosing of CancelEventArgs
         | ValueChanged of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Counter = 0; IsChecked = false }
 

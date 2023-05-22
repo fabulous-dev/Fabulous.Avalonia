@@ -10,6 +10,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module FlyoutPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -23,6 +24,12 @@ module FlyoutPage =
         | Decrement
         | Reset
         | OnTapped of RoutedEventArgs
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let init () = { Counter = 0; IsChecked = false }
 

@@ -6,6 +6,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TickBarPage =
     type Model = { Nothing: bool }
@@ -13,6 +14,12 @@ module TickBarPage =
     let init () = { Nothing = true }
 
     type Msg = DoNothing
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let update msg model =
         match msg with

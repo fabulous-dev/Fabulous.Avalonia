@@ -10,6 +10,7 @@ open Fabulous.Avalonia
 open Avalonia.Data.Converters
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module NumericUpDownPage =
     type FormatObject = { Value: string; Name: string }
@@ -48,6 +49,12 @@ module NumericUpDownPage =
         | ValueChanged of float option
         | CultureSelectionChanged of SelectionChangedEventArgs
         | SelectedFormatChanged of SelectionChangedEventArgs
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
 
     let init () =

@@ -4,6 +4,7 @@ open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ComboBoxPage =
 
@@ -19,6 +20,12 @@ module ComboBoxPage =
           IsDropDownOpen: bool }
 
     type Msg = DropDownOpened of bool
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd nav cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Navigation.goBack nav
 
     let fontComboBox () =
         FontManager.Current.SystemFonts |> Seq.map(fun x -> FontFamily(x.Name))
