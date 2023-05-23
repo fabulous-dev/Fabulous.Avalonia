@@ -21,7 +21,7 @@ module ScrollBarPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { ScrollValue = 0.0 }
+    let init () = { ScrollValue = 0.0 }, []
 
     let update msg model =
         match msg with

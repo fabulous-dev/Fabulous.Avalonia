@@ -18,7 +18,7 @@ module CalendarPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Date1 = Some DateTime.Now }
+    let init () = { Date1 = Some DateTime.Now }, []
 
     let update msg model =
         match msg with

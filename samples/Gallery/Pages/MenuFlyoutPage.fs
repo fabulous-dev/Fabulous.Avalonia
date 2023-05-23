@@ -20,7 +20,7 @@ module MenuFlyoutPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Counter = 0 }
+    let init () = { Counter = 0 }, []
 
     let update msg model =
         match msg with

@@ -51,7 +51,8 @@ module ListBoxPage =
           WrappedSelection = false
           Selection = SelectionModel<ItemModel>()
           SelectedIndex = 0
-          SelectionMode = SelectionMode.Single }
+          SelectionMode = SelectionMode.Single },
+        []
 
     let update (msg: Msg) model =
         match msg with

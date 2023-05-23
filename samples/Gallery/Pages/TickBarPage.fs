@@ -11,7 +11,7 @@ open Gallery
 module TickBarPage =
     type Model = { Nothing: bool }
 
-    let init () = { Nothing = true }
+    let init () = { Nothing = true }, []
 
     type Msg = DoNothing
 

@@ -56,7 +56,6 @@ module NumericUpDownPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-
     let init () =
         { MinValue = Some(1.)
           ShowButtonSpinner = false
@@ -85,7 +84,8 @@ module NumericUpDownPage =
           DoubleValue = None
           Value = None
           NumberFormat = CultureInfo.CurrentCulture.NumberFormat
-          SelectedFormat = { Name = "Currency"; Value = "C2" } }
+          SelectedFormat = { Name = "Currency"; Value = "C2" } },
+        []
 
     let update msg model =
         match msg with

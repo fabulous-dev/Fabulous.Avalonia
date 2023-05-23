@@ -23,7 +23,7 @@ module StackPanelPage =
         | NoMsg -> Navigation.goBack nav
 
     let init () =
-        { Reversed = true; Spacing = Some(50.) }
+        { Reversed = true; Spacing = Some(50.) }, []
 
     let update msg model =
         match msg with

@@ -34,7 +34,8 @@ module LabelPage =
     let init () =
         { FirstName = ""
           LastName = ""
-          IsBanned = false }
+          IsBanned = false },
+        []
 
     let update msg model =
         match msg with

@@ -45,7 +45,8 @@ module PageTransitionsPage =
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
                 Image = "github-icon" } ]
-          Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] }
+          Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] },
+        []
 
     let carouselController = CarouselController()
 

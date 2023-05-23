@@ -27,7 +27,8 @@ module AnimationsPage =
     let init () =
         { Animations1 = Animations1.init()
           Animations2 = Animations2.init()
-          Animations3 = Animations3.init() }
+          Animations3 = Animations3.init() },
+        []
 
     let update msg model =
         match msg with

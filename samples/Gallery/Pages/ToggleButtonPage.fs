@@ -38,7 +38,8 @@ module ToggleButtonPage =
           Text3 = "Toggle me"
           Value3 = Some false
           Text4 = "Toggle me"
-          Value4 = Some false }
+          Value4 = Some false },
+        []
 
     let update msg model =
         match msg with

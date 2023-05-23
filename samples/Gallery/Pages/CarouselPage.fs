@@ -44,7 +44,8 @@ module CarouselPage =
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
                 Image = "github-icon" } ]
-          SelectedIndex = 1 }
+          SelectedIndex = 1 },
+        []
 
     let carouselController = new CarouselController()
 

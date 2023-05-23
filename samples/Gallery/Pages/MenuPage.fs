@@ -18,7 +18,7 @@ module MenuPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { IsChecked = false }
+    let init () = { IsChecked = false }, []
 
     let update msg model =
         match msg with

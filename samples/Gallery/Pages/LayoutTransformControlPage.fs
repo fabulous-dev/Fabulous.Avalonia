@@ -19,7 +19,8 @@ module LayoutTransformControlPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Min = 0.; Max = 360.; Angle = 0. }
+    let init () =
+        { Min = 0.; Max = 360.; Angle = 0. }, []
 
     let update msg model =
         match msg with

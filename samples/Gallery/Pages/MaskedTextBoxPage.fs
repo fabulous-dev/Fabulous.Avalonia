@@ -16,7 +16,7 @@ module MaskedTextBoxPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { MaskedText = "" }
+    let init () = { MaskedText = "" }, []
 
     let update msg model =
         match msg with

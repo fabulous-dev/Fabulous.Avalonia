@@ -23,7 +23,8 @@ module TabControlPage =
     let init () =
         { TabPlacement = Dock.Top
           Placements = [ "Top"; "Bottom"; "Left"; "Right" ]
-          SelectedIndex = 0 }
+          SelectedIndex = 0 },
+        []
 
     let update msg model =
         match msg with

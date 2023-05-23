@@ -22,7 +22,7 @@ module ExpanderPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { IsExpanded = true }
+    let init () = { IsExpanded = true }, []
 
     let update msg model =
         match msg with

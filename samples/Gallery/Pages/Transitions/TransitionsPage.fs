@@ -53,7 +53,8 @@ module TransitionsPage =
           Transitions9 = Transitions9.init()
           Transitions10 = Transitions10.init()
           Transitions11 = Transitions11.init()
-          Transitions12 = Transitions12.init() }
+          Transitions12 = Transitions12.init() },
+        []
 
     let update msg model =
         match msg with

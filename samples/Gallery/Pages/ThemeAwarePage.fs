@@ -40,7 +40,8 @@ module ThemeAwarePage =
               ThemeVariant.Light
               ThemeVariant("Pink", ThemeVariant.Light) ]
           Text = ""
-          Text2 = "" }
+          Text2 = "" },
+        []
 
     let update msg model =
         match msg with

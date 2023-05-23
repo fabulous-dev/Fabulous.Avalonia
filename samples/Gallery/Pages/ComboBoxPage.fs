@@ -34,7 +34,8 @@ module ComboBoxPage =
         { IsDropDownOpen = false
           Items = [ "Inline Items"; "Inline Item 2"; "Inline Item 3"; "Inline Item 4" ]
           Figures = [ Rectangles; Ellipses; Unknown ]
-          Fonts = fontComboBox() }
+          Fonts = fontComboBox() },
+        []
 
     let update msg model =
         match msg with

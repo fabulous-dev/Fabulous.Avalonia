@@ -24,7 +24,8 @@ module TextBoxPage =
 
     let init () =
         { SingleLineText = ""
-          MultiLineText = "" }
+          MultiLineText = "" },
+        []
 
     let update msg model =
         match msg with

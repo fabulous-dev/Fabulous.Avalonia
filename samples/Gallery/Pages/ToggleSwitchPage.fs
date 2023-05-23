@@ -25,7 +25,8 @@ module ToggleSwitchPage =
     let init () =
         { Value1 = false
           Value2 = Some false
-          Text2 = "Toggle me" }
+          Text2 = "Toggle me" },
+        []
 
     let update msg model =
         match msg with

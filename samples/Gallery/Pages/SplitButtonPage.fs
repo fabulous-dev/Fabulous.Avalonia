@@ -40,7 +40,8 @@ module SplitButtonPage =
               Colors.Black
               Colors.Red
               Colors.Bisque
-              Colors.White ] }
+              Colors.White ] },
+        []
 
     let update msg model =
         match msg with

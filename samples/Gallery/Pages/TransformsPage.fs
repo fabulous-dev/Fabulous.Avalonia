@@ -39,7 +39,8 @@ module TransformsPage =
           CenterZ = 0.
           AngleX = 0.
           AngleY = 0.
-          AngleZ = 0. }
+          AngleZ = 0. },
+        []
 
     let update msg model =
         match msg with

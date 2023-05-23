@@ -40,7 +40,7 @@ module NotificationsPage =
         | NoMsg -> Navigation.goBack nav
 
     let init () =
-        { WindowNotificationManager = Unchecked.defaultof<_> }
+        { WindowNotificationManager = Unchecked.defaultof<_> }, []
 
     let update msg model =
         match msg with

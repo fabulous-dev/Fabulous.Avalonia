@@ -51,7 +51,8 @@ module ScrollViewerPage =
           HorizontalSnapPointsType = SnapPointsType.None
           VerticalSnapPointsAlignment = SnapPointsAlignment.Near
           HorizontalSnapPointsAlignment = SnapPointsAlignment.Near
-          AreSnapPointsRegular = false }
+          AreSnapPointsRegular = false },
+        []
 
     let update msg model =
         match msg with

@@ -17,7 +17,7 @@ module TabStripPage =
         | NoMsg -> Navigation.goBack nav
 
     let init () =
-        { Items = [ "Tab 1"; "Tab 2"; "Tab 3" ] }
+        { Items = [ "Tab 1"; "Tab 2"; "Tab 3" ] }, []
 
     let update msg model =
         match msg with

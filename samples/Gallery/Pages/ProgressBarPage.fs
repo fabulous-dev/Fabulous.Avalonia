@@ -17,7 +17,7 @@ module ProgressBarPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Progress = 5; Max = 20 }
+    let init () = { Progress = 5; Max = 20 }, []
 
     let update msg model =
         match msg with

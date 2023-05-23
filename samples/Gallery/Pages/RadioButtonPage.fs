@@ -95,7 +95,8 @@ module RadioButtonPage =
           ThreeStateChecked11 = Some false
           ThreeStateChecked12 = Some false
           ThreeStateChecked13 = Some false
-          ThreeStateChecked14 = Some false }
+          ThreeStateChecked14 = Some false },
+        []
 
     let update msg model =
         match msg with

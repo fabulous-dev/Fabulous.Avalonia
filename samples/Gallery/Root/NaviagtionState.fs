@@ -352,69 +352,195 @@ module NavigationState =
         | NavigationRoute.AutoCompleteBoxPage ->
             let m, c = AutoCompleteBoxPage.init()
             AutoCompleteBoxPageModel m, [ AutoCompleteBoxPageCmdMsgs c ]
-        | NavigationRoute.AnimationsPage -> failwith "todo"
-        | NavigationRoute.ButtonsPage -> failwith "todo"
-        | NavigationRoute.BrushesPage -> failwith "todo"
-        | NavigationRoute.ButtonSpinnerPage -> failwith "todo"
-        | NavigationRoute.BorderPage -> failwith "todo"
-        | NavigationRoute.CalendarPage -> failwith "todo"
-        | NavigationRoute.CalendarDatePickerPage -> failwith "todo"
-        | NavigationRoute.CanvasPage -> failwith "todo"
-        | NavigationRoute.CheckBoxPage -> failwith "todo"
-        | NavigationRoute.CarouselPage -> failwith "todo"
-        | NavigationRoute.ComboBoxPage -> failwith "todo"
-        | NavigationRoute.ContextMenuPage -> failwith "todo"
-        | NavigationRoute.ContextFlyoutPage -> failwith "todo"
-        | NavigationRoute.ClippingPage -> failwith "todo"
-        | NavigationRoute.DockPanelPage -> failwith "todo"
-        | NavigationRoute.DropDownButtonPage -> failwith "todo"
-        | NavigationRoute.DrawingPage -> failwith "todo"
-        | NavigationRoute.ExpanderPage -> failwith "todo"
-        | NavigationRoute.FlyoutPage -> failwith "todo"
-        | NavigationRoute.GesturesPage -> failwith "todo"
-        | NavigationRoute.GeometriesPage -> failwith "todo"
-        | NavigationRoute.GlyphRunControlPage -> failwith "todo"
-        | NavigationRoute.GridPage -> failwith "todo"
-        | NavigationRoute.GridSplitterPage -> failwith "todo"
-        | NavigationRoute.ImagePage -> failwith "todo"
-        | NavigationRoute.LabelPage -> failwith "todo"
-        | NavigationRoute.LayoutTransformControlPage -> failwith "todo"
-        | NavigationRoute.ListBoxPage -> failwith "todo"
-        | NavigationRoute.MenuFlyoutPage -> failwith "todo"
-        | NavigationRoute.MaskedTextBoxPage -> failwith "todo"
-        | NavigationRoute.MenuPage -> failwith "todo"
-        | NavigationRoute.NumericUpDownPage -> failwith "todo"
-        | NavigationRoute.NotificationsPage -> failwith "todo"
-        | NavigationRoute.ProgressBarPage -> failwith "todo"
-        | NavigationRoute.PanelPage -> failwith "todo"
-        | NavigationRoute.PathIconPage -> failwith "todo"
-        | NavigationRoute.PopupPage -> failwith "todo"
-        | NavigationRoute.PageTransitionsPage -> failwith "todo"
-        | NavigationRoute.RepeatButtonPage -> failwith "todo"
-        | NavigationRoute.RadioButtonPage -> failwith "todo"
-        | NavigationRoute.RefreshContainerPage -> failwith "todo"
-        | NavigationRoute.SelectableTextBlockPage -> failwith "todo"
-        | NavigationRoute.SplitButtonPage -> failwith "todo"
-        | NavigationRoute.SliderPage -> failwith "todo"
-        | NavigationRoute.ShapesPage -> failwith "todo"
-        | NavigationRoute.ScrollBarPage -> failwith "todo"
-        | NavigationRoute.SplitViewPage -> failwith "todo"
-        | NavigationRoute.StackPanelPage -> failwith "todo"
-        | NavigationRoute.ScrollViewerPage -> failwith "todo"
-        | NavigationRoute.ToggleSplitButton -> failwith "todo"
-        | NavigationRoute.TextBlockPage -> failwith "todo"
-        | NavigationRoute.TextBoxPage -> failwith "todo"
-        | NavigationRoute.TickBarPage -> failwith "todo"
-        | NavigationRoute.ToggleSwitchPage -> failwith "todo"
-        | NavigationRoute.ToggleButtonPage -> failwith "todo"
-        | NavigationRoute.ToolTipPage -> failwith "todo"
-        | NavigationRoute.TabControlPage -> failwith "todo"
-        | NavigationRoute.TabStripPage -> failwith "todo"
-        | NavigationRoute.TransitionsPage -> failwith "todo"
-        | NavigationRoute.TransformsPage -> failwith "todo"
-        | NavigationRoute.ThemeAwarePage -> failwith "todo"
-        | NavigationRoute.UniformGridPage -> failwith "todo"
-        | NavigationRoute.ViewBoxPage -> failwith "todo"
+        | NavigationRoute.AnimationsPage ->
+            let m, c = AnimationsPage.init()
+            AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
+        | NavigationRoute.ButtonsPage ->
+            let m, c = ButtonsPage.init()
+            ButtonsPageModel m, [ ButtonsPageCmdMsgs c ]
+        | NavigationRoute.BrushesPage ->
+            let m, c = BrushesPage.init()
+            BrushesPageModel m, [ BrushesPageCmdMsgs c ]
+        | NavigationRoute.ButtonSpinnerPage ->
+            let m, c = ButtonSpinnerPage.init()
+            ButtonSpinnerPageModel m, [ ButtonSpinnerPageCmdMsgs c ]
+        | NavigationRoute.BorderPage ->
+            let m, c = BorderPage.init()
+            BorderPageModel m, [ BorderPageCmdMsgs c ]
+        | NavigationRoute.CalendarPage ->
+            let m, c = CalendarPage.init()
+            CalendarPageModel m, [ CalendarPageCmdMsgs c ]
+        | NavigationRoute.CalendarDatePickerPage ->
+            let m, c = CalendarDatePickerPage.init()
+            CalendarDatePickerPageModel m, [ CalendarDatePickerPageCmdMsgs c ]
+        | NavigationRoute.CanvasPage ->
+            let m, c = CanvasPage.init()
+            CanvasPageModel m, [ CanvasPageCmdMsgs c ]
+        | NavigationRoute.CheckBoxPage ->
+            let m, c = CheckBoxPage.init()
+            CheckBoxPageModel m, [ CheckBoxPageCmdMsgs c ]
+        | NavigationRoute.CarouselPage ->
+            let m, c = CarouselPage.init()
+            CarouselPageModel m, [ CarouselPageCmdMsgs c ]
+        | NavigationRoute.ComboBoxPage ->
+            let m, c = ComboBoxPage.init()
+            ComboBoxPageModel m, [ ComboBoxPageCmdMsgs c ]
+        | NavigationRoute.ContextMenuPage ->
+            let m, c = ContextMenuPage.init()
+            ContextMenuPageModel m, [ ContextMenuPageCmdMsgs c ]
+        | NavigationRoute.ContextFlyoutPage ->
+            let m, c = ContextFlyoutPage.init()
+            ContextFlyoutPageModel m, [ ContextFlyoutPageCmdMsgs c ]
+        | NavigationRoute.ClippingPage ->
+            let m, c = ClippingPage.init()
+            ClippingPageModel m, [ ClippingPageCmdMsgs c ]
+        | NavigationRoute.DockPanelPage ->
+            let m, c = DockPanelPage.init()
+            DockPanelPageModel m, [ DockPanelPageCmdMsgs c ]
+        | NavigationRoute.DropDownButtonPage ->
+            let m, c = DropDownButtonPage.init()
+            DropDownButtonPageModel m, [ DropDownButtonPageCmdMsgs c ]
+        | NavigationRoute.DrawingPage ->
+            let m, c = DrawingPage.init()
+            DrawingPageModel m, [ DrawingPageCmdMsgs c ]
+        | NavigationRoute.ExpanderPage ->
+            let m, c = ExpanderPage.init()
+            ExpanderPageModel m, [ ExpanderPageCmdMsgs c ]
+        | NavigationRoute.FlyoutPage ->
+            let m, c = FlyoutPage.init()
+            FlyoutPageModel m, [ FlyoutPageCmdMsgs c ]
+        | NavigationRoute.GesturesPage ->
+            let m, c = GesturesPage.init()
+            GesturesPageModel m, [ GesturesPageCmdMsgs c ]
+        | NavigationRoute.GeometriesPage ->
+            let m, c = GeometriesPage.init()
+            GeometriesPageModel m, [ GeometriesPageCmdMsgs c ]
+        | NavigationRoute.GlyphRunControlPage ->
+            let m, c = GlyphRunControlPage.init()
+            GlyphRunControlPageModel m, [ GlyphRunControlPageCmdMsgs c ]
+        | NavigationRoute.GridPage ->
+            let m, c = GridPage.init()
+            GridPageModel m, [ GridPageCmdMsgs c ]
+        | NavigationRoute.GridSplitterPage ->
+            let m, c = GridSplitterPage.init()
+            GridSplitterPageModel m, [ GridSplitterPageCmdMsgs c ]
+        | NavigationRoute.ImagePage ->
+            let m, c = ImagePage.init()
+            ImagePageModel m, [ ImagePageCmdMsgs c ]
+        | NavigationRoute.LabelPage ->
+            let m, c = LabelPage.init()
+            LabelPageModel m, [ LabelPageCmdMsgs c ]
+        | NavigationRoute.LayoutTransformControlPage ->
+            let m, c = LayoutTransformControlPage.init()
+            LayoutTransformControlPageModel m, [ LayoutTransformControlPageCmdMsgs c ]
+        | NavigationRoute.ListBoxPage ->
+            let m, c = ListBoxPage.init()
+            ListBoxPageModel m, [ ListBoxPageCmdMsgs c ]
+        | NavigationRoute.MenuFlyoutPage ->
+            let m, c = MenuFlyoutPage.init()
+            MenuFlyoutPageModel m, [ MenuFlyoutPageCmdMsgs c ]
+        | NavigationRoute.MaskedTextBoxPage ->
+            let m, c = MaskedTextBoxPage.init()
+            MaskedTextBoxPageModel m, [ MaskedTextBoxPageCmdMsgs c ]
+        | NavigationRoute.MenuPage ->
+            let m, c = MenuPage.init()
+            MenuPageModel m, [ MenuPageCmdMsgs c ]
+        | NavigationRoute.NumericUpDownPage ->
+            let m, c = NumericUpDownPage.init()
+            NumericUpDownPageModel m, [ NumericUpDownPageCmdMsgs c ]
+        | NavigationRoute.NotificationsPage ->
+            let m, c = NotificationsPage.init()
+            NotificationsPageModel m, [ NotificationsPageCmdMsgs c ]
+        | NavigationRoute.ProgressBarPage ->
+            let m, c = ProgressBarPage.init()
+            ProgressBarPageModel m, [ ProgressBarPageCmdMsgs c ]
+        | NavigationRoute.PanelPage ->
+            let m, c = PanelPage.init()
+            PanelPageModel m, [ PanelPageCmdMsgs c ]
+        | NavigationRoute.PathIconPage ->
+            let m, c = PathIconPage.init()
+            PathIconPageModel m, [ PathIconPageCmdMsgs c ]
+        | NavigationRoute.PopupPage ->
+            let m, c = PopupPage.init()
+            PopupPageModel m, [ PopupPageCmdMsgs c ]
+        | NavigationRoute.PageTransitionsPage ->
+            let m, c = PageTransitionsPage.init()
+            PageTransitionsPageModel m, [ PageTransitionsPageCmdMsgs c ]
+        | NavigationRoute.RepeatButtonPage ->
+            let m, c = RepeatButtonPage.init()
+            RepeatButtonPageModel m, [ RepeatButtonPageCmdMsgs c ]
+        | NavigationRoute.RadioButtonPage ->
+            let m, c = RadioButtonPage.init()
+            RadioButtonPageModel m, [ RadioButtonPageCmdMsgs c ]
+        | NavigationRoute.RefreshContainerPage ->
+            let m, c = RefreshContainerPage.init()
+            RefreshContainerPageModel m, [ RefreshContainerPageCmdMsgs c ]
+        | NavigationRoute.SelectableTextBlockPage ->
+            let m, c = SelectableTextBlockPage.init()
+            SelectableTextBlockPageModel m, [ SelectableTextBlockPageCmdMsgs c ]
+        | NavigationRoute.SplitButtonPage ->
+            let m, c = SplitButtonPage.init()
+            SplitButtonPageModel m, [ SplitButtonPageCmdMsgs c ]
+        | NavigationRoute.SliderPage ->
+            let m, c = SliderPage.init()
+            SliderPageModel m, [ SliderPageCmdMsgs c ]
+        | NavigationRoute.ShapesPage ->
+            let m, c = ShapesPage.init()
+            ShapesPageModel m, [ ShapesPageCmdMsgs c ]
+        | NavigationRoute.ScrollBarPage ->
+            let m, c = ScrollBarPage.init()
+            ScrollBarPageModel m, [ ScrollBarPageCmdMsgs c ]
+        | NavigationRoute.SplitViewPage ->
+            let m, c = SplitViewPage.init()
+            SplitViewPageModel m, [ SplitViewPageCmdMsgs c ]
+        | NavigationRoute.StackPanelPage ->
+            let m, c = StackPanelPage.init()
+            StackPanelPageModel m, [ StackPanelPageCmdMsgs c ]
+        | NavigationRoute.ScrollViewerPage ->
+            let m, c = ScrollViewerPage.init()
+            ScrollViewerPageModel m, [ ScrollViewerPageCmdMsgs c ]
+        | NavigationRoute.ToggleSplitButton ->
+            let m, c = ToggleSplitButtonPage.init()
+            ToggleSplitButtonPageModel m, [ ToggleSplitButtonPageCmdMsgs c ]
+        | NavigationRoute.TextBlockPage ->
+            let m, c = TextBlockPage.init()
+            TextBlockPageModel m, [ TextBlockPageCmdMsgs c ]
+        | NavigationRoute.TextBoxPage ->
+            let m, c = TextBoxPage.init()
+            TextBoxPageModel m, [ TextBoxPageCmdMsgs c ]
+        | NavigationRoute.TickBarPage ->
+            let m, c = TickBarPage.init()
+            TickBarPageModel m, [ TickBarPageCmdMsgs c ]
+        | NavigationRoute.ToggleSwitchPage ->
+            let m, c = ToggleSwitchPage.init()
+            ToggleSwitchPageModel m, [ ToggleSwitchPageCmdMsgs c ]
+        | NavigationRoute.ToggleButtonPage ->
+            let m, c = ToggleButtonPage.init()
+            ToggleButtonPageModel m, [ ToggleButtonPageCmdMsgs c ]
+        | NavigationRoute.ToolTipPage ->
+            let m, c = ToolTipPage.init()
+            ToolTipPageModel m, [ ToolTipPageCmdMsgs c ]
+        | NavigationRoute.TabControlPage ->
+            let m, c = TabControlPage.init()
+            TabControlPageModel m, [ TabControlPageCmdMsgs c ]
+        | NavigationRoute.TabStripPage ->
+            let m, c = TabStripPage.init()
+            TabStripPageModel m, [ TabStripPageCmdMsgs c ]
+        | NavigationRoute.TransitionsPage ->
+            let m, c = TransitionsPage.init()
+            TransitionsPageModel m, [ TransitionsPageCmdMsgs c ]
+        | NavigationRoute.TransformsPage ->
+            let m, c = TransformsPage.init()
+            TransformsPageModel m, [ TransformsPageCmdMsgs c ]
+        | NavigationRoute.ThemeAwarePage ->
+            let m, c = ThemeAwarePage.init()
+            ThemeAwarePageModel m, [ ThemeAwarePageCmdMsgs c ]
+        | NavigationRoute.UniformGridPage ->
+            let m, c = UniformGridPage.init()
+            UniformGridPageModel m, [ UniformGridPageCmdMsgs c ]
+        | NavigationRoute.ViewBoxPage ->
+            let m, c = ViewBoxPage.init()
+            ViewBoxPageModel m, [ ViewBoxPageCmdMsgs c ]
 
     let update (msg: SubpageMsg) (model: NavigationModel) =
         let subpageModel, cmdMsgs =
@@ -440,8 +566,74 @@ module NavigationState =
         match model with
         | AcrylicPageModel m -> map AcrylicPage.view AcrylicPageMsg m
         | AdornerLayerPageModel m -> map AdornerLayerPage.view AdornerLayerPageMsg m
+        | AutoCompleteBoxPageModel model -> map AutoCompleteBoxPage.view AutoCompleteBoxPageMsg model
+        | AnimationsPageModel model -> map AnimationsPage.view AnimationsPageMsg model
+        | ButtonsPageModel model -> map ButtonsPage.view ButtonsPageMsg model
+        | BrushesPageModel model -> map BrushesPage.view BrushesPageMsg model
+        | ButtonSpinnerPageModel model -> map ButtonSpinnerPage.view ButtonSpinnerPageMsg model
+        | BorderPageModel model -> map BorderPage.view BorderPageMsg model
+        | CalendarPageModel model -> map CalendarPage.view CalendarPageMsg model
+        | CalendarDatePickerPageModel model -> map CalendarDatePickerPage.view CalendarDatePickerPageMsg model
+        | CanvasPageModel model -> map CanvasPage.view CanvasPageMsg model
+        | CheckBoxPageModel model -> map CheckBoxPage.view CheckBoxPageMsg model
+        | CarouselPageModel model -> map CarouselPage.view CarouselPageMsg model
+        | ComboBoxPageModel model -> map ComboBoxPage.view ComboBoxPageMsg model
+        | ContextMenuPageModel model -> map ContextMenuPage.view ContextMenuPageMsg model
+        | ContextFlyoutPageModel model -> map ContextFlyoutPage.view ContextFlyoutPageMsg model
+        | ClippingPageModel model -> map ClippingPage.view ClippingPageMsg model
+        | DockPanelPageModel model -> map DockPanelPage.view DockPanelPageMsg model
+        | DropDownButtonPageModel model -> map DropDownButtonPage.view DropDownButtonPageMsg model
+        | DrawingPageModel model -> map DrawingPage.view DrawingPageMsg model
+        | ExpanderPageModel model -> map ExpanderPage.view ExpanderPageMsg model
+        | FlyoutPageModel model -> map FlyoutPage.view FlyoutPageMsg model
+        | GesturesPageModel model -> map GesturesPage.view GesturesPageMsg model
+        | GeometriesPageModel model -> map GeometriesPage.view GeometriesPageMsg model
+        | GlyphRunControlPageModel model -> map GlyphRunControlPage.view GlyphRunControlPageMsg model
+        | GridPageModel model -> map GridPage.view GridPageMsg model
+        | GridSplitterPageModel model -> map GridSplitterPage.view GridSplitterPageMsg model
+        | ImagePageModel model -> map ImagePage.view ImagePageMsg model
+        | LabelPageModel model -> map LabelPage.view LabelPageMsg model
+        | LayoutTransformControlPageModel model -> map LayoutTransformControlPage.view LayoutTransformControlPageMsg model
+        | LineBoundsDemoControlPageModel model -> map LineBoundsDemoControlPage.view LineBoundsDemoControlPageMsg model
+        | ListBoxPageModel model -> map ListBoxPage.view ListBoxPageMsg model
+        | MenuFlyoutPageModel model -> map MenuFlyoutPage.view MenuFlyoutPageMsg model
+        | MaskedTextBoxPageModel model -> map MaskedTextBoxPage.view MaskedTextBoxPageMsg model
+        | MenuPageModel model -> map MenuPage.view MenuPageMsg model
+        | NumericUpDownPageModel model -> map NumericUpDownPage.view NumericUpDownPageMsg model
+        | NotificationsPageModel model -> map NotificationsPage.view NotificationsPageMsg model
+        | ProgressBarPageModel model -> map ProgressBarPage.view ProgressBarPageMsg model
+        | PanelPageModel model -> map PanelPage.view PanelPageMsg model
+        | PathIconPageModel model -> map PathIconPage.view PathIconPageMsg model
+        | PopupPageModel model -> map PopupPage.view PopupPageMsg model
+        | PageTransitionsPageModel model -> map PageTransitionsPage.view PageTransitionsPageMsg model
+        | RepeatButtonPageModel model -> map RepeatButtonPage.view RepeatButtonPageMsg model
+        | RadioButtonPageModel model -> map RadioButtonPage.view RadioButtonPageMsg model
+        | RefreshContainerPageModel model -> map RefreshContainerPage.view RefreshContainerPageMsg model
+        | SelectableTextBlockPageModel model -> map SelectableTextBlockPage.view SelectableTextBlockPageMsg model
+        | SplitButtonPageModel model -> map SplitButtonPage.view SplitButtonPageMsg model
+        | SliderPageModel model -> map SliderPage.view SliderPageMsg model
+        | ShapesPageModel model -> map ShapesPage.view ShapesPageMsg model
+        | ScrollBarPageModel model -> map ScrollBarPage.view ScrollBarPageMsg model
+        | SplitViewPageModel model -> map SplitViewPage.view SplitViewPageMsg model
+        | StackPanelPageModel model -> map StackPanelPage.view StackPanelPageMsg model
+        | ScrollViewerPageModel model -> map ScrollViewerPage.view ScrollViewerPageMsg model
+        | ToggleSplitButtonPageModel model -> map ToggleSplitButtonPage.view ToggleSplitButtonPageMsg model
+        | TextBlockPageModel model -> map TextBlockPage.view TextBlockPageMsg model
+        | TextBoxPageModel model -> map TextBoxPage.view TextBoxPageMsg model
+        | TickBarPageModel model -> map TickBarPage.view TickBarPageMsg model
+        | ToggleSwitchPageModel model -> map ToggleSwitchPage.view ToggleSwitchPageMsg model
+        | ToggleButtonPageModel model -> map ToggleButtonPage.view ToggleButtonPageMsg model
+        | ToolTipPageModel model -> map ToolTipPage.view ToolTipPageMsg model
+        | TabControlPageModel model -> map TabControlPage.view TabControlPageMsg model
+        | TabStripPageModel model -> map TabStripPage.view TabStripPageMsg model
+        | TransitionsPageModel model -> map TransitionsPage.view TransitionsPageMsg model
+        | TransformsPageModel model -> map TransformsPage.view TransformsPageMsg model
+        | ThemeAwarePageModel model -> map ThemeAwarePage.view ThemeAwarePageMsg model
+        | UniformGridPageModel model -> map UniformGridPage.view UniformGridPageMsg model
+        | ViewBoxPageModel model -> map ViewBoxPage.view ViewBoxPageMsg model
 
     let updateBackButtonPressed (model: NavigationModel) =
         match model.CurrentPage with
         | AcrylicPageModel _ -> update (AcrylicPageMsg AcrylicPage.Msg.Previous) model
         | AdornerLayerPageModel _ -> update (AdornerLayerPageMsg AdornerLayerPage.Msg.Previous) model
+        | _ -> model, []

@@ -19,7 +19,7 @@ module ViewBoxPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Width = 300.; Height = 300. }
+    let init () = { Width = 300.; Height = 300. }, []
 
     let update msg model =
         match msg with

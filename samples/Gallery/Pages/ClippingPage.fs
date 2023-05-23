@@ -25,7 +25,8 @@ module ClippingPage =
 
     let init () =
         { IsChecked = false
-          BrushColor = Brushes.Yellow }
+          BrushColor = Brushes.Yellow },
+        []
 
     let update msg model =
         match msg with

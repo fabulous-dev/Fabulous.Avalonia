@@ -31,7 +31,7 @@ module FlyoutPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Counter = 0; IsChecked = false }
+    let init () = { Counter = 0; IsChecked = false }, []
 
     let update msg model =
         match msg with

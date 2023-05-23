@@ -23,7 +23,7 @@ module GesturesPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { CurrentScale = 0 }
+    let init () = { CurrentScale = 0 }, []
 
     let topBallBorderRef = ViewRef<Border>()
 

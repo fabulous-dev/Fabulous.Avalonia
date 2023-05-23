@@ -30,7 +30,8 @@ module ToggleSplitButtonPage =
     let init () =
         { Count = 0
           IsChecked = false
-          IsChecked2 = false }
+          IsChecked2 = false },
+        []
 
     let update msg model =
         match msg with

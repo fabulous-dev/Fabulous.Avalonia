@@ -26,7 +26,8 @@ module CheckBoxPage =
     let init () =
         { IsChecked1 = false
           IsChecked2 = true
-          IsChecked3 = Some false }
+          IsChecked3 = Some false },
+        []
 
     let update msg model =
         match msg with

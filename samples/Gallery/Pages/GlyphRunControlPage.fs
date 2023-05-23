@@ -139,7 +139,7 @@ module GlyphRunControlPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Nothing = true }
+    let init () = { Nothing = true }, []
 
     let update msg model =
         match msg with

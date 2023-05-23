@@ -17,7 +17,7 @@ module CalendarDatePickerPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Date = Some DateTime.Now }
+    let init () = { Date = Some DateTime.Now }, []
 
     let update msg model =
         match msg with

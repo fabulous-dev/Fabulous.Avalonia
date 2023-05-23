@@ -19,7 +19,7 @@ module GeometriesPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Nothing = 0 }
+    let init () = { Nothing = 0 }, []
 
     let update msg model =
         match msg with

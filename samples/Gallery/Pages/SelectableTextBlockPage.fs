@@ -17,7 +17,7 @@ module SelectableTextBlockPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { Text = "" }
+    let init () = { Text = "" }, []
 
     let update msg model =
         match msg with

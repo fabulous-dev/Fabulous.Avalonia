@@ -22,7 +22,7 @@ module RefreshContainerPage =
         | NoMsg -> Navigation.goBack nav
 
     let init () =
-        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }
+        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }, []
 
     let update msg model =
         match msg with

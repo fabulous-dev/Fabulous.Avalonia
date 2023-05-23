@@ -24,7 +24,7 @@ module PopupPage =
         match cmdMsg with
         | NoMsg -> Navigation.goBack nav
 
-    let init () = { IsOpen = false }
+    let init () = { IsOpen = false }, []
 
     let update msg model =
         match msg with

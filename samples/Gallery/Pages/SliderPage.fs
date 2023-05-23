@@ -42,7 +42,8 @@ module SliderPage =
           SliderValue4 = 0.0
           SliderValue5 = 0.0
           SliderValue6 = 0.0
-          SliderValue7 = 0.0 }
+          SliderValue7 = 0.0 },
+        []
 
     let update msg model =
         match msg with
