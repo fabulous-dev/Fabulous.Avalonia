@@ -12,9 +12,7 @@ module App =
     let navigationController = NavigationController()
 
     let navigationSubscription _model =
-        Cmd.ofSub(fun dispatch ->
-            navigationController.NavigationRequested.Add(fun route -> dispatch(NavigationMsg route))
-            navigationController.BackNavigationRequested.Add(fun () -> dispatch BackButtonPressed))
+        Cmd.ofSub(fun dispatch -> navigationController.NavigationRequested.Add(fun route -> dispatch(NavigationMsg route)))
 
     let program =
         Program.statefulWithCmdMsg Root.State.init Root.State.update Root.View.view (Root.State.mapCmdMsgToCmd navigationController)

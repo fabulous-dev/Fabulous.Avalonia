@@ -334,9 +334,6 @@ module NavigationState =
             | ToggleSplitButtonPageCmdMsgs cmdMsgs -> map ToggleSplitButtonPage.mapCmdMsgToCmd ToggleSplitButtonPageMsg cmdMsgs
             | TransitionsPageCmdMsgs cmdMsgs -> map TransitionsPage.mapCmdMsgToCmd TransitionsPageMsg cmdMsgs
 
-
-
-
         cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
     let initRoute (route: NavigationRoute) (_navigationModel: NavigationModel option) =
