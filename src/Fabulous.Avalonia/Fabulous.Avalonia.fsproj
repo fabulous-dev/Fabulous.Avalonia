@@ -222,7 +222,7 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Include="Fabulous" VersionOverride="[2.3.0, 2.4.0)" />
+    <PackageReference Include="Fabulous" VersionOverride="[2.3.1, 2.4.0)" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.0-preview8" />
     <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.0-preview8" />
     <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-preview8" />
