@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open System
 open Avalonia.Controls
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 open Gallery
@@ -14,9 +15,9 @@ module CalendarPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () = { Date1 = Some DateTime.Now }, []
 

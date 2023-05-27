@@ -5,6 +5,7 @@ open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous.Avalonia
+open Fabulous
 open Avalonia.Input
 
 open type Fabulous.Avalonia.View
@@ -17,9 +18,9 @@ module RefreshContainerPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () =
         { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }, []

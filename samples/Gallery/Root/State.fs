@@ -5,25 +5,44 @@ open Gallery
 open Types
 
 module State =
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
         | NewMsg msg -> Cmd.ofMsg msg
         | SubpageCmdMsgs cmdMsgs ->
-            let cmd = NavigationState.mapCmdMsgToMsg nav cmdMsgs
+            let cmd = NavigationState.mapCmdMsgToMsg cmdMsgs
             Cmd.map SubpageMsg cmd
 
     let init () =
+#if MOBILE || BROWSER
         let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage None
 
-        { SafeAreaInsets = 0.
-          Navigation = NavigationModel.Init(model) },
+        { Navigation = NavigationModel.Init(model)
+          IsPanOpen = false
+          SafeAreaInsets = 0.
+          Pages = NavigationRoute.GetNames()
+          SelectedIndex = 0
+          PaneLength = 150. },
         [ SubpageCmdMsgs cmdMsgs ]
+#else
+        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage None
+
+        { Navigation = NavigationModel.Init(model)
+          IsPanOpen = true
+          Pages = NavigationRoute.GetNames()
+          SafeAreaInsets = 0.
+          SelectedIndex = 0
+          PaneLength = 250. },
+        [ SubpageCmdMsgs cmdMsgs ]
+#endif
 
     let update msg model =
         match msg with
         | OnLoaded _ ->
 #if MOBILE
-            { model with SafeAreaInsets = 32. }, []
+            { model with
+                SafeAreaInsets = 32.
+                PaneLength = 180. },
+            []
 #else
             model, []
 #endif
@@ -37,3 +56,21 @@ module State =
             { model with
                 Navigation = model.Navigation.Push(m) },
             [ SubpageCmdMsgs c ]
+
+        | OpenPanChanged x -> { model with IsPanOpen = x }, []
+
+        | OpenPan ->
+            { model with
+                IsPanOpen = not model.IsPanOpen },
+            []
+
+        | SelectedIndexChanged index ->
+            let route = NavigationRoute.GetRoute(model.Pages.[index])
+            let modelRoute, cmdMsgs = NavigationState.initRoute route None
+
+            let model =
+                { model with
+                    SelectedIndex = index
+                    Navigation = NavigationModel.Init(modelRoute) }
+
+            model, [ SubpageCmdMsgs cmdMsgs ]

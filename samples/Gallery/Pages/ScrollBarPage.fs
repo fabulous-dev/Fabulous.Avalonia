@@ -4,6 +4,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 open Gallery
@@ -17,9 +18,9 @@ module ScrollBarPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () = { ScrollValue = 0.0 }, []
 

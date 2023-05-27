@@ -3,9 +3,9 @@ namespace Gallery.Pages
 open Avalonia.Media
 open Fabulous.Avalonia
 open Avalonia.Controls
+open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module DockPanelPage =
     type Model = { Nothing: bool }
@@ -13,9 +13,9 @@ module DockPanelPage =
     type Msg = DoNothing
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () = { Nothing = true }, []
 

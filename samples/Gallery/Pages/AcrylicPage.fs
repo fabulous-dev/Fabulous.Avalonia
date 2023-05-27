@@ -23,9 +23,9 @@ module AcrylicPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () =
         { TintOpacitySlider = 0.9

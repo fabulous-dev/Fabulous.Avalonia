@@ -4,6 +4,7 @@ open System
 open Avalonia.Animation
 open Avalonia.Controls
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 open Gallery
@@ -18,9 +19,9 @@ module ExpanderPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () = { IsExpanded = true }, []
 

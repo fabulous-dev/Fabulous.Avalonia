@@ -213,56 +213,19 @@ type SubpageCmdMsg =
     | ViewBoxPageCmdMsgs of ViewBoxPage.CmdMsg list
 
 type NavigationModel =
-    { BackStack: SubpageModel list
-      CurrentPage: SubpageModel
-      ForwardStack: SubpageModel list }
+    { CurrentPage: SubpageModel }
 
-    static member Init(root: SubpageModel) =
-        { BackStack = []
-          CurrentPage = root
-          ForwardStack = [] }
+    static member Init(root: SubpageModel) = { CurrentPage = root }
 
-    member this.Push(page: SubpageModel) =
-        { BackStack = this.CurrentPage :: this.BackStack
-          CurrentPage = page
-          ForwardStack = [] }
-
-    member this.PushToRoot(page: SubpageModel) =
-        { BackStack = []
-          CurrentPage = page
-          ForwardStack = [] }
-
-    member this.Pop() =
-        match this.BackStack with
-        | [] -> this
-        | previous :: rest ->
-            { BackStack = rest
-              CurrentPage = previous
-              ForwardStack = [] }
-
-    member this.Forward() =
-        match this.ForwardStack with
-        | [] -> this
-        | next :: rest ->
-            { BackStack = this.CurrentPage :: this.BackStack
-              CurrentPage = next
-              ForwardStack = rest }
-
-    member this.Backward() =
-        match this.BackStack with
-        | [] -> this
-        | previous :: rest ->
-            { BackStack = rest
-              CurrentPage = previous
-              ForwardStack = this.CurrentPage :: this.ForwardStack }
+    member this.Push(page: SubpageModel) = { CurrentPage = page }
 
 module NavigationState =
-    let mapCmdMsgToMsg nav cmdMsgs =
+    let mapCmdMsgToMsg cmdMsgs =
         let mapSubpageCmdMsg (cmdMsg: SubpageCmdMsg) =
-            let map (mapCmdMsgFn: NavigationController -> 'subCmdMsg -> Cmd<'subMsg>) (mapFn: 'subMsg -> 'msg) (subCmdMsgs: 'subCmdMsg list) =
+            let map (mapCmdMsgFn: 'subCmdMsg -> Cmd<'subMsg>) (mapFn: 'subMsg -> 'msg) (subCmdMsgs: 'subCmdMsg list) =
                 subCmdMsgs
                 |> List.map(fun c ->
-                    let cmd = mapCmdMsgFn nav c
+                    let cmd = mapCmdMsgFn c
                     Cmd.map mapFn cmd)
 
             match cmdMsg with
@@ -496,7 +459,7 @@ module NavigationState =
         | NavigationRoute.ScrollViewerPage ->
             let m, c = ScrollViewerPage.init()
             ScrollViewerPageModel m, [ ScrollViewerPageCmdMsgs c ]
-        | NavigationRoute.ToggleSplitButton ->
+        | NavigationRoute.ToggleSplitButtonPage ->
             let m, c = ToggleSplitButtonPage.init()
             ToggleSplitButtonPageModel m, [ ToggleSplitButtonPageCmdMsgs c ]
         | NavigationRoute.TextBlockPage ->
@@ -538,6 +501,9 @@ module NavigationState =
         | NavigationRoute.ViewBoxPage ->
             let m, c = ViewBoxPage.init()
             ViewBoxPageModel m, [ ViewBoxPageCmdMsgs c ]
+        | NavigationRoute.LineBoundsDemoControlPage ->
+            let m, c = LineBoundsDemoControlPage.init()
+            LineBoundsDemoControlPageModel m, [ LineBoundsDemoControlPageCmdMsgs c ]
 
     let update (msg: SubpageMsg) (model: NavigationModel) =
         let subpageModel, cmdMsgs =
@@ -628,9 +594,3 @@ module NavigationState =
         | ThemeAwarePageModel model -> map ThemeAwarePage.view ThemeAwarePageMsg model
         | UniformGridPageModel model -> map UniformGridPage.view UniformGridPageMsg model
         | ViewBoxPageModel model -> map ViewBoxPage.view ViewBoxPageMsg model
-
-    let updateBackButtonPressed (model: NavigationModel) =
-        match model.CurrentPage with
-        | AcrylicPageModel _ -> update (AcrylicPageMsg AcrylicPage.Msg.Previous) model
-        | AdornerLayerPageModel _ -> update (AdornerLayerPageMsg AdornerLayerPage.Msg.Previous) model
-        | _ -> model, []

@@ -5,11 +5,18 @@ open Gallery
 module Types =
     type Model =
         { Navigation: NavigationModel
-          SafeAreaInsets: float }
+          IsPanOpen: bool
+          SafeAreaInsets: float
+          SelectedIndex: int
+          PaneLength: float
+          Pages: string array }
 
     type Msg =
         | SubpageMsg of SubpageMsg
         | NavigationMsg of NavigationRoute
+        | SelectedIndexChanged of int
+        | OpenPanChanged of bool
+        | OpenPan
         | OnLoaded of bool
 
     type CmdMsg =

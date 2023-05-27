@@ -29,7 +29,7 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Views\CustomNotificationView.fs" />
-    <Compile Include="Navigation.fs" />
+    <Compile Include="NavigationTypes.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\Animations\Animations1.fs" />

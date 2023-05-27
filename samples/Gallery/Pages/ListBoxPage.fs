@@ -5,6 +5,7 @@ open System.Collections.ObjectModel
 open Avalonia.Controls
 open Avalonia.Controls.Selection
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 open Gallery
@@ -38,9 +39,9 @@ module ListBoxPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () =
         { Multiple = false

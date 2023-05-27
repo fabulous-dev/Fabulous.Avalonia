@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open System.ComponentModel
 open Avalonia.Input
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 open Gallery
@@ -19,9 +20,9 @@ module ContextMenuPage =
 
     type CmdMsg = | NoMsg
 
-    let mapCmdMsgToCmd nav cmdMsg =
+    let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Navigation.goBack nav
+        | NoMsg -> Cmd.none
 
     let init () = { Counter = 0; IsChecked = false }, []
 
