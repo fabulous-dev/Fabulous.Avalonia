@@ -2,7 +2,7 @@
 
 [![build](https://img.shields.io/github/actions/workflow/status/fabulous-dev/Fabulous.Avalonia/build.yml?branch=main)](https://github.com/fabulous-dev/Fabulous.Avalonia/actions/workflows/build.yml) [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia)](https://www.nuget.org/packages/Fabulous.Avalonia) [![NuGet downloads](https://img.shields.io/nuget/dt/Fabulous.Avalonia)](https://www.nuget.org/packages/Fabulous.Avalonia) [![Discord](https://img.shields.io/discord/716980335593914419?label=discord&logo=discord)](https://discord.gg/bpTJMbSSYK) [![Twitter Follow](https://img.shields.io/twitter/follow/FabulousAppDev?style=social)](https://twitter.com/FabulousAppDev)
 
-Fabulous.Avalonia brings the great development experience of Fabulous to Avalonia, allowing you to take advantage of the latest cross-platform UI framework from Microsoft with a tailored declarative UI DSL and clean architecture.
+Fabulous.Avalonia brings the great development experience of Fabulous to [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia), allowing you to take advantage of this UI framework with a tailored declarative UI DSL and clean architecture.
 
 Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windows, Linux and more!
 
