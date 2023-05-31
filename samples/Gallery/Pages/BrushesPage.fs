@@ -23,7 +23,7 @@ module BrushesPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let view _ =
         (Canvas() {

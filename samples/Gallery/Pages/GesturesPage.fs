@@ -29,7 +29,7 @@ module GesturesPage =
 
     let update msg model =
         match msg with
-        | Reset -> model
+        | Reset -> model, []
 
     let view _ =
         VStack(spacing = 4.) {

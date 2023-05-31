@@ -23,7 +23,7 @@ module CanvasPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let view _ =
         VStack(spacing = 15.) {

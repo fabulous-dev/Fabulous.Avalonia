@@ -40,19 +40,21 @@ module FlyoutPage =
             match args.Source with
             | :? Panel as control ->
                 FlyoutBase.ShowAttachedFlyout(control)
-                model
-            | _ -> model
-        | MenuOpening _ -> model
-        | MenuClosing _ -> model
+                model, []
+            | _ -> model, []
+        | MenuOpening _ -> model, []
+        | MenuClosing _ -> model, []
         | Increment ->
             { model with
-                Counter = model.Counter + 1 }
+                Counter = model.Counter + 1 },
+            []
         | Decrement ->
             { model with
-                Counter = model.Counter - 1 }
-        | Reset -> { model with Counter = 0 }
-        | Opened -> model
-        | Closed -> model
+                Counter = model.Counter - 1 },
+            []
+        | Reset -> { model with Counter = 0 }, []
+        | Opened -> model, []
+        | Closed -> model, []
 
     let sharedMenuFlyout openMsg closeMsg =
         (MenuFlyout() {

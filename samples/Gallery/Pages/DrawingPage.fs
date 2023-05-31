@@ -24,7 +24,7 @@ module DrawingPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let bulb () =
         (DrawingGroup() {

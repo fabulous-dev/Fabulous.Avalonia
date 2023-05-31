@@ -299,7 +299,7 @@ module NavigationState =
 
         cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
-    let initRoute (route: NavigationRoute) (_navigationModel: NavigationModel option) =
+    let initRoute (route: NavigationRoute) =
         match route with
         | NavigationRoute.AcrylicPage ->
             let m, c = AcrylicPage.init()
@@ -515,6 +515,123 @@ module NavigationState =
             | AdornerLayerPageMsg subMsg, AdornerLayerPageModel m ->
                 let m, c = AdornerLayerPage.update subMsg m
                 AdornerLayerPageModel m, [ AdornerLayerPageCmdMsgs c ]
+
+            | AutoCompleteBoxPageMsg subMsg, AutoCompleteBoxPageModel m ->
+                let m, c = AutoCompleteBoxPage.update subMsg m
+                AutoCompleteBoxPageModel m, [ AutoCompleteBoxPageCmdMsgs c ]
+
+            | AnimationsPageMsg subMsg, AnimationsPageModel m ->
+                let m, c = AnimationsPage.update subMsg m
+                AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
+
+            | ButtonsPageMsg subMsg, ButtonsPageModel m ->
+                let m, c = ButtonsPage.update subMsg m
+                ButtonsPageModel m, [ ButtonsPageCmdMsgs c ]
+
+            | BrushesPageMsg subMsg, BrushesPageModel m ->
+                let m, c = BrushesPage.update subMsg m
+                BrushesPageModel m, [ BrushesPageCmdMsgs c ]
+
+            | ButtonSpinnerPageMsg subMsg, ButtonSpinnerPageModel m ->
+                let m, c = ButtonSpinnerPage.update subMsg m
+                ButtonSpinnerPageModel m, [ ButtonSpinnerPageCmdMsgs c ]
+
+            | BorderPageMsg subMsg, BorderPageModel m ->
+                let m, c = BorderPage.update subMsg m
+                BorderPageModel m, [ BorderPageCmdMsgs c ]
+
+            | CheckBoxPageMsg subMsg, CheckBoxPageModel m ->
+                let m, c = CheckBoxPage.update subMsg m
+                CheckBoxPageModel m, [ CheckBoxPageCmdMsgs c ]
+
+            | CalendarDatePickerPageMsg subMsg, CalendarDatePickerPageModel m ->
+                let m, c = CalendarDatePickerPage.update subMsg m
+                CalendarDatePickerPageModel m, [ CalendarDatePickerPageCmdMsgs c ]
+
+            | CalendarPageMsg subMsg, CalendarPageModel m ->
+                let m, c = CalendarPage.update subMsg m
+                CalendarPageModel m, [ CalendarPageCmdMsgs c ]
+
+            | CanvasPageMsg subMsg, CanvasPageModel m ->
+                let m, c = CanvasPage.update subMsg m
+                CanvasPageModel m, [ CanvasPageCmdMsgs c ]
+
+            | CarouselPageMsg subMsg, CarouselPageModel m ->
+                let m, c = CarouselPage.update subMsg m
+                CarouselPageModel m, [ CarouselPageCmdMsgs c ]
+
+            | ClippingPageMsg subMsg, ClippingPageModel m ->
+                let m, c = ClippingPage.update subMsg m
+                ClippingPageModel m, [ ClippingPageCmdMsgs c ]
+
+            | ComboBoxPageMsg subMsg, ComboBoxPageModel m ->
+                let m, c = ComboBoxPage.update subMsg m
+                ComboBoxPageModel m, [ ComboBoxPageCmdMsgs c ]
+
+            | ContextFlyoutPageMsg subMsg, ContextFlyoutPageModel m ->
+                let m, c = ContextFlyoutPage.update subMsg m
+                ContextFlyoutPageModel m, [ ContextFlyoutPageCmdMsgs c ]
+
+            | ContextMenuPageMsg subMsg, ContextMenuPageModel m ->
+                let m, c = ContextMenuPage.update subMsg m
+                ContextMenuPageModel m, [ ContextMenuPageCmdMsgs c ]
+
+            | DockPanelPageMsg subMsg, DockPanelPageModel m ->
+                let m, c = DockPanelPage.update subMsg m
+                DockPanelPageModel m, [ DockPanelPageCmdMsgs c ]
+
+            | DropDownButtonPageMsg subMsg, DropDownButtonPageModel m ->
+                let m, c = DropDownButtonPage.update subMsg m
+                DropDownButtonPageModel m, [ DropDownButtonPageCmdMsgs c ]
+
+            | DrawingPageMsg subMsg, DrawingPageModel m ->
+                let m, c = DrawingPage.update subMsg m
+                DrawingPageModel m, [ DrawingPageCmdMsgs c ]
+
+            | ExpanderPageMsg subMsg, ExpanderPageModel m ->
+                let m, c = ExpanderPage.update subMsg m
+                ExpanderPageModel m, [ ExpanderPageCmdMsgs c ]
+
+            | FlyoutPageMsg subMsg, FlyoutPageModel m ->
+                let m, c = FlyoutPage.update subMsg m
+                FlyoutPageModel m, [ FlyoutPageCmdMsgs c ]
+
+            | GesturesPageMsg subMsg, GesturesPageModel m ->
+                let m, c = GesturesPage.update subMsg m
+                GesturesPageModel m, [ GesturesPageCmdMsgs c ]
+
+            | GeometriesPageMsg subMsg, GeometriesPageModel m ->
+                let m, c = GeometriesPage.update subMsg m
+                GeometriesPageModel m, [ GeometriesPageCmdMsgs c ]
+
+            | GlyphRunControlPageMsg subMsg, GlyphRunControlPageModel m ->
+                let m, c = GlyphRunControlPage.update subMsg m
+                GlyphRunControlPageModel m, [ GlyphRunControlPageCmdMsgs c ]
+
+            | GridPageMsg subMsg, GridPageModel m ->
+                let m, c = GridPage.update subMsg m
+                GridPageModel m, [ GridPageCmdMsgs c ]
+
+            | GridSplitterPageMsg subMsg, GridSplitterPageModel m ->
+                let m, c = GridSplitterPage.update subMsg m
+                GridSplitterPageModel m, [ GridSplitterPageCmdMsgs c ]
+
+            | ImagePageMsg subMsg, ImagePageModel m ->
+                let m, c = ImagePage.update subMsg m
+                ImagePageModel m, [ ImagePageCmdMsgs c ]
+
+            | LabelPageMsg subMsg, LabelPageModel m ->
+                let m, c = LabelPage.update subMsg m
+                LabelPageModel m, [ LabelPageCmdMsgs c ]
+
+            | LayoutTransformControlPageMsg subMsg, LayoutTransformControlPageModel m ->
+                let m, c = LayoutTransformControlPage.update subMsg m
+                LayoutTransformControlPageModel m, [ LayoutTransformControlPageCmdMsgs c ]
+
+            | LineBoundsDemoControlPageMsg subMsg, LineBoundsDemoControlPageModel m ->
+                let m, c = LineBoundsDemoControlPage.update subMsg m
+                LineBoundsDemoControlPageModel m, [ LineBoundsDemoControlPageCmdMsgs c ]
+
             | _, currentPage -> currentPage, []
 
         { model with

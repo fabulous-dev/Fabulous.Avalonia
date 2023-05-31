@@ -28,11 +28,11 @@ module ContextMenuPage =
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }
-        | ContextMenuOpening _ -> model
-        | ContextMenuClosing _ -> model
-        | MenuOpened _ -> model
-        | MenuClosed _ -> model
+        | ValueChanged value -> { model with IsChecked = value }, []
+        | ContextMenuOpening _ -> model, []
+        | ContextMenuClosing _ -> model, []
+        | MenuOpened _ -> model, []
+        | MenuClosed _ -> model, []
 
     let view model =
         VStack(spacing = 15.) {

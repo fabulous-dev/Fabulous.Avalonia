@@ -40,7 +40,7 @@ module ComboBoxPage =
 
     let update msg model =
         match msg with
-        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }
+        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }, []
 
     let view model =
         HStack(16) {

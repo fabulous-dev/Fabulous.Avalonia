@@ -14,7 +14,7 @@ module State =
 
     let init () =
 #if MOBILE || BROWSER
-        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage None
+        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = false
@@ -24,7 +24,7 @@ module State =
           PaneLength = 150. },
         [ SubpageCmdMsgs cmdMsgs ]
 #else
-        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage None
+        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = true
@@ -59,7 +59,7 @@ module State =
 
         | SelectedIndexChanged index ->
             let route = NavigationRoute.GetRoute(model.Pages.[index])
-            let modelRoute, cmdMsgs = NavigationState.initRoute route None
+            let modelRoute, cmdMsgs = NavigationState.initRoute route
 
             let model =
                 { model with

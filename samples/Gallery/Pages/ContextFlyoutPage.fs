@@ -28,11 +28,11 @@ module ContextFlyoutPage =
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }
-        | MenuOpened -> model
-        | MenuClosed -> model
-        | MenuOpening -> model
-        | MenuClosing _ -> model
+        | ValueChanged value -> { model with IsChecked = value }, []
+        | MenuOpened -> model, []
+        | MenuClosed -> model, []
+        | MenuOpening -> model, []
+        | MenuClosing _ -> model, []
 
     let view model =
         VStack(spacing = 15.) {

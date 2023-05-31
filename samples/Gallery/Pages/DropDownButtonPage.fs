@@ -29,11 +29,11 @@ module DropDownButtonPage =
 
     let update msg model =
         match msg with
-        | Clicked -> model
-        | Clicked2 -> model
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-        | Reset -> { model with Count = 0 }
+        | Clicked -> model, []
+        | Clicked2 -> model, []
+        | Increment -> { model with Count = model.Count + 1 }, []
+        | Decrement -> { model with Count = model.Count - 1 }, []
+        | Reset -> { model with Count = 0 }, []
 
 
     let view model =

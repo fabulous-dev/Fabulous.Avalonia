@@ -54,16 +54,17 @@ module CarouselPage =
         match msg with
         | Next ->
             carouselController.DoNext()
-            model
+            model, []
         | Previous ->
             carouselController.DoPrevious()
-            model
+            model, []
 
         | SelectionChanged args ->
             let control = args.Source :?> Carousel
 
             { model with
-                SelectedIndex = control.SelectedIndex }
+                SelectedIndex = control.SelectedIndex },
+            []
 
     let view model =
         (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {

@@ -33,11 +33,13 @@ module ClippingPage =
         match msg with
         | OnPointerEnter _ ->
             { model with
-                BrushColor = Brushes.Crimson }
+                BrushColor = Brushes.Crimson },
+            []
         | OnPointerExited _ ->
             { model with
-                BrushColor = Brushes.Yellow }
-        | CheckChanged isChecked -> { model with IsChecked = isChecked }
+                BrushColor = Brushes.Yellow },
+            []
+        | CheckChanged isChecked -> { model with IsChecked = isChecked }, []
 
     let clip =
         """

@@ -11,21 +11,6 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
-module AnimationUpdaters =
-    let keyFrameApplyDiff (diff: WidgetDiff) (node: IViewNode) =
-        let target = node.Target :?> Animation
-        let childViewNode = node.TreeContext.GetViewNode(target.Children)
-        childViewNode.ApplyDiff(&diff)
-
-    let keyFrameUpdateNode (_: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
-        let target = node.Target :?> Animation
-
-        match currOpt with
-        | ValueNone -> target.Children.Add(Unchecked.defaultof<_>)
-        | ValueSome widget ->
-            let struct (_, view) = Helpers.createViewForWidget node widget
-            target.Children.Add(view :?> KeyFrame)
-
 module Animation =
 
     let WidgetKey = Widgets.register<Animation>()
@@ -55,9 +40,6 @@ module Animation =
     let Children =
         Attributes.defineAvaloniaListWidgetCollection "Animation_KeyFramesProperty" (fun target -> (target :?> Animation).Children)
 
-    let KeyFrame =
-        Attributes.defineWidget "KeyFrame" AnimationUpdaters.keyFrameApplyDiff AnimationUpdaters.keyFrameUpdateNode
-
 [<AutoOpen>]
 module AnimationBuilders =
 
@@ -68,16 +50,6 @@ module AnimationBuilders =
 
         static member Animation<'msg>() =
             CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children)
-
-        static member Animation<'msg>(keyFrame: WidgetBuilder<'msg, IFabKeyFrame>, duration: TimeSpan) =
-            WidgetBuilder<'msg, IFabAnimation>(
-                Animation.WidgetKey,
-                AttributesBundle(
-                    StackList.one(Animation.Duration.WithValue(duration)),
-                    ValueSome [| Animation.KeyFrame.WithValue(keyFrame.Compile()) |],
-                    ValueNone
-                )
-            )
 
 [<Extension>]
 type AnimationModifiers =
@@ -153,3 +125,10 @@ type AnimationCollectionBuilderExtensions =
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
+
+[<AutoOpen>]
+module AnimationAttachedBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member inline Animation(keyFrame: WidgetBuilder<'msg, IFabKeyFrame>, duration: TimeSpan) =
+            CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children, Animation.Duration.WithValue(duration)) { keyFrame }

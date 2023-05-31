@@ -36,15 +36,16 @@ module LabelPage =
 
     let update msg model =
         match msg with
-        | FirstNameChanged s -> { model with FirstName = s }
-        | LastNameChanged s -> { model with LastName = s }
-        | BannedChanged b -> { model with IsBanned = b }
-        | DoSave -> model
+        | FirstNameChanged s -> { model with FirstName = s }, []
+        | LastNameChanged s -> { model with LastName = s }, []
+        | BannedChanged b -> { model with IsBanned = b }, []
+        | DoSave -> model, []
         | DoCancel ->
             { model with
                 FirstName = "John"
                 LastName = "Doe"
-                IsBanned = true }
+                IsBanned = true },
+            []
 
     let labelStyle (this: WidgetBuilder<'msg, IFabLabel>) =
         this.verticalAlignment(VerticalAlignment.Center).margin(6., 3., 0., 3.)

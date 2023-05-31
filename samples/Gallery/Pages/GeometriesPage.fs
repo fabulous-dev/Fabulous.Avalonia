@@ -14,17 +14,17 @@ module GeometriesPage =
 
     type Msg = | NoMsg
 
-    type CmdMsg = | NoMsg
+    type CmdMsg = | NoCmdMsg
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Cmd.none
+        | NoCmdMsg -> Cmd.none
 
     let init () = { Nothing = 0 }, []
 
     let update msg model =
         match msg with
-        | NoMsg -> model
+        | NoMsg -> model, []
 
     let path =
         "M3 2C3.27614 2 3.5 2.22386 3.5 2.5V5.5C3.5 5.77614 3.72386 6 4 6H16C16.2761 6 16.5 5.77614 29 15.5C10.5 15.3225 10.4921 15.1549 10.4765 15H9.52346Z"

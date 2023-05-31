@@ -27,9 +27,9 @@ module ExpanderPage =
 
     let update msg model =
         match msg with
-        | ExpandChanged b -> { model with IsExpanded = b }
-        | Expanding -> model
-        | Collapsing -> model
+        | ExpandChanged b -> { model with IsExpanded = b }, []
+        | Expanding -> model, []
+        | Collapsing -> model, []
 
     let view model =
         VStack(spacing = 15.) {

@@ -25,7 +25,7 @@ module LayoutTransformControlPage =
 
     let update msg model =
         match msg with
-        | SliderValueChanged value -> { model with Angle = value }
+        | SliderValueChanged value -> { model with Angle = value }, []
 
     let view model =
         VStack(16.) {

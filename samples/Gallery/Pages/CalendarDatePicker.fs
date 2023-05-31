@@ -22,7 +22,7 @@ module CalendarDatePickerPage =
 
     let update msg model =
         match msg with
-        | SelectedDateChanged dateTime -> { model with Date = dateTime }
+        | SelectedDateChanged dateTime -> { model with Date = dateTime }, []
 
     let startFromYesterday = DateTime.Today.Subtract(TimeSpan.FromDays(1.0))
 

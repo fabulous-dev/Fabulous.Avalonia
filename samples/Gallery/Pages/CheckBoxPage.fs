@@ -32,9 +32,9 @@ module CheckBoxPage =
 
     let update msg model =
         match msg with
-        | ValueChanged b -> { model with IsChecked1 = b }
-        | ValueChanged2 b -> { model with IsChecked2 = b }
-        | ValueChanged3 b -> { model with IsChecked3 = b }
+        | ValueChanged b -> { model with IsChecked1 = b }, []
+        | ValueChanged2 b -> { model with IsChecked2 = b }, []
+        | ValueChanged3 b -> { model with IsChecked3 = b }, []
 
     let view model =
         VStack(spacing = 15.) {

@@ -143,7 +143,7 @@ module LineBoundsDemoControlPage =
 
     let update msg model =
         match msg with
-        | Nothing -> model
+        | Nothing -> model, []
 
     let view _ =
         Grid() { LineBoundsDemoControl(45.).centerHorizontal() }

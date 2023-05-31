@@ -29,7 +29,7 @@ module ButtonSpinnerPage =
             let currentSpinValue = spinner.Content :?> string
 
             let mutable currentValue =
-                if System.String.IsNullOrEmpty(currentSpinValue) then
+                if String.IsNullOrEmpty(currentSpinValue) then
                     0
                 else
                     Convert.ToInt32(currentSpinValue)
@@ -41,9 +41,9 @@ module ButtonSpinnerPage =
 
             spinner.Content <- currentValue.ToString()
 
-            { model with Count = model.Count + 1 }
+            { model with Count = model.Count + 1 }, []
 
-    let view model =
+    let view _ =
         VStack(spacing = 15.) {
             TextBlock("Button spinner")
 

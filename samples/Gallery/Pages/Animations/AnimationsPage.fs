@@ -36,20 +36,22 @@ module AnimationsPage =
             let transitions1 = Animations1.update msg model.Animations1
 
             { model with
-                Animations1 = transitions1 }
+                Animations1 = transitions1 },
+            []
 
         | Animations2 msg ->
             let transitions2 = Animations2.update msg model.Animations2
 
             { model with
-                Animations2 = transitions2 }
+                Animations2 = transitions2 },
+            []
 
         | Animations3 msg ->
             let transitions3 = Animations3.update msg model.Animations3
 
             { model with
-                Animations3 = transitions3 }
-
+                Animations3 = transitions3 },
+            []
 
     let view model =
         (VStack(32.) {

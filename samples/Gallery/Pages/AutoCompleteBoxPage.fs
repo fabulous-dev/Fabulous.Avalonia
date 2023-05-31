@@ -308,11 +308,11 @@ module AutoCompleteBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged s -> { model with Text = s }
-        | SelectionChanged _ -> model
-        | OnPopulating _ -> model
-        | OnPopulated _ -> model
-        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }
+        | TextChanged s -> { model with Text = s }, []
+        | SelectionChanged _ -> model, []
+        | OnPopulating _ -> model, []
+        | OnPopulated _ -> model, []
+        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, []
         | MultiBindingLoaded _ ->
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
@@ -327,14 +327,14 @@ module AutoCompleteBoxPage =
             binding.Bindings.Add(Binding("Abbreviation"))
 
             multiBindingBoxRef.Value.ValueMemberBinding <- binding
-            model
+            model, []
 
         | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
             customAutoCompleteBoxRef.Value.ItemsSource <- strings
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
             customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item))
-            model
+            model, []
 
     let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
         task {
