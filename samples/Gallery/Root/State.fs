@@ -50,13 +50,6 @@ module State =
             let nav, cmdMsgs = NavigationState.update subpageMsg model.Navigation
             { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
 
-        | NavigationMsg route ->
-            let m, c = NavigationState.initRoute route (Some model.Navigation)
-
-            { model with
-                Navigation = model.Navigation.Push(m) },
-            [ SubpageCmdMsgs c ]
-
         | OpenPanChanged x -> { model with IsPanOpen = x }, []
 
         | OpenPan ->

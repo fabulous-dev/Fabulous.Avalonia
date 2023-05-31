@@ -13,7 +13,6 @@ module Types =
 
     type Msg =
         | SubpageMsg of SubpageMsg
-        | NavigationMsg of NavigationRoute
         | SelectedIndexChanged of int
         | OpenPanChanged of bool
         | OpenPan
