@@ -37,11 +37,11 @@ module ListBoxPage =
         | RemoveItem
         | SelectRandomItem
 
-    type CmdMsg = | NoMsg
+    type CmdMsg = | NoCmdMsg
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Cmd.none
+        | NoCmdMsg -> Cmd.none
 
     let init () =
         { Multiple = false
@@ -66,7 +66,8 @@ module ListBoxPage =
 
             { model with
                 SelectionMode = value
-                Multiple = m }
+                Multiple = m },
+            []
         | ToggleChanged b ->
             let value =
                 if b then SelectionMode.Multiple
@@ -76,7 +77,8 @@ module ListBoxPage =
 
             { model with
                 SelectionMode = value
-                Toggle = b }
+                Toggle = b },
+            []
         | AlwaysSelectedChanged b ->
             let value =
                 if b then SelectionMode.Multiple
@@ -86,14 +88,16 @@ module ListBoxPage =
 
             { model with
                 SelectionMode = value
-                AlwaysSelected = b }
+                AlwaysSelected = b },
+            []
         | AutoScrollToSelectedItemChanged b ->
             { model with
-                AutoScrollToSelectedItem = b }
-        | WrappedSelectionChanged b -> { model with WrappedSelection = b }
+                AutoScrollToSelectedItem = b },
+            []
+        | WrappedSelectionChanged b -> { model with WrappedSelection = b }, []
         | AddItem ->
             model.Items.Add({ ID = model.Items.Count + 1 })
-            { model with Items = model.Items }
+            { model with Items = model.Items }, []
 
         | RemoveItem ->
             let items = model.Selection.SelectedItems
@@ -101,12 +105,12 @@ module ListBoxPage =
             for item in items do
                 model.Items.Remove(item) |> ignore
 
-            { model with Items = model.Items }
+            { model with Items = model.Items }, []
 
         | SelectRandomItem ->
             let random = Random()
             let index = random.Next(0, model.Items.Count - 1)
-            { model with SelectedIndex = index }
+            { model with SelectedIndex = index }, []
 
 
     let view model =

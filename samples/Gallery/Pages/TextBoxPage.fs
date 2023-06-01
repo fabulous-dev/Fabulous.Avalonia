@@ -30,8 +30,8 @@ module TextBoxPage =
 
     let update msg model =
         match msg with
-        | SingleLineTextChanged text -> { model with SingleLineText = text }
-        | MultiLineTextChanged text -> { model with MultiLineText = text }
+        | SingleLineTextChanged text -> { model with SingleLineText = text }, []
+        | MultiLineTextChanged text -> { model with MultiLineText = text }, []
 
     let view model =
         VStack(spacing = 15) {

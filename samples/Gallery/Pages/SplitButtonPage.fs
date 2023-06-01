@@ -46,7 +46,7 @@ module SplitButtonPage =
 
     let update msg model =
         match msg with
-        | Clicked -> model
+        | Clicked -> model, []
 
     let menuFlyout () =
         (MenuFlyout() {

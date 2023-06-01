@@ -101,32 +101,32 @@ module RadioButtonPage =
 
     let update msg model =
         match msg with
-        | OnCheckedChanged1 v -> { model with IsChecked1 = v }
-        | OnCheckedChanged2 v -> { model with IsChecked2 = v }
-        | OnCheckedChanged3 v -> { model with IsChecked3 = v }
-        | OnCheckedChanged4 v -> { model with IsChecked4 = v }
-        | OnCheckedChanged5 v -> { model with IsChecked5 = v }
-        | OnCheckedChanged6 v -> { model with IsChecked6 = v }
-        | OnCheckedChanged7 v -> { model with IsChecked7 = v }
-        | OnCheckedChanged8 v -> { model with IsChecked8 = v }
-        | OnCheckedChanged9 v -> { model with IsChecked9 = v }
-        | OnCheckedChanged10 v -> { model with IsChecked10 = v }
-        | OnCheckedChanged11 v -> { model with IsChecked11 = v }
+        | OnCheckedChanged1 v -> { model with IsChecked1 = v }, []
+        | OnCheckedChanged2 v -> { model with IsChecked2 = v }, []
+        | OnCheckedChanged3 v -> { model with IsChecked3 = v }, []
+        | OnCheckedChanged4 v -> { model with IsChecked4 = v }, []
+        | OnCheckedChanged5 v -> { model with IsChecked5 = v }, []
+        | OnCheckedChanged6 v -> { model with IsChecked6 = v }, []
+        | OnCheckedChanged7 v -> { model with IsChecked7 = v }, []
+        | OnCheckedChanged8 v -> { model with IsChecked8 = v }, []
+        | OnCheckedChanged9 v -> { model with IsChecked9 = v }, []
+        | OnCheckedChanged10 v -> { model with IsChecked10 = v }, []
+        | OnCheckedChanged11 v -> { model with IsChecked11 = v }, []
 
-        | OnThreeStateCheckedChanged1 v -> { model with ThreeStateChecked1 = v }
-        | OnThreeStateCheckedChanged2 v -> { model with ThreeStateChecked2 = v }
-        | OnThreeStateCheckedChanged3 v -> { model with ThreeStateChecked3 = v }
-        | OnThreeStateCheckedChanged4 v -> { model with ThreeStateChecked4 = v }
-        | OnThreeStateCheckedChanged5 v -> { model with ThreeStateChecked5 = v }
-        | OnThreeStateCheckedChanged6 v -> { model with ThreeStateChecked6 = v }
-        | OnThreeStateCheckedChanged7 v -> { model with ThreeStateChecked7 = v }
-        | OnThreeStateCheckedChanged8 v -> { model with ThreeStateChecked8 = v }
-        | OnThreeStateCheckedChanged9 v -> { model with ThreeStateChecked9 = v }
-        | OnThreeStateCheckedChanged10 v -> { model with ThreeStateChecked10 = v }
-        | OnThreeStateCheckedChanged11 v -> { model with ThreeStateChecked11 = v }
-        | OnThreeStateCheckedChanged12 v -> { model with ThreeStateChecked12 = v }
-        | OnThreeStateCheckedChanged13 v -> { model with ThreeStateChecked13 = v }
-        | OnThreeStateCheckedChanged14 v -> { model with ThreeStateChecked14 = v }
+        | OnThreeStateCheckedChanged1 v -> { model with ThreeStateChecked1 = v }, []
+        | OnThreeStateCheckedChanged2 v -> { model with ThreeStateChecked2 = v }, []
+        | OnThreeStateCheckedChanged3 v -> { model with ThreeStateChecked3 = v }, []
+        | OnThreeStateCheckedChanged4 v -> { model with ThreeStateChecked4 = v }, []
+        | OnThreeStateCheckedChanged5 v -> { model with ThreeStateChecked5 = v }, []
+        | OnThreeStateCheckedChanged6 v -> { model with ThreeStateChecked6 = v }, []
+        | OnThreeStateCheckedChanged7 v -> { model with ThreeStateChecked7 = v }, []
+        | OnThreeStateCheckedChanged8 v -> { model with ThreeStateChecked8 = v }, []
+        | OnThreeStateCheckedChanged9 v -> { model with ThreeStateChecked9 = v }, []
+        | OnThreeStateCheckedChanged10 v -> { model with ThreeStateChecked10 = v }, []
+        | OnThreeStateCheckedChanged11 v -> { model with ThreeStateChecked11 = v }, []
+        | OnThreeStateCheckedChanged12 v -> { model with ThreeStateChecked12 = v }, []
+        | OnThreeStateCheckedChanged13 v -> { model with ThreeStateChecked13 = v }, []
+        | OnThreeStateCheckedChanged14 v -> { model with ThreeStateChecked14 = v }, []
 
 
     let view model =

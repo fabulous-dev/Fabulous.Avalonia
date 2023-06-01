@@ -24,8 +24,8 @@ module ViewBoxPage =
 
     let update msg model =
         match msg with
-        | HeightChanged height -> { model with Height = height }
-        | WidthChanged width -> { model with Width = width }
+        | HeightChanged height -> { model with Height = height }, []
+        | WidthChanged width -> { model with Width = width }, []
 
     let view model =
         Grid(coldefs = [ Pixel(300.); Star ], rowdefs = [ Pixel(300.) ]) {

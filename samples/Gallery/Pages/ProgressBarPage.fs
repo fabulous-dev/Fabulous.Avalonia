@@ -24,8 +24,9 @@ module ProgressBarPage =
         match msg with
         | Clicked ->
             { model with
-                Progress = model.Progress % model.Max + 1 }
-        | ProgressChanged p -> model
+                Progress = model.Progress % model.Max + 1 },
+            []
+        | ProgressChanged p -> model, []
 
     let view model =
         VStack(spacing = 15.) {

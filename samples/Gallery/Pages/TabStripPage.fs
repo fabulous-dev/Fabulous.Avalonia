@@ -22,7 +22,7 @@ module TabStripPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let view model =
         TabStrip(model.Items, (fun x -> TextBlock(x)))

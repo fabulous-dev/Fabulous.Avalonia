@@ -22,7 +22,7 @@ module SelectableTextBlockPage =
 
     let update msg model =
         match msg with
-        | CopyingToClipboard s -> { model with Text = s }
+        | CopyingToClipboard s -> { model with Text = s }, []
 
     let view model =
         VStack(spacing = 15.) {

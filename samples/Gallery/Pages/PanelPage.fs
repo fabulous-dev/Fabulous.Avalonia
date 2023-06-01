@@ -22,9 +22,9 @@ module PanelPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
-    let view model =
+    let view _ =
         (Panel() {
             Rectangle()
                 .fill(SolidColorBrush(Colors.Red))

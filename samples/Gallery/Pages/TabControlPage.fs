@@ -42,7 +42,8 @@ module TabControlPage =
 
             { model with
                 SelectedIndex = index
-                TabPlacement = dock }
+                TabPlacement = dock },
+            []
 
     let view model =
         Dock() {

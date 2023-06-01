@@ -23,7 +23,7 @@ module MenuPage =
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }
+        | ValueChanged value -> { model with IsChecked = value }, []
 
     let view model =
         VStack(4.) {

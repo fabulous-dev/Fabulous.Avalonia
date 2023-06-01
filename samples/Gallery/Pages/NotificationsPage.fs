@@ -54,29 +54,30 @@ module NotificationsPage =
             let topLevel = TopLevel.GetTopLevel(mainWindow)
 #endif
             { model with
-                WindowNotificationManager = WindowNotificationManager(topLevel) }
+                WindowNotificationManager = WindowNotificationManager(topLevel) },
+            []
         | ShowManagedNotification ->
             model.WindowNotificationManager.Position <- NotificationPosition.BottomRight
             model.WindowNotificationManager.Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
-            model
+            model, []
         | ShowCustomManagedNotification ->
             model.WindowNotificationManager.Show(NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
-            model
+            model, []
         | ShowNativeNotification ->
             model.WindowNotificationManager.Show(Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
-            model
+            model, []
 
         | YesCommand ->
             model.WindowNotificationManager.Show(Notification("Avalonia Notifications", "Start adding notifications to your app today."))
 
-            model
+            model, []
 
         | NoCommand ->
             model.WindowNotificationManager.Show(
                 Notification("Avalonia Notifications", "Start adding notifications to your app today. To find out more visit...")
             )
 
-            model
+            model, []
 
     let view _ =
         (VStack(4.) {

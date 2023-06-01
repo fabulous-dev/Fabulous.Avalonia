@@ -24,7 +24,7 @@ module TickBarPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let view _ =
         Grid(coldefs = [ Stars(0.5); Stars(0.5) ], rowdefs = [ Stars(0.5); Stars(0.5) ]) {

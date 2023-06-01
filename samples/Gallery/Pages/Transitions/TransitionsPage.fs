@@ -63,73 +63,85 @@ module TransitionsPage =
             let transitions1 = Transitions1.update msg model.Transitions1
 
             { model with
-                Transitions1 = transitions1 }
+                Transitions1 = transitions1 },
+            []
 
         | Transition2Msg msg ->
             let transitions2 = Transitions2.update msg model.Transitions2
 
             { model with
-                Transitions2 = transitions2 }
+                Transitions2 = transitions2 },
+            []
 
         | Transition3Msg msg ->
             let transitions3 = Transitions3.update msg model.Transitions3
 
             { model with
-                Transitions3 = transitions3 }
+                Transitions3 = transitions3 },
+            []
 
         | Transition4Msg msg ->
             let transitions4 = Transitions4.update msg model.Transitions4
 
             { model with
-                Transitions4 = transitions4 }
+                Transitions4 = transitions4 },
+            []
 
         | Transition5Msg msg ->
             let transitions5 = Transitions5.update msg model.Transitions5
 
             { model with
-                Transitions5 = transitions5 }
+                Transitions5 = transitions5 },
+            []
 
         | Transition6Msg msg ->
             let transitions6 = Transitions6.update msg model.Transitions6
 
             { model with
-                Transitions6 = transitions6 }
+                Transitions6 = transitions6 },
+            []
 
         | Transition7Msg msg ->
             let transitions7 = Transitions7.update msg model.Transitions7
 
             { model with
-                Transitions7 = transitions7 }
+                Transitions7 = transitions7 },
+            []
 
         | Transition8Msg msg ->
             let transitions8 = Transitions8.update msg model.Transitions8
 
             { model with
-                Transitions8 = transitions8 }
+                Transitions8 = transitions8 },
+            []
 
         | Transition9Msg msg ->
             let transitions9 = Transitions9.update msg model.Transitions9
 
             { model with
-                Transitions9 = transitions9 }
+                Transitions9 = transitions9 },
+            []
 
         | Transition10Msg msg ->
             let transitions10 = Transitions10.update msg model.Transitions10
 
             { model with
-                Transitions10 = transitions10 }
+                Transitions10 = transitions10 },
+            []
 
         | Transition11Msg msg ->
             let transitions11 = Transitions11.update msg model.Transitions11
 
             { model with
-                Transitions11 = transitions11 }
+                Transitions11 = transitions11 },
+            []
 
         | Transition12Msg msg ->
             let transitions12 = Transitions12.update msg model.Transitions12
 
             { model with
-                Transitions12 = transitions12 }
+                Transitions12 = transitions12 },
+            []
 
     let view model =
         Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ]) {

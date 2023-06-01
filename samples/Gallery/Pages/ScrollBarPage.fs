@@ -26,8 +26,8 @@ module ScrollBarPage =
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with ScrollValue = value }
-        | ScrollBarChanged _ -> model
+        | ValueChanged value -> { model with ScrollValue = value }, []
+        | ScrollBarChanged _ -> model, []
 
     let view model =
         VStack(spacing = 15.) {

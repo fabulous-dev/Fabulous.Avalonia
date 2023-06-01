@@ -47,13 +47,13 @@ module SliderPage =
 
     let update msg model =
         match msg with
-        | ValueChanged1 value -> { model with SliderValue1 = value }
-        | ValueChanged2 value -> { model with SliderValue2 = value }
-        | ValueChanged3 value -> { model with SliderValue3 = value }
-        | ValueChanged4 value -> { model with SliderValue4 = value }
-        | ValueChanged5 value -> { model with SliderValue5 = value }
-        | ValueChanged6 value -> { model with SliderValue6 = value }
-        | ValueChanged7 value -> { model with SliderValue7 = value }
+        | ValueChanged1 value -> { model with SliderValue1 = value }, []
+        | ValueChanged2 value -> { model with SliderValue2 = value }, []
+        | ValueChanged3 value -> { model with SliderValue3 = value }, []
+        | ValueChanged4 value -> { model with SliderValue4 = value }, []
+        | ValueChanged5 value -> { model with SliderValue5 = value }, []
+        | ValueChanged6 value -> { model with SliderValue6 = value }, []
+        | ValueChanged7 value -> { model with SliderValue7 = value }, []
 
     let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
         this.tickFrequency(10.).width(300.).largeChange(0.2).smallChange(0.1)

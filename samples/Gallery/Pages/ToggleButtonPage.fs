@@ -50,7 +50,7 @@ module ToggleButtonPage =
                 | true -> "Checked"
                 | false -> "Unchecked"
 
-            { model with Value1 = b; Text1 = text }
+            { model with Value1 = b; Text1 = text }, []
 
         | CheckedChanged2 b ->
             let text =
@@ -58,7 +58,7 @@ module ToggleButtonPage =
                 | true -> "Checked"
                 | false -> "Unchecked"
 
-            { model with Value2 = b; Text2 = text }
+            { model with Value2 = b; Text2 = text }, []
 
         | ThreeStateChanged3 b ->
             let text =
@@ -67,7 +67,7 @@ module ToggleButtonPage =
                 | Some false -> "Unchecked"
                 | None -> "Intermediary"
 
-            { model with Value3 = b; Text3 = text }
+            { model with Value3 = b; Text3 = text }, []
 
         | ThreeStateChanged4 b ->
             let text =
@@ -76,7 +76,7 @@ module ToggleButtonPage =
                 | Some false -> "Unchecked"
                 | None -> "Intermediary"
 
-            { model with Value4 = b; Text4 = text }
+            { model with Value4 = b; Text4 = text }, []
 
     let view model =
         VStack(spacing = 15.) {

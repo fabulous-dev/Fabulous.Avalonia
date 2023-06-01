@@ -28,8 +28,8 @@ module StackPanelPage =
 
     let update msg model =
         match msg with
-        | Reverse reversed -> { model with Reversed = reversed }
-        | SetSpacing spacing -> { model with Spacing = spacing }
+        | Reverse reversed -> { model with Reversed = reversed }, []
+        | SetSpacing spacing -> { model with Spacing = spacing }, []
 
     let view model =
         (VStack(15.) {

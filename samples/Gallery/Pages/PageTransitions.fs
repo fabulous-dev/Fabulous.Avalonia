@@ -55,10 +55,10 @@ module PageTransitionsPage =
         match msg with
         | Next ->
             carouselController.DoNext()
-            model
+            model, []
         | Previous ->
             carouselController.DoPrevious()
-            model
+            model, []
 
         | TransitionChanged selection ->
             let control = selection.Source :?> ComboBox
@@ -82,7 +82,7 @@ module PageTransitionsPage =
 
                 | _ -> PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
 
-            { model with Transition = transition }
+            { model with Transition = transition }, []
 
     let view model =
         VStack(16.) {

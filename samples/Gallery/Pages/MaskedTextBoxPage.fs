@@ -21,7 +21,7 @@ module MaskedTextBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged text -> { model with MaskedText = text }
+        | TextChanged text -> { model with MaskedText = text }, []
 
     let view model =
         VStack(spacing = 15) {

@@ -25,10 +25,11 @@ module MenuFlyoutPage =
 
     let update msg model =
         match msg with
-        | PressMe -> model
+        | PressMe -> model, []
         | Increment ->
             { model with
-                Counter = model.Counter + 1 }
+                Counter = model.Counter + 1 },
+            []
 
 
     let view model =

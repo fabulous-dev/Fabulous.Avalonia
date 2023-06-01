@@ -31,7 +31,7 @@ module ToggleSwitchPage =
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with Value1 = value }
+        | ValueChanged value -> { model with Value1 = value }, []
         | ValueChanged1 value ->
             let text =
                 match value with
@@ -41,8 +41,9 @@ module ToggleSwitchPage =
 
             { model with
                 Value2 = value
-                Text2 = text }
-        | IntermediaryChanged -> model
+                Text2 = text },
+            []
+        | IntermediaryChanged -> model, []
 
     let view model =
         VStack(spacing = 15.) {

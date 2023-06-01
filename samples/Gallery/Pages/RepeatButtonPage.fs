@@ -21,7 +21,7 @@ module RepeatButtonPage =
 
     let update msg model =
         match msg with
-        | Clicked -> model
+        | Clicked -> model, []
 
     let view _ =
         VStack(spacing = 15.) {

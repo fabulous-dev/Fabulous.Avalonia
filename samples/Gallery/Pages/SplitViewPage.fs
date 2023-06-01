@@ -24,7 +24,7 @@ module SplitViewPage =
 
     let update msg model =
         match msg with
-        | Open -> { model with IsOpen = not model.IsOpen }
+        | Open -> { model with IsOpen = not model.IsOpen }, []
 
     let view model =
         VStack() {

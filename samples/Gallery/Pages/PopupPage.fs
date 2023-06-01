@@ -28,9 +28,9 @@ module PopupPage =
 
     let update msg model =
         match msg with
-        | OpenPopup -> { model with IsOpen = not model.IsOpen }
-        | OnOpened -> model
-        | OnClosed -> model
+        | OpenPopup -> { model with IsOpen = not model.IsOpen }, []
+        | OnOpened -> model, []
+        | OnClosed -> model, []
 
     let buttonRef = ViewRef<Button>()
 

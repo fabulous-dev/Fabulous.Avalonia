@@ -48,22 +48,22 @@ module ThemeAwarePage =
         match msg with
         | SetTheme variant ->
             Avalonia.Application.Current.RequestedThemeVariant <- variant
-            { model with CurrentTheme = variant }
+            { model with CurrentTheme = variant }, []
 
         | OnSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let index = control.SelectedIndex
             let variant = model.Items.[index]
 
-            { model with ScopeTheme = variant }
+            { model with ScopeTheme = variant }, []
 
-        | TextChanged text -> { model with Text = text }
+        | TextChanged text -> { model with Text = text }, []
 
-        | Text2Changed text -> { model with Text2 = text }
+        | Text2Changed text -> { model with Text2 = text }, []
 
-        | DoNothing -> model
+        | DoNothing -> model, []
 
-        | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }
+        | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }, []
 
     let view model =
         VStack(spacing = 15.) {

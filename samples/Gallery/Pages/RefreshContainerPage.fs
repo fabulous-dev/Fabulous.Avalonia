@@ -36,7 +36,7 @@ module RefreshContainerPage =
 
             deferral.Complete()
 
-            model
+            model, []
 
     let container model =
         ListBox(model.Items, (fun x -> TextBlock(x)))

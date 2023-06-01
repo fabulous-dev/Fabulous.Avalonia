@@ -44,12 +44,12 @@ module TransformsPage =
 
     let update msg model =
         match msg with
-        | CenterXChanged value -> { model with CenterX = value }
-        | CenterYChanged value -> { model with CenterY = value }
-        | CenterZChanged value -> { model with CenterZ = value }
-        | AngleXChanged value -> { model with AngleX = value }
-        | AngleYChanged value -> { model with AngleY = value }
-        | AngleZChanged value -> { model with AngleZ = value }
+        | CenterXChanged value -> { model with CenterX = value }, []
+        | CenterYChanged value -> { model with CenterY = value }, []
+        | CenterZChanged value -> { model with CenterZ = value }, []
+        | AngleXChanged value -> { model with AngleX = value }, []
+        | AngleYChanged value -> { model with AngleY = value }, []
+        | AngleZChanged value -> { model with AngleZ = value }, []
 
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this

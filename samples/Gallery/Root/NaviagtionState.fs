@@ -632,6 +632,150 @@ module NavigationState =
                 let m, c = LineBoundsDemoControlPage.update subMsg m
                 LineBoundsDemoControlPageModel m, [ LineBoundsDemoControlPageCmdMsgs c ]
 
+            | ListBoxPageMsg subMsg, ListBoxPageModel m ->
+                let m, c = ListBoxPage.update subMsg m
+                ListBoxPageModel m, [ ListBoxPageCmdMsgs c ]
+
+            | MaskedTextBoxPageMsg subMsg, MaskedTextBoxPageModel m ->
+                let m, c = MaskedTextBoxPage.update subMsg m
+                MaskedTextBoxPageModel m, [ MaskedTextBoxPageCmdMsgs c ]
+
+            | MenuPageMsg subMsg, MenuPageModel m ->
+                let m, c = MenuPage.update subMsg m
+                MenuPageModel m, [ MenuPageCmdMsgs c ]
+
+            | MenuFlyoutPageMsg subMsg, MenuFlyoutPageModel m ->
+                let m, c = MenuFlyoutPage.update subMsg m
+                MenuFlyoutPageModel m, [ MenuFlyoutPageCmdMsgs c ]
+
+            | NumericUpDownPageMsg subMsg, NumericUpDownPageModel m ->
+                let m, c = NumericUpDownPage.update subMsg m
+                NumericUpDownPageModel m, [ NumericUpDownPageCmdMsgs c ]
+
+            | NotificationsPageMsg subMsg, NotificationsPageModel m ->
+                let m, c = NotificationsPage.update subMsg m
+                NotificationsPageModel m, [ NotificationsPageCmdMsgs c ]
+
+            | PanelPageMsg subMsg, PanelPageModel m ->
+                let m, c = PanelPage.update subMsg m
+                PanelPageModel m, [ PanelPageCmdMsgs c ]
+
+            | PathIconPageMsg subMsg, PathIconPageModel m ->
+                let m, c = PathIconPage.update subMsg m
+                PathIconPageModel m, [ PathIconPageCmdMsgs c ]
+
+            | PageTransitionsPageMsg subMsg, PageTransitionsPageModel m ->
+                let m, c = PageTransitionsPage.update subMsg m
+                PageTransitionsPageModel m, [ PageTransitionsPageCmdMsgs c ]
+
+            | PopupPageMsg subMsg, PopupPageModel m ->
+                let m, c = PopupPage.update subMsg m
+                PopupPageModel m, [ PopupPageCmdMsgs c ]
+
+            | ProgressBarPageMsg subMsg, ProgressBarPageModel m ->
+                let m, c = ProgressBarPage.update subMsg m
+                ProgressBarPageModel m, [ ProgressBarPageCmdMsgs c ]
+
+            | RadioButtonPageMsg subMsg, RadioButtonPageModel m ->
+                let m, c = RadioButtonPage.update subMsg m
+                RadioButtonPageModel m, [ RadioButtonPageCmdMsgs c ]
+
+            | RefreshContainerPageMsg subMsg, RefreshContainerPageModel m ->
+                let m, c = RefreshContainerPage.update subMsg m
+                RefreshContainerPageModel m, [ RefreshContainerPageCmdMsgs c ]
+
+            | RepeatButtonPageMsg subMsg, RepeatButtonPageModel m ->
+                let m, c = RepeatButtonPage.update subMsg m
+                RepeatButtonPageModel m, [ RepeatButtonPageCmdMsgs c ]
+
+            | ScrollBarPageMsg subMsg, ScrollBarPageModel m ->
+                let m, c = ScrollBarPage.update subMsg m
+                ScrollBarPageModel m, [ ScrollBarPageCmdMsgs c ]
+
+            | ScrollViewerPageMsg subMsg, ScrollViewerPageModel m ->
+                let m, c = ScrollViewerPage.update subMsg m
+                ScrollViewerPageModel m, [ ScrollViewerPageCmdMsgs c ]
+
+            | SelectableTextBlockPageMsg subMsg, SelectableTextBlockPageModel m ->
+                let m, c = SelectableTextBlockPage.update subMsg m
+                SelectableTextBlockPageModel m, [ SelectableTextBlockPageCmdMsgs c ]
+
+            | SliderPageMsg subMsg, SliderPageModel m ->
+                let m, c = SliderPage.update subMsg m
+                SliderPageModel m, [ SliderPageCmdMsgs c ]
+
+            | SplitButtonPageMsg subMsg, SplitButtonPageModel m ->
+                let m, c = SplitButtonPage.update subMsg m
+                SplitButtonPageModel m, [ SplitButtonPageCmdMsgs c ]
+
+            | SplitViewPageMsg subMsg, SplitViewPageModel m ->
+                let m, c = SplitViewPage.update subMsg m
+                SplitViewPageModel m, [ SplitViewPageCmdMsgs c ]
+
+            | TabStripPageMsg subMsg, TabStripPageModel m ->
+                let m, c = TabStripPage.update subMsg m
+                TabStripPageModel m, [ TabStripPageCmdMsgs c ]
+
+            | TabControlPageMsg subMsg, TabControlPageModel m ->
+                let m, c = TabControlPage.update subMsg m
+                TabControlPageModel m, [ TabControlPageCmdMsgs c ]
+
+            | TextBoxPageMsg subMsg, TextBoxPageModel m ->
+                let m, c = TextBoxPage.update subMsg m
+                TextBoxPageModel m, [ TextBoxPageCmdMsgs c ]
+
+            | TextBlockPageMsg subMsg, TextBlockPageModel m ->
+                let m, c = TextBlockPage.update subMsg m
+                TextBlockPageModel m, [ TextBlockPageCmdMsgs c ]
+
+            | TickBarPageMsg subMsg, TickBarPageModel m ->
+                let m, c = TickBarPage.update subMsg m
+                TickBarPageModel m, [ TickBarPageCmdMsgs c ]
+
+            | ToggleButtonPageMsg subMsg, ToggleButtonPageModel m ->
+                let m, c = ToggleButtonPage.update subMsg m
+                ToggleButtonPageModel m, [ ToggleButtonPageCmdMsgs c ]
+
+            | ToggleSwitchPageMsg subMsg, ToggleSwitchPageModel m ->
+                let m, c = ToggleSwitchPage.update subMsg m
+                ToggleSwitchPageModel m, [ ToggleSwitchPageCmdMsgs c ]
+
+            | ToggleSplitButtonPageMsg subMsg, ToggleSplitButtonPageModel m ->
+                let m, c = ToggleSplitButtonPage.update subMsg m
+                ToggleSplitButtonPageModel m, [ ToggleSplitButtonPageCmdMsgs c ]
+
+            | TransitionsPageMsg subMsg, TransitionsPageModel m ->
+                let m, c = TransitionsPage.update subMsg m
+                TransitionsPageModel m, [ TransitionsPageCmdMsgs c ]
+
+            | ThemeAwarePageMsg subMsg, ThemeAwarePageModel m ->
+                let m, c = ThemeAwarePage.update subMsg m
+                ThemeAwarePageModel m, [ ThemeAwarePageCmdMsgs c ]
+
+            | ToolTipPageMsg subMsg, ToolTipPageModel m ->
+                let m, c = ToolTipPage.update subMsg m
+                ToolTipPageModel m, [ ToolTipPageCmdMsgs c ]
+
+            | TransformsPageMsg subMsg, TransformsPageModel m ->
+                let m, c = TransformsPage.update subMsg m
+                TransformsPageModel m, [ TransformsPageCmdMsgs c ]
+
+            | UniformGridPageMsg subMsg, UniformGridPageModel m ->
+                let m, c = UniformGridPage.update subMsg m
+                UniformGridPageModel m, [ UniformGridPageCmdMsgs c ]
+
+            | ShapesPageMsg subMsg, ShapesPageModel m ->
+                let m, c = ShapesPage.update subMsg m
+                ShapesPageModel m, [ ShapesPageCmdMsgs c ]
+
+            | StackPanelPageMsg subMsg, StackPanelPageModel m ->
+                let m, c = StackPanelPage.update subMsg m
+                StackPanelPageModel m, [ StackPanelPageCmdMsgs c ]
+
+            | ViewBoxPageMsg subMsg, ViewBoxPageModel m ->
+                let m, c = ViewBoxPage.update subMsg m
+                ViewBoxPageModel m, [ ViewBoxPageCmdMsgs c ]
+
             | _, currentPage -> currentPage, []
 
         { model with

@@ -36,12 +36,12 @@ module ToggleSplitButtonPage =
 
     let update msg model =
         match msg with
-        | Clicked -> model
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-        | Reset -> { model with Count = 0 }
-        | CheckedChanged b -> { model with IsChecked = b }
-        | CheckedChanged2 b -> { model with IsChecked2 = b }
+        | Clicked -> model, []
+        | Increment -> { model with Count = model.Count + 1 }, []
+        | Decrement -> { model with Count = model.Count - 1 }, []
+        | Reset -> { model with Count = 0 }, []
+        | CheckedChanged b -> { model with IsChecked = b }, []
+        | CheckedChanged2 b -> { model with IsChecked2 = b }, []
 
     let menu () =
         Flyout(
