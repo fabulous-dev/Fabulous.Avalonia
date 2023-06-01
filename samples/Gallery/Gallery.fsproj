@@ -55,7 +55,6 @@
     <Compile Include="Pages\DrawingPage.fs" />
     <Compile Include="Pages\ExpanderPage.fs" />
     <Compile Include="Pages\FlyoutPage.fs" />
-    <Compile Include="Pages\FormattedTextControlPage.fs" />
     <Compile Include="Pages\GesturesPage.fs" />
     <Compile Include="Pages\GeometriesPage.fs" />
     <Compile Include="Pages\GlyphRunControlPage.fs" />
