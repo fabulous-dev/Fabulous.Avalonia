@@ -80,7 +80,11 @@ module MainWindow =
         DesktopApplication(
             Window(
                 (Grid() {
-                    let content = NavigationState.view SubpageMsg model.Navigation.CurrentPage
+                    let content =
+                        match model.Navigation.CurrentPage with
+                        // ScrollBarPageModel does not work when wrapped in a ScrollViewer
+                        | ScrollBarPageModel _ -> AnyView(NavigationState.view SubpageMsg model.Navigation.CurrentPage)
+                        | _ -> AnyView(ScrollViewer(NavigationState.view SubpageMsg model.Navigation.CurrentPage))
 
                     SplitView(buttonSpinnerHeader model, content)
                         .isPresented(model.IsPanOpen, OpenPanChanged)
