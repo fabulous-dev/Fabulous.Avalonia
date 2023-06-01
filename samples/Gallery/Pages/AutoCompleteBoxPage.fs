@@ -24,7 +24,6 @@ module AutoCompleteBoxPage =
     type Model =
         { IsOpen: bool
           SelectedItem: string
-          Text: string
           Items: string seq
           Capitals: StateData seq
           Custom: string seq }
@@ -51,198 +50,198 @@ module AutoCompleteBoxPage =
     let init () =
         { IsOpen = false
           SelectedItem = "Item 2"
-          Text = ""
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
           Capitals =
-            seq {
-                { Name = "Arkansas"
-                  Abbreviation = "AR"
-                  Capital = "Little Rock" }
+            [
 
-                { Name = "California"
-                  Abbreviation = "CA"
-                  Capital = "Sacramento" }
+              { Name = "Arkansas"
+                Abbreviation = "AR"
+                Capital = "Little Rock" }
 
-                { Name = "Colorado"
-                  Abbreviation = "CO"
-                  Capital = "Denver" }
+              { Name = "California"
+                Abbreviation = "CA"
+                Capital = "Sacramento" }
 
-                { Name = "Connecticut"
-                  Abbreviation = "CT"
-                  Capital = "Hartford" }
+              { Name = "Colorado"
+                Abbreviation = "CO"
+                Capital = "Denver" }
 
-                { Name = "Delaware"
-                  Abbreviation = "DE"
-                  Capital = "Dover" }
+              { Name = "Connecticut"
+                Abbreviation = "CT"
+                Capital = "Hartford" }
 
-                { Name = "Florida"
-                  Abbreviation = "FL"
-                  Capital = "Tallahassee" }
+              { Name = "Delaware"
+                Abbreviation = "DE"
+                Capital = "Dover" }
 
-                { Name = "Georgia"
-                  Abbreviation = "GA"
-                  Capital = "Atlanta" }
+              { Name = "Florida"
+                Abbreviation = "FL"
+                Capital = "Tallahassee" }
 
-                { Name = "Hawaii"
-                  Abbreviation = "HI"
-                  Capital = "Honolulu" }
+              { Name = "Georgia"
+                Abbreviation = "GA"
+                Capital = "Atlanta" }
 
-                { Name = "Idaho"
-                  Abbreviation = "ID"
-                  Capital = "Boise" }
+              { Name = "Hawaii"
+                Abbreviation = "HI"
+                Capital = "Honolulu" }
 
-                { Name = "Illinois"
-                  Abbreviation = "IL"
-                  Capital = "Springfield" }
+              { Name = "Idaho"
+                Abbreviation = "ID"
+                Capital = "Boise" }
 
-                { Name = "Indiana"
-                  Abbreviation = "IN"
-                  Capital = "Indianapolis" }
+              { Name = "Illinois"
+                Abbreviation = "IL"
+                Capital = "Springfield" }
 
-                { Name = "Iowa"
-                  Abbreviation = "IA"
-                  Capital = "Des Moines" }
+              { Name = "Indiana"
+                Abbreviation = "IN"
+                Capital = "Indianapolis" }
 
-                { Name = "Kansas"
-                  Abbreviation = "KS"
-                  Capital = "Topeka" }
+              { Name = "Iowa"
+                Abbreviation = "IA"
+                Capital = "Des Moines" }
 
-                { Name = "Kentucky"
-                  Abbreviation = "KY"
-                  Capital = "Frankfort" }
+              { Name = "Kansas"
+                Abbreviation = "KS"
+                Capital = "Topeka" }
 
-                { Name = "Louisiana"
-                  Abbreviation = "LA"
-                  Capital = "Baton Rouge" }
+              { Name = "Kentucky"
+                Abbreviation = "KY"
+                Capital = "Frankfort" }
 
-                { Name = "Maine"
-                  Abbreviation = "ME"
-                  Capital = "Augusta" }
+              { Name = "Louisiana"
+                Abbreviation = "LA"
+                Capital = "Baton Rouge" }
 
-                { Name = "Maryland"
-                  Abbreviation = "MD"
-                  Capital = "Annapolis" }
+              { Name = "Maine"
+                Abbreviation = "ME"
+                Capital = "Augusta" }
 
-                { Name = "Massachusetts"
-                  Abbreviation = "MA"
-                  Capital = "Boston" }
+              { Name = "Maryland"
+                Abbreviation = "MD"
+                Capital = "Annapolis" }
 
-                { Name = "Michigan"
-                  Abbreviation = "MI"
-                  Capital = "Lansing" }
+              { Name = "Massachusetts"
+                Abbreviation = "MA"
+                Capital = "Boston" }
 
-                { Name = "Minnesota"
-                  Abbreviation = "MN"
-                  Capital = "St. Paul" }
+              { Name = "Michigan"
+                Abbreviation = "MI"
+                Capital = "Lansing" }
 
-                { Name = "Mississippi"
-                  Abbreviation = "MS"
-                  Capital = "Jackson" }
+              { Name = "Minnesota"
+                Abbreviation = "MN"
+                Capital = "St. Paul" }
 
-                { Name = "Missouri"
-                  Abbreviation = "MO"
-                  Capital = "Jefferson City" }
+              { Name = "Mississippi"
+                Abbreviation = "MS"
+                Capital = "Jackson" }
 
-                { Name = "Montana"
-                  Abbreviation = "MT"
-                  Capital = "Helena" }
+              { Name = "Missouri"
+                Abbreviation = "MO"
+                Capital = "Jefferson City" }
 
-                { Name = "Nebraska"
-                  Abbreviation = "NE"
-                  Capital = "Lincoln" }
+              { Name = "Montana"
+                Abbreviation = "MT"
+                Capital = "Helena" }
 
-                { Name = "Nevada"
-                  Abbreviation = "NV"
-                  Capital = "Carson City" }
+              { Name = "Nebraska"
+                Abbreviation = "NE"
+                Capital = "Lincoln" }
 
-                { Name = "New Hampshire"
-                  Abbreviation = "NH"
-                  Capital = "Concord" }
+              { Name = "Nevada"
+                Abbreviation = "NV"
+                Capital = "Carson City" }
 
-                { Name = "New Jersey"
-                  Abbreviation = "NJ"
-                  Capital = "Trenton" }
+              { Name = "New Hampshire"
+                Abbreviation = "NH"
+                Capital = "Concord" }
 
-                { Name = "New Mexico"
-                  Abbreviation = "NM"
-                  Capital = "Santa Fe" }
+              { Name = "New Jersey"
+                Abbreviation = "NJ"
+                Capital = "Trenton" }
 
-                { Name = "New York"
-                  Abbreviation = "NY"
-                  Capital = "Albany" }
+              { Name = "New Mexico"
+                Abbreviation = "NM"
+                Capital = "Santa Fe" }
 
-                { Name = "North Carolina"
-                  Abbreviation = "NC"
-                  Capital = "Raleigh" }
+              { Name = "New York"
+                Abbreviation = "NY"
+                Capital = "Albany" }
 
-                { Name = "North Dakota"
-                  Abbreviation = "ND"
-                  Capital = "Bismarck" }
+              { Name = "North Carolina"
+                Abbreviation = "NC"
+                Capital = "Raleigh" }
 
-                { Name = "Ohio"
-                  Abbreviation = "OH"
-                  Capital = "Columbus" }
+              { Name = "North Dakota"
+                Abbreviation = "ND"
+                Capital = "Bismarck" }
 
-                { Name = "Oklahoma"
-                  Abbreviation = "OK"
-                  Capital = "Oklahoma City" }
+              { Name = "Ohio"
+                Abbreviation = "OH"
+                Capital = "Columbus" }
 
-                { Name = "Oregon"
-                  Abbreviation = "OR"
-                  Capital = "Salem" }
+              { Name = "Oklahoma"
+                Abbreviation = "OK"
+                Capital = "Oklahoma City" }
 
-                { Name = "Pennsylvania"
-                  Abbreviation = "PA"
-                  Capital = "Harrisburg" }
+              { Name = "Oregon"
+                Abbreviation = "OR"
+                Capital = "Salem" }
 
-                { Name = "Rhode Island"
-                  Abbreviation = "RI"
-                  Capital = "Providence" }
+              { Name = "Pennsylvania"
+                Abbreviation = "PA"
+                Capital = "Harrisburg" }
 
-                { Name = "South Carolina"
-                  Abbreviation = "SC"
-                  Capital = "Columbia" }
+              { Name = "Rhode Island"
+                Abbreviation = "RI"
+                Capital = "Providence" }
 
-                { Name = "South Dakota"
-                  Abbreviation = "SD"
-                  Capital = "Pierre" }
+              { Name = "South Carolina"
+                Abbreviation = "SC"
+                Capital = "Columbia" }
 
-                { Name = "Tennessee"
-                  Abbreviation = "TN"
-                  Capital = "Nashville" }
+              { Name = "South Dakota"
+                Abbreviation = "SD"
+                Capital = "Pierre" }
 
-                { Name = "Texas"
-                  Abbreviation = "TX"
-                  Capital = "Austin" }
+              { Name = "Tennessee"
+                Abbreviation = "TN"
+                Capital = "Nashville" }
 
-                { Name = "Utah"
-                  Abbreviation = "UT"
-                  Capital = "Salt Lake City" }
+              { Name = "Texas"
+                Abbreviation = "TX"
+                Capital = "Austin" }
 
-                { Name = "Vermont"
-                  Abbreviation = "VT"
-                  Capital = "Montpelier" }
+              { Name = "Utah"
+                Abbreviation = "UT"
+                Capital = "Salt Lake City" }
 
-                { Name = "Virginia"
-                  Abbreviation = "VA"
-                  Capital = "Richmond" }
+              { Name = "Vermont"
+                Abbreviation = "VT"
+                Capital = "Montpelier" }
 
-                { Name = "Washington"
-                  Abbreviation = "WA"
-                  Capital = "Olympia" }
+              { Name = "Virginia"
+                Abbreviation = "VA"
+                Capital = "Richmond" }
 
-                { Name = "West Virginia"
-                  Abbreviation = "WV"
-                  Capital = "Charleston" }
+              { Name = "Washington"
+                Abbreviation = "WA"
+                Capital = "Olympia" }
 
-                { Name = "Wisconsin"
-                  Abbreviation = "WI"
-                  Capital = "Madison" }
+              { Name = "West Virginia"
+                Abbreviation = "WV"
+                Capital = "Charleston" }
 
-                { Name = "Wyoming"
-                  Abbreviation = "WY"
-                  Capital = "Cheyenne" }
-            }
+              { Name = "Wisconsin"
+                Abbreviation = "WI"
+                Capital = "Madison" }
+
+              { Name = "Wyoming"
+                Abbreviation = "WY"
+                Capital = "Cheyenne" } ]
+
           Custom = [] },
         []
 
@@ -308,7 +307,7 @@ module AutoCompleteBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged s -> { model with Text = s }, []
+        | TextChanged s -> model, []
         | SelectionChanged _ -> model, []
         | OnPopulating _ -> model, []
         | OnPopulated _ -> model, []
@@ -356,40 +355,49 @@ module AutoCompleteBoxPage =
             UniformGrid() {
                 VStack() {
                     TextBlock("MinimumPrefixLength: 1")
-                    AutoCompleteBox("Select an item", model.Capitals).minimumPrefixLength(1)
+
+                    AutoCompleteBox("", TextChanged, model.Capitals)
+                        .minimumPrefixLength(1)
+                        .watermark("Select an item")
                 }
 
                 VStack() {
                     TextBlock("MinimumPrefixLength: 3")
-                    AutoCompleteBox("Select an item", model.Items).minimumPrefixLength(3)
+
+                    AutoCompleteBox("", TextChanged, model.Items)
+                        .watermark("Select an item")
+                        .minimumPrefixLength(3)
                 }
 
                 VStack() {
                     TextBlock("MinimumPopulateDelay: 1s")
 
-                    AutoCompleteBox("Select an item", model.Items)
+                    AutoCompleteBox("", TextChanged, model.Items)
+                        .watermark("Select an item")
                         .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
                 }
 
                 VStack() {
                     TextBlock("MaxDropDownHeight: 60")
-                    AutoCompleteBox("Select an item", model.Items).maxDropDownHeight(60.0)
-                }
 
-                VStack() {
-                    TextBlock("Watermark")
-                    AutoCompleteBox("Select an item", model.Items)
+                    AutoCompleteBox("", TextChanged, model.Items)
+                        .maxDropDownHeight(60.0)
+                        .watermark("Select an item")
                 }
 
                 VStack() {
                     TextBlock("Disabled")
-                    AutoCompleteBox("Select an item", model.Items).isEnabled(false)
+
+                    AutoCompleteBox("", TextChanged, model.Items)
+                        .isEnabled(false)
+                        .watermark("Select an item")
                 }
 
                 VStack() {
                     TextBlock("Multi-Binding")
 
-                    AutoCompleteBox("Select an item", model.Capitals)
+                    AutoCompleteBox("", TextChanged, model.Capitals)
+                        .watermark("Select an item")
                         .reference(multiBindingBoxRef)
                         .filterMode(AutoCompleteFilterMode.Contains)
                         .onLoaded(MultiBindingLoaded)
@@ -398,14 +406,16 @@ module AutoCompleteBoxPage =
                 VStack() {
                     TextBlock("AsyncBox")
 
-                    AutoCompleteBox("Select an item", getItemsAsync)
+                    AutoCompleteBox("", TextChanged, getItemsAsync)
+                        .watermark("Select an item")
                         .filterMode(AutoCompleteFilterMode.Contains)
                 }
 
                 VStack() {
                     TextBlock("Custom AutoComplete")
 
-                    AutoCompleteBox("Select an item", model.Custom)
+                    AutoCompleteBox("", TextChanged, model.Custom)
+                        .watermark("Select an item")
                         .reference(customAutoCompleteBoxRef)
                         .filterMode(AutoCompleteFilterMode.None)
                         .onLoaded(CustomAutoBoxLoaded)
@@ -415,7 +425,7 @@ module AutoCompleteBoxPage =
                 VStack() {
                     TextBlock("With Validation Errors")
 
-                    AutoCompleteBox("Select an item", model.Items)
+                    AutoCompleteBox("", TextChanged, model.Items)
                         .name("ValidationErrors")
                         .filterMode(AutoCompleteFilterMode.None)
                         .dataValidationErrors([ Exception() ])

@@ -1,14 +1,12 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Collections.Generic
 open System.Collections
 open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabAutoCompleteBox =
     inherit IFabTemplatedControl
@@ -74,18 +72,24 @@ module AutoCompleteBox =
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        static member AutoCompleteBox(watermark: string, items: seq<_>) =
+        static member inline AutoCompleteBox(text: string, textChanged: string -> 'msg, items: seq<_>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.Watermark.WithValue(watermark),
-                AutoCompleteBox.ItemsSource.WithValue(items)
+                AutoCompleteBox.Text.WithValue(text),
+                AutoCompleteBox.ItemsSource.WithValue(items),
+                AutoCompleteBox.TextChanged.WithValue(fun args ->
+                    let control = args.Source :?> AutoCompleteBox
+                    textChanged control.Text |> box)
             )
 
-        static member AutoCompleteBox(watermark: string, populator: string -> CancellationToken -> Task<seq<_>>) =
+        static member inline AutoCompleteBox(text: string, textChanged: string -> 'msg, populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.Watermark.WithValue(watermark),
-                AutoCompleteBox.AsyncPopulator.WithValue(populator)
+                AutoCompleteBox.Text.WithValue(text),
+                AutoCompleteBox.AsyncPopulator.WithValue(populator),
+                AutoCompleteBox.TextChanged.WithValue(fun args ->
+                    let control = args.Source :?> AutoCompleteBox
+                    textChanged control.Text |> box)
             )
 
 [<Extension>]
@@ -107,8 +111,8 @@ type AutoCompleteBoxModifiers =
         this.AddScalar(AutoCompleteBox.IsTextCompletionEnabled.WithValue(value))
 
     [<Extension>]
-    static member inline text(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string) =
-        this.AddScalar(AutoCompleteBox.Text.WithValue(value))
+    static member inline watermark(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string) =
+        this.AddScalar(AutoCompleteBox.Watermark.WithValue(value))
 
     [<Extension>]
     static member inline filterMode(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: AutoCompleteFilterMode) =
@@ -129,14 +133,6 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline textSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, selector: string -> string -> string) =
         this.AddScalar(AutoCompleteBox.TextSelector.WithValue(selector))
-
-    [<Extension>]
-    static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onTextChanged: string -> 'msg) =
-        this.AddScalar(
-            AutoCompleteBox.TextChanged.WithValue(fun args ->
-                let control = args.Source :?> AutoCompleteBox
-                onTextChanged control.Text |> box)
-        )
 
     [<Extension>]
     static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulating: string -> 'msg) =
