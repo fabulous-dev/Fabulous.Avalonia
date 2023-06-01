@@ -1,5 +1,6 @@
 namespace Gallery.Root
 
+open Avalonia.Controls
 open Fabulous
 open Gallery
 open Types
@@ -19,8 +20,6 @@ module State =
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = false
           SafeAreaInsets = 0.
-          Pages = NavigationRoute.GetNames()
-          SelectedIndex = 0
           PaneLength = 150. },
         [ SubpageCmdMsgs cmdMsgs ]
 #else
@@ -28,9 +27,7 @@ module State =
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = true
-          Pages = NavigationRoute.GetNames()
           SafeAreaInsets = 0.
-          SelectedIndex = 0
           PaneLength = 250. },
         [ SubpageCmdMsgs cmdMsgs ]
 #endif
@@ -38,7 +35,7 @@ module State =
     let update msg model =
         match msg with
         | OnLoaded _ ->
-#if MOBILE
+#if MOBILE || BROWSER
             { model with
                 SafeAreaInsets = 32.
                 PaneLength = 180. },
@@ -57,15 +54,23 @@ module State =
                 IsPanOpen = not model.IsPanOpen },
             []
 
-        | SelectedIndexChanged index ->
-            let route = NavigationRoute.GetRoute(model.Pages.[index])
+        | OnSelectionChanged args ->
+            let route =
+                args.AddedItems
+                |> Seq.cast<ListBoxItem>
+                |> Seq.tryHead
+                |> Option.map(fun x -> unbox<string>(x.Content))
+
+            let route =
+                match route with
+                | Some x -> x
+                | None -> failwithf "Could not find route"
+
+            let route = NavigationRoute.GetRoute(route)
             let modelRoute, cmdMsgs = NavigationState.initRoute route
 
-            let model =
-                { model with
-                    SelectedIndex = index
-                    Navigation = NavigationModel.Init(modelRoute) }
-
-            model, [ SubpageCmdMsgs cmdMsgs ]
+            { model with
+                Navigation = NavigationModel.Init(modelRoute) },
+            [ SubpageCmdMsgs cmdMsgs ]
 
         | DoNothing -> model, []
