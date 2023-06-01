@@ -17,6 +17,7 @@ module Types =
         | OpenPanChanged of bool
         | OpenPan
         | OnLoaded of bool
+        | DoNothing
 
     type CmdMsg =
         | NewMsg of Msg

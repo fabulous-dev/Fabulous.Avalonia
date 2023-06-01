@@ -88,31 +88,20 @@ module ApplicationUpdaters =
             let struct (_, view) = Helpers.createViewForWidget node widget
             target.MainView <- view :?> Control
 
-module TrayIconUpdaters =
-    let trayIconApplyDiff (diff: WidgetDiff) (node: IViewNode) =
-        let target = node.Target :?> Application
-        let trayIcons = TrayIcon.GetIcons(target)
-
-        if trayIcons <> null then
-            let childViewNode = node.TreeContext.GetViewNode(trayIcons)
-            childViewNode.ApplyDiff(&diff)
-
-    let trayIconUpdateNode (_: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
-        let target = node.Target :?> Application
-        let trayIcons = TrayIcon.GetIcons(target)
-
-        match currOpt with
-        | ValueNone -> trayIcons.Clear()
-        | ValueSome widget ->
-            let struct (_, trayIcon) = Helpers.createViewForWidget node widget
-            let trayIcon = trayIcon :?> TrayIcon
-
-            if trayIcons <> null then
-                trayIcons.Add(trayIcon)
-                TrayIcon.SetIcons(target, trayIcons)
-
 module Application =
     let WidgetKey = Widgets.register<FabApplication>()
+
+    let TrayIcons =
+        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
+            let target = target :?> Application
+            let trayIcons = TrayIcon.GetIcons(target)
+
+            if trayIcons = null then
+                let trayIcons = TrayIcons()
+                TrayIcon.SetIcons(target, trayIcons)
+                trayIcons
+            else
+                trayIcons)
 
     let MainWindow =
         Attributes.defineWidget "MainWindow" ApplicationUpdaters.mainWindowApplyDiff ApplicationUpdaters.mainWindowUpdateNode
@@ -179,31 +168,9 @@ type ApplicationModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-module ApplicationAttached =
-    let TrayIcons =
-        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
-            let target = target :?> Application
-            let trayIcons = TrayIcon.GetIcons(target)
-
-            if trayIcons = null then
-                let trayIcons = TrayIcons()
-                TrayIcon.SetIcons(target, trayIcons)
-                trayIcons
-            else
-                trayIcons)
-
-    let TrayIcon =
-        Attributes.defineWidget "TrayIcon" TrayIconUpdaters.trayIconApplyDiff TrayIconUpdaters.trayIconUpdateNode
-
-[<Extension>]
-type ApplicationAttachedModifiers =
     [<Extension>]
     static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTrayIcon> ApplicationAttached.TrayIcons this
-
-    [<Extension>]
-    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
-        this.AddWidget(ApplicationAttached.TrayIcon.WithValue(trayIcon.Compile()))
+        AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, Application.TrayIcons)
 
 [<Extension>]
 type ApplicationYieldExtensions =
@@ -218,3 +185,9 @@ type ApplicationYieldExtensions =
             x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
+
+[<Extension>]
+type ApplicationAttachedModifiers =
+    [<Extension>]
+    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
+        AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>(this, Application.TrayIcons) { trayIcon }

@@ -28,6 +28,38 @@ module MainWindow =
     let hamburgerMenuIcon () =
         Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
 
+    let trayIcon () =
+        TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
+            .menu(
+                NativeMenu() {
+                    NativeMenuItem("Settings")
+                        .menu(
+                            NativeMenu() {
+                                NativeMenuItem("Option 1", DoNothing)
+                                    .toggleType(NativeMenuItemToggleType.Radio)
+                                    .isChecked(true)
+
+                                NativeMenuItem("Option 2", DoNothing)
+                                    .toggleType(NativeMenuItemToggleType.Radio)
+                                    .isChecked(true)
+
+                                NativeMenuItemSeparator()
+
+                                NativeMenuItem("Option 3", DoNothing)
+                                    .toggleType(NativeMenuItemToggleType.CheckBox)
+                                    .isChecked(true)
+
+                                NativeMenuItem("Restore defaults", DoNothing)
+                                    .icon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico")
+
+                                NativeMenuItem("Disabled option", DoNothing).isEnabled(false)
+                            }
+                        )
+
+                    NativeMenuItem("Exit", DoNothing)
+                }
+            )
+
     let view (model: Model) =
         DesktopApplication(
             Window(
@@ -48,3 +80,4 @@ module MainWindow =
             )
                 .title("Fabulous Gallery")
         )
+            .trayIcon(trayIcon())

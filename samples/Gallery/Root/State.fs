@@ -67,3 +67,5 @@ module State =
                     Navigation = NavigationModel.Init(modelRoute) }
 
             model, [ SubpageCmdMsgs cmdMsgs ]
+
+        | DoNothing -> model, []
