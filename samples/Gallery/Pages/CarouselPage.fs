@@ -1,7 +1,6 @@
 namespace Gallery.Pages
 
 open System
-open System.Collections
 open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.Layout
