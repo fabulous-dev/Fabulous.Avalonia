@@ -3,11 +3,8 @@ namespace Fabulous.Avalonia
 open System
 open System.Collections
 open Avalonia
-open Avalonia.Controls
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
-open Fabulous.StackAllocatedCollections.StackList
-open Fabulous.WidgetCollectionAttributeDefinitions
 
 [<AbstractClass; Sealed>]
 type View =
@@ -81,12 +78,6 @@ module Widgets =
     let register<'T when WidgetOps<'T>> () = registerWithFactory(fun () -> new 'T())
 
 module WidgetHelpers =
-    let inline buildAttributeCollection<'msg, 'marker, 'item>
-        (collectionAttributeDefinition: WidgetCollectionAttributeDefinition)
-        (widget: WidgetBuilder<'msg, 'marker>)
-        =
-        AttributeCollectionBuilder<'msg, 'marker, 'item>(widget, collectionAttributeDefinition)
-
     let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
         key
         (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)

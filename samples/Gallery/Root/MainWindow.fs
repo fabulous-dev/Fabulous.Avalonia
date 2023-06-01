@@ -28,6 +28,22 @@ module MainWindow =
     let hamburgerMenuIcon () =
         Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
 
+    let createMenu model =
+        NativeMenu() {
+            NativeMenuItem("Edit")
+                .menu(
+                    NativeMenu() {
+                        NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
+                        NativeMenuItemSeparator()
+
+                        NativeMenuItem("After separator", DoNothing)
+                            .toggleType(NativeMenuItemToggleType.CheckBox)
+                            .isChecked(model.IsPanOpen)
+                    }
+                )
+        }
+
+
     let trayIcon () =
         TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
             .menu(
@@ -78,6 +94,8 @@ module MainWindow =
                 })
                     .onLoaded(OnLoaded)
             )
+                .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
+                .menu(createMenu model)
         )
             .trayIcon(trayIcon())

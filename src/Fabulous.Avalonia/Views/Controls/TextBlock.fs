@@ -178,10 +178,6 @@ type TextBlockModifiers =
     static member inline textTrimming(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextTrimming) =
         this.AddScalar(TextBlock.TextTrimming.WithValue(value))
 
-    [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
-        WidgetHelpers.buildAttributeCollection<'msg, 'marker, IFabTextDecoration> TextBlock.TextDecorations this
-
     /// <summary>Link a ViewRef to access the direct TextBlock control instance</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
@@ -242,3 +238,23 @@ type TextBlockCollectionBuilderExtensions =
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
+
+[<Extension>]
+type InlineCollectionModifiers =
+    [<Extension>]
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabInline>(this: WidgetBuilder<'msg, 'marker>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations)
+
+    [<Extension>]
+    static member inline textDecoration(this: WidgetBuilder<'msg, #IFabInline>, decoration: WidgetBuilder<'msg, IFabTextDecoration>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations) { decoration }
+
+[<Extension>]
+type TextBlockCollectionModifiers =
+    [<Extension>]
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, TextBlock.TextDecorations)
+
+    [<Extension>]
+    static member inline textDecoration(this: WidgetBuilder<'msg, #IFabTextBlock>, decoration: WidgetBuilder<'msg, IFabTextDecoration>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, TextBlock.TextDecorations) { decoration }
