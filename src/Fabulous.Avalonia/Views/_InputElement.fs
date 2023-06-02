@@ -43,7 +43,7 @@ module InputElement =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
 
     let GestureRecognizers =
-        Attributes.defineSimpleScalarWithEquality<IGestureRecognizer seq> "InputElement_GestureRecognizers" (fun _ newValueOpt node ->
+        Attributes.defineSimpleScalarWithEquality<GestureRecognizer seq> "InputElement_GestureRecognizers" (fun _ newValueOpt node ->
             let target = node.Target :?> InputElement
 
             match newValueOpt with
@@ -144,7 +144,7 @@ type InputElementModifiers =
         this.AddScalar(InputElement.TabIndex.WithValue(value))
 
     [<Extension>]
-    static member inline gestureRecognizers(this: WidgetBuilder<'msg, #IFabInputElement>, value: IGestureRecognizer seq) =
+    static member inline gestureRecognizers(this: WidgetBuilder<'msg, #IFabInputElement>, value: GestureRecognizer seq) =
         this.AddScalar(InputElement.GestureRecognizers.WithValue(value))
 
     [<Extension>]

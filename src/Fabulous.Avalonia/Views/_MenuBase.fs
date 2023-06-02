@@ -9,10 +9,10 @@ type IFabMenuBase =
 
 module MenuBase =
     let MenuOpened =
-        Attributes.defineEvent "MenuBase_MenuOpened" (fun target -> (target :?> MenuBase).MenuOpened)
+        Attributes.defineEvent "MenuBase_MenuOpened" (fun target -> (target :?> MenuBase).Opened)
 
     let MenuClosed =
-        Attributes.defineEvent "MenuBase_MenuClosed" (fun target -> (target :?> MenuBase).MenuClosed)
+        Attributes.defineEvent "MenuBase_MenuClosed" (fun target -> (target :?> MenuBase).Closed)
 
 [<Extension>]
 type MenuBaseModifiers =

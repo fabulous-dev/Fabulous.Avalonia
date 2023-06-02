@@ -57,7 +57,7 @@ type TopLevelModifiers =
         this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
 
     [<Extension>]
-    static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, alignment: WindowTransparencyLevel) =
+    static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, alignment: WindowTransparencyLevel list) =
         this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(alignment))
 
     [<Extension>]

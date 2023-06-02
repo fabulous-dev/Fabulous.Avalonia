@@ -73,10 +73,10 @@ module ContextMenu =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
 
     let ContextMenuOpening =
-        defineContextMenuEvent "ContextMenuOpening_ContextMenuOpening" (fun target -> (target :?> ContextMenu).ContextMenuOpening)
+        defineContextMenuEvent "ContextMenu_ContextMenuOpening" (fun target -> (target :?> ContextMenu).Opening)
 
     let ContextMenuClosing =
-        defineContextMenuEvent "ContextMenuClosing_ContextMenuClosing" (fun target -> (target :?> ContextMenu).ContextMenuClosing)
+        defineContextMenuEvent "ContextMenu_ContextMenuClosing" (fun target -> (target :?> ContextMenu).Closing)
 
 [<AutoOpen>]
 module ContextMenuBuilders =

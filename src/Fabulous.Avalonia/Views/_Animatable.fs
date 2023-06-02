@@ -1,10 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Animation
-open Avalonia.Animation.Animators
-open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -12,9 +9,6 @@ type IFabAnimatable =
     inherit IFabElement
 
 module Animatable =
-
-    let Clock = Attributes.defineAvaloniaPropertyWithEquality Animatable.ClockProperty
-
     let Transitions =
         Attributes.defineAvaloniaListWidgetCollection "Animatable_Transitions" (fun target ->
             let target = (target :?> Animatable)
@@ -25,12 +19,6 @@ module Animatable =
                 newColl
             else
                 target.Transitions)
-
-[<Extension>]
-type AnimatableModifiers =
-    [<Extension>]
-    static member inline clock(this: WidgetBuilder<'msg, #IFabAnimatable>, clock: IClock) =
-        this.AddScalar(Animatable.Clock.WithValue(clock))
 
 [<Extension>]
 type AnimatableCollectionBuilderExtensions =

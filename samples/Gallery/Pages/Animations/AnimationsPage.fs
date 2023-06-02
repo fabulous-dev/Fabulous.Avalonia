@@ -54,9 +54,8 @@ module AnimationsPage =
             []
 
     let view model =
-        (VStack(32.) {
+        VStack(32.) {
             View.map Animations1 (Animations1.view model)
             View.map Animations2 (Animations2.view model)
             View.map Animations3 (Animations3.view model)
-        })
-            .clock(Clock())
+        }

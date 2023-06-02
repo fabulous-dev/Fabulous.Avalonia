@@ -58,7 +58,7 @@ type NativeMenuItemModifiers =
         this.AddWidget(NativeMenuItem.Menu.WithValue(value.Compile()))
 
     [<Extension>]
-    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: IBitmap) =
+    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Bitmap) =
         this.AddScalar(NativeMenuItem.Icon.WithValue(value))
 
     [<Extension>]

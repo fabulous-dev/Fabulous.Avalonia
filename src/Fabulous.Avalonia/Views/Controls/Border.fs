@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
-open Avalonia.Collections
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.Immutable
@@ -36,26 +35,6 @@ module Border =
 
     let BoxShadow =
         Attributes.defineAvaloniaPropertyWithEquality Border.BoxShadowProperty
-
-    let BorderDashOffset =
-        Attributes.defineAvaloniaPropertyWithEquality Border.BorderDashOffsetProperty
-
-    let BorderDashArray =
-        Attributes.defineSimpleScalarWithEquality<float list> "Border_BorderDashArray" (fun _ newValueOpt node ->
-            let target = node.Target :?> AvaloniaObject
-
-            match newValueOpt with
-            | ValueNone -> target.ClearValue(Border.BorderDashArrayProperty)
-            | ValueSome points ->
-                let coll = AvaloniaList<float>()
-                points |> List.iter coll.Add
-                target.SetValue(Border.BorderDashArrayProperty, coll) |> ignore)
-
-    let BorderLineCap =
-        Attributes.defineAvaloniaPropertyWithEquality Border.BorderLineCapProperty
-
-    let BorderLineJoin =
-        Attributes.defineAvaloniaPropertyWithEquality Border.BorderLineJoinProperty
 
 [<AutoOpen>]
 module BorderBuilders =
@@ -107,22 +86,6 @@ type BorderModifiers =
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
         this.AddScalar(Border.BoxShadow.WithValue(value))
-
-    [<Extension>]
-    static member inline strokeDashArray(this: WidgetBuilder<'msg, #IFabBorder>, value: float list) =
-        this.AddScalar(Border.BorderDashArray.WithValue(value))
-
-    [<Extension>]
-    static member inline borderLineCap(this: WidgetBuilder<'msg, #IFabBorder>, value: PenLineCap) =
-        this.AddScalar(Border.BorderLineCap.WithValue(value))
-
-    [<Extension>]
-    static member inline borderLineJoin(this: WidgetBuilder<'msg, #IFabBorder>, value: PenLineJoin) =
-        this.AddScalar(Border.BorderLineJoin.WithValue(value))
-
-    [<Extension>]
-    static member inline borderDashOffset(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
-        this.AddScalar(Border.BorderDashOffset.WithValue(value))
 
 [<Extension>]
 type BorderExtraModifiers =

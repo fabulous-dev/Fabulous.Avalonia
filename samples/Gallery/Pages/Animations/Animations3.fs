@@ -11,7 +11,7 @@ open Avalonia.Animation.Animators
 open type Fabulous.Avalonia.View
 
 type CustomStringAnimator() =
-    inherit Animator<string>()
+    inherit CustomAnimatorBase<string>()
 
     override this.Interpolate(progress, _oldValue, newValue) =
 
@@ -29,13 +29,14 @@ module Animations3 =
     type Msg = Loaded of bool
 
     let init () =
-        Animation.RegisterAnimator<CustomStringAnimator>(fun prop -> prop.PropertyType = typeof<string> && prop.Name = "Text")
+        // FIXME: RegisterAnimator is not internal.
+        //Animation.RegisterAnimator<CustomStringAnimator>(fun prop -> prop.PropertyType = typeof<string> && prop.Name = "Text")
         { Value = 0 }
 
     let update msg model =
         match msg with
         | Loaded _ ->
-            Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator().GetType())
+            Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
             model
 
     let view _ =
