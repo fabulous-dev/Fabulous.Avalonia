@@ -11,6 +11,7 @@ type IFabProgressBar =
 
 module ProgressBar =
     let WidgetKey = Widgets.register<ProgressBar>()
+
     let IsIndeterminate =
         Attributes.defineAvaloniaPropertyWithEquality ProgressBar.IsIndeterminateProperty
 

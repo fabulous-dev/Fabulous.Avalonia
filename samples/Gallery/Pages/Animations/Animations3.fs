@@ -29,7 +29,7 @@ module Animations3 =
     type Msg = Loaded of bool
 
     let init () =
-        // FIXME: RegisterAnimator is not internal.
+        // FIXME: RegisterAnimator is now internal.
         //Animation.RegisterAnimator<CustomStringAnimator>(fun prop -> prop.PropertyType = typeof<string> && prop.Name = "Text")
         { Value = 0 }
 
