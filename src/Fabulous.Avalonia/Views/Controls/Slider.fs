@@ -48,14 +48,16 @@ module SliderBuilders =
         static member inline Slider<'msg>(value: float, onValueChanged: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
+                RangeBase.Value.WithValue(value),
+                RangeBase.ValueChanged.WithValue(fun args -> onValueChanged args.NewValue |> box)
             )
 
         static member inline Slider<'msg>(min: float, max: float, value: float, onValueChanged: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
+                RangeBase.Value.WithValue(value),
                 RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
+                RangeBase.ValueChanged.WithValue(fun args -> onValueChanged args.NewValue |> box)
             )
 
 [<Extension>]

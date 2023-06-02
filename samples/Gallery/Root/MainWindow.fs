@@ -166,6 +166,7 @@ module MainWindow =
                 })
                     .onLoaded(OnLoaded)
             )
+                .transparencyLevelHint([ WindowTransparencyLevel.AcrylicBlur; WindowTransparencyLevel.Mica ])
                 .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
                 .menu(createMenu model)

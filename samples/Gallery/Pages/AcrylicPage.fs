@@ -102,7 +102,6 @@ module AcrylicPage =
                         .gridColumn(2)
                         .style(textBlockStyle)
 
-
                 })
                     .margin(20., 10.)
             )
@@ -112,7 +111,6 @@ module AcrylicPage =
                         .tintColor(Colors.White)
                 )
                 .style(acrylicBorderStyle)
-
 
             (UniformGrid() {
                 ExperimentalAcrylicBorder()

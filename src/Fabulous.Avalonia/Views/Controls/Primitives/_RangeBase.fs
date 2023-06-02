@@ -9,11 +9,6 @@ open Fabulous
 type IFabRangeBase =
     inherit IFabTemplatedControl
 
-type RangeBaseValueChangedEventArgs(oldValue: float, newValue: float) =
-    inherit EventArgs()
-    member val OldValue: float = oldValue
-    member val NewValue: float = newValue
-
 module RangeBaseUpdaters =
     let updateSliderMinMax _ (newValueOpt: struct (float * float) voption) (node: IViewNode) =
         let slider = node.Target :?> RangeBase
@@ -48,8 +43,10 @@ module RangeBase =
     let LargeChange =
         Attributes.defineAvaloniaPropertyWithEquality RangeBase.LargeChangeProperty
 
+    let Value = Attributes.defineAvaloniaPropertyWithEquality RangeBase.ValueProperty
+
     let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
+        Attributes.defineEvent<RangeBaseValueChangedEventArgs> "RangeBase_ValueChanged" (fun target -> (target :?> RangeBase).ValueChanged)
 
 [<Extension>]
 type RangeBaserModifiers =

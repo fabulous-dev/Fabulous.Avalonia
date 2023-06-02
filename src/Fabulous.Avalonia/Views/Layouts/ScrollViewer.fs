@@ -19,6 +19,9 @@ module ScrollViewer =
     let Offset =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.OffsetProperty
 
+    let BringIntoViewOnFocusChange =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.BringIntoViewOnFocusChangeProperty
+
     let HorizontalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.HorizontalScrollBarVisibilityProperty
 
@@ -115,3 +118,9 @@ type ScrollViewerModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabScrollViewer>, value: ViewRef<ScrollViewer>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type ScrollViewerAttachedModifiers =
+    [<Extension>]
+    static member inline bringIntoViewOnFocusChange(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+        this.AddScalar(ScrollViewer.BringIntoViewOnFocusChange.WithValue(value))
