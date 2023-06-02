@@ -2,19 +2,27 @@ namespace Gallery.Pages
 
 open System
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module CalendarDatePickerPage =
     type Model = { Date: DateTime option }
 
     type Msg = SelectedDateChanged of DateTime option
 
-    let init () = { Date = Some DateTime.Now }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Date = Some DateTime.Now }, []
 
     let update msg model =
         match msg with
-        | SelectedDateChanged dateTime -> { model with Date = dateTime }
+        | SelectedDateChanged dateTime -> { model with Date = dateTime }, []
 
     let startFromYesterday = DateTime.Today.Subtract(TimeSpan.FromDays(1.0))
 

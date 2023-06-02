@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Selection
 open Fabulous
+open Fabulous.StackAllocatedCollections
 
 type IFabListBox =
     inherit IFabSelectingItemsControl
@@ -28,6 +29,9 @@ module ListBoxBuilders =
             ) =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSource items template
 
+        static member ListBox() =
+            CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
+
 [<Extension>]
 type ListBoxModifiers =
     [<Extension>]
@@ -44,3 +48,21 @@ type ListBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabListBox>, value: ViewRef<ListBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type ListBoxCollectionBuilderExtensions =
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabListBoxItem>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>
+        (
+            _: CollectionBuilder<'msg, 'marker, IFabListBoxItem>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }

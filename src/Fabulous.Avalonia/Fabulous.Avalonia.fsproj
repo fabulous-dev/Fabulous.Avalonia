@@ -176,6 +176,8 @@
     <Compile Include="Views\Controls\Expander.fs" />
     <Compile Include="Views\Controls\AutoCompleteBox.fs" />
     <Compile Include="Views\MenuItems\MenuItem.fs" />
+    <Compile Include="Views\MenuItems\ListBoxItem.fs" />
+    <Compile Include="Views\MenuItems\ComboBoxItem.fs" />
     <Compile Include="Views\MenuItems\TabItem.fs" />
     <Compile Include="Views\Menu\Flyout.fs" />
     <Compile Include="Views\Menu\Menu.fs" />

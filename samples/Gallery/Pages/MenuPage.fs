@@ -3,19 +3,27 @@ namespace Gallery.Pages
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module MenuPage =
     type Model = { IsChecked: bool }
 
     type Msg = ValueChanged of bool
 
-    let init () = { IsChecked = false }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { IsChecked = false }, []
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }
+        | ValueChanged value -> { model with IsChecked = value }, []
 
     let view model =
         VStack(4.) {

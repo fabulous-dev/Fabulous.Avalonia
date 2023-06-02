@@ -2,8 +2,10 @@ namespace Gallery.Pages
 
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ToggleButtonPage =
     type Model =
@@ -23,6 +25,12 @@ module ToggleButtonPage =
         | ThreeStateChanged3 of bool option
         | ThreeStateChanged4 of bool option
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { Text1 = "Unchecked"
           Value1 = false
@@ -31,7 +39,8 @@ module ToggleButtonPage =
           Text3 = "Toggle me"
           Value3 = Some false
           Text4 = "Toggle me"
-          Value4 = Some false }
+          Value4 = Some false },
+        []
 
     let update msg model =
         match msg with
@@ -41,7 +50,7 @@ module ToggleButtonPage =
                 | true -> "Checked"
                 | false -> "Unchecked"
 
-            { model with Value1 = b; Text1 = text }
+            { model with Value1 = b; Text1 = text }, []
 
         | CheckedChanged2 b ->
             let text =
@@ -49,7 +58,7 @@ module ToggleButtonPage =
                 | true -> "Checked"
                 | false -> "Unchecked"
 
-            { model with Value2 = b; Text2 = text }
+            { model with Value2 = b; Text2 = text }, []
 
         | ThreeStateChanged3 b ->
             let text =
@@ -58,7 +67,7 @@ module ToggleButtonPage =
                 | Some false -> "Unchecked"
                 | None -> "Intermediary"
 
-            { model with Value3 = b; Text3 = text }
+            { model with Value3 = b; Text3 = text }, []
 
         | ThreeStateChanged4 b ->
             let text =
@@ -67,7 +76,7 @@ module ToggleButtonPage =
                 | Some false -> "Unchecked"
                 | None -> "Intermediary"
 
-            { model with Value4 = b; Text4 = text }
+            { model with Value4 = b; Text4 = text }, []
 
     let view model =
         VStack(spacing = 15.) {

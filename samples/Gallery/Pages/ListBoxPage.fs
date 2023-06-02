@@ -5,8 +5,10 @@ open System.Collections.ObjectModel
 open Avalonia.Controls
 open Avalonia.Controls.Selection
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ListBoxPage =
     type ItemModel =
@@ -35,6 +37,12 @@ module ListBoxPage =
         | RemoveItem
         | SelectRandomItem
 
+    type CmdMsg = | NoCmdMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoCmdMsg -> Cmd.none
+
     let init () =
         { Multiple = false
           Toggle = false
@@ -44,7 +52,8 @@ module ListBoxPage =
           WrappedSelection = false
           Selection = SelectionModel<ItemModel>()
           SelectedIndex = 0
-          SelectionMode = SelectionMode.Single }
+          SelectionMode = SelectionMode.Single },
+        []
 
     let update (msg: Msg) model =
         match msg with
@@ -57,7 +66,8 @@ module ListBoxPage =
 
             { model with
                 SelectionMode = value
-                Multiple = m }
+                Multiple = m },
+            []
         | ToggleChanged b ->
             let value =
                 if b then SelectionMode.Multiple
@@ -67,7 +77,8 @@ module ListBoxPage =
 
             { model with
                 SelectionMode = value
-                Toggle = b }
+                Toggle = b },
+            []
         | AlwaysSelectedChanged b ->
             let value =
                 if b then SelectionMode.Multiple
@@ -77,14 +88,16 @@ module ListBoxPage =
 
             { model with
                 SelectionMode = value
-                AlwaysSelected = b }
+                AlwaysSelected = b },
+            []
         | AutoScrollToSelectedItemChanged b ->
             { model with
-                AutoScrollToSelectedItem = b }
-        | WrappedSelectionChanged b -> { model with WrappedSelection = b }
+                AutoScrollToSelectedItem = b },
+            []
+        | WrappedSelectionChanged b -> { model with WrappedSelection = b }, []
         | AddItem ->
             model.Items.Add({ ID = model.Items.Count + 1 })
-            { model with Items = model.Items }
+            { model with Items = model.Items }, []
 
         | RemoveItem ->
             let items = model.Selection.SelectedItems
@@ -92,12 +105,12 @@ module ListBoxPage =
             for item in items do
                 model.Items.Remove(item) |> ignore
 
-            { model with Items = model.Items }
+            { model with Items = model.Items }, []
 
         | SelectRandomItem ->
             let random = Random()
             let index = random.Next(0, model.Items.Count - 1)
-            { model with SelectedIndex = index }
+            { model with SelectedIndex = index }, []
 
 
     let view model =

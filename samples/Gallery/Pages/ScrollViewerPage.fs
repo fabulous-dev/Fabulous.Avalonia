@@ -5,8 +5,10 @@ open Avalonia.Controls.Primitives
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ScrollViewerPage =
     type Model =
@@ -32,6 +34,12 @@ module ScrollViewerPage =
         | SnapPointsAlignmentSelectionChanged of SelectionChangedEventArgs
         | AreSnapPointsRegularChanged of bool
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { AllowAutoHide = false
           EnableInertia = false
@@ -44,12 +52,13 @@ module ScrollViewerPage =
           HorizontalSnapPointsType = SnapPointsType.None
           VerticalSnapPointsAlignment = SnapPointsAlignment.Near
           HorizontalSnapPointsAlignment = SnapPointsAlignment.Near
-          AreSnapPointsRegular = false }
+          AreSnapPointsRegular = false },
+        []
 
     let update msg model =
         match msg with
-        | AllowAutoHideChanged b -> { model with AllowAutoHide = b }
-        | EnableInertiaChanged b -> { model with EnableInertia = b }
+        | AllowAutoHideChanged b -> { model with AllowAutoHide = b }, []
+        | EnableInertiaChanged b -> { model with EnableInertia = b }, []
         | VerticalSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let index = control.SelectedIndex
@@ -64,7 +73,8 @@ module ScrollViewerPage =
                 | _ -> ScrollBarVisibility.Auto
 
             { model with
-                VerticalScrollBarVisibility = scrollBarVisibility }
+                VerticalScrollBarVisibility = scrollBarVisibility },
+            []
 
         | HorizontalSelectionChanged args ->
             let control = args.Source :?> ComboBox
@@ -80,7 +90,8 @@ module ScrollViewerPage =
                 | _ -> ScrollBarVisibility.Auto
 
             { model with
-                HorizontalScrollBarVisibility = scrollBarVisibility }
+                HorizontalScrollBarVisibility = scrollBarVisibility },
+            []
 
         | SnapPointsTypeSelectionChanged args ->
             let control = args.Source :?> ComboBox
@@ -96,7 +107,8 @@ module ScrollViewerPage =
 
             { model with
                 VerticalSnapPointsType = snapPointsType
-                HorizontalSnapPointsType = snapPointsType }
+                HorizontalSnapPointsType = snapPointsType },
+            []
 
         | SnapPointsAlignmentSelectionChanged args ->
             let control = args.Source :?> ComboBox
@@ -112,10 +124,10 @@ module ScrollViewerPage =
 
             { model with
                 VerticalSnapPointsAlignment = snapPointsAlignment
-                HorizontalSnapPointsAlignment = snapPointsAlignment }
+                HorizontalSnapPointsAlignment = snapPointsAlignment },
+            []
 
-        | AreSnapPointsRegularChanged b -> { model with AreSnapPointsRegular = b }
-
+        | AreSnapPointsRegularChanged b -> { model with AreSnapPointsRegular = b }, []
 
     let view model =
         TabControl() {

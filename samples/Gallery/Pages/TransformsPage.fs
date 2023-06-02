@@ -7,6 +7,7 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TransformsPage =
     type Model =
@@ -25,6 +26,12 @@ module TransformsPage =
         | AngleYChanged of float
         | AngleZChanged of float
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
 
     let init () =
         { CenterX = 0.
@@ -32,16 +39,17 @@ module TransformsPage =
           CenterZ = 0.
           AngleX = 0.
           AngleY = 0.
-          AngleZ = 0. }
+          AngleZ = 0. },
+        []
 
     let update msg model =
         match msg with
-        | CenterXChanged value -> { model with CenterX = value }
-        | CenterYChanged value -> { model with CenterY = value }
-        | CenterZChanged value -> { model with CenterZ = value }
-        | AngleXChanged value -> { model with AngleX = value }
-        | AngleYChanged value -> { model with AngleY = value }
-        | AngleZChanged value -> { model with AngleZ = value }
+        | CenterXChanged value -> { model with CenterX = value }, []
+        | CenterYChanged value -> { model with CenterY = value }, []
+        | CenterZChanged value -> { model with CenterZ = value }, []
+        | AngleXChanged value -> { model with AngleX = value }, []
+        | AngleYChanged value -> { model with AngleY = value }, []
+        | AngleZChanged value -> { model with AngleZ = value }, []
 
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this

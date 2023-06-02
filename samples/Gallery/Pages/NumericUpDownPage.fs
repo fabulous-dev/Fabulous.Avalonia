@@ -7,9 +7,11 @@ open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 open Avalonia.Data.Converters
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module NumericUpDownPage =
     type FormatObject = { Value: string; Name: string }
@@ -49,6 +51,11 @@ module NumericUpDownPage =
         | CultureSelectionChanged of SelectionChangedEventArgs
         | SelectedFormatChanged of SelectionChangedEventArgs
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
 
     let init () =
         { MinValue = Some(1.)
@@ -78,35 +85,37 @@ module NumericUpDownPage =
           DoubleValue = None
           Value = None
           NumberFormat = CultureInfo.CurrentCulture.NumberFormat
-          SelectedFormat = { Name = "Currency"; Value = "C2" } }
+          SelectedFormat = { Name = "Currency"; Value = "C2" } },
+        []
 
     let update msg model =
         match msg with
-        | ShowButtonSpinnerValueChanged args -> { model with ShowButtonSpinner = args }
-        | IsReadOnlyValueChanged args -> { model with IsReadOnly = args }
-        | AllowSpinValueChanged args -> { model with AllowSpin = args }
-        | ClipValueToMinMaxValueChanged args -> { model with ClipValueToMinMax = args }
-        | WatermarkTextChanged s -> { model with Watermark = s }
-        | TextChanged s -> { model with Text = s }
-        | MinimumValueChanged min -> { model with MinValue = Some min.Value }
-        | MaximumValueChanged max -> { model with MaxValue = Some max.Value }
-        | IncrementValueChanged inc -> { model with IncrementValue = inc }
-        | DecimalValueChanged value -> { model with DecimalValue = value }
+        | ShowButtonSpinnerValueChanged args -> { model with ShowButtonSpinner = args }, []
+        | IsReadOnlyValueChanged args -> { model with IsReadOnly = args }, []
+        | AllowSpinValueChanged args -> { model with AllowSpin = args }, []
+        | ClipValueToMinMaxValueChanged args -> { model with ClipValueToMinMax = args }, []
+        | WatermarkTextChanged s -> { model with Watermark = s }, []
+        | TextChanged s -> { model with Text = s }, []
+        | MinimumValueChanged min -> { model with MinValue = Some min.Value }, []
+        | MaximumValueChanged max -> { model with MaxValue = Some max.Value }, []
+        | IncrementValueChanged inc -> { model with IncrementValue = inc }, []
+        | DecimalValueChanged value -> { model with DecimalValue = value }, []
         | CultureSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let culture = model.Cultures.[control.SelectedIndex]
 
             { model with
-                NumberFormat = culture.NumberFormat }
+                NumberFormat = culture.NumberFormat },
+            []
 
         | SelectedFormatChanged args ->
             let control = args.Source :?> ComboBox
             let format = model.Formats.[control.SelectedIndex]
-            { model with SelectedFormat = format }
+            { model with SelectedFormat = format }, []
 
-        | DoubleValueChanged value -> { model with DoubleValue = value }
+        | DoubleValueChanged value -> { model with DoubleValue = value }, []
 
-        | ValueChanged value -> { model with Value = value }
+        | ValueChanged value -> { model with Value = value }, []
 
     let cultureConverter () =
         { new IValueConverter with

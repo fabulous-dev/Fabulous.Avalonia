@@ -7,8 +7,10 @@ open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module PageTransitionsPage =
     type DataType =
@@ -26,6 +28,12 @@ module PageTransitionsPage =
         | Previous
         | TransitionChanged of SelectionChangedEventArgs
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { Transition = PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
           SampleData =
@@ -38,7 +46,8 @@ module PageTransitionsPage =
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
                 Image = "github-icon" } ]
-          Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] }
+          Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] },
+        []
 
     let carouselController = CarouselController()
 
@@ -46,10 +55,10 @@ module PageTransitionsPage =
         match msg with
         | Next ->
             carouselController.DoNext()
-            model
+            model, []
         | Previous ->
             carouselController.DoPrevious()
-            model
+            model, []
 
         | TransitionChanged selection ->
             let control = selection.Source :?> ComboBox
@@ -73,7 +82,7 @@ module PageTransitionsPage =
 
                 | _ -> PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
 
-            { model with Transition = transition }
+            { model with Transition = transition }, []
 
     let view model =
         VStack(16.) {

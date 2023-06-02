@@ -1,19 +1,27 @@
 namespace Gallery.Pages
 
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module PathIconPage =
     type Model = { Nothing: bool }
 
     type Msg = | DoNothing
 
-    let init () = { Nothing = true }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Nothing = true }, []
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let view _ =
         VStack(spacing = 15.) {

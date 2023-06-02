@@ -3,8 +3,10 @@ namespace Gallery.Pages
 open Avalonia.Media
 open Avalonia.Layout
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module StackPanelPage =
     type Model =
@@ -15,13 +17,19 @@ module StackPanelPage =
         | Reverse of bool
         | SetSpacing of float option
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
-        { Reversed = true; Spacing = Some(50.) }
+        { Reversed = true; Spacing = Some(50.) }, []
 
     let update msg model =
         match msg with
-        | Reverse reversed -> { model with Reversed = reversed }
-        | SetSpacing spacing -> { model with Spacing = spacing }
+        | Reverse reversed -> { model with Reversed = reversed }, []
+        | SetSpacing spacing -> { model with Spacing = spacing }, []
 
     let view model =
         (VStack(15.) {

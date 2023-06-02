@@ -3,8 +3,10 @@ namespace Gallery.Pages
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ToggleSplitButtonPage =
     type Model =
@@ -20,19 +22,26 @@ module ToggleSplitButtonPage =
         | CheckedChanged of bool
         | CheckedChanged2 of bool
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { Count = 0
           IsChecked = false
-          IsChecked2 = false }
+          IsChecked2 = false },
+        []
 
     let update msg model =
         match msg with
-        | Clicked -> model
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-        | Reset -> { model with Count = 0 }
-        | CheckedChanged b -> { model with IsChecked = b }
-        | CheckedChanged2 b -> { model with IsChecked2 = b }
+        | Clicked -> model, []
+        | Increment -> { model with Count = model.Count + 1 }, []
+        | Decrement -> { model with Count = model.Count - 1 }, []
+        | Reset -> { model with Count = 0 }, []
+        | CheckedChanged b -> { model with IsChecked = b }, []
+        | CheckedChanged2 b -> { model with IsChecked2 = b }, []
 
     let menu () =
         Flyout(

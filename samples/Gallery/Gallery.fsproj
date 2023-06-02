@@ -29,6 +29,7 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Views\CustomNotificationView.fs" />
+    <Compile Include="NavigationTypes.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\Animations\Animations1.fs" />
@@ -54,7 +55,6 @@
     <Compile Include="Pages\DrawingPage.fs" />
     <Compile Include="Pages\ExpanderPage.fs" />
     <Compile Include="Pages\FlyoutPage.fs" />
-    <Compile Include="Pages\FormattedTextControlPage.fs" />
     <Compile Include="Pages\GesturesPage.fs" />
     <Compile Include="Pages\GeometriesPage.fs" />
     <Compile Include="Pages\GlyphRunControlPage.fs" />
@@ -112,13 +112,12 @@
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />
     <Compile Include="Pages\ViewBoxPage.fs" />
-    <Compile Include="Pages\Types.fs" />
-    <Compile Include="Pages\State.fs" />
-    <Compile Include="Pages\View.fs" />
+    <Compile Include="Root\NaviagtionState.fs" />
     <Compile Include="Root\Types.fs" />
     <Compile Include="Root\State.fs" />
     <Compile Include="Root\MainWindow.fs" />
     <Compile Include="Root\MainView.fs" />
+    <Compile Include="Root\View.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   

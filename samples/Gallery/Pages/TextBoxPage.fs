@@ -3,8 +3,10 @@ namespace Gallery.Pages
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TextBoxPage =
     type Model =
@@ -15,14 +17,21 @@ module TextBoxPage =
         | SingleLineTextChanged of string
         | MultiLineTextChanged of string
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { SingleLineText = ""
-          MultiLineText = "" }
+          MultiLineText = "" },
+        []
 
     let update msg model =
         match msg with
-        | SingleLineTextChanged text -> { model with SingleLineText = text }
-        | MultiLineTextChanged text -> { model with MultiLineText = text }
+        | SingleLineTextChanged text -> { model with SingleLineText = text }, []
+        | MultiLineTextChanged text -> { model with MultiLineText = text }, []
 
     let view model =
         VStack(spacing = 15) {

@@ -5,8 +5,10 @@ open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ClippingPage =
     type Model = { IsChecked: bool; BrushColor: IBrush }
@@ -16,19 +18,28 @@ module ClippingPage =
         | OnPointerExited of PointerEventArgs
         | CheckChanged of bool
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { IsChecked = false
-          BrushColor = Brushes.Yellow }
+          BrushColor = Brushes.Yellow },
+        []
 
     let update msg model =
         match msg with
         | OnPointerEnter _ ->
             { model with
-                BrushColor = Brushes.Crimson }
+                BrushColor = Brushes.Crimson },
+            []
         | OnPointerExited _ ->
             { model with
-                BrushColor = Brushes.Yellow }
-        | CheckChanged isChecked -> { model with IsChecked = isChecked }
+                BrushColor = Brushes.Yellow },
+            []
+        | CheckChanged isChecked -> { model with IsChecked = isChecked }, []
 
     let clip =
         """

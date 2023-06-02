@@ -3,8 +3,10 @@ namespace Gallery.Pages
 open System.ComponentModel
 open Avalonia.Input
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ContextMenuPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -16,15 +18,21 @@ module ContextMenuPage =
         | ContextMenuClosing of CancelEventArgs
         | ValueChanged of bool
 
-    let init () = { Counter = 0; IsChecked = false }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Counter = 0; IsChecked = false }, []
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }
-        | ContextMenuOpening _ -> model
-        | ContextMenuClosing _ -> model
-        | MenuOpened _ -> model
-        | MenuClosed _ -> model
+        | ValueChanged value -> { model with IsChecked = value }, []
+        | ContextMenuOpening _ -> model, []
+        | ContextMenuClosing _ -> model, []
+        | MenuOpened _ -> model, []
+        | MenuClosed _ -> model, []
 
     let view model =
         VStack(spacing = 15.) {

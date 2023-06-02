@@ -2,8 +2,10 @@ namespace Gallery.Pages
 
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ViewBoxPage =
     type Model = { Width: float; Height: float }
@@ -12,12 +14,18 @@ module ViewBoxPage =
         | HeightChanged of float
         | WidthChanged of float
 
-    let init () = { Width = 300.; Height = 300. }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Width = 300.; Height = 300. }, []
 
     let update msg model =
         match msg with
-        | HeightChanged height -> { model with Height = height }
-        | WidthChanged width -> { model with Width = width }
+        | HeightChanged height -> { model with Height = height }, []
+        | WidthChanged width -> { model with Width = width }, []
 
     let view model =
         Grid(coldefs = [ Pixel(300.); Star ], rowdefs = [ Pixel(300.) ]) {

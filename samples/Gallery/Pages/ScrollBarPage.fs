@@ -4,8 +4,10 @@ open Avalonia.Controls.Primitives
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ScrollBarPage =
     type Model = { ScrollValue: float }
@@ -14,12 +16,18 @@ module ScrollBarPage =
         | ValueChanged of float
         | ScrollBarChanged of ScrollEventArgs
 
-    let init () = { ScrollValue = 0.0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { ScrollValue = 0.0 }, []
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with ScrollValue = value }
-        | ScrollBarChanged _ -> model
+        | ValueChanged value -> { model with ScrollValue = value }, []
+        | ScrollBarChanged _ -> model, []
 
     let view model =
         VStack(spacing = 15.) {

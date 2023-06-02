@@ -7,6 +7,7 @@ open Avalonia.Controls
 open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
+open Gallery
 
 [<RequireQualifiedAccess>]
 module LineBoundsHelper =
@@ -132,11 +133,17 @@ module LineBoundsDemoControlPage =
 
     type Msg = | Nothing
 
-    let init () = { Nothing = 0. }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Nothing = 0. }, []
 
     let update msg model =
         match msg with
-        | Nothing -> model
+        | Nothing -> model, []
 
     let view _ =
         Grid() { LineBoundsDemoControl(45.).centerHorizontal() }

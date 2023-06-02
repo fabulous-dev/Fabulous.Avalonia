@@ -1,13 +1,14 @@
 namespace Gallery.Root
 
-
-open Fabulous
 open Fabulous.Avalonia
-open Gallery
 open Types
 
 open type Fabulous.Avalonia.View
 
 module MainView =
     let view (model: Model) =
-        SingleViewApplication(Grid() { View.map PageMsg (Pages.View.view model.PageModel) })
+        SingleViewApplication(
+            (Grid() { ScrollViewer(NavigationState.view SubpageMsg model.Navigation.CurrentPage) })
+                .margin(0., model.SafeAreaInsets, 0., 0.)
+                .onLoaded(OnLoaded)
+        )

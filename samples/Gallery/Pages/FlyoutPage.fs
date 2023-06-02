@@ -8,8 +8,10 @@ open Avalonia.Interactivity
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module FlyoutPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -24,7 +26,13 @@ module FlyoutPage =
         | Reset
         | OnTapped of RoutedEventArgs
 
-    let init () = { Counter = 0; IsChecked = false }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Counter = 0; IsChecked = false }, []
 
     let update msg model =
         match msg with
@@ -32,19 +40,21 @@ module FlyoutPage =
             match args.Source with
             | :? Panel as control ->
                 FlyoutBase.ShowAttachedFlyout(control)
-                model
-            | _ -> model
-        | MenuOpening _ -> model
-        | MenuClosing _ -> model
+                model, []
+            | _ -> model, []
+        | MenuOpening _ -> model, []
+        | MenuClosing _ -> model, []
         | Increment ->
             { model with
-                Counter = model.Counter + 1 }
+                Counter = model.Counter + 1 },
+            []
         | Decrement ->
             { model with
-                Counter = model.Counter - 1 }
-        | Reset -> { model with Counter = 0 }
-        | Opened -> model
-        | Closed -> model
+                Counter = model.Counter - 1 },
+            []
+        | Reset -> { model with Counter = 0 }, []
+        | Opened -> model, []
+        | Closed -> model, []
 
     let sharedMenuFlyout openMsg closeMsg =
         (MenuFlyout() {

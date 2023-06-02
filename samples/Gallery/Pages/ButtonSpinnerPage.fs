@@ -3,15 +3,23 @@ namespace Gallery.Pages
 open System
 open Avalonia.Controls
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ButtonSpinnerPage =
     type Model = { Count: int }
 
     type Msg = Increment of SpinEventArgs
 
-    let init () = { Count = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Count = 0 }, []
 
     let update msg model =
         match msg with
@@ -21,7 +29,7 @@ module ButtonSpinnerPage =
             let currentSpinValue = spinner.Content :?> string
 
             let mutable currentValue =
-                if System.String.IsNullOrEmpty(currentSpinValue) then
+                if String.IsNullOrEmpty(currentSpinValue) then
                     0
                 else
                     Convert.ToInt32(currentSpinValue)
@@ -33,9 +41,9 @@ module ButtonSpinnerPage =
 
             spinner.Content <- currentValue.ToString()
 
-            { model with Count = model.Count + 1 }
+            { model with Count = model.Count + 1 }, []
 
-    let view model =
+    let view _ =
         VStack(spacing = 15.) {
             TextBlock("Button spinner")
 

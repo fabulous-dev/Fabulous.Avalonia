@@ -2,19 +2,27 @@ namespace Gallery.Pages
 
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module SelectableTextBlockPage =
     type Model = { Text: string }
 
     type Msg = CopyingToClipboard of string
 
-    let init () = { Text = "" }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Text = "" }, []
 
     let update msg model =
         match msg with
-        | CopyingToClipboard s -> { model with Text = s }
+        | CopyingToClipboard s -> { model with Text = s }, []
 
     let view model =
         VStack(spacing = 15.) {
@@ -42,7 +50,7 @@ module SelectableTextBlockPage =
 
                     Run(" with ")
 
-                    Span() { Run("several").textDecorations() { TextDecoration(TextDecorationLocation.Underline) } }
+                    Span() { Run("several").textDecoration(TextDecoration(TextDecorationLocation.Underline)) }
 
                     Span() { Run("Span").fontStyle(FontStyle.Italic) }
 

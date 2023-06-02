@@ -1,8 +1,10 @@
 namespace Gallery.Pages
 
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ToggleSwitchPage =
     type Model =
@@ -15,14 +17,21 @@ module ToggleSwitchPage =
         | ValueChanged1 of bool option
         | IntermediaryChanged
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { Value1 = false
           Value2 = Some false
-          Text2 = "Toggle me" }
+          Text2 = "Toggle me" },
+        []
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with Value1 = value }
+        | ValueChanged value -> { model with Value1 = value }, []
         | ValueChanged1 value ->
             let text =
                 match value with
@@ -32,8 +41,9 @@ module ToggleSwitchPage =
 
             { model with
                 Value2 = value
-                Text2 = text }
-        | IntermediaryChanged -> model
+                Text2 = text },
+            []
+        | IntermediaryChanged -> model, []
 
     let view model =
         VStack(spacing = 15.) {

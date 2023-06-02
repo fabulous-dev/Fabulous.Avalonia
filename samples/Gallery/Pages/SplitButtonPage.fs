@@ -5,13 +5,21 @@ open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module SplitButtonPage =
     type Model = { Colors: Color list }
 
     type Msg = | Clicked
+
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
 
     let init () =
         { Colors =
@@ -33,11 +41,12 @@ module SplitButtonPage =
               Colors.Black
               Colors.Red
               Colors.Bisque
-              Colors.White ] }
+              Colors.White ] },
+        []
 
     let update msg model =
         match msg with
-        | Clicked -> model
+        | Clicked -> model, []
 
     let menuFlyout () =
         (MenuFlyout() {

@@ -1,15 +1,13 @@
 namespace Gallery.Pages
 
-open System.Drawing
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Layout
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module LabelPage =
     type Model =
@@ -24,22 +22,30 @@ module LabelPage =
         | DoSave
         | DoCancel
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { FirstName = ""
           LastName = ""
-          IsBanned = false }
+          IsBanned = false },
+        []
 
     let update msg model =
         match msg with
-        | FirstNameChanged s -> { model with FirstName = s }
-        | LastNameChanged s -> { model with LastName = s }
-        | BannedChanged b -> { model with IsBanned = b }
-        | DoSave -> model
+        | FirstNameChanged s -> { model with FirstName = s }, []
+        | LastNameChanged s -> { model with LastName = s }, []
+        | BannedChanged b -> { model with IsBanned = b }, []
+        | DoSave -> model, []
         | DoCancel ->
             { model with
                 FirstName = "John"
                 LastName = "Doe"
-                IsBanned = true }
+                IsBanned = true },
+            []
 
     let labelStyle (this: WidgetBuilder<'msg, IFabLabel>) =
         this.verticalAlignment(VerticalAlignment.Center).margin(6., 3., 0., 3.)

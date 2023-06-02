@@ -4,8 +4,10 @@ open System
 open Avalonia.Animation
 open Avalonia.Controls
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module ExpanderPage =
     type Model = { IsExpanded: bool }
@@ -15,13 +17,19 @@ module ExpanderPage =
         | Expanding
         | Collapsing
 
-    let init () = { IsExpanded = true }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { IsExpanded = true }, []
 
     let update msg model =
         match msg with
-        | ExpandChanged b -> { model with IsExpanded = b }
-        | Expanding -> model
-        | Collapsing -> model
+        | ExpandChanged b -> { model with IsExpanded = b }, []
+        | Expanding -> model, []
+        | Collapsing -> model, []
 
     let view model =
         VStack(spacing = 15.) {

@@ -1,16 +1,100 @@
 namespace Gallery.Root
 
+open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
-open Fabulous
 open Fabulous.Avalonia
 open Gallery
-open Avalonia.Controls
 open Types
 
 open type Fabulous.Avalonia.View
 
 module MainWindow =
+    let buttonSpinnerHeader (model: Model) =
+        ScrollViewer(
+            VStack(16.) {
+                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    .size(100., 100.)
+
+                TextBlock("Fabulous Gallery").centerHorizontal()
+
+                (ListBox() {
+                    ListBoxItem("AcrylicPage", true)
+                    ListBoxItem("AdornerLayerPage")
+                    ListBoxItem("AutoCompleteBoxPage")
+                    ListBoxItem("AnimationsPage")
+                    ListBoxItem("ButtonsPage")
+                    ListBoxItem("BrushesPage")
+                    ListBoxItem("ButtonSpinnerPage")
+                    ListBoxItem("BorderPage")
+                    ListBoxItem("CalendarPage")
+                    ListBoxItem("CalendarDatePickerPage")
+                    ListBoxItem("CanvasPage")
+                    ListBoxItem("CheckBoxPage")
+                    ListBoxItem("CarouselPage")
+                    ListBoxItem("ComboBoxPage")
+                    ListBoxItem("ContextMenuPage")
+                    ListBoxItem("ContextFlyoutPage")
+                    ListBoxItem("ClippingPage")
+                    ListBoxItem("DockPanelPage")
+                    ListBoxItem("DropDownButtonPage")
+                    ListBoxItem("DrawingPage")
+                    ListBoxItem("ExpanderPage")
+                    ListBoxItem("FlyoutPage")
+                    ListBoxItem("GesturesPage")
+                    ListBoxItem("GeometriesPage")
+                    ListBoxItem("GlyphRunControlPage")
+                    ListBoxItem("GridPage")
+                    ListBoxItem("GridSplitterPage")
+                    ListBoxItem("ImagePage")
+                    ListBoxItem("LabelPage")
+                    ListBoxItem("LayoutTransformControlPage")
+                    ListBoxItem("LineBoundsDemoControlPage")
+                    ListBoxItem("ListBoxPage")
+                    ListBoxItem("MenuFlyoutPage")
+                    ListBoxItem("MaskedTextBoxPage")
+                    ListBoxItem("MenuPage")
+                    ListBoxItem("NumericUpDownPage")
+                    ListBoxItem("NotificationsPage")
+                    ListBoxItem("ProgressBarPage")
+                    ListBoxItem("PanelPage")
+                    ListBoxItem("PathIconPage")
+                    ListBoxItem("PopupPage")
+                    ListBoxItem("PageTransitionsPage")
+                    ListBoxItem("RepeatButtonPage")
+                    ListBoxItem("RadioButtonPage")
+                    ListBoxItem("RefreshContainerPage")
+                    ListBoxItem("SelectableTextBlockPage")
+                    ListBoxItem("SplitButtonPage")
+                    ListBoxItem("SliderPage")
+                    ListBoxItem("ShapesPage")
+                    ListBoxItem("ScrollBarPage")
+                    ListBoxItem("SplitViewPage")
+                    ListBoxItem("StackPanelPage")
+                    ListBoxItem("ScrollViewerPage")
+                    ListBoxItem("ToggleSplitButtonPage")
+                    ListBoxItem("TextBlockPage")
+                    ListBoxItem("TextBoxPage")
+                    ListBoxItem("TickBarPage")
+                    ListBoxItem("ToggleSwitchPage")
+                    ListBoxItem("ToggleButtonPage")
+                    ListBoxItem("ToolTipPage")
+                    ListBoxItem("TabControlPage")
+                    ListBoxItem("TabStripPage")
+                    ListBoxItem("TransitionsPage")
+                    ListBoxItem("TransformsPage")
+                    ListBoxItem("ThemeAwarePage")
+                    ListBoxItem("UniformGridPage")
+                    ListBoxItem("ViewBoxPage")
+                })
+                    .selectionMode(SelectionMode.Single)
+                    .onSelectionChanged(OnSelectionChanged)
+            }
+        )
+            .padding(0., model.SafeAreaInsets, 0., 0.)
+
+    let hamburgerMenuIcon () =
+        Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
 
     let createMenu model =
         NativeMenu() {
@@ -27,7 +111,8 @@ module MainWindow =
                 )
         }
 
-    let trayIcons () =
+
+    let trayIcon () =
         TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
             .menu(
                 NativeMenu() {
@@ -59,29 +144,15 @@ module MainWindow =
                 }
             )
 
-    let buttonSpinnerHeader (model: Model) =
-        ScrollViewer(
-            VStack(16.) {
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .size(100., 100.)
-
-                TextBlock("Fabulous Gallery").centerHorizontal()
-
-                ListBox(model.Pages, (fun x -> TextBlock(x)))
-                    .selectionMode(SelectionMode.Single)
-                    .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
-            }
-        )
-            .padding(0., model.SafeAreaInsets, 0., 0.)
-
-    let hamburgerMenuIcon () =
-        Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
-
     let view (model: Model) =
         DesktopApplication(
             Window(
-                Grid() {
-                    let content = View.map PageMsg (Pages.View.view model.PageModel)
+                (Grid() {
+                    let content =
+                        match model.Navigation.CurrentPage with
+                        // ScrollBarPageModel does not work when wrapped in a ScrollViewer
+                        | ScrollBarPageModel _ -> AnyView(NavigationState.view SubpageMsg model.Navigation.CurrentPage)
+                        | _ -> AnyView(ScrollViewer(NavigationState.view SubpageMsg model.Navigation.CurrentPage))
 
                     SplitView(buttonSpinnerHeader model, content)
                         .isPresented(model.IsPanOpen, OpenPanChanged)
@@ -92,10 +163,11 @@ module MainWindow =
                         .verticalAlignment(VerticalAlignment.Top)
                         .horizontalAlignment(HorizontalAlignment.Left)
                         .margin(4., model.SafeAreaInsets, 0., 0.)
-                }
+                })
+                    .onLoaded(OnLoaded)
             )
                 .background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
                 .menu(createMenu model)
         )
-            .trayIcon(trayIcons())
+            .trayIcon(trayIcon())

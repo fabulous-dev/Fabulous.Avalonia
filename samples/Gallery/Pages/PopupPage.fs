@@ -8,6 +8,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module PopupPage =
     type Model = { IsOpen: bool }
@@ -17,13 +18,19 @@ module PopupPage =
         | OnOpened
         | OnClosed
 
-    let init () = { IsOpen = false }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { IsOpen = false }, []
 
     let update msg model =
         match msg with
-        | OpenPopup -> { model with IsOpen = not model.IsOpen }
-        | OnOpened -> model
-        | OnClosed -> model
+        | OpenPopup -> { model with IsOpen = not model.IsOpen }, []
+        | OnOpened -> model, []
+        | OnClosed -> model, []
 
     let buttonRef = ViewRef<Button>()
 

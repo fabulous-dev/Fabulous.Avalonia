@@ -9,6 +9,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 // https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ControlCatalog/Pages/GesturePage.cs
 module GesturesPage =
@@ -16,13 +17,19 @@ module GesturesPage =
 
     type Msg = | Reset
 
-    let init () = { CurrentScale = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { CurrentScale = 0 }, []
 
     let topBallBorderRef = ViewRef<Border>()
 
     let update msg model =
         match msg with
-        | Reset -> model
+        | Reset -> model, []
 
     let view _ =
         VStack(spacing = 4.) {

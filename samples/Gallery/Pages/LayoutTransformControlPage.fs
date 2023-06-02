@@ -3,8 +3,10 @@ namespace Gallery.Pages
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module LayoutTransformControlPage =
     type Model =
@@ -12,11 +14,18 @@ module LayoutTransformControlPage =
 
     type Msg = SliderValueChanged of float
 
-    let init () = { Min = 0.; Max = 360.; Angle = 0. }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () =
+        { Min = 0.; Max = 360.; Angle = 0. }, []
 
     let update msg model =
         match msg with
-        | SliderValueChanged value -> { model with Angle = value }
+        | SliderValueChanged value -> { model with Angle = value }, []
 
     let view model =
         VStack(16.) {

@@ -5,17 +5,25 @@ open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous.Avalonia
+open Fabulous
 open Avalonia.Input
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module RefreshContainerPage =
     type Model = { Items: ObservableCollection<string> }
 
     type Msg = RefreshRequested of RefreshRequestedEventArgs
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
-        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }
+        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }, []
 
     let update msg model =
         match msg with
@@ -28,7 +36,7 @@ module RefreshContainerPage =
 
             deferral.Complete()
 
-            model
+            model, []
 
     let container model =
         ListBox(model.Items, (fun x -> TextBlock(x)))

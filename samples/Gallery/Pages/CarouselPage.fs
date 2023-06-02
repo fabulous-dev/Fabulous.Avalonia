@@ -1,14 +1,15 @@
 namespace Gallery.Pages
 
 open System
-open System.Collections
 open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module CarouselPage =
 
@@ -26,6 +27,12 @@ module CarouselPage =
         | Previous
         | SelectionChanged of SelectionChangedEventArgs
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { SampleData =
             [ { Name = "Fabulous"
@@ -37,7 +44,8 @@ module CarouselPage =
               { Name = "GitHib"
                 Desc = "GitHub is a web-based hosting service for version control using Git."
                 Image = "github-icon" } ]
-          SelectedIndex = 1 }
+          SelectedIndex = 1 },
+        []
 
     let carouselController = new CarouselController()
 
@@ -45,16 +53,17 @@ module CarouselPage =
         match msg with
         | Next ->
             carouselController.DoNext()
-            model
+            model, []
         | Previous ->
             carouselController.DoPrevious()
-            model
+            model, []
 
         | SelectionChanged args ->
             let control = args.Source :?> Carousel
 
             { model with
-                SelectedIndex = control.SelectedIndex }
+                SelectedIndex = control.SelectedIndex },
+            []
 
     let view model =
         (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {

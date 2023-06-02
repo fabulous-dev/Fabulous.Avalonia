@@ -2,8 +2,10 @@ namespace Gallery.Pages
 
 open Avalonia.Controls
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module TabControlPage =
     type Model =
@@ -13,10 +15,17 @@ module TabControlPage =
 
     type Msg = SelectedIndexChanged of int
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { TabPlacement = Dock.Top
           Placements = [ "Top"; "Bottom"; "Left"; "Right" ]
-          SelectedIndex = 0 }
+          SelectedIndex = 0 },
+        []
 
     let update msg model =
         match msg with
@@ -33,7 +42,8 @@ module TabControlPage =
 
             { model with
                 SelectedIndex = index
-                TabPlacement = dock }
+                TabPlacement = dock },
+            []
 
     let view model =
         Dock() {

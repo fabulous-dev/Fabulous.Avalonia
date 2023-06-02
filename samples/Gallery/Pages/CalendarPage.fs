@@ -3,19 +3,27 @@ namespace Gallery.Pages
 open System
 open Avalonia.Controls
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module CalendarPage =
     type Model = { Date1: DateTime option }
 
     type Msg = SelectedDateChanged of DateTime option
 
-    let init () = { Date1 = Some DateTime.Now }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Date1 = Some DateTime.Now }, []
 
     let update msg model =
         match msg with
-        | SelectedDateChanged dateTime -> { model with Date1 = dateTime }
+        | SelectedDateChanged dateTime -> { model with Date1 = dateTime }, []
 
     let startFromYesterday = DateTime.Today.Subtract(TimeSpan.FromDays(1.0))
 

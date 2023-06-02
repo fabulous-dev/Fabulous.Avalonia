@@ -2,8 +2,10 @@ namespace Gallery.Pages
 
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module CheckBoxPage =
     type Model =
@@ -16,16 +18,23 @@ module CheckBoxPage =
         | ValueChanged2 of bool
         | ValueChanged3 of bool option
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         { IsChecked1 = false
           IsChecked2 = true
-          IsChecked3 = Some false }
+          IsChecked3 = Some false },
+        []
 
     let update msg model =
         match msg with
-        | ValueChanged b -> { model with IsChecked1 = b }
-        | ValueChanged2 b -> { model with IsChecked2 = b }
-        | ValueChanged3 b -> { model with IsChecked3 = b }
+        | ValueChanged b -> { model with IsChecked1 = b }, []
+        | ValueChanged2 b -> { model with IsChecked2 = b }, []
+        | ValueChanged3 b -> { model with IsChecked3 = b }, []
 
     let view model =
         VStack(spacing = 15.) {

@@ -4,8 +4,10 @@ open Avalonia.Controls
 open Avalonia.Input
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module DropDownButtonPage =
     type Model = { Count: int }
@@ -17,15 +19,21 @@ module DropDownButtonPage =
         | Decrement
         | Reset
 
-    let init () = { Count = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Count = 0 }, []
 
     let update msg model =
         match msg with
-        | Clicked -> model
-        | Clicked2 -> model
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-        | Reset -> { model with Count = 0 }
+        | Clicked -> model, []
+        | Clicked2 -> model, []
+        | Increment -> { model with Count = model.Count + 1 }, []
+        | Decrement -> { model with Count = model.Count - 1 }, []
+        | Reset -> { model with Count = 0 }, []
 
 
     let view model =

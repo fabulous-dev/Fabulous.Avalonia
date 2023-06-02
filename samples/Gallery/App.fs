@@ -8,15 +8,8 @@ open Gallery
 open type Fabulous.Avalonia.View
 
 module App =
-
-#if MOBILE || BROWSER
-    let app model = Root.MainView.view model
-#else
-    let app model = Root.MainWindow.view model
-#endif
-
     let program =
-        Program.statefulWithCmd Root.State.init Root.State.update app
+        Program.statefulWithCmdMsg Root.State.init Root.State.update Root.View.view Root.State.mapCmdMsgToCmd
         |> Program.withThemeAwareness
 #if DEBUG
         |> Program.withLogger

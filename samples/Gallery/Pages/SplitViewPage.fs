@@ -4,19 +4,27 @@ open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module SplitViewPage =
     type Model = { IsOpen: bool }
 
     type Msg = | Open
 
-    let init () = { IsOpen = false }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { IsOpen = false }, []
 
     let update msg model =
         match msg with
-        | Open -> { model with IsOpen = not model.IsOpen }
+        | Open -> { model with IsOpen = not model.IsOpen }, []
 
     let view model =
         VStack() {

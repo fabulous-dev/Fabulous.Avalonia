@@ -3,8 +3,10 @@ namespace Gallery.Pages
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
+open Gallery
 
 module MenuFlyoutPage =
     type Model = { Counter: int }
@@ -13,14 +15,21 @@ module MenuFlyoutPage =
         | PressMe
         | Increment
 
-    let init () = { Counter = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Counter = 0 }, []
 
     let update msg model =
         match msg with
-        | PressMe -> model
+        | PressMe -> model, []
         | Increment ->
             { model with
-                Counter = model.Counter + 1 }
+                Counter = model.Counter + 1 },
+            []
 
 
     let view model =

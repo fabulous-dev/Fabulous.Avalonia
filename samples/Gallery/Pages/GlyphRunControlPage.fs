@@ -9,6 +9,7 @@ open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
+open Gallery
 
 type GlyphRunControl() =
     inherit Control()
@@ -132,11 +133,17 @@ module GlyphRunControlPage =
 
     type Msg = | DoNothing
 
-    let init () = { Nothing = true }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Nothing = true }, []
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
     let view _ =
         VStack(spacing = 15.) {
