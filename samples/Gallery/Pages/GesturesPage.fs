@@ -1,8 +1,6 @@
 namespace Gallery.Pages
 
 open Avalonia.Controls
-open Avalonia.Input
-open Avalonia.Input.GestureRecognizers
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
@@ -57,7 +55,6 @@ module GesturesPage =
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.TopToBottom) ])
 
                     Border(
                         Border()
@@ -77,7 +74,6 @@ module GesturesPage =
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.BottomToTop) ])
 
                     Border(
                         Border()
@@ -98,7 +94,6 @@ module GesturesPage =
                         .verticalAlignment(VerticalAlignment.Stretch)
                         .width(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.RightToLeft) ])
 
                     Border(
                         Border()
@@ -119,7 +114,6 @@ module GesturesPage =
                         .verticalAlignment(VerticalAlignment.Stretch)
                         .width(50.)
                         .borderThickness(1.)
-                        .gestureRecognizers([ PullGestureRecognizer(PullDirection.LeftToRight) ])
                 })
                     .horizontalAlignment(HorizontalAlignment.Stretch)
                     .clipToBounds(true)
@@ -135,7 +129,6 @@ module GesturesPage =
             Border(
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .size(100., 100.)
-                    .gestureRecognizers([ PinchGestureRecognizer(); ScrollGestureRecognizer() ])
             )
                 .clipToBounds(true)
 
