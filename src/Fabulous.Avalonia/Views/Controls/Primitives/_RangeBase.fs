@@ -43,8 +43,6 @@ module RangeBase =
     let LargeChange =
         Attributes.defineAvaloniaPropertyWithEquality RangeBase.LargeChangeProperty
 
-    let Value = Attributes.defineAvaloniaPropertyWithEquality RangeBase.ValueProperty
-
     let ValueChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
 
