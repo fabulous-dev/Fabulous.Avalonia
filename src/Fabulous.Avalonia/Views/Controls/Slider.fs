@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
@@ -48,16 +47,14 @@ module SliderBuilders =
         static member inline Slider<'msg>(value: float, onValueChanged: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
-                RangeBase.Value.WithValue(value),
-                RangeBase.ValueChanged.WithValue(fun args -> onValueChanged args.NewValue |> box)
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
             )
 
         static member inline Slider<'msg>(min: float, max: float, value: float, onValueChanged: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
-                RangeBase.Value.WithValue(value),
                 RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.ValueChanged.WithValue(fun args -> onValueChanged args.NewValue |> box)
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
             )
 
 [<Extension>]

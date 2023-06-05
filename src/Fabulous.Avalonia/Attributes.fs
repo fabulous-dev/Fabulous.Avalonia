@@ -4,7 +4,6 @@ open System
 open System.Collections
 open Avalonia
 open Avalonia.Collections
-open Avalonia.Controls
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 

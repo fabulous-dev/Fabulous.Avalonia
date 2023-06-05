@@ -46,7 +46,7 @@ module RangeBase =
     let Value = Attributes.defineAvaloniaPropertyWithEquality RangeBase.ValueProperty
 
     let ValueChanged =
-        Attributes.defineEvent<RangeBaseValueChangedEventArgs> "RangeBase_ValueChanged" (fun target -> (target :?> RangeBase).ValueChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
 
 [<Extension>]
 type RangeBaserModifiers =
