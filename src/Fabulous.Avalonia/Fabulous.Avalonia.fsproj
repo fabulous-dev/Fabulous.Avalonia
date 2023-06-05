@@ -234,7 +234,7 @@
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0" />
   </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop' And '$(IsBrowser)' == 'false'">
       <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0" />
   </ItemGroup>
 </Project>
