@@ -16,5 +16,5 @@ module ImageBrush =
 module ImageBrushBuilders =
     type Fabulous.Avalonia.View with
 
-        static member ImageBrush<'msg>(source: IBitmap) =
+        static member ImageBrush<'msg>(source: Bitmap) =
             WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(source))

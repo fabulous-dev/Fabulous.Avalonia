@@ -9,11 +9,6 @@ open Fabulous
 type IFabRangeBase =
     inherit IFabTemplatedControl
 
-type RangeBaseValueChangedEventArgs(oldValue: float, newValue: float) =
-    inherit EventArgs()
-    member val OldValue: float = oldValue
-    member val NewValue: float = newValue
-
 module RangeBaseUpdaters =
     let updateSliderMinMax _ (newValueOpt: struct (float * float) voption) (node: IViewNode) =
         let slider = node.Target :?> RangeBase

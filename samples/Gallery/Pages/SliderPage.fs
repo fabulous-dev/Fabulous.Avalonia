@@ -60,13 +60,18 @@ module SliderPage =
 
     let view model =
         VStack(spacing = 15.) {
+            TextBlock($"Slider value: {model.SliderValue1}")
             Slider(model.SliderValue1, ValueChanged1)
+
+            TextBlock($"Slider value: {model.SliderValue2}")
 
             Slider(0., 100., model.SliderValue2, ValueChanged2)
                 .tickPlacement(TickPlacement.BottomRight)
                 .isSnapToTickEnabled(true)
                 .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
                 .style(sliderStyle)
+
+            TextBlock($"Slider value: {model.SliderValue3}")
 
             Slider(0., 100., model.SliderValue3, ValueChanged3)
                 .tickPlacement(TickPlacement.BottomRight)
@@ -76,13 +81,19 @@ module SliderPage =
                 .tooltipPlacement(PlacementMode.Top)
                 .style(sliderStyle)
 
+            TextBlock($"Slider value: {model.SliderValue4}")
+
             Slider(0., 100., model.SliderValue4, ValueChanged4)
                 .dataValidationErrors([ Exception() ])
                 .style(sliderStyle)
 
+            TextBlock($"Slider value: {model.SliderValue5}")
+
             Slider(0., 100., model.SliderValue5, ValueChanged5)
                 .isDirectionReversed(true)
                 .style(sliderStyle)
+
+            TextBlock($"Slider value: {model.SliderValue6}")
 
             Slider(0., 100., model.SliderValue6, ValueChanged6)
                 .height(300.)
@@ -90,6 +101,8 @@ module SliderPage =
                 .tickPlacement(TickPlacement.Outside)
                 .isSnapToTickEnabled(true)
                 .style(sliderStyle)
+
+            TextBlock($"Slider value: {model.SliderValue7}")
 
             Slider(0., 100., model.SliderValue7, ValueChanged7)
                 .height(300.)

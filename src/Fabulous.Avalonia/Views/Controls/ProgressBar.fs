@@ -12,12 +12,6 @@ type IFabProgressBar =
 module ProgressBar =
     let WidgetKey = Widgets.register<ProgressBar>()
 
-    let IndeterminateEndingOffset =
-        Attributes.defineAvaloniaPropertyWithEquality ProgressBar.IndeterminateEndingOffsetProperty
-
-    let IndeterminateStartingOffset =
-        Attributes.defineAvaloniaPropertyWithEquality ProgressBar.IndeterminateStartingOffsetProperty
-
     let IsIndeterminate =
         Attributes.defineAvaloniaPropertyWithEquality ProgressBar.IsIndeterminateProperty
 
@@ -46,15 +40,6 @@ module ProgressBarBuilders =
 
 [<Extension>]
 type ProgressBarModifiers =
-
-    [<Extension>]
-    static member inline indeterminateEndingOffset(this: WidgetBuilder<'msg, #IFabProgressBar>, value: float) =
-        this.AddScalar(ProgressBar.IndeterminateEndingOffset.WithValue(value))
-
-    [<Extension>]
-    static member inline indeterminateStartingOffset(this: WidgetBuilder<'msg, #IFabProgressBar>, value: float) =
-        this.AddScalar(ProgressBar.IndeterminateStartingOffset.WithValue(value))
-
     [<Extension>]
     static member inline isIndeterminate(this: WidgetBuilder<'msg, #IFabProgressBar>, value: bool) =
         this.AddScalar(ProgressBar.IsIndeterminate.WithValue(value))

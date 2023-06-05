@@ -58,8 +58,8 @@ module ContextMenuPage =
                             MenuItem("Submenu _2")
                         }
                     })
-                        .onContextMenuOpening(ContextMenuOpening)
-                        .onContextMenuClosing(ContextMenuClosing)
+                        .onOpening(ContextMenuOpening)
+                        .onClosing(ContextMenuClosing)
                 )
 
             Border(TextBlock("A right click menu that can be applied to any control."))
@@ -81,7 +81,7 @@ module ContextMenuPage =
 
                         MenuItem("Menu Item that will close on click")
                     })
-                        .onMenuOpened(MenuOpened)
-                        .onMenuClosed(MenuClosed)
+                        .onOpened(MenuOpened)
+                        .onClosed(MenuClosed)
                 )
         }

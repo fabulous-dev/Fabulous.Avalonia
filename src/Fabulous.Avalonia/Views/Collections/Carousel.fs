@@ -52,8 +52,7 @@ type CustomCarousel() as this =
 
     member private this.CustomPrevious _ _ = this.Previous()
 
-    interface IStyleable with
-        member this.StyleKey = typeof<Carousel>
+    override this.StyleKeyOverride = typeof<Carousel>
 
 module Carousel =
     let WidgetKey = Widgets.register<CustomCarousel>()
