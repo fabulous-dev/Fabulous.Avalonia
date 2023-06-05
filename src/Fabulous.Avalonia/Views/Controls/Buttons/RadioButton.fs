@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -23,11 +22,7 @@ module RadioButtonBuilders =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.IsChecked.WithValue(isChecked),
-                ToggleButton.CheckedChanged.WithValue(fun args ->
-                    let control = args.Source :?> RadioButton
-                    let isChecked = Nullable.op_Explicit(control.IsChecked)
-                    onValueChanged isChecked |> box)
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
         static member inline ThreeStateRadioButton<'msg>(text: string, isChecked: bool option, onValueChanged: bool option -> 'msg) =
@@ -44,13 +39,7 @@ module RadioButtonBuilders =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
-                    StackList.two(
-                        ToggleButton.IsChecked.WithValue(isChecked),
-                        ToggleButton.CheckedChanged.WithValue(fun args ->
-                            let control = args.Source :?> RadioButton
-                            let isChecked = Nullable.op_Explicit(control.IsChecked)
-                            onValueChanged isChecked |> box)
-                    ),
+                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

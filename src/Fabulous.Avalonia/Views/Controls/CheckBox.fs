@@ -20,35 +20,21 @@ module CheckBoxBuilders =
         static member inline CheckBox<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
-                ToggleButton.IsChecked.WithValue(isChecked),
-                ToggleButton.CheckedChanged.WithValue(fun args ->
-                    let control = args.Source :?> CheckBox
-                    let isChecked = Nullable.op_Explicit(control.IsChecked)
-                    onValueChanged isChecked |> box)
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
         static member inline CheckBox<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
-                ToggleButton.IsChecked.WithValue(isChecked),
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.CheckedChanged.WithValue(fun args ->
-                    let control = args.Source :?> CheckBox
-                    let isChecked = Nullable.op_Explicit(control.IsChecked)
-                    onValueChanged isChecked |> box)
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
         static member inline CheckBox(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
-                    StackList.two(
-                        ToggleButton.IsChecked.WithValue(isChecked),
-                        ToggleButton.CheckedChanged.WithValue(fun args ->
-                            let control = args.Source :?> CheckBox
-                            let isChecked = Nullable.op_Explicit(control.IsChecked)
-                            onValueChanged isChecked |> box)
-                    ),
+                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

@@ -14,8 +14,6 @@ type IFabTextBox =
 module TextBox =
     let WidgetKey = Widgets.register<TextBox>()
 
-    let Text = Attributes.defineAvaloniaPropertyWithEquality TextBox.TextProperty
-
     let TextAlignment =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.TextAlignmentProperty
 
@@ -103,7 +101,7 @@ module TextBox =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionForegroundBrushProperty
 
     let TextChanged =
-        Attributes.defineEvent<TextChangedEventArgs> "TextBox_TextChanged" (fun target -> (target :?> TextBox).TextChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_TextChanged" TextBox.TextProperty
 
     let CopyingToClipboard =
         Attributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target -> (target :?> TextBox).CopyingToClipboard)
@@ -121,10 +119,7 @@ module TextBoxBuilders =
         static member inline TextBox<'msg>(text: string, valueChanged: string -> 'msg) =
             WidgetBuilder<'msg, IFabTextBox>(
                 TextBox.WidgetKey,
-                TextBox.Text.WithValue(text),
-                TextBox.TextChanged.WithValue(fun args ->
-                    let control = args.Source :?> TextBox
-                    valueChanged control.Text |> box)
+                TextBox.TextChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
             )
 
 [<Extension>]

@@ -31,12 +31,8 @@ module ToggleSwitchBuilders =
         static member inline ToggleSwitch<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
-                ToggleButton.IsChecked.WithValue(isChecked),
                 ToggleButton.IsThreeState.WithValue(false),
-                ToggleButton.CheckedChanged.WithValue(fun args ->
-                    let control = args.Source :?> ToggleSwitch
-                    let isChecked = Nullable.op_Explicit(control.IsChecked)
-                    onValueChanged isChecked |> box)
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
         static member inline ThreeStateToggleSwitch<'msg>(isChecked: bool option, onValueChanged: bool option -> 'msg) =
