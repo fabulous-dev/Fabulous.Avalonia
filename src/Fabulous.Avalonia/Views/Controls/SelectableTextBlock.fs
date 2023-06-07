@@ -41,8 +41,8 @@ module SelectableTextBlockBuilders =
                     onCopyingToClipboard control.SelectedText |> box)
             )
 
-        static member inline SelectableTextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>(onCopyingToClipboard: string -> 'msg) =
-            CollectionBuilder<'msg, IFabSelectableTextBlock, 'childMarker>(
+        static member inline SelectableTextBlock(onCopyingToClipboard: string -> 'msg) =
+            CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Inlines,
                 SelectableTextBlock.CopyingToClipboard.WithValue(fun args ->

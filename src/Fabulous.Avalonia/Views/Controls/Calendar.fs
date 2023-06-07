@@ -28,9 +28,6 @@ module Calendar =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.SelectionModeProperty
 
-    let SelectedDate =
-        Attributes.defineAvaloniaPropertyWithEqualityConverter Calendar.SelectedDateProperty Option.toNullable
-
     let SelectedDateChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent "Calendar_SelectedDateChanged" Calendar.SelectedDateProperty Option.toNullable Option.ofNullable
 
@@ -58,7 +55,6 @@ module CalendarBuilders =
             | None ->
                 WidgetBuilder<'msg, IFabCalendar>(
                     Calendar.WidgetKey,
-                    Calendar.SelectedDate.WithValue(date),
                     Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
                     Calendar.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onSelectionChanged args |> box))
                 )
@@ -66,7 +62,6 @@ module CalendarBuilders =
             | Some selectionMode ->
                 WidgetBuilder<'msg, IFabCalendar>(
                     Calendar.WidgetKey,
-                    Calendar.SelectedDate.WithValue(date),
                     Calendar.SelectionMode.WithValue(selectionMode),
                     Calendar.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onSelectionChanged args |> box))
                 )

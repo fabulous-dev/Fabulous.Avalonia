@@ -35,9 +35,6 @@ module DatePicker =
     let MaxYear =
         Attributes.defineAvaloniaPropertyWithEquality DatePicker.MaxYearProperty
 
-    let SelectedDate =
-        Attributes.defineAvaloniaPropertyWithEquality DatePicker.SelectedDateProperty
-
     let SelectedDateChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent "DatePicker_SelectedDateChanged" DatePicker.SelectedDateProperty Nullable Nullable.op_Explicit
 
@@ -48,7 +45,6 @@ module DatePickerBuilders =
         static member inline DatePicker(date: DateTimeOffset, onValueChanged: DateTimeOffset -> 'msg) =
             WidgetBuilder<'msg, IFabDatePicker>(
                 DatePicker.WidgetKey,
-                DatePicker.SelectedDate.WithValue(date),
                 DatePicker.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onValueChanged args |> box))
             )
 

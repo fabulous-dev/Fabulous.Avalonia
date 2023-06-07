@@ -30,9 +30,6 @@ module CalendarDatePicker =
     let IsTodayHighlighted =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.IsTodayHighlightedProperty
 
-    let SelectedDate =
-        Attributes.defineAvaloniaPropertyWithEqualityConverter CalendarDatePicker.SelectedDateProperty Option.toNullable
-
     let SelectedDateChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent
             "CalendarDatePicker_SelectedDateChanged"
@@ -77,7 +74,6 @@ module CalendarDatePickerBuilders =
         static member CalendarDatePicker(date: DateTime option, onValueChanged: DateTime option -> 'msg) =
             WidgetBuilder<'msg, IFabCalendarDatePicker>(
                 CalendarDatePicker.WidgetKey,
-                CalendarDatePicker.SelectedDate.WithValue(date),
                 CalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> onValueChanged args |> box))
             )
 

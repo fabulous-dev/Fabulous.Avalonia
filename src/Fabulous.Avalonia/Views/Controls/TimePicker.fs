@@ -17,9 +17,6 @@ module TimePicker =
     let MinuteIncrement =
         Attributes.defineAvaloniaPropertyWithEquality TimePicker.MinuteIncrementProperty
 
-    let SelectedTime =
-        Attributes.defineAvaloniaPropertyWithEquality TimePicker.SelectedTimeProperty
-
     let SelectedTimeChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
 
@@ -30,7 +27,6 @@ module TimePickerBuilders =
         static member inline TimePicker(time: TimeSpan, onValueChanged: TimeSpan -> 'msg) =
             WidgetBuilder<'msg, IFabTimePicker>(
                 TimePicker.WidgetKey,
-                TimePicker.SelectedTime.WithValue(time),
                 TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time (fun args -> onValueChanged args |> box))
             )
 

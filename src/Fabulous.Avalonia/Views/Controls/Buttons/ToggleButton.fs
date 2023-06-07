@@ -27,11 +27,8 @@ module ThreeState =
 module ToggleButton =
     let WidgetKey = Widgets.register<ToggleButton>()
 
-    let IsChecked =
-        Attributes.defineAvaloniaPropertyWithEquality ToggleButton.IsCheckedProperty
-
     let CheckedChanged =
-        Attributes.defineEvent "ToggleButton_IsCheckedChanged" (fun target -> (target :?> ToggleButton).IsCheckedChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent "ToggleButton_IsCheckedChanged" ToggleButton.IsCheckedProperty Nullable Nullable.op_Explicit
 
     let IsThreeState =
         Attributes.defineAvaloniaPropertyWithEquality ToggleButton.IsThreeStateProperty
@@ -47,11 +44,7 @@ module ToggleButtonBuilders =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.IsChecked.WithValue(isChecked),
-                ToggleButton.CheckedChanged.WithValue(fun args ->
-                    let control = args.Source :?> ToggleButton
-                    let isChecked = Nullable.op_Explicit(control.IsChecked)
-                    onValueChanged isChecked |> box)
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
             )
 
         static member inline ThreeStateToggleButton<'msg>(text: string, isChecked: bool option, onValueChanged: bool option -> 'msg) =
@@ -68,13 +61,7 @@ module ToggleButtonBuilders =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
-                    StackList.two(
-                        ToggleButton.CheckedChanged.WithValue(fun args ->
-                            let control = args.Source :?> ToggleButton
-                            let isChecked = Nullable.op_Explicit(control.IsChecked)
-                            onValueChanged isChecked |> box),
-                        ToggleButton.IsChecked.WithValue(isChecked)
-                    ),
+                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

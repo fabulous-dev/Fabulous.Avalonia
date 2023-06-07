@@ -41,11 +41,8 @@ module MaskedTextBoxBuilders =
         static member inline MaskedTextBox<'msg>(text: string, mask: string, valueChanged: string -> 'msg) =
             WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
-                TextBlock.Text.WithValue(text),
                 MaskedTextBox.Mask.WithValue(mask),
-                TextBox.TextChanged.WithValue(fun args ->
-                    let control = args.Source :?> TextBox
-                    valueChanged control.Text |> box)
+                TextBox.TextChanged.WithValue(ValueEventData.create text (fun args -> valueChanged args |> box))
             )
 
 [<Extension>]

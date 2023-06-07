@@ -29,9 +29,6 @@ module AutoCompleteBox =
     let IsTextCompletionEnabled =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.IsTextCompletionEnabledProperty
 
-    let Text =
-        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
-
     let FilterMode =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.FilterModeProperty
 
@@ -54,7 +51,7 @@ module AutoCompleteBox =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
     let TextChanged =
-        Attributes.defineEvent<TextChangedEventArgs> "AutoCompleteBox_TextChanged" (fun target -> (target :?> AutoCompleteBox).TextChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
     let Populating =
         Attributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
@@ -75,21 +72,15 @@ module AutoCompleteBoxBuilders =
         static member inline AutoCompleteBox(text: string, textChanged: string -> 'msg, items: seq<_>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.Text.WithValue(text),
                 AutoCompleteBox.ItemsSource.WithValue(items),
-                AutoCompleteBox.TextChanged.WithValue(fun args ->
-                    let control = args.Source :?> AutoCompleteBox
-                    textChanged control.Text |> box)
+                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text (fun args -> textChanged args |> box))
             )
 
         static member inline AutoCompleteBox(text: string, textChanged: string -> 'msg, populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.Text.WithValue(text),
                 AutoCompleteBox.AsyncPopulator.WithValue(populator),
-                AutoCompleteBox.TextChanged.WithValue(fun args ->
-                    let control = args.Source :?> AutoCompleteBox
-                    textChanged control.Text |> box)
+                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text (fun args -> textChanged args |> box))
             )
 
 [<Extension>]
