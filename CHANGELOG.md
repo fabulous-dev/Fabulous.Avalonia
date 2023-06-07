@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre10] - 2023-06-07
+
+### Added
+- More samples to Gallery
+- Add some short-hand methods for Animation and Gestures
+- Add support for AvaloniaUI preview RC1.1
+
+### Changed
+- Update to use Fabulous 2.3.2
+
 ## [2.0.0-pre9] - 2023-05-15
 
 ### Added
@@ -86,7 +96,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre9...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre10...HEAD
+[2.0.0-pre9]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre10
 [2.0.0-pre9]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre9
 [2.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre8
 [2.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre7
