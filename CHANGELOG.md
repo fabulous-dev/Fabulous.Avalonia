@@ -97,7 +97,7 @@ _No unreleased changes_
 - Initial release
 
 [unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre10...HEAD
-[2.0.0-pre9]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre10
+[2.0.0-pre10]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre10
 [2.0.0-pre9]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre9
 [2.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre8
 [2.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre7
