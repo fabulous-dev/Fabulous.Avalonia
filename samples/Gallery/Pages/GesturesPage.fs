@@ -31,7 +31,10 @@ module GesturesPage =
 
     let view _ =
         VStack(spacing = 4.) {
-            TextBlock("Pull Gexture (Touch / Pen)").fontSize(18.).margin(5.)
+            TextBlock("Pull Gexture (Touch / Pen)")
+                .fontSize(18.)
+                .margin(5.)
+
             TextBlock("Pull from colored rectangles").margin(5.)
 
             Border(

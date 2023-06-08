@@ -31,7 +31,10 @@ type FabAppDelegate() =
 
     [<Export("application:didFinishLaunchingWithOptions:")>]
     member this.FinishedLaunching(_: UIApplication, _: NSDictionary) =
-        let builder = AppBuilder.Configure<Application>(Func<_>(this.CreateApp)).UseiOS()
+        let builder =
+            AppBuilder
+                .Configure<Application>(Func<_>(this.CreateApp))
+                .UseiOS()
 
         let lifetime = SingleViewLifetime()
 

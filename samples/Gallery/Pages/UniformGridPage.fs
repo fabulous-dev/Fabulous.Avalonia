@@ -60,18 +60,23 @@ module UniformGridPage =
                     .background(SolidColorBrush(Colors.AliceBlue))
                     .gridColumnSpan(2)
 
-                Border(TextBlock("2")).background(SolidColorBrush(Colors.Cornsilk))
+                Border(TextBlock("2"))
+                    .background(SolidColorBrush(Colors.Cornsilk))
 
-                Border(TextBlock("3")).background(SolidColorBrush(Colors.DarkSalmon))
+                Border(TextBlock("3"))
+                    .background(SolidColorBrush(Colors.DarkSalmon))
 
                 Border(TextBlock("4"))
                     .background(SolidColorBrush(Colors.Gainsboro))
                     .gridRowSpan(2)
 
-                Border(TextBlock("5")).background(SolidColorBrush(Colors.LightBlue))
+                Border(TextBlock("5"))
+                    .background(SolidColorBrush(Colors.LightBlue))
 
-                Border(TextBlock("6")).background(SolidColorBrush(Colors.MediumAquamarine))
+                Border(TextBlock("6"))
+                    .background(SolidColorBrush(Colors.MediumAquamarine))
 
-                Border(TextBlock("7")).background(SolidColorBrush(Colors.MistyRose))
+                Border(TextBlock("7"))
+                    .background(SolidColorBrush(Colors.MistyRose))
             }
         }

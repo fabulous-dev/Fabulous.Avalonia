@@ -154,7 +154,8 @@ module GeometriesPage =
 
                     // <!-- O -->
                     PathFigure(Point(300., 50.)) {
-                        ArcSegment(Point(300., 49.9), Size(25., 50.)).isLargeArc(true)
+                        ArcSegment(Point(300., 49.9), Size(25., 50.))
+                            .isLargeArc(true)
 
                     }
                 }

@@ -148,5 +148,8 @@ module GlyphRunControlPage =
     let view _ =
         VStack(spacing = 15.) {
             GlyphRunControl().centerHorizontal().centerVertical()
-            GlyphRunGeometryControl().centerHorizontal().centerVertical()
+
+            GlyphRunGeometryControl()
+                .centerHorizontal()
+                .centerVertical()
         }

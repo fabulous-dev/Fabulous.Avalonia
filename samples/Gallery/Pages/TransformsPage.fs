@@ -79,25 +79,37 @@ module TransformsPage =
 
             TextBlock("Center X: ").gridRow(1)
 
-            Slider(-100., 100., model.CenterX, CenterXChanged).gridRow(1).gridColumn(2)
+            Slider(-100., 100., model.CenterX, CenterXChanged)
+                .gridRow(1)
+                .gridColumn(2)
 
             TextBlock("Center Y: ").gridRow(2)
 
-            Slider(-100., 100., model.CenterY, CenterYChanged).gridRow(2).gridColumn(2)
+            Slider(-100., 100., model.CenterY, CenterYChanged)
+                .gridRow(2)
+                .gridColumn(2)
 
             TextBlock("Center Z: ").gridRow(3)
 
-            Slider(-100., 100., model.CenterZ, CenterZChanged).gridRow(3).gridColumn(2)
+            Slider(-100., 100., model.CenterZ, CenterZChanged)
+                .gridRow(3)
+                .gridColumn(2)
 
             TextBlock("Angle X: ").gridRow(4)
 
-            Slider(-180., 180., model.AngleX, AngleXChanged).gridRow(4).gridColumn(2)
+            Slider(-180., 180., model.AngleX, AngleXChanged)
+                .gridRow(4)
+                .gridColumn(2)
 
             TextBlock("Angle Y: ").gridRow(5)
 
-            Slider(-180., 180., model.AngleY, AngleYChanged).gridRow(5).gridColumn(2)
+            Slider(-180., 180., model.AngleY, AngleYChanged)
+                .gridRow(5)
+                .gridColumn(2)
 
             TextBlock("Angle Z: ").gridRow(6)
 
-            Slider(-180., 180., model.AngleZ, AngleZChanged).gridRow(6).gridColumn(2)
+            Slider(-180., 180., model.AngleZ, AngleZChanged)
+                .gridRow(6)
+                .gridColumn(2)
         }

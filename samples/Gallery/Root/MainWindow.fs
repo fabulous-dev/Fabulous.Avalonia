@@ -136,7 +136,8 @@ module MainWindow =
                                 NativeMenuItem("Restore defaults", DoNothing)
                                     .icon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico")
 
-                                NativeMenuItem("Disabled option", DoNothing).isEnabled(false)
+                                NativeMenuItem("Disabled option", DoNothing)
+                                    .isEnabled(false)
                             }
                         )
 

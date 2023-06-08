@@ -34,7 +34,8 @@ module StackPanelPage =
     let view model =
         (VStack(15.) {
             HStack(10.) {
-                TextBlock("Reversed:").verticalAlignment(VerticalAlignment.Center)
+                TextBlock("Reversed:")
+                    .verticalAlignment(VerticalAlignment.Center)
 
                 ToggleSwitch(model.Reversed, Reverse)
                     .verticalAlignment(VerticalAlignment.Center)
@@ -49,7 +50,9 @@ module StackPanelPage =
                     .verticalAlignment(VerticalAlignment.Center)
             }
 
-            Separator().background(SolidColorBrush(Colors.Gray)).margin(0, 30, 0, 0)
+            Separator()
+                .background(SolidColorBrush(Colors.Gray))
+                .margin(0, 30, 0, 0)
 
             TextBlock("HStack:").fontWeight(FontWeight.Bold)
 
@@ -64,7 +67,9 @@ module StackPanelPage =
                 TextBlock("Item 3")
             }
 
-            Separator().background(SolidColorBrush(Colors.Gray)).margin(0, 30, 0, 0)
+            Separator()
+                .background(SolidColorBrush(Colors.Gray))
+                .margin(0, 30, 0, 0)
 
             TextBlock("VStack:").fontWeight(FontWeight.Bold)
 

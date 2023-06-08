@@ -41,7 +41,9 @@ module PopupPage =
             Popup(
                 model.IsOpen,
                 (Grid(coldefs = [ Pixel(300) ], rowdefs = [ Auto; Pixel(200.) ]) {
-                    Ellipse().size(100., 100.).fill(SolidColorBrush(Colors.Green))
+                    Ellipse()
+                        .size(100., 100.)
+                        .fill(SolidColorBrush(Colors.Green))
 
                     TextBlock("This is a popup content")
                         .centerHorizontal()

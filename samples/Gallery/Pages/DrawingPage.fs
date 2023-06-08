@@ -80,7 +80,11 @@ module DrawingPage =
 
             TextBlock("Fill").margin(3.).gridColumn(1)
 
-            Border(Image(Stretch.Fill, DrawingImage(bulb())).width(100.).height(50.))
+            Border(
+                Image(Stretch.Fill, DrawingImage(bulb()))
+                    .width(100.)
+                    .height(50.)
+            )
                 .gridColumn(1)
                 .gridRow(1)
                 .verticalAlignment(VerticalAlignment.Top)
@@ -91,7 +95,11 @@ module DrawingPage =
 
             TextBlock("Uniform").margin(3.).gridColumn(2)
 
-            Border(Image(Stretch.Uniform, DrawingImage(bulb())).width(100.).height(50.))
+            Border(
+                Image(Stretch.Uniform, DrawingImage(bulb()))
+                    .width(100.)
+                    .height(50.)
+            )
                 .gridColumn(2)
                 .gridRow(1)
                 .verticalAlignment(VerticalAlignment.Top)
@@ -102,7 +110,11 @@ module DrawingPage =
 
             TextBlock("UniformToFill").margin(3.).gridColumn(3)
 
-            Border(Image(Stretch.UniformToFill, DrawingImage(bulb())).width(100.).height(50.))
+            Border(
+                Image(Stretch.UniformToFill, DrawingImage(bulb()))
+                    .width(100.)
+                    .height(50.)
+            )
                 .gridColumn(3)
                 .gridRow(1)
                 .verticalAlignment(VerticalAlignment.Top)

@@ -59,7 +59,8 @@ module ToggleSplitButtonPage =
         VStack(spacing = 15.) {
             TextBlock($"Count: i {model.Count}")
 
-            ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged).flyout(menu())
+            ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged)
+                .flyout(menu())
 
             ToggleSplitButton(
                 model.IsChecked2,

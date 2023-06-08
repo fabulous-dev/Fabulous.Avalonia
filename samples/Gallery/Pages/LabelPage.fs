@@ -48,13 +48,19 @@ module LabelPage =
             []
 
     let labelStyle (this: WidgetBuilder<'msg, IFabLabel>) =
-        this.verticalAlignment(VerticalAlignment.Center).margin(6., 3., 0., 3.)
+        this
+            .verticalAlignment(VerticalAlignment.Center)
+            .margin(6., 3., 0., 3.)
 
     let textBoxStyle (this: WidgetBuilder<'msg, IFabTextBox>) =
-        this.verticalAlignment(VerticalAlignment.Center).margin(0., 3., 6., 3.)
+        this
+            .verticalAlignment(VerticalAlignment.Center)
+            .margin(0., 3., 6., 3.)
 
     let checkBoxStyle (this: WidgetBuilder<'msg, IFabCheckBox>) =
-        this.verticalAlignment(VerticalAlignment.Center).margin(0., 3., 6., 3.)
+        this
+            .verticalAlignment(VerticalAlignment.Center)
+            .margin(0., 3., 6., 3.)
 
     let firstNameEdit = ViewRef<TextBox>()
 
@@ -91,7 +97,11 @@ module LabelPage =
                     .style(textBoxStyle)
                     .reference(lastNameEdit)
 
-                Label("_Banned").target(bannedCheck).gridRow(2).gridColumn(0).style(labelStyle)
+                Label("_Banned")
+                    .target(bannedCheck)
+                    .gridRow(2)
+                    .gridColumn(0)
+                    .style(labelStyle)
 
                 CheckBox(model.IsBanned, BannedChanged)
                     .gridRow(2)

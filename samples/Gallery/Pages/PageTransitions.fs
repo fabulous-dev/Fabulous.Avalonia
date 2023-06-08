@@ -139,7 +139,8 @@ module PageTransitionsPage =
                 .horizontalAlignment(HorizontalAlignment.Stretch)
 
             (HStack(16.) {
-                TextBlock("Transition").verticalAlignment(VerticalAlignment.Center)
+                TextBlock("Transition")
+                    .verticalAlignment(VerticalAlignment.Center)
 
                 ComboBox(model.Transitions, (fun x -> TextBlock(x)))
                     .selectedIndex(0)

@@ -140,7 +140,8 @@ module RadioButtonPage =
                     RadioButton("Option 1", model.IsChecked2, OnCheckedChanged2)
                     RadioButton("Option 2", model.IsChecked3, OnCheckedChanged3)
 
-                    RadioButton("Disabled", model.IsChecked4, OnCheckedChanged4).isEnabled(false)
+                    RadioButton("Disabled", model.IsChecked4, OnCheckedChanged4)
+                        .isEnabled(false)
 
                     ThreeStateRadioButton("Option 3", model.ThreeStateChecked1, OnThreeStateCheckedChanged1)
                     ThreeStateRadioButton("Option 4", model.ThreeStateChecked2, OnThreeStateCheckedChanged2)

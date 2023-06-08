@@ -45,7 +45,8 @@ module TextBoxPage =
                 .width(300)
                 .horizontalAlignment(HorizontalAlignment.Left)
 
-            TextBlock($"You Entered: {model.SingleLineText}").margin(0, 0, 0, 30)
+            TextBlock($"You Entered: {model.SingleLineText}")
+                .margin(0, 0, 0, 30)
 
             TextBox(model.MultiLineText, MultiLineTextChanged)
                 .height(120)

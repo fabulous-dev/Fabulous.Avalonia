@@ -69,7 +69,11 @@ module ClippingPage =
         (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {
             let widgetBuilder =
                 Border(
-                    Border(TextBlock("Avalonia").opacity(0.9).verticalAlignment(VerticalAlignment.Center))
+                    Border(
+                        TextBlock("Avalonia")
+                            .opacity(0.9)
+                            .verticalAlignment(VerticalAlignment.Center)
+                    )
                         .name("clipChild")
                         .margin(4.)
                         .background(Brushes.Red)

@@ -56,7 +56,11 @@ module SliderPage =
         | ValueChanged7 value -> { model with SliderValue7 = value }, []
 
     let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
-        this.tickFrequency(10.).width(300.).largeChange(0.2).smallChange(0.1)
+        this
+            .tickFrequency(10.)
+            .width(300.)
+            .largeChange(0.2)
+            .smallChange(0.1)
 
     let view model =
         VStack(spacing = 15.) {
