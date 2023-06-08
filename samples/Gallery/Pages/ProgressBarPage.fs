@@ -39,5 +39,6 @@ module ProgressBarPage =
 
             TextBlock("Indeterminate Progress Bar").margin(0, 30, 0, 0)
 
-            ProgressBar(0, model.Max, model.Progress, ProgressChanged).isIndeterminate(true)
+            ProgressBar(0, model.Max, model.Progress, ProgressChanged)
+                .isIndeterminate(true)
         }

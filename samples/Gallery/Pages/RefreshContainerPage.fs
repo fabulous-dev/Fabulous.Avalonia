@@ -45,7 +45,8 @@ module RefreshContainerPage =
 
     let view model =
         (Dock() {
-            Label("A control that supports pull to refresh").dock(Dock.Top)
+            Label("A control that supports pull to refresh")
+                .dock(Dock.Top)
 
             RefreshContainer(container model)
                 .onRefreshRequested(RefreshRequested)

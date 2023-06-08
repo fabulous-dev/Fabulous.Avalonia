@@ -37,11 +37,18 @@ module ComboBoxPage =
 
     let view model =
         HStack(16) {
-            ComboBox(model.Items, (fun x -> TextBlock(x))).selectedIndex(0)
+            ComboBox(model.Items, (fun x -> TextBlock(x)))
+                .selectedIndex(0)
 
             (ComboBox() {
                 ComboBoxItem(Rectangle().size(10., 50.).fill(SolidColorBrush(Colors.Red)))
-                ComboBoxItem(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.Yellow)))
+
+                ComboBoxItem(
+                    Ellipse()
+                        .size(50., 50.)
+                        .fill(SolidColorBrush(Colors.Yellow))
+                )
+
                 ComboBoxItem(TextBlock("Unknown"))
             })
                 .selectedIndex(0)

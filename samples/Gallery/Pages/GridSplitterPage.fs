@@ -48,14 +48,20 @@ module GridSplitterPage =
                 .height(200.)
 
             (Grid(coldefs = [ Star ], rowdefs = [ Star; Pixel(4); Star ]) {
-                Rectangle().fill(SolidColorBrush(Colors.Blue)).gridRow(0).gridColumn(0)
+                Rectangle()
+                    .fill(SolidColorBrush(Colors.Blue))
+                    .gridRow(0)
+                    .gridColumn(0)
 
                 GridSplitter(GridResizeDirection.Rows)
                     .background(SolidColorBrush(Colors.White))
                     .gridRow(1)
                     .gridColumn(0)
 
-                Rectangle().fill(SolidColorBrush(Colors.Red)).gridRow(2).gridColumn(0)
+                Rectangle()
+                    .fill(SolidColorBrush(Colors.Red))
+                    .gridRow(2)
+                    .gridColumn(0)
             })
                 .height(200.)
         }

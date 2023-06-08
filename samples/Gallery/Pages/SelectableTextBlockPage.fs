@@ -50,7 +50,10 @@ module SelectableTextBlockPage =
 
                     Run(" with ")
 
-                    Span() { Run("several").textDecoration(TextDecoration(TextDecorationLocation.Underline)) }
+                    Span() {
+                        Run("several")
+                            .textDecoration(TextDecoration(TextDecorationLocation.Underline))
+                    }
 
                     Span() { Run("Span").fontStyle(FontStyle.Italic) }
 

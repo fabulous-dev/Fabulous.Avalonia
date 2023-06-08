@@ -25,7 +25,9 @@ module CustomNotificationView =
                     .verticalAlignment(VerticalAlignment.Top)
 
                 (Dock() {
-                    TextBlock(title).dock(Dock.Top).fontWeight(FontWeight.Medium)
+                    TextBlock(title)
+                        .dock(Dock.Top)
+                        .fontWeight(FontWeight.Medium)
 
                     (HStack(20.) {
                         Button("No", noCommand)
@@ -33,7 +35,9 @@ module CustomNotificationView =
                             .margin(0., 0., 8., 0.)
                             .dock(Dock.Right)
 
-                        Button("Yes", yesCommand).closeOnClick(true).dock(Dock.Right)
+                        Button("Yes", yesCommand)
+                            .closeOnClick(true)
+                            .dock(Dock.Right)
                     })
                         .dock(Dock.Bottom)
                         .margin(0., 8., 0., 0.)

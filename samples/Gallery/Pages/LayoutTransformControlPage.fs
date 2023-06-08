@@ -35,16 +35,32 @@ module LayoutTransformControlPage =
                     TextBlock($"{model.Angle}")
                 }
 
-                Slider(model.Min, model.Max, model.Angle, SliderValueChanged).width(200.)
+                Slider(model.Min, model.Max, model.Angle, SliderValueChanged)
+                    .width(200.)
             })
                 .margin(16.)
                 .centerHorizontal()
 
             (Grid(coldefs = [ Pixel(24.); Auto; Pixel(24.) ], rowdefs = [ Pixel(24.); Auto; Pixel(24.) ]) {
-                Border().background(SolidColorBrush(Colors.Red)).gridColumn(1).gridRow(0)
-                Border().background(SolidColorBrush(Colors.Green)).gridColumn(0).gridRow(1)
-                Border().background(SolidColorBrush(Colors.Yellow)).gridColumn(2).gridRow(1)
-                Border().background(SolidColorBrush(Colors.Blue)).gridColumn(1).gridRow(2)
+                Border()
+                    .background(SolidColorBrush(Colors.Red))
+                    .gridColumn(1)
+                    .gridRow(0)
+
+                Border()
+                    .background(SolidColorBrush(Colors.Green))
+                    .gridColumn(0)
+                    .gridRow(1)
+
+                Border()
+                    .background(SolidColorBrush(Colors.Yellow))
+                    .gridColumn(2)
+                    .gridRow(1)
+
+                Border()
+                    .background(SolidColorBrush(Colors.Blue))
+                    .gridColumn(1)
+                    .gridRow(2)
 
                 LayoutTransformControl(Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png")))
                     .layoutTransform(RotateTransform(model.Angle, 0., 0))

@@ -49,13 +49,21 @@ module Transitions1 =
 
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this
-            .child(Path(Paths.Path1).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
+            .child(
+                Path(Paths.Path1)
+                    .fill(SolidColorBrush(Colors.White))
+                    .stretch(Stretch.Uniform)
+            )
             .margin(15.)
             .size(100., 100.)
 
     let borderTestStyle1 (this: WidgetBuilder<'msg, IFabBorder>) =
         this
-            .child(Path(Paths.Path2).fill(SolidColorBrush(Colors.White)).stretch(Stretch.Uniform))
+            .child(
+                Path(Paths.Path2)
+                    .fill(SolidColorBrush(Colors.White))
+                    .stretch(Stretch.Uniform)
+            )
             .margin(15.)
             .size(100., 100.)
 

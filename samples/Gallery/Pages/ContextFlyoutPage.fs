@@ -77,7 +77,8 @@ module ContextFlyoutPage =
                                     .isHitTestVisible(false)
                             )
 
-                        MenuItem("Menu Item that won't close on click").staysOpenOnClick(true)
+                        MenuItem("Menu Item that won't close on click")
+                            .staysOpenOnClick(true)
 
                         MenuItem("Menu Item that will close on click")
                     })

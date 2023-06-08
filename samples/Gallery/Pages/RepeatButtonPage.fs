@@ -25,7 +25,9 @@ module RepeatButtonPage =
 
     let view _ =
         VStack(spacing = 15.) {
-            RepeatButton("Click me, or press and hold!", Clicked).delay(400).interval(200)
+            RepeatButton("Click me, or press and hold!", Clicked)
+                .delay(400)
+                .interval(200)
 
             RepeatButton(
                 Clicked,

@@ -56,7 +56,9 @@ module SplitButtonPage =
                 MenuItem("Subitem 3")
             }
 
-            MenuItem("Item 2").inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+            MenuItem("Item 2")
+                .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+
             MenuItem("Item 3")
         })
             .placement(PlacementMode.Bottom)

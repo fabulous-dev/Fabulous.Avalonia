@@ -78,7 +78,10 @@ module AcrylicPage =
         VStack(spacing = 20.) {
             ExperimentalAcrylicBorder(
                 (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto; Auto ]) {
-                    TextBlock("TintOpacity").gridRow(0).gridColumn(0).style(textBlockStyle)
+                    TextBlock("TintOpacity")
+                        .gridRow(0)
+                        .gridColumn(0)
+                        .style(textBlockStyle)
 
                     Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
                         .gridRow(0)
@@ -90,7 +93,10 @@ module AcrylicPage =
                         .gridColumn(2)
                         .style(textBlockStyle)
 
-                    TextBlock("MaterialOpacity").gridRow(1).gridColumn(0).style(textBlockStyle)
+                    TextBlock("MaterialOpacity")
+                        .gridRow(1)
+                        .gridColumn(0)
+                        .style(textBlockStyle)
 
                     Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
                         .gridRow(1)

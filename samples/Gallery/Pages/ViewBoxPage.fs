@@ -30,7 +30,11 @@ module ViewBoxPage =
     let view model =
         Grid(coldefs = [ Pixel(300.); Star ], rowdefs = [ Pixel(300.) ]) {
             Border(
-                ViewBox(Ellipse().size(50., 50.).fill(SolidColorBrush(Colors.CornflowerBlue)))
+                ViewBox(
+                    Ellipse()
+                        .size(50., 50.)
+                        .fill(SolidColorBrush(Colors.CornflowerBlue))
+                )
                     .size(model.Width, model.Height)
                     .stretch(Stretch.Uniform)
             )
