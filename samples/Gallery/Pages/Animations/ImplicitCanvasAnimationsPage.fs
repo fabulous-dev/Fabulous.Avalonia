@@ -191,9 +191,8 @@ module ImplicitCanvasAnimationsPage =
             model,
             [ if model.BenchmarkRunning then
                   TickTimer ]
-            
-        | OnAttachedToLogicalTree args ->
-            model, []
+
+        | OnAttachedToLogicalTree args -> model, []
 
     let view model =
         Grid(coldefs = [], rowdefs = [ Star; Auto ]) {
