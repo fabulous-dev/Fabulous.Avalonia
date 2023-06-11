@@ -23,6 +23,7 @@ module MainWindow =
                     ListBoxItem("AdornerLayerPage")
                     ListBoxItem("AutoCompleteBoxPage")
                     ListBoxItem("AnimationsPage")
+                    ListBoxItem("ImplicitCanvasAnimationsPage")
                     ListBoxItem("ButtonsPage")
                     ListBoxItem("BrushesPage")
                     ListBoxItem("ButtonSpinnerPage")

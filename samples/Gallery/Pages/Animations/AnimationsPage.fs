@@ -52,10 +52,11 @@ module AnimationsPage =
                 Animations3 = transitions3 },
             []
 
-    let view model =
+    let view (model: Model) =
         VStack(32.) {
-            View.map Animations1 (Animations1.view model)
-            View.map Animations2 (Animations2.view model)
+            View.map Animations1 (Animations1.view model.Animations1)
+            View.map Animations2 (Animations2.view model.Animations2)
+
         // FIXME Re-enable once https://github.com/fabulous-dev/Fabulous.Avalonia/issues/143
         //View.map Animations3 (Animations3.view model)
         }

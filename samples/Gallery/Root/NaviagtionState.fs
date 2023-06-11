@@ -10,6 +10,7 @@ type SubpageModel =
     | AdornerLayerPageModel of AdornerLayerPage.Model
     | AutoCompleteBoxPageModel of AutoCompleteBoxPage.Model
     | AnimationsPageModel of AnimationsPage.Model
+    | ImplicitCanvasAnimationsPageModel of ImplicitCanvasAnimationsPage.Model
     | ButtonsPageModel of ButtonsPage.Model
     | BrushesPageModel of BrushesPage.Model
     | ButtonSpinnerPageModel of ButtonSpinnerPage.Model
@@ -79,6 +80,7 @@ type SubpageMsg =
     | AdornerLayerPageMsg of AdornerLayerPage.Msg
     | AutoCompleteBoxPageMsg of AutoCompleteBoxPage.Msg
     | AnimationsPageMsg of AnimationsPage.Msg
+    | ImplicitCanvasAnimationsPageMsg of ImplicitCanvasAnimationsPage.Msg
     | ButtonsPageMsg of ButtonsPage.Msg
     | BrushesPageMsg of BrushesPage.Msg
     | ButtonSpinnerPageMsg of ButtonSpinnerPage.Msg
@@ -148,6 +150,7 @@ type SubpageCmdMsg =
     | AdornerLayerPageCmdMsgs of AdornerLayerPage.CmdMsg list
     | AutoCompleteBoxPageCmdMsgs of AutoCompleteBoxPage.CmdMsg list
     | AnimationsPageCmdMsgs of AnimationsPage.CmdMsg list
+    | ImplicitCanvasAnimationsPageCmdMsgs of ImplicitCanvasAnimationsPage.CmdMsg list
     | ButtonsPageCmdMsgs of ButtonsPage.CmdMsg list
     | BrushesPageCmdMsgs of BrushesPage.CmdMsg list
     | ButtonSpinnerPageCmdMsgs of ButtonSpinnerPage.CmdMsg list
@@ -233,6 +236,7 @@ module NavigationState =
             | AdornerLayerPageCmdMsgs subCmdMsgs -> map AdornerLayerPage.mapCmdMsgToCmd AdornerLayerPageMsg subCmdMsgs
             | AutoCompleteBoxPageCmdMsgs subCmdMsgs -> map AutoCompleteBoxPage.mapCmdMsgToCmd AutoCompleteBoxPageMsg subCmdMsgs
             | AnimationsPageCmdMsgs subCmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsPageMsg subCmdMsgs
+            | ImplicitCanvasAnimationsPageCmdMsgs cmdMsgs -> map ImplicitCanvasAnimationsPage.mapCmdMsgToCmd ImplicitCanvasAnimationsPageMsg cmdMsgs
             | ButtonsPageCmdMsgs subCmdMsgs -> map ButtonsPage.mapCmdMsgToCmd ButtonsPageMsg subCmdMsgs
             | ButtonSpinnerPageCmdMsgs subCmdMsgs -> map ButtonSpinnerPage.mapCmdMsgToCmd ButtonSpinnerPageMsg subCmdMsgs
             | BorderPageCmdMsgs subCmdMsgs -> map BorderPage.mapCmdMsgToCmd BorderPageMsg subCmdMsgs
@@ -315,6 +319,10 @@ module NavigationState =
         | NavigationRoute.AnimationsPage ->
             let m, c = AnimationsPage.init()
             AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
+
+        | NavigationRoute.ImplicitCanvasAnimations ->
+            let m, c = ImplicitCanvasAnimationsPage.init()
+            ImplicitCanvasAnimationsPageModel m, [ ImplicitCanvasAnimationsPageCmdMsgs c ]
         | NavigationRoute.ButtonsPage ->
             let m, c = ButtonsPage.init()
             ButtonsPageModel m, [ ButtonsPageCmdMsgs c ]
@@ -523,6 +531,10 @@ module NavigationState =
             | AnimationsPageMsg subMsg, AnimationsPageModel m ->
                 let m, c = AnimationsPage.update subMsg m
                 AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
+
+            | ImplicitCanvasAnimationsPageMsg subMsg, ImplicitCanvasAnimationsPageModel m ->
+                let m, c = ImplicitCanvasAnimationsPage.update subMsg m
+                ImplicitCanvasAnimationsPageModel m, [ ImplicitCanvasAnimationsPageCmdMsgs c ]
 
             | ButtonsPageMsg subMsg, ButtonsPageModel m ->
                 let m, c = ButtonsPage.update subMsg m
@@ -790,68 +802,69 @@ module NavigationState =
         match model with
         | AcrylicPageModel m -> map AcrylicPage.view AcrylicPageMsg m
         | AdornerLayerPageModel m -> map AdornerLayerPage.view AdornerLayerPageMsg m
-        | AutoCompleteBoxPageModel model -> map AutoCompleteBoxPage.view AutoCompleteBoxPageMsg model
-        | AnimationsPageModel model -> map AnimationsPage.view AnimationsPageMsg model
-        | ButtonsPageModel model -> map ButtonsPage.view ButtonsPageMsg model
-        | BrushesPageModel model -> map BrushesPage.view BrushesPageMsg model
-        | ButtonSpinnerPageModel model -> map ButtonSpinnerPage.view ButtonSpinnerPageMsg model
+        | AutoCompleteBoxPageModel m -> map AutoCompleteBoxPage.view AutoCompleteBoxPageMsg m
+        | AnimationsPageModel m -> map AnimationsPage.view AnimationsPageMsg m
+        | ImplicitCanvasAnimationsPageModel m -> map ImplicitCanvasAnimationsPage.view ImplicitCanvasAnimationsPageMsg m
+        | ButtonsPageModel m -> map ButtonsPage.view ButtonsPageMsg m
+        | BrushesPageModel m -> map BrushesPage.view BrushesPageMsg m
+        | ButtonSpinnerPageModel m -> map ButtonSpinnerPage.view ButtonSpinnerPageMsg m
         | BorderPageModel model -> map BorderPage.view BorderPageMsg model
-        | CalendarPageModel model -> map CalendarPage.view CalendarPageMsg model
-        | CalendarDatePickerPageModel model -> map CalendarDatePickerPage.view CalendarDatePickerPageMsg model
-        | CanvasPageModel model -> map CanvasPage.view CanvasPageMsg model
-        | CheckBoxPageModel model -> map CheckBoxPage.view CheckBoxPageMsg model
-        | CarouselPageModel model -> map CarouselPage.view CarouselPageMsg model
-        | ComboBoxPageModel model -> map ComboBoxPage.view ComboBoxPageMsg model
-        | ContextMenuPageModel model -> map ContextMenuPage.view ContextMenuPageMsg model
-        | ContextFlyoutPageModel model -> map ContextFlyoutPage.view ContextFlyoutPageMsg model
-        | ClippingPageModel model -> map ClippingPage.view ClippingPageMsg model
-        | DockPanelPageModel model -> map DockPanelPage.view DockPanelPageMsg model
-        | DropDownButtonPageModel model -> map DropDownButtonPage.view DropDownButtonPageMsg model
-        | DrawingPageModel model -> map DrawingPage.view DrawingPageMsg model
-        | ExpanderPageModel model -> map ExpanderPage.view ExpanderPageMsg model
-        | FlyoutPageModel model -> map FlyoutPage.view FlyoutPageMsg model
-        | GesturesPageModel model -> map GesturesPage.view GesturesPageMsg model
-        | GeometriesPageModel model -> map GeometriesPage.view GeometriesPageMsg model
-        | GlyphRunControlPageModel model -> map GlyphRunControlPage.view GlyphRunControlPageMsg model
-        | GridPageModel model -> map GridPage.view GridPageMsg model
-        | GridSplitterPageModel model -> map GridSplitterPage.view GridSplitterPageMsg model
-        | ImagePageModel model -> map ImagePage.view ImagePageMsg model
-        | LabelPageModel model -> map LabelPage.view LabelPageMsg model
-        | LayoutTransformControlPageModel model -> map LayoutTransformControlPage.view LayoutTransformControlPageMsg model
-        | LineBoundsDemoControlPageModel model -> map LineBoundsDemoControlPage.view LineBoundsDemoControlPageMsg model
-        | ListBoxPageModel model -> map ListBoxPage.view ListBoxPageMsg model
-        | MenuFlyoutPageModel model -> map MenuFlyoutPage.view MenuFlyoutPageMsg model
-        | MaskedTextBoxPageModel model -> map MaskedTextBoxPage.view MaskedTextBoxPageMsg model
-        | MenuPageModel model -> map MenuPage.view MenuPageMsg model
-        | NumericUpDownPageModel model -> map NumericUpDownPage.view NumericUpDownPageMsg model
-        | NotificationsPageModel model -> map NotificationsPage.view NotificationsPageMsg model
-        | ProgressBarPageModel model -> map ProgressBarPage.view ProgressBarPageMsg model
-        | PanelPageModel model -> map PanelPage.view PanelPageMsg model
-        | PathIconPageModel model -> map PathIconPage.view PathIconPageMsg model
-        | PopupPageModel model -> map PopupPage.view PopupPageMsg model
-        | PageTransitionsPageModel model -> map PageTransitionsPage.view PageTransitionsPageMsg model
-        | RepeatButtonPageModel model -> map RepeatButtonPage.view RepeatButtonPageMsg model
-        | RadioButtonPageModel model -> map RadioButtonPage.view RadioButtonPageMsg model
-        | RefreshContainerPageModel model -> map RefreshContainerPage.view RefreshContainerPageMsg model
-        | SelectableTextBlockPageModel model -> map SelectableTextBlockPage.view SelectableTextBlockPageMsg model
-        | SplitButtonPageModel model -> map SplitButtonPage.view SplitButtonPageMsg model
-        | SliderPageModel model -> map SliderPage.view SliderPageMsg model
-        | ShapesPageModel model -> map ShapesPage.view ShapesPageMsg model
-        | ScrollBarPageModel model -> map ScrollBarPage.view ScrollBarPageMsg model
-        | SplitViewPageModel model -> map SplitViewPage.view SplitViewPageMsg model
-        | StackPanelPageModel model -> map StackPanelPage.view StackPanelPageMsg model
-        | ScrollViewerPageModel model -> map ScrollViewerPage.view ScrollViewerPageMsg model
-        | ToggleSplitButtonPageModel model -> map ToggleSplitButtonPage.view ToggleSplitButtonPageMsg model
-        | TextBlockPageModel model -> map TextBlockPage.view TextBlockPageMsg model
-        | TextBoxPageModel model -> map TextBoxPage.view TextBoxPageMsg model
-        | TickBarPageModel model -> map TickBarPage.view TickBarPageMsg model
-        | ToggleSwitchPageModel model -> map ToggleSwitchPage.view ToggleSwitchPageMsg model
-        | ToggleButtonPageModel model -> map ToggleButtonPage.view ToggleButtonPageMsg model
-        | ToolTipPageModel model -> map ToolTipPage.view ToolTipPageMsg model
-        | TabControlPageModel model -> map TabControlPage.view TabControlPageMsg model
-        | TabStripPageModel model -> map TabStripPage.view TabStripPageMsg model
-        | TransitionsPageModel model -> map TransitionsPage.view TransitionsPageMsg model
-        | TransformsPageModel model -> map TransformsPage.view TransformsPageMsg model
-        | ThemeAwarePageModel model -> map ThemeAwarePage.view ThemeAwarePageMsg model
-        | UniformGridPageModel model -> map UniformGridPage.view UniformGridPageMsg model
-        | ViewBoxPageModel model -> map ViewBoxPage.view ViewBoxPageMsg model
+        | CalendarPageModel m -> map CalendarPage.view CalendarPageMsg m
+        | CalendarDatePickerPageModel m -> map CalendarDatePickerPage.view CalendarDatePickerPageMsg m
+        | CanvasPageModel m -> map CanvasPage.view CanvasPageMsg m
+        | CheckBoxPageModel m -> map CheckBoxPage.view CheckBoxPageMsg m
+        | CarouselPageModel m -> map CarouselPage.view CarouselPageMsg m
+        | ComboBoxPageModel m -> map ComboBoxPage.view ComboBoxPageMsg m
+        | ContextMenuPageModel m -> map ContextMenuPage.view ContextMenuPageMsg m
+        | ContextFlyoutPageModel m -> map ContextFlyoutPage.view ContextFlyoutPageMsg m
+        | ClippingPageModel m -> map ClippingPage.view ClippingPageMsg m
+        | DockPanelPageModel m -> map DockPanelPage.view DockPanelPageMsg m
+        | DropDownButtonPageModel m -> map DropDownButtonPage.view DropDownButtonPageMsg m
+        | DrawingPageModel m -> map DrawingPage.view DrawingPageMsg m
+        | ExpanderPageModel m -> map ExpanderPage.view ExpanderPageMsg m
+        | FlyoutPageModel m -> map FlyoutPage.view FlyoutPageMsg m
+        | GesturesPageModel m -> map GesturesPage.view GesturesPageMsg m
+        | GeometriesPageModel m -> map GeometriesPage.view GeometriesPageMsg m
+        | GlyphRunControlPageModel m -> map GlyphRunControlPage.view GlyphRunControlPageMsg m
+        | GridPageModel m -> map GridPage.view GridPageMsg m
+        | GridSplitterPageModel m -> map GridSplitterPage.view GridSplitterPageMsg m
+        | ImagePageModel m -> map ImagePage.view ImagePageMsg m
+        | LabelPageModel m -> map LabelPage.view LabelPageMsg m
+        | LayoutTransformControlPageModel m -> map LayoutTransformControlPage.view LayoutTransformControlPageMsg m
+        | LineBoundsDemoControlPageModel m -> map LineBoundsDemoControlPage.view LineBoundsDemoControlPageMsg m
+        | ListBoxPageModel m -> map ListBoxPage.view ListBoxPageMsg m
+        | MenuFlyoutPageModel m -> map MenuFlyoutPage.view MenuFlyoutPageMsg m
+        | MaskedTextBoxPageModel m -> map MaskedTextBoxPage.view MaskedTextBoxPageMsg m
+        | MenuPageModel m -> map MenuPage.view MenuPageMsg m
+        | NumericUpDownPageModel m -> map NumericUpDownPage.view NumericUpDownPageMsg m
+        | NotificationsPageModel m -> map NotificationsPage.view NotificationsPageMsg m
+        | ProgressBarPageModel m -> map ProgressBarPage.view ProgressBarPageMsg m
+        | PanelPageModel m -> map PanelPage.view PanelPageMsg m
+        | PathIconPageModel m -> map PathIconPage.view PathIconPageMsg m
+        | PopupPageModel m -> map PopupPage.view PopupPageMsg m
+        | PageTransitionsPageModel m -> map PageTransitionsPage.view PageTransitionsPageMsg m
+        | RepeatButtonPageModel m -> map RepeatButtonPage.view RepeatButtonPageMsg m
+        | RadioButtonPageModel m -> map RadioButtonPage.view RadioButtonPageMsg m
+        | RefreshContainerPageModel m -> map RefreshContainerPage.view RefreshContainerPageMsg m
+        | SelectableTextBlockPageModel m -> map SelectableTextBlockPage.view SelectableTextBlockPageMsg m
+        | SplitButtonPageModel m -> map SplitButtonPage.view SplitButtonPageMsg m
+        | SliderPageModel m -> map SliderPage.view SliderPageMsg m
+        | ShapesPageModel m -> map ShapesPage.view ShapesPageMsg m
+        | ScrollBarPageModel m -> map ScrollBarPage.view ScrollBarPageMsg m
+        | SplitViewPageModel m -> map SplitViewPage.view SplitViewPageMsg m
+        | StackPanelPageModel m -> map StackPanelPage.view StackPanelPageMsg m
+        | ScrollViewerPageModel m -> map ScrollViewerPage.view ScrollViewerPageMsg m
+        | ToggleSplitButtonPageModel m -> map ToggleSplitButtonPage.view ToggleSplitButtonPageMsg m
+        | TextBlockPageModel m -> map TextBlockPage.view TextBlockPageMsg m
+        | TextBoxPageModel m -> map TextBoxPage.view TextBoxPageMsg m
+        | TickBarPageModel m -> map TickBarPage.view TickBarPageMsg m
+        | ToggleSwitchPageModel m -> map ToggleSwitchPage.view ToggleSwitchPageMsg m
+        | ToggleButtonPageModel m -> map ToggleButtonPage.view ToggleButtonPageMsg m
+        | ToolTipPageModel m -> map ToolTipPage.view ToolTipPageMsg m
+        | TabControlPageModel m -> map TabControlPage.view TabControlPageMsg m
+        | TabStripPageModel m -> map TabStripPage.view TabStripPageMsg m
+        | TransitionsPageModel m -> map TransitionsPage.view TransitionsPageMsg m
+        | TransformsPageModel m -> map TransformsPage.view TransformsPageMsg m
+        | ThemeAwarePageModel m -> map ThemeAwarePage.view ThemeAwarePageMsg m
+        | UniformGridPageModel m -> map UniformGridPage.view UniformGridPageMsg m
+        | ViewBoxPageModel m -> map ViewBoxPage.view ViewBoxPageMsg m
