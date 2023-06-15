@@ -43,6 +43,12 @@ module Visual =
     let FlowDirection =
         Attributes.defineAvaloniaPropertyWithEquality Visual.FlowDirectionProperty
 
+    let AttachedToVisualTree =
+        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)
+
+    let DetachedFromVisualTree =
+        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
+
 [<Extension>]
 type VisualModifiers =
     [<Extension>]
@@ -96,3 +102,11 @@ type VisualModifiers =
     [<Extension>]
     static member inline flowDirection(this: WidgetBuilder<'msg, #IFabVisual>, direction: FlowDirection) =
         this.AddScalar(Visual.FlowDirection.WithValue(direction))
+
+    [<Extension>]
+    static member inline onAttachedToVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
+        this.AddScalar(Visual.AttachedToVisualTree.WithValue(fun args -> fn args |> box))
+
+    [<Extension>]
+    static member inline onDetachedFromVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
+        this.AddScalar(Visual.DetachedFromVisualTree.WithValue(fun args -> fn args |> box))
