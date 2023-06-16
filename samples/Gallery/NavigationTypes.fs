@@ -6,7 +6,8 @@ type NavigationRoute =
     | AdornerLayerPage
     | AutoCompleteBoxPage
     | AnimationsPage
-    | ImplicitCanvasAnimations
+    | ImplicitCanvasAnimationsPage
+    | CompositorAnimationsPage
     | ButtonsPage
     | BrushesPage
     | ButtonSpinnerPage
@@ -77,7 +78,8 @@ type NavigationRoute =
         | "AdornerLayerPage" -> AdornerLayerPage
         | "AutoCompleteBoxPage" -> AutoCompleteBoxPage
         | "AnimationsPage" -> AnimationsPage
-        | "ImplicitCanvasAnimationsPage" -> ImplicitCanvasAnimations
+        | "ImplicitCanvasAnimationsPage" -> ImplicitCanvasAnimationsPage
+        | "CompositorAnimationsPage" -> CompositorAnimationsPage
         | "ButtonsPage" -> ButtonsPage
         | "BrushesPage" -> BrushesPage
         | "ButtonSpinnerPage" -> ButtonSpinnerPage

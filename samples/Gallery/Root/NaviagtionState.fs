@@ -11,6 +11,7 @@ type SubpageModel =
     | AutoCompleteBoxPageModel of AutoCompleteBoxPage.Model
     | AnimationsPageModel of AnimationsPage.Model
     | ImplicitCanvasAnimationsPageModel of ImplicitCanvasAnimationsPage.Model
+    | CompositorAnimationsPageModel of CompositorAnimationsPage.Model
     | ButtonsPageModel of ButtonsPage.Model
     | BrushesPageModel of BrushesPage.Model
     | ButtonSpinnerPageModel of ButtonSpinnerPage.Model
@@ -81,6 +82,7 @@ type SubpageMsg =
     | AutoCompleteBoxPageMsg of AutoCompleteBoxPage.Msg
     | AnimationsPageMsg of AnimationsPage.Msg
     | ImplicitCanvasAnimationsPageMsg of ImplicitCanvasAnimationsPage.Msg
+    | CompositorAnimationsPageMsg of CompositorAnimationsPage.Msg
     | ButtonsPageMsg of ButtonsPage.Msg
     | BrushesPageMsg of BrushesPage.Msg
     | ButtonSpinnerPageMsg of ButtonSpinnerPage.Msg
@@ -151,6 +153,7 @@ type SubpageCmdMsg =
     | AutoCompleteBoxPageCmdMsgs of AutoCompleteBoxPage.CmdMsg list
     | AnimationsPageCmdMsgs of AnimationsPage.CmdMsg list
     | ImplicitCanvasAnimationsPageCmdMsgs of ImplicitCanvasAnimationsPage.CmdMsg list
+    | CompositorAnimationsPageCmdMsgs of CompositorAnimationsPage.CmdMsg list
     | ButtonsPageCmdMsgs of ButtonsPage.CmdMsg list
     | BrushesPageCmdMsgs of BrushesPage.CmdMsg list
     | ButtonSpinnerPageCmdMsgs of ButtonSpinnerPage.CmdMsg list
@@ -237,6 +240,7 @@ module NavigationState =
             | AutoCompleteBoxPageCmdMsgs subCmdMsgs -> map AutoCompleteBoxPage.mapCmdMsgToCmd AutoCompleteBoxPageMsg subCmdMsgs
             | AnimationsPageCmdMsgs subCmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsPageMsg subCmdMsgs
             | ImplicitCanvasAnimationsPageCmdMsgs cmdMsgs -> map ImplicitCanvasAnimationsPage.mapCmdMsgToCmd ImplicitCanvasAnimationsPageMsg cmdMsgs
+            | CompositorAnimationsPageCmdMsgs cmdMsgs -> map CompositorAnimationsPage.mapCmdMsgToCmd CompositorAnimationsPageMsg cmdMsgs
             | ButtonsPageCmdMsgs subCmdMsgs -> map ButtonsPage.mapCmdMsgToCmd ButtonsPageMsg subCmdMsgs
             | ButtonSpinnerPageCmdMsgs subCmdMsgs -> map ButtonSpinnerPage.mapCmdMsgToCmd ButtonSpinnerPageMsg subCmdMsgs
             | BorderPageCmdMsgs subCmdMsgs -> map BorderPage.mapCmdMsgToCmd BorderPageMsg subCmdMsgs
@@ -320,9 +324,13 @@ module NavigationState =
             let m, c = AnimationsPage.init()
             AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
 
-        | NavigationRoute.ImplicitCanvasAnimations ->
+        | NavigationRoute.ImplicitCanvasAnimationsPage ->
             let m, c = ImplicitCanvasAnimationsPage.init()
             ImplicitCanvasAnimationsPageModel m, [ ImplicitCanvasAnimationsPageCmdMsgs c ]
+
+        | NavigationRoute.CompositorAnimationsPage ->
+            let m, c = CompositorAnimationsPage.init()
+            CompositorAnimationsPageModel m, [ CompositorAnimationsPageCmdMsgs c ]
         | NavigationRoute.ButtonsPage ->
             let m, c = ButtonsPage.init()
             ButtonsPageModel m, [ ButtonsPageCmdMsgs c ]
@@ -535,6 +543,10 @@ module NavigationState =
             | ImplicitCanvasAnimationsPageMsg subMsg, ImplicitCanvasAnimationsPageModel m ->
                 let m, c = ImplicitCanvasAnimationsPage.update subMsg m
                 ImplicitCanvasAnimationsPageModel m, [ ImplicitCanvasAnimationsPageCmdMsgs c ]
+
+            | CompositorAnimationsPageMsg subMsg, CompositorAnimationsPageModel m ->
+                let m, c = CompositorAnimationsPage.update subMsg m
+                CompositorAnimationsPageModel m, [ CompositorAnimationsPageCmdMsgs c ]
 
             | ButtonsPageMsg subMsg, ButtonsPageModel m ->
                 let m, c = ButtonsPage.update subMsg m
@@ -805,6 +817,7 @@ module NavigationState =
         | AutoCompleteBoxPageModel m -> map AutoCompleteBoxPage.view AutoCompleteBoxPageMsg m
         | AnimationsPageModel m -> map AnimationsPage.view AnimationsPageMsg m
         | ImplicitCanvasAnimationsPageModel m -> map ImplicitCanvasAnimationsPage.view ImplicitCanvasAnimationsPageMsg m
+        | CompositorAnimationsPageModel m -> map CompositorAnimationsPage.view CompositorAnimationsPageMsg m
         | ButtonsPageModel m -> map ButtonsPage.view ButtonsPageMsg m
         | BrushesPageModel m -> map BrushesPage.view BrushesPageMsg m
         | ButtonSpinnerPageModel m -> map ButtonSpinnerPage.view ButtonSpinnerPageMsg m

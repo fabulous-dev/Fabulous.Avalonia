@@ -35,7 +35,12 @@
     <Compile Include="Pages\Animations\Animations1.fs" />
     <Compile Include="Pages\Animations\Animations2.fs" />
     <Compile Include="Pages\Animations\Animations3.fs" />
+    <Compile Include="Pages\Animations\SlidingAnimation.fs" />
+    <Compile Include="Pages\Animations\ExpressionAnimation.fs" />
+    <Compile Include="Pages\Animations\GalaxyAnimation.fs" />
+    <Compile Include="Pages\Animations\Vector3KeyFrameAnimation.fs" />
     <Compile Include="Pages\Animations\ImplicitCanvasAnimationsPage.fs" />
+    <Compile Include="Pages\Animations\CompositorAnimationsPage.fs" />
     <Compile Include="Pages\Animations\AnimationsPage.fs" />
     <Compile Include="Pages\AutoCompleteBoxPage.fs" />
     <Compile Include="Pages\BorderPage.fs" />
