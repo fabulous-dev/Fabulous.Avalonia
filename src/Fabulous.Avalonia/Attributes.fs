@@ -5,6 +5,7 @@ open System.Collections
 open System.Threading
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Input
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
@@ -303,33 +304,28 @@ module Attributes =
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
 
-    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
+    let inline defineRoutedEvent<'args when 'args :> DragEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
                 (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
                     let observable = property.Raised
 
-                    // The attribute is no longer applied, so we clean up the event
-                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    match node.TryGetHandler<IDisposable>(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
 
                     match newValueOpt with
-                    | ValueNone -> ()
-                    | ValueSome _ ->
-                        // Clean up the old event handler if any
-                        match node.TryGetHandler<IDisposable>(property.Name) with
-                        | ValueNone -> ()
-                        | ValueSome handler -> handler.Dispose()
+                    | ValueNone -> node.SetHandler(name, ValueNone)
 
-                        // Set the new event handler
+                    | ValueSome fn ->
                         let disposable =
                             observable.Subscribe(fun args ->
-                                let struct (_, v) = args
-                                Dispatcher.dispatch node v)
+                                let struct (_, y) = args
+                                let r = fn(y :?> 'args)
+                                Dispatcher.dispatch node r)
 
-                        node.SetHandler(property.Name, ValueSome disposable))
+                        node.SetHandler(name, ValueSome disposable))
             )
             |> AttributeDefinitionStore.registerScalar
 
