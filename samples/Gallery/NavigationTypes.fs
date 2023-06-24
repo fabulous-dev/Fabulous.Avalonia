@@ -23,6 +23,7 @@ type NavigationRoute =
     | ClippingPage
     | ClipboardPage
     | DockPanelPage
+    | DragAndDropPage
     | DropDownButtonPage
     | DrawingPage
     | ExpanderPage
@@ -96,6 +97,7 @@ type NavigationRoute =
         | "ClippingPage" -> ClippingPage
         | "ClipboardPage" -> ClipboardPage
         | "DockPanelPage" -> DockPanelPage
+        | "DragAndDropPage" -> DragAndDropPage
         | "DropDownButtonPage" -> DropDownButtonPage
         | "DrawingPage" -> DrawingPage
         | "ExpanderPage" -> ExpanderPage

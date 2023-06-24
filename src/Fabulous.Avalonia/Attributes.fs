@@ -2,8 +2,10 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Collections
+open System.Threading
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
@@ -300,3 +302,35 @@ module Attributes =
 
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
+
+    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                    let observable = property.Raised
+
+                    // The attribute is no longer applied, so we clean up the event
+                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+
+                    match newValueOpt with
+                    | ValueNone -> ()
+                    | ValueSome _ ->
+                        // Clean up the old event handler if any
+                        match node.TryGetHandler<IDisposable>(property.Name) with
+                        | ValueNone -> ()
+                        | ValueSome handler -> handler.Dispose()
+
+                        // Set the new event handler
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                let struct (_, v) = args
+                                Dispatcher.dispatch node v)
+
+                        node.SetHandler(property.Name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
