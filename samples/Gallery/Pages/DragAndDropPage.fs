@@ -43,95 +43,105 @@ module DragAndDropPage =
     type CmdMsg =
         | DragBegin of args: PointerEventArgs * factory: System.Action<DataObject> * DragDropEffects * borderDragged: BorderDragged
         | DropBegin of args: DragEventArgs
-        
+
     type System.Collections.Generic.IAsyncEnumerable<'T> with
-          member this.AsTask () = task {
-            let mutable nxt = true
-            let output = ResizeArray()
-            let enumerator = this.GetAsyncEnumerator()
-            while nxt do
-              let! next = enumerator.MoveNextAsync()
-              nxt <- next
-              if nxt then output.Add enumerator.Current
-            return output.ToArray()
-          }
+
+        member this.AsTask() =
+            task {
+                let mutable nxt = true
+                let output = ResizeArray()
+                let enumerator = this.GetAsyncEnumerator()
+
+                while nxt do
+                    let! next = enumerator.MoveNextAsync()
+                    nxt <- next
+
+                    if nxt then
+                        output.Add enumerator.Current
+
+                return output.ToArray()
+            }
+
     let customFormat = "application/xxx-avalonia-galleryapp-custom"
 
     let copyTargetRef = ViewRef<Border>()
     let moveTargetRef = ViewRef<Border>()
-    
-    let ReadTextFromFile(file: IStorageFile, length: int) =
+
+    let ReadTextFromFile (file: IStorageFile, length: int) =
         task {
-#if NET6_0_OR_GREATER
             use! stream = file.OpenReadAsync()
-#else
-            use stream = await file.OpenReadAsync()
-#endif
+
             use reader = new System.IO.StreamReader(stream)
 
             // 4GB file test, shouldn't load more than 10000 chars into a memory.
             let buffer = ArrayPool<char>.Shared.Rent(length)
+
             try
                 let! charsRead = reader.ReadAsync(buffer, 0, length)
                 return new string(buffer, 0, charsRead)
             finally
                 ArrayPool<char>.Shared.Return(buffer)
-
         }
-        
+
     let doDrop (e: DragEventArgs) =
         async {
             let source = e.Source :?> Control
-            
+
             if (source <> null && moveTargetRef.TryValue.IsSome) then
                 e.DragEffects <- e.DragEffects &&& DragDropEffects.Move
             else
                 e.DragEffects <- e.DragEffects &&& DragDropEffects.Copy
-                
+
             if e.Data.Contains(DataFormats.Text) then
                 return Dropped(e.Data.GetText())
-                
+
             elif e.Data.Contains(DataFormats.Files) then
                 let files = e.Data.GetFiles()
+
                 let files =
                     if files = null then
                         Array.empty<IStorageItem>
                     else
                         files |> Seq.toArray
-                    
+
                 let mutable contentStr = ""
-                
+
                 for item in files do
                     match item with
                     | :? IStorageFile as file ->
                         let! content = ReadTextFromFile(file, 500) |> Async.AwaitTask
-                        contentStr <- contentStr + $"File {item.Name}:{Environment.NewLine}{content}{Environment.NewLine}{Environment.NewLine}"
-                        
-                        
+
+                        contentStr <-
+                            contentStr
+                            + $"File {item.Name}:{Environment.NewLine}{content}{Environment.NewLine}{Environment.NewLine}"
+
+
                     | :? IStorageFolder as folder ->
                         let mutable childrenCount = 0
                         let! items = folder.GetItemsAsync().AsTask() |> Async.AwaitTask
+
                         for _ in items do
                             childrenCount <- childrenCount + 1
-                            
-                        contentStr <- contentStr + $"Folder {item.Name}: items {childrenCount}{Environment.NewLine}{Environment.NewLine}"
-                        
+
+                        contentStr <-
+                            contentStr
+                            + $"Folder {item.Name}: items {childrenCount}{Environment.NewLine}{Environment.NewLine}"
+
                     | _ -> ()
 
                 return Dropped(contentStr)
             elif e.Data.Contains(DataFormats.FileNames) then
                 let files =
-                    (e.Data.GetFileNames()
-                     |> Seq.map id
-                     |> String.concat Environment.NewLine)
+                    (e.Data.GetFileNames() |> Seq.map id |> String.concat Environment.NewLine)
+
                 let res = if files = null then "" else files
                 let res = String.Join(Environment.NewLine, res)
                 return Dropped(res)
-                   
+
             elif e.Data.Contains(customFormat) then
                 let res = "Custom: " + $"{e.Data.Get(customFormat)}"
                 return Dropped(res)
-                
+
             else
                 return Dropped("Unknown data")
         }
@@ -140,7 +150,7 @@ module DragAndDropPage =
         async {
             let dragData = DataObject()
             factory.Invoke(dragData)
-            
+
             let! result =
                 Dispatcher.UIThread.InvokeAsync<DragDropEffects>(fun _ -> DragDrop.DoDragDrop(args, dragData, effects))
                 |> Async.AwaitTask
@@ -178,67 +188,82 @@ module DragAndDropPage =
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | DragBegin(args, factory, effects, borderDragged) ->
-            Cmd.ofAsyncMsg(doDrag args effects factory borderDragged)
+        | DragBegin(args, factory, effects, borderDragged) -> Cmd.ofAsyncMsg(doDrag args effects factory borderDragged)
         | DropBegin(args) -> Cmd.ofAsyncMsg(doDrop args)
 
     let init () =
         { DragStateTex = "Drag Me (text)"
           DragStateFilesText = "Drag Me (files)"
           DragStateCustomText = "Drag Me (custom)"
-          DropStateText = "" 
+          DropStateText = ""
           DraggedCount = 0 },
         []
-        
+
     let getFiles () =
         async {
-             let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-             let storageProvider = TopLevel.GetTopLevel(mainView).StorageProvider             
-             let modules =
+            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
+            let storageProvider = TopLevel.GetTopLevel(mainView).StorageProvider
+
+            let modules =
                 Assembly.GetEntryAssembly().GetModules()
-               |> Seq.tryHead
-               |> Option.map (fun m -> m.FullyQualifiedName)
-               |> Option.defaultValue ""
-                           
-             let! res = storageProvider.TryGetFileFromPathAsync(modules) |> Async.AwaitTask
-             return res
-         }
+                |> Seq.tryHead
+                |> Option.map(fun m -> m.FullyQualifiedName)
+                |> Option.defaultValue ""
+
+            let! res = storageProvider.TryGetFileFromPathAsync(modules) |> Async.AwaitTask
+            return res
+        }
 
     let update msg model =
         match msg with
         | OnPointPressed1 args ->
             args.Handled <- true
             let effects = DragDropEffects.Copy ||| DragDropEffects.Move ||| DragDropEffects.Link
+
             let factory =
                 System.Action<DataObject>(fun d -> d.Set(DataFormats.Text, $"Text was dragged {model.DraggedCount} times"))
+
             model, [ DragBegin(args, factory, effects, BorderDragged.First) ]
 
         | OnPointPressed2 args ->
             args.Handled <- true
             let effects = DragDropEffects.Move
-            let factory =
-                System.Action<DataObject>(fun d -> d.Set(customFormat, "Test123"))
+            let factory = System.Action<DataObject>(fun d -> d.Set(customFormat, "Test123"))
             model, [ DragBegin(args, factory, effects, BorderDragged.Second) ]
 
         | OnPointPressed3 args ->
             args.Handled <- true
             let effects = DragDropEffects.Copy
             let files = getFiles() |> Async.RunSynchronously
-            let factory = System.Action<DataObject>(fun d -> d.Set(DataFormats.Files, [| files |]))
+
+            let factory =
+                System.Action<DataObject>(fun d -> d.Set(DataFormats.Files, [| files |]))
+
             model, [ DragBegin(args, factory, effects, BorderDragged.Third) ]
 
         | Dragged1 s ->
             let dragCount = model.DraggedCount + 1
-            { model with DragStateTex = s ; DraggedCount = dragCount }, []
+
+            { model with
+                DragStateTex = s
+                DraggedCount = dragCount },
+            []
         | Dragged2 s ->
             let dragCount = model.DraggedCount + 1
-            { model with DragStateFilesText = s ; DraggedCount = dragCount }, []
+
+            { model with
+                DragStateFilesText = s
+                DraggedCount = dragCount },
+            []
         | Dragged3 s ->
             let dragCount = model.DraggedCount + 1
-            { model with DragStateCustomText = s ; DraggedCount = dragCount }, []
-            
-        | Dropped s ->
-            { model with DropStateText = s }, []
+
+            { model with
+                DragStateCustomText = s
+                DraggedCount = dragCount },
+            []
+
+        | Dropped s -> { model with DropStateText = s }, []
         | Drop args ->
             args.Handled <- true
             model, [ DropBegin(args) ]
