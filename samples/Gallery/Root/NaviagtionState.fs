@@ -25,6 +25,7 @@ type SubpageModel =
     | ContextMenuPageModel of ContextMenuPage.Model
     | ContextFlyoutPageModel of ContextFlyoutPage.Model
     | ClippingPageModel of ClippingPage.Model
+    | ClipboardPageModel of ClipboardPage.Model
     | DockPanelPageModel of DockPanelPage.Model
     | DropDownButtonPageModel of DropDownButtonPage.Model
     | DrawingPageModel of DrawingPage.Model
@@ -96,6 +97,7 @@ type SubpageMsg =
     | ContextMenuPageMsg of ContextMenuPage.Msg
     | ContextFlyoutPageMsg of ContextFlyoutPage.Msg
     | ClippingPageMsg of ClippingPage.Msg
+    | ClipboardPageMsg of ClipboardPage.Msg
     | DockPanelPageMsg of DockPanelPage.Msg
     | DropDownButtonPageMsg of DropDownButtonPage.Msg
     | DrawingPageMsg of DrawingPage.Msg
@@ -167,6 +169,7 @@ type SubpageCmdMsg =
     | ContextMenuPageCmdMsgs of ContextMenuPage.CmdMsg list
     | ContextFlyoutPageCmdMsgs of ContextFlyoutPage.CmdMsg list
     | ClippingPageCmdMsgs of ClippingPage.CmdMsg list
+    | ClipboardPageCmdMsgs of ClipboardPage.CmdMsg list
     | DockPanelPageCmdMsgs of DockPanelPage.CmdMsg list
     | DropDownButtonPageCmdMsgs of DropDownButtonPage.CmdMsg list
     | DrawingPageCmdMsgs of DrawingPage.CmdMsg list
@@ -253,6 +256,7 @@ module NavigationState =
             | ComboBoxPageCmdMsgs subCmdMsgs -> map ComboBoxPage.mapCmdMsgToCmd ComboBoxPageMsg subCmdMsgs
             | ContextMenuPageCmdMsgs subCmdMsgs -> map ContextMenuPage.mapCmdMsgToCmd ContextMenuPageMsg subCmdMsgs
             | ContextFlyoutPageCmdMsgs subCmdMsgs -> map ContextFlyoutPage.mapCmdMsgToCmd ContextFlyoutPageMsg subCmdMsgs
+            | ClipboardPageCmdMsgs subCmdMsgs -> map ClipboardPage.mapCmdMsgToCmd ClipboardPageMsg subCmdMsgs
             | ClippingPageCmdMsgs subCmdMsgs -> map ClippingPage.mapCmdMsgToCmd ClippingPageMsg subCmdMsgs
             | DockPanelPageCmdMsgs subCmdMsgs -> map DockPanelPage.mapCmdMsgToCmd DockPanelPageMsg subCmdMsgs
             | DropDownButtonPageCmdMsgs subCmdMsgs -> map DropDownButtonPage.mapCmdMsgToCmd DropDownButtonPageMsg subCmdMsgs
@@ -370,6 +374,10 @@ module NavigationState =
         | NavigationRoute.ClippingPage ->
             let m, c = ClippingPage.init()
             ClippingPageModel m, [ ClippingPageCmdMsgs c ]
+
+        | NavigationRoute.ClipboardPage ->
+            let m, c = ClipboardPage.init()
+            ClipboardPageModel m, [ ClipboardPageCmdMsgs c ]
         | NavigationRoute.DockPanelPage ->
             let m, c = DockPanelPage.init()
             DockPanelPageModel m, [ DockPanelPageCmdMsgs c ]
@@ -587,6 +595,10 @@ module NavigationState =
             | ClippingPageMsg subMsg, ClippingPageModel m ->
                 let m, c = ClippingPage.update subMsg m
                 ClippingPageModel m, [ ClippingPageCmdMsgs c ]
+
+            | ClipboardPageMsg subMsg, ClipboardPageModel m ->
+                let m, c = ClipboardPage.update subMsg m
+                ClipboardPageModel m, [ ClipboardPageCmdMsgs c ]
 
             | ComboBoxPageMsg subMsg, ComboBoxPageModel m ->
                 let m, c = ComboBoxPage.update subMsg m
@@ -831,6 +843,7 @@ module NavigationState =
         | ContextMenuPageModel m -> map ContextMenuPage.view ContextMenuPageMsg m
         | ContextFlyoutPageModel m -> map ContextFlyoutPage.view ContextFlyoutPageMsg m
         | ClippingPageModel m -> map ClippingPage.view ClippingPageMsg m
+        | ClipboardPageModel m -> map ClipboardPage.view ClipboardPageMsg m
         | DockPanelPageModel m -> map DockPanelPage.view DockPanelPageMsg m
         | DropDownButtonPageModel m -> map DropDownButtonPage.view DropDownButtonPageMsg m
         | DrawingPageModel m -> map DrawingPage.view DrawingPageMsg m
