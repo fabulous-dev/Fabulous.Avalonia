@@ -14,36 +14,7 @@ open Avalonia.Threading
 
 open type Fabulous.Avalonia.View
 
-
-
-module DragAndDropPage =
-    type Model =
-        { DragStateTex: string
-          DragStateFilesText: string
-          DragStateCustomText: string
-          DraggedCount: int
-          DropStateText: string }
-
-    type BorderDragged =
-        | First
-        | Second
-        | Third
-
-    type Msg =
-        | OnPointPressed1 of PointerPressedEventArgs
-        | OnPointPressed2 of PointerPressedEventArgs
-        | OnPointPressed3 of PointerPressedEventArgs
-        | Dragged1 of string
-        | Dragged2 of string
-        | Dragged3 of string
-        | Dropped of string
-        | DraggedOver of DragEventArgs
-        | Drop of DragEventArgs
-
-    type CmdMsg =
-        | DragBegin of args: PointerEventArgs * factory: System.Action<DataObject> * DragDropEffects * borderDragged: BorderDragged
-        | DropBegin of args: DragEventArgs
-
+module Validation =
     type System.Collections.Generic.IAsyncEnumerable<'T> with
 
         member this.AsTask() =
@@ -62,11 +33,6 @@ module DragAndDropPage =
                 return output.ToArray()
             }
 
-    let customFormat = "application/xxx-avalonia-galleryapp-custom"
-
-    let copyTargetRef = ViewRef<Border>()
-    let moveTargetRef = ViewRef<Border>()
-
     let ReadTextFromFile (file: IStorageFile, length: int) =
         task {
             use! stream = file.OpenReadAsync()
@@ -83,11 +49,58 @@ module DragAndDropPage =
                 ArrayPool<char>.Shared.Return(buffer)
         }
 
+    let getFiles () =
+        async {
+            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
+            let storageProvider = TopLevel.GetTopLevel(mainView).StorageProvider
+
+            let modules =
+                Assembly.GetEntryAssembly().GetModules()
+                |> Seq.tryHead
+                |> Option.map(fun m -> m.FullyQualifiedName)
+                |> Option.defaultValue ""
+
+            let! res = storageProvider.TryGetFileFromPathAsync(modules) |> Async.AwaitTask
+            return res
+        }
+
+open Validation
+
+module DragAndDropPage =
+    type Model =
+        { DragStateTex: string
+          DragStateFilesText: string
+          DragStateCustomText: string
+          DraggedCount: int
+          DropStateText: string }
+
+    type BorderPointerPressed =
+        | First
+        | Second
+        | Third
+
+    type Msg =
+        | OnPointPressed1 of PointerPressedEventArgs
+        | OnPointPressed2 of PointerPressedEventArgs
+        | OnPointPressed3 of PointerPressedEventArgs
+        | Dragged1 of string
+        | Dragged2 of string
+        | Dragged3 of string
+        | Dropped of string
+        | DraggedOver of DragEventArgs
+        | Drop of DragEventArgs
+
+    type CmdMsg =
+        | DragBegin of args: PointerEventArgs * factory: System.Action<DataObject> * DragDropEffects * borderDragged: BorderPointerPressed
+        | DropBegin of args: DragEventArgs
+
+    let customFormat = "application/xxx-avalonia-galleryapp-custom"
+
     let doDrop (e: DragEventArgs) =
         async {
             let source = e.Source :?> Control
 
-            if (source <> null && moveTargetRef.TryValue.IsSome) then
+            if (source <> null && source.Name = "MoveTarget") then
                 e.DragEffects <- e.DragEffects &&& DragDropEffects.Move
             else
                 e.DragEffects <- e.DragEffects &&& DragDropEffects.Copy
@@ -127,21 +140,13 @@ module DragAndDropPage =
                             contentStr
                             + $"Folder {item.Name}: items {childrenCount}{Environment.NewLine}{Environment.NewLine}"
 
-                    | _ -> ()
+                    | _ -> failwithf $"Unknown item type: {item.GetType()}"
 
                 return Dropped(contentStr)
-            elif e.Data.Contains(DataFormats.FileNames) then
-                let files =
-                    (e.Data.GetFileNames() |> Seq.map id |> String.concat Environment.NewLine)
-
-                let res = if files = null then "" else files
-                let res = String.Join(Environment.NewLine, res)
-                return Dropped(res)
 
             elif e.Data.Contains(customFormat) then
                 let res = "Custom: " + $"{e.Data.Get(customFormat)}"
                 return Dropped(res)
-
             else
                 return Dropped("Unknown data")
         }
@@ -173,9 +178,9 @@ module DragAndDropPage =
     let DragOver (e: DragEventArgs) =
         let source = e.Source :?> Control
 
-        if (source <> null && moveTargetRef.TryValue.IsSome) then
+        if (source <> null && source.Name = "MoveTarget") then
             e.DragEffects <- e.DragEffects &&& DragDropEffects.Move
-        elif (source <> null && copyTargetRef.TryValue.IsSome) then
+        else
             e.DragEffects <- e.DragEffects &&& DragDropEffects.Copy
 
         // Only allow if the dragged data contains text or filenames.
@@ -199,21 +204,6 @@ module DragAndDropPage =
           DraggedCount = 0 },
         []
 
-    let getFiles () =
-        async {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let storageProvider = TopLevel.GetTopLevel(mainView).StorageProvider
-
-            let modules =
-                Assembly.GetEntryAssembly().GetModules()
-                |> Seq.tryHead
-                |> Option.map(fun m -> m.FullyQualifiedName)
-                |> Option.defaultValue ""
-
-            let! res = storageProvider.TryGetFileFromPathAsync(modules) |> Async.AwaitTask
-            return res
-        }
-
     let update msg model =
         match msg with
         | OnPointPressed1 args ->
@@ -223,13 +213,13 @@ module DragAndDropPage =
             let factory =
                 System.Action<DataObject>(fun d -> d.Set(DataFormats.Text, $"Text was dragged {model.DraggedCount} times"))
 
-            model, [ DragBegin(args, factory, effects, BorderDragged.First) ]
+            model, [ DragBegin(args, factory, effects, BorderPointerPressed.First) ]
 
         | OnPointPressed2 args ->
             args.Handled <- true
             let effects = DragDropEffects.Move
             let factory = System.Action<DataObject>(fun d -> d.Set(customFormat, "Test123"))
-            model, [ DragBegin(args, factory, effects, BorderDragged.Second) ]
+            model, [ DragBegin(args, factory, effects, BorderPointerPressed.Second) ]
 
         | OnPointPressed3 args ->
             args.Handled <- true
@@ -237,9 +227,9 @@ module DragAndDropPage =
             let files = getFiles() |> Async.RunSynchronously
 
             let factory =
-                System.Action<DataObject>(fun d -> d.Set(DataFormats.Files, [| files |]))
+                System.Action<DataObject>(fun d -> d.Set(DataFormats.Files, value = files))
 
-            model, [ DragBegin(args, factory, effects, BorderDragged.Third) ]
+            model, [ DragBegin(args, factory, effects, BorderPointerPressed.Third) ]
 
         | Dragged1 s ->
             let dragCount = model.DraggedCount + 1
@@ -315,22 +305,22 @@ module DragAndDropPage =
                             .onDrop(Drop)
                             .onDragOver(DraggedOver)
                     )
+                        .name("CopyTarget")
                         .padding(16.)
                         .maxWidth(260.)
                         .background(SolidColorBrush(Color.Parse("#aaa")))
-                        .reference(copyTargetRef)
 
                     Border(
                         TextBlock("Drop some text or files here (Move)")
                             .textWrapping(TextWrapping.Wrap)
                     )
+                        .name("MoveTarget")
                         .allowDrop(true)
                         .onDrop(Drop)
                         .onDragOver(DraggedOver)
                         .padding(16.)
                         .maxWidth(260.)
                         .background(SolidColorBrush(Color.Parse("#aaa")))
-                        .reference(moveTargetRef)
                 })
                     .horizontalAlignment(HorizontalAlignment.Center)
             })
