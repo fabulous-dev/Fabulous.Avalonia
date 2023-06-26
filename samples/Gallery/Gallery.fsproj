@@ -53,6 +53,7 @@
     <Compile Include="Pages\CarouselPage.fs" />
     <Compile Include="Pages\CheckBoxPage.fs" />
     <Compile Include="Pages\ClippingPage.fs" />
+    <Compile Include="Pages\ClipboardPage.fs" />
     <Compile Include="Pages\ComboBoxPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />

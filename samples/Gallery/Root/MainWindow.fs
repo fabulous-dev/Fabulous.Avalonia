@@ -38,6 +38,7 @@ module MainWindow =
                     ListBoxItem("ContextMenuPage")
                     ListBoxItem("ContextFlyoutPage")
                     ListBoxItem("ClippingPage")
+                    ListBoxItem("ClipboardPage")
                     ListBoxItem("DockPanelPage")
                     ListBoxItem("DropDownButtonPage")
                     ListBoxItem("DrawingPage")

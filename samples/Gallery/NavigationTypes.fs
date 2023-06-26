@@ -21,6 +21,7 @@ type NavigationRoute =
     | ContextMenuPage
     | ContextFlyoutPage
     | ClippingPage
+    | ClipboardPage
     | DockPanelPage
     | DropDownButtonPage
     | DrawingPage
@@ -93,6 +94,7 @@ type NavigationRoute =
         | "ContextMenuPage" -> ContextMenuPage
         | "ContextFlyoutPage" -> ContextFlyoutPage
         | "ClippingPage" -> ClippingPage
+        | "ClipboardPage" -> ClipboardPage
         | "DockPanelPage" -> DockPanelPage
         | "DropDownButtonPage" -> DropDownButtonPage
         | "DrawingPage" -> DrawingPage
