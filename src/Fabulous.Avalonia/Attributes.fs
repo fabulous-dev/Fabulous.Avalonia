@@ -304,13 +304,11 @@ module Attributes =
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
 
-    let inline defineRoutedEvent<'args when 'args :> DragEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
+    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
                 (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
-                    let observable = property.Raised
-
                     match node.TryGetHandler<IDisposable>(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
@@ -320,9 +318,8 @@ module Attributes =
 
                     | ValueSome fn ->
                         let disposable =
-                            observable.Subscribe(fun args ->
-                                let struct (_, y) = args
-                                let r = fn(y :?> 'args)
+                            property.AddClassHandler(fun _ args ->
+                                let r = fn args
                                 Dispatcher.dispatch node r)
 
                         node.SetHandler(name, ValueSome disposable))
