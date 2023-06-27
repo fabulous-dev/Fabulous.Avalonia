@@ -2,8 +2,11 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Collections
+open System.Threading
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
@@ -300,3 +303,27 @@ module Attributes =
 
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
+
+    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                    match node.TryGetHandler<IDisposable>(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let disposable =
+                            property.AddClassHandler(fun _ args ->
+                                let r = fn args
+                                Dispatcher.dispatch node r)
+
+                        node.SetHandler(name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }

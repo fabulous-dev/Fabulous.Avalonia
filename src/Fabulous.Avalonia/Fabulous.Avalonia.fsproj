@@ -53,6 +53,7 @@
     <Compile Include="Views\_Layoutable.fs" />
     <Compile Include="Views\_Interactive.fs" />
     <Compile Include="Views\_InputElement.fs" />
+    <Compile Include="Views\_DragDrop.fs" />
     <Compile Include="Views\_FlyoutBase.fs" />
     <Compile Include="Views\_PopupFlyoutBase.fs" />
     <Compile Include="Views\_Control.fs" />
