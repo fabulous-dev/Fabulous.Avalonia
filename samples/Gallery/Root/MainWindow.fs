@@ -40,6 +40,7 @@ module MainWindow =
                     ListBoxItem("ClippingPage")
                     ListBoxItem("ClipboardPage")
                     ListBoxItem("DockPanelPage")
+                    ListBoxItem("DialogsPage")
                     ListBoxItem("DragAndDropPage")
                     ListBoxItem("DropDownButtonPage")
                     ListBoxItem("DrawingPage")

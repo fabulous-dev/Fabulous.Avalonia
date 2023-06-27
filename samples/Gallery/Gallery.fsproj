@@ -58,6 +58,7 @@
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
     <Compile Include="Pages\DockPanelPage.fs" />
+    <Compile Include="Pages\DialogsPage.fs" />
     <Compile Include="Pages\DragAndDropPage.fs" />
     <Compile Include="Pages\DropDownButtonPage.fs" />
     <Compile Include="Pages\DrawingPage.fs" />
