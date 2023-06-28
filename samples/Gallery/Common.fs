@@ -24,3 +24,18 @@ module Cmd =
             Async.Start asyncUnit
             None
         )
+
+open System
+
+module String =
+    let NotNullOrEmpty = String.IsNullOrEmpty >> not
+    let NotNullOrWhiteSpace = String.IsNullOrWhiteSpace >> not
+
+    let StripChar chars str =
+        Seq.fold
+            (fun (str: string) chr ->
+                str
+                    .Replace(chr |> Char.ToUpper |> string, "")
+                    .Replace(chr |> Char.ToLower |> string, ""))
+            str
+            chars
