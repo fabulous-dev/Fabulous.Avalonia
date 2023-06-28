@@ -1,6 +1,7 @@
 namespace Gallery.Pages
 
 open System
+open System.Collections.Generic
 open Avalonia.Platform.Storage
 open Fabulous.Avalonia
 open Avalonia.Controls
@@ -16,7 +17,9 @@ module DialogsPage =
           BookmarkContainer: string
           OpenedFileContent: string
           IgnoreTextChanged: bool
-          LastSelectedDirectory: IStorageFolder }
+          LastSelectedDirectory: IStorageFolder
+          FileResults: string array
+          PickerLastResultsVisible: bool }
 
     type Msg =
         | DecoratedWindow
@@ -31,7 +34,9 @@ module DialogsPage =
 
         | OpenMultiple
         | SelectFolder
+
         | OpenFile
+        | FileOpened of IReadOnlyList<IStorageFolder>
         | SaveFile
         | OpenFileBookmark
         | OpenFolderBookmark
@@ -44,11 +49,13 @@ module DialogsPage =
 
         | GetIStorageFolder of IStorageFolder
 
-    type CmdMsg = GettingIStorageFolder of string
+    type CmdMsg =
+        | GettingIStorageFolder of string
+        | OpeningFile
 
     let getWindow () =
-        let window = (FabApplication.Current :?> FabApplication).MainWindow
-        TopLevel.GetTopLevel(window)
+        (FabApplication.Current :?> FabApplication).MainWindow
+
 
     let getTopLevel () = TopLevel.GetTopLevel(getWindow())
 
@@ -56,20 +63,16 @@ module DialogsPage =
 
     let getStringFromStorageFile (text: string) =
         task {
-            let isValid, folderEnum = Enum.TryParse<WellKnownFolder>(text, true)
+            let mutable folderEnum: WellKnownFolder = Unchecked.defaultof<WellKnownFolder>
 
-            if isValid then
+            if Enum.TryParse<WellKnownFolder>(text, true, &folderEnum) then
                 let! lastSelectedDirectory = getStorageProvider().TryGetWellKnownFolderAsync(folderEnum)
                 return GetIStorageFolder lastSelectedDirectory
             else
                 let mutable folderLink: Uri = null
-                let isValid, folderLinkRes = Uri.TryCreate(text, UriKind.Absolute)
 
-                if not(isValid) then
-                    let _, folderLinkRes = Uri.TryCreate("file://" + text, UriKind.Absolute)
-                    folderLink <- folderLinkRes
-                else
-                    folderLink <- folderLinkRes
+                if not(Uri.TryCreate(text, UriKind.Absolute, &folderLink)) then
+                    Uri.TryCreate("file://" + text, UriKind.Absolute, &folderLink) |> ignore
 
                 if folderLink <> null then
                     let! lastSelectedDirectory = getStorageProvider().TryGetFolderFromPathAsync(folderLink)
@@ -78,9 +81,49 @@ module DialogsPage =
                     return GetIStorageFolder null
         }
 
+    let getFilters isChecked =
+        let fileDialogFilter1 = new FileDialogFilter()
+        fileDialogFilter1.Name <- "Text files (.txt)"
+
+        let fileDialogFilter2 = new FileDialogFilter()
+        fileDialogFilter2.Name <- "All files"
+        fileDialogFilter2.Extensions <- List<string>([ ".*" ])
+
+        if isChecked then
+            List<FileDialogFilter>([])
+        else
+            List<FileDialogFilter>([ fileDialogFilter1; fileDialogFilter2 ])
+
+    let getFileTypes isChecked =
+        if not isChecked then
+            List.empty
+        else
+            let item = FilePickerFileType("Binary Log")
+            item.Patterns <- [ "*.binlog"; "*.buildlog" ]
+            item.MimeTypes <- [ "application/binlog"; "application/buildlog" ]
+            item.AppleUniformTypeIdentifiers <- [ "public.data" ]
+            [ FilePickerFileTypes.All; FilePickerFileTypes.TextPlain; item ]
+
+    let openFile () =
+        task {
+            let openOptions = FolderPickerOpenOptions()
+            openOptions.Title <- "Open file"
+            openOptions.AllowMultiple <- false
+
+            let! path =
+                getStorageProvider()
+                    .TryGetFolderFromPathAsync(Uri("/Users/edgardev/Projects/Fabulous.Avalonia"))
+
+            openOptions.SuggestedStartLocation <- path
+            let! res = getStorageProvider().OpenFolderPickerAsync(openOptions)
+            return FileOpened res
+        }
+
+
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
         | GettingIStorageFolder text -> Cmd.ofTaskMsg(getStringFromStorageFile text)
+        | OpeningFile -> Cmd.ofTaskMsg(openFile())
 
     let init () =
         { UseFilters = false
@@ -89,7 +132,9 @@ module DialogsPage =
           BookmarkContainer = ""
           OpenedFileContent = ""
           IgnoreTextChanged = false
-          LastSelectedDirectory = null },
+          LastSelectedDirectory = null
+          FileResults = Array.empty
+          PickerLastResultsVisible = false },
         []
 
     let update msg model =
@@ -104,7 +149,7 @@ module DialogsPage =
         | OpenMultipleChanged b -> { model with OpenMultiple = b }, []
 
         | SelectFolder -> model, []
-        | OpenFile -> model, []
+        | OpenFile -> model, [ OpeningFile ]
         | SaveFile -> model, []
         | OpenFileBookmark -> model, []
         | OpenFolderBookmark -> model, []
@@ -121,6 +166,13 @@ module DialogsPage =
         | GetIStorageFolder storageFolder ->
             { model with
                 LastSelectedDirectory = storageFolder },
+            []
+        | FileOpened results ->
+            let results = results |> Seq.map(fun f -> f.Name) |> Seq.toArray
+
+            { model with
+                FileResults = results
+                PickerLastResultsVisible = not(results |> Array.isEmpty) },
             []
 
     let view model =
