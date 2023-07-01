@@ -6,12 +6,11 @@ open Avalonia.Controls
 open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Animation.Animators
 
 open type Fabulous.Avalonia.View
 
 type CustomStringAnimator() =
-    inherit CustomAnimatorBase<string>()
+    inherit InterpolatingAnimator<string>()
 
     override this.Interpolate(progress, _oldValue, newValue) =
 
@@ -29,8 +28,7 @@ module Animations3 =
     type Msg = Loaded of bool
 
     let init () =
-        // FIXME: RegisterAnimator is now internal.
-        //Animation.RegisterAnimator<CustomStringAnimator>(fun prop -> prop.PropertyType = typeof<string> && prop.Name = "Text")
+        Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
         { Value = 0 }
 
     let update msg model =
