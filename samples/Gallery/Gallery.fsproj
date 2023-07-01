@@ -41,6 +41,7 @@
     <Compile Include="Pages\Animations\Vector3KeyFrameAnimation.fs" />
     <Compile Include="Pages\Animations\ImplicitCanvasAnimationsPage.fs" />
     <Compile Include="Pages\Animations\CompositorAnimationsPage.fs" />
+    <Compile Include="Pages\Animations\DrawLineAnimationPage.fs" />
     <Compile Include="Pages\Animations\AnimationsPage.fs" />
     <Compile Include="Pages\AutoCompleteBoxPage.fs" />
     <Compile Include="Pages\BorderPage.fs" />
@@ -58,6 +59,7 @@
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
     <Compile Include="Pages\DockPanelPage.fs" />
+    <Compile Include="Pages\DialogsPage.fs" />
     <Compile Include="Pages\DragAndDropPage.fs" />
     <Compile Include="Pages\DropDownButtonPage.fs" />
     <Compile Include="Pages\DrawingPage.fs" />

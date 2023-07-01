@@ -8,6 +8,9 @@ type IFabItemsControl =
     inherit IFabTemplatedControl
 
 module ItemsControl =
+
+    let WidgetKey = Widgets.register<ItemsControl>()
+
     let Items =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
@@ -57,6 +60,17 @@ module ItemsControl =
 
     let ContainerPrepared =
         Attributes.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
+
+[<AutoOpen>]
+module ItemsControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member inline ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+            (
+                items: seq<'itemData>,
+                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
+            ) =
+            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSource items template
 
 [<Extension>]
 type ItemsControlModifiers =

@@ -23,9 +23,11 @@ type NavigationRoute =
     | ClippingPage
     | ClipboardPage
     | DockPanelPage
+    | DialogsPage
     | DragAndDropPage
     | DropDownButtonPage
     | DrawingPage
+    | DrawLineAnimationPage
     | ExpanderPage
     | FlyoutPage
     | GesturesPage
@@ -98,7 +100,9 @@ type NavigationRoute =
         | "ClipboardPage" -> ClipboardPage
         | "DockPanelPage" -> DockPanelPage
         | "DragAndDropPage" -> DragAndDropPage
+        | "DialogsPage" -> DialogsPage
         | "DropDownButtonPage" -> DropDownButtonPage
+        | "DrawLineAnimationPage" -> DrawLineAnimationPage
         | "DrawingPage" -> DrawingPage
         | "ExpanderPage" -> ExpanderPage
         | "FlyoutPage" -> FlyoutPage

@@ -26,10 +26,12 @@ type SubpageModel =
     | ContextFlyoutPageModel of ContextFlyoutPage.Model
     | ClippingPageModel of ClippingPage.Model
     | ClipboardPageModel of ClipboardPage.Model
+    | DialogsPageModel of DialogsPage.Model
     | DragAndDropPageModel of DragAndDropPage.Model
     | DockPanelPageModel of DockPanelPage.Model
     | DropDownButtonPageModel of DropDownButtonPage.Model
     | DrawingPageModel of DrawingPage.Model
+    | DrawLineAnimationPageModel of DrawLineAnimationPage.Model
     | ExpanderPageModel of ExpanderPage.Model
     | FlyoutPageModel of FlyoutPage.Model
     | GesturesPageModel of GesturesPage.Model
@@ -100,8 +102,10 @@ type SubpageMsg =
     | ClippingPageMsg of ClippingPage.Msg
     | ClipboardPageMsg of ClipboardPage.Msg
     | DockPanelPageMsg of DockPanelPage.Msg
+    | DialogsPageMsg of DialogsPage.Msg
     | DragAndDropPageMsg of DragAndDropPage.Msg
     | DropDownButtonPageMsg of DropDownButtonPage.Msg
+    | DrawLineAnimationPageMsg of DrawLineAnimationPage.Msg
     | DrawingPageMsg of DrawingPage.Msg
     | ExpanderPageMsg of ExpanderPage.Msg
     | FlyoutPageMsg of FlyoutPage.Msg
@@ -174,7 +178,9 @@ type SubpageCmdMsg =
     | ClipboardPageCmdMsgs of ClipboardPage.CmdMsg list
     | DockPanelPageCmdMsgs of DockPanelPage.CmdMsg list
     | DragAndDropPageCmdMsgs of DragAndDropPage.CmdMsg list
+    | DialogsPageCmdMsgs of DialogsPage.CmdMsg list
     | DropDownButtonPageCmdMsgs of DropDownButtonPage.CmdMsg list
+    | DrawLineAnimationPageCmdMsgs of DrawLineAnimationPage.CmdMsg list
     | DrawingPageCmdMsgs of DrawingPage.CmdMsg list
     | ExpanderPageCmdMsgs of ExpanderPage.CmdMsg list
     | FlyoutPageCmdMsgs of FlyoutPage.CmdMsg list
@@ -262,8 +268,10 @@ module NavigationState =
             | ClipboardPageCmdMsgs subCmdMsgs -> map ClipboardPage.mapCmdMsgToCmd ClipboardPageMsg subCmdMsgs
             | ClippingPageCmdMsgs subCmdMsgs -> map ClippingPage.mapCmdMsgToCmd ClippingPageMsg subCmdMsgs
             | DockPanelPageCmdMsgs subCmdMsgs -> map DockPanelPage.mapCmdMsgToCmd DockPanelPageMsg subCmdMsgs
+            | DialogsPageCmdMsgs subCmdMsgs -> map DialogsPage.mapCmdMsgToCmd DialogsPageMsg subCmdMsgs
             | DragAndDropPageCmdMsgs subCmdMsgs -> map DragAndDropPage.mapCmdMsgToCmd DragAndDropPageMsg subCmdMsgs
             | DropDownButtonPageCmdMsgs subCmdMsgs -> map DropDownButtonPage.mapCmdMsgToCmd DropDownButtonPageMsg subCmdMsgs
+            | DrawLineAnimationPageCmdMsgs subCmdMsgs -> map DrawLineAnimationPage.mapCmdMsgToCmd DrawLineAnimationPageMsg subCmdMsgs
             | DrawingPageCmdMsgs subCmdMsgs -> map DrawingPage.mapCmdMsgToCmd DrawingPageMsg subCmdMsgs
             | ExpanderPageCmdMsgs subCmdMsgs -> map ExpanderPage.mapCmdMsgToCmd ExpanderPageMsg subCmdMsgs
             | FlyoutPageCmdMsgs subCmdMsgs -> map FlyoutPage.mapCmdMsgToCmd FlyoutPageMsg subCmdMsgs
@@ -391,6 +399,15 @@ module NavigationState =
         | NavigationRoute.DropDownButtonPage ->
             let m, c = DropDownButtonPage.init()
             DropDownButtonPageModel m, [ DropDownButtonPageCmdMsgs c ]
+
+        | NavigationRoute.DialogsPage ->
+            let m, c = DialogsPage.init()
+            DialogsPageModel m, [ DialogsPageCmdMsgs c ]
+
+        | NavigationRoute.DrawLineAnimationPage ->
+            let m, c = DrawLineAnimationPage.init()
+            DrawLineAnimationPageModel m, [ DrawLineAnimationPageCmdMsgs c ]
+
         | NavigationRoute.DrawingPage ->
             let m, c = DrawingPage.init()
             DrawingPageModel m, [ DrawingPageCmdMsgs c ]
@@ -623,6 +640,9 @@ module NavigationState =
                 let m, c = DockPanelPage.update subMsg m
                 DockPanelPageModel m, [ DockPanelPageCmdMsgs c ]
 
+            | DialogsPageMsg subMsg, DialogsPageModel m ->
+                let m, c = DialogsPage.update subMsg m
+                DialogsPageModel m, [ DialogsPageCmdMsgs c ]
             | DragAndDropPageMsg subMsg, DragAndDropPageModel m ->
                 let m, c = DragAndDropPage.update subMsg m
                 DragAndDropPageModel m, [ DragAndDropPageCmdMsgs c ]
@@ -630,6 +650,10 @@ module NavigationState =
             | DropDownButtonPageMsg subMsg, DropDownButtonPageModel m ->
                 let m, c = DropDownButtonPage.update subMsg m
                 DropDownButtonPageModel m, [ DropDownButtonPageCmdMsgs c ]
+
+            | DrawLineAnimationPageMsg subMsg, DrawLineAnimationPageModel m ->
+                let m, c = DrawLineAnimationPage.update subMsg m
+                DrawLineAnimationPageModel m, [ DrawLineAnimationPageCmdMsgs c ]
 
             | DrawingPageMsg subMsg, DrawingPageModel m ->
                 let m, c = DrawingPage.update subMsg m
@@ -856,8 +880,10 @@ module NavigationState =
         | ClippingPageModel m -> map ClippingPage.view ClippingPageMsg m
         | ClipboardPageModel m -> map ClipboardPage.view ClipboardPageMsg m
         | DockPanelPageModel m -> map DockPanelPage.view DockPanelPageMsg m
+        | DialogsPageModel m -> map DialogsPage.view DialogsPageMsg m
         | DragAndDropPageModel m -> map DragAndDropPage.view DragAndDropPageMsg m
         | DropDownButtonPageModel m -> map DropDownButtonPage.view DropDownButtonPageMsg m
+        | DrawLineAnimationPageModel m -> map DrawLineAnimationPage.view DrawLineAnimationPageMsg m
         | DrawingPageModel m -> map DrawingPage.view DrawingPageMsg m
         | ExpanderPageModel m -> map ExpanderPage.view ExpanderPageMsg m
         | FlyoutPageModel m -> map FlyoutPage.view FlyoutPageMsg m
