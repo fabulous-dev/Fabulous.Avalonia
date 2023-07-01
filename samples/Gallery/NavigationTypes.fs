@@ -27,6 +27,7 @@ type NavigationRoute =
     | DragAndDropPage
     | DropDownButtonPage
     | DrawingPage
+    | DrawLineAnimationPage
     | ExpanderPage
     | FlyoutPage
     | GesturesPage
@@ -101,6 +102,7 @@ type NavigationRoute =
         | "DragAndDropPage" -> DragAndDropPage
         | "DialogsPage" -> DialogsPage
         | "DropDownButtonPage" -> DropDownButtonPage
+        | "DrawLineAnimationPage" -> DrawLineAnimationPage
         | "DrawingPage" -> DrawingPage
         | "ExpanderPage" -> ExpanderPage
         | "FlyoutPage" -> FlyoutPage

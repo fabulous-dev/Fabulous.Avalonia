@@ -43,6 +43,7 @@ module MainWindow =
                     ListBoxItem("DialogsPage")
                     ListBoxItem("DragAndDropPage")
                     ListBoxItem("DropDownButtonPage")
+                    ListBoxItem("DrawLineAnimationPage")
                     ListBoxItem("DrawingPage")
                     ListBoxItem("ExpanderPage")
                     ListBoxItem("FlyoutPage")
