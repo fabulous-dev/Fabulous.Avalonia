@@ -1,14 +1,20 @@
 namespace Fabulous.Avalonia
 
 open System
+open Android.App
 open Avalonia
-open Avalonia.Android
 
 [<AbstractClass>]
 type FabSplashActivity() =
-    inherit AvaloniaSplashActivity()
+    inherit Activity()
 
     abstract member CreateApp: unit -> Application
 
-    override this.CreateAppBuilder() =
-        AppBuilder.Configure(Func<_>(this.CreateApp)).UseAndroid()
+    override this.OnResume() =
+        base.OnResume()
+        if Application.Current <> null then
+            AppBuilder
+                .Configure(Func<_>(this.CreateApp))
+                .UseAndroid()
+                .SetupWithoutStarting()
+            |> ignore
