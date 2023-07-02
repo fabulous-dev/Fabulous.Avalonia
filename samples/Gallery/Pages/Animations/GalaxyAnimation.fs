@@ -6,7 +6,6 @@ open Avalonia
 open Avalonia.Animation.Easings
 open Avalonia.Controls
 open Avalonia.Controls.Shapes
-open Avalonia.Reactive
 open Avalonia.Media
 open Avalonia.Rendering.Composition
 open Avalonia.Rendering.Composition.Animations
@@ -49,16 +48,14 @@ module GalaxyAnimation =
                 if (planetVisual = null) then
                     ()
                 else
-                    // FIXME: This was removed in rc2.1. We might need to use a different method to set the transform matrix.
-                    //planetVisual.TransformMatrix <- Matrix4x4.CreateTranslation(Vector3(float32 100., float32 0., float32 0.))
+                    planetVisual.Offset <- Vector3(float32 100., float32 0., float32 0.)
 
                     let satelliteVisual = ElementComposition.GetElementVisual(satellite)
 
                     if (satelliteVisual = null) then
                         ()
                     else
-                        // FIXME: This was removed in rc2.1, We might need to use a different method to set the transform matrix.
-                        // satelliteVisual.TransformMatrix <- Matrix4x4.CreateTranslation(Vector3(float32 30, float32 0., float32 0.))
+                        satelliteVisual.Offset <- Vector3(float32 30, float32 0., float32 0.)
 
                         satelliteVisual.CenterPoint <-
                             Vector3(float32 satellite.Bounds.Width / float32(2.), float32 satellite.Bounds.Height / float32 2., float32 0)
