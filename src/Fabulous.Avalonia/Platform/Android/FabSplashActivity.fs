@@ -12,6 +12,7 @@ type FabSplashActivity() =
 
     override this.OnResume() =
         base.OnResume()
+
         if Application.Current <> null then
             AppBuilder
                 .Configure(Func<_>(this.CreateApp))

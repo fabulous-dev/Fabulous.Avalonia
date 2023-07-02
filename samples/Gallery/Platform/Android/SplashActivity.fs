@@ -9,7 +9,7 @@ open Gallery
 
 [<Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)>]
 type SplashActivity() =
-    inherit Activity() 
+    inherit Activity()
 
     override this.OnResume() =
         base.OnResume()
