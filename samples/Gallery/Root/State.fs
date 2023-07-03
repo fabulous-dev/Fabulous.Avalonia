@@ -19,7 +19,6 @@ module State =
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = false
-          SafeAreaInsets = 0.
           PaneLength = 150. },
         [ SubpageCmdMsgs cmdMsgs ]
 #else
@@ -27,7 +26,6 @@ module State =
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = true
-          SafeAreaInsets = 0.
           PaneLength = 250. },
         [ SubpageCmdMsgs cmdMsgs ]
 #endif
@@ -36,10 +34,7 @@ module State =
         match msg with
         | OnLoaded _ ->
 #if MOBILE || BROWSER
-            { model with
-                SafeAreaInsets = 32.
-                PaneLength = 180. },
-            []
+            { model with PaneLength = 180. }, []
 #else
             model, []
 #endif
