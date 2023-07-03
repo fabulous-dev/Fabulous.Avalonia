@@ -214,9 +214,6 @@
     <Compile Include="Any.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <Compile Include="Platform\Android\FabSplashActivity.fs" />
-  </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <Compile Include="Platform\iOS\FabAppDelegate.fs" />
   </ItemGroup>
