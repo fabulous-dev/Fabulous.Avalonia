@@ -20,14 +20,14 @@
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
-        <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-rc1.1" />
+        <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-rc2.2" />
     </ItemGroup>
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
         <Compile Include="$(BrowserPlatformFolder)Program.fs" />
         <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
         <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
-        <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0-rc1.1" />
+        <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0-rc2.2" />
     </ItemGroup>
     
     

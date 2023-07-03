@@ -7,7 +7,6 @@ module Types =
     type Model =
         { Navigation: NavigationModel
           IsPanOpen: bool
-          SafeAreaInsets: float
           PaneLength: float }
 
     type Msg =

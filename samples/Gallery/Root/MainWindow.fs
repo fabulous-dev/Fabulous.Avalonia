@@ -97,7 +97,7 @@ module MainWindow =
                     .onSelectionChanged(OnSelectionChanged)
             }
         )
-            .padding(0., model.SafeAreaInsets, 0., 0.)
+            .padding(0., 0., 0., 0.)
 
     let hamburgerMenuIcon () =
         Path(Paths.Path3).fill(SolidColorBrush(Colors.Black))
@@ -169,12 +169,10 @@ module MainWindow =
                     Button(OpenPan, hamburgerMenuIcon())
                         .verticalAlignment(VerticalAlignment.Top)
                         .horizontalAlignment(HorizontalAlignment.Left)
-                        .margin(4., model.SafeAreaInsets, 0., 0.)
+                        .margin(4., 0., 0., 0.)
                 })
                     .onLoaded(OnLoaded)
             )
-                //.transparencyLevelHint([ WindowTransparencyLevel.AcrylicBlur; WindowTransparencyLevel.Mica ])
-                //.background(SolidColorBrush(Colors.Transparent))
                 .title("Fabulous Gallery")
                 .menu(createMenu model)
         )

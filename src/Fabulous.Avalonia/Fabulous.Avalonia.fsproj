@@ -214,9 +214,6 @@
     <Compile Include="Any.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <Compile Include="Platform\Android\FabSplashActivity.fs" />
-  </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <Compile Include="Platform\iOS\FabAppDelegate.fs" />
   </ItemGroup>
@@ -226,18 +223,18 @@
       This version will be used as the lower bound in the NuGet package
     -->
     <PackageReference Include="Fabulous" VersionOverride="[2.3.1, 2.4.0)" />
-    <PackageReference Include="Avalonia" VersionOverride="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.0-rc1.1" />
-    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-rc1.1" />
+    <PackageReference Include="Avalonia" VersionOverride="11.0.0-rc2.2" />
+    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.0-rc2.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.0-rc2.2" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.0-rc1.1" />
+    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.0-rc2.2" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0-rc1.1" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0-rc2.2" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-      <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-rc1.1" />
+      <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0-rc2.2" />
   </ItemGroup>
 </Project>
