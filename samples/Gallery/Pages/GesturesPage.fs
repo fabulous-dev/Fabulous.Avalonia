@@ -1,6 +1,8 @@
 namespace Gallery.Pages
 
+open Avalonia
 open Avalonia.Controls
+open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
@@ -9,11 +11,16 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 open Gallery
 
-// https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ControlCatalog/Pages/GesturePage.cs
 module GesturesPage =
     type Model = { CurrentScale: float }
 
-    type Msg = | Reset
+    type Msg =
+        | Reset
+        | OnPullGesture of PullGestureEventArgs
+        | OnPinchGesture of PinchEventArgs
+        | OnScrollGesture of ScrollGestureEventArgs
+        | OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
+        | OnTapGesture of TappedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -28,10 +35,15 @@ module GesturesPage =
     let update msg model =
         match msg with
         | Reset -> model, []
+        | OnPullGesture args -> model, []
+        | OnScrollGesture args -> model, []
+        | OnAttachedToVisualTree args -> model, []
+        | OnTapGesture tappedEventArgs -> model, []
+        | OnPinchGesture pinchEventArgs -> model, []
 
     let view _ =
-        VStack(spacing = 4.) {
-            TextBlock("Pull Gexture (Touch / Pen)")
+        (VStack(spacing = 4.) {
+            TextBlock("Pull Gesture (Touch / Pen)")
                 .fontSize(18.)
                 .margin(5.)
 
@@ -58,6 +70,13 @@ module GesturesPage =
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
+                        .isHoldingEnabled(true)
+                        .isHoldWithMouseEnabled(true)
+                        .gestureRecognizers() {
+                        PullGestureRecognizer(OnPullGesture)
+                            .pullDirection(PullDirection.TopToBottom)
+                    }
+
 
                     Border(
                         Border()
@@ -77,6 +96,10 @@ module GesturesPage =
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
+                        .gestureRecognizers() {
+                        PullGestureRecognizer(OnPullGesture)
+                            .pullDirection(PullDirection.BottomToTop)
+                    }
 
                     Border(
                         Border()
@@ -97,6 +120,10 @@ module GesturesPage =
                         .verticalAlignment(VerticalAlignment.Stretch)
                         .width(50.)
                         .borderThickness(1.)
+                        .gestureRecognizers() {
+                        PullGestureRecognizer(OnPullGesture)
+                            .pullDirection(PullDirection.RightToLeft)
+                    }
 
                     Border(
                         Border()
@@ -117,6 +144,10 @@ module GesturesPage =
                         .verticalAlignment(VerticalAlignment.Stretch)
                         .width(50.)
                         .borderThickness(1.)
+                        .gestureRecognizers() {
+                        PullGestureRecognizer(OnPullGesture)
+                            .pullDirection(PullDirection.LeftToRight)
+                    }
                 })
                     .horizontalAlignment(HorizontalAlignment.Stretch)
                     .clipToBounds(true)
@@ -130,12 +161,20 @@ module GesturesPage =
                 .margin(5.)
 
             Border(
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                    .size(100., 100.)
+                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/delicate-arch-896885_640.jpg", Stretch.UniformToFill)
+                    .gestureRecognizers() {
+                    PinchGestureRecognizer(OnPinchGesture)
+
+                    ScrollGestureRecognizer(OnScrollGesture)
+                        .canHorizontallyScroll(true)
+                        .canVerticallyScroll(true)
+                }
+
             )
                 .clipToBounds(true)
 
             Button("Reset", Reset)
                 .horizontalAlignment(HorizontalAlignment.Center)
                 .name("ResetButton")
-        }
+        })
+            .onAttachedToVisualTree(OnAttachedToVisualTree)

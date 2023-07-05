@@ -1,7 +1,9 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia.Collections
 open Avalonia.Input
+open Avalonia.Input.GestureRecognizers
 open Avalonia.Input.TextInput
 open Avalonia.Interactivity
 open Fabulous
@@ -28,6 +30,11 @@ module InputElement =
 
     let TabIndex =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
+
+    let GestureRecognizers =
+        Attributes.defineAvaloniaListWidgetCollection "InputElement_GestureRecognizers" (fun target ->
+            let target = (target :?> InputElement)
+            AvaloniaList(target.GestureRecognizers))
 
     let GotFocus =
         Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
