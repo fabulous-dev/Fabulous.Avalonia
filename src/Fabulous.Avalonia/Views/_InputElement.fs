@@ -77,13 +77,13 @@ module InputElement =
         Attributes.defineEvent<PointerWheelEventArgs> "InputElement_PointerWheelChanged" (fun target -> (target :?> InputElement).PointerWheelChanged)
 
     let Tapped =
-        Attributes.defineEvent<TappedEventArgs> "InputElement_Tapped" (fun target -> (target :?> InputElement).Tapped)
+        Attributes.defineRoutedEvent<TappedEventArgs> "InputElement_Tapped" InputElement.TappedEvent
 
     let Holding =
-        Attributes.defineEvent<HoldingRoutedEventArgs> "InputElement_Holding" (fun target -> (target :?> InputElement).Holding)
+        Attributes.defineRoutedEvent<HoldingRoutedEventArgs> "InputElement_Holding" InputElement.HoldingEvent
 
     let DoubleTapped =
-        Attributes.defineEvent<TappedEventArgs> "InputElement_DoubleTapped" (fun target -> (target :?> InputElement).DoubleTapped)
+        Attributes.defineRoutedEvent<TappedEventArgs> "InputElement_DoubleTapped" InputElement.DoubleTappedEvent
 
 [<Extension>]
 type InputElementModifiers =
@@ -119,6 +119,12 @@ type InputElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsTabStop value.</param>
     [<Extension>]
+    static member inline tabIndex(this: WidgetBuilder<'msg, #IFabInputElement>, value: int) =
+        this.AddScalar(InputElement.TabIndex.WithValue(value))
+
+    [<Extension>]
+    static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
+        this.AddScalar(InputElement.GotFocus.WithValue(fun args -> onGotFocus args |> box))
     static member inline isTabStop(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsTabStop.WithValue(value))
 

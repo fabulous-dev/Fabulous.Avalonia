@@ -15,12 +15,6 @@ module GestureRecognizer =
     let IsHoldWithMouseEnabled =
         Attributes.defineAvaloniaPropertyWithEquality Gestures.IsHoldWithMouseEnabledProperty
 
-    let Tapped =
-        Attributes.defineRoutedEvent<TappedEventArgs> "GestureRecognizer_Tapped" Gestures.TappedEvent
-
-    let DoubleTapped =
-        Attributes.defineRoutedEvent<TappedEventArgs> "GestureRecognizer_DoubleTapped" Gestures.DoubleTappedEvent
-
     let RightTapped =
         Attributes.defineRoutedEvent<TappedEventArgs> "GestureRecognizer_RightTapped" Gestures.RightTappedEvent
 
@@ -53,9 +47,6 @@ module GestureRecognizer =
     let PullGesture =
         Attributes.defineRoutedEvent<PullGestureEventArgs> "GestureRecognizer_PullGesture" Gestures.PullGestureEvent
 
-    let Holding =
-        Attributes.defineRoutedEvent<HoldingRoutedEventArgs> "GestureRecognizer_Holding" Gestures.HoldingEvent
-
     let PullGestureEnded =
         Attributes.defineRoutedEvent<PullGestureEndedEventArgs> "GestureRecognizer_PullGestureEnded" Gestures.PullGestureEndedEvent
 
@@ -68,14 +59,6 @@ type GestureRecognizerModifiers =
     [<Extension>]
     static member inline isHoldWithMouseEnabled(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
         this.AddScalar(GestureRecognizer.IsHoldWithMouseEnabled.WithValue(value))
-
-    [<Extension>]
-    static member inline onTapped(this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onTapped: TappedEventArgs -> 'msg) =
-        this.AddScalar(GestureRecognizer.Tapped.WithValue(fun args -> onTapped args |> box))
-
-    [<Extension>]
-    static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onDoubleTapped: TappedEventArgs -> 'msg) =
-        this.AddScalar(GestureRecognizer.DoubleTapped.WithValue(fun args -> onDoubleTapped args |> box))
 
     [<Extension>]
     static member inline onRightTapped(this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onRightTapped: TappedEventArgs -> 'msg) =
@@ -104,10 +87,6 @@ type GestureRecognizerModifiers =
             onPointerTouchPadGestureSwipe: PointerDeltaEventArgs -> 'msg
         ) =
         this.AddScalar(GestureRecognizer.PointerTouchPadGestureSwipe.WithValue(fun args -> onPointerTouchPadGestureSwipe args |> box))
-
-    [<Extension>]
-    static member inline onHolding(this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onHolding: HoldingRoutedEventArgs -> 'msg) =
-        this.AddScalar(GestureRecognizer.Holding.WithValue(fun args -> onHolding args |> box))
 
 [<Extension>]
 type GestureRecognizerBuilderExtensions =

@@ -70,8 +70,6 @@ module GesturesPage =
                         .horizontalAlignment(HorizontalAlignment.Stretch)
                         .height(50.)
                         .borderThickness(1.)
-                        .isHoldingEnabled(true)
-                        .isHoldWithMouseEnabled(true)
                         .gestureRecognizers() {
                         PullGestureRecognizer(OnPullGesture)
                             .pullDirection(PullDirection.TopToBottom)
