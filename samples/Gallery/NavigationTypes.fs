@@ -32,7 +32,6 @@ type NavigationRoute =
     | FlyoutPage
     | GesturesPage
     | GeometriesPage
-    | GlyphRunControlPage
     | GridPage
     | GridSplitterPage
     | ImagePage
@@ -108,7 +107,6 @@ type NavigationRoute =
         | "FlyoutPage" -> FlyoutPage
         | "GesturesPage" -> GesturesPage
         | "GeometriesPage" -> GeometriesPage
-        | "GlyphRunControlPage" -> GlyphRunControlPage
         | "GridPage" -> GridPage
         | "GridSplitterPage" -> GridSplitterPage
         | "ImagePage" -> ImagePage
