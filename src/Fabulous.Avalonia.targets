@@ -25,7 +25,7 @@
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Browser'">
         <Compile Include="$(BrowserPlatformFolder)Program.fs" />
-        <None Include="$(BrowserPlatformFolder)\AppBundle\**" />
+        <None Include="$(BrowserPlatformFolder)AppBundle\**" />
         <WasmExtraFilesToDeploy Include="$(BrowserPlatformFolder)\AppBundle\**" />
         <PackageReference Include="Avalonia.Browser" VersionOverride="11.0.0" />
     </ItemGroup>

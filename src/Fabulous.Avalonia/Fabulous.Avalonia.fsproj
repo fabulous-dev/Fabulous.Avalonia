@@ -23,10 +23,11 @@
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
     <!-- Normalize casing -->
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)'== '' And '$(IsBrowser)' == 'true'">Browser</AvaloniaPlatform>
+    <OriginalAvaloniaPlatform>$(AvaloniaPlatform)</OriginalAvaloniaPlatform>
+    <!-- <AvaloniaPlatform Condition="'$(OriginalAvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform> -->
+    <AvaloniaPlatform Condition="'$(OriginalAvaloniaPlatform)' == ''">Browser</AvaloniaPlatform> <!-- And '$(IsBrowser)' == 'true' -->
+    <AvaloniaPlatform Condition="'$(OriginalAvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
+    <AvaloniaPlatform Condition="'$(OriginalAvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" PackagePath="\" Pack="true" />
@@ -234,7 +235,7 @@
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.0" />
   </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop' And '$(IsBrowser)' == 'false'">
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
       <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.0" />
   </ItemGroup>
 </Project>
