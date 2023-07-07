@@ -14,7 +14,7 @@ module State =
             Cmd.map SubpageMsg cmd
 
     let init () =
-#if MOBILE || BROWSER
+#if MOBILE
         let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
 
         { Navigation = NavigationModel.Init(model)
@@ -33,7 +33,7 @@ module State =
     let update msg model =
         match msg with
         | OnLoaded ->
-#if MOBILE || BROWSER
+#if MOBILE
             { model with PaneLength = 180. }, []
 #else
             model, []

@@ -232,7 +232,7 @@ module App =
             .onLoaded(Loaded)
 
 
-#if MOBILE || BROWSER
+#if MOBILE
     let app model = SingleViewApplication(view model)
 
 #else
