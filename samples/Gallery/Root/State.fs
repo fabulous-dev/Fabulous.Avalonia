@@ -32,7 +32,7 @@ module State =
 
     let update msg model =
         match msg with
-        | OnLoaded _ ->
+        | OnLoaded ->
 #if MOBILE || BROWSER
             { model with PaneLength = 180. }, []
 #else

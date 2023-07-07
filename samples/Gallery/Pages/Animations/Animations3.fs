@@ -25,7 +25,7 @@ type CustomStringAnimator() =
 module Animations3 =
     type Model = { Value: int }
 
-    type Msg = Loaded of bool
+    type Msg = Loaded
 
     let init () =
         Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
@@ -33,7 +33,7 @@ module Animations3 =
 
     let update msg model =
         match msg with
-        | Loaded _ ->
+        | Loaded ->
             Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
             model
 

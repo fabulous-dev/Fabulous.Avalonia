@@ -53,20 +53,12 @@ type ControlModifiers =
         this.AddScalar(Control.ContextRequested.WithValue(fun args -> onContextRequested args |> box))
 
     [<Extension>]
-    static member inline onLoaded(this: WidgetBuilder<'msg, #IFabControl>, onLoaded: bool -> 'msg) =
-        this.AddScalar(
-            Control.Loaded.WithValue(fun args ->
-                let control = args.Source :?> Control
-                onLoaded control.IsLoaded |> box)
-        )
+    static member inline onLoaded(this: WidgetBuilder<'msg, #IFabControl>, onLoaded: 'msg) =
+        this.AddScalar(Control.Loaded.WithValue(fun _ -> onLoaded |> box))
 
     [<Extension>]
-    static member inline onUnLoaded(this: WidgetBuilder<'msg, #IFabControl>, onUnLoaded: bool -> 'msg) =
-        this.AddScalar(
-            Control.UnLoaded.WithValue(fun args ->
-                let control = args.Source :?> Control
-                onUnLoaded control.IsLoaded |> box)
-        )
+    static member inline onUnLoaded(this: WidgetBuilder<'msg, #IFabControl>, onUnLoaded: 'msg) =
+        this.AddScalar(Control.UnLoaded.WithValue(fun _ -> onUnLoaded |> box))
 
     [<Extension>]
     static member inline onSizeChanged(this: WidgetBuilder<'msg, #IFabControl>, onSizeChanged: SizeChangedEventArgs -> 'msg) =

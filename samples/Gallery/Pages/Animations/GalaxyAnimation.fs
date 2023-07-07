@@ -17,7 +17,7 @@ open type Fabulous.Avalonia.View
 module GalaxyAnimation =
     type Model = { Value: int }
 
-    type Msg = OnLoaded of bool
+    type Msg = OnLoaded
 
     let init () = { Value = 0 }
 
@@ -94,7 +94,7 @@ module GalaxyAnimation =
 
     let update msg model =
         match msg with
-        | OnLoaded _ ->
+        | OnLoaded ->
             Apply rootVisual.Value orbit.Value satellite.Value startField.Value planet.Value
             model
 

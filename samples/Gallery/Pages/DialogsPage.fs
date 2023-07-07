@@ -68,7 +68,7 @@ module DialogsPage =
         | CurrentFolderBoxTextChanged of string
         | BookmarkContainerTextChanged of string
         | OpenedFileContentTextChanged of string
-        | CurrentFolderBoxLoaded of bool
+        | CurrentFolderBoxLoaded
         | GetIStorageFolder of IStorageFolder
         | GetIsStorageAvailable of string
 
@@ -328,7 +328,7 @@ CanBookmark: {item.Value.CanBookmark}"
                 { model with CurrentFolderBox = text }, []
             else
                 { model with CurrentFolderBox = text }, [ GettingIStorageFolder text ]
-        | CurrentFolderBoxLoaded _ -> model, []
+        | CurrentFolderBoxLoaded -> model, []
         | BookmarkContainerTextChanged s -> { model with BookmarkContainer = s }, []
         | OpenedFileContentTextChanged s -> { model with OpenedFileContent = s }, []
         | GetIStorageFolder storageFolder ->

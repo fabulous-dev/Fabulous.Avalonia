@@ -32,7 +32,7 @@ module NotificationsPage =
         | ShowNativeNotification
         | YesCommand
         | NoCommand
-        | Loaded of bool
+        | Loaded
 
     type CmdMsg = | NoMsg
 
@@ -45,7 +45,7 @@ module NotificationsPage =
 
     let update msg model =
         match msg with
-        | Loaded _ ->
+        | Loaded ->
 #if MOBILE
             let mainView = (Application.Current :?> FabApplication).MainView
             let topLevel = TopLevel.GetTopLevel(mainView)

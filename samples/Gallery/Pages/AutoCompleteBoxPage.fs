@@ -34,8 +34,8 @@ module AutoCompleteBoxPage =
         | OnPopulating of string
         | OnPopulated of System.Collections.IEnumerable
         | OnDropDownOpen of bool
-        | MultiBindingLoaded of bool
-        | CustomAutoBoxLoaded of bool
+        | MultiBindingLoaded
+        | CustomAutoBoxLoaded
 
     type CmdMsg = | NoMsg
 
@@ -269,7 +269,7 @@ module AutoCompleteBoxPage =
                 if (word <> null) then
                     for j in 0 .. options.Length do
                         if word <> null && j < options.Length then
-                            let option = options.[j]
+                            let option = options[j]
 
                             if (option <> null) then
 
@@ -312,12 +312,12 @@ module AutoCompleteBoxPage =
         | OnPopulating _ -> model, []
         | OnPopulated _ -> model, []
         | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, []
-        | MultiBindingLoaded _ ->
+        | MultiBindingLoaded ->
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
                     let parts = parts |> Seq.toArray
-                    let first = parts.[0]
-                    let second = parts.[1]
+                    let first = parts[0]
+                    let second = parts[1]
                     String.Format("{0} ({1})", first, second))
 
             let binding = MultiBinding()
@@ -328,7 +328,7 @@ module AutoCompleteBoxPage =
             multiBindingBoxRef.Value.ValueMemberBinding <- binding
             model, []
 
-        | CustomAutoBoxLoaded _ ->
+        | CustomAutoBoxLoaded ->
             let strings = buildAllSentences() |> Array.concat
             customAutoCompleteBoxRef.Value.ItemsSource <- strings
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))

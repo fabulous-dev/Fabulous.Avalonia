@@ -14,7 +14,7 @@ module Types =
         | OnSelectionChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
-        | OnLoaded of bool
+        | OnLoaded
         | DoNothing
 
     type CmdMsg =

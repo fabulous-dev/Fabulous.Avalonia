@@ -2,10 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
-open Avalonia.Animation
-open Avalonia.Collections
 open Avalonia.LogicalTree
-open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
