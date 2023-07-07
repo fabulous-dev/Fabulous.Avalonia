@@ -89,28 +89,12 @@ type InputElementModifiers =
         this.AddScalar(InputElement.IsEnabled.WithValue(value))
 
     [<Extension>]
-    static member inline isEffectivelyEnabled(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
-        this.AddScalar(InputElement.IsEffectivelyEnabled.WithValue(value))
-
-    [<Extension>]
     static member inline cursor(this: WidgetBuilder<'msg, #IFabInputElement>, value: Cursor) =
         this.AddScalar(InputElement.Cursor.WithValue(value))
 
     [<Extension>]
-    static member inline isKeyboardFocusWithin(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
-        this.AddScalar(InputElement.IsKeyboardFocusWithin.WithValue(value))
-
-    [<Extension>]
-    static member inline isFocused(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
-        this.AddScalar(InputElement.IsFocused.WithValue(value))
-
-    [<Extension>]
     static member inline isHitTestVisible(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsHitTestVisible.WithValue(value))
-
-    [<Extension>]
-    static member inline isPointerOver(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
-        this.AddScalar(InputElement.IsPointerOver.WithValue(value))
 
     [<Extension>]
     static member inline isTabStop(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =

@@ -49,10 +49,6 @@ module Visual =
 [<Extension>]
 type VisualModifiers =
     [<Extension>]
-    static member inline bounds(this: WidgetBuilder<'msg, #IFabVisual>, rect: Rect) =
-        this.AddScalar(Visual.Bounds.WithValue(rect))
-
-    [<Extension>]
     static member inline clipToBounds(this: WidgetBuilder<'msg, #IFabVisual>, clip: bool) =
         this.AddScalar(Visual.ClipToBounds.WithValue(clip))
 
