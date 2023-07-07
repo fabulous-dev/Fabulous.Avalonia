@@ -44,9 +44,9 @@ type GlyphRunControl() =
 
         _fontSize <- _fontSize + float _direction
 
-        _glyphIndices.[0] <- _glyphTypeface.GetGlyph(uint32 c)
+        _glyphIndices[0] <- _glyphTypeface.GetGlyph(uint32 c)
 
-        _characters.[0] <- c
+        _characters[0] <- c
 
         let glyphRun = new GlyphRun(_glyphTypeface, _fontSize, _characters, _glyphIndices)
 
@@ -85,9 +85,9 @@ type GlyphRunGeometryControl() =
 
         _fontSize <- _fontSize + float _direction
 
-        _glyphIndices.[0] <- _glyphTypeface.GetGlyph(uint32 c)
+        _glyphIndices[0] <- _glyphTypeface.GetGlyph(uint32 c)
 
-        _characters.[0] <- c
+        _characters[0] <- c
 
         let gradient = LinearGradientBrush()
         gradient.GradientStops.Add(GradientStop(Colors.Orange, 0))
