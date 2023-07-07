@@ -10,9 +10,6 @@ type IFabVisual =
     inherit IFabStyledElement
 
 module Visual =
-
-    let Bounds = Attributes.defineAvaloniaPropertyWithEquality Visual.BoundsProperty
-
     let ClipToBounds =
         Attributes.defineAvaloniaPropertyWithEquality Visual.ClipToBoundsProperty
 

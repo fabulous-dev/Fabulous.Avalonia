@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Input
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Avalonia.Styling
@@ -12,6 +13,8 @@ type IFabTopLevel =
     inherit IFabContentControl
 
 module TopLevel =
+    let PointerOverElement =
+        Attributes.defineAvaloniaPropertyWithEquality TopLevel.PointerOverElementProperty
 
     let ThemeVariant =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.RequestedThemeVariantProperty
@@ -48,6 +51,10 @@ module TopLevel =
 
 [<Extension>]
 type TopLevelModifiers =
+    [<Extension>]
+    static member inline pointerOverElement(this: WidgetBuilder<'msg, #IFabTopLevel>, value: IInputElement) =
+        this.AddScalar(TopLevel.PointerOverElement.WithValue(value))
+
     [<Extension>]
     static member inline themeVariant(this: WidgetBuilder<'msg, #IFabTopLevel>, value: ThemeVariant) =
         this.AddScalar(TopLevel.ThemeVariant.WithValue(value))

@@ -22,6 +22,9 @@ module Control =
     let FlowDirection =
         Attributes.defineAvaloniaPropertyWithEquality Control.FlowDirectionProperty
 
+    let RequestBringIntoView =
+        Attributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
+
     let ContextRequested =
         Attributes.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
 
@@ -51,6 +54,10 @@ type ControlModifiers =
     [<Extension>]
     static member inline onContextRequested(this: WidgetBuilder<'msg, #IFabControl>, onContextRequested: ContextRequestedEventArgs -> 'msg) =
         this.AddScalar(Control.ContextRequested.WithValue(fun args -> onContextRequested args |> box))
+
+    [<Extension>]
+    static member inline onRequestBringIntoView(this: WidgetBuilder<'msg, #IFabControl>, onRequestBringIntoView: RequestBringIntoViewEventArgs -> 'msg) =
+        this.AddScalar(Control.RequestBringIntoView.WithValue(fun args -> onRequestBringIntoView args |> box))
 
     [<Extension>]
     static member inline onLoaded(this: WidgetBuilder<'msg, #IFabControl>, onLoaded: 'msg) =

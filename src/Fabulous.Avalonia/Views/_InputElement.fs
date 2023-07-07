@@ -17,23 +17,11 @@ module InputElement =
     let IsEnabled =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.IsEnabledProperty
 
-    let IsEffectivelyEnabled =
-        Attributes.defineAvaloniaPropertyWithEquality InputElement.IsEffectivelyEnabledProperty
-
     let Cursor =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.CursorProperty
 
-    let IsKeyboardFocusWithin =
-        Attributes.defineAvaloniaPropertyWithEquality InputElement.IsKeyboardFocusWithinProperty
-
-    let IsFocused =
-        Attributes.defineAvaloniaPropertyWithEquality InputElement.IsFocusedProperty
-
     let IsHitTestVisible =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.IsHitTestVisibleProperty
-
-    let IsPointerOver =
-        Attributes.defineAvaloniaPropertyWithEquality InputElement.IsPointerOverProperty
 
     let IsTabStop =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.IsTabStopProperty

@@ -24,6 +24,9 @@ module StyledElement =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_DetachedFromLogicalTree" (fun target ->
             (target :?> StyledElement).DetachedFromLogicalTree)
 
+    let ActualThemeVariantChanged =
+        Attributes.defineEventNoArg "StyledElement_ActualThemeVariantChanged" (fun target -> (target :?> StyledElement).ActualThemeVariantChanged)
+
 [<Extension>]
 type StyledElementModifiers =
     [<Extension>]
@@ -40,6 +43,10 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline onDetachedFromLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
         this.AddScalar(StyledElement.DetachedFromLogicalTree.WithValue(fun args -> fn args |> box))
+
+    [<Extension>]
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: 'msg) =
+        this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(fun () -> fn |> box))
 
 [<Extension>]
 type StyledElementCollectionBuilderExtensions =
