@@ -12,7 +12,7 @@ module Rotate3DTransform =
     let WidgetKey = Widgets.register<Rotate3DTransform>()
 
     let Angle =
-        Attributes.defineSimpleScalarWithEquality<struct (float * float * float)> "Border_BorderDashArray" (fun _ newValueOpt node ->
+        Attributes.defineSimpleScalarWithEquality<struct (float * float * float)> "Rotate3DTransform_Angle" (fun _ newValueOpt node ->
             let target = node.Target :?> AvaloniaObject
 
             match newValueOpt with

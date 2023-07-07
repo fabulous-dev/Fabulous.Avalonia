@@ -586,3 +586,107 @@ type TransformOperationsTransitionModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTransformOperationsTransition>, value: ViewRef<TransformOperationsTransition>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+
+type IFabVectorTransition =
+    inherit IFabTransition
+
+module VectorTransition =
+
+    let WidgetKey = Widgets.register<VectorTransition>()
+
+    let Duration =
+        Attributes.definePropertyWithGetSet "VectorTransition_Duration" (fun target -> (target :?> VectorTransition).Duration) (fun target value ->
+            (target :?> VectorTransition).Duration <- value)
+
+    let Delay =
+        Attributes.definePropertyWithGetSet "VectorTransition_Delay" (fun target -> (target :?> VectorTransition).Delay) (fun target value ->
+            (target :?> VectorTransition).Delay <- value)
+
+    let Easing =
+        Attributes.definePropertyWithGetSet "VectorTransition_Easing" (fun target -> (target :?> VectorTransition).Easing) (fun target value ->
+            (target :?> VectorTransition).Easing <- value)
+
+    let Property =
+        Attributes.definePropertyWithGetSet "VectorTransition_Property" (fun target -> (target :?> VectorTransition).Property) (fun target value ->
+            (target :?> VectorTransition).Property <- value)
+
+[<AutoOpen>]
+module VectorTransitionBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        static member VectorTransition(property: AvaloniaProperty, duration: TimeSpan) =
+            WidgetBuilder<'msg, IFabVectorTransition>(
+                VectorTransition.WidgetKey,
+                VectorTransition.Property.WithValue(property),
+                VectorTransition.Duration.WithValue(duration)
+            )
+
+[<Extension>]
+type VectorTransitionModifiers =
+    [<Extension>]
+    static member inline delay(this: WidgetBuilder<'msg, #IFabVectorTransition>, value: TimeSpan) =
+        this.AddScalar(VectorTransition.Delay.WithValue(value))
+
+    [<Extension>]
+    static member inline easing(this: WidgetBuilder<'msg, #IFabVectorTransition>, value: Easing) =
+        this.AddScalar(VectorTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct VectorTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabVectorTransition>, value: ViewRef<VectorTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+type IFabEffectTransition =
+    inherit IFabTransition
+
+module EffectTransition =
+    let WidgetKey = Widgets.register<EffectTransition>()
+
+    let Duration =
+        Attributes.definePropertyWithGetSet "EffectTransition_Duration" (fun target -> (target :?> VectorTransition).Duration) (fun target value ->
+            (target :?> VectorTransition).Duration <- value)
+
+    let Delay =
+        Attributes.definePropertyWithGetSet "EffectTransition_Delay" (fun target -> (target :?> VectorTransition).Delay) (fun target value ->
+            (target :?> VectorTransition).Delay <- value)
+
+    let Easing =
+        Attributes.definePropertyWithGetSet "EffectTransition_Easing" (fun target -> (target :?> VectorTransition).Easing) (fun target value ->
+            (target :?> VectorTransition).Easing <- value)
+
+    let Property =
+        Attributes.definePropertyWithGetSet "EffectTransition_Property" (fun target -> (target :?> VectorTransition).Property) (fun target value ->
+            (target :?> VectorTransition).Property <- value)
+
+[<AutoOpen>]
+module EffectTransitionBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        static member EffectTransition(property: AvaloniaProperty, duration: TimeSpan) =
+            WidgetBuilder<'msg, IFabEffectTransition>(
+                EffectTransition.WidgetKey,
+                EffectTransition.Property.WithValue(property),
+                EffectTransition.Duration.WithValue(duration)
+            )
+
+[<Extension>]
+type EffectTransitionModifiers =
+    [<Extension>]
+    static member inline delay(this: WidgetBuilder<'msg, #IFabEffectTransition>, value: TimeSpan) =
+        this.AddScalar(EffectTransition.Delay.WithValue(value))
+
+    [<Extension>]
+    static member inline easing(this: WidgetBuilder<'msg, #IFabEffectTransition>, value: Easing) =
+        this.AddScalar(EffectTransition.Easing.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct EffectTransition control instance</summary>
+    /// <param name="this">Current widget</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabEffectTransition>, value: ViewRef<EffectTransition>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
