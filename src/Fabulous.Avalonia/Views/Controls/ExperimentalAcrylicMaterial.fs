@@ -29,6 +29,9 @@ module ExperimentalAcrylicMaterial =
     let FallbackColor =
         Attributes.defineAvaloniaPropertyWithEquality ExperimentalAcrylicMaterial.FallbackColorProperty
 
+    let Invalidated =
+        Attributes.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
+
 [<AutoOpen>]
 module ExperimentalAcrylicMaterialBuilders =
     type Fabulous.Avalonia.View with
@@ -64,6 +67,10 @@ type ExperimentalAcrylicMaterialModifiers =
     [<Extension>]
     static member inline fallbackColor(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, value: Color) =
         this.AddScalar(ExperimentalAcrylicMaterial.FallbackColor.WithValue(value))
+
+    [<Extension>]
+    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, onInvalidated: 'msg) =
+        this.AddScalar(ExperimentalAcrylicMaterial.Invalidated.WithValue(fun _ -> onInvalidated |> box))
 
     /// <summary>Link a ViewRef to access the direct ExperimentalAcrylicMaterial control instance</summary>
     /// <param name="this">Current widget</param>

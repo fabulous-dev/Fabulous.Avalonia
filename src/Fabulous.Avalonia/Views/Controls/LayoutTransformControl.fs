@@ -12,11 +12,11 @@ type IFabLayoutTransformControl =
 module LayoutTransformControl =
     let WidgetKey = Widgets.register<LayoutTransformControl>()
 
-    let RenderTransformWidget =
-        Attributes.defineAvaloniaPropertyWidget LayoutTransformControl.RenderTransformProperty
+    let LayoutTransformWidget =
+        Attributes.defineAvaloniaPropertyWidget LayoutTransformControl.LayoutTransformProperty
 
-    let RenderTransform =
-        Attributes.defineAvaloniaPropertyWithEquality LayoutTransformControl.RenderTransformProperty
+    let LayoutTransform =
+        Attributes.defineAvaloniaPropertyWithEquality LayoutTransformControl.LayoutTransformProperty
 
     let UseRenderTransform =
         Attributes.defineAvaloniaPropertyWithEquality LayoutTransformControl.UseRenderTransformProperty
@@ -35,11 +35,11 @@ module LayoutTransformControlBuilders =
 type LayoutTransformControlModifiers =
     [<Extension>]
     static member inline layoutTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, transform: WidgetBuilder<'msg, #IFabTransform>) =
-        this.AddWidget(LayoutTransformControl.RenderTransformWidget.WithValue(transform.Compile()))
+        this.AddWidget(LayoutTransformControl.LayoutTransformWidget.WithValue(transform.Compile()))
 
     [<Extension>]
     static member inline layoutTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, transform: ITransform) =
-        this.AddScalar(LayoutTransformControl.RenderTransform.WithValue(transform))
+        this.AddScalar(LayoutTransformControl.LayoutTransform.WithValue(transform))
 
     [<Extension>]
     static member inline useRenderTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, value: bool) =
