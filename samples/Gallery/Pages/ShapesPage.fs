@@ -31,8 +31,8 @@ module ShapesPage =
                 .size(100., 80.)
                 .opacityMask(
                     LinearGradientBrush() {
-                        GradientStop(0., Colors.Black)
-                        GradientStop(1., Colors.Transparent)
+                        GradientStop(Colors.Black, 0.)
+                        GradientStop(Colors.Transparent, 1.)
                     }
                 )
                 .fill(SolidColorBrush(Colors.Blue))
@@ -42,8 +42,8 @@ module ShapesPage =
                 .size(100., 100.)
                 .opacityMask(
                     LinearGradientBrush() {
-                        GradientStop(0., Colors.Black)
-                        GradientStop(1., Colors.Transparent)
+                        GradientStop(Colors.Black, 0.)
+                        GradientStop(Colors.Transparent, 1.)
                     }
                 )
 
