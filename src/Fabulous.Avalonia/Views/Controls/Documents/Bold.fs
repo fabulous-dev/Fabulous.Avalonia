@@ -18,7 +18,7 @@ module BoldBuilders =
             CollectionBuilder<'msg, IFabBold, IFabInline>(Bold.WidgetKey, Span.Inlines)
 
         static member Bold<'msg>(text: string) =
-            Fabulous.Avalonia.View.Bold<'msg>() { View.Run<'msg>(text) }
+            View.Bold<'msg>() { View.Run<'msg>(text) }
 
 [<Extension>]
 type BoldModifiers =

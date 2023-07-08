@@ -18,7 +18,7 @@ module ItalicBuilders =
             CollectionBuilder<'msg, IFabItalic, IFabInline>(Italic.WidgetKey, Span.Inlines)
 
         static member Italic<'msg>(text: string) =
-            Fabulous.Avalonia.View.Italic<'msg>() { View.Run<'msg>(text) }
+            View.Italic<'msg>() { View.Run<'msg>(text) }
 
 [<Extension>]
 type ItalicModifiers =

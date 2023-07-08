@@ -18,7 +18,7 @@ module UnderlineBuilders =
             CollectionBuilder<'msg, IFabUnderline, IFabInline>(Underline.WidgetKey, Span.Inlines)
 
         static member Underline<'msg>(text: string) =
-            Fabulous.Avalonia.View.Underline<'msg>() { View.Run<'msg>(text) }
+            View.Underline<'msg>() { View.Run<'msg>(text) }
 
 [<Extension>]
 type UnderlineModifiers =
