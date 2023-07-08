@@ -66,7 +66,7 @@ module DrawingPage =
             .transform(MatrixTransform(Matrix.Parse("1,0,0,1,0,-1028.4")))
 
     let view _ =
-        (Grid(rowdefs = [ Auto; Auto; Auto ], coldefs = [ Auto; Auto; Auto; Auto ]) {
+        (Grid(rowdefs = [ Auto; Auto; Auto ], coldefs = [ Auto; Auto; Auto; Auto; Auto ]) {
             TextBlock("None").margin(3.)
 
             Border(Image(Stretch.None, DrawingImage(bulb())))
@@ -158,6 +158,34 @@ module DrawingPage =
                 .stretch(Stretch.UniformToFill)
                 .fill(SolidColorBrush(Colors.Blue))
                 .margin(5.)
+
+            Ellipse()
+                .width(100.)
+                .height(50.)
+                .gridColumn(4)
+                .gridRow(2)
+                .stroke(Brushes.White)
+                .strokeThickness(0.)
+                .fill(
+                    DrawingBrush(
+                        GeometryDrawing(
+                            GeometryGroup(FillRule.NonZero) {
+                                RectangleGeometry(Rect(50., 25., 25., 25.))
+                                RectangleGeometry(Rect(25., 50., 25., 25.))
+                            },
+                            Brushes.Yellow
+                        )
+                            .pen(
+                                Pen(
+                                    LinearGradientBrush() {
+                                        GradientStop(Colors.Blue, 0.)
+                                        GradientStop(Colors.Black, 1.)
+                                    },
+                                    5.
+                                )
+                            )
+                    )
+                )
         })
             .centerHorizontal()
             .centerVertical()

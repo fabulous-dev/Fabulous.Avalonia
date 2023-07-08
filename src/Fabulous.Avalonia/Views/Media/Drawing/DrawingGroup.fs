@@ -37,11 +37,11 @@ module DrawingGroup =
 module DrawingGroupBuilders =
     type Fabulous.Avalonia.View with
 
-        static member DrawingGroup<'msg>(?opacity: float) =
-            match opacity with
-            | Some value ->
-                CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(value))
-            | None -> CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
+        static member DrawingGroup<'msg>() =
+            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
+
+        static member DrawingGroup<'msg>(opacity: float) =
+            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
 
 [<Extension>]
 type DrawingGroupModifiers =
