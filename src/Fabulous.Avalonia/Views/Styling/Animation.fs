@@ -1,15 +1,12 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Animation
 open Avalonia.Animation.Easings
-open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 module Animation =
 
