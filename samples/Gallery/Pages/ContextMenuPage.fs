@@ -2,6 +2,7 @@ namespace Gallery.Pages
 
 open System.ComponentModel
 open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
@@ -12,8 +13,8 @@ module ContextMenuPage =
     type Model = { Counter: int; IsChecked: bool }
 
     type Msg =
-        | MenuOpened
-        | MenuClosed
+        | MenuOpened of RoutedEventArgs
+        | MenuClosed of RoutedEventArgs
         | ContextMenuOpening of CancelEventArgs
         | ContextMenuClosing of CancelEventArgs
         | ValueChanged of bool

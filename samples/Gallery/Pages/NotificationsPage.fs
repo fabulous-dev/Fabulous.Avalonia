@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open System
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Layout
 open Fabulous.Avalonia
 open Fabulous
@@ -32,7 +33,7 @@ module NotificationsPage =
         | ShowNativeNotification
         | YesCommand
         | NoCommand
-        | Loaded
+        | Loaded of RoutedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -45,7 +46,7 @@ module NotificationsPage =
 
     let update msg model =
         match msg with
-        | Loaded ->
+        | Loaded _ ->
 #if MOBILE
             let mainView = (Application.Current :?> FabApplication).MainView
             let topLevel = TopLevel.GetTopLevel(mainView)

@@ -1,9 +1,8 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls.Primitives
+open Avalonia.Input
 open Fabulous
 
 type IFabRangeBase =
@@ -57,13 +56,13 @@ type RangeBaserModifiers =
         this.AddScalar(RangeBase.LargeChange.WithValue(value))
 
     [<Extension>]
-    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragStarted: Vector -> 'msg) =
-        this.AddScalar(Thumb.DragStarted.WithValue(fun args -> onDragStarted args.Vector |> box))
+    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragStarted: VectorEventArgs -> 'msg) =
+        this.AddScalar(Thumb.DragStarted.WithValue(fun args -> onDragStarted args |> box))
 
     [<Extension>]
-    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragDelta: Vector -> 'msg) =
-        this.AddScalar(Thumb.DragDelta.WithValue(fun args -> onDragDelta args.Vector |> box))
+    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragDelta: VectorEventArgs -> 'msg) =
+        this.AddScalar(Thumb.DragDelta.WithValue(fun args -> onDragDelta args |> box))
 
     [<Extension>]
-    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragCompleted: Vector -> 'msg) =
-        this.AddScalar(Thumb.DragCompleted.WithValue(fun args -> onDragCompleted args.Vector |> box))
+    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragCompleted: VectorEventArgs -> 'msg) =
+        this.AddScalar(Thumb.DragCompleted.WithValue(fun args -> onDragCompleted args |> box))

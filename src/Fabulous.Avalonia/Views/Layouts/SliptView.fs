@@ -2,6 +2,7 @@
 
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
+open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
@@ -126,21 +127,21 @@ type SplitViewModifiers =
         this.AddScalar(SplitView.PaneColumnGridLength.WithValue(value))
 
     [<Extension>]
-    static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, onPanClosed: 'msg) =
-        this.AddScalar(SplitView.PanClosed.WithValue(fun _ -> onPanClosed |> box))
+    static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, onPanClosed: RoutedEventArgs -> 'msg) =
+        this.AddScalar(SplitView.PanClosed.WithValue(fun args -> onPanClosed args |> box))
 
     [<Extension>]
 
-    static member inline onPanClosing(this: WidgetBuilder<'msg, #IFabSplitView>, onPanClosing: bool -> 'msg) =
-        this.AddScalar(SplitView.PanClosing.WithValue(fun args -> onPanClosing args.Cancel |> box))
+    static member inline onPanClosing(this: WidgetBuilder<'msg, #IFabSplitView>, onPanClosing: CancelRoutedEventArgs -> 'msg) =
+        this.AddScalar(SplitView.PanClosing.WithValue(fun args -> onPanClosing args |> box))
 
     [<Extension>]
-    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, onPanOpened: 'msg) =
-        this.AddScalar(SplitView.PanOpened.WithValue(fun _ -> onPanOpened |> box))
+    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, onPanOpened: RoutedEventArgs -> 'msg) =
+        this.AddScalar(SplitView.PanOpened.WithValue(fun args -> onPanOpened args |> box))
 
     [<Extension>]
-    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, onPanOpening: 'msg) =
-        this.AddScalar(SplitView.PanOpening.WithValue(fun _ -> onPanOpening |> box))
+    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, onPanOpening: CancelRoutedEventArgs -> 'msg) =
+        this.AddScalar(SplitView.PanOpening.WithValue(fun args -> onPanOpening args |> box))
 
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, onChanged: bool -> 'msg) =

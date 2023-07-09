@@ -1,6 +1,7 @@
 namespace Gallery.Root
 
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Gallery
 
 module Types =
@@ -14,7 +15,7 @@ module Types =
         | OnSelectionChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | OpenPan
-        | OnLoaded
+        | OnLoaded of RoutedEventArgs
         | DoNothing
 
     type CmdMsg =

@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Fabulous
 
 type IFabMenuBase =
@@ -17,9 +18,9 @@ module MenuBase =
 [<Extension>]
 type MenuBaseModifiers =
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabMenuBase>, onOpened: 'msg) =
-        this.AddScalar(MenuBase.Opened.WithValue(fun _ -> onOpened |> box))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabMenuBase>, onOpened: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuBase.Opened.WithValue(fun args -> onOpened args |> box))
 
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabMenuBase>, onClosed: 'msg) =
-        this.AddScalar(MenuBase.Closed.WithValue(fun _ -> onClosed |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabMenuBase>, onClosed: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuBase.Closed.WithValue(fun args -> onClosed args |> box))

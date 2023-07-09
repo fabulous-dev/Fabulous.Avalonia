@@ -36,8 +36,8 @@ module NativeMenuBuilders =
 [<Extension>]
 type NativeMenuModifiers =
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
-        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> box msg))
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, onOpening: 'msg) =
+        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> onOpening |> box))
 
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, onClosed: 'msg) =

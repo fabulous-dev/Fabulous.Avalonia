@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Avalonia.Styling
@@ -89,15 +90,15 @@ type TopLevelModifiers =
 
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, onOpened: 'msg) =
-        this.AddScalar(TopLevel.Opened.WithValue(onOpened))
+        this.AddScalar(TopLevel.Opened.WithValue(fun _ -> onOpened |> box))
 
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, onClosed: 'msg) =
-        this.AddScalar(TopLevel.Closed.WithValue(onClosed))
+        this.AddScalar(TopLevel.Closed.WithValue(fun _ -> onClosed |> box))
 
     [<Extension>]
-    static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, onBackRequested: 'msg) =
-        this.AddScalar(TopLevel.BackRequested.WithValue(fun _ -> onBackRequested |> box))
+    static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, onBackRequested: RoutedEventArgs -> 'msg) =
+        this.AddScalar(TopLevel.BackRequested.WithValue(fun args -> onBackRequested args |> box))
 
     [<Extension>]
     static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, onScalingChanged: 'msg) =

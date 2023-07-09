@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -93,12 +94,12 @@ type ExpanderModifiers =
         this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> onExpanded arg |> box)))
 
     [<Extension>]
-    static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabExpander>, onCollapsing: 'msg) =
-        this.AddScalar(Expander.Collapsing.WithValue(fun _ -> onCollapsing |> box))
+    static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabExpander>, onCollapsing: CancelRoutedEventArgs -> 'msg) =
+        this.AddScalar(Expander.Collapsing.WithValue(fun args -> onCollapsing args |> box))
 
     [<Extension>]
-    static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, onExpanding: 'msg) =
-        this.AddScalar(Expander.Expanding.WithValue(fun _ -> onExpanding |> box))
+    static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, onExpanding: CancelRoutedEventArgs -> 'msg) =
+        this.AddScalar(Expander.Expanding.WithValue(fun args -> onExpanding args |> box))
 
     /// <summary>Link a ViewRef to access the direct Expander control instance</summary>
     /// <param name="this">Current widget</param>

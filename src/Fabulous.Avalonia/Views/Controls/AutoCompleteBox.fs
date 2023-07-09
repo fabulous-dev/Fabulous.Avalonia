@@ -126,12 +126,12 @@ type AutoCompleteBoxModifiers =
         this.AddScalar(AutoCompleteBox.TextSelector.WithValue(selector))
 
     [<Extension>]
-    static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulating: string -> 'msg) =
-        this.AddScalar(AutoCompleteBox.Populating.WithValue(fun args -> onPopulating args.Parameter |> box))
+    static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulating: PopulatingEventArgs -> 'msg) =
+        this.AddScalar(AutoCompleteBox.Populating.WithValue(fun args -> onPopulating args |> box))
 
     [<Extension>]
-    static member inline onPopulated(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulated: IEnumerable -> 'msg) =
-        this.AddScalar(AutoCompleteBox.Populated.WithValue(fun args -> onPopulated args.Data |> box))
+    static member inline onPopulated(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, onPopulated: PopulatedEventArgs -> 'msg) =
+        this.AddScalar(AutoCompleteBox.Populated.WithValue(fun args -> onPopulated args |> box))
 
     [<Extension>]
     static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, isOpen: bool, onDropDownOpened: bool -> 'msg) =

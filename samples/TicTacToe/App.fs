@@ -2,6 +2,7 @@ namespace TicTacToe
 
 open System
 open Avalonia
+open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
@@ -44,7 +45,7 @@ module App =
     type Msg =
         | Play of Pos
         | Restart
-        | Loaded
+        | Loaded of RoutedEventArgs
 
     type Model =
         { NextUp: Player

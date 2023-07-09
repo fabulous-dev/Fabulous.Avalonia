@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 
@@ -60,12 +61,12 @@ type ControlModifiers =
         this.AddScalar(Control.RequestBringIntoView.WithValue(fun args -> onRequestBringIntoView args |> box))
 
     [<Extension>]
-    static member inline onLoaded(this: WidgetBuilder<'msg, #IFabControl>, onLoaded: 'msg) =
-        this.AddScalar(Control.Loaded.WithValue(fun _ -> onLoaded |> box))
+    static member inline onLoaded(this: WidgetBuilder<'msg, #IFabControl>, onLoaded: RoutedEventArgs -> 'msg) =
+        this.AddScalar(Control.Loaded.WithValue(fun args -> onLoaded args |> box))
 
     [<Extension>]
-    static member inline onUnLoaded(this: WidgetBuilder<'msg, #IFabControl>, onUnLoaded: 'msg) =
-        this.AddScalar(Control.UnLoaded.WithValue(fun _ -> onUnLoaded |> box))
+    static member inline onUnLoaded(this: WidgetBuilder<'msg, #IFabControl>, onUnLoaded: RoutedEventArgs -> 'msg) =
+        this.AddScalar(Control.UnLoaded.WithValue(fun args -> onUnLoaded args |> box))
 
     [<Extension>]
     static member inline onSizeChanged(this: WidgetBuilder<'msg, #IFabControl>, onSizeChanged: SizeChangedEventArgs -> 'msg) =

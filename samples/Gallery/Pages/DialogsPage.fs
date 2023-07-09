@@ -6,6 +6,7 @@ open System.Collections.Generic
 open System.IO
 open System.Reflection
 open Avalonia
+open Avalonia.Interactivity
 open Avalonia.Platform.Storage
 open Fabulous.Avalonia
 open Avalonia.Controls
@@ -68,7 +69,7 @@ module DialogsPage =
         | CurrentFolderBoxTextChanged of string
         | BookmarkContainerTextChanged of string
         | OpenedFileContentTextChanged of string
-        | CurrentFolderBoxLoaded
+        | CurrentFolderBoxLoaded of RoutedEventArgs
         | GetIStorageFolder of IStorageFolder
         | GetIsStorageAvailable of string
 
@@ -328,7 +329,7 @@ CanBookmark: {item.Value.CanBookmark}"
                 { model with CurrentFolderBox = text }, []
             else
                 { model with CurrentFolderBox = text }, [ GettingIStorageFolder text ]
-        | CurrentFolderBoxLoaded -> model, []
+        | CurrentFolderBoxLoaded _ -> model, []
         | BookmarkContainerTextChanged s -> { model with BookmarkContainer = s }, []
         | OpenedFileContentTextChanged s -> { model with OpenedFileContent = s }, []
         | GetIStorageFolder storageFolder ->

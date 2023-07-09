@@ -6,6 +6,7 @@ open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Data
 open Avalonia.Data.Converters
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
 
@@ -34,8 +35,8 @@ module AutoCompleteBoxPage =
         | OnPopulating of string
         | OnPopulated of System.Collections.IEnumerable
         | OnDropDownOpen of bool
-        | MultiBindingLoaded
-        | CustomAutoBoxLoaded
+        | MultiBindingLoaded of RoutedEventArgs
+        | CustomAutoBoxLoaded of RoutedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -307,12 +308,12 @@ module AutoCompleteBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged s -> model, []
+        | TextChanged _ -> model, []
         | SelectionChanged _ -> model, []
         | OnPopulating _ -> model, []
         | OnPopulated _ -> model, []
         | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, []
-        | MultiBindingLoaded ->
+        | MultiBindingLoaded _ ->
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
                     let parts = parts |> Seq.toArray
@@ -328,7 +329,7 @@ module AutoCompleteBoxPage =
             multiBindingBoxRef.Value.ValueMemberBinding <- binding
             model, []
 
-        | CustomAutoBoxLoaded ->
+        | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
             customAutoCompleteBoxRef.Value.ItemsSource <- strings
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))

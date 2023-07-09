@@ -54,7 +54,7 @@ module MenuItemBuilders =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> box onClick)
+                MenuItem.Clicked.WithValue(fun _ -> onClick |> box)
             )
 
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
@@ -67,7 +67,7 @@ module MenuItemBuilders =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)),
+                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> onClick |> box)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
@@ -84,7 +84,7 @@ module MenuItemBuilders =
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> box onClick)
+                MenuItem.Clicked.WithValue(fun _ -> onClick |> box)
             )
 
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>) =
@@ -96,7 +96,7 @@ module MenuItemBuilders =
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>, onClick: 'msg) =
             WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
                 MenuItem.WidgetKey
-                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)))
+                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> onClick |> box)))
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
 [<Extension>]
@@ -134,12 +134,8 @@ type MenuItemModifiers =
         this.AddScalar(MenuItem.PointerExitedItem.WithValue(fun args -> onPointerExitedItem args |> box))
 
     [<Extension>]
-    static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, onSubmenuOpened: bool -> 'msg) =
-        this.AddScalar(
-            MenuItem.SubmenuOpened.WithValue(fun args ->
-                let control = args.Source :?> MenuItem
-                onSubmenuOpened control.IsSubMenuOpen |> box)
-        )
+    static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, onSubmenuOpened: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuItem.SubmenuOpened.WithValue(fun args -> onSubmenuOpened args |> box))
 
     /// <summary>Link a ViewRef to access the direct MenuItem control instance</summary>
     /// <param name="this">Current widget</param>

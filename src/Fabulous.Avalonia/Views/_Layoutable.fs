@@ -86,8 +86,12 @@ type LayoutableModifiers =
         this.AddScalar(Layoutable.UseLayoutRounding.WithValue(value))
 
     [<Extension>]
-    static member inline onEffectiveViewportChanged(this: WidgetBuilder<'msg, #IFabLayoutable>, onEffectiveViewportChanged: Rect -> 'msg) =
-        this.AddScalar(Layoutable.EffectiveViewportChanged.WithValue(fun args -> onEffectiveViewportChanged args.EffectiveViewport |> box))
+    static member inline onEffectiveViewportChanged
+        (
+            this: WidgetBuilder<'msg, #IFabLayoutable>,
+            onEffectiveViewportChanged: EffectiveViewportChangedEventArgs -> 'msg
+        ) =
+        this.AddScalar(Layoutable.EffectiveViewportChanged.WithValue(fun args -> onEffectiveViewportChanged args |> box))
 
     [<Extension>]
     static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, onLayoutUpdated: 'msg) =

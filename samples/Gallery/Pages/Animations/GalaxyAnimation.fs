@@ -6,6 +6,7 @@ open Avalonia
 open Avalonia.Animation.Easings
 open Avalonia.Controls
 open Avalonia.Controls.Shapes
+open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Rendering.Composition
 open Avalonia.Rendering.Composition.Animations
@@ -17,7 +18,7 @@ open type Fabulous.Avalonia.View
 module GalaxyAnimation =
     type Model = { Value: int }
 
-    type Msg = OnLoaded
+    type Msg = OnLoaded of RoutedEventArgs
 
     let init () = { Value = 0 }
 
@@ -94,7 +95,7 @@ module GalaxyAnimation =
 
     let update msg model =
         match msg with
-        | OnLoaded ->
+        | OnLoaded _ ->
             Apply rootVisual.Value orbit.Value satellite.Value startField.Value planet.Value
             model
 

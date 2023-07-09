@@ -254,24 +254,16 @@ type TextBoxModifiers =
         this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
 
     [<Extension>]
-    static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCopyingToClipboard: string -> 'msg) =
-        this.AddScalar(
-            TextBox.CopyingToClipboard.WithValue(fun args ->
-                let control = args.Source :?> TextBox
-                onCopyingToClipboard control.Text |> box)
-        )
+    static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCopyingToClipboard: RoutedEventArgs -> 'msg) =
+        this.AddScalar(TextBox.CopyingToClipboard.WithValue(fun args -> onCopyingToClipboard args |> box))
 
     [<Extension>]
-    static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCuttingToClipboard: string -> 'msg) =
-        this.AddScalar(
-            TextBox.CuttingToClipboard.WithValue(fun args ->
-                let control = args.Source :?> TextBox
-                onCuttingToClipboard control.Text |> box)
-        )
+    static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onCuttingToClipboard: RoutedEventArgs -> 'msg) =
+        this.AddScalar(TextBox.CuttingToClipboard.WithValue(fun args -> onCuttingToClipboard args |> box))
 
     [<Extension>]
-    static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onPastingFromClipboard: 'msg) =
-        this.AddScalar(TextBox.PastingFromClipboard.WithValue(fun _ -> onPastingFromClipboard |> box))
+    static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, onPastingFromClipboard: RoutedEventArgs -> 'msg) =
+        this.AddScalar(TextBox.PastingFromClipboard.WithValue(fun args -> onPastingFromClipboard args |> box))
 
     /// <summary>Link a ViewRef to access the direct TextBox control instance</summary>
     /// <param name="this">Current widget</param>

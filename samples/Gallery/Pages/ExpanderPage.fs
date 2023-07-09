@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open System
 open Avalonia.Animation
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
@@ -14,8 +15,8 @@ module ExpanderPage =
 
     type Msg =
         | ExpandChanged of bool
-        | Expanding
-        | Collapsing
+        | Expanding of CancelRoutedEventArgs
+        | Collapsing of CancelRoutedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -28,8 +29,8 @@ module ExpanderPage =
     let update msg model =
         match msg with
         | ExpandChanged b -> { model with IsExpanded = b }, []
-        | Expanding -> model, []
-        | Collapsing -> model, []
+        | Expanding _ -> model, []
+        | Collapsing _ -> model, []
 
     let view model =
         VStack(spacing = 15.) {

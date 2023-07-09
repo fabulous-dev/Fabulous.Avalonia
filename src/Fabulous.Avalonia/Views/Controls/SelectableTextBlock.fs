@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
@@ -32,22 +33,18 @@ module SelectableTextBlock =
 module SelectableTextBlockBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline SelectableTextBlock<'msg>(text: string, onCopyingToClipboard: string -> 'msg) =
+        static member inline SelectableTextBlock<'msg>(text: string, onCopyingToClipboard: RoutedEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabSelectableTextBlock>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Text.WithValue(text),
-                SelectableTextBlock.CopyingToClipboard.WithValue(fun args ->
-                    let control = args.Source :?> SelectableTextBlock
-                    onCopyingToClipboard control.SelectedText |> box)
+                SelectableTextBlock.CopyingToClipboard.WithValue(fun args -> onCopyingToClipboard args |> box)
             )
 
-        static member inline SelectableTextBlock(onCopyingToClipboard: string -> 'msg) =
+        static member inline SelectableTextBlock(onCopyingToClipboard: RoutedEventArgs -> 'msg) =
             CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Inlines,
-                SelectableTextBlock.CopyingToClipboard.WithValue(fun args ->
-                    let control = args.Source :?> SelectableTextBlock
-                    onCopyingToClipboard control.SelectedText |> box)
+                SelectableTextBlock.CopyingToClipboard.WithValue(fun args -> onCopyingToClipboard args |> box)
             )
 
 [<Extension>]

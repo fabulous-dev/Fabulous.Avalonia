@@ -46,7 +46,7 @@ type StyledElementModifiers =
 
     [<Extension>]
     static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: 'msg) =
-        this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(fun () -> fn |> box))
+        this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(fun _ -> fn |> box))
 
 [<Extension>]
 type StyledElementCollectionBuilderExtensions =

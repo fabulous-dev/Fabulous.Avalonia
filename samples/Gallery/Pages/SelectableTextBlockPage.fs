@@ -1,8 +1,10 @@
 namespace Gallery.Pages
 
+open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
+open Avalonia.Controls
 
 open type Fabulous.Avalonia.View
 open Gallery
@@ -10,7 +12,7 @@ open Gallery
 module SelectableTextBlockPage =
     type Model = { Text: string }
 
-    type Msg = CopyingToClipboard of string
+    type Msg = CopyingToClipboard of RoutedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -22,7 +24,10 @@ module SelectableTextBlockPage =
 
     let update msg model =
         match msg with
-        | CopyingToClipboard s -> { model with Text = s }, []
+        | CopyingToClipboard args ->
+            let control = args.Source :?> SelectableTextBlock
+            let s = control.SelectedText
+            { model with Text = s }, []
 
     let view model =
         VStack(spacing = 15.) {

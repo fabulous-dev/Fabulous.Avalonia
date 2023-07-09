@@ -71,7 +71,7 @@ type PopupFlyoutBaseModifiers =
 
     [<Extension>]
     static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onOpening: 'msg) =
-        this.AddScalar(PopupFlyoutBase.Opening.WithValue(onOpening))
+        this.AddScalar(PopupFlyoutBase.Opening.WithValue(fun _ -> onOpening |> box))
 
     [<Extension>]
     static member inline onClosing(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, onClosing: CancelEventArgs -> 'msg) =
