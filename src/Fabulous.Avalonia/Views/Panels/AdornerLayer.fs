@@ -9,12 +9,12 @@ type IFabAdornerLayer =
 
 module AdornerLayer =
     let WidgetKey = Widgets.register<AdornerLayer>()
-    
+
     let AdornedElement =
         Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornedElementProperty
 
     let Adorner = Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornerProperty
-    
+
     let IsIsClipEnabled =
         Attributes.defineAvaloniaPropertyWithEquality AdornerLayer.IsClipEnabledProperty
 
@@ -27,7 +27,7 @@ type AdornerLayerAttachedModifiers =
     [<Extension>]
     static member inline adornedElement(this: WidgetBuilder<'msg, #IFabVisual>, widget: WidgetBuilder<'msg, #IFabVisual>) =
         this.AddWidget(AdornerLayer.AdornedElement.WithValue(widget.Compile()))
-        
+
     [<Extension>]
     static member inline isClipEnabled(this: WidgetBuilder<'msg, #IFabVisual>, value: bool) =
         this.AddScalar(AdornerLayer.IsIsClipEnabled.WithValue(value))
