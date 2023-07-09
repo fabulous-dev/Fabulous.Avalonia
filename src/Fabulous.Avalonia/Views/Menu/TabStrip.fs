@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
 open Fabulous
 
-
 type IFabTabStrip =
     inherit IFabSelectingItemsControl
 

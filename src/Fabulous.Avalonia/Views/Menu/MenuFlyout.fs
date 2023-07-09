@@ -17,11 +17,11 @@ module MenuFlyout =
             let target = target :?> MenuFlyout
 
             if target.ItemsSource = null then
-                let newColl = List<Control>()
+                let newColl = List<_>()
                 target.ItemsSource <- newColl
                 newColl
             else
-                target.ItemsSource :?> IList<Control>)
+                target.ItemsSource :?> IList<_>)
 
 [<AutoOpen>]
 module MenuFlyoutBuilders =

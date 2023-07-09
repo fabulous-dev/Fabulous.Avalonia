@@ -15,36 +15,6 @@ type IFabContextMenu =
 module ContextMenu =
     let WidgetKey = Widgets.register<ContextMenu>()
 
-    let inline defineContextMenuEvent
-        name
-        ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
-        : SimpleScalarAttributeDefinition<CancelEventArgs -> obj> =
-        let key =
-            SimpleScalarAttributeDefinition.CreateAttributeData(
-                ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: (CancelEventArgs -> obj) voption) (node: IViewNode) ->
-                    let event = getEvent node.Target
-
-                    match node.TryGetHandler(name) with
-                    | ValueNone -> ()
-                    | ValueSome handler -> event.RemoveHandler handler
-
-                    match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
-
-                    | ValueSome fn ->
-                        let handler =
-                            CancelEventHandler(fun _ args ->
-                                let r = fn args
-                                Dispatcher.dispatch node r)
-
-                        node.SetHandler(name, ValueSome handler)
-                        event.AddHandler handler)
-            )
-            |> AttributeDefinitionStore.registerScalar
-
-        { Key = key; Name = name }
-
     let HorizontalOffset =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.HorizontalOffsetProperty
 
@@ -73,10 +43,10 @@ module ContextMenu =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
 
     let Opening =
-        defineContextMenuEvent "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
+        Attributes.defineCancelEvent "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
 
     let Closing =
-        defineContextMenuEvent "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
+        Attributes.defineCancelEvent "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
 
 [<AutoOpen>]
 module ContextMenuBuilders =

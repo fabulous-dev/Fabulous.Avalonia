@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Collections
+open System.ComponentModel
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Interactivity
@@ -321,6 +322,36 @@ module Attributes =
                                 Dispatcher.dispatch node r)
 
                         node.SetHandler(name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+
+    let inline defineCancelEvent
+        name
+        ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
+        : SimpleScalarAttributeDefinition<CancelEventArgs -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: (CancelEventArgs -> obj) voption) (node: IViewNode) ->
+                    let event = getEvent node.Target
+
+                    match node.TryGetHandler(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> event.RemoveHandler handler
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let handler =
+                            CancelEventHandler(fun _ args ->
+                                let r = fn args
+                                Dispatcher.dispatch node r)
+
+                        node.SetHandler(name, ValueSome handler)
+                        event.AddHandler handler)
             )
             |> AttributeDefinitionStore.registerScalar
 
