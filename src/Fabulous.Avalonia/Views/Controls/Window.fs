@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Platform
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -49,6 +50,11 @@ module Window =
     let WindowClosing =
         Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
 
+    let WindowClosed =
+        Attributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
+
+    let WindowOpened =
+        Attributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
 
 [<AutoOpen>]
 module WindowBuilders =
@@ -113,6 +119,14 @@ type WindowModifiers =
     [<Extension>]
     static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, onWindowClosing: WindowClosingEventArgs -> 'msg) =
         this.AddScalar(Window.WindowClosing.WithValue(fun args -> onWindowClosing args |> box))
+
+    [<Extension>]
+    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, onWindowClosed: RoutedEventArgs -> 'msg) =
+        this.AddScalar(Window.WindowClosed.WithValue(fun args -> onWindowClosed args |> box))
+
+    [<Extension>]
+    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, onWindowOpened: RoutedEventArgs -> 'msg) =
+        this.AddScalar(Window.WindowOpened.WithValue(fun args -> onWindowOpened args |> box))
 
     /// <summary>Link a ViewRef to access the direct Window control instance</summary>
     /// <param name="this">Current widget</param>

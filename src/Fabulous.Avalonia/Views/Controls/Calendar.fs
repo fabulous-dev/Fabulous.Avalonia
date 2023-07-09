@@ -16,6 +16,9 @@ module Calendar =
     let FirstDayOfWeek =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.FirstDayOfWeekProperty
 
+    let IsTodayHighlighted =
+        Attributes.defineAvaloniaPropertyWithEquality Calendar.IsTodayHighlightedProperty
+
     let HeaderBackgroundWidget =
         Attributes.defineAvaloniaPropertyWidget Calendar.HeaderBackgroundProperty
 
@@ -71,6 +74,10 @@ type CalendarModifiers =
     [<Extension>]
     static member inline firstDayOfWeek(this: WidgetBuilder<'msg, #IFabCalendar>, value: DayOfWeek) =
         this.AddScalar(Calendar.FirstDayOfWeek.WithValue(value))
+
+    [<Extension>]
+    static member inline isTodayHighlighted(this: WidgetBuilder<'msg, #IFabCalendar>, value: bool) =
+        this.AddScalar(Calendar.IsTodayHighlighted.WithValue(value))
 
     [<Extension>]
     static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, content: WidgetBuilder<'msg, #IFabBrush>) =
