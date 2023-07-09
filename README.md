@@ -44,7 +44,7 @@ let view model =
 ## Getting Started
 
 You can start your new Fabulous.Avalonia app in a matter of seconds using the dotnet CLI templates.  
-For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulous.dev/avalonia/get-started).
+For a starter guide see our [Get Started with Fabulous.Avalonia](https://docs.fabulous.dev/avalonia/get-started).
 
 ```sh
 dotnet new install Fabulous.Avalonia.Templates
@@ -54,12 +54,12 @@ net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on 
 
 ## Documentation
 
-The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/v2/avalonia](https://docs.fabulous.dev/v2/avalonia).
+The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/avalonia](https://docs.fabulous.dev/avalonia).
 
 Other useful links:
 - [The official Fabulous website](https://fabulous.dev)
-- [Get started](https://fabulous.dev/avalonia/get-started)
-- [API Reference](https://api.fabulous.dev/v2/avalonia)
+- [Get started](https://docs.fabulous.dev/avalonia/get-started)
+- [API Reference](https://api.fabulous.dev/avalonia)
 - [Contributor Guide](CONTRIBUTING.md)
 
 Additionally, we have the [Fabulous Discord server](https://discord.gg/bpTJMbSSYK) where you can ask any of your Fabulous related questions.
