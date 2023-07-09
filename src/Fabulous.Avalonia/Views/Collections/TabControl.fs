@@ -25,16 +25,15 @@ module TabControl =
 module TabControlBuilders =
     type Fabulous.Avalonia.View with
 
-        static member TabControl(?tabStripPlacement: Dock) =
-            match tabStripPlacement with
-            | Some tabStripPlacement ->
-                CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(
-                    TabControl.WidgetKey,
-                    ItemsControl.Items,
-                    TabControl.TabStripPlacement.WithValue(tabStripPlacement)
-                )
-            | None ->
-                CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, ItemsControl.Items, TabControl.TabStripPlacement.WithValue(Dock.Top))
+        static member TabControl(tabStripPlacement: Dock) =
+            CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(
+                TabControl.WidgetKey,
+                ItemsControl.Items,
+                TabControl.TabStripPlacement.WithValue(tabStripPlacement)
+            )
+
+        static member TabControl() =
+            CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, ItemsControl.Items, TabControl.TabStripPlacement.WithValue(Dock.Top))
 
 [<Extension>]
 type TabControlModifiers =
