@@ -17,10 +17,16 @@ module MenuBase =
 
 [<Extension>]
 type MenuBaseModifiers =
+    /// <summary>Listens to the MenuOpened event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Menu is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabMenuBase>, onOpened: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuBase.Opened.WithValue(fun args -> onOpened args |> box))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabMenuBase>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuBase.Opened.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the MenuClosed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Menu is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabMenuBase>, onClosed: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuBase.Closed.WithValue(fun args -> onClosed args |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabMenuBase>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuBase.Closed.WithValue(fun args -> fn args |> box))

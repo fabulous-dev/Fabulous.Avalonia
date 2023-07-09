@@ -29,21 +29,47 @@ module StyledElement =
 
 [<Extension>]
 type StyledElementModifiers =
+    /// <summary>Sets the Name property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Name value</param>
     [<Extension>]
-    static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, name: string) =
-        this.AddScalar(StyledElement.Name.WithValue(name))
+    static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.Name.WithValue(value))
 
+    /// <summary>Sets the Style property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">The Style value</param>
+    /// <example>
+    /// <code lang="fsharp">
+    /// let labelStyle (this: WidgetBuilder&lt;'msg, IFabSlider&gt;) =
+    ///     this.margin(8., 0.)
+    ///         .fontSize(16.)
+    ///         .fontWeight(FontWeight.Bold)
+    ///
+    /// Label("Hello World!")
+    ///     .style(labelStyle)
+    /// </code>
+    /// </example>
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
 
+    /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the styled element is attached to a rooted logical tree.</param>
     [<Extension>]
     static member inline onAttachedToLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
         this.AddScalar(StyledElement.AttachedToLogicalTree.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the StyledElement DetachedFromLogicalTree event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the styled element is detached from a rooted logical tree.</param>
     [<Extension>]
     static member inline onDetachedFromLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
         this.AddScalar(StyledElement.DetachedFromLogicalTree.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the StyledElement ActualThemeVariantChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
     static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: 'msg) =
         this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(fun _ -> fn |> box))

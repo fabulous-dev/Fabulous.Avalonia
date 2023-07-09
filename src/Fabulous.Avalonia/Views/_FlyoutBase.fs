@@ -22,14 +22,23 @@ module FlyoutBase =
 
 [<Extension>]
 type FlyoutBaseModifiers =
+    /// <summary>Listens to the FlyoutBase Opened event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the FlyoutBase is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onOpened: 'msg) =
-        this.AddScalar(FlyoutBase.Opened.WithValue(onOpened))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, fn: 'msg) =
+        this.AddScalar(FlyoutBase.Opened.WithValue(fun _ -> fn |> box))
 
+    /// <summary>Listens to the FlyoutBase Closed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the FlyoutBase is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, onClosed: 'msg) =
-        this.AddScalar(FlyoutBase.Closed.WithValue(onClosed))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, fn: 'msg) =
+        this.AddScalar(FlyoutBase.Closed.WithValue(fun _ -> fn |> box))
 
+    /// <summary>Sets the Target property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Target value</param>
     [<Extension>]
     static member inline target(this: WidgetBuilder<'msg, #IFabFlyoutBase>, value: ViewRef<#Control>) =
         match value.TryValue with
