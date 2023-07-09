@@ -20,7 +20,7 @@ module DropDownButtonBuilders =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> box onClicked)
+                Button.Clicked.WithValue(fun _ -> box onClicked |> box)
             )
 
         static member inline DropDownButton(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =

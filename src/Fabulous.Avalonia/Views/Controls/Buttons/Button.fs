@@ -25,9 +25,6 @@ module Button =
 
     let IsCancel = Attributes.defineAvaloniaPropertyWithEquality Button.IsCancelProperty
 
-    let IsPressed =
-        Attributes.defineAvaloniaPropertyWithEquality Button.IsPressedProperty
-
     let Flyout = Attributes.defineAvaloniaPropertyWidget Button.FlyoutProperty
 
 [<AutoOpen>]
@@ -65,10 +62,6 @@ type ButtonModifiers =
     [<Extension>]
     static member inline isCancel(this: WidgetBuilder<'msg, #IFabButton>, value: bool) =
         this.AddScalar(Button.IsCancel.WithValue(value))
-
-    [<Extension>]
-    static member inline isPressed(this: WidgetBuilder<'msg, #IFabButton>, value: bool) =
-        this.AddScalar(Button.IsPressed.WithValue(value))
 
     [<Extension>]
     static member inline flyout(this: WidgetBuilder<'msg, #IFabButton>, content: WidgetBuilder<'msg, #IFabFlyoutBase>) =
