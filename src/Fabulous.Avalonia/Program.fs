@@ -4,7 +4,6 @@ open System
 open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Avalonia.Threading
 
 open Fabulous

@@ -9,14 +9,28 @@ type IFabAdornerLayer =
 
 module AdornerLayer =
     let WidgetKey = Widgets.register<AdornerLayer>()
+    
+    let AdornedElement =
+        Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornedElementProperty
 
     let Adorner = Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornerProperty
+    
+    let IsIsClipEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality AdornerLayer.IsClipEnabledProperty
 
 [<Extension>]
-type AdornerLayerModifiers =
+type AdornerLayerAttachedModifiers =
     [<Extension>]
     static member inline adorner(this: WidgetBuilder<'msg, #IFabVisual>, widget: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(AdornerLayer.Adorner.WithValue(widget.Compile()))
+
+    [<Extension>]
+    static member inline adornedElement(this: WidgetBuilder<'msg, #IFabVisual>, widget: WidgetBuilder<'msg, #IFabVisual>) =
+        this.AddWidget(AdornerLayer.AdornedElement.WithValue(widget.Compile()))
+        
+    [<Extension>]
+    static member inline isClipEnabled(this: WidgetBuilder<'msg, #IFabVisual>, value: bool) =
+        this.AddScalar(AdornerLayer.IsIsClipEnabled.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct AdornerLayer control instance</summary>
     /// <param name="this">Current widget</param>

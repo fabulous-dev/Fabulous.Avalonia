@@ -215,7 +215,7 @@ module App =
                 Cmd.none
 
     let view (model: Model) =
-        (Dock() {
+        (DockPanel() {
             Button("Start", StartEvolution)
                 .horizontalAlignment(HorizontalAlignment.Stretch)
                 .horizontalContentAlignment(HorizontalAlignment.Center)

@@ -98,7 +98,7 @@ module Setting =
 
     let view (model: Model) =
         Border(
-            Dock(false) {
+            DockPanel(false) {
                 View.map ColorPickerMsg (ColorPicker.view(model.ColorPicker).dock(Dock.Left))
                 View.map SizePickerMsg (SizePicker.view(model.SizePicker).dock(Dock.Right))
             }
@@ -195,7 +195,7 @@ module App =
             Cmd.none
 
     let view (model: Model) =
-        (Dock() {
+        (DockPanel() {
             View.map SettingMsg (Setting.view(model.Setting).dock(Dock.Bottom))
             View.map DrawingCanvasMsg (DrawingCanvas.view(model.DrawingCanvas).dock(Dock.Top))
         })

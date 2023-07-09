@@ -46,13 +46,13 @@ module TabControlPage =
             []
 
     let view model =
-        Dock() {
+        DockPanel() {
             TextBlock("A tab control that displays a tab strip along with the content of the selected tab")
                 .dock(Dock.Top)
                 .margin(4.)
 
             Grid(coldefs = [ Star ], rowdefs = [ Star; Pixel(100.) ]) {
-                (Dock() {
+                (DockPanel() {
                     TextBlock("From Inline TabItems").dock(Dock.Top)
 
                     (TabControl(model.TabPlacement) {

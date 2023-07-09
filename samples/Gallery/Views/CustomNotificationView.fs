@@ -24,7 +24,7 @@ module CustomNotificationView =
                     .height(25.)
                     .verticalAlignment(VerticalAlignment.Top)
 
-                (Dock() {
+                (DockPanel() {
                     TextBlock(title)
                         .dock(Dock.Top)
                         .fontWeight(FontWeight.Medium)
