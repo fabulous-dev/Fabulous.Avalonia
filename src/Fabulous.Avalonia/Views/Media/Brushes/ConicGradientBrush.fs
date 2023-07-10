@@ -20,6 +20,9 @@ module ConicGradientBrush =
 module ConicGradientBrushBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ConicGradientBrush widget</summary>
+        /// <param name="center">The center of the gradient</param>
+        /// <param name="angle">The angle of the gradient</param>
         static member ConicGradientBrush<'msg>(center: RelativePoint, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -28,6 +31,8 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Angle.WithValue(angle)
             )
 
+        /// <summary>Creates a ConicGradientBrush widget</summary>
+        /// <param name="center">The center of the gradient</param>
         static member ConicGradientBrush<'msg>(center: RelativePoint) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -36,6 +41,10 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Angle.WithValue(0.)
             )
 
+        /// <summary>Creates a ConicGradientBrush widget</summary>
+        /// <param name="center">The center of the gradient</param>
+        /// <param name="unit">The unit of the center</param>
+        /// <param name="angle">The angle of the gradient</param>
         static member ConicGradientBrush<'msg>(center: Point, unit: RelativeUnit, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -44,6 +53,9 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Angle.WithValue(angle)
             )
 
+        /// <summary>Creates a ConicGradientBrush widget</summary>
+        /// <param name="center">The center of the gradient</param>
+        /// <param name="unit">The unit of the center</param>
         static member ConicGradientBrush<'msg>(center: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -52,6 +64,8 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Angle.WithValue(0.)
             )
 
+        /// <summary>Creates a ConicGradientBrush widget</summary>
+        /// <param name="angle">The angle of the gradient</param>
         static member ConicGradientBrush<'msg>(angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
@@ -60,6 +74,7 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Angle.WithValue(angle)
             )
 
+        /// <summary>Creates a ConicGradientBrush widget</summary>
         static member ConicGradientBrush<'msg>() =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,

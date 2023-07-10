@@ -16,6 +16,8 @@ module VisualBrush =
 module VisualBrushBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a VisualBrush widget</summary>
+        /// <param name="content">The content of the VisualBrush</param>
         static member VisualBrush(content: WidgetBuilder<'msg, #IFabVisual>) =
             WidgetBuilder<'msg, IFabVisualBrush>(
                 VisualBrush.WidgetKey,

@@ -18,5 +18,7 @@ module MatrixTransform =
 module MatrixTransformBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a MatrixTransform widget</summary>
+        /// <param name="matrix">The Matrix to apply</param>
         static member MatrixTransform(matrix: Matrix) =
             WidgetBuilder<'msg, IFabMatrixTransform>(MatrixTransform.WidgetKey, MatrixTransform.Matrix.WithValue(matrix))

@@ -25,6 +25,10 @@ module RotateTransform =
 module RotateTransformBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a RotateTransform widget</summary>
+        /// <param name="angle">The Angle to apply</param>
+        /// <param name="centerX">The X coordinate of the center of rotation</param>
+        /// <param name="centerY">The Y coordinate of the center of rotation</param>
         static member RotateTransform(angle: float, centerX: float, centerY: float) =
             WidgetBuilder<'msg, IFabRotateTransform>(
                 RotateTransform.WidgetKey,
@@ -33,8 +37,11 @@ module RotateTransformBuilders =
                 RotateTransform.CenterY.WithValue(centerY)
             )
 
+        /// <summary>Creates a RotateTransform widget</summary>
+        /// <param name="angle">The Angle to apply</param>
         static member RotateTransform(angle: float) =
             WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey, RotateTransform.Angle.WithValue(angle))
 
+        /// <summary>Creates a RotateTransform widget</summary>
         static member RotateTransform() =
             WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
