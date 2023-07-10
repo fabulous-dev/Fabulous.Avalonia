@@ -29,20 +29,32 @@ module ArcSegmentBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ArcSegment widget</summary>
+        /// <param name="point">The point at which the arc ends.</param>
+        /// <param name="size">The size of the arc.</param>
         static member inline ArcSegment<'msg>(point: Point, size: Size) =
             WidgetBuilder<'msg, IFabArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
 
 [<Extension>]
 type ArcSegmentModifiers =
 
+    /// <summary>Sets the RotationAngle property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RotationAngle value</param>
     [<Extension>]
     static member inline rotationAngle(this: WidgetBuilder<'msg, #IFabArcSegment>, value: float) =
         this.AddScalar(ArcSegment.RotationAngle.WithValue(value))
 
+    /// <summary>Sets the SweepDirection property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SweepDirection value</param>
     [<Extension>]
     static member inline sweepDirection(this: WidgetBuilder<'msg, #IFabArcSegment>, value: SweepDirection) =
         this.AddScalar(ArcSegment.SweepDirection.WithValue(value))
 
+    /// <summary>Sets the IsLargeArc property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsLargeArc value</param>
     [<Extension>]
     static member inline isLargeArc(this: WidgetBuilder<'msg, #IFabArcSegment>, value: bool) =
         this.AddScalar(ArcSegment.IsLargeArc.WithValue(value))
