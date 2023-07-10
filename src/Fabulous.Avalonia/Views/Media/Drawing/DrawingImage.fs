@@ -20,6 +20,8 @@ module DrawingImage =
 module DrawingImageBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a DrawingImage widget</summary>
+        /// <param name="source">The source of the drawing</param>
         static member DrawingImage(source: WidgetBuilder<'msg, #IFabDrawing>) =
             WidgetBuilder<'msg, IFabDrawingImage>(
                 DrawingImage.WidgetKey,
@@ -28,7 +30,9 @@ module DrawingImageBuilders =
 
 [<Extension>]
 type DrawingImageModifiers =
-
+    /// <summary>Listens the DrawingImage Invalidated event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the DrawingImage is invalidated.</param>
     [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabDrawingImage>, onInvalidated: 'msg) =
-        this.AddScalar(DrawingImage.Invalidated.WithValue(fun _ -> onInvalidated |> box))
+    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabDrawingImage>, fn: 'msg) =
+        this.AddScalar(DrawingImage.Invalidated.WithValue(fun _ -> fn |> box))
