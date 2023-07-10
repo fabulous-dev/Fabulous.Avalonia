@@ -115,28 +115,28 @@ type TopLevelModifiers =
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
         this.AddScalar(TopLevel.SystemBarColor.WithValue(value |> SolidColorBrush.Parse))
 
-    /// <summary>Sets the TopLevel Opened event.</summary>
+    /// <summary>Listens the TopLevel Opened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: 'msg) =
         this.AddScalar(TopLevel.Opened.WithValue(fun _ -> fn |> box))
 
-    /// <summary>Sets the TopLevel Closed event.</summary>
+    /// <summary>Listens the TopLevel Closed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closed.</param>
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: 'msg) =
         this.AddScalar(TopLevel.Closed.WithValue(fun _ -> fn |> box))
 
-    /// <summary>Sets the TopLevel BackRequested event.</summary>
+    /// <summary>Listens the TopLevel BackRequested event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the back button is pressed.</param>
     [<Extension>]
     static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(TopLevel.BackRequested.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Sets the TopLevel ScalingChanged event.</summary>
+    /// <summary>Listens the TopLevel ScalingChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the TopLevel's scaling changes.</param>
     [<Extension>]

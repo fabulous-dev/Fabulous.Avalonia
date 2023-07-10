@@ -25,6 +25,8 @@ module PathGeometry =
 module PathGeometryBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a PathGeometry widget</summary>
+        /// <param name="fillRule">The fill rule to apply to the geometry</param>
         static member PathGeometry(fillRule: FillRule) =
             CollectionBuilder<'msg, IFabPathGeometry, IFabPathFigure>(
                 PathGeometry.WidgetKey,
@@ -32,6 +34,9 @@ module PathGeometryBuilders =
                 PathGeometry.FillRule.WithValue(fillRule)
             )
 
+        /// <summary>Creates a PathGeometry widget</summary>
+        /// <param name="pathData">The path data to parse</param>
+        /// <param name="fillRule">The fill rule to apply to the geometry</param>
         static member PathGeometry(pathData: string, fillRule: FillRule) =
             WidgetBuilder<'msg, IFabPathGeometry>(
                 PathGeometry.WidgetKey,

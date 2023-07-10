@@ -21,6 +21,8 @@ module GeometryGroup =
 module GeometryGroupBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a GeometryGroup widget</summary>
+        /// <param name="fillRule">The fill rule to apply to the geometry group</param>
         static member GeometryGroup<'msg>(fillRule: FillRule) =
             CollectionBuilder<'msg, IFabGeometryGroup, IFabGeometry>(
                 GeometryGroup.WidgetKey,
