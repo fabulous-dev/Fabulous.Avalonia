@@ -17,6 +17,9 @@ module AccessText =
 module AccessTextBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a AccessText widget</summary>
+        /// <param name="text">The text to display</param>
+        /// <param name="showAccessKey">Whether to underline the access key in the text</param>
         static member inline AccessText(text: string, showAccessKey: bool) =
             WidgetBuilder<'msg, IFabAccessText>(AccessText.WidgetKey, TextBlock.Text.WithValue(text), AccessText.ShowAccessKey.WithValue(showAccessKey))
 

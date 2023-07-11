@@ -47,22 +47,37 @@ module RangeBase =
 
 [<Extension>]
 type RangeBaserModifiers =
+    /// <summary>Sets the SmallChange property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SmallChange value</param>
     [<Extension>]
     static member inline smallChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.SmallChange.WithValue(value))
 
+    /// <summary>Sets the LargeChange property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LargeChange value</param>
     [<Extension>]
     static member inline largeChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.LargeChange.WithValue(value))
 
+    /// <summary>Listens to the Thumb DragStarted event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Thumb dragged started.</param>
     [<Extension>]
-    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragStarted: VectorEventArgs -> 'msg) =
-        this.AddScalar(Thumb.DragStarted.WithValue(fun args -> onDragStarted args |> box))
+    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, fn: VectorEventArgs -> 'msg) =
+        this.AddScalar(Thumb.DragStarted.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the Thumb DragDelta event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Thumb dragged.</param>
     [<Extension>]
-    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragDelta: VectorEventArgs -> 'msg) =
-        this.AddScalar(Thumb.DragDelta.WithValue(fun args -> onDragDelta args |> box))
+    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabRangeBase>, fn: VectorEventArgs -> 'msg) =
+        this.AddScalar(Thumb.DragDelta.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the Thumb DragCompleted event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Thumb dragged is completed.</param>
     [<Extension>]
-    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabRangeBase>, onDragCompleted: VectorEventArgs -> 'msg) =
-        this.AddScalar(Thumb.DragCompleted.WithValue(fun args -> onDragCompleted args |> box))
+    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabRangeBase>, fn: VectorEventArgs -> 'msg) =
+        this.AddScalar(Thumb.DragCompleted.WithValue(fun args -> fn args |> box))
