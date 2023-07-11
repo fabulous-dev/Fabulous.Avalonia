@@ -27,6 +27,8 @@ module Polygon =
 module PolygonBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Polygon widget</summary>
+        /// <param name="points">The points of the polygon</param>
         static member Polygon(points: Point list) =
             WidgetBuilder<'msg, IFabPolygon>(Polygon.WidgetKey, Polygon.Points.WithValue(points))
 

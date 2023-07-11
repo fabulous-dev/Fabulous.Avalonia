@@ -20,9 +20,11 @@ module Arc =
 module ArcBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Arc widget</summary>
+        /// <param name="startAngle">The starting angle</param>
+        /// <param name="sweepAngle">The sweep angle</param>
         static member Arc(startAngle: float, sweepAngle: float) =
             WidgetBuilder<'msg, IFabArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))
-
 
 [<Extension>]
 type ArcModifiers =
