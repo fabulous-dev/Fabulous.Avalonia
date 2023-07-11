@@ -18,6 +18,8 @@ module InlineUIContainer =
 module InlineUIContainerBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a InlineUIContainer widget</summary>
+        /// <param name="content">The content of the InlineUIContainer</param>
         static member InlineUIContainer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabInlineUIContainer>(
                 InlineUIContainer.WidgetKey,

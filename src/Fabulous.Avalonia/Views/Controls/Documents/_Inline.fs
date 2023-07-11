@@ -25,6 +25,9 @@ module Inline =
 
 [<Extension>]
 type InlineModifiers =
+    /// <summary>Sets the BaselineAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BaselineAlignment value</param>
     [<Extension>]
     static member inline baselineAlignment(this: WidgetBuilder<'msg, #IFabInline>, value: BaselineAlignment) =
         this.AddScalar(Inline.BaselineAlignment.WithValue(value))

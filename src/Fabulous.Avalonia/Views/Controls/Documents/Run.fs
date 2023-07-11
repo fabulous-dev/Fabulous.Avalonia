@@ -16,6 +16,8 @@ module Run =
 module RunBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Run widget</summary>
+        /// <param name="text">The text to display</param>
         static member Run(text: string) =
             WidgetBuilder<'msg, IFabRun>(Run.WidgetKey, Run.Text.WithValue(text))
 

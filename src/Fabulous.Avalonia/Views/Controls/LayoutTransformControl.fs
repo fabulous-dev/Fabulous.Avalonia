@@ -25,6 +25,8 @@ module LayoutTransformControl =
 module LayoutTransformControlBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a LayoutTransformControl widget</summary>
+        /// <param name="content">The content of the LayoutTransformControl</param>
         static member LayoutTransformControl(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabLayoutTransformControl>(
                 LayoutTransformControl.WidgetKey,
@@ -33,14 +35,23 @@ module LayoutTransformControlBuilders =
 
 [<Extension>]
 type LayoutTransformControlModifiers =
+    /// <summary>Sets the LayoutTransform property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LayoutTransform value</param>
     [<Extension>]
-    static member inline layoutTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, transform: WidgetBuilder<'msg, #IFabTransform>) =
-        this.AddWidget(LayoutTransformControl.LayoutTransformWidget.WithValue(transform.Compile()))
+    static member inline layoutTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, value: WidgetBuilder<'msg, #IFabTransform>) =
+        this.AddWidget(LayoutTransformControl.LayoutTransformWidget.WithValue(value.Compile()))
 
+    /// <summary>Sets the LayoutTransform property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LayoutTransform value</param>
     [<Extension>]
-    static member inline layoutTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, transform: ITransform) =
-        this.AddScalar(LayoutTransformControl.LayoutTransform.WithValue(transform))
+    static member inline layoutTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, value: ITransform) =
+        this.AddScalar(LayoutTransformControl.LayoutTransform.WithValue(value))
 
+    /// <summary>Sets the UseRenderTransform property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The UseRenderTransform value</param>
     [<Extension>]
     static member inline useRenderTransform(this: WidgetBuilder<'msg, #IFabLayoutTransformControl>, value: bool) =
         this.AddScalar(LayoutTransformControl.UseRenderTransform.WithValue(value))

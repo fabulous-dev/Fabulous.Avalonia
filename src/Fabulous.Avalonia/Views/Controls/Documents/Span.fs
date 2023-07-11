@@ -18,6 +18,7 @@ module Span =
 module SpanBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Span widget</summary>
         static member Span<'msg>() =
             CollectionBuilder<'msg, IFabSpan, IFabInline>(Span.WidgetKey, Span.Inlines)
 

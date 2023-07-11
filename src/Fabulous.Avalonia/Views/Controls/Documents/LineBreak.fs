@@ -15,6 +15,7 @@ module LineBreak =
 module LineBreakBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a LineBreak widget</summary>
         static member LineBreak() =
             WidgetBuilder<'msg, IFabLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
