@@ -18,18 +18,26 @@ module ToggleSplitButton =
 module ToggleSplitButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleSplitButton<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
+        /// <summary>Creates a ToggleSplitButton widget</summary>
+        /// <param name="text">The text of the ToggleSplitButton</param>
+        /// <param name="isChecked">Whether the ToggleSplitButton is checked</param>
+        /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked</param>
+        static member inline ToggleSplitButton<'msg>(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
+                ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))
             )
 
-        static member inline ToggleSplitButton(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        /// <summary>Creates a ToggleSplitButton widget</summary>
+        /// <param name="isChecked">Whether the ToggleSplitButton is checked</param>
+        /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked</param>
+        /// <param name="content">The content of the ToggleSplitButton</param>
+        static member inline ToggleSplitButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))),
+                    StackList.one(ToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

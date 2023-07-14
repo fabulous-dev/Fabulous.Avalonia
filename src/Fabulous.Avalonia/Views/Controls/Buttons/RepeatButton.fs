@@ -20,18 +20,24 @@ module RepeatButton =
 module RepeatButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline RepeatButton<'msg>(text: string, onClicked: 'msg) =
+        /// <summary>Creates a RepeatButton widget</summary>
+        /// <param name="text">The text to display</param>
+        /// <param name="fn">Raised when the button is clicked</param>
+        static member inline RepeatButton<'msg>(text: string, fn: 'msg) =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> box onClicked)
+                Button.Clicked.WithValue(fun _ -> fn |> box)
             )
 
-        static member inline RepeatButton(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        /// <summary>Creates a RepeatButton widget</summary>
+        /// <param name="content">The content to display</param>
+        /// M<param name="fn">Raised when the button is clicked</param>
+        static member inline RepeatButton(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> box fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -39,10 +45,16 @@ module RepeatButtonBuilders =
 
 [<Extension>]
 type RepeatButtonModifiers =
+    /// <summary>Sets the Delay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Delay value</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabRepeatButton>, value: int) =
         this.AddScalar(RepeatButton.Delay.WithValue(value))
 
+    /// <summary>Sets the Interval property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Interval value</param>
     [<Extension>]
     static member inline interval(this: WidgetBuilder<'msg, #IFabRepeatButton>, value: int) =
         this.AddScalar(RepeatButton.Interval.WithValue(value))
