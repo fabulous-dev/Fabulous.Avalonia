@@ -14,6 +14,9 @@ module TabStrip =
 module TabStripBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a TabStrip widget</summary>
+        /// <param name="items">The items to display</param>
+        /// <param name="template">The template to use to render each item</param>
         static member inline TabStrip<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 items: seq<'itemData>,

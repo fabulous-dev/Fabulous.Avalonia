@@ -20,12 +20,16 @@ module NativeMenuBar =
 module NativeMenuBarBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a NativeMenuBar widget</summary>
         static member inline NativeMenuBar() =
             WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 [<Extension>]
 type NativeMenuBarAttachedModifiers =
 
+    /// <summary>Sets the EnableMenuItemClickForwarding property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The EnableMenuItemClickForwarding value</param>
     [<Extension>]
     static member inline enableMenuItemClickForwarding(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(NativeMenuBar.EnableMenuItemClickForwarding.WithValue(value))

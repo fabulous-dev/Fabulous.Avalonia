@@ -30,22 +30,32 @@ module NativeMenuAttached =
 module NativeMenuBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a NativeMenu widget</summary>
         static member inline NativeMenu() =
             CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, NativeMenu.Items)
 
 [<Extension>]
 type NativeMenuModifiers =
+    /// <summary>Listens to the NativeMenu Opening event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Opening event fires.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, onOpening: 'msg) =
-        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> onOpening |> box))
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
+        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> fn |> box))
 
+    /// <summary>Listens to the NativeMenu Closed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Closed event fires.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, onClosed: 'msg) =
-        this.AddScalar(NativeMenu.Closed.WithValue(fun _ -> onClosed |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
+        this.AddScalar(NativeMenu.Closed.WithValue(fun _ -> fn |> box))
 
+    /// <summary>Listens to the NativeMenu NeedsUpdate event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the NeedsUpdate event fires.</param>
     [<Extension>]
-    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, onNeedsUpdate: 'msg) =
-        this.AddScalar(NativeMenu.NeedsUpdate.WithValue(fun _ -> onNeedsUpdate |> box))
+    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
+        this.AddScalar(NativeMenu.NeedsUpdate.WithValue(fun _ -> fn |> box))
 
     /// <summary>Link a ViewRef to access the direct NativeMenu control instance</summary>
     /// <param name="this">Current widget</param>
@@ -56,10 +66,16 @@ type NativeMenuModifiers =
 
 [<Extension>]
 type NativeMenuAttachedModifiers =
+    /// <summary>Sets the NativeMenu property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The NativeMenu value</param>
     [<Extension>]
-    static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, menu: WidgetBuilder<'msg, #IFabNativeMenu>) =
-        this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(menu.Compile()))
+    static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
+        this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(value.Compile()))
 
+    /// <summary>Sets the IsNativeMenuExported property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsNativeMenuExported value</param>
     [<Extension>]
     static member inline isNativeMenuExported(this: WidgetBuilder<'msg, #IFabTopLevel>, value: bool) =
         this.AddScalar(NativeMenuAttached.IsNativeMenuExported.WithValue(value))

@@ -19,6 +19,8 @@ module Flyout =
 module FlyoutBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Flyout widget</summary>
+        /// <param name="content">The content of the Flyout</param>
         static member Flyout(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabFlyout>(
                 Flyout.WidgetKey,
@@ -36,6 +38,9 @@ type FlyoutModifiers =
 
 [<Extension>]
 type FlyoutAttachedModifiers =
+    /// <summary>Sets the AttachedFlyout property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The AttachedFlyout value</param>
     [<Extension>]
-    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabControl>, widget: WidgetBuilder<'msg, #IFabFlyoutBase>) =
-        this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(widget.Compile()))
+    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, #IFabFlyoutBase>) =
+        this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(value.Compile()))

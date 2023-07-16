@@ -15,6 +15,7 @@ module Menu =
 module MenuBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Menu widget</summary>
         static member inline Menu() =
             CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ItemsControl.Items)
 
