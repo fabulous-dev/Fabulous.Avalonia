@@ -15,6 +15,7 @@ module Separator =
 module SeparatorBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Separator widget</summary>
         static member Separator() =
             WidgetBuilder<'msg, IFabSeparator>(Separator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 

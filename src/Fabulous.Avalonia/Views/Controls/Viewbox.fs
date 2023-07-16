@@ -23,6 +23,8 @@ module ViewBox =
 module ViewBoxBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ViewBox widget</summary>
+        /// <param name="content">The content of the ViewBox</param>
         static member ViewBox(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabViewBox>(
                 ViewBox.WidgetKey,
@@ -31,10 +33,16 @@ module ViewBoxBuilders =
 
 [<Extension>]
 type ViewBoxModifiers =
+    /// <summary>Sets the Stretch property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Stretch value</param>
     [<Extension>]
     static member inline stretch(this: WidgetBuilder<'msg, #IFabViewBox>, value: Stretch) =
         this.AddScalar(ViewBox.Stretch.WithValue(value))
 
+    /// <summary>Sets the StretchDirection property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The StretchDirection value</param>
     [<Extension>]
     static member inline stretchDirection(this: WidgetBuilder<'msg, #IFabViewBox>, value: StretchDirection) =
         this.AddScalar(ViewBox.StretchDirection.WithValue(value))

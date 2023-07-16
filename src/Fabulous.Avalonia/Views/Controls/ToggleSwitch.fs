@@ -39,55 +39,84 @@ module ToggleSwitch =
 module ToggleSwitchBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleSwitch<'msg>(isChecked: bool, onValueChanged: bool -> 'msg) =
+        /// <summary>Creates a ToggleSwitch widget</summary>
+        /// <param name="isChecked">Whether the ToggleSwitch is checked</param>
+        /// <param name="fn">Raised when the ToggleSwitch value changes</param>
+        static member inline ToggleSwitch<'msg>(isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))
             )
 
-        static member inline ThreeStateToggleSwitch<'msg>(isChecked: bool option, onValueChanged: bool option -> 'msg) =
+        /// <summary>Creates a ThreeStateToggleSwitch widget</summary>
+        /// <param name="isChecked">Whether the ToggleSwitch is checked</param>
+        /// <param name="fn">Raised when the ToggleSwitch value changes</param>
+        static member inline ThreeStateToggleSwitch<'msg>(isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
                 )
             )
 
 [<Extension>]
 type ToggleSwitchModifiers =
+    /// <summary>Sets the OffContent property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OffContent value</param>
     [<Extension>]
     static member inline offContent(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: string) =
         this.AddScalar(ToggleSwitch.OffContent.WithValue(value))
 
+    /// <summary>Sets the OffContent property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OffContent value</param>
     [<Extension>]
-    static member inline offContent(this: WidgetBuilder<'msg, #IFabToggleSwitch>, content: WidgetBuilder<'msg, #IFabControl>) =
-        this.AddWidget(ToggleSwitch.OffContentWidget.WithValue(content.Compile()))
+    static member inline offContent(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabControl>) =
+        this.AddWidget(ToggleSwitch.OffContentWidget.WithValue(value.Compile()))
 
+    /// <summary>Sets the OnContent property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OnContent value</param>
     [<Extension>]
     static member inline onContent(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: string) =
         this.AddScalar(ToggleSwitch.OnContent.WithValue(value))
 
+    /// <summary>Sets the OnContent property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OnContent value</param>
     [<Extension>]
-    static member inline onContent(this: WidgetBuilder<'msg, #IFabToggleSwitch>, content: WidgetBuilder<'msg, #IFabControl>) =
-        this.AddWidget(ToggleSwitch.OnContentWidget.WithValue(content.Compile()))
+    static member inline onContent(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabControl>) =
+        this.AddWidget(ToggleSwitch.OnContentWidget.WithValue(value.Compile()))
 
+    /// <summary>Sets the Content property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Content value</param>
     [<Extension>]
     static member inline content(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: string) =
         this.AddScalar(ContentControl.ContentString.WithValue(value))
 
+    /// <summary>Sets the Content property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Content value</param>
     [<Extension>]
-    static member inline content(this: WidgetBuilder<'msg, #IFabToggleSwitch>, content: WidgetBuilder<'msg, #IFabControl>) =
-        this.AddWidget(ContentControl.ContentWidget.WithValue(content.Compile()))
+    static member inline content(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabControl>) =
+        this.AddWidget(ContentControl.ContentWidget.WithValue(value.Compile()))
 
+    /// <summary>Sets the KnobTransitions property.</summary>
+    /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline knobTransitions(this: WidgetBuilder<'msg, #IFabToggleSwitch>) =
         AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions)
 
+    /// <summary>Sets the KnobTransitions property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The KnobTransitions value</param>
     [<Extension>]
-    static member inline knobTransition(this: WidgetBuilder<'msg, #IFabToggleSwitch>, transition: WidgetBuilder<'msg, #IFabTransition>) =
-        AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions) { transition }
+    static member inline knobTransition(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabTransition>) =
+        AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions) { value }
 
     /// <summary>Link a ViewRef to access the direct ToggleSwitch control instance</summary>
     /// <param name="this">Current widget</param>

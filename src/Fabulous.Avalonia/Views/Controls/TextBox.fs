@@ -349,21 +349,21 @@ type TextBoxModifiers =
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
         this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
-    /// <summary>Sets the CopyingToClipboard property.</summary>
+    /// /// <summary>Listens to the TexBox CopyingToClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the CopyingToClipboard changes</param>
     [<Extension>]
     static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(TextBox.CopyingToClipboard.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Sets the CuttingToClipboard property.</summary>
+    /// <summary>Listens to the TexBox CuttingToClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the CuttingToClipboard changes</param>
     [<Extension>]
     static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(TextBox.CuttingToClipboard.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Sets the PastingFromClipboard property.</summary>
+    /// <summary>Listens to the TexBox PastingFromClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PastingFromClipboard changes</param>
     [<Extension>]

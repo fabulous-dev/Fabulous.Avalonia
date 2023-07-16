@@ -60,6 +60,8 @@ module Window =
 module WindowBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Window widget</summary>
+        /// <param name="content">The content of the window</param>
         static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
             WidgetBuilder<'msg, IFabWindow>(
                 Window.WidgetKey,
@@ -68,65 +70,109 @@ module WindowBuilders =
 
 [<Extension>]
 type WindowModifiers =
+    /// <summary>Sets the SizeToContent property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SizeToContent value</param>
     [<Extension>]
     static member inline sizeToContent(this: WidgetBuilder<'msg, #IFabWindow>, value: SizeToContent) =
         this.AddScalar(Window.SizeToContent.WithValue(value))
 
+    /// <summary>Sets the ExtendClientAreaToDecorationsHint property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ExtendClientAreaToDecorationsHint value</param>
     [<Extension>]
     static member inline extendClientAreaToDecorationsHint(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.ExtendClientAreaToDecorationsHint.WithValue(value))
 
+    /// <summary>Sets the ExtendClientAreaChromeHints property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ExtendClientAreaChromeHints value</param>
     [<Extension>]
     static member inline extendClientAreaChromeHints(this: WidgetBuilder<'msg, #IFabWindow>, value: ExtendClientAreaChromeHints) =
         this.AddScalar(Window.ExtendClientAreaChromeHints.WithValue(value))
 
+    /// <summary>Sets the ExtendClientAreaTitleBarHeightHint property.</summary>
+    /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline extendClientAreaTitleBarHeightHint(this: WidgetBuilder<'msg, #IFabWindow>, value: float) =
         this.AddScalar(Window.ExtendClientAreaTitleBarHeightHint.WithValue(value))
 
+    /// <summary>Sets the SystemDecorations property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SystemDecorations value</param>
     [<Extension>]
     static member inline systemDecorations(this: WidgetBuilder<'msg, #IFabWindow>, value: SystemDecorations) =
         this.AddScalar(Window.SystemDecorations.WithValue(value))
 
+    /// <summary>Sets the ShowActivated property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowActivated value</param>
     [<Extension>]
     static member inline showActivated(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.ShowActivated.WithValue(value))
 
+    /// <summary>Sets the ShowInTaskbar property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowInTaskbar value</param>
     [<Extension>]
     static member inline showInTaskbar(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.ShowInTaskbar.WithValue(value))
 
+    /// <summary>Sets the WindowState property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The WindowState value</param>
     [<Extension>]
     static member inline windowState(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowState) =
         this.AddScalar(Window.WindowState.WithValue(value))
 
+    /// <summary>Sets the Title property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Title value</param>
     [<Extension>]
     static member inline title(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
         this.AddScalar(Window.Title.WithValue(value))
 
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowIcon) =
         this.AddScalar(Window.Icon.WithValue(value))
 
+    /// <summary>Sets the WindowStartupLocation property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The WindowStartupLocation value</param>
     [<Extension>]
     static member inline windowStartupLocation(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowStartupLocation) =
         this.AddScalar(Window.WindowStartupLocation.WithValue(value))
 
+    /// <summary>Sets the CanResize property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CanResize value</param>
     [<Extension>]
     static member inline canResize(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.CanResize.WithValue(value))
 
+    /// <summary>Listens to the Window WindowClosing event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window is closing.</param>
     [<Extension>]
-    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, onWindowClosing: WindowClosingEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosing.WithValue(fun args -> onWindowClosing args |> box))
+    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, fn: WindowClosingEventArgs -> 'msg) =
+        this.AddScalar(Window.WindowClosing.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the Window WindowClosed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window is closed.</param>
     [<Extension>]
-    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, onWindowClosed: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosed.WithValue(fun args -> onWindowClosed args |> box))
+    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(Window.WindowClosed.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the Window WindowOpened event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
-    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, onWindowOpened: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowOpened.WithValue(fun args -> onWindowOpened args |> box))
+    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(Window.WindowOpened.WithValue(fun args -> fn args |> box))
 
     /// <summary>Link a ViewRef to access the direct Window control instance</summary>
     /// <param name="this">Current widget</param>

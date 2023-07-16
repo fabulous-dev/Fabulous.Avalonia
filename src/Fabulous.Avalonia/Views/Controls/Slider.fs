@@ -44,41 +44,64 @@ module Slider =
 module SliderBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline Slider<'msg>(value: float, onValueChanged: float -> 'msg) =
-            WidgetBuilder<'msg, IFabSlider>(
-                Slider.WidgetKey,
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
-            )
+        /// <summary>Creates a Slider widget</summary>
+        /// <param name="value">The initial value of the slider</param>
+        /// <param name="fn">Raised when the slider value changes</param>
+        static member inline Slider<'msg>(value: float, fn: float -> 'msg) =
+            WidgetBuilder<'msg, IFabSlider>(Slider.WidgetKey, RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> fn args |> box)))
 
-        static member inline Slider<'msg>(min: float, max: float, value: float, onValueChanged: float -> 'msg) =
+        /// <summary>Creates a Slider widget</summary>
+        /// <param name="min">The minimum value of the slider</param>
+        /// <param name="max">The maximum value of the slider</param>
+        /// <param name="value">The initial value of the slider</param>
+        /// <param name="fn">Raised when the slider value changes</param>
+        static member inline Slider<'msg>(min: float, max: float, value: float, fn: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> onValueChanged args |> box))
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> fn args |> box))
             )
 
 [<Extension>]
 type SliderModifiers =
+    /// <summary>Sets the Orientation property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Orientation value</param>
     [<Extension>]
     static member inline orientation(this: WidgetBuilder<'msg, #IFabSlider>, value: Orientation) =
         this.AddScalar(Slider.Orientation.WithValue(value))
 
+    /// <summary>Sets the IsDirectionReversed property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsDirectionReversed value</param>
     [<Extension>]
     static member inline isDirectionReversed(this: WidgetBuilder<'msg, #IFabSlider>, value: bool) =
         this.AddScalar(Slider.IsDirectionReversed.WithValue(value))
 
+    /// <summary>Sets the IsSnapToTickEnabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSnapToTickEnabled value</param>
     [<Extension>]
     static member inline isSnapToTickEnabled(this: WidgetBuilder<'msg, #IFabSlider>, value: bool) =
         this.AddScalar(Slider.IsSnapToTickEnabled.WithValue(value))
 
+    /// <summary>Sets the TickFrequency property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TickFrequency value</param>
     [<Extension>]
     static member inline tickFrequency(this: WidgetBuilder<'msg, #IFabSlider>, value: float) =
         this.AddScalar(Slider.TickFrequency.WithValue(value))
 
+    /// <summary>Sets the TickPlacement property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TickPlacement value</param>
     [<Extension>]
     static member inline tickPlacement(this: WidgetBuilder<'msg, #IFabSlider>, value: TickPlacement) =
         this.AddScalar(Slider.TickPlacement.WithValue(value))
 
+    /// <summary>Sets the Ticks property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Ticks value</param>
     [<Extension>]
     static member inline ticks(this: WidgetBuilder<'msg, #IFabSlider>, value: float list) =
         this.AddScalar(Slider.Ticks.WithValue(value))
