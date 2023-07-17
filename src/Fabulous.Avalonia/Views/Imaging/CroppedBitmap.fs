@@ -23,6 +23,9 @@ module CroppedBitmap =
 module CroppedBitmapBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a CroppedBitmap widget</summary>
+        /// <param name="source">The source image</param>
+        /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
         static member CroppedBitmap(source: IImage, rect: PixelRect) =
             WidgetBuilder<'msg, IFabCroppedBitmap>(CroppedBitmap.WidgetKey, CroppedBitmap.Source.WithValue(source), CroppedBitmap.SourceRect.WithValue(rect))
 
