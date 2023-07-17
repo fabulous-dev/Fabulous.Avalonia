@@ -25,22 +25,27 @@ module TabControl =
 module TabControlBuilders =
     type Fabulous.Avalonia.View with
 
-        static member TabControl(tabStripPlacement: Dock) =
-            CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(
-                TabControl.WidgetKey,
-                ItemsControl.Items,
-                TabControl.TabStripPlacement.WithValue(tabStripPlacement)
-            )
+        /// <summary>Creates a TabControl widget</summary>
+        /// <param name="placement">The placement of the tab strip</param>
+        static member TabControl(placement: Dock) =
+            CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, ItemsControl.Items, TabControl.TabStripPlacement.WithValue(placement))
 
+        /// <summary>Creates a TabControl widget</summary>
         static member TabControl() =
             CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, ItemsControl.Items, TabControl.TabStripPlacement.WithValue(Dock.Top))
 
 [<Extension>]
 type TabControlModifiers =
+    /// <summary>Sets the HorizontalContentAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalContentAlignment value</param>
     [<Extension>]
     static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabTabControl>, value: HorizontalAlignment) =
         this.AddScalar(TabControl.HorizontalContentAlignment.WithValue(value))
 
+    /// <summary>Sets the VerticalContentAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalContentAlignment value</param>
     [<Extension>]
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabTabControl>, value: VerticalAlignment) =
         this.AddScalar(TabControl.VerticalContentAlignment.WithValue(value))
@@ -55,14 +60,20 @@ type TabControlModifiers =
 [<Extension>]
 type TabControlExtraModifiers =
 
+    /// <summary>Sets the HorizontalContentAlignment property to center.</summary>
+    /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline centerHorizontal(this: WidgetBuilder<'msg, #IFabTabControl>) =
         TabControlModifiers.horizontalContentAlignment(this, HorizontalAlignment.Center)
 
+    /// <summary>Sets the VerticalContentAlignment property to center.</summary>
+    /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline centerVertical(this: WidgetBuilder<'msg, #IFabTabControl>) =
         TabControlModifiers.verticalContentAlignment(this, VerticalAlignment.Center)
 
+    // <summary>Sets the HorizontalContentAlignment and VerticalContentAlignment properties to center.</summary>
+    /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline center(this: WidgetBuilder<'msg, #IFabTabControl>) =
         this.centerHorizontal().centerVertical()
