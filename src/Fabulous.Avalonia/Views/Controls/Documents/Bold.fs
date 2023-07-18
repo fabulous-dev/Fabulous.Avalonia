@@ -14,20 +14,20 @@ module Bold =
 module BoldBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a Bold widget</summary>
+        /// <summary>Creates a Bold widget.</summary>
         static member private Bold<'msg>() =
             CollectionBuilder<'msg, IFabBold, IFabInline>(Bold.WidgetKey, Span.Inlines)
 
-        /// <summary>Creates a Bold widget</summary>
-        /// <param name="text">The text to display</param>
+        /// <summary>Creates a Bold widget.</summary>
+        /// <param name="text">The text to display.</param>
         static member Bold<'msg>(text: string) =
             View.Bold<'msg>() { View.Run<'msg>(text) }
 
 [<Extension>]
 type BoldModifiers =
-    /// <summary>Link a ViewRef to access the direct Bold control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Bold control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabBold>, value: ViewRef<Bold>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

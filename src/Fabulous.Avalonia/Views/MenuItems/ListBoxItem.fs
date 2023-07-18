@@ -20,9 +20,9 @@ module ListBoxItem =
 module ListBoxItemBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a ListBoxItem widget</summary>
-        /// <param name="content">The content of the ListBoxItem</param>
-        /// <param name="isSelected">Whether the ListBoxItem is selected</param>
+        /// <summary>Creates a ListBoxItem widget.</summary>
+        /// <param name="content">The content of the ListBoxItem.</param>
+        /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
         static member inline ListBoxItem(content: string, isSelected: bool) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
@@ -30,14 +30,14 @@ module ListBoxItemBuilders =
                 ListBoxItem.IsSelected.WithValue(isSelected)
             )
 
-        /// <summary>Creates a ListBoxItem widget</summary>
-        /// <param name="content">The content of the ListBoxItem</param>
+        /// <summary>Creates a ListBoxItem widget.</summary>
+        /// <param name="content">The content of the ListBoxItem.</param>
         static member inline ListBoxItem(content: string) =
             WidgetBuilder<'msg, IFabListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
-        /// <summary>Creates a ListBoxItem widget</summary>
-        /// <param name="isSelected">Whether the ListBoxItem is selected</param>
-        /// <param name="content">The content of the ListBoxItem</param>
+        /// <summary>Creates a ListBoxItem widget.</summary>
+        /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
+        /// <param name="content">The content of the ListBoxItem.</param>
         static member inline ListBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
@@ -48,8 +48,8 @@ module ListBoxItemBuilders =
                 )
             )
 
-        /// <summary>Creates a ListBoxItem widget</summary>
-        /// <param name="content">The content of the ListBoxItem</param>
+        /// <summary>Creates a ListBoxItem widget.</summary>
+        /// <param name="content">The content of the ListBoxItem.</param>
         static member inline ListBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
@@ -58,9 +58,9 @@ module ListBoxItemBuilders =
 
 [<Extension>]
 type ListBoxItemModifiers =
-    /// <summary>Link a ViewRef to access the direct MenuItem control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabListBoxItem>, value: ViewRef<ListBoxItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -125,42 +125,42 @@ module MenuItemBuilders =
 type MenuItemModifiers =
     /// <summary>Sets the HotKey property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The HotKey value</param>
+    /// <param name="value">The HotKey value.</param>
     [<Extension>]
     static member inline hotKey(this: WidgetBuilder<'msg, #IFabMenuItem>, value: KeyGesture) =
         this.AddScalar(MenuItem.HotKey.WithValue(value))
 
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Icon value</param>
+    /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabMenuItem>, value: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(MenuItem.Icon.WithValue(value.Compile()))
 
     /// <summary>Sets the InputGesture property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The InputGesture value</param>
+    /// <param name="value">The InputGesture value.</param>
     [<Extension>]
     static member inline inputGesture(this: WidgetBuilder<'msg, #IFabMenuItem>, value: KeyGesture) =
         this.AddScalar(MenuItem.InputGesture.WithValue(value))
 
     /// <summary>Sets the IsSelected property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSelected value</param>
+    /// <param name="value">The IsSelected value.</param>
     [<Extension>]
     static member inline isSelected(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.IsSelected.WithValue(value))
 
     /// <summary>Sets the IsSubmenuOpen property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSubmenuOpen value</param>
+    /// <param name="value">The IsSubmenuOpen value.</param>
     [<Extension>]
     static member inline isSubMenuOpen(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.IsSubMenuOpen.WithValue(value))
 
     /// <summary>Sets the StaysOpenOnClick property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StaysOpenOnClick value</param>
+    /// <param name="value">The StaysOpenOnClick value.</param>
     [<Extension>]
     static member inline staysOpenOnClick(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.StaysOpenOnClick.WithValue(value))
@@ -186,9 +186,9 @@ type MenuItemModifiers =
     static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MenuItem.SubmenuOpened.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct MenuItem control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMenuItem>, value: ViewRef<MenuItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

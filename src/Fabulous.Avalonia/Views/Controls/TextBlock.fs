@@ -94,12 +94,12 @@ module TextBlock =
 module TextBlockBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a TextBlock widget</summary>
-        /// <param name="text">The text to display</param>
+        /// <summary>Creates a TextBlock widget.</summary>
+        /// <param name="text">The text to display.</param>
         static member inline TextBlock<'msg>(text: string) =
             WidgetBuilder<'msg, IFabTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
 
-        /// <summary>Creates a TextBlock widget</summary>
+        /// <summary>Creates a TextBlock widget.</summary>
         static member inline TextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>() =
             CollectionBuilder<'msg, IFabTextBlock, 'childMarker>(TextBlock.WidgetKey, TextBlock.Inlines)
 
@@ -107,140 +107,140 @@ module TextBlockBuilders =
 type TextBlockModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBlock.BackgroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: IBrush) =
         this.AddScalar(TextBlock.Background.WithValue(value))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
         this.AddScalar(TextBlock.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Padding value</param>
+    /// <param name="value">The Padding value.</param>
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Thickness) =
         this.AddScalar(TextBlock.Padding.WithValue(value))
 
     /// <summary>Sets the FontFamily property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FontFamily value</param>
+    /// <param name="value">The FontFamily value.</param>
     [<Extension>]
     static member inline fontFamily(this: WidgetBuilder<'msg, #IFabTextBlock>, value: FontFamily) =
         this.AddScalar(TextBlock.FontFamily.WithValue(value))
 
     /// <summary>Sets the FontSize property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FontSize value</param>
+    /// <param name="value">The FontSize value.</param>
     [<Extension>]
     static member inline fontSize(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
         this.AddScalar(TextBlock.FontSize.WithValue(value))
 
     /// <summary>Sets the FontStyle property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FontStyle value</param>
+    /// <param name="value">The FontStyle value.</param>
     [<Extension>]
     static member inline fontStyle(this: WidgetBuilder<'msg, #IFabTextBlock>, value: FontStyle) =
         this.AddScalar(TextBlock.FontStyle.WithValue(value))
 
     /// <summary>Sets the FontWeight property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FontWeight value</param>
+    /// <param name="value">The FontWeight value.</param>
     [<Extension>]
     static member inline fontWeight(this: WidgetBuilder<'msg, #IFabTextBlock>, value: FontWeight) =
         this.AddScalar(TextBlock.FontWeight.WithValue(value))
 
     /// <summary>Sets the FontStretch property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FontStretch value</param>
+    /// <param name="value">The FontStretch value.</param>
     [<Extension>]
     static member inline fontStretch(this: WidgetBuilder<'msg, #IFabTextBlock>, value: FontStretch) =
         this.AddScalar(TextBlock.FontStretch.WithValue(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value</param>
+    /// <param name="value">The Foreground value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TextBlock.ForegroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value</param>
+    /// <param name="value">The Foreground value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: IBrush) =
         this.AddScalar(TextBlock.Foreground.WithValue(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value</param>
+    /// <param name="value">The Foreground value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
         this.AddScalar(TextBlock.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the BaseLineOffset property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BaseLineOffset value</param>
+    /// <param name="value">The BaseLineOffset value.</param>
     [<Extension>]
     static member inline baselineOffset(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
         this.AddScalar(TextBlock.BaseLineOffset.WithValue(value))
 
     /// <summary>Sets the LineHeight property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The LineHeight value</param>
+    /// <param name="value">The LineHeight value.</param>
     [<Extension>]
     static member inline lineHeight(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
         this.AddScalar(TextBlock.LineHeight.WithValue(value))
 
     /// <summary>Sets the LetterSpacing property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The LetterSpacing value</param>
+    /// <param name="value">The LetterSpacing value.</param>
     [<Extension>]
     static member inline letterSpacing(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
         this.AddScalar(TextBlock.LetterSpacing.WithValue(value))
 
     /// <summary>Sets the MaxLines property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The MaxLines value</param>
+    /// <param name="value">The MaxLines value.</param>
     [<Extension>]
     static member inline maxLines(this: WidgetBuilder<'msg, #IFabTextBlock>, value: int) =
         this.AddScalar(TextBlock.MaxLines.WithValue(value))
 
     /// <summary>Sets the TextAlignment property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextAlignment value</param>
+    /// <param name="value">The TextAlignment value.</param>
     [<Extension>]
     static member inline textAlignment(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextAlignment) =
         this.AddScalar(TextBlock.TextAlignment.WithValue(value))
 
     /// <summary>Sets the TextWrapping property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextWrapping value</param>
+    /// <param name="value">The TextWrapping value.</param>
     [<Extension>]
     static member inline textWrapping(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextWrapping) =
         this.AddScalar(TextBlock.TextWrapping.WithValue(value))
 
     /// <summary>Sets the TextTrimming property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextTrimming value</param>
+    /// <param name="value">The TextTrimming value.</param>
     [<Extension>]
     static member inline textTrimming(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextTrimming) =
         this.AddScalar(TextBlock.TextTrimming.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct TextBlock control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct TextBlock control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTextBlock>, value: ViewRef<TextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -256,25 +256,25 @@ type TextBlockExtraModifiers =
 
     /// <summary>Sets the Padding property uniformly.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Padding value</param>
+    /// <param name="value">The Padding value.</param>
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
         TextBlockModifiers.padding(this, Thickness(value))
 
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="left">The left value</param>
-    /// <param name="top">The top value</param>
-    /// <param name="right">The right value</param>
-    /// <param name="bottom">The bottom value</param>
+    /// <param name="left">The left value.</param>
+    /// <param name="top">The top value.</param>
+    /// <param name="right">The right value.</param>
+    /// <param name="bottom">The bottom value.</param>
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, left: float, top: float, right: float, bottom: float) =
         TextBlockModifiers.padding(this, Thickness(left, top, right, bottom))
 
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="horizontal">The horizontal value</param>
-    /// <param name="vertical">The vertical value</param>
+    /// <param name="horizontal">The horizontal value.</param>
+    /// <param name="vertical">The vertical value.</param>
     [<Extension>]
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
         TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
@@ -324,7 +324,7 @@ type InlineCollectionModifiers =
 
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextDecoration value</param>
+    /// <param name="value">The TextDecoration value.</param>
     [<Extension>]
     static member inline textDecoration(this: WidgetBuilder<'msg, #IFabInline>, value: WidgetBuilder<'msg, IFabTextDecoration>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations) { value }
@@ -339,7 +339,7 @@ type TextBlockCollectionModifiers =
 
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextDecoration value</param>
+    /// <param name="value">The TextDecoration value.</param>
     [<Extension>]
     static member inline textDecoration(this: WidgetBuilder<'msg, #IFabTextBlock>, value: WidgetBuilder<'msg, IFabTextDecoration>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, TextBlock.TextDecorations) { value }

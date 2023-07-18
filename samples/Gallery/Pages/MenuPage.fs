@@ -31,7 +31,7 @@ module MenuPage =
             TextBlock("Should be only visible on platforms without desktop-global menu bar")
             NativeMenuBar()
 
-            DockPanel() {
+            Dock() {
                 (Menu() {
                     MenuItems'("_First") {
                         MenuItem("Standard _Menu Item")

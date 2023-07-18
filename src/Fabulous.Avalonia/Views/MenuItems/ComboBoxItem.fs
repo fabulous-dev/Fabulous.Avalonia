@@ -17,14 +17,14 @@ module ComboBoxItem =
 module ComboBoxItemBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a ComboBoxItem widget</summary>
-        /// <param name="content">The content of the ComboBoxItem</param>
+        /// <summary>Creates a ComboBoxItem widget.</summary>
+        /// <param name="content">The content of the ComboBoxItem.</param>
         static member inline ComboBoxItem(content: string) =
             WidgetBuilder<'msg, IFabComboBoxItem>(ComboBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
-        /// <summary>Creates a ComboBoxItem widget</summary>
-        /// <param name="content">The content of the ComboBoxItem</param>
-        /// <param name="isSelected">Whether the ComboBoxItem is selected</param>
+        /// <summary>Creates a ComboBoxItem widget.</summary>
+        /// <param name="content">The content of the ComboBoxItem.</param>
+        /// <param name="isSelected">Whether the ComboBoxItem is selected.</param>
         static member inline ComboBoxItem(content: string, isSelected: bool) =
             WidgetBuilder<'msg, IFabComboBoxItem>(
                 ComboBoxItem.WidgetKey,
@@ -32,17 +32,17 @@ module ComboBoxItemBuilders =
                 ListBoxItem.IsSelected.WithValue(isSelected)
             )
 
-        /// <summary>Creates a ComboBoxItem widget</summary>
-        /// <param name="content">The content of the ComboBoxItem</param>
+        /// <summary>Creates a ComboBoxItem widget.</summary>
+        /// <param name="content">The content of the ComboBoxItem.</param>
         static member inline ComboBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabComboBoxItem>(
                 ComboBoxItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-        /// <summary>Creates a ComboBoxItem widget</summary>
-        /// <param name="isSelected">Whether the ComboBoxItem is selected</param>
-        /// <param name="content">The content of the ComboBoxItem</param>
+        /// <summary>Creates a ComboBoxItem widget.</summary>
+        /// <param name="isSelected">Whether the ComboBoxItem is selected.</param>
+        /// <param name="content">The content of the ComboBoxItem.</param>
         static member inline ComboBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabComboBoxItem>(
                 ComboBoxItem.WidgetKey,
@@ -55,9 +55,9 @@ module ComboBoxItemBuilders =
 
 [<Extension>]
 type ComboBoxItemModifiers =
-    /// <summary>Link a ViewRef to access the direct MenuItem control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabComboBoxItem>, value: ViewRef<ComboBoxItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

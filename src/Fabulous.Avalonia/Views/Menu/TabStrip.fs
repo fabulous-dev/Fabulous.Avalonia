@@ -14,9 +14,9 @@ module TabStrip =
 module TabStripBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a TabStrip widget</summary>
-        /// <param name="items">The items to display</param>
-        /// <param name="template">The template to use to render each item</param>
+        /// <summary>Creates a TabStrip widget.</summary>
+        /// <param name="items">The items to display.</param>
+        /// <param name="template">The template to use to render each item.</param>
         static member inline TabStrip<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 items: seq<'itemData>,
@@ -26,9 +26,9 @@ module TabStripBuilders =
 
 [<Extension>]
 type TabStripModifiers =
-    /// <summary>Link a ViewRef to access the direct TabStrip control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct TabStrip control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTabStrip>, value: ViewRef<TabStrip>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

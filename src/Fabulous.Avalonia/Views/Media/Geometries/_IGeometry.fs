@@ -15,7 +15,7 @@ module Geometry =
 type GeometryModifiers =
     /// <summary>Sets the Transform property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TileMode value</param>
+    /// <param name="value">The TileMode value.</param>
     [<Extension>]
     static member inline transform(this: WidgetBuilder<'msg, #IFabGeometry>, value: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Geometry.Transform.WithValue(value.Compile()))

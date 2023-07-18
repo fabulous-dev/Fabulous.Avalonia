@@ -50,84 +50,84 @@ module Shape =
 type ShapeModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value</param>
+    /// <param name="value">The Fill value.</param>
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Shape.FillWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value</param>
+    /// <param name="value">The Fill value.</param>
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, value: IBrush) =
         this.AddScalar(Shape.Fill.WithValue(value))
 
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value</param>
+    /// <param name="value">The Fill value.</param>
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, value: string) =
         this.AddScalar(Shape.Fill.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the Stretch property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Stretch value</param>
+    /// <param name="value">The Stretch value.</param>
     [<Extension>]
     static member inline stretch(this: WidgetBuilder<'msg, #IFabShape>, value: Stretch) =
         this.AddScalar(Shape.Stretch.WithValue(value))
 
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Stroke value</param>
+    /// <param name="value">The Stroke value.</param>
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Shape.StrokeWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Stroke value</param>
+    /// <param name="value">The Stroke value.</param>
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, value: IBrush) =
         this.AddScalar(Shape.Stroke.WithValue(value))
 
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Stroke value</param>
+    /// <param name="value">The Stroke value.</param>
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, value: string) =
         this.AddScalar(Shape.Stroke.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the StrokeDashArray property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StrokeDashArray value</param>
+    /// <param name="value">The StrokeDashArray value.</param>
     [<Extension>]
     static member inline strokeDashCap(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
         this.AddScalar(Shape.StrokeDashArray.WithValue(value))
 
     /// <summary>Sets the StrokeDashOffset property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StrokeDashOffset value</param>
+    /// <param name="value">The StrokeDashOffset value.</param>
     [<Extension>]
     static member inline strokeDashOffset(this: WidgetBuilder<'msg, #IFabShape>, value: float) =
         this.AddScalar(Shape.StrokeDashOffset.WithValue(value))
 
     /// <summary>Sets the StrokeThickness property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StrokeThickness value</param>
+    /// <param name="value">The StrokeThickness value.</param>
     [<Extension>]
     static member inline strokeThickness(this: WidgetBuilder<'msg, #IFabShape>, value: float) =
         this.AddScalar(Shape.StrokeThickness.WithValue(value))
 
     /// <summary>Sets the StrokeLineCap property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StrokeLineCap value</param>
+    /// <param name="value">The StrokeLineCap value.</param>
     [<Extension>]
     static member inline strokeLineCap(this: WidgetBuilder<'msg, #IFabShape>, value: PenLineCap) =
         this.AddScalar(Shape.StrokeLineCap.WithValue(value))
 
     /// <summary>Sets the StrokeJoin property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StrokeJoin value</param>
+    /// <param name="value">The StrokeJoin value.</param>
     [<Extension>]
     static member inline strokeJoin(this: WidgetBuilder<'msg, #IFabShape>, value: PenLineJoin) =
         this.AddScalar(Shape.StrokeJoin.WithValue(value))

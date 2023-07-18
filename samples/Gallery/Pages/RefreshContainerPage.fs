@@ -44,7 +44,7 @@ module RefreshContainerPage =
             .verticalAlignment(VerticalAlignment.Top)
 
     let view model =
-        (DockPanel() {
+        (Dock() {
             Label("A control that supports pull to refresh")
                 .dock(Dock.Top)
 

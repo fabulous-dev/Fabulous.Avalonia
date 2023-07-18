@@ -35,9 +35,9 @@ module Expander =
 module ExpanderBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a Expander widget</summary>
-        /// <param name="header">The header of the expander</param>
-        /// <param name="content">The content of the expander</param>
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: string, content: string) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -45,9 +45,9 @@ module ExpanderBuilders =
                 ContentControl.ContentString.WithValue(content)
             )
 
-        /// <summary>Creates a Expander widget</summary>
-        /// <param name="header">The header of the expander</param>
-        /// <param name="content">The content of the expander</param>
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: WidgetBuilder<'msg, #IFabControl>, content: string) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -58,9 +58,9 @@ module ExpanderBuilders =
                 )
             )
 
-        /// <summary>Creates a Expander widget</summary>
-        /// <param name="header">The header of the expander</param>
-        /// <param name="content">The content of the expander</param>
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -71,9 +71,9 @@ module ExpanderBuilders =
                 )
             )
 
-        /// <summary>Creates a Expander widget</summary>
-        /// <param name="header">The header of the expander</param>
-        /// <param name="content">The content of the expander</param>
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -90,21 +90,21 @@ module ExpanderBuilders =
 type ExpanderModifiers =
     /// <summary>Sets the ContentTransition property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ContentTransition value</param>
+    /// <param name="value">The ContentTransition value.</param>
     [<Extension>]
     static member inline contentTransition(this: WidgetBuilder<'msg, #IFabExpander>, value: IPageTransition) =
         this.AddScalar(Expander.ContentTransition.WithValue(value))
 
     /// <summary>Sets the ExpandDirection property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ExpandDirection value</param>
+    /// <param name="value">The ExpandDirection value.</param>
     [<Extension>]
     static member inline expandDirection(this: WidgetBuilder<'msg, #IFabExpander>, value: ExpandDirection) =
         this.AddScalar(Expander.ExpandDirection.WithValue(value))
 
     /// <summary>Sets the IsExpanded property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsExpanded value</param>
+    /// <param name="value">The IsExpanded value.</param>
     [<Extension>]
     static member inline isExpanded(this: WidgetBuilder<'msg, #IFabExpander>, value: bool) =
         this.AddScalar(Expander.IsExpanded.WithValue(value))
@@ -131,9 +131,9 @@ type ExpanderModifiers =
     static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, fn: CancelRoutedEventArgs -> 'msg) =
         this.AddScalar(Expander.Expanding.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct Expander control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Expander control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabExpander>, value: ViewRef<Expander>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

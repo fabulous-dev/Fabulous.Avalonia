@@ -42,21 +42,21 @@ module Control =
 type ControlModifiers =
     /// <summary>Sets the ContextFlyout property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ContextFlyout value</param>
+    /// <param name="value">The ContextFlyout value.</param>
     [<Extension>]
     static member inline contextFlyout(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, #IFabFlyoutBase>) =
         this.AddWidget(Control.ContextFlyout.WithValue(value.Compile()))
 
     /// <summary>Sets the Tag property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Tag value</param>
+    /// <param name="value">The Tag value.</param>
     [<Extension>]
     static member inline tag(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
         this.AddScalar(Control.Tag.WithValue(value))
 
     /// <summary>Sets the FlowDirection property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FlowDirection value</param>
+    /// <param name="value">The FlowDirection value.</param>
     [<Extension>]
     static member inline flowDirection(this: WidgetBuilder<'msg, #IFabControl>, value: FlowDirection) =
         this.AddScalar(Control.FlowDirection.WithValue(value))

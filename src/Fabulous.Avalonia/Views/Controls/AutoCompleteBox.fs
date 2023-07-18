@@ -68,10 +68,10 @@ module AutoCompleteBox =
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a CalendarDatePicker widget</summary>
-        /// <param name="text">The text to display</param>
-        /// <param name="fn">Raised when the text changes</param>
-        /// <param name="items">The items to display</param>
+        /// <summary>Creates a CalendarDatePicker widget.</summary>
+        /// <param name="text">The text to display.</param>
+        /// <param name="fn">Raised when the text changes.</param>
+        /// <param name="items">The items to display.</param>
         static member inline AutoCompleteBox(text: string, fn: string -> 'msg, items: seq<_>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
@@ -79,10 +79,10 @@ module AutoCompleteBoxBuilders =
                 AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text (fun args -> fn args |> box))
             )
 
-        /// <summary>Creates a CalendarDatePicker widget</summary>
-        /// <param name="text">The text to display</param>
-        /// <param name="fn">Raised when the text changes</param>
-        /// <param name="populator">The function to populate the items</param>
+        /// <summary>Creates a CalendarDatePicker widget.</summary>
+        /// <param name="text">The text to display.</param>
+        /// <param name="fn">Raised when the text changes.</param>
+        /// <param name="populator">The function to populate the items.</param>
         static member inline AutoCompleteBox(text: string, fn: string -> 'msg, populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
@@ -94,70 +94,70 @@ module AutoCompleteBoxBuilders =
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The MinimumPrefixLength value</param>
+    /// <param name="value">The MinimumPrefixLength value.</param>
     [<Extension>]
     static member inline minimumPrefixLength(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: int) =
         this.AddScalar(AutoCompleteBox.MinimumPrefixLength.WithValue(value))
 
     /// <summary>Sets the MinimumPopulateDelay property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The MinimumPopulateDelay value</param>
+    /// <param name="value">The MinimumPopulateDelay value.</param>
     [<Extension>]
     static member inline minimumPopulateDelay(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: TimeSpan) =
         this.AddScalar(AutoCompleteBox.MinimumPopulateDelay.WithValue(value))
 
     /// <summary>Sets the MaxDropDownHeight property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The MaxDropDownHeight value</param>
+    /// <param name="value">The MaxDropDownHeight value.</param>
     [<Extension>]
     static member inline maxDropDownHeight(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: float) =
         this.AddScalar(AutoCompleteBox.MaxDropDownHeight.WithValue(value))
 
     /// <summary>Sets the IsTextCompletionEnabled property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsTextCompletionEnabled value</param>
+    /// <param name="value">The IsTextCompletionEnabled value.</param>
     [<Extension>]
     static member inline isTextCompletionEnabled(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: bool) =
         this.AddScalar(AutoCompleteBox.IsTextCompletionEnabled.WithValue(value))
 
     /// <summary>Sets the Watermark property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Watermark value</param>
+    /// <param name="value">The Watermark value.</param>
     [<Extension>]
     static member inline watermark(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string) =
         this.AddScalar(AutoCompleteBox.Watermark.WithValue(value))
 
     /// <summary>Sets the FilterMode property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FilterMode value</param>
+    /// <param name="value">The FilterMode value.</param>
     [<Extension>]
     static member inline filterMode(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: AutoCompleteFilterMode) =
         this.AddScalar(AutoCompleteBox.FilterMode.WithValue(value))
 
     /// <summary>Sets the ItemFilter property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">The ItemFilter value</param>
+    /// <param name="fn">The ItemFilter value.</param>
     [<Extension>]
     static member inline itemFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: string -> obj -> bool) =
         this.AddScalar(AutoCompleteBox.ItemFilter.WithValue(fn))
 
     /// <summary>Sets the TextFilter property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextFilter value</param>
+    /// <param name="value">The TextFilter value.</param>
     [<Extension>]
     static member inline textFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> bool) =
         this.AddScalar(AutoCompleteBox.TextFilter.WithValue(value))
 
     /// <summary>Sets the ItemSelector property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ItemSelector value</param>
+    /// <param name="value">The ItemSelector value.</param>
     [<Extension>]
     static member inline itemSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> obj -> string) =
         this.AddScalar(AutoCompleteBox.ItemSelector.WithValue(value))
 
     /// <summary>Sets the TextSelector property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextSelector value</param>
+    /// <param name="value">The TextSelector value.</param>
     [<Extension>]
     static member inline textSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> string) =
         this.AddScalar(AutoCompleteBox.TextSelector.WithValue(value))
@@ -175,7 +175,7 @@ type AutoCompleteBoxModifiers =
 
     /// <summary>Listens to the AutoCompleteBox DropDownOpened event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="isOpen">The IsOpen value</param>
+    /// <param name="isOpen">The IsOpen value.</param>
     /// <param name="fn">Raised when the AutoCompleteBox DropDownOpened event is fired.</param>
     [<Extension>]
     static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, isOpen: bool, fn: bool -> 'msg) =
@@ -188,9 +188,9 @@ type AutoCompleteBoxModifiers =
     static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(AutoCompleteBox.SelectionChanged.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct AutoCompleteBox control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct AutoCompleteBox control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

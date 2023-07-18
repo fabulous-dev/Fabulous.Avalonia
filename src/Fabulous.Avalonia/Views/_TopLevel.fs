@@ -54,14 +54,14 @@ module TopLevel =
 type TopLevelModifiers =
     /// <summary>Sets the PointerOverElement property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The PointerOverElement value</param>
+    /// <param name="value">The PointerOverElement value.</param>
     [<Extension>]
     static member inline pointerOverElement(this: WidgetBuilder<'msg, #IFabTopLevel>, value: IInputElement) =
         this.AddScalar(TopLevel.PointerOverElement.WithValue(value))
 
     /// <summary>Sets the ThemeVariant property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ThemeVariant value</param>
+    /// <param name="value">The ThemeVariant value.</param>
     [<Extension>]
     static member inline themeVariant(this: WidgetBuilder<'msg, #IFabTopLevel>, value: ThemeVariant) =
         this.AddScalar(TopLevel.ThemeVariant.WithValue(value))
@@ -75,42 +75,42 @@ type TopLevelModifiers =
 
     /// <summary>Sets the TransparencyLevelHint property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyLevelHint value</param>
+    /// <param name="value">The TransparencyLevelHint value.</param>
     [<Extension>]
     static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WindowTransparencyLevel list) =
         this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(value))
 
     /// <summary>Sets the TransparencyBackgroundFallbackWidget property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyBackgroundFallbackWidget value</param>
+    /// <param name="value">The TransparencyBackgroundFallbackWidget value.</param>
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TopLevel.TransparencyBackgroundFallbackWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyBackgroundFallback value</param>
+    /// <param name="value">The TransparencyBackgroundFallback value.</param>
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: IBrush) =
         this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(value))
 
     /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyBackgroundFallback value</param>
+    /// <param name="value">The TransparencyBackgroundFallback value.</param>
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
         this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the SystemBarColorWidget property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SystemBarColorWidget value</param>
+    /// <param name="value">The SystemBarColorWidget value.</param>
     [<Extension>]
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TopLevel.SystemBarColorWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the SystemBarColor property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SystemBarColor value</param>
+    /// <param name="value">The SystemBarColor value.</param>
     [<Extension>]
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
         this.AddScalar(TopLevel.SystemBarColor.WithValue(value |> SolidColorBrush.Parse))

@@ -49,14 +49,14 @@ module RangeBase =
 type RangeBaserModifiers =
     /// <summary>Sets the SmallChange property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SmallChange value</param>
+    /// <param name="value">The SmallChange value.</param>
     [<Extension>]
     static member inline smallChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.SmallChange.WithValue(value))
 
     /// <summary>Sets the LargeChange property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The LargeChange value</param>
+    /// <param name="value">The LargeChange value.</param>
     [<Extension>]
     static member inline largeChange(this: WidgetBuilder<'msg, #IFabRangeBase>, value: float) =
         this.AddScalar(RangeBase.LargeChange.WithValue(value))

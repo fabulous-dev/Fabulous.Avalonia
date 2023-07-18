@@ -60,8 +60,8 @@ module Window =
 module WindowBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a Window widget</summary>
-        /// <param name="content">The content of the window</param>
+        /// <summary>Creates a Window widget.</summary>
+        /// <param name="content">The content of the window.</param>
         static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
             WidgetBuilder<'msg, IFabWindow>(
                 Window.WidgetKey,
@@ -72,21 +72,21 @@ module WindowBuilders =
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SizeToContent value</param>
+    /// <param name="value">The SizeToContent value.</param>
     [<Extension>]
     static member inline sizeToContent(this: WidgetBuilder<'msg, #IFabWindow>, value: SizeToContent) =
         this.AddScalar(Window.SizeToContent.WithValue(value))
 
     /// <summary>Sets the ExtendClientAreaToDecorationsHint property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ExtendClientAreaToDecorationsHint value</param>
+    /// <param name="value">The ExtendClientAreaToDecorationsHint value.</param>
     [<Extension>]
     static member inline extendClientAreaToDecorationsHint(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.ExtendClientAreaToDecorationsHint.WithValue(value))
 
     /// <summary>Sets the ExtendClientAreaChromeHints property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ExtendClientAreaChromeHints value</param>
+    /// <param name="value">The ExtendClientAreaChromeHints value.</param>
     [<Extension>]
     static member inline extendClientAreaChromeHints(this: WidgetBuilder<'msg, #IFabWindow>, value: ExtendClientAreaChromeHints) =
         this.AddScalar(Window.ExtendClientAreaChromeHints.WithValue(value))
@@ -99,56 +99,56 @@ type WindowModifiers =
 
     /// <summary>Sets the SystemDecorations property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SystemDecorations value</param>
+    /// <param name="value">The SystemDecorations value.</param>
     [<Extension>]
     static member inline systemDecorations(this: WidgetBuilder<'msg, #IFabWindow>, value: SystemDecorations) =
         this.AddScalar(Window.SystemDecorations.WithValue(value))
 
     /// <summary>Sets the ShowActivated property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ShowActivated value</param>
+    /// <param name="value">The ShowActivated value.</param>
     [<Extension>]
     static member inline showActivated(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.ShowActivated.WithValue(value))
 
     /// <summary>Sets the ShowInTaskbar property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ShowInTaskbar value</param>
+    /// <param name="value">The ShowInTaskbar value.</param>
     [<Extension>]
     static member inline showInTaskbar(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.ShowInTaskbar.WithValue(value))
 
     /// <summary>Sets the WindowState property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The WindowState value</param>
+    /// <param name="value">The WindowState value.</param>
     [<Extension>]
     static member inline windowState(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowState) =
         this.AddScalar(Window.WindowState.WithValue(value))
 
     /// <summary>Sets the Title property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Title value</param>
+    /// <param name="value">The Title value.</param>
     [<Extension>]
     static member inline title(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
         this.AddScalar(Window.Title.WithValue(value))
 
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Icon value</param>
+    /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowIcon) =
         this.AddScalar(Window.Icon.WithValue(value))
 
     /// <summary>Sets the WindowStartupLocation property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The WindowStartupLocation value</param>
+    /// <param name="value">The WindowStartupLocation value.</param>
     [<Extension>]
     static member inline windowStartupLocation(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowStartupLocation) =
         this.AddScalar(Window.WindowStartupLocation.WithValue(value))
 
     /// <summary>Sets the CanResize property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The CanResize value</param>
+    /// <param name="value">The CanResize value.</param>
     [<Extension>]
     static member inline canResize(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.CanResize.WithValue(value))
@@ -174,9 +174,9 @@ type WindowModifiers =
     static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(Window.WindowOpened.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct Window control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabWindow>, value: ViewRef<Window>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

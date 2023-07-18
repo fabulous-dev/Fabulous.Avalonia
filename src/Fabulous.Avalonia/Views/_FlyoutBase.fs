@@ -38,7 +38,7 @@ type FlyoutBaseModifiers =
 
     /// <summary>Sets the Target property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Target value</param>
+    /// <param name="value">The Target value.</param>
     [<Extension>]
     static member inline target(this: WidgetBuilder<'msg, #IFabFlyoutBase>, value: ViewRef<#Control>) =
         match value.TryValue with

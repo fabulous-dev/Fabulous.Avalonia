@@ -46,7 +46,7 @@ module ExpressionAnimation =
 
     let view (_: Model) =
         (ScrollViewer(
-            DockPanel() {
+            Dock() {
                 TextBlock("Resize window horizontally to change Border opacity.")
                     .horizontalAlignment(HorizontalAlignment.Center)
                     .dock(Dock.Top)

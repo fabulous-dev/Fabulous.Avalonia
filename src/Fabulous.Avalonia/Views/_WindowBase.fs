@@ -28,7 +28,7 @@ module WindowBase =
 type WindowBaseModifiers =
     /// <summary>Sets the Topmost property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Topmost value</param>
+    /// <param name="value">The Topmost value.</param>
     [<Extension>]
     static member inline topmost(this: WidgetBuilder<'msg, #IFabWindowBase>, value: bool) =
         this.AddScalar(WindowBase.Topmost.WithValue(value))

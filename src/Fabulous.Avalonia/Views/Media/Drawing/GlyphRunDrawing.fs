@@ -24,9 +24,9 @@ module GlyphRunDrawing =
 module GlyphRunDrawingBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a GlyphRunDrawing widget</summary>
-        /// <param name="brush">The content of the drawing</param>
-        /// <param name="glyphRun">The glyph run to draw</param>
+        /// <summary>Creates a GlyphRunDrawing widget.</summary>
+        /// <param name="brush">The content of the drawing.</param>
+        /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: WidgetBuilder<'msg, #IFabBrush>, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,
@@ -37,9 +37,9 @@ module GlyphRunDrawingBuilders =
                 )
             )
 
-        /// <summary>Creates a GlyphRunDrawing widget</summary>
-        /// <param name="brush">The content of the drawing</param>
-        /// <param name="glyphRun">The glyph run to draw</param>
+        /// <summary>Creates a GlyphRunDrawing widget.</summary>
+        /// <param name="brush">The content of the drawing.</param>
+        /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: IBrush, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,
@@ -47,9 +47,9 @@ module GlyphRunDrawingBuilders =
                 GlyphRunDrawing.Foreground.WithValue(brush)
             )
 
-        /// <summary>Creates a GlyphRunDrawing widget</summary>
-        /// <param name="brush">The content of the drawing</param>
-        /// <param name="glyphRun">The glyph run to draw</param>
+        /// <summary>Creates a GlyphRunDrawing widget.</summary>
+        /// <param name="brush">The content of the drawing.</param>
+        /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,

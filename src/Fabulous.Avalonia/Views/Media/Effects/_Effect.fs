@@ -24,7 +24,7 @@ type EffectModifiers =
 type AttachedEffectModifiers =
     /// <summary>Sets the Effect property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Effect value</param>
+    /// <param name="value">The Effect value.</param>
     [<Extension>]
     static member inline effect(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabEffect>) =
         this.AddWidget(Visual.Effect.WithValue(value.Compile()))

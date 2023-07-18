@@ -20,7 +20,7 @@ type SpinnerModifiers =
 
     /// <summary>Sets the ValidSpinDirection property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ValidSpinDirection value</param>
+    /// <param name="value">The ValidSpinDirection value.</param>
     [<Extension>]
     static member inline validSpinDirection(this: WidgetBuilder<'msg, #IFabSpinner>, value: ValidSpinDirections) =
         this.AddScalar(Spinner.ValidSpinDirection.WithValue(value))

@@ -37,12 +37,12 @@ module DrawingGroup =
 module DrawingGroupBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a DrawingGroup widget</summary>
+        /// <summary>Creates a DrawingGroup widget.</summary>
         static member DrawingGroup<'msg>() =
             CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
 
-        /// <summary>Creates a DrawingGroup widget</summary>
-        /// <param name="opacity">The opacity of the drawing group</param>
+        /// <summary>Creates a DrawingGroup widget.</summary>
+        /// <param name="opacity">The opacity of the drawing group.</param>
         static member DrawingGroup<'msg>(opacity: float) =
             CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
 
@@ -51,42 +51,42 @@ type DrawingGroupModifiers =
 
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value</param>
+    /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(DrawingGroup.OpacityMaskWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value</param>
+    /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: IBrush) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(value))
 
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value</param>
+    /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the Transform property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Transform value</param>
+    /// <param name="value">The Transform value.</param>
     [<Extension>]
     static member inline transform(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(DrawingGroup.TransformWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Transform property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Transform value</param>
+    /// <param name="value">The Transform value.</param>
     [<Extension>]
     static member inline transform(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
         this.AddScalar(DrawingGroup.Transform.WithValue(Transform.Parse(value)))
 
     /// <summary>Sets the ClipGeometry property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ClipGeometry value</param>
+    /// <param name="value">The ClipGeometry value.</param>
     [<Extension>]
     static member inline clipGeometry(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: WidgetBuilder<'msg, #IFabGeometry>) =
         this.AddWidget(DrawingGroup.ClipGeometry.WithValue(value.Compile()))

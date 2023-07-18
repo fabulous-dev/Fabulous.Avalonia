@@ -82,6 +82,9 @@ module Grid =
 module GridBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Grid widget.</summary>
+        /// <param name="coldefs">Column definitions.</param>
+        /// <param name="rowdefs">Row definitions.</param>
         static member inline Grid<'msg>(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
             CollectionBuilder<'msg, IFabGrid, IFabControl>(
                 Grid.WidgetKey,
@@ -90,39 +93,58 @@ module GridBuilders =
                 Grid.RowDefinitions.WithValue(Array.ofSeq rowdefs)
             )
 
+        /// <summary>Creates a Grid widget with a single column and row.</summary>
         static member inline Grid<'msg>() = View.Grid<'msg>([ Star ], [ Star ])
 
 [<Extension>]
 type GridModifiers =
+    /// <summary>Sets the ShowGridLines property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowGridLines value.</param>
     [<Extension>]
     static member inline showGridLines(this: WidgetBuilder<'msg, IFabGrid>, value: bool) =
         this.AddScalar(Grid.ShowGridLines.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct Grid control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Grid control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabGrid>, value: ViewRef<Grid>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type GridAttachedModifiers =
+    /// <summary>Sets the Column property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Column value.</param>
     [<Extension>]
     static member inline gridColumn(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(Grid.Column.WithValue(value))
 
+    /// <summary>Sets the Row property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Row value.</param>
     [<Extension>]
     static member inline gridRow(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(Grid.Row.WithValue(value))
 
+    /// <summary>Sets the ColumnSpan property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ColumnSpan value.</param>
     [<Extension>]
     static member inline gridColumnSpan(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(Grid.ColumnSpan.WithValue(value))
 
+    /// <summary>Sets the RowSpan property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RowSpan value.</param>
     [<Extension>]
     static member inline gridRowSpan(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(Grid.RowSpan.WithValue(value))
 
+    /// <summary>Sets the IsSharedSizeScope property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSharedSizeScope value.</param>
     [<Extension>]
     static member inline isSharedSizeScope(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
         this.AddScalar(Grid.IsSharedSizeScope.WithValue(value))

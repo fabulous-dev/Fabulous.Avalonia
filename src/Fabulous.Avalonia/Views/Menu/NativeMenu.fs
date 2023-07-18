@@ -57,9 +57,9 @@ type NativeMenuModifiers =
     static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
         this.AddScalar(NativeMenu.NeedsUpdate.WithValue(fun _ -> fn |> box))
 
-    /// <summary>Link a ViewRef to access the direct NativeMenu control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct NativeMenu control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabNativeMenu>, value: ViewRef<NativeMenu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
@@ -68,14 +68,14 @@ type NativeMenuModifiers =
 type NativeMenuAttachedModifiers =
     /// <summary>Sets the NativeMenu property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The NativeMenu value</param>
+    /// <param name="value">The NativeMenu value.</param>
     [<Extension>]
     static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
         this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(value.Compile()))
 
     /// <summary>Sets the IsNativeMenuExported property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsNativeMenuExported value</param>
+    /// <param name="value">The IsNativeMenuExported value.</param>
     [<Extension>]
     static member inline isNativeMenuExported(this: WidgetBuilder<'msg, #IFabTopLevel>, value: bool) =
         this.AddScalar(NativeMenuAttached.IsNativeMenuExported.WithValue(value))

@@ -31,25 +31,14 @@ module StyledElement =
 type StyledElementModifiers =
     /// <summary>Sets the Name property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Name value</param>
+    /// <param name="value">The Name value.</param>
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.Name.WithValue(value))
 
     /// <summary>Sets the Style property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">The Style value</param>
-    /// <example>
-    /// <code lang="fsharp">
-    /// let labelStyle (this: WidgetBuilder&lt;'msg, IFabSlider&gt;) =
-    ///     this.margin(8., 0.)
-    ///         .fontSize(16.)
-    ///         .fontWeight(FontWeight.Bold)
-    ///
-    /// Label("Hello World!")
-    ///     .style(labelStyle)
-    /// </code>
-    /// </example>
+    /// <param name="fn">The Style value.</param>
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
 

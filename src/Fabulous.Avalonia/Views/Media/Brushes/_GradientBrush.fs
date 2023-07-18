@@ -20,7 +20,7 @@ type GradientBrushModifiers =
 
     /// <summary>Sets the SpreadMethod property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SpreadMethod value</param>
+    /// <param name="value">The SpreadMethod value.</param>
     [<Extension>]
     static member inline spreadMethod(this: WidgetBuilder<'msg, #IFabGradientBrush>, value: GradientSpreadMethod) =
         this.AddScalar(GradientBrush.SpreadMethod.WithValue(value))

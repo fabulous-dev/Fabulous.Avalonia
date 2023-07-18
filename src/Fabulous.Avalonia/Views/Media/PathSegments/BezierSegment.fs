@@ -23,7 +23,7 @@ module BezierSegment =
 module BezierSegmentBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a BezierSegment widget</summary>
+        /// <summary>Creates a BezierSegment widget.</summary>
         /// <param name="point1">The first control point of the curve.</param>
         /// <param name="point2">The second control point of the curve.</param>
         /// <param name="point3">The third control point of the curve.</param>

@@ -24,7 +24,7 @@ module DockPanelPage =
         | DoNothing -> model, []
 
     let view _ =
-        (DockPanel() {
+        (Dock() {
             Rectangle()
                 .fill(SolidColorBrush(Colors.Red))
                 .height(100.)

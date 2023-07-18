@@ -40,15 +40,15 @@ module Border =
 module BorderBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a Border widget</summary>
-        /// <param name="content">The content of the Border</param>
+        /// <summary>Creates a Border widget.</summary>
+        /// <param name="content">The content of the Border.</param>
         static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabBorder>(
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
-        /// <summary>Creates a Border widget</summary>
+        /// <summary>Creates a Border widget.</summary>
         static member Border<'msg>() =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
@@ -56,63 +56,63 @@ module BorderBuilders =
 type BorderModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Border.BackgroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.Background.WithValue(value))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         this.AddScalar(Border.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value</param>
+    /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(Border.BorderBrushWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value</param>
+    /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.BorderBrush.WithValue(value))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value</param>
+    /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         this.AddScalar(Border.BorderBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderThickness value</param>
+    /// <param name="value">The BorderThickness value.</param>
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, value: Thickness) =
         this.AddScalar(Border.BorderThickness.WithValue(value))
 
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The CornerRadius value</param>
+    /// <param name="value">The CornerRadius value.</param>
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, value: CornerRadius) =
         this.AddScalar(Border.CornerRadius.WithValue(value))
 
     /// <summary>Sets the BoxShadow property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BoxShadow value</param>
+    /// <param name="value">The BoxShadow value.</param>
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
         this.AddScalar(Border.BoxShadow.WithValue(value))
@@ -121,88 +121,88 @@ type BorderModifiers =
 type BorderExtraModifiers =
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The CornerRadius value</param>
+    /// <param name="value">The CornerRadius value.</param>
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
         BorderModifiers.cornerRadius(this, CornerRadius(value))
 
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="top">The top value</param>
-    /// <param name="bottom">The bottom value</param>
+    /// <param name="top">The top value.</param>
+    /// <param name="bottom">The bottom value.</param>
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, top: float, bottom: float) =
         BorderModifiers.cornerRadius(this, CornerRadius(top, bottom))
 
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="topLeft">The topLeft value</param>
-    /// <param name="topRight">The topRight value</param>
-    /// <param name="bottomRight">The bottomRight value</param>
-    /// <param name="bottomLeft">The bottomLeft value</param>
+    /// <param name="topLeft">The topLeft value.</param>
+    /// <param name="topRight">The topRight value.</param>
+    /// <param name="bottomRight">The bottomRight value.</param>
+    /// <param name="bottomLeft">The bottomLeft value.</param>
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabBorder>, topLeft: float, topRight: float, bottomRight: float, bottomLeft: float) =
         BorderModifiers.cornerRadius(this, CornerRadius(topLeft, topRight, bottomRight, bottomLeft))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderThickness value</param>
+    /// <param name="value">The BorderThickness value.</param>
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, value: float) =
         BorderModifiers.borderThickness(this, Thickness(value))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="horizontal">The horizontal value</param>
-    /// <param name="vertical">The vertical value</param>
+    /// <param name="horizontal">The horizontal value.</param>
+    /// <param name="vertical">The vertical value.</param>
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, horizontal: float, vertical: float) =
         BorderModifiers.borderThickness(this, Thickness(horizontal, vertical))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="left">The left value</param>
-    /// <param name="top">The top value</param>
-    /// <param name="right">The right value</param>
-    /// <param name="bottom">The bottom value</param>
+    /// <param name="left">The left value.</param>
+    /// <param name="top">The top value.</param>
+    /// <param name="right">The right value.</param>
+    /// <param name="bottom">The bottom value.</param>
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabBorder>, left: float, top: float, right: float, bottom: float) =
         BorderModifiers.borderThickness(this, Thickness(left, top, right, bottom))
 
     /// <summary>Sets the BoxShadow property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BoxShadow value</param>
+    /// <param name="value">The BoxShadow value.</param>
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadow) =
         BorderModifiers.boxShadow(this, BoxShadows(value))
 
     /// <summary>Sets the BoxShadow property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The BoxShadow value</param>
+    /// <param name="value">The BoxShadow value.</param>
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(value)))
 
     /// <summary>Sets the BoxShadow property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="first">The first BoxShadow value</param>
-    /// <param name="rest">The rest of the BoxShadow values</param>
+    /// <param name="first">The first BoxShadow value.</param>
+    /// <param name="rest">The rest of the BoxShadow values.</param>
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: BoxShadow, rest: BoxShadow list) =
         BorderModifiers.boxShadow(this, BoxShadows(first, rest |> List.toArray))
 
     /// <summary>Sets the BoxShadow property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="first">The first BoxShadow value</param>
-    /// <param name="rest">The rest of the BoxShadow values</param>
+    /// <param name="first">The first BoxShadow value.</param>
+    /// <param name="rest">The rest of the BoxShadow values.</param>
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
         BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))
 
-    /// <summary>Link a ViewRef to access the direct Border control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Border control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

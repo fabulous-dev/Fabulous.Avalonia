@@ -41,30 +41,30 @@ module Image =
 module ImageBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
         static member Image<'msg>(source: IImage) =
             WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(Stretch.Uniform))
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
-        /// <param name="stretch">The stretch mode</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="stretch">The stretch mode.</param>
         static member Image<'msg>(source: IImage, stretch: Stretch) =
             WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(source), Image.Stretch.WithValue(stretch))
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
         static member Image<'msg>(source: string) =
             WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(Stretch.Uniform))
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
-        /// <param name="stretch">The stretch mode</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="stretch">The stretch mode.</param>
         static member Image<'msg>(source: string, stretch: Stretch) =
             WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSource.fromString source), Image.Stretch.WithValue(stretch))
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
         static member Image<'msg>(source: WidgetBuilder<'msg, IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
@@ -75,17 +75,17 @@ module ImageBuilders =
                 )
             )
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
-        /// <param name="stretch">The stretch mode</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="stretch">The stretch mode.</param>
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
         static member Image<'msg>(source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
@@ -96,9 +96,9 @@ module ImageBuilders =
                 )
             )
 
-        /// <summary>Creates a Image widget</summary>
-        /// <param name="source">The source image</param>
-        /// <param name="stretch">The stretch mode</param>
+        /// <summary>Creates an Image widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="stretch">The stretch mode.</param>
         static member Image<'msg>(stretch: Stretch, source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
             WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
@@ -109,14 +109,14 @@ module ImageBuilders =
 type ImageModifiers =
     /// <summary>Sets the StretchDirection property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The StretchDirection value</param>
+    /// <param name="value">The StretchDirection value.</param>
     [<Extension>]
     static member inline stretchDirection(this: WidgetBuilder<'msg, #IFabImage>, value: StretchDirection) =
         this.AddScalar(Image.StretchDirection.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct Image control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Image control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabImage>, value: ViewRef<Image>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -22,9 +22,9 @@ module ListBox =
 module ListBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a ListBox widget</summary>
-        /// <param name="items">The items to display</param>
-        /// <param name="template">The template to use to render each item</param>
+        /// <summary>Creates a ListBox widget.</summary>
+        /// <param name="items">The items to display.</param>
+        /// <param name="template">The template to use to render each item.</param>
         static member inline ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 items: seq<'itemData>,
@@ -32,7 +32,7 @@ module ListBoxBuilders =
             ) =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSource items template
 
-        /// <summary>Creates a ListBox widget</summary>
+        /// <summary>Creates a ListBox widget.</summary>
         static member ListBox() =
             CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
 
@@ -40,21 +40,21 @@ module ListBoxBuilders =
 type ListBoxModifiers =
     /// <summary>Sets the SelectionMode property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SelectionMode value</param>
+    /// <param name="value">The SelectionMode value.</param>
     [<Extension>]
     static member inline selectionMode(this: WidgetBuilder<'msg, #IFabListBox>, value: SelectionMode) =
         this.AddScalar(ListBox.SelectionMode.WithValue(value))
 
     /// <summary>Sets the SelectionModel property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SelectionModel value</param>
+    /// <param name="value">The SelectionModel value.</param>
     [<Extension>]
     static member inline selectionModel(this: WidgetBuilder<'msg, #IFabListBox>, value: ISelectionModel) =
         this.AddScalar(ListBox.SelectionModel.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct ListBox control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct ListBox control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabListBox>, value: ViewRef<ListBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

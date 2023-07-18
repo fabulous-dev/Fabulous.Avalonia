@@ -28,8 +28,8 @@ module PathFigure =
 module PathFigureBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a PathFigure widget</summary>
-        /// <param name="startPoint">The start point of the path</param>
+        /// <summary>Creates a PathFigure widget.</summary>
+        /// <param name="startPoint">The start point of the path.</param>
         static member PathFigure(startPoint: Point) =
             CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(PathFigure.WidgetKey, PathFigure.Segments, PathFigure.StartPoint.WithValue(startPoint))
 
@@ -38,14 +38,14 @@ type PathFigureModifiers =
 
     /// <summary>Sets the IsClosed property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsClosed value</param>
+    /// <param name="value">The IsClosed value.</param>
     [<Extension>]
     static member inline isClosed(this: WidgetBuilder<'msg, #IFabPathFigure>, value: bool) =
         this.AddScalar(PathFigure.IsClosed.WithValue(value))
 
     /// <summary>Sets the IsFilled property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsFilled value</param>
+    /// <param name="value">The IsFilled value.</param>
     [<Extension>]
     static member inline isFilled(this: WidgetBuilder<'msg, #IFabPathFigure>, value: bool) =
         this.AddScalar(PathFigure.IsFilled.WithValue(value))

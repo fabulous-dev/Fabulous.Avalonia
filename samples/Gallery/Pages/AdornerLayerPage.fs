@@ -47,7 +47,7 @@ module AdornerLayerPage =
         | Previous -> model, []
 
     let view model =
-        DockPanel() {
+        Dock() {
             (Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
                 TextBlock("Rotation").gridColumn(0).gridRow(0)
 

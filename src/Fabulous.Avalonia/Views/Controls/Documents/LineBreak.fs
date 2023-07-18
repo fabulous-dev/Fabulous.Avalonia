@@ -15,15 +15,15 @@ module LineBreak =
 module LineBreakBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a LineBreak widget</summary>
+        /// <summary>Creates a LineBreak widget.</summary>
         static member LineBreak() =
             WidgetBuilder<'msg, IFabLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 [<Extension>]
 type LineBreakModifiers =
-    /// <summary>Link a ViewRef to access the direct LineBreak control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct LineBreak control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabLineBreak>, value: ViewRef<LineBreak>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

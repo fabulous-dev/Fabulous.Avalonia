@@ -38,7 +38,7 @@ module GesturesPage =
             TextBlock("Pull from colored rectangles").margin(5.)
 
             Border(
-                (DockPanel() {
+                (Dock() {
                     Border(
                         Border()
                             .width(10.)

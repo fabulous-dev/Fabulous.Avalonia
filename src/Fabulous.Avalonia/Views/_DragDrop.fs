@@ -53,7 +53,7 @@ type DragDropModifiers =
 
     /// <summary>Sets the AllowDrop property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The AllowDrop value</param>
+    /// <param name="value">The AllowDrop value.</param>
     [<Extension>]
     static member inline allowDrop(this: WidgetBuilder<'msg, #IFabInteractive>, value: bool) =
         this.AddScalar(DragDrop.AllowDrop.WithValue(value))

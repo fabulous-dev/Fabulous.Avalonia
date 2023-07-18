@@ -30,14 +30,14 @@ module TrayIcon =
 module TrayIconBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a TrayIcon widget</summary>
-        /// <param name="icon">The icon to display</param>
+        /// <summary>Creates a TrayIcon widget.</summary>
+        /// <param name="icon">The icon to display.</param>
         static member inline TrayIcon(icon: WindowIcon) =
             WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.Icon.WithValue(icon))
 
-        /// <summary>Creates a TrayIcon widget</summary>
-        /// <param name="icon">The icon to display</param>
-        /// <param name="tooltipText">The tooltip text to display</param>
+        /// <summary>Creates a TrayIcon widget.</summary>
+        /// <param name="icon">The icon to display.</param>
+        /// <param name="tooltipText">The tooltip text to display.</param>
         static member inline TrayIcon(icon: WindowIcon, tooltipText: string) =
             WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.Icon.WithValue(icon), TrayIcon.ToolTipText.WithValue(tooltipText))
 
@@ -45,14 +45,14 @@ module TrayIconBuilders =
 type TrayIconModifiers =
     /// <summary>Sets the Menu property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Menu value</param>
+    /// <param name="value">The Menu value.</param>
     [<Extension>]
     static member inline menu(this: WidgetBuilder<'msg, #IFabTrayIcon>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
         this.AddWidget(TrayIcon.Menu.WithValue(value.Compile()))
 
     /// <summary>Sets the IsVisible property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsVisible value</param>
+    /// <param name="value">The IsVisible value.</param>
     [<Extension>]
     static member inline isVisible(this: WidgetBuilder<'msg, #IFabTrayIcon>, value: bool) =
         this.AddScalar(TrayIcon.IsVisible.WithValue(value))
@@ -64,9 +64,9 @@ type TrayIconModifiers =
     static member inline onClicked(this: WidgetBuilder<'msg, #IFabTrayIcon>, fn: 'msg) =
         this.AddScalar(TrayIcon.Clicked.WithValue(fun _ -> fn |> box))
 
-    /// <summary>Link a ViewRef to access the direct TrayIcon control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct TrayIcon control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTrayIcon>, value: ViewRef<TrayIcon>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

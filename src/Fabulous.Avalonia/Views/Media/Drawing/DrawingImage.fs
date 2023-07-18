@@ -20,8 +20,8 @@ module DrawingImage =
 module DrawingImageBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a DrawingImage widget</summary>
-        /// <param name="source">The source of the drawing</param>
+        /// <summary>Creates a DrawingImage widget.</summary>
+        /// <param name="source">The source of the drawing.</param>
         static member DrawingImage(source: WidgetBuilder<'msg, #IFabDrawing>) =
             WidgetBuilder<'msg, IFabDrawingImage>(
                 DrawingImage.WidgetKey,

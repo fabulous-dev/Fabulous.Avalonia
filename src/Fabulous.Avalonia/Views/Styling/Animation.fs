@@ -68,49 +68,49 @@ type AnimationModifiers =
 
     /// <summary>Sets the PlaybackDirection property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The PlaybackDirection value</param>
+    /// <param name="value">The PlaybackDirection value.</param>
     [<Extension>]
     static member inline playbackDirection(this: WidgetBuilder<'msg, #IFabAnimation>, value: PlaybackDirection) =
         this.AddScalar(Animation.PlaybackDirection.WithValue(value))
 
     /// <summary>Sets the FillMode property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The FillMode value</param>
+    /// <param name="value">The FillMode value.</param>
     [<Extension>]
     static member inline fillMode(this: WidgetBuilder<'msg, #IFabAnimation>, value: FillMode) =
         this.AddScalar(Animation.FillMode.WithValue(value))
 
     /// <summary>Sets the Easing property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Easing value</param>
+    /// <param name="value">The Easing value.</param>
     [<Extension>]
     static member inline easing(this: WidgetBuilder<'msg, #IFabAnimation>, value: Easing) =
         this.AddScalar(Animation.Easing.WithValue(value))
 
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The Delay value</param>
+    /// <param name="value">The Delay value.</param>
     [<Extension>]
     static member inline delay(this: WidgetBuilder<'msg, #IFabAnimation>, value: TimeSpan) =
         this.AddScalar(Animation.Delay.WithValue(value))
 
     /// <summary>Sets the DelayBetweenIterations property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The DelayBetweenIterations value</param>
+    /// <param name="value">The DelayBetweenIterations value.</param>
     [<Extension>]
     static member inline delayBetweenIterations(this: WidgetBuilder<'msg, #IFabAnimation>, value: TimeSpan) =
         this.AddScalar(Animation.DelayBetweenIterations.WithValue(value))
 
     /// <summary>Sets the SpeedRatio property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The SpeedRatio value</param>
+    /// <param name="value">The SpeedRatio value.</param>
     [<Extension>]
     static member inline speedRatio(this: WidgetBuilder<'msg, #IFabAnimation>, value: float) =
         this.AddScalar(Animation.SpeedRatio.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct Animation control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Animation control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabAnimation>, value: ViewRef<Animation>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

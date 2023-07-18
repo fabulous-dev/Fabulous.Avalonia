@@ -114,7 +114,7 @@ module ListBoxPage =
 
 
     let view model =
-        (DockPanel() {
+        (Dock() {
             (VStack() {
                 TextBlock("Hosts a collection of ListBoxItem.")
                 TextBlock("Each 5th item is highlighted with nth-child(5n+3) and nth-last-child(5n+4) rules.")
