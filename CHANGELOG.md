@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
-## [2.0.0-pre11] - 2023-07-03
+## [2.0.0-pre11] - 2023-07-18
 
 ### Added
 - More samples to Gallery
 - Add support for Drag and Drop
 - Add support for AvaloniaUI preview RC2.2
+- Add XML documentation for all widget constructors and modifiers
+- Add support for Effects
 
 ## [2.0.0-pre10] - 2023-06-07
 
