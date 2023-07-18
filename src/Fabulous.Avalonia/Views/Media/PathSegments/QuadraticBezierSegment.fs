@@ -21,6 +21,9 @@ module QuadraticBezierSegmentBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a QuadraticBezierSegment widget.</summary>
+        /// <param name="point1">The first control point of the curve.</param>
+        /// <param name="point2">The second control point of the curve.</param>
         static member inline QuadraticBezierSegment<'msg>(point1: Point, point2: Point) =
             WidgetBuilder<'msg, IFabQuadraticBezierSegment>(
                 QuadraticBezierSegment.WidgetKey,

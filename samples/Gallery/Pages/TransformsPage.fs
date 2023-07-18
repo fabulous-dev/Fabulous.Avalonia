@@ -67,8 +67,8 @@ module TransformsPage =
                 .style(borderTestStyle)
                 .background(
                     LinearGradientBrush(Point(0., 0.), Point(0., 1.)) {
-                        GradientStop(0., Colors.Red)
-                        GradientStop(1., Colors.Blue)
+                        GradientStop(Colors.Red, 0.)
+                        GradientStop(Colors.Blue, 1.)
                     }
                 )
                 .gridRow(0)

@@ -6,6 +6,7 @@ open Avalonia
 open Avalonia.Animation.Easings
 open Avalonia.Controls
 open Avalonia.Controls.Shapes
+open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Rendering.Composition
 open Avalonia.Rendering.Composition.Animations
@@ -17,7 +18,7 @@ open type Fabulous.Avalonia.View
 module GalaxyAnimation =
     type Model = { Value: int }
 
-    type Msg = OnLoaded of bool
+    type Msg = OnLoaded of RoutedEventArgs
 
     let init () = { Value = 0 }
 

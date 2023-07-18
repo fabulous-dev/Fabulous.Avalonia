@@ -23,22 +23,37 @@ module DragDrop =
 
 [<Extension>]
 type DragDropModifiers =
+    /// <summary>Listens to the DragDrop DragEnter event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when a drag-and-drop operation enters the element.</param>
     [<Extension>]
-    static member inline onDragEnter(this: WidgetBuilder<'msg, #IFabInteractive>, onDragEnter: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.DragEnter.WithValue(fun args -> onDragEnter args |> box))
+    static member inline onDragEnter(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
+        this.AddScalar(DragDrop.DragEnter.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the DragDrop DragLeave event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when a drag-and-drop operation leaves the element.</param>
     [<Extension>]
-    static member inline onDragLeave(this: WidgetBuilder<'msg, #IFabInteractive>, onDragLeave: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.DragLeave.WithValue(fun args -> onDragLeave args |> box))
+    static member inline onDragLeave(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
+        this.AddScalar(DragDrop.DragLeave.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the DragDrop DragOver event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when a drag-and-drop operation is in progress over the element.</param>
     [<Extension>]
-    static member inline onDragOver(this: WidgetBuilder<'msg, #IFabInteractive>, onDragOver: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.DragOver.WithValue(fun args -> onDragOver args |> box))
+    static member inline onDragOver(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
+        this.AddScalar(DragDrop.DragOver.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the DragDrop Drop event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when a drag-and-drop operation is dropped on the element.</param>
     [<Extension>]
-    static member inline onDrop(this: WidgetBuilder<'msg, #IFabInteractive>, onDrop: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.Drop.WithValue(fun args -> onDrop args |> box))
+    static member inline onDrop(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
+        this.AddScalar(DragDrop.Drop.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Sets the AllowDrop property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The AllowDrop value.</param>
     [<Extension>]
-    static member inline allowDrop(this: WidgetBuilder<'msg, #IFabInteractive>, allowDrop: bool) =
-        this.AddScalar(DragDrop.AllowDrop.WithValue(allowDrop))
+    static member inline allowDrop(this: WidgetBuilder<'msg, #IFabInteractive>, value: bool) =
+        this.AddScalar(DragDrop.AllowDrop.WithValue(value))

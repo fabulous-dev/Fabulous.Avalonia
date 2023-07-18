@@ -74,7 +74,7 @@ module App =
         })
             .center()
 
-#if MOBILE || BROWSER
+#if MOBILE
     let app model = SingleViewApplication(view model)
 #else
     let app model = DesktopApplication(Window(view model))

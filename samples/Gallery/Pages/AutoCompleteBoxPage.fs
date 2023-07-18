@@ -6,6 +6,7 @@ open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Data
 open Avalonia.Data.Converters
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
 
@@ -34,8 +35,8 @@ module AutoCompleteBoxPage =
         | OnPopulating of string
         | OnPopulated of System.Collections.IEnumerable
         | OnDropDownOpen of bool
-        | MultiBindingLoaded of bool
-        | CustomAutoBoxLoaded of bool
+        | MultiBindingLoaded of RoutedEventArgs
+        | CustomAutoBoxLoaded of RoutedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -269,7 +270,7 @@ module AutoCompleteBoxPage =
                 if (word <> null) then
                     for j in 0 .. options.Length do
                         if word <> null && j < options.Length then
-                            let option = options.[j]
+                            let option = options[j]
 
                             if (option <> null) then
 
@@ -307,7 +308,7 @@ module AutoCompleteBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged s -> model, []
+        | TextChanged _ -> model, []
         | SelectionChanged _ -> model, []
         | OnPopulating _ -> model, []
         | OnPopulated _ -> model, []
@@ -316,8 +317,8 @@ module AutoCompleteBoxPage =
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
                     let parts = parts |> Seq.toArray
-                    let first = parts.[0]
-                    let second = parts.[1]
+                    let first = parts[0]
+                    let second = parts[1]
                     String.Format("{0} ({1})", first, second))
 
             let binding = MultiBinding()

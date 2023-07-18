@@ -17,5 +17,7 @@ module LineSegmentBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a LineSegment widget.</summary>
+        /// <param name="point">The point to draw the line to.</param>
         static member inline LineSegment<'msg>(point: Point) =
             WidgetBuilder<'msg, IFabLineSegment>(LineSegment.WidgetKey, LineSegment.Point.WithValue(point))

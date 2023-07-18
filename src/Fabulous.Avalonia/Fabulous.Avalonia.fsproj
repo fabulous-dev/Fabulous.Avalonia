@@ -26,7 +26,6 @@
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
-<!--    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)'== '' And '$(IsBrowser)' == 'true'">Browser</AvaloniaPlatform>-->
   </PropertyGroup>
   <ItemGroup>
     <None Include="README.md" PackagePath="\" Pack="true" />
@@ -113,6 +112,11 @@
     <Compile Include="Views\Media\Drawing\DrawingGroup.fs" />
     <Compile Include="Views\Media\Drawing\ImageDrawing.fs" />
     <Compile Include="Views\Media\Drawing\DrawingImage.fs" />
+    <Compile Include="Views\Media\Effects\_Effect.fs" />
+    <Compile Include="Views\Media\Effects\_DropShadowEffectBase.fs" />
+    <Compile Include="Views\Media\Effects\DropShadowEffect.fs" />
+    <Compile Include="Views\Media\Effects\DropShadowDirectionEffect.fs" />
+    <Compile Include="Views\Media\Effects\BlurEffect.fs" />
     <Compile Include="Views\Controls\Tooltip.fs" />
     <Compile Include="Views\Controls\Border.fs" />
     <Compile Include="Views\Controls\RefreshVisualizer.fs" />

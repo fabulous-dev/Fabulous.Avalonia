@@ -20,6 +20,9 @@ module ReversibleStackPanel =
 module ReversibleStackPanelBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a VStack widget.</summary>
+        /// <param name="spacing">The spacing between each child.</param>
+        /// <param name="reverseOrder">If true, the children will be reversed.</param>
         static member inline VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalars =
@@ -35,6 +38,9 @@ module ReversibleStackPanelBuilders =
 
             CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
 
+        /// <summary>Creates a HStack widget.</summary>
+        /// <param name="spacing">The spacing between each child.</param>
+        /// <param name="reverseOrder">If true, the children will be reversed.</param>
         static member inline HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalars =
@@ -52,9 +58,9 @@ module ReversibleStackPanelBuilders =
 
 [<Extension>]
 type ReversibleStackPanelModifiers =
-    /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabReversibleStackPanel>, value: ViewRef<ReversibleStackPanel>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

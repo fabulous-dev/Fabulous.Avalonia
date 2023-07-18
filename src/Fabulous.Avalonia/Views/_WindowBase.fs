@@ -26,22 +26,37 @@ module WindowBase =
 
 [<Extension>]
 type WindowBaseModifiers =
+    /// <summary>Sets the Topmost property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Topmost value.</param>
     [<Extension>]
     static member inline topmost(this: WidgetBuilder<'msg, #IFabWindowBase>, value: bool) =
         this.AddScalar(WindowBase.Topmost.WithValue(value))
 
+    /// <summary>Listens to the WindowBase Activated event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window is activated.</param>
     [<Extension>]
-    static member inline onActivated(this: WidgetBuilder<'msg, #IFabWindowBase>, onActivated: 'msg) =
-        this.AddScalar(WindowBase.Activated.WithValue(onActivated))
+    static member inline onActivated(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: 'msg) =
+        this.AddScalar(WindowBase.Activated.WithValue(fun _ -> fn |> box))
 
+    /// <summary>Listens to the WindowBase Deactivated event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window is deactivated.</param>
     [<Extension>]
-    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabWindowBase>, onDeactivated: 'msg) =
-        this.AddScalar(WindowBase.Deactivated.WithValue(onDeactivated))
+    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: 'msg) =
+        this.AddScalar(WindowBase.Deactivated.WithValue(fun _ -> fn |> box))
 
+    /// <summary>Listens to the WindowBase PositionChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window position is changed.</param>
     [<Extension>]
-    static member inline onPositionChanged(this: WidgetBuilder<'msg, #IFabWindowBase>, onPositionChanged: PixelPointEventArgs -> 'msg) =
-        this.AddScalar(WindowBase.PositionChanged.WithValue(fun args -> onPositionChanged args |> box))
+    static member inline onPositionChanged(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: PixelPointEventArgs -> 'msg) =
+        this.AddScalar(WindowBase.PositionChanged.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the WindowBase Resized event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the window is resized.</param>
     [<Extension>]
-    static member inline onResized(this: WidgetBuilder<'msg, #IFabWindowBase>, onResized: WindowResizedEventArgs -> 'msg) =
-        this.AddScalar(WindowBase.Resized.WithValue(fun args -> onResized args |> box))
+    static member inline onResized(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: WindowResizedEventArgs -> 'msg) =
+        this.AddScalar(WindowBase.Resized.WithValue(fun args -> fn args |> box))

@@ -15,36 +15,6 @@ type IFabContextMenu =
 module ContextMenu =
     let WidgetKey = Widgets.register<ContextMenu>()
 
-    let inline defineContextMenuEvent
-        name
-        ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
-        : SimpleScalarAttributeDefinition<CancelEventArgs -> obj> =
-        let key =
-            SimpleScalarAttributeDefinition.CreateAttributeData(
-                ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: (CancelEventArgs -> obj) voption) (node: IViewNode) ->
-                    let event = getEvent node.Target
-
-                    match node.TryGetHandler(name) with
-                    | ValueNone -> ()
-                    | ValueSome handler -> event.RemoveHandler handler
-
-                    match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
-
-                    | ValueSome fn ->
-                        let handler =
-                            CancelEventHandler(fun _ args ->
-                                let r = fn args
-                                Dispatcher.dispatch node r)
-
-                        node.SetHandler(name, ValueSome handler)
-                        event.AddHandler handler)
-            )
-            |> AttributeDefinitionStore.registerScalar
-
-        { Key = key; Name = name }
-
     let HorizontalOffset =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.HorizontalOffsetProperty
 
@@ -73,18 +43,21 @@ module ContextMenu =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
 
     let Opening =
-        defineContextMenuEvent "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
+        Attributes.defineCancelEvent "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
 
     let Closing =
-        defineContextMenuEvent "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
+        Attributes.defineCancelEvent "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
 
 [<AutoOpen>]
 module ContextMenuBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ContextMenu widget.</summary>
+        /// <param name="placement">The placement mode of the ContextMenu.</param>
         static member inline ContextMenu(placement: PlacementMode) =
             CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, ItemsControl.Items, ContextMenu.Placement.WithValue(placement))
 
+        /// <summary>Creates a ContextMenu widget.</summary>
         static member inline ContextMenu() =
             CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
                 ContextMenu.WidgetKey,
@@ -94,60 +67,93 @@ module ContextMenuBuilders =
 
 [<Extension>]
 type ContextMenuModifiers =
+    /// <summary>Sets the HorizontalOffset property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalOffset value.</param>
     [<Extension>]
     static member inline horizontalOffset(this: WidgetBuilder<'msg, #IFabContextMenu>, value: float) =
         this.AddScalar(ContextMenu.HorizontalOffset.WithValue(value))
 
+    /// <summary>Sets the VerticalOffset property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalOffset value.</param>
     [<Extension>]
     static member inline verticalOffset(this: WidgetBuilder<'msg, #IFabContextMenu>, value: float) =
         this.AddScalar(ContextMenu.VerticalOffset.WithValue(value))
 
+    /// <summary>Sets the PlacementConstraintAdjustment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlacementConstraintAdjustment value.</param>
     [<Extension>]
     static member inline placementConstraintAdjustment(this: WidgetBuilder<'msg, #IFabContextMenu>, value: PopupPositionerConstraintAdjustment) =
         this.AddScalar(ContextMenu.PlacementConstraintAdjustment.WithValue(value))
 
+    /// <summary>Sets the PlacementAnchor property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlacementAnchor value.</param>
     [<Extension>]
     static member inline placementAnchor(this: WidgetBuilder<'msg, #IFabContextMenu>, value: PopupAnchor) =
         this.AddScalar(ContextMenu.PlacementAnchor.WithValue(value))
 
+    /// <summary>Sets the PlacementGravity property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlacementGravity value.</param>
     [<Extension>]
     static member inline placementGravity(this: WidgetBuilder<'msg, #IFabContextMenu>, value: PopupGravity) =
         this.AddScalar(ContextMenu.PlacementGravity.WithValue(value))
 
+    /// <summary>Sets the PlacementRect property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlacementRect value.</param>
     [<Extension>]
     static member inline placementRect(this: WidgetBuilder<'msg, #IFabContextMenu>, value: Rect) =
         this.AddScalar(ContextMenu.PlacementRect.WithValue(value))
 
+    /// <summary>Sets the WindowManagerAddShadowHint property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The WindowManagerAddShadowHint value.</param>
     [<Extension>]
     static member inline windowManagerAddShadowHint(this: WidgetBuilder<'msg, #IFabContextMenu>, value: bool) =
         this.AddScalar(ContextMenu.WindowManagerAddShadowHint.WithValue(value))
 
+    /// <summary>Listens to the ContextMenu Opening event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Opening event fires.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, onOpening: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.Opening.WithValue(fun args -> onOpening args |> box))
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
+        this.AddScalar(ContextMenu.Opening.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the ContextMenu Closing event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Closing event fires.</param>
     [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, onClosing: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.Closing.WithValue(fun args -> onClosing args |> box))
+    static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
+        this.AddScalar(ContextMenu.Closing.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Sets the PlacementTarget property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlacementTarget value.</param>
     [<Extension>]
     static member inline placementTarget(this: WidgetBuilder<'msg, #IFabContextMenu>, value: ViewRef<#Control>) =
         match value.TryValue with
         | None -> this
         | Some value -> this.AddScalar(ContextMenu.PlacementTarget.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct ContextMenu control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct ContextMenu control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabContextMenu>, value: ViewRef<ContextMenu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type ContextMenuAttachedModifiers =
+    /// <summary>Sets the ContextMenu property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ContextMenu value.</param>
     [<Extension>]
-    static member inline contextMenu(this: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, IFabContextMenu>) =
-        this.AddWidget(Control.ContextMenu.WithValue(content.Compile()))
+    static member inline contextMenu(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, IFabContextMenu>) =
+        this.AddWidget(Control.ContextMenu.WithValue(value.Compile()))
 
 [<Extension>]
 type ContextMenuCollectionBuilderExtensions =

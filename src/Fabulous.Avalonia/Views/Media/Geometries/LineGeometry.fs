@@ -20,6 +20,9 @@ module LineGeometry =
 module LineGeometryBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a LineGeometry widget.</summary>
+        /// <param name="startPoint">The start point of the line.</param>
+        /// <param name="endPoint">The end point of the line.</param>
         static member LineGeometry(startPoint: Point, endPoint: Point) =
             WidgetBuilder<'msg, IFabLineGeometry>(
                 LineGeometry.WidgetKey,

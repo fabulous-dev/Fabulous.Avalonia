@@ -3,8 +3,8 @@ namespace Gallery.Pages
 open System
 open Avalonia.Animation
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Styling
-open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
@@ -25,7 +25,7 @@ type CustomStringAnimator() =
 module Animations3 =
     type Model = { Value: int }
 
-    type Msg = Loaded of bool
+    type Msg = Loaded of RoutedEventArgs
 
     let init () =
         Animation.RegisterCustomAnimator<string, CustomStringAnimator>()

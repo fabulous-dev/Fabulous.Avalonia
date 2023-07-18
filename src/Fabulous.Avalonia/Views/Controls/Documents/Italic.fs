@@ -14,17 +14,20 @@ module Italic =
 module ItalicBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Italic widget.</summary>
         static member private Italic<'msg>() =
             CollectionBuilder<'msg, IFabItalic, IFabInline>(Italic.WidgetKey, Span.Inlines)
 
+        /// <summary>Creates a Italic widget.</summary>
+        /// <param name="text">Text to display.</param>
         static member Italic<'msg>(text: string) =
-            Fabulous.Avalonia.View.Italic<'msg>() { View.Run<'msg>(text) }
+            View.Italic<'msg>() { View.Run<'msg>(text) }
 
 [<Extension>]
 type ItalicModifiers =
-    /// <summary>Link a ViewRef to access the direct Italic control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabItalic>, value: ViewRef<Italic>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

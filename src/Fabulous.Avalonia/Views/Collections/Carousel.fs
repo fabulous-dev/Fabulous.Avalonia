@@ -67,6 +67,9 @@ module Carousel =
 module CarouselBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Carousel widget.</summary>
+        /// <param name="items">The items to display.</param>
+        /// <param name="template">The template to use to render each item.</param>
         static member inline Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 items: seq<'itemData>,
@@ -77,17 +80,23 @@ module CarouselBuilders =
 [<Extension>]
 type CarouselModifiers =
 
+    /// <summary>Sets the PageTransition property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PageTransition value.</param>
     [<Extension>]
     static member inline transition(this: WidgetBuilder<'msg, #IFabCarousel>, value: IPageTransition) =
         this.AddScalar(Carousel.PageTransition.WithValue(value))
 
+    /// <summary>Sets the Controller property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Controller value.</param>
     [<Extension>]
     static member inline controller(this: WidgetBuilder<'msg, #IFabCarousel>, value: CarouselController) =
         this.AddScalar(Carousel.Controller.WithValue(Some value))
 
-    /// <summary>Link a ViewRef to access the direct Carousel control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Carousel control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabCarousel>, value: ViewRef<Carousel>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -4,7 +4,7 @@ open Gallery.Root.Types
 
 module View =
     let view (model: Model) =
-#if MOBILE || BROWSER
+#if MOBILE
         MainView.view model
 #else
         MainWindow.view model

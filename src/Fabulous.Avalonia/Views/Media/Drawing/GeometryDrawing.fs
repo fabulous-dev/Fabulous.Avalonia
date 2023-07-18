@@ -30,6 +30,9 @@ module GeometryDrawing =
 module GeometryDrawingBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: WidgetBuilder<'msg, #IFabBrush>) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -42,6 +45,9 @@ module GeometryDrawingBuilders =
                 )
             )
 
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: string, brush: WidgetBuilder<'msg, #IFabBrush>) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -52,6 +58,9 @@ module GeometryDrawingBuilders =
                 )
             )
 
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: string, brush: string) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -65,6 +74,9 @@ module GeometryDrawingBuilders =
                 )
             )
 
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: string) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -75,6 +87,9 @@ module GeometryDrawingBuilders =
                 )
             )
 
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: IBrush) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -85,6 +100,9 @@ module GeometryDrawingBuilders =
                 )
             )
 
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: string, brush: IBrush) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -98,6 +116,9 @@ module GeometryDrawingBuilders =
 [<Extension>]
 type GeometryDrawingModifiers =
 
+    /// <summary>Sets the Pen property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Pen value.</param>
     [<Extension>]
-    static member inline pen(this: WidgetBuilder<'msg, #IFabGeometryDrawing>, content: WidgetBuilder<'msg, #IFabPen>) =
-        this.AddWidget(GeometryDrawing.Pen.WithValue(content.Compile()))
+    static member inline pen(this: WidgetBuilder<'msg, #IFabGeometryDrawing>, value: WidgetBuilder<'msg, #IFabPen>) =
+        this.AddWidget(GeometryDrawing.Pen.WithValue(value.Compile()))

@@ -45,41 +45,64 @@ module KeyFrameBuilders =
 
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a KeyFrame widget.</summary>
+        /// <param name="setters">The animation setters to apply.</param>
         static member KeyFrames(setters: IAnimationSetter seq) =
             WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setters.WithValue(setters))
 
+        /// <summary>Creates a KeyFrame widget.</summary>
+        /// <param name="property">The property to animate.</param>
+        /// <param name="value">The value to animate to.</param>
         static member KeyFrame(property: AvaloniaProperty, value: obj) =
             WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setter.WithValue(Setter(property, value)))
 
 [<Extension>]
 type KeyFrameModifiers =
+    /// <summary>Sets the Cue property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Cue value.</param>
     [<Extension>]
     static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: Cue) =
         this.AddScalar(KeyFrame.Cue.WithValue(value))
 
+    /// <summary>Sets the Cue property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Cue value.</param>
     [<Extension>]
     static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: float) =
         this.AddScalar(KeyFrame.Cue.WithValue(Cue(value)))
 
+    /// <summary>Sets the Cue property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Cue value.</param>
     [<Extension>]
-    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, clock: string) =
-        this.AddScalar(KeyFrame.Cue.WithValue(Cue.Parse(clock, CultureInfo.InvariantCulture)))
+    static member inline cue(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: string) =
+        this.AddScalar(KeyFrame.Cue.WithValue(Cue.Parse(value, CultureInfo.InvariantCulture)))
 
+    /// <summary>Sets the KeySpline property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The KeySpline value.</param>
     [<Extension>]
-    static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, spline: KeySpline) =
-        this.AddScalar(KeyFrame.KeySpline.WithValue(spline))
+    static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: KeySpline) =
+        this.AddScalar(KeyFrame.KeySpline.WithValue(value))
 
+    /// <summary>Sets the KeySpline property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The KeySpline value.</param>
     [<Extension>]
-    static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, spline: string) =
-        this.AddScalar(KeyFrame.KeySpline.WithValue(KeySpline.Parse(spline, CultureInfo.InvariantCulture)))
+    static member inline keySpline(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: string) =
+        this.AddScalar(KeyFrame.KeySpline.WithValue(KeySpline.Parse(value, CultureInfo.InvariantCulture)))
 
+    /// <summary>Sets the KeyTime property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The KeyTime value.</param>
     [<Extension>]
-    static member inline keyTime(this: WidgetBuilder<'msg, #IFabKeyFrame>, time: TimeSpan) =
-        this.AddScalar(KeyFrame.KeyTime.WithValue(time))
+    static member inline keyTime(this: WidgetBuilder<'msg, #IFabKeyFrame>, value: TimeSpan) =
+        this.AddScalar(KeyFrame.KeyTime.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct KeyFrame control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct KeyFrame control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabKeyFrame>, value: ViewRef<KeyFrame>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

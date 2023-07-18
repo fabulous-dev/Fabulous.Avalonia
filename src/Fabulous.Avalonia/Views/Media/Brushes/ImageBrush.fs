@@ -16,5 +16,7 @@ module ImageBrush =
 module ImageBrushBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ImageBrush widget.</summary>
+        /// <param name="source">The image source.</param>
         static member ImageBrush<'msg>(source: Bitmap) =
             WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(source))

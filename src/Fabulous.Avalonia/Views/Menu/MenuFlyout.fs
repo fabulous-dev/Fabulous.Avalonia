@@ -17,24 +17,25 @@ module MenuFlyout =
             let target = target :?> MenuFlyout
 
             if target.ItemsSource = null then
-                let newColl = List<Control>()
+                let newColl = List<_>()
                 target.ItemsSource <- newColl
                 newColl
             else
-                target.ItemsSource :?> IList<Control>)
+                target.ItemsSource :?> IList<_>)
 
 [<AutoOpen>]
 module MenuFlyoutBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a MenuFlyout widget.</summary>
         static member inline MenuFlyout() =
             CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.ItemsSource)
 
 [<Extension>]
 type MenuFlyoutModifiers =
-    /// <summary>Link a ViewRef to access the direct MenuFlyout control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct MenuFlyout control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMenuFlyout>, value: ViewRef<MenuFlyout>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

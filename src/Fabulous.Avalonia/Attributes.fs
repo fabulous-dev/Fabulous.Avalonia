@@ -2,10 +2,9 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Collections
-open System.Threading
+open System.ComponentModel
 open Avalonia
 open Avalonia.Collections
-open Avalonia.Input
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
@@ -113,7 +112,7 @@ module Attributes =
             for diff in diffs do
                 match diff with
                 | WidgetCollectionItemChange.Remove(index, widget) ->
-                    let itemNode = node.TreeContext.GetViewNode(targetColl.[index])
+                    let itemNode = node.TreeContext.GetViewNode(targetColl[index])
 
                     // Trigger the unmounted event
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
@@ -136,12 +135,12 @@ module Attributes =
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
-                    let childNode = node.TreeContext.GetViewNode(targetColl.[index])
+                    let childNode = node.TreeContext.GetViewNode(targetColl[index])
 
                     childNode.ApplyDiff(&widgetDiff)
 
                 | WidgetCollectionItemChange.Replace(index, oldWidget, newWidget) ->
-                    let prevItemNode = node.TreeContext.GetViewNode(targetColl.[index])
+                    let prevItemNode = node.TreeContext.GetViewNode(targetColl[index])
 
                     let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
@@ -150,7 +149,7 @@ module Attributes =
                     prevItemNode.Disconnect()
 
                     // Replace the existing child in the UI tree at the index with the new one
-                    targetColl.[index] <- view
+                    targetColl[index] <- view
 
                     // Trigger the mounted event for the new child
                     Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
@@ -179,7 +178,7 @@ module Attributes =
             for diff in diffs do
                 match diff with
                 | WidgetCollectionItemChange.Remove(index, widget) ->
-                    let itemNode = node.TreeContext.GetViewNode(box targetColl.[index])
+                    let itemNode = node.TreeContext.GetViewNode(box targetColl[index])
 
                     // Trigger the unmounted event
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
@@ -202,12 +201,12 @@ module Attributes =
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
-                    let childNode = node.TreeContext.GetViewNode(box targetColl.[index])
+                    let childNode = node.TreeContext.GetViewNode(box targetColl[index])
 
                     childNode.ApplyDiff(&widgetDiff)
 
                 | WidgetCollectionItemChange.Replace(index, oldWidget, newWidget) ->
-                    let prevItemNode = node.TreeContext.GetViewNode(box targetColl.[index])
+                    let prevItemNode = node.TreeContext.GetViewNode(box targetColl[index])
 
                     let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
@@ -216,7 +215,7 @@ module Attributes =
                     prevItemNode.Disconnect()
 
                     // Replace the existing child in the UI tree at the index with the new one
-                    targetColl.[index] <- unbox view
+                    targetColl[index] <- unbox view
 
                     // Trigger the mounted event for the new child
                     Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
@@ -323,6 +322,36 @@ module Attributes =
                                 Dispatcher.dispatch node r)
 
                         node.SetHandler(name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+
+    let inline defineCancelEvent
+        name
+        ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
+        : SimpleScalarAttributeDefinition<CancelEventArgs -> obj> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: (CancelEventArgs -> obj) voption) (node: IViewNode) ->
+                    let event = getEvent node.Target
+
+                    match node.TryGetHandler(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> event.RemoveHandler handler
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let handler =
+                            CancelEventHandler(fun _ args ->
+                                let r = fn args
+                                Dispatcher.dispatch node r)
+
+                        node.SetHandler(name, ValueSome handler)
+                        event.AddHandler handler)
             )
             |> AttributeDefinitionStore.registerScalar
 

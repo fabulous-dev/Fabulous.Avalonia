@@ -127,50 +127,66 @@ module Application =
 module ApplicationBuilders =
     type Fabulous.Avalonia.View with
 
-        static member DesktopApplication(mainWindow: WidgetBuilder<'msg, #IFabWindow>) =
+        /// <summary> Creates a DesktopApplication widget with a content widget.</summary>
+        /// <param name="window">The main Window of the Application.</param>
+        static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(mainWindow.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone)
             )
 
-        static member SingleViewApplication(mainView: WidgetBuilder<'msg, #IFabControl>) =
+        /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
+        /// <param name="view">The main View of the Application.</param>
+        static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(mainView.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone)
             )
 
 [<Extension>]
 type ApplicationModifiers =
+    /// <summary>Sets the application name.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Application name to be used for various platform-specific purposes.</param>
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
         this.AddScalar(Application.Name.WithValue(value))
 
+    /// <summary>Sets the application theme variant.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Theme variant to be used for the application.</param>
+    /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
     static member inline themeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
         this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value (fun args -> fn args |> box)))
 
+    /// <summary>Listens to the application theme variant changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ThemeVariant -> 'msg) =
         this.AddScalar(Application.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
 
+    /// <summary>Listens to the application resources changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the resources change.</param>
     [<Extension>]
-    static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, onResourcesChanged: ResourcesChangedEventArgs -> 'msg) =
-        this.AddScalar(Application.ResourcesChanged.WithValue(fun target -> onResourcesChanged target |> box))
+    static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ResourcesChangedEventArgs -> 'msg) =
+        this.AddScalar(Application.ResourcesChanged.WithValue(fun target -> fn target |> box))
 
+    /// <summary>Listens to the application urls opened event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the application receives urls to open.</param>
     [<Extension>]
-    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, onUrlsOpened: UrlOpenedEventArgs -> 'msg) =
-        this.AddScalar(Application.UrlsOpened.WithValue(fun target -> onUrlsOpened target |> box))
+    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
+        this.AddScalar(Application.UrlsOpened.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct CheckBox control instance</summary>
+    /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-    [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, Application.TrayIcons)
 
 [<Extension>]
 type ApplicationYieldExtensions =
@@ -187,7 +203,16 @@ type ApplicationYieldExtensions =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 [<Extension>]
-type ApplicationAttachedModifiers =
+type TrayIconAttachedModifiers =
+    /// <summary>Sets the tray icons for the application.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, Application.TrayIcons)
+
+    /// <summary>Sets the tray icon for the application.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="trayIcon">The TrayIcon value</param>
     [<Extension>]
     static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
         AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>(this, Application.TrayIcons) { trayIcon }

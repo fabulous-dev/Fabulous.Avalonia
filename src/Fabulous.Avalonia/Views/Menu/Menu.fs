@@ -15,14 +15,15 @@ module Menu =
 module MenuBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Menu widget.</summary>
         static member inline Menu() =
             CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ItemsControl.Items)
 
 [<Extension>]
 type MenuModifiers =
-    /// <summary>Link a ViewRef to access the direct Menu control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMenu>, value: ViewRef<Menu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

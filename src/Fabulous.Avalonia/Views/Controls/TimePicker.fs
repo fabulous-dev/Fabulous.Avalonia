@@ -24,32 +24,44 @@ module TimePicker =
 module TimePickerBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline TimePicker(time: TimeSpan, onValueChanged: TimeSpan -> 'msg) =
+        /// <summary>Creates a TimePicker widget.</summary>
+        /// <param name="time">The initial time.</param>
+        /// <param name="fn">Raised when the selected time changes.</param>
+        static member inline TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
             WidgetBuilder<'msg, IFabTimePicker>(
                 TimePicker.WidgetKey,
-                TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time (fun args -> onValueChanged args |> box))
+                TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time (fun args -> fn args |> box))
             )
 
 [<Extension>]
 type TimePickerModifiers =
 
+    /// <summary>Sets the ClockIdentifier property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ClockIdentifier value.</param>
     [<Extension>]
     static member inline clockIdentifier(this: WidgetBuilder<'msg, #IFabTimePicker>, value: string) =
         this.AddScalar(TimePicker.ClockIdentifier.WithValue(value))
 
+    /// <summary>Sets the MinuteIncrement property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The MinuteIncrement value.</param>
     [<Extension>]
     static member inline minuteIncrement(this: WidgetBuilder<'msg, #IFabTimePicker>, value: int) =
         this.AddScalar(TimePicker.MinuteIncrement.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct TimePicker control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct TimePicker control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTimePicker>, value: ViewRef<TimePicker>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type TimePickerExtraModifiers =
+    /// <summary>Sets the ClockIdentifier property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ClockIdentifier value.</param>
     [<Extension>]
     static member inline use24HourClock(this: WidgetBuilder<'msg, #IFabTimePicker>, value: bool) =
         this.AddScalar(TimePicker.ClockIdentifier.WithValue(if value then "24HourClock" else "12HourClock"))

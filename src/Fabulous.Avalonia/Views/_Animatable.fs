@@ -56,10 +56,15 @@ type AnimatableCollectionBuilderExtensions =
 
 [<Extension>]
 type AnimatableCollectionModifiers =
+    /// <summary>Sets the Transitions property.</summary>
+    /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline transitions(this: WidgetBuilder<'msg, #IFabAnimatable>) =
         AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions)
 
+    /// <summary>Sets the Transition property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Transition value.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, transition: WidgetBuilder<'msg, #IFabTransition>) =
-        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions) { transition }
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabTransition>) =
+        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions) { value }

@@ -23,6 +23,8 @@ module RefreshVisualizer =
 module RefreshVisualizerBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a RefreshVisualizer widget.</summary>
+        /// <param name="content">The content of the RefreshVisualizer.</param>
         static member RefreshVisualizer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRefreshVisualizer>(
                 RefreshVisualizer.WidgetKey,
@@ -31,17 +33,23 @@ module RefreshVisualizerBuilders =
 
 [<Extension>]
 type RefreshVisualizerModifiers =
+    /// <summary>Sets the Orientation property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Orientation value.</param>
     [<Extension>]
     static member inline orientation(this: WidgetBuilder<'msg, #IFabRefreshVisualizer>, value: RefreshVisualizerOrientation) =
         this.AddScalar(RefreshVisualizer.Orientation.WithValue(value))
 
+    /// <summary>Listens the RefreshVisualizer RefreshRequested event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the RefreshRequested event is fired.</param>
     [<Extension>]
-    static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFabRefreshVisualizer>, onRefreshRequested: RefreshRequestedEventArgs -> 'msg) =
-        this.AddScalar(RefreshVisualizer.RefreshRequested.WithValue(fun args -> onRefreshRequested args |> box))
+    static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFabRefreshVisualizer>, fn: RefreshRequestedEventArgs -> 'msg) =
+        this.AddScalar(RefreshVisualizer.RefreshRequested.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct RefreshContainer control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct RefreshContainer control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabRefreshVisualizer>, value: ViewRef<RefreshVisualizer>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

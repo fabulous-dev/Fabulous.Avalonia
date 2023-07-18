@@ -16,6 +16,8 @@ module DrawingBrush =
 module DrawingBrushBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a DrawingBrush widget.</summary>
+        /// <param name="source">The source drawing.</param>
         static member DrawingBrush(source: WidgetBuilder<'msg, #IFabDrawing>) =
             WidgetBuilder<'msg, IFabDrawingBrush>(
                 DrawingBrush.WidgetKey,

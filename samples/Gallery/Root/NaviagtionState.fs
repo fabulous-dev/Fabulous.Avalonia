@@ -36,7 +36,6 @@ type SubpageModel =
     | FlyoutPageModel of FlyoutPage.Model
     | GesturesPageModel of GesturesPage.Model
     | GeometriesPageModel of GeometriesPage.Model
-    | GlyphRunControlPageModel of GlyphRunControlPage.Model
     | GridPageModel of GridPage.Model
     | GridSplitterPageModel of GridSplitterPage.Model
     | ImagePageModel of ImagePage.Model
@@ -111,7 +110,6 @@ type SubpageMsg =
     | FlyoutPageMsg of FlyoutPage.Msg
     | GesturesPageMsg of GesturesPage.Msg
     | GeometriesPageMsg of GeometriesPage.Msg
-    | GlyphRunControlPageMsg of GlyphRunControlPage.Msg
     | GridPageMsg of GridPage.Msg
     | GridSplitterPageMsg of GridSplitterPage.Msg
     | ImagePageMsg of ImagePage.Msg
@@ -186,7 +184,6 @@ type SubpageCmdMsg =
     | FlyoutPageCmdMsgs of FlyoutPage.CmdMsg list
     | GesturesPageCmdMsgs of GesturesPage.CmdMsg list
     | GeometriesPageCmdMsgs of GeometriesPage.CmdMsg list
-    | GlyphRunControlPageCmdMsgs of GlyphRunControlPage.CmdMsg list
     | GridPageCmdMsgs of GridPage.CmdMsg list
     | GridSplitterPageCmdMsgs of GridSplitterPage.CmdMsg list
     | ImagePageCmdMsgs of ImagePage.CmdMsg list
@@ -277,7 +274,6 @@ module NavigationState =
             | FlyoutPageCmdMsgs subCmdMsgs -> map FlyoutPage.mapCmdMsgToCmd FlyoutPageMsg subCmdMsgs
             | GesturesPageCmdMsgs subCmdMsgs -> map GesturesPage.mapCmdMsgToCmd GesturesPageMsg subCmdMsgs
             | GeometriesPageCmdMsgs subCmdMsgs -> map GeometriesPage.mapCmdMsgToCmd GeometriesPageMsg subCmdMsgs
-            | GlyphRunControlPageCmdMsgs subCmdMsgs -> map GlyphRunControlPage.mapCmdMsgToCmd GlyphRunControlPageMsg subCmdMsgs
             | GridPageCmdMsgs subCmdMsgs -> map GridPage.mapCmdMsgToCmd GridPageMsg subCmdMsgs
             | GridSplitterPageCmdMsgs subCmdMsgs -> map GridSplitterPage.mapCmdMsgToCmd GridSplitterPageMsg subCmdMsgs
             | ImagePageCmdMsgs subCmdMsgs -> map ImagePage.mapCmdMsgToCmd ImagePageMsg subCmdMsgs
@@ -423,9 +419,6 @@ module NavigationState =
         | NavigationRoute.GeometriesPage ->
             let m, c = GeometriesPage.init()
             GeometriesPageModel m, [ GeometriesPageCmdMsgs c ]
-        | NavigationRoute.GlyphRunControlPage ->
-            let m, c = GlyphRunControlPage.init()
-            GlyphRunControlPageModel m, [ GlyphRunControlPageCmdMsgs c ]
         | NavigationRoute.GridPage ->
             let m, c = GridPage.init()
             GridPageModel m, [ GridPageCmdMsgs c ]
@@ -675,10 +668,6 @@ module NavigationState =
                 let m, c = GeometriesPage.update subMsg m
                 GeometriesPageModel m, [ GeometriesPageCmdMsgs c ]
 
-            | GlyphRunControlPageMsg subMsg, GlyphRunControlPageModel m ->
-                let m, c = GlyphRunControlPage.update subMsg m
-                GlyphRunControlPageModel m, [ GlyphRunControlPageCmdMsgs c ]
-
             | GridPageMsg subMsg, GridPageModel m ->
                 let m, c = GridPage.update subMsg m
                 GridPageModel m, [ GridPageCmdMsgs c ]
@@ -889,7 +878,6 @@ module NavigationState =
         | FlyoutPageModel m -> map FlyoutPage.view FlyoutPageMsg m
         | GesturesPageModel m -> map GesturesPage.view GesturesPageMsg m
         | GeometriesPageModel m -> map GeometriesPage.view GeometriesPageMsg m
-        | GlyphRunControlPageModel m -> map GlyphRunControlPage.view GlyphRunControlPageMsg m
         | GridPageModel m -> map GridPage.view GridPageMsg m
         | GridSplitterPageModel m -> map GridSplitterPage.view GridSplitterPageMsg m
         | ImagePageModel m -> map ImagePage.view ImagePageMsg m

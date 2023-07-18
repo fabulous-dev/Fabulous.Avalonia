@@ -88,7 +88,10 @@ module NumericUpDown =
 module NumericUpDownBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline NumericUpDown<'msg>(value: float option, valueChanged: float option -> 'msg) =
+        /// <summary>Creates a NumericUpDown widget.</summary>
+        /// <param name="value">The value of the NumericUpDown.</param>
+        /// <param name="fn">Raised when the NumericUpDown value changes.</param>
+        static member inline NumericUpDown<'msg>(value: float option, fn: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.ValueChanged.WithValue(
@@ -103,11 +106,16 @@ module NumericUpDownBuilders =
                             | Some v -> Some(float v)
                             | None -> None
 
-                        valueChanged args |> box)
+                        fn args |> box)
                 )
             )
 
-        static member inline NumericUpDown<'msg>(min: float, max: float, value: float option, valueChanged: float option -> 'msg) =
+        /// <summary>Creates a NumericUpDown widget.</summary>
+        /// <param name="min">The minimum value of the NumericUpDown.</param>
+        /// <param name="max">The maximum value of the NumericUpDown.</param>
+        /// <param name="value">The value of the NumericUpDown.</param>
+        /// <param name="fn">Raised when the NumericUpDown value changes.</param>
+        static member inline NumericUpDown<'msg>(min: float, max: float, value: float option, fn: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.MinimumMaximum.WithValue(decimal min, decimal max),
@@ -123,72 +131,114 @@ module NumericUpDownBuilders =
                             | Some v -> Some(float v)
                             | None -> None
 
-                        valueChanged args |> box)
+                        fn args |> box)
                 )
             )
 
 [<Extension>]
 type NumericUpDownModifiers =
 
+    /// <summary>Sets the AllowSpin property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The AllowSpin value.</param>
     [<Extension>]
     static member inline allowSpin(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
         this.AddScalar(NumericUpDown.AllowSpin.WithValue(value))
 
+    /// <summary>Sets the ButtonSpinnerLocation property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ButtonSpinnerLocation value.</param>
     [<Extension>]
     static member inline buttonSpinnerLocation(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: Location) =
         this.AddScalar(NumericUpDown.ButtonSpinnerLocation.WithValue(value))
 
+    /// <summary>Sets the ClipValueToMinMax property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ClipValueToMinMax value.</param>
     [<Extension>]
     static member inline clipValueToMinMax(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
         this.AddScalar(NumericUpDown.ClipValueToMinMax.WithValue(value))
 
+    /// <summary>Sets the FormatString property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The FormatString value.</param>
     [<Extension>]
     static member inline formatString(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
         this.AddScalar(NumericUpDown.FormatString.WithValue(value))
 
+    /// <summary>Sets the HorizontalContentAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalContentAlignment value.</param>
     [<Extension>]
     static member inline horizontalContentAlignment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: HorizontalAlignment) =
         this.AddScalar(NumericUpDown.HorizontalContentAlignment.WithValue(value))
 
+    /// <summary>Sets the VerticalContentAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalContentAlignment value.</param>
     [<Extension>]
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: VerticalAlignment) =
         this.AddScalar(NumericUpDown.VerticalContentAlignment.WithValue(value))
 
+    /// <summary>Sets the Increment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Increment value.</param>
     [<Extension>]
     static member inline increment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: float) =
         this.AddScalar(NumericUpDown.Increment.WithValue(decimal value))
 
+    /// <summary>Sets the IsReadOnly property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsReadOnly value.</param>
     [<Extension>]
     static member inline isReadOnly(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
         this.AddScalar(NumericUpDown.IsReadOnly.WithValue(value))
 
+    /// <summary>Sets the NumberFormat property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The NumberFormat value.</param>
     [<Extension>]
     static member inline numberFormat(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: NumberFormatInfo) =
         this.AddScalar(NumericUpDown.NumberFormat.WithValue(value))
 
+    /// <summary>Sets the ParsingNumberStyle property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ParsingNumberStyle value.</param>
     [<Extension>]
     static member inline parsingNumberStyle(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: NumberStyles) =
         this.AddScalar(NumericUpDown.ParsingNumberStyle.WithValue(value))
 
+    /// <summary>Sets the ShowButtonSpinner property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowButtonSpinner value.</param>
     [<Extension>]
     static member inline showButtonSpinner(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: bool) =
         this.AddScalar(NumericUpDown.ShowButtonSpinner.WithValue(value))
 
+    /// <summary>Sets the Text property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Text value.</param>
     [<Extension>]
     static member inline text(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
         this.AddScalar(NumericUpDown.Text.WithValue(value))
 
+    /// <summary>Sets the TextConverter property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TextConverter value.</param>
     [<Extension>]
     static member inline textConverter(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: IValueConverter) =
         this.AddScalar(NumericUpDown.TextConverter.WithValue(value))
 
+    /// <summary>Sets the Watermark property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Watermark value.</param>
     [<Extension>]
     static member inline watermark(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
         this.AddScalar(NumericUpDown.Watermark.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct NumericUpDown control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct NumericUpDown control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabNumericUpDown>, value: ViewRef<NumericUpDown>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

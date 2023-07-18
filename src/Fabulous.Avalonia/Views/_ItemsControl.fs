@@ -62,18 +62,23 @@ module ItemsControlBuilders =
 
 [<Extension>]
 type ItemsControlModifiers =
+    /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
-    static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, onContainerClearing: ContainerClearingEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerClearing.WithValue(fun args -> onContainerClearing args |> box))
+    static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerClearingEventArgs -> 'msg) =
+        this.AddScalar(ItemsControl.ContainerClearing.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the ItemsControl ContainerIndexChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the index for the item it represents has changed.</param>
     [<Extension>]
-    static member inline onContainerIndexChanged
-        (
-            this: WidgetBuilder<'msg, #IFabItemsControl>,
-            onContainerIndexChanged: ContainerIndexChangedEventArgs -> 'msg
-        ) =
-        this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fun args -> onContainerIndexChanged args |> box))
+    static member inline onContainerIndexChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerIndexChangedEventArgs -> 'msg) =
+        this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the ItemsControl ContainerPrepared event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when a container is prepared for use.</param>
     [<Extension>]
-    static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, onContainerPrepared: ContainerPreparedEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fun args -> onContainerPrepared args |> box))
+    static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> 'msg) =
+        this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fun args -> fn args |> box))

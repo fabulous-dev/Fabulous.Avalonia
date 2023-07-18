@@ -21,10 +21,16 @@ module GradientStop =
 module GradientStopBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline GradientStop(offset: float, color: Color) =
+        /// <summary>Creates a GradientStop widget.</summary>
+        /// <param name="color">The color of the gradient stop.</param>
+        /// <param name="offset">The offset of the gradient stop.</param>
+        static member inline GradientStop(color: Color, offset: float) =
             WidgetBuilder<'msg, IFabGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(color), GradientStop.Offset.WithValue(offset))
 
-        static member inline GradientStop(offset: float, color: string) =
+        /// <summary>Creates a GradientStop widget.</summary>
+        /// <param name="color">The color of the gradient stop.</param>
+        /// <param name="offset">The offset of the gradient stop.</param>
+        static member inline GradientStop(color: string, offset: float) =
             WidgetBuilder<'msg, IFabGradientStop>(
                 GradientStop.WidgetKey,
                 GradientStop.Color.WithValue(Color.Parse(color)),

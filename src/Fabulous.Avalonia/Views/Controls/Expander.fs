@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -34,6 +35,9 @@ module Expander =
 module ExpanderBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: string, content: string) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -41,6 +45,9 @@ module ExpanderBuilders =
                 ContentControl.ContentString.WithValue(content)
             )
 
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: WidgetBuilder<'msg, #IFabControl>, content: string) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -51,6 +58,9 @@ module ExpanderBuilders =
                 )
             )
 
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -61,6 +71,9 @@ module ExpanderBuilders =
                 )
             )
 
+        /// <summary>Creates a Expander widget.</summary>
+        /// <param name="header">The header of the expander.</param>
+        /// <param name="content">The content of the expander.</param>
         static member Expander(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabExpander>(
                 Expander.WidgetKey,
@@ -73,36 +86,54 @@ module ExpanderBuilders =
                 )
             )
 
-
 [<Extension>]
 type ExpanderModifiers =
+    /// <summary>Sets the ContentTransition property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ContentTransition value.</param>
     [<Extension>]
     static member inline contentTransition(this: WidgetBuilder<'msg, #IFabExpander>, value: IPageTransition) =
         this.AddScalar(Expander.ContentTransition.WithValue(value))
 
+    /// <summary>Sets the ExpandDirection property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ExpandDirection value.</param>
     [<Extension>]
     static member inline expandDirection(this: WidgetBuilder<'msg, #IFabExpander>, value: ExpandDirection) =
         this.AddScalar(Expander.ExpandDirection.WithValue(value))
 
+    /// <summary>Sets the IsExpanded property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsExpanded value.</param>
     [<Extension>]
     static member inline isExpanded(this: WidgetBuilder<'msg, #IFabExpander>, value: bool) =
         this.AddScalar(Expander.IsExpanded.WithValue(value))
 
+    /// <summary>Listens to the Expander ExpandedChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="isExpanded">The IsExpanded value.</param>
+    /// <param name="fn">Raised when the ExpandedChanged event fires.</param>
     [<Extension>]
-    static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, onExpanded: bool -> 'msg) =
-        this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> onExpanded arg |> box)))
+    static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, fn: bool -> 'msg) =
+        this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> fn arg |> box)))
 
+    /// <summary>Listens to the Expander Collapsing event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Collapsing event fires.</param>
     [<Extension>]
-    static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabExpander>, onCollapsing: 'msg) =
-        this.AddScalar(Expander.Collapsing.WithValue(fun _ -> onCollapsing |> box))
+    static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabExpander>, fn: CancelRoutedEventArgs -> 'msg) =
+        this.AddScalar(Expander.Collapsing.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the Expander Expanding event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the Expanding event fires.</param>
     [<Extension>]
-    static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, onExpanding: 'msg) =
-        this.AddScalar(Expander.Expanding.WithValue(fun _ -> onExpanding |> box))
+    static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, fn: CancelRoutedEventArgs -> 'msg) =
+        this.AddScalar(Expander.Expanding.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct Expander control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct Expander control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabExpander>, value: ViewRef<Expander>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

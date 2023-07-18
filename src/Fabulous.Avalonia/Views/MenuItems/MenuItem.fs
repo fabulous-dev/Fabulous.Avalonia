@@ -47,103 +47,148 @@ module MenuItem =
 module MenuItemBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a MenuItem widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
         static member inline MenuItem(header: string) =
             WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header))
 
+        /// <summary>Creates a MenuItem widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItem(header: string, onClick: 'msg) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> box onClick)
+                MenuItem.Clicked.WithValue(fun _ -> onClick |> box)
             )
 
+        /// <summary>Creates a MenuItem widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
             )
 
+        /// <summary>Creates a MenuItem widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>, onClick: 'msg) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)),
+                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> onClick |> box)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
             )
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
         static member inline MenuItems(header: string) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
         static member inline MenuItems'(header: string) =
             CollectionBuilder<'msg, IFabMenuItem, IFabControl>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItems(header: string, onClick: 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> box onClick)
+                MenuItem.Clicked.WithValue(fun _ -> onClick |> box)
             )
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>) =
             WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
                 MenuItem.WidgetKey
                 (StackList.empty())
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>, onClick: 'msg) =
             WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
                 MenuItem.WidgetKey
-                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)))
+                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> onClick |> box)))
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
 [<Extension>]
 type MenuItemModifiers =
+    /// <summary>Sets the HotKey property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HotKey value.</param>
     [<Extension>]
     static member inline hotKey(this: WidgetBuilder<'msg, #IFabMenuItem>, value: KeyGesture) =
         this.AddScalar(MenuItem.HotKey.WithValue(value))
 
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
     [<Extension>]
-    static member inline icon(this: WidgetBuilder<'msg, #IFabMenuItem>, content: WidgetBuilder<'msg, #IFabControl>) =
-        this.AddWidget(MenuItem.Icon.WithValue(content.Compile()))
+    static member inline icon(this: WidgetBuilder<'msg, #IFabMenuItem>, value: WidgetBuilder<'msg, #IFabControl>) =
+        this.AddWidget(MenuItem.Icon.WithValue(value.Compile()))
 
+    /// <summary>Sets the InputGesture property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The InputGesture value.</param>
     [<Extension>]
     static member inline inputGesture(this: WidgetBuilder<'msg, #IFabMenuItem>, value: KeyGesture) =
         this.AddScalar(MenuItem.InputGesture.WithValue(value))
 
+    /// <summary>Sets the IsSelected property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSelected value.</param>
     [<Extension>]
     static member inline isSelected(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.IsSelected.WithValue(value))
 
+    /// <summary>Sets the IsSubmenuOpen property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSubmenuOpen value.</param>
     [<Extension>]
     static member inline isSubMenuOpen(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.IsSubMenuOpen.WithValue(value))
 
+    /// <summary>Sets the StaysOpenOnClick property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The StaysOpenOnClick value.</param>
     [<Extension>]
     static member inline staysOpenOnClick(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.StaysOpenOnClick.WithValue(value))
 
+    /// <summary>Listens to the MenuItem PointerEnteredItem event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the PointerEnteredItem event is fired.</param>
     [<Extension>]
-    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerEnteredItem: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fun args -> onPointerEnteredItem args |> box))
+    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the MenuItem PointerExitedItem event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the PointerExitedItem event is fired.</param>
     [<Extension>]
-    static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMenuItem>, onPointerExitedItem: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuItem.PointerExitedItem.WithValue(fun args -> onPointerExitedItem args |> box))
+    static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuItem.PointerExitedItem.WithValue(fun args -> fn args |> box))
 
+    /// <summary>Listens to the MenuItem SubmenuClosed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the SubmenuClosed event is fired.</param>
     [<Extension>]
-    static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, onSubmenuOpened: bool -> 'msg) =
-        this.AddScalar(
-            MenuItem.SubmenuOpened.WithValue(fun args ->
-                let control = args.Source :?> MenuItem
-                onSubmenuOpened control.IsSubMenuOpen |> box)
-        )
+    static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
+        this.AddScalar(MenuItem.SubmenuOpened.WithValue(fun args -> fn args |> box))
 
-    /// <summary>Link a ViewRef to access the direct MenuItem control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMenuItem>, value: ViewRef<MenuItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

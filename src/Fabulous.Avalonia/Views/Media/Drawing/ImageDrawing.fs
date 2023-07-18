@@ -23,9 +23,15 @@ module ImageDrawing =
 module ImageDrawingBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ImageDrawing widget.</summary>
+        /// <param name="source">The source of the image.</param>
+        /// <param name="rect">The rectangle to draw the image in.</param>
         static member ImageDrawing(source: IImage, rect: Rect) =
             WidgetBuilder<'msg, IFabImageDrawing>(ImageDrawing.WidgetKey, ImageDrawing.ImageSource.WithValue(source), ImageDrawing.Rect.WithValue(rect))
 
+        /// <summary>Creates a ImageDrawing widget.</summary>
+        /// <param name="source">The source of the image.</param>
+        /// <param name="rect">The rectangle to draw the image in.</param>
         static member ImageDrawing(source: WidgetBuilder<'msg, #IFabDrawing>, rect: Rect) =
             WidgetBuilder<'msg, IFabImageDrawing>(
                 ImageDrawing.WidgetKey,

@@ -16,18 +16,24 @@ module DropDownButton =
 module DropDownButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline DropDownButton<'msg>(text: string, onClicked: 'msg) =
+        /// <summary>Creates a DropDownButton widget.</summary>
+        /// <param name="text">The text to display.</param>
+        /// <param name="fn">Raised when the DropDownButton is clicked.</param>
+        static member inline DropDownButton<'msg>(text: string, fn: 'msg) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> box onClicked)
+                Button.Clicked.WithValue(fun _ -> box fn |> box)
             )
 
-        static member inline DropDownButton(onClicked: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        /// <summary>Creates a DropDownButton widget.</summary>
+        /// <param name="fn">Raised when the DropDownButton is clicked.</param>
+        /// <param name="content">The content of the DropDownButton.</param>
+        static member inline DropDownButton(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(Button.Clicked.WithValue(fun _ -> box onClicked)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> fn |> box)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -35,9 +41,9 @@ module DropDownButtonBuilders =
 
 [<Extension>]
 type DropDownButtonModifiers =
-    /// <summary>Link a ViewRef to access the direct DropDownButton control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct DropDownButton control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabDropDownButton>, value: ViewRef<DropDownButton>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

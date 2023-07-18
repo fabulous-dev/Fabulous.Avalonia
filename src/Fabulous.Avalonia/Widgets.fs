@@ -25,6 +25,7 @@ type WidgetItems =
 type WidgetOps<'T when 'T :> AvaloniaObject and 'T: (new: unit -> 'T)> = 'T
 
 module Widgets =
+    /// Registers a widget with the given factory function.
     let registerWithFactory<'T when 'T :> AvaloniaObject> (factory: unit -> 'T) =
         let key = WidgetDefinitionStore.getNextKey()
 
@@ -75,9 +76,11 @@ module Widgets =
         WidgetDefinitionStore.set key definition
         key
 
+    /// Registers a widget with the given constructor.
     let register<'T when WidgetOps<'T>> () = registerWithFactory(fun () -> new 'T())
 
 module WidgetHelpers =
+    /// Creates a widget with the given key and attributes.
     let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
         key
         (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
@@ -94,5 +97,6 @@ module WidgetHelpers =
 
         WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
 
+    /// Creates a widget with the given key and attributes.
     let inline buildWidgets<'msg, 'marker> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
         WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone))

@@ -53,50 +53,80 @@ module TickBar =
 module TickBarBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a TickBar widget.</summary>
+        /// <param name="min">The minimum value.</param>
+        /// <param name="max">The maximum value.</param>
         static member TickBar(min: float, max: float) =
             WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
 
 [<Extension>]
 type TickBarModifiers =
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TickBar.FillWidget.WithValue(value.Compile()))
 
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
     [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, brush: IBrush) =
-        this.AddScalar(TickBar.Fill.WithValue(brush))
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: IBrush) =
+        this.AddScalar(TickBar.Fill.WithValue(value))
 
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
     [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, brush: string) =
-        this.AddScalar(TickBar.Fill.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush))
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
+        this.AddScalar(TickBar.Fill.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
+    /// <summary>Sets the TickFrequency property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TickFrequency value.</param>
     [<Extension>]
     static member inline tickFrequency(this: WidgetBuilder<'msg, #IFabTickBar>, value: float) =
         this.AddScalar(TickBar.TickFrequency.WithValue(value))
 
+    /// <summary>Sets the Orientation property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Orientation value.</param>
     [<Extension>]
     static member inline orientation(this: WidgetBuilder<'msg, #IFabTickBar>, value: Orientation) =
         this.AddScalar(TickBar.Orientation.WithValue(value))
 
+    /// <summary>Sets the Ticks property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Ticks value.</param>
     [<Extension>]
     static member inline ticks(this: WidgetBuilder<'msg, #IFabTickBar>, value: float list) =
         this.AddScalar(TickBar.Ticks.WithValue(value))
 
+    /// <summary>Sets the IsDirectionReversed property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsDirectionReversed value.</param>
     [<Extension>]
     static member inline isDirectionReversed(this: WidgetBuilder<'msg, #IFabTickBar>, value: bool) =
         this.AddScalar(TickBar.IsDirectionReversed.WithValue(value))
 
+    /// <summary>Sets the Placement property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Placement value.</param>
     [<Extension>]
     static member inline placement(this: WidgetBuilder<'msg, #IFabTickBar>, value: TickBarPlacement) =
         this.AddScalar(TickBar.Placement.WithValue(value))
 
+    /// <summary>Sets the ReservedSpace property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ReservedSpace value.</param>
     [<Extension>]
     static member inline reservedSpace(this: WidgetBuilder<'msg, #IFabTickBar>, value: Rect) =
         this.AddScalar(TickBar.ReservedSpace.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct TickBar control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct TickBar control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTickBar>, value: ViewRef<TickBar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

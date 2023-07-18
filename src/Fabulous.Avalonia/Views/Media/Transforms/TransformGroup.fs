@@ -19,6 +19,7 @@ module TransformGroup =
 module TransformGroupBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a TransformGroup widget.</summary>
         static member TransformGroup() =
             CollectionBuilder<'msg, IFabTransformGroup, IFabTransform>(TransformGroup.WidgetKey, TransformGroup.Children)
 

@@ -103,8 +103,8 @@ module TextBlockPage =
                             .strokeThicknessUnit(TextDecorationUnit.Pixel)
                             .stroke(
                                 LinearGradientBrush(RelativePoint.Parse("0%,0%"), RelativePoint.Parse("100%,100%")) {
-                                    GradientStop(0.0, Colors.Red)
-                                    GradientStop(1.0, Colors.Green)
+                                    GradientStop(Colors.Red, 0.)
+                                    GradientStop(Colors.Green, 1.)
                                 }
                             )
 
@@ -113,8 +113,8 @@ module TextBlockPage =
                             .strokeThicknessUnit(TextDecorationUnit.Pixel)
                             .stroke(
                                 LinearGradientBrush(RelativePoint.Parse("0%,0%"), RelativePoint.Parse("100%,100%")) {
-                                    GradientStop(0.0, Colors.Green)
-                                    GradientStop(1.0, Colors.Blue)
+                                    GradientStop(Colors.Green, 0.)
+                                    GradientStop(Colors.Blue, 1.)
                                 }
                             )
 
@@ -123,8 +123,8 @@ module TextBlockPage =
                             .strokeThicknessUnit(TextDecorationUnit.Pixel)
                             .stroke(
                                 LinearGradientBrush(RelativePoint.Parse("0%,0%"), RelativePoint.Parse("100%,100%")) {
-                                    GradientStop(0.0, Colors.Blue)
-                                    GradientStop(1.0, Colors.Red)
+                                    GradientStop(Colors.Blue, 0.)
+                                    GradientStop(Colors.Red, 1.)
                                 }
                             )
 

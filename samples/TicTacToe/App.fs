@@ -2,6 +2,7 @@ namespace TicTacToe
 
 open System
 open Avalonia
+open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
@@ -44,7 +45,7 @@ module App =
     type Msg =
         | Play of Pos
         | Restart
-        | Loaded of bool
+        | Loaded of RoutedEventArgs
 
     type Model =
         { NextUp: Player
@@ -82,7 +83,7 @@ module App =
           yield [ (0, 0); (1, 1); (2, 2) ]
           yield [ (0, 2); (1, 1); (2, 0) ] ]
 
-    let getLine (board: Board) line = line |> List.map(fun p -> board.[p])
+    let getLine (board: Board) line = line |> List.map(fun p -> board[p])
 
     let getLineWinner line =
         if
@@ -197,7 +198,7 @@ module App =
                     .gridRowSpan(5)
 
                 for row, col as pos in positions do
-                    if canPlay model model.Board.[pos] then
+                    if canPlay model model.Board[pos] then
                         TextBlock("")
                             .gridRow(row * 2)
                             .gridColumn(col * 2)
@@ -205,7 +206,7 @@ module App =
                             .background(SolidColorBrush(Colors.Transparent))
                             .onTapped(fun _ -> Play pos)
                     else
-                        match model.Board.[pos] with
+                        match model.Board[pos] with
                         | Empty -> ()
                         | Full X ->
                             Border(TextBlock("X").fontSize(model.VisualBoardSize / 3.).center())
@@ -232,7 +233,7 @@ module App =
             .onLoaded(Loaded)
 
 
-#if MOBILE || BROWSER
+#if MOBILE
     let app model = SingleViewApplication(view model)
 
 #else

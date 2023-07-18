@@ -13,10 +13,16 @@ module Geometry =
 
 [<Extension>]
 type GeometryModifiers =
+    /// <summary>Sets the Transform property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TileMode value.</param>
     [<Extension>]
-    static member inline transform(this: WidgetBuilder<'msg, #IFabGeometry>, content: WidgetBuilder<'msg, #IFabTransform>) =
-        this.AddWidget(Geometry.Transform.WithValue(content.Compile()))
+    static member inline transform(this: WidgetBuilder<'msg, #IFabGeometry>, value: WidgetBuilder<'msg, #IFabTransform>) =
+        this.AddWidget(Geometry.Transform.WithValue(value.Compile()))
 
+    /// <summary>Listens to the Geometry Changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the geometry changes.</param>
     [<Extension>]
-    static member inline transform(this: WidgetBuilder<'msg, #IFabGeometry>, onChanged: 'msg) =
-        this.AddScalar(Geometry.Changed.WithValue(onChanged))
+    static member inline onChanged(this: WidgetBuilder<'msg, #IFabGeometry>, fn: 'msg) =
+        this.AddScalar(Geometry.Changed.WithValue(fun _ -> fn |> box))

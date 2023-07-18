@@ -37,8 +37,8 @@ module CanvasPage =
                     .canvasTop(31.)
                     .opacityMask(
                         LinearGradientBrush(RelativePoint.Center, RelativePoint.BottomRight) {
-                            GradientStop(0., Colors.Black)
-                            GradientStop(1., Colors.Transparent)
+                            GradientStop(Colors.Black, 0.)
+                            GradientStop(Colors.Transparent, 1.0)
                         }
                     )
 

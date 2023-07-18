@@ -6,6 +6,7 @@ open System.Collections.Generic
 open System.IO
 open System.Reflection
 open Avalonia
+open Avalonia.Interactivity
 open Avalonia.Platform.Storage
 open Fabulous.Avalonia
 open Avalonia.Controls
@@ -68,7 +69,7 @@ module DialogsPage =
         | CurrentFolderBoxTextChanged of string
         | BookmarkContainerTextChanged of string
         | OpenedFileContentTextChanged of string
-        | CurrentFolderBoxLoaded of bool
+        | CurrentFolderBoxLoaded of RoutedEventArgs
         | GetIStorageFolder of IStorageFolder
         | GetIsStorageAvailable of string
 

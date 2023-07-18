@@ -40,40 +40,56 @@ module ToggleButton =
 module ToggleButtonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ToggleButton<'msg>(text: string, isChecked: bool, onValueChanged: bool -> 'msg) =
+        /// <summary>Creates a ToggleButton widget.</summary>
+        /// <param name="text">The text of the ToggleButton.</param>
+        /// <param name="isChecked">Whether the ToggleButton is checked.</param>
+        /// <param name="fn">Raised when the ToggleButton is clicked.</param>
+        static member inline ToggleButton<'msg>(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))
             )
 
-        static member inline ThreeStateToggleButton<'msg>(text: string, isChecked: bool option, onValueChanged: bool option -> 'msg) =
+        /// <summary>Creates a ThreeStateToggleButton widget.</summary>
+        /// <param name="text">The text of the ThreeStateToggleButton.</param>
+        /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
+        /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
+        static member inline ThreeStateToggleButton<'msg>(text: string, isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ToggleButton.IsThreeState.WithValue(true),
                 ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
                 )
             )
 
-        static member inline ToggleButton(isChecked: bool, onValueChanged: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        /// <summary>Creates a ToggleButton widget.</summary>
+        /// <param name="isChecked">Whether the ToggleButton is checked.</param>
+        /// <param name="fn">Raised when the ToggleButton is clicked.</param>
+        /// <param name="content">The content of the ToggleButton.</param>
+        static member inline ToggleButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> onValueChanged args |> box))),
+                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
 
-        static member inline ThreeStateToggleButton(isChecked: bool option, onValueChanged: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        /// <summary>Creates a ThreeStateToggleButton widget.</summary>
+        /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
+        /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
+        /// <param name="content">The content of the ThreeStateToggleButton.</param>
+        static member inline ThreeStateToggleButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
                     StackList.two(
                         ToggleButton.ThreeStateCheckedChanged.WithValue(
-                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> onValueChanged(ThreeState.toOption args) |> box)
+                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
                         ),
                         ToggleButton.IsThreeState.WithValue(true)
                     ),
@@ -84,9 +100,9 @@ module ToggleButtonBuilders =
 
 [<Extension>]
 type ToggleButtonModifiers =
-    /// <summary>Link a ViewRef to access the direct ToggleButton control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct ToggleButton control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabToggleButton>, value: ViewRef<ToggleButton>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

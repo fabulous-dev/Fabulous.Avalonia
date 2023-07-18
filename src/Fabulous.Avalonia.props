@@ -4,11 +4,7 @@
         <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
         
         <!-- Normalize casing -->
-        
-        <!-- Enable only one line of the two -->
-<!--        <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Browser</AvaloniaPlatform>-->
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
-        
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
         <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
     </PropertyGroup>
@@ -35,12 +31,5 @@
         <DesktopPlatformFolder Condition="$(DesktopPlatformFolder) == ''">Platform\Desktop\</DesktopPlatformFolder>
         <BuiltInCodeInteropSupport>true</BuiltInCodeInteropSupport>
         <DefineConstants>DESKTOP;$(DefineConstants)</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="$(AvaloniaPlatform) == 'Browser'">
-        <BrowserPlatformFolder Condition="$(BrowserPlatformFolder) == ''">Platform\Browser\</BrowserPlatformFolder>
-        <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
-        <WasmMainJSPath>$(BrowserPlatformFolder)\AppBundle\main.js</WasmMainJSPath>
-        <DefineConstants>BROWSER;$(DefineConstants)</DefineConstants>
     </PropertyGroup>
 </Project>

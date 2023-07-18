@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open System
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Layout
 open Fabulous.Avalonia
 open Fabulous
@@ -32,7 +33,7 @@ module NotificationsPage =
         | ShowNativeNotification
         | YesCommand
         | NoCommand
-        | Loaded of bool
+        | Loaded of RoutedEventArgs
 
     type CmdMsg = | NoMsg
 

@@ -34,9 +34,9 @@ module BrushesPage =
                 .height(50.0)
                 .fill(
                     (LinearGradientBrush(Point(0., 0.), Point(410., 0.0), RelativeUnit.Absolute) {
-                        GradientStop(0., Colors.Blue)
-                        GradientStop(0.5, Colors.Green)
-                        GradientStop(1., Colors.Lime)
+                        GradientStop(Colors.Blue, 0.)
+                        GradientStop(Colors.Green, 0.5)
+                        GradientStop(Colors.Lime, 1.0)
                     })
                         .transform(
                             TransformGroup() {
@@ -60,8 +60,8 @@ module BrushesPage =
                 .height(50.0)
                 .fill(
                     (RadialGradientBrush(Point(0., 0.), Point(0., 0.), RelativeUnit.Absolute) {
-                        GradientStop(0., Colors.Black)
-                        GradientStop(1., Colors.Orange)
+                        GradientStop(Colors.Black, 0.)
+                        GradientStop(Colors.Orange, 1.0)
                     })
                         .radius(0.13636364)
                         .transform(
@@ -107,11 +107,11 @@ module BrushesPage =
                 .height(50.0)
                 .fill(
                     ConicGradientBrush(Point(30., 30.), RelativeUnit.Absolute, 90.) {
-                        GradientStop(0., Colors.Red)
-                        GradientStop(0.25, Colors.Blue)
-                        GradientStop(0.5, Colors.Brown)
-                        GradientStop(0.75, Colors.Green)
-                        GradientStop(0.1, Colors.Purple)
+                        GradientStop(Colors.Red, 0.)
+                        GradientStop(Colors.Blue, 0.25)
+                        GradientStop(Colors.Brown, 0.5)
+                        GradientStop(Colors.Green, 0.75)
+                        GradientStop(Colors.Purple, 0.1)
                     }
                 )
 

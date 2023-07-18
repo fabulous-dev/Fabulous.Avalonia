@@ -15,7 +15,7 @@ type SingleViewLifetime() =
     interface ISingleViewApplicationLifetime with
         member this.MainView
             with get () = this.View.Content
-            and set (value) =
+            and set value =
                 if this.View <> null then
                     this.View.Content <- value
 

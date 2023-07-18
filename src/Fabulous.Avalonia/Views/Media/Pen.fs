@@ -31,15 +31,24 @@ module Pen =
 module PenBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Pen widget.</summary>
+        /// <param name="brush">The brush used to draw the stroke.</param>
+        /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: WidgetBuilder<'msg, #IFabBrush>, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(
                 Pen.WidgetKey,
                 AttributesBundle(StackList.one(Pen.Thickness.WithValue(thickness)), ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |], ValueNone)
             )
 
+        /// <summary>Creates a Pen widget.</summary>
+        /// <param name="brush">The brush used to draw the stroke.</param>
+        /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: IBrush, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(Pen.WidgetKey, Pen.Thickness.WithValue(thickness), Pen.Brush.WithValue(brush))
 
+        /// <summary>Creates a Pen widget.</summary>
+        /// <param name="brush">The brush used to draw the stroke.</param>
+        /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: string, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(
                 Pen.WidgetKey,
@@ -49,18 +58,30 @@ module PenBuilders =
 
 [<Extension>]
 type PenModifiers =
+    /// <summary>Sets the DashStyle property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The DashStyle value.</param>
     [<Extension>]
-    static member inline dashStyle(this: WidgetBuilder<'msg, #IFabPen>, content: WidgetBuilder<'msg, IFaDashStyle>) =
-        this.AddWidget(Pen.DashStyle.WithValue(content.Compile()))
+    static member inline dashStyle(this: WidgetBuilder<'msg, #IFabPen>, value: WidgetBuilder<'msg, IFaDashStyle>) =
+        this.AddWidget(Pen.DashStyle.WithValue(value.Compile()))
 
+    /// <summary>Sets the LineCap property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LineCap value.</param>
     [<Extension>]
     static member inline lineCap(this: WidgetBuilder<'msg, #IFabPen>, value: PenLineCap) =
         this.AddScalar(Pen.LineCap.WithValue(value))
 
+    /// <summary>Sets the LineJoin property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LineJoin value.</param>
     [<Extension>]
     static member inline lineJoin(this: WidgetBuilder<'msg, #IFabPen>, value: PenLineJoin) =
         this.AddScalar(Pen.LineJoin.WithValue(value))
 
+    /// <summary>Sets the MiterLimit property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The MiterLimit value.</param>
     [<Extension>]
     static member inline miterLimit(this: WidgetBuilder<'msg, #IFabPen>, value: float) =
         this.AddScalar(Pen.MiterLimit.WithValue(value))
