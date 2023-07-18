@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Collections
 open Avalonia.Input
-open Avalonia.Input.GestureRecognizers
 open Avalonia.Input.TextInput
 open Avalonia.Interactivity
 open Fabulous
@@ -119,12 +118,6 @@ type InputElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsTabStop value.</param>
     [<Extension>]
-    static member inline tabIndex(this: WidgetBuilder<'msg, #IFabInputElement>, value: int) =
-        this.AddScalar(InputElement.TabIndex.WithValue(value))
-
-    [<Extension>]
-    static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabInputElement>, onGotFocus: GotFocusEventArgs -> 'msg) =
-        this.AddScalar(InputElement.GotFocus.WithValue(fun args -> onGotFocus args |> box))
     static member inline isTabStop(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.IsTabStop.WithValue(value))
 
