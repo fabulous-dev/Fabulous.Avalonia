@@ -7,7 +7,7 @@ Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windo
 ## Getting Started
 
 You can start your new Fabulous.Avalonia app in a matter of seconds using the dotnet CLI templates.  
-For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulous.dev/avalonia/get-started).
+For a starter guide see our [Get Started with Fabulous.Avalonia](https://docs.fabulous.dev/avalonia/get-started).
 
 ```sh
 dotnet new install Fabulous.Avalonia.Templates
@@ -17,4 +17,4 @@ net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on 
 
 ## Documentation
 
-Documentation can be found at [https://docs.fabulous.dev/v2/avalonia](https://docs.fabulous.dev/v2/avalonia).
+Documentation can be found at [https://api.fabulous.dev/avalonia](https://api.fabulous.dev/avalonia).
