@@ -40,7 +40,9 @@ module Visual =
     let FlowDirection =
         Attributes.defineAvaloniaPropertyWithEquality Visual.FlowDirectionProperty
 
-    let Effect = Attributes.defineAvaloniaPropertyWidget Visual.EffectProperty
+    let EffectWidget = Attributes.defineAvaloniaPropertyWidget Visual.EffectProperty
+
+    let Effect = Attributes.defineAvaloniaPropertyWithEquality Visual.EffectProperty
 
     let AttachedToVisualTree =
         Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)

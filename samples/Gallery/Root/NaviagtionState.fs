@@ -32,6 +32,7 @@ type SubpageModel =
     | DropDownButtonPageModel of DropDownButtonPage.Model
     | DrawingPageModel of DrawingPage.Model
     | DrawLineAnimationPageModel of DrawLineAnimationPage.Model
+    | EffectsPageModel of EffectsPage.Model
     | ExpanderPageModel of ExpanderPage.Model
     | FlyoutPageModel of FlyoutPage.Model
     | GesturesPageModel of GesturesPage.Model
@@ -106,6 +107,7 @@ type SubpageMsg =
     | DropDownButtonPageMsg of DropDownButtonPage.Msg
     | DrawLineAnimationPageMsg of DrawLineAnimationPage.Msg
     | DrawingPageMsg of DrawingPage.Msg
+    | EffectsPageMsg of EffectsPage.Msg
     | ExpanderPageMsg of ExpanderPage.Msg
     | FlyoutPageMsg of FlyoutPage.Msg
     | GesturesPageMsg of GesturesPage.Msg
@@ -180,6 +182,7 @@ type SubpageCmdMsg =
     | DropDownButtonPageCmdMsgs of DropDownButtonPage.CmdMsg list
     | DrawLineAnimationPageCmdMsgs of DrawLineAnimationPage.CmdMsg list
     | DrawingPageCmdMsgs of DrawingPage.CmdMsg list
+    | EffectsPageCmdMsgs of EffectsPage.CmdMsg list
     | ExpanderPageCmdMsgs of ExpanderPage.CmdMsg list
     | FlyoutPageCmdMsgs of FlyoutPage.CmdMsg list
     | GesturesPageCmdMsgs of GesturesPage.CmdMsg list
@@ -270,6 +273,7 @@ module NavigationState =
             | DropDownButtonPageCmdMsgs subCmdMsgs -> map DropDownButtonPage.mapCmdMsgToCmd DropDownButtonPageMsg subCmdMsgs
             | DrawLineAnimationPageCmdMsgs subCmdMsgs -> map DrawLineAnimationPage.mapCmdMsgToCmd DrawLineAnimationPageMsg subCmdMsgs
             | DrawingPageCmdMsgs subCmdMsgs -> map DrawingPage.mapCmdMsgToCmd DrawingPageMsg subCmdMsgs
+            | EffectsPageCmdMsgs subCmdMsgs -> map EffectsPage.mapCmdMsgToCmd EffectsPageMsg subCmdMsgs
             | ExpanderPageCmdMsgs subCmdMsgs -> map ExpanderPage.mapCmdMsgToCmd ExpanderPageMsg subCmdMsgs
             | FlyoutPageCmdMsgs subCmdMsgs -> map FlyoutPage.mapCmdMsgToCmd FlyoutPageMsg subCmdMsgs
             | GesturesPageCmdMsgs subCmdMsgs -> map GesturesPage.mapCmdMsgToCmd GesturesPageMsg subCmdMsgs
@@ -407,6 +411,11 @@ module NavigationState =
         | NavigationRoute.DrawingPage ->
             let m, c = DrawingPage.init()
             DrawingPageModel m, [ DrawingPageCmdMsgs c ]
+
+        | NavigationRoute.EffectsPage ->
+            let m, c = EffectsPage.init()
+            EffectsPageModel m, [ EffectsPageCmdMsgs c ]
+
         | NavigationRoute.ExpanderPage ->
             let m, c = ExpanderPage.init()
             ExpanderPageModel m, [ ExpanderPageCmdMsgs c ]
@@ -652,6 +661,10 @@ module NavigationState =
                 let m, c = DrawingPage.update subMsg m
                 DrawingPageModel m, [ DrawingPageCmdMsgs c ]
 
+            | EffectsPageMsg subMsg, EffectsPageModel m ->
+                let m, c = EffectsPage.update subMsg m
+                EffectsPageModel m, [ EffectsPageCmdMsgs c ]
+
             | ExpanderPageMsg subMsg, ExpanderPageModel m ->
                 let m, c = ExpanderPage.update subMsg m
                 ExpanderPageModel m, [ ExpanderPageCmdMsgs c ]
@@ -874,6 +887,7 @@ module NavigationState =
         | DropDownButtonPageModel m -> map DropDownButtonPage.view DropDownButtonPageMsg m
         | DrawLineAnimationPageModel m -> map DrawLineAnimationPage.view DrawLineAnimationPageMsg m
         | DrawingPageModel m -> map DrawingPage.view DrawingPageMsg m
+        | EffectsPageModel m -> map EffectsPage.view EffectsPageMsg m
         | ExpanderPageModel m -> map ExpanderPage.view ExpanderPageMsg m
         | FlyoutPageModel m -> map FlyoutPage.view FlyoutPageMsg m
         | GesturesPageModel m -> map GesturesPage.view GesturesPageMsg m

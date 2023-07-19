@@ -10,7 +10,7 @@ open Types
 open type Fabulous.Avalonia.View
 
 module MainWindow =
-    let buttonSpinnerHeader (model: Model) =
+    let buttonSpinnerHeader () =
         ScrollViewer(
             VStack(16.) {
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
@@ -45,6 +45,7 @@ module MainWindow =
                     ListBoxItem("DropDownButtonPage")
                     ListBoxItem("DrawLineAnimationPage")
                     ListBoxItem("DrawingPage")
+                    ListBoxItem("EffectsPage")
                     ListBoxItem("ExpanderPage")
                     ListBoxItem("FlyoutPage")
                     //ListBoxItem("GesturesPage")
@@ -160,7 +161,7 @@ module MainWindow =
                         | ScrollBarPageModel _ -> AnyView(NavigationState.view SubpageMsg model.Navigation.CurrentPage)
                         | _ -> AnyView(ScrollViewer(NavigationState.view SubpageMsg model.Navigation.CurrentPage))
 
-                    SplitView(buttonSpinnerHeader model, content)
+                    SplitView(buttonSpinnerHeader(), content)
                         .isPresented(model.IsPanOpen, OpenPanChanged)
                         .displayMode(SplitViewDisplayMode.Inline)
                         .panePlacement(SplitViewPanePlacement.Left)
