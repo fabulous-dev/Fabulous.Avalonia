@@ -63,6 +63,7 @@
     <Compile Include="Pages\DragAndDropPage.fs" />
     <Compile Include="Pages\DropDownButtonPage.fs" />
     <Compile Include="Pages\DrawingPage.fs" />
+    <Compile Include="Pages\EffectsPage.fs" />
     <Compile Include="Pages\ExpanderPage.fs" />
     <Compile Include="Pages\FlyoutPage.fs" />
     <Compile Include="Pages\GesturesPage.fs" />

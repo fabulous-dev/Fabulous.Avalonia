@@ -28,6 +28,7 @@ type NavigationRoute =
     | DropDownButtonPage
     | DrawingPage
     | DrawLineAnimationPage
+    | EffectsPage
     | ExpanderPage
     | FlyoutPage
     | GesturesPage
@@ -103,6 +104,7 @@ type NavigationRoute =
         | "DropDownButtonPage" -> DropDownButtonPage
         | "DrawLineAnimationPage" -> DrawLineAnimationPage
         | "DrawingPage" -> DrawingPage
+        | "EffectsPage" -> EffectsPage
         | "ExpanderPage" -> ExpanderPage
         | "FlyoutPage" -> FlyoutPage
         | "GesturesPage" -> GesturesPage
