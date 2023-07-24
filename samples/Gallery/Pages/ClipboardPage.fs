@@ -2,7 +2,6 @@ namespace Gallery.Pages
 
 open System
 open System.Collections.Generic
-open Avalonia
 open Avalonia.Controls.Notifications
 open Avalonia.Input
 open Avalonia.Platform.Storage
@@ -41,7 +40,7 @@ module ClipboardPage =
 
     let copyText (clipboardText: string) =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let text = if clipboardText = null then "" else clipboardText
             do! clipboard.SetTextAsync(text)
             return CopiedText
@@ -49,14 +48,14 @@ module ClipboardPage =
 
     let pasteText () =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! text = clipboard.GetTextAsync()
             return PastedText text
         }
 
     let copyTextDataObject (clipboardText: string) =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let dataObject = DataObject()
             let text = if clipboardText = null then "" else clipboardText
             dataObject.Set(DataFormats.Text, text)
@@ -66,7 +65,7 @@ module ClipboardPage =
 
     let pasteTextDataObject () =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! dataObject = clipboard.GetDataAsync(DataFormats.Text)
             let res = (dataObject :?> string)
             let text = if res = null then "" else res
@@ -75,12 +74,9 @@ module ClipboardPage =
 
     let copyFilesDataObject (clipboardText: string) =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
-            let storageProvider = (Application.Current :?> FabApplication).StorageProvider
-
-            let notificationManager =
-                (Application.Current :?> FabApplication)
-                    .WindowNotificationManager
+            let clipboard = FabApplication.Current.Clipboard
+            let storageProvider = FabApplication.Current.StorageProvider
+            let notificationManager = FabApplication.Current.WindowNotificationManager
 
             let filesPath = if clipboardText = null then "" else clipboardText
 
@@ -117,7 +113,7 @@ module ClipboardPage =
 
     let pasteFilesDataObject () =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! files = clipboard.GetDataAsync(DataFormats.Files)
             let files = (files :?> IEnumerable<IStorageItem>)
 
@@ -138,7 +134,7 @@ module ClipboardPage =
 
     let getFormats () =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! formats = clipboard.GetFormatsAsync()
 
             let text =
@@ -152,7 +148,7 @@ module ClipboardPage =
 
     let clear () =
         task {
-            let clipboard = (Application.Current :?> FabApplication).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             do! clipboard.ClearAsync()
             return Cleared
         }

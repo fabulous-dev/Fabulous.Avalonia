@@ -81,8 +81,7 @@ module DialogsPage =
         | OpeningFileFromBookmark of bookmarkText: string
         | OpeningFolderFromBookmark of bookmarkText: string
 
-    let getStorageProvider () =
-        (Application.Current :?> FabApplication).StorageProvider
+    let getStorageProvider () = FabApplication.Current.StorageProvider
 
     let getStringFromStorageFile (text: string) =
         task {

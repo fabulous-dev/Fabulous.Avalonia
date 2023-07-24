@@ -37,9 +37,7 @@ module NotificationsPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
-    let notificationManager =
-        (Application.Current :?> FabApplication)
-            .WindowNotificationManager
+    let notificationManager = FabApplication.Current.WindowNotificationManager
 
     let init () = { Nothing = "" }, []
 

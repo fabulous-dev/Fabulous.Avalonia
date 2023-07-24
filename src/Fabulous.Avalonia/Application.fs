@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
@@ -81,6 +80,9 @@ type FabApplication() =
         and set value =
             _mainView <- value
             this.UpdateLifetime()
+
+    /// <summary>Gets the current application instance.</summary>
+    static member Current = Application.Current :?> FabApplication
 
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()

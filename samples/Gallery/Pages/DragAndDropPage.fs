@@ -3,7 +3,6 @@ namespace Gallery.Pages
 open System
 open System.Buffers
 open System.Reflection
-open Avalonia
 open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
@@ -52,7 +51,7 @@ module Validation =
 
     let getFiles () =
         async {
-            let storageProvider = (Application.Current :?> FabApplication).StorageProvider
+            let storageProvider = FabApplication.Current.StorageProvider
 
             let modules =
                 Assembly.GetEntryAssembly().GetModules()
