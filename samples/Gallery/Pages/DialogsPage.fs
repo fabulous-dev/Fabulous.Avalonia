@@ -9,7 +9,6 @@ open Avalonia
 open Avalonia.Interactivity
 open Avalonia.Platform.Storage
 open Fabulous.Avalonia
-open Avalonia.Controls
 open Fabulous
 
 open type Fabulous.Avalonia.View
@@ -82,12 +81,7 @@ module DialogsPage =
         | OpeningFileFromBookmark of bookmarkText: string
         | OpeningFolderFromBookmark of bookmarkText: string
 
-    let getWindow () =
-        (Application.Current :?> FabApplication).MainWindow
-
-    let getTopLevel () = TopLevel.GetTopLevel(getWindow())
-
-    let getStorageProvider () : IStorageProvider = getTopLevel().StorageProvider
+    let getStorageProvider () = FabApplication.Current.StorageProvider
 
     let getStringFromStorageFile (text: string) =
         task {

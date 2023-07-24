@@ -51,8 +51,7 @@ module Validation =
 
     let getFiles () =
         async {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let storageProvider = TopLevel.GetTopLevel(mainView).StorageProvider
+            let storageProvider = FabApplication.Current.StorageProvider
 
             let modules =
                 Assembly.GetEntryAssembly().GetModules()

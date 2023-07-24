@@ -177,3 +177,4 @@ module MainWindow =
                 .menu(createMenu model)
         )
             .trayIcon(trayIcon())
+            .onColorValuesChanged(OnColorValuesChanged)

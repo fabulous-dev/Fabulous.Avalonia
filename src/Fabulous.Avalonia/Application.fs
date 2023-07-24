@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Controls.Notifications
 open Avalonia.Styling
 open Avalonia.Themes.Fluent
 open Fabulous
@@ -26,6 +27,48 @@ type FabApplication() =
         | :? ISingleViewApplicationLifetime as singleViewLifetime -> singleViewLifetime.MainView <- _mainView
         | _ -> ()
 
+    /// <summary> Initializes a new instance of the WindowNotificationManager class.</summary>
+    member this.WindowNotificationManager =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
+        | :? ISingleViewApplicationLifetime -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
+        | _ -> failwith "ApplicationLifetime is not supported"
+
+    /// <summary>Gets the platform's clipboard implementation</summary>
+    member this.Clipboard =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).Clipboard
+        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).Clipboard
+        | _ -> failwith "ApplicationLifetime is not supported"
+
+    /// <summary>File System storage service used for file pickers and bookmarks.</summary>
+    member this.StorageProvider =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
+        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).StorageProvider
+        | _ -> failwith "ApplicationLifetime is not supported"
+
+    /// <summary>Manages focus for the application.</summary>
+    member this.FocusManager =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).FocusManager
+        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).FocusManager
+        | _ -> failwith "ApplicationLifetime is not supported"
+
+    /// <summary>Gets the platform-specific settings for the application.</summary>
+    member this.PlatformSettings =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
+        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).PlatformSettings
+        | _ -> failwith "ApplicationLifetime is not supported"
+
+    /// <summary>Gets the platform-specific insets manager for the application.</summary>
+    member this.InsetsManager =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
+        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).InsetsManager
+        | _ -> failwith "ApplicationLifetime is not supported"
+
     member this.MainWindow
         with get () = _mainWindow
         and set value =
@@ -37,6 +80,9 @@ type FabApplication() =
         and set value =
             _mainView <- value
             this.UpdateLifetime()
+
+    /// <summary>Gets the current application instance.</summary>
+    static member Current = Application.Current :?> FabApplication
 
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
@@ -123,6 +169,11 @@ module Application =
     let UrlsOpened =
         Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> Application).UrlsOpened)
 
+    let ColorValuesChanged =
+        Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
+            (target :?> FabApplication)
+                .PlatformSettings.ColorValuesChanged)
+
 [<AutoOpen>]
 module ApplicationBuilders =
     type Fabulous.Avalonia.View with
@@ -180,6 +231,13 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
         this.AddScalar(Application.UrlsOpened.WithValue(fun args -> fn args |> box))
+
+    /// <summary>Listens to the PlatformSettings color values changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when current system color values are changed. Including changing of a dark mode and accent colors.</param>
+    [<Extension>]
+    static member inline onColorValuesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.PlatformColorValues -> 'msg) =
+        this.AddScalar(Application.ColorValuesChanged.WithValue(fun args -> fn args |> box))
 
     /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>

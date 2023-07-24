@@ -2,7 +2,6 @@ namespace Gallery.Pages
 
 open System
 open System.Collections.Generic
-open Avalonia.Controls
 open Avalonia.Controls.Notifications
 open Avalonia.Input
 open Avalonia.Platform.Storage
@@ -41,8 +40,7 @@ module ClipboardPage =
 
     let copyText (clipboardText: string) =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let clipboard = TopLevel.GetTopLevel(mainView).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let text = if clipboardText = null then "" else clipboardText
             do! clipboard.SetTextAsync(text)
             return CopiedText
@@ -50,16 +48,14 @@ module ClipboardPage =
 
     let pasteText () =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let clipboard = TopLevel.GetTopLevel(mainView).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! text = clipboard.GetTextAsync()
             return PastedText text
         }
 
     let copyTextDataObject (clipboardText: string) =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let clipboard = TopLevel.GetTopLevel(mainView).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let dataObject = DataObject()
             let text = if clipboardText = null then "" else clipboardText
             dataObject.Set(DataFormats.Text, text)
@@ -69,8 +65,7 @@ module ClipboardPage =
 
     let pasteTextDataObject () =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let clipboard = TopLevel.GetTopLevel(mainView).Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! dataObject = clipboard.GetDataAsync(DataFormats.Text)
             let res = (dataObject :?> string)
             let text = if res = null then "" else res
@@ -79,11 +74,10 @@ module ClipboardPage =
 
     let copyFilesDataObject (clipboardText: string) =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let topLevel = TopLevel.GetTopLevel(mainView)
-            let clipboard = topLevel.Clipboard
-            let storageProvider = topLevel.StorageProvider
-            let notificationManager = WindowNotificationManager(topLevel)
+            let clipboard = FabApplication.Current.Clipboard
+            let storageProvider = FabApplication.Current.StorageProvider
+            let notificationManager = FabApplication.Current.WindowNotificationManager
+
             let filesPath = if clipboardText = null then "" else clipboardText
 
             let filesPath =
@@ -119,9 +113,7 @@ module ClipboardPage =
 
     let pasteFilesDataObject () =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let topLevel = TopLevel.GetTopLevel(mainView)
-            let clipboard = topLevel.Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! files = clipboard.GetDataAsync(DataFormats.Files)
             let files = (files :?> IEnumerable<IStorageItem>)
 
@@ -142,9 +134,7 @@ module ClipboardPage =
 
     let getFormats () =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let topLevel = TopLevel.GetTopLevel(mainView)
-            let clipboard = topLevel.Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             let! formats = clipboard.GetFormatsAsync()
 
             let text =
@@ -158,9 +148,7 @@ module ClipboardPage =
 
     let clear () =
         task {
-            let mainView = (FabApplication.Current :?> FabApplication).MainWindow
-            let topLevel = TopLevel.GetTopLevel(mainView)
-            let clipboard = topLevel.Clipboard
+            let clipboard = FabApplication.Current.Clipboard
             do! clipboard.ClearAsync()
             return Cleared
         }

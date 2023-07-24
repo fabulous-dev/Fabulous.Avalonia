@@ -1,7 +1,6 @@
 namespace TicTacToe
 
 open System
-open Avalonia
 open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
@@ -117,7 +116,7 @@ module App =
     let update msg model =
         match msg with
         | Loaded _ ->
-            let app = Application.Current :?> FabApplication
+            let app = FabApplication.Current
 #if MOBILE
             let desiredSize = app.MainView.Bounds
 

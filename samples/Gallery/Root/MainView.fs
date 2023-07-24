@@ -11,3 +11,4 @@ module MainView =
             (Grid() { ScrollViewer(NavigationState.view SubpageMsg model.Navigation.CurrentPage) })
                 .onLoaded(OnLoaded)
         )
+            .onColorValuesChanged(OnColorValuesChanged)
