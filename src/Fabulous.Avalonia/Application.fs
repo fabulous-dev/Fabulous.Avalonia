@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
@@ -27,37 +28,42 @@ type FabApplication() =
         | :? ISingleViewApplicationLifetime as singleViewLifetime -> singleViewLifetime.MainView <- _mainView
         | _ -> ()
 
+    /// <summary> Initializes a new instance of the WindowNotificationManager class.</summary>
     member this.WindowNotificationManager =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
         | :? ISingleViewApplicationLifetime -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
         | _ -> failwith "ApplicationLifetime is not supported"
 
+    /// <summary>Gets the platform's clipboard implementation</summary>
     member this.Clipboard =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).Clipboard
         | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).Clipboard
         | _ -> failwith "ApplicationLifetime is not supported"
 
+    /// <summary>File System storage service used for file pickers and bookmarks.</summary>
     member this.StorageProvider =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
         | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).StorageProvider
         | _ -> failwith "ApplicationLifetime is not supported"
 
+    /// <summary>Manages focus for the application.</summary>
     member this.FocusManager =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).FocusManager
         | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).FocusManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
+    /// <summary>Gets the platform-specific settings for the application.</summary>
     member this.PlatformSettings =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
         | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).PlatformSettings
         | _ -> failwith "ApplicationLifetime is not supported"
 
-
+    /// <summary>Gets the platform-specific insets manager for the application.</summary>
     member this.InsetsManager =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
