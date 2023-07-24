@@ -11,7 +11,7 @@ _No unreleased changes_
 ## [2.0.0-pre12] - 2023-07-24
 
 ### Added
-- Add FabApplication helpers (ClipBoard, StorageProvider, WindowNotificationManager, InsetsManager, PlatformSettings, FocusManager)
+- Add FabApplication helpers to make it easier to access to platform specific services
 
 ### Changed
 - Update template to include targets
