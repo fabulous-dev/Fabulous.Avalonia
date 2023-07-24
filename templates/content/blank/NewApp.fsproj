@@ -23,11 +23,28 @@
     <Compile Include="App.fs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\**" />
+  </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
+    <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
+    <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
+    <Compile Include="$(AndroidPlatformFolder)MainActivity.fs" />
+    <Compile Include="$(AndroidPlatformFolder)SplashActivity.fs" />
+    <PackageReference Include="FSharp.Android.Resource" Version="FSharpAndroidResourcePkgVersion" />
+  </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
+    <None Include="$(iOSPlatformFolder)Entitlements.plist" />
+    <None Include="$(iOSPlatformFolder)Info.plist" />
+    <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
+    <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
+  </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
+    <Compile Include="$(DesktopPlatformFolder)Program.fs" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="FSharpCorePkgVersion" />
     <PackageReference Include="Fabulous" Version="FabulousPkgVersion" />
     <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
-    <PackageReference Include="FSharp.Android.Resource" Version="FSharpAndroidResourcePkgVersion" />
   </ItemGroup>
 </Project>
