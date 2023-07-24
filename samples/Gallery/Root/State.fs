@@ -69,3 +69,5 @@ module State =
             [ SubpageCmdMsgs cmdMsgs ]
 
         | DoNothing -> model, []
+
+        | OnColorValuesChanged _colorValues -> model, []

@@ -167,6 +167,11 @@ module Application =
     let UrlsOpened =
         Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> Application).UrlsOpened)
 
+    let ColorValuesChanged =
+        Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
+            (target :?> FabApplication)
+                .PlatformSettings.ColorValuesChanged)
+
 [<AutoOpen>]
 module ApplicationBuilders =
     type Fabulous.Avalonia.View with
@@ -224,6 +229,13 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
         this.AddScalar(Application.UrlsOpened.WithValue(fun args -> fn args |> box))
+
+    /// <summary>Listens to the PlatformSettings color values changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when current system color values are changed. Including changing of a dark mode and accent colors.</param>
+    [<Extension>]
+    static member inline onColorValuesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.PlatformColorValues -> 'msg) =
+        this.AddScalar(Application.ColorValuesChanged.WithValue(fun args -> fn args |> box))
 
     /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>

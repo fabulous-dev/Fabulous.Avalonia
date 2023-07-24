@@ -2,7 +2,7 @@ namespace Gallery.Root
 
 open Avalonia.Controls
 open Avalonia.Interactivity
-open Gallery
+open Avalonia
 
 module Types =
     type Model =
@@ -17,6 +17,7 @@ module Types =
         | OpenPan
         | OnLoaded of RoutedEventArgs
         | DoNothing
+        | OnColorValuesChanged of Platform.PlatformColorValues
 
     type CmdMsg =
         | NewMsg of Msg
