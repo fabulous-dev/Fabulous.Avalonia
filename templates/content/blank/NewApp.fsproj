@@ -30,6 +30,7 @@
     <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
     <Compile Include="$(AndroidPlatformFolder)MainActivity.fs" />
     <Compile Include="$(AndroidPlatformFolder)SplashActivity.fs" />
+    <PackageReference Include="FSharp.Android.Resource" Version="FSharpAndroidResourcePkgVersion" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <None Include="$(iOSPlatformFolder)Entitlements.plist" />
@@ -45,8 +46,5 @@
     <PackageReference Include="FSharp.Core" Version="FSharpCorePkgVersion" />
     <PackageReference Include="Fabulous" Version="FabulousPkgVersion" />
     <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
-    <PackageReference Include="FSharp.Android.Resource" Version="FSharpAndroidResourcePkgVersion" />
   </ItemGroup>
 </Project>

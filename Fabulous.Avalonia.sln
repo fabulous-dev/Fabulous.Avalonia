@@ -12,6 +12,9 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia", "src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj", "{9EB9291D-09F8-43DD-9A95-154D4E6BA78E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{8D513303-98F9-40AA-AFA7-D92D920F96DF}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Fabulous.Avalonia.Samples.targets = samples\Fabulous.Avalonia.Samples.targets
+	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CounterApp", "samples\CounterApp\CounterApp.fsproj", "{3CABE580-CB56-4853-926E-411BECD2BAB9}"
 EndProject
