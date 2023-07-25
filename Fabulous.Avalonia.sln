@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}"
 	ProjectSection(SolutionItems) = preProject
 		Fabulous.Avalonia.props = src\Fabulous.Avalonia.props
-		Fabulous.Avalonia.targets = src\Fabulous.Avalonia.targets
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia", "src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj", "{9EB9291D-09F8-43DD-9A95-154D4E6BA78E}"
