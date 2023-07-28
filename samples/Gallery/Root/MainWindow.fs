@@ -65,6 +65,7 @@ module MainWindow =
                     ListBoxItem("ProgressBarPage")
                     ListBoxItem("PanelPage")
                     ListBoxItem("PathIconPage")
+                    ListBoxItem("PointersPage")
                     ListBoxItem("PopupPage")
                     ListBoxItem("PageTransitionsPage")
                     ListBoxItem("RepeatButtonPage")

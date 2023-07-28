@@ -52,6 +52,7 @@ type SubpageModel =
     | ProgressBarPageModel of ProgressBarPage.Model
     | PanelPageModel of PanelPage.Model
     | PathIconPageModel of PathIconPage.Model
+    | PointersPageModel of PointersPage.Model
     | PopupPageModel of PopupPage.Model
     | PageTransitionsPageModel of PageTransitionsPage.Model
     | RepeatButtonPageModel of RepeatButtonPage.Model
@@ -79,6 +80,83 @@ type SubpageModel =
     | ThemeAwarePageModel of ThemeAwarePage.Model
     | UniformGridPageModel of UniformGridPage.Model
     | ViewBoxPageModel of ViewBoxPage.Model
+    
+    member x.GetSubpageName() =
+        match x with
+        | AcrylicPageModel _ -> "Acrylic"
+        | AdornerLayerPageModel _ -> "AdornerLayer"
+        | AutoCompleteBoxPageModel _ -> "AutoCompleteBox"
+        | AnimationsPageModel _ -> "Animations"
+        | ImplicitCanvasAnimationsPageModel _ -> "ImplicitCanvasAnimations"
+        | CompositorAnimationsPageModel _ -> "CompositorAnimations"
+        | ButtonsPageModel _ -> "Buttons"
+        | BrushesPageModel _ -> "Brushes"
+        | ButtonSpinnerPageModel _ -> "ButtonSpinner"
+        | BorderPageModel _ -> "Border"
+        | CalendarPageModel _ -> "Calendar"
+        | CalendarDatePickerPageModel _ -> "CalendarDatePicker"
+        | CanvasPageModel _ -> "Canvas"
+        | CheckBoxPageModel _ -> "CheckBox"
+        | CarouselPageModel _ -> "Carousel"
+        | ComboBoxPageModel _ -> "ComboBox"
+        | ContextMenuPageModel _ -> "ContextMenu"
+        | ContextFlyoutPageModel _ -> "ContextFlyout"
+        | ClippingPageModel _ -> "Clipping"
+        | ClipboardPageModel _ -> "Clipboard"
+        | DialogsPageModel _ -> "Dialogs"
+        | DragAndDropPageModel _ -> "DragAndDrop"
+        | DockPanelPageModel _ -> "DockPanel"
+        | DropDownButtonPageModel _ -> "DropDownButton"
+        | DrawingPageModel _ -> "Drawing"
+        | DrawLineAnimationPageModel _ -> "DrawLineAnimation"
+        | EffectsPageModel _ -> "Effects"
+        | ExpanderPageModel _ -> "Expander"
+        | FlyoutPageModel _ -> "Flyout"
+        | GesturesPageModel _ -> "Gestures"
+        | GeometriesPageModel _ -> "Geometries"
+        | GridPageModel _ -> "Grid"
+        | GridSplitterPageModel _ -> "GridSplitter"
+        | ImagePageModel _ -> "Image"
+        | LabelPageModel _ -> "Label"
+        | LayoutTransformControlPageModel _ -> "LayoutTransformControl"
+        | LineBoundsDemoControlPageModel _ -> "LineBoundsDemoControl"
+        | ListBoxPageModel _ -> "ListBox"
+        | MenuFlyoutPageModel _ -> "MenuFlyout"
+        | MaskedTextBoxPageModel _ -> "MaskedTextBox"
+        | MenuPageModel _ -> "Menu"
+        | NumericUpDownPageModel _ -> "NumericUpDown"
+        | NotificationsPageModel _ -> "Notifications"
+        | ProgressBarPageModel _ -> "ProgressBar"
+        | PanelPageModel _ -> "Panel"
+        | PathIconPageModel _ -> "PathIcon"
+        | PointersPageModel _ -> "Pointers"
+        | PopupPageModel _ -> "Popup"
+        | PageTransitionsPageModel _ -> "PageTransitions"
+        | RepeatButtonPageModel _ -> "RepeatButton"
+        | RadioButtonPageModel _ -> "RadioButton"
+        | RefreshContainerPageModel _ -> "RefreshContainer"
+        | SelectableTextBlockPageModel _ -> "SelectableTextBlock"
+        | SplitButtonPageModel _ -> "SplitButton"
+        | SliderPageModel _ -> "Slider"
+        | ShapesPageModel _ -> "Shapes"
+        | ScrollBarPageModel _ -> "ScrollBar"
+        | SplitViewPageModel _ -> "SplitView"
+        | StackPanelPageModel _ -> "StackPanel"
+        | ScrollViewerPageModel _ -> "ScrollViewer"
+        | ToggleSplitButtonPageModel _ -> "ToggleSplitButton"
+        | TextBlockPageModel _ -> "TextBlock"
+        | TextBoxPageModel _ -> "TextBox"
+        | TickBarPageModel _ -> "TickBar"
+        | ToggleSwitchPageModel _ -> "ToggleSwitch"
+        | ToggleButtonPageModel _ -> "ToggleButton"
+        | ToolTipPageModel _ -> "ToolTip"
+        | TabControlPageModel _ -> "TabControl"
+        | TabStripPageModel _ -> "TabStrip"
+        | TransitionsPageModel _ -> "Transitions"
+        | TransformsPageModel _ -> "Transforms"
+        | ThemeAwarePageModel _ -> "ThemeAware"
+        | UniformGridPageModel _ -> "UniformGrid"
+        | ViewBoxPageModel _ -> "ViewBox"
 
 type SubpageMsg =
     | AcrylicPageMsg of AcrylicPage.Msg
@@ -128,6 +206,7 @@ type SubpageMsg =
     | PanelPageMsg of PanelPage.Msg
     | PathIconPageMsg of PathIconPage.Msg
     | PopupPageMsg of PopupPage.Msg
+    | PointersPageMsg of PointersPage.Msg
     | PageTransitionsPageMsg of PageTransitionsPage.Msg
     | RepeatButtonPageMsg of RepeatButtonPage.Msg
     | RadioButtonPageMsg of RadioButtonPage.Msg
@@ -203,6 +282,7 @@ type SubpageCmdMsg =
     | PanelPageCmdMsgs of PanelPage.CmdMsg list
     | PathIconPageCmdMsgs of PathIconPage.CmdMsg list
     | PopupPageCmdMsgs of PopupPage.CmdMsg list
+    | PointersPageCmdMsgs of PointersPage.CmdMsg list
     | PageTransitionsPageCmdMsgs of PageTransitionsPage.CmdMsg list
     | RepeatButtonPageCmdMsgs of RepeatButtonPage.CmdMsg list
     | RadioButtonPageCmdMsgs of RadioButtonPage.CmdMsg list
@@ -293,6 +373,7 @@ module NavigationState =
             | ProgressBarPageCmdMsgs subCmdMsgs -> map ProgressBarPage.mapCmdMsgToCmd ProgressBarPageMsg subCmdMsgs
             | PanelPageCmdMsgs subCmdMsgs -> map PanelPage.mapCmdMsgToCmd PanelPageMsg subCmdMsgs
             | PathIconPageCmdMsgs subCmdMsgs -> map PathIconPage.mapCmdMsgToCmd PathIconPageMsg subCmdMsgs
+            | PointersPageCmdMsgs subCmdMsgs -> map PointersPage.mapCmdMsgToCmd PointersPageMsg subCmdMsgs
             | PopupPageCmdMsgs subCmdMsgs -> map PopupPage.mapCmdMsgToCmd PopupPageMsg subCmdMsgs
             | PageTransitionsPageCmdMsgs subCmdMsgs -> map PageTransitionsPage.mapCmdMsgToCmd PageTransitionsPageMsg subCmdMsgs
             | RepeatButtonPageCmdMsgs subCmdMsgs -> map RepeatButtonPage.mapCmdMsgToCmd RepeatButtonPageMsg subCmdMsgs
@@ -470,6 +551,9 @@ module NavigationState =
         | NavigationRoute.PathIconPage ->
             let m, c = PathIconPage.init()
             PathIconPageModel m, [ PathIconPageCmdMsgs c ]
+        | NavigationRoute.PointersPage ->
+            let m, c = PointersPage.init()
+            PointersPageModel m, [ PointersPageCmdMsgs c ]
         | NavigationRoute.PopupPage ->
             let m, c = PopupPage.init()
             PopupPageModel m, [ PopupPageCmdMsgs c ]
@@ -741,6 +825,10 @@ module NavigationState =
                 let m, c = PageTransitionsPage.update subMsg m
                 PageTransitionsPageModel m, [ PageTransitionsPageCmdMsgs c ]
 
+            | PointersPageMsg subMsg, PointersPageModel m ->
+                let m, c = PointersPage.update subMsg m
+                PointersPageModel m, [ PointersPageCmdMsgs c ]
+            
             | PopupPageMsg subMsg, PopupPageModel m ->
                 let m, c = PopupPage.update subMsg m
                 PopupPageModel m, [ PopupPageCmdMsgs c ]
@@ -849,7 +937,14 @@ module NavigationState =
                 let m, c = ViewBoxPage.update subMsg m
                 ViewBoxPageModel m, [ ViewBoxPageCmdMsgs c ]
 
-            | _, currentPage -> currentPage, []
+            | _, currentPage ->
+                let pageName = currentPage.GetSubpageName()
+                let errMessage = $"Unexpected message '%A{msg}'on page '%s{pageName}'"
+
+                //failwith errMessage
+                System.Diagnostics.Debug.WriteLine errMessage
+                //System.Diagnostics.Debugger.Break()
+                currentPage, []
 
         { model with
             CurrentPage = subpageModel },
@@ -907,6 +1002,7 @@ module NavigationState =
         | ProgressBarPageModel m -> map ProgressBarPage.view ProgressBarPageMsg m
         | PanelPageModel m -> map PanelPage.view PanelPageMsg m
         | PathIconPageModel m -> map PathIconPage.view PathIconPageMsg m
+        | PointersPageModel m -> map PointersPage.view PointersPageMsg m
         | PopupPageModel m -> map PopupPage.view PopupPageMsg m
         | PageTransitionsPageModel m -> map PageTransitionsPage.view PageTransitionsPageMsg m
         | RepeatButtonPageModel m -> map RepeatButtonPage.view RepeatButtonPageMsg m

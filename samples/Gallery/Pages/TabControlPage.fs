@@ -15,11 +15,11 @@ module TabControlPage =
 
     type Msg = SelectedIndexChanged of int
 
-    type CmdMsg = | NoMsg
+    type CmdMsg = | NoCmdMsg
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Cmd.none
+        | NoCmdMsg -> Cmd.none
 
     let init () =
         { TabPlacement = Dock.Top
