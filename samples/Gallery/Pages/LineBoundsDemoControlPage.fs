@@ -83,8 +83,7 @@ type LineBoundsDemoControl() =
 
         _timer.Start()
 
-    override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) =
-        _timer.Stop()
+    override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) = _timer.Stop()
 
     static member Angle = _angle
 
@@ -150,22 +149,25 @@ module LineBoundsDemoControlPage =
     let view _ =
         Panel() {
             LineBoundsDemoControl(15.)
-               .verticalAlignment(VerticalAlignment.Top)
+                .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Left)
+
             LineBoundsDemoControl(30.)
                 .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Center)
+
             LineBoundsDemoControl(45.)
                 .verticalAlignment(VerticalAlignment.Top)
                 .horizontalAlignment(HorizontalAlignment.Right)
+
             LineBoundsDemoControl(60.)
                 .verticalAlignment(VerticalAlignment.Center)
                 .horizontalAlignment(HorizontalAlignment.Left)
-            
+
             LineBoundsDemoControl(75.)
                 .verticalAlignment(VerticalAlignment.Center)
                 .horizontalAlignment(HorizontalAlignment.Center)
-                
+
             LineBoundsDemoControl(90.)
                 .verticalAlignment(VerticalAlignment.Center)
                 .horizontalAlignment(HorizontalAlignment.Right)
