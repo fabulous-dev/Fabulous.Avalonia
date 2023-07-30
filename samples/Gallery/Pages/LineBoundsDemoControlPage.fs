@@ -2,6 +2,7 @@ namespace Gallery.Pages
 
 open System
 open Avalonia
+open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Controls
 open Avalonia.Threading
@@ -77,26 +78,27 @@ type LineBoundsDemoControl() =
         _timer.Interval <- TimeSpan.FromSeconds(1. / 60.)
 
         _timer.Tick.Add(fun _ ->
-            this.Angle <- this.Angle + Math.PI / 360.
+            _angle <- _angle + Math.PI / 360.
             this.InvalidateVisual())
 
         _timer.Start()
 
     override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) =
         _timer.Stop()
-        _timer <- null
 
-    member this.Angle
-        with get () = _angle
-        and set value = _angle <- value
+    static member Angle = _angle
 
     static member AngleProperty: StyledProperty<float> =
-        AvaloniaProperty.Register<LineBoundsDemoControl, float>(nameof(_angle))
+        AvaloniaProperty.Register<LineBoundsDemoControl, float>(nameof(LineBoundsDemoControl.Angle))
 
     override this.Render(drawingContext: DrawingContext) =
         let lineLength = Math.Sqrt((100. * 100.) + (100. * 100.))
-        let diffX = LineBoundsHelper.calculateAdjSide(this.Angle, lineLength)
-        let diffY = LineBoundsHelper.calculateOppSide(this.Angle, lineLength)
+
+        let diffX =
+            LineBoundsHelper.calculateAdjSide(LineBoundsDemoControl.Angle, lineLength)
+
+        let diffY =
+            LineBoundsHelper.calculateOppSide(LineBoundsDemoControl.Angle, lineLength)
 
         let p1 = Point(200., 200.)
         let p2 = Point(p1.X + diffX, p1.Y + diffY)
@@ -146,4 +148,25 @@ module LineBoundsDemoControlPage =
         | Nothing -> model, []
 
     let view _ =
-        Grid() { LineBoundsDemoControl(45.).centerHorizontal() }
+        Panel() {
+            LineBoundsDemoControl(15.)
+               .verticalAlignment(VerticalAlignment.Top)
+                .horizontalAlignment(HorizontalAlignment.Left)
+            LineBoundsDemoControl(30.)
+                .verticalAlignment(VerticalAlignment.Top)
+                .horizontalAlignment(HorizontalAlignment.Center)
+            LineBoundsDemoControl(45.)
+                .verticalAlignment(VerticalAlignment.Top)
+                .horizontalAlignment(HorizontalAlignment.Right)
+            LineBoundsDemoControl(60.)
+                .verticalAlignment(VerticalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Left)
+            
+            LineBoundsDemoControl(75.)
+                .verticalAlignment(VerticalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Center)
+                
+            LineBoundsDemoControl(90.)
+                .verticalAlignment(VerticalAlignment.Center)
+                .horizontalAlignment(HorizontalAlignment.Right)
+        }

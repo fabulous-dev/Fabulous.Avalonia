@@ -62,6 +62,6 @@ module Transitions12 =
                     radius = model.Radius
                 )
             )
-            .onPointerEnter(OnPointerEnter)
+            .onPointerEntered(OnPointerEnter)
             .onPointerExited(OnPointerExited)
             .transition(BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5)))

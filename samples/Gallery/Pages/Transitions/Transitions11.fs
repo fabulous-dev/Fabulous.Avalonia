@@ -58,6 +58,6 @@ module Transitions11 =
                     center = RelativePoint.Parse("50%, 50%")
                 )
             )
-            .onPointerEnter(OnPointerEnter)
+            .onPointerEntered(OnPointerEnter)
             .onPointerExited(OnPointerExited)
             .transition(BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5)))

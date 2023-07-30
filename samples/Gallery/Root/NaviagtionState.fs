@@ -80,7 +80,7 @@ type SubpageModel =
     | ThemeAwarePageModel of ThemeAwarePage.Model
     | UniformGridPageModel of UniformGridPage.Model
     | ViewBoxPageModel of ViewBoxPage.Model
-    
+
     member x.GetSubpageName() =
         match x with
         | AcrylicPageModel _ -> "Acrylic"
@@ -828,7 +828,7 @@ module NavigationState =
             | PointersPageMsg subMsg, PointersPageModel m ->
                 let m, c = PointersPage.update subMsg m
                 PointersPageModel m, [ PointersPageCmdMsgs c ]
-            
+
             | PopupPageMsg subMsg, PopupPageModel m ->
                 let m, c = PopupPage.update subMsg m
                 PopupPageModel m, [ PopupPageCmdMsgs c ]

@@ -87,7 +87,7 @@ module ClippingPage =
                 )
                     .name("clipped")
                     .background(model.BrushColor)
-                    .onPointerEnter(OnPointerEnter)
+                    .onPointerEntered(OnPointerEnter)
                     .onPointerExited(OnPointerExited)
                     .width(100.)
                     .height(100.)
