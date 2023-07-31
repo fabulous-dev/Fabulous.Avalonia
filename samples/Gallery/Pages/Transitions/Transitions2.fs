@@ -43,7 +43,7 @@ module Transitions2 =
             Border()
                 .style(borderTestStyle)
                 .background(SolidColorBrush(Colors.Magenta))
-                .onPointerEnter(OnPointerEnter)
+                .onPointerEntered(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
                 .renderTransform(
                     ScaleTransform(model.ScaleX)
@@ -53,7 +53,7 @@ module Transitions2 =
             Border()
                 .style(borderTestStyle)
                 .background(SolidColorBrush(Colors.Magenta))
-                .onPointerEnter(OnPointerEnter1)
+                .onPointerEntered(OnPointerEnter1)
                 .onPointerExited(OnPointerExited1)
                 .renderTransform(
                     ScaleTransform(1., model.ScaleY)

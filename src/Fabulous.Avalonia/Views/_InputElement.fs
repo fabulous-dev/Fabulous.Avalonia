@@ -168,7 +168,7 @@ type InputElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when pointer enters the control.</param>
     [<Extension>]
-    static member inline onPointerEnter(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerEventArgs -> 'msg) =
+    static member inline onPointerEntered(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerEntered.WithValue(fun args -> fn args |> box))
 
     /// <summary>Listens to the InputElement PointerExited event.</summary>

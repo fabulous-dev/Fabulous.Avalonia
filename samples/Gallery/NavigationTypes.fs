@@ -49,6 +49,7 @@ type NavigationRoute =
     | PanelPage
     | PathIconPage
     | PopupPage
+    | PointersPage
     | PageTransitionsPage
     | RepeatButtonPage
     | RadioButtonPage
@@ -125,6 +126,7 @@ type NavigationRoute =
         | "PanelPage" -> PanelPage
         | "PathIconPage" -> PathIconPage
         | "PopupPage" -> PopupPage
+        | "PointersPage" -> PointersPage
         | "PageTransitionsPage" -> PageTransitionsPage
         | "RepeatButtonPage" -> RepeatButtonPage
         | "RadioButtonPage" -> RadioButtonPage

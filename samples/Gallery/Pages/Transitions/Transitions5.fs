@@ -34,7 +34,7 @@ module Transitions5 =
         HStack(16.) {
             Border()
                 .background(SolidColorBrush(Colors.Orange))
-                .onPointerEnter(OnPointerEnter)
+                .onPointerEntered(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
                 .width(model.Width)
                 .height(100.)
@@ -43,7 +43,7 @@ module Transitions5 =
 
             Border()
                 .background(SolidColorBrush(Colors.Orange))
-                .onPointerEnter(OnPointerEnter2)
+                .onPointerEntered(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
                 .height(model.Height)
                 .width(100.)

@@ -49,7 +49,7 @@ module Transitions4 =
             Border()
                 .background(SolidColorBrush(Colors.SeaGreen))
                 .style(borderTestStyle)
-                .onPointerEnter(OnPointerEnter)
+                .onPointerEntered(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
                 .renderTransform(
                     SkewTransform(model.SkewX, 0.)
@@ -60,7 +60,7 @@ module Transitions4 =
             Border()
                 .background(SolidColorBrush(Colors.SeaGreen))
                 .style(borderTestStyle)
-                .onPointerEnter(OnPointerEnter2)
+                .onPointerEntered(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
                 .renderTransform(
                     SkewTransform(0., model.SkewY)

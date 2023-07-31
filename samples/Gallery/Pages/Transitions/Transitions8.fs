@@ -49,6 +49,6 @@ module Transitions8 =
             .style(borderTestStyle)
             .boxShadow(model.BoxShadow, model.BoxShadows)
             .cornerRadius(10.)
-            .onPointerEnter(OnPointerEnter)
+            .onPointerEntered(OnPointerEnter)
             .onPointerExited(OnPointerExited)
             .transition(BoxShadowsTransition(Border.BoxShadowProperty, TimeSpan.FromSeconds(0.5)))

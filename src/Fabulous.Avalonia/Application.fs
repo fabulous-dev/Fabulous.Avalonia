@@ -27,6 +27,13 @@ type FabApplication() =
         | :? ISingleViewApplicationLifetime as singleViewLifetime -> singleViewLifetime.MainView <- _mainView
         | _ -> ()
 
+    /// <summary>Gets the top-level window or view for the application.</summary>
+    member this.TopLevel =
+        match this.ApplicationLifetime with
+        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow)
+        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView)
+        | _ -> failwith "ApplicationLifetime is not supported"
+
     /// <summary> Initializes a new instance of the WindowNotificationManager class.</summary>
     member this.WindowNotificationManager =
         match this.ApplicationLifetime with

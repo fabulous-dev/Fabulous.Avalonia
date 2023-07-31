@@ -47,7 +47,7 @@ module Transitions3 =
             Border()
                 .background(SolidColorBrush(Colors.Navy))
                 .style(borderTestStyle)
-                .onPointerEnter(OnPointerEnter)
+                .onPointerEntered(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
                 .renderTransform(
                     TranslateTransform(model.TranslateX, 0.)
@@ -57,7 +57,7 @@ module Transitions3 =
             Border()
                 .background(SolidColorBrush(Colors.Navy))
                 .style(borderTestStyle)
-                .onPointerEnter(OnPointerEnter2)
+                .onPointerEntered(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
                 .renderTransform(
                     TranslateTransform(0., model.TranslateY)

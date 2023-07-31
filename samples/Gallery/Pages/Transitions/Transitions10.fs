@@ -59,6 +59,6 @@ module Transitions10 =
                     endPoint = RelativePoint.Parse("100%, 100%")
                 )
             )
-            .onPointerEnter(OnPointerEnter)
+            .onPointerEntered(OnPointerEnter)
             .onPointerExited(OnPointerExited)
             .transition(BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5)))

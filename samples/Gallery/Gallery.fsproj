@@ -84,6 +84,9 @@
     <Compile Include="Pages\PathIconPage.fs" />
     <Compile Include="Pages\PageTransitions.fs" />
     <Compile Include="Pages\PopupPage.fs" />
+    <Compile Include="Pages\Pointers\PointerContactsTab.fs" />
+    <Compile Include="Pages\Pointers\PointerCanvasTab.fs" />
+    <Compile Include="Pages\Pointers\PointersPage.fs" />
     <Compile Include="Pages\ProgressBarPage.fs" />
     <Compile Include="Pages\RadioButtonPage.fs" />
     <Compile Include="Pages\RefreshContainerPage.fs" />

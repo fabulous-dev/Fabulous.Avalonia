@@ -41,6 +41,6 @@ module Transitions9 =
         Border()
             .style(borderTestStyle)
             .background(model.Background)
-            .onPointerEnter(OnPointerEnter)
+            .onPointerEntered(OnPointerEnter)
             .onPointerExited(OnPointerExited)
             .transition(BrushTransition(Border.BackgroundProperty, TimeSpan.FromSeconds(0.5)))

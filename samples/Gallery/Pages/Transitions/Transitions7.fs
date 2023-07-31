@@ -57,7 +57,7 @@ module Transitions7 =
                 .background(SolidColorBrush(Colors.Gray))
                 .style(borderTestStyle)
                 .padding(model.Padding)
-                .onPointerEnter(OnPointerEnter)
+                .onPointerEntered(OnPointerEnter)
                 .onPointerExited(OnPointerExited)
                 .transition(ThicknessTransition(Decorator.PaddingProperty, TimeSpan.FromSeconds(0.5)))
 
@@ -66,7 +66,7 @@ module Transitions7 =
                 .background(SolidColorBrush(Colors.Gray))
                 .style(borderTestStyle)
                 .padding(model.Padding1)
-                .onPointerEnter(OnPointerEnter2)
+                .onPointerEntered(OnPointerEnter2)
                 .onPointerExited(OnPointerExited2)
                 .transition(ThicknessTransition(Decorator.PaddingProperty, TimeSpan.FromSeconds(0.5)))
 
