@@ -93,8 +93,8 @@ type PointerCanvas() =
     let _pointers = Dictionary<int, PointerPoints>()
     let mutable _lastProperties: PointerPointProperties = Unchecked.defaultof<_>
     let mutable _lastNonOtherUpdateKind: PointerUpdateKind = Unchecked.defaultof<_>
-    static let mutable _threadSleep: int = 0
-    static let mutable _drawOnlyPoints = false
+    let mutable _threadSleep: int = 0
+    let mutable _drawOnlyPoints = false
     let statusChanged = Event<EventHandler<string>, string>()
 
     [<CLIEvent>]
@@ -105,14 +105,14 @@ type PointerCanvas() =
         and set value = _threadSleep <- value
 
     static member ThreadSleepProperty: DirectProperty<PointerCanvas, int> =
-        AvaloniaProperty.RegisterDirect<PointerCanvas, int>(nameof(_threadSleep), (fun o -> o.ThreadSleep), (fun o v -> o.ThreadSleep <- v))
+        AvaloniaProperty.RegisterDirect<PointerCanvas, int>("ThreadSleep", (fun o -> o.ThreadSleep), (fun o v -> o.ThreadSleep <- v))
 
     member this.DrawOnlyPoints
         with get () = _drawOnlyPoints
         and set value = _drawOnlyPoints <- value
 
     static member DrawOnlyPointsProperty: DirectProperty<PointerCanvas, bool> =
-        AvaloniaProperty.RegisterDirect<PointerCanvas, bool>(nameof(_drawOnlyPoints), (fun o -> o.DrawOnlyPoints), (fun o v -> o.DrawOnlyPoints <- v))
+        AvaloniaProperty.RegisterDirect<PointerCanvas, bool>("DrawOnlyPoints", (fun o -> o.DrawOnlyPoints), (fun o v -> o.DrawOnlyPoints <- v))
 
     override this.OnAttachedToVisualTree(e: VisualTreeAttachmentEventArgs) =
         base.OnAttachedToVisualTree(e)
@@ -149,6 +149,7 @@ Twist: {_lastProperties.Twist}"
 
     override this.OnDetachedFromVisualTree(e: VisualTreeAttachmentEventArgs) =
         base.OnDetachedFromVisualTree(e)
+        _stopwatch.Stop()
 
         _statusUpdated.Dispose()
 

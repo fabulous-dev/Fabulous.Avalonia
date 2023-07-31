@@ -63,7 +63,7 @@ type LineBoundsDemoControl() =
     inherit Control()
     static let mutable _angle: float = 0.
 
-    static let mutable _timer: DispatcherTimer = null
+    let mutable _timer: DispatcherTimer = null
 
     do LineBoundsDemoControl.AffectsRender<LineBoundsDemoControl>(LineBoundsDemoControl.AngleProperty)
 
@@ -85,19 +85,19 @@ type LineBoundsDemoControl() =
 
     override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) = _timer.Stop()
 
-    static member Angle = _angle
+    member this.Angle
+        with get () = _angle
+        and set value = _angle <- value
 
     static member AngleProperty: StyledProperty<float> =
-        AvaloniaProperty.Register<LineBoundsDemoControl, float>(nameof(LineBoundsDemoControl.Angle))
+        AvaloniaProperty.Register<LineBoundsDemoControl, float>("Angle")
 
     override this.Render(drawingContext: DrawingContext) =
         let lineLength = Math.Sqrt((100. * 100.) + (100. * 100.))
 
-        let diffX =
-            LineBoundsHelper.calculateAdjSide(LineBoundsDemoControl.Angle, lineLength)
+        let diffX = LineBoundsHelper.calculateAdjSide(this.Angle, lineLength)
 
-        let diffY =
-            LineBoundsHelper.calculateOppSide(LineBoundsDemoControl.Angle, lineLength)
+        let diffY = LineBoundsHelper.calculateOppSide(this.Angle, lineLength)
 
         let p1 = Point(200., 200.)
         let p2 = Point(p1.X + diffX, p1.Y + diffY)
