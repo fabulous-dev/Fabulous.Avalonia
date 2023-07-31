@@ -111,6 +111,13 @@ type TemplatedControlModifiers =
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: CornerRadius) =
         this.AddScalar(TemplatedControl.CornerRadius.WithValue(value))
 
+    /// <summary>Sets the CornerRadius property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CornerRadius value.</param>
+    [<Extension>]
+    static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: float) =
+        this.AddScalar(TemplatedControl.CornerRadius.WithValue(CornerRadius(value)))
+
     /// <summary>Sets the FontFamily property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The FontFamily value.</param>

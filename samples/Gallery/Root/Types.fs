@@ -8,7 +8,8 @@ module Types =
     type Model =
         { Navigation: NavigationModel
           IsPanOpen: bool
-          PaneLength: float }
+          PaneLength: float
+          HeaderText: string }
 
     type Msg =
         | SubpageMsg of SubpageMsg

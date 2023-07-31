@@ -19,6 +19,7 @@ module State =
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = false
+          HeaderText = model.GetSubpageName()
           PaneLength = 150. },
         [ SubpageCmdMsgs cmdMsgs ]
 #else
@@ -26,7 +27,8 @@ module State =
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = true
-          PaneLength = 250. },
+          PaneLength = 250.
+          HeaderText = model.GetSubpageName() },
         [ SubpageCmdMsgs cmdMsgs ]
 #endif
 
@@ -42,7 +44,10 @@ module State =
             let nav, cmdMsgs = NavigationState.update subpageMsg model.Navigation
             { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
 
-        | OpenPanChanged x -> { model with IsPanOpen = x }, []
+        | OpenPanChanged x ->
+
+
+            { model with IsPanOpen = x }, []
 
         | OpenPan ->
             { model with
@@ -65,7 +70,8 @@ module State =
             let modelRoute, cmdMsgs = NavigationState.initRoute route
 
             { model with
-                Navigation = NavigationModel.Init(modelRoute) },
+                Navigation = NavigationModel.Init(modelRoute)
+                HeaderText = modelRoute.GetSubpageName() },
             [ SubpageCmdMsgs cmdMsgs ]
 
         | DoNothing -> model, []
