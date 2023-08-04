@@ -7,7 +7,7 @@ open type Fabulous.Avalonia.View
 open Gallery
 
 module MaskedTextBoxPage =
-    type Model = { MaskedText: string }
+    type Model = { Text: string }
 
     type Msg = TextChanged of string
 
@@ -17,18 +17,18 @@ module MaskedTextBoxPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
-    let init () = { MaskedText = "" }, []
+    let init () = { Text = "" }, []
 
     let update msg model =
         match msg with
-        | TextChanged text -> { model with MaskedText = text }, []
+        | TextChanged text -> { model with Text = text }, []
 
     let view model =
         VStack(spacing = 15) {
 
             TextBlock("Enter a ten-digit number:")
 
-            MaskedTextBox(model.MaskedText, "(000) 000-0000", TextChanged)
+            MaskedTextBox(model.Text, "(000) 000-0000", TextChanged)
 
-            TextBlock($"You Entered: {model.MaskedText}")
+            TextBlock($"You Entered: {model.Text}")
         }

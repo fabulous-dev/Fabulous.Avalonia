@@ -26,7 +26,7 @@ module State =
         let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
 
         { Navigation = NavigationModel.Init(model)
-          IsPanOpen = true
+          IsPanOpen = false
           PaneLength = 250.
           HeaderText = model.GetSubpageName() },
         [ SubpageCmdMsgs cmdMsgs ]
@@ -44,10 +44,7 @@ module State =
             let nav, cmdMsgs = NavigationState.update subpageMsg model.Navigation
             { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
 
-        | OpenPanChanged x ->
-
-
-            { model with IsPanOpen = x }, []
+        | OpenPanChanged x -> { model with IsPanOpen = x }, []
 
         | OpenPan ->
             { model with
@@ -75,5 +72,3 @@ module State =
             [ SubpageCmdMsgs cmdMsgs ]
 
         | DoNothing -> model, []
-
-        | OnColorValuesChanged _colorValues -> model, []

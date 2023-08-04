@@ -6,7 +6,6 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Primitives.PopupPositioning
 open Fabulous
-open Fabulous.ScalarAttributeDefinitions
 open Fabulous.StackAllocatedCollections
 
 type IFabContextMenu =

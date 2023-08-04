@@ -41,6 +41,9 @@ module FlyoutPage =
             | :? Panel as control ->
                 FlyoutBase.ShowAttachedFlyout(control)
                 model, []
+            | :? Border as control ->
+                FlyoutBase.ShowAttachedFlyout(control)
+                model, []
             | _ -> model, []
         | MenuOpening _ -> model, []
         | MenuClosing _ -> model, []

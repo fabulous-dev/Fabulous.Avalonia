@@ -18,7 +18,6 @@ module Types =
         | OpenPan
         | OnLoaded of RoutedEventArgs
         | DoNothing
-        | OnColorValuesChanged of Platform.PlatformColorValues
 
     type CmdMsg =
         | NewMsg of Msg

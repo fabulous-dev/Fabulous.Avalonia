@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Fabulous
 
@@ -11,8 +10,6 @@ type IFabFlyoutBase =
 module FlyoutBase =
     let AttachedFlyout =
         Attributes.defineAvaloniaPropertyWidget FlyoutBase.AttachedFlyoutProperty
-
-    let Target = Attributes.defineAvaloniaPropertyWithEquality FlyoutBase.TargetProperty
 
     let Opened =
         Attributes.defineEventNoArg "FlyoutBase_Opened" (fun target -> (target :?> FlyoutBase).Opened)

@@ -16,4 +16,11 @@ module App =
             { ViewHelpers.defaultLogger() with
                 MinLogLevel = LogLevel.Debug }
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+#endif
+        )
 #endif
