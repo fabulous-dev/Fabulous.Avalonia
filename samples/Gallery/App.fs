@@ -20,7 +20,6 @@ module App =
 #if DEBUG
             printfn $"Exception: %s{ex.ToString()}"
             false
-#else
 #endif
         )
 #endif
