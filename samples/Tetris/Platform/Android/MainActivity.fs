@@ -1,13 +1,13 @@
-namespace CounterApp.Android
+namespace Tetris.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
-open CounterApp
+open Tetris
 open Fabulous.Avalonia
 
-[<Activity(Label = "Counter.Android",
+[<Activity(Label = "Tetris.Android",
            Theme = "@style/MyTheme.NoActionBar",
            Icon = "@drawable/icon",
            LaunchMode = LaunchMode.SingleTop,
