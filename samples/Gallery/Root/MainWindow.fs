@@ -250,4 +250,5 @@ module MainWindow =
                 .menu(createMenu model)
         )
             .trayIcon(trayIcon())
-            .debugOverlays(RendererDebugOverlays.Fps)
+//Enable this only for debugging purposes
+//.debugOverlays(RendererDebugOverlays.Fps ||| RendererDebugOverlays.DirtyRects)

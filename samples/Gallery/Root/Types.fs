@@ -3,6 +3,7 @@ namespace Gallery.Root
 open Avalonia.Controls
 open Avalonia.Interactivity
 open Avalonia
+open System
 
 module Types =
     type Model =
@@ -18,6 +19,7 @@ module Types =
         | OpenPan
         | OnLoaded of RoutedEventArgs
         | DoNothing
+        | Update of DateTime
 
     type CmdMsg =
         | NewMsg of Msg

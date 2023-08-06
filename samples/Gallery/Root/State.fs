@@ -3,6 +3,7 @@ namespace Gallery.Root
 open Avalonia.Controls
 open Fabulous
 open Gallery
+open Gallery.Pages
 open Types
 
 module State =
@@ -72,3 +73,8 @@ module State =
             [ SubpageCmdMsgs cmdMsgs ]
 
         | DoNothing -> model, []
+
+        | Update date ->
+            match model.Navigation.CurrentPage with
+            | CanvasPageModel _ -> model, [ NewMsg(SubpageMsg(CanvasPageMsg(CanvasPage.Msg.Update(date)))) ]
+            | _ -> model, []
