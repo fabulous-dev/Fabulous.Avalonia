@@ -286,7 +286,7 @@ module App =
                 })
                     .background("#222222")
             )
-            
+
     let subscription (_model: Model) =
         Cmd.ofSub(fun dispatch ->
             DispatcherTimer.Run(
@@ -319,11 +319,4 @@ module App =
         )
 #endif
     let program =
-        Program.statefulWithCmd init update app
-        |> Program.withSubscription subscription
-        |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-            printfn $"Exception: %s{ex.ToString()}"
-            false
-#endif
-        )
+        Program.statefulWithCmd init update app |> Program.withSubscription subscription
