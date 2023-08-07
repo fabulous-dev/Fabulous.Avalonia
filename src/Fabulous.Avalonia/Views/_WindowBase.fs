@@ -35,28 +35,28 @@ type WindowBaseModifiers =
 
     /// <summary>Listens to the WindowBase Activated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is activated.</param>
+    /// <param name="msg">Raised when the window is activated.</param>
     [<Extension>]
-    static member inline onActivated(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: 'msg) =
-        this.AddScalar(WindowBase.Activated.WithValue(fun _ -> fn |> box))
+    static member inline onActivated(this: WidgetBuilder<'msg, #IFabWindowBase>, msg: 'msg) =
+        this.AddScalar(WindowBase.Activated.WithValue(MsgValue msg))
 
     /// <summary>Listens to the WindowBase Deactivated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is deactivated.</param>
+    /// <param name="msg">Raised when the window is deactivated.</param>
     [<Extension>]
-    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: 'msg) =
-        this.AddScalar(WindowBase.Deactivated.WithValue(fun _ -> fn |> box))
+    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabWindowBase>, msg: 'msg) =
+        this.AddScalar(WindowBase.Deactivated.WithValue(MsgValue msg))
 
     /// <summary>Listens to the WindowBase PositionChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window position is changed.</param>
     [<Extension>]
     static member inline onPositionChanged(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: PixelPointEventArgs -> 'msg) =
-        this.AddScalar(WindowBase.PositionChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(WindowBase.PositionChanged.WithValue(fn))
 
     /// <summary>Listens to the WindowBase Resized event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is resized.</param>
     [<Extension>]
     static member inline onResized(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: WindowResizedEventArgs -> 'msg) =
-        this.AddScalar(WindowBase.Resized.WithValue(fun args -> fn args |> box))
+        this.AddScalar(WindowBase.Resized.WithValue(fn))

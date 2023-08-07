@@ -115,21 +115,21 @@ type ExpanderModifiers =
     /// <param name="fn">Raised when the ExpandedChanged event fires.</param>
     [<Extension>]
     static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, fn: bool -> 'msg) =
-        this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded (fun arg -> fn arg |> box)))
+        this.AddScalar(Expander.ExpandedChanged.WithValue(ValueEventData.create isExpanded fn))
 
     /// <summary>Listens to the Expander Collapsing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Collapsing event fires.</param>
     [<Extension>]
     static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabExpander>, fn: CancelRoutedEventArgs -> 'msg) =
-        this.AddScalar(Expander.Collapsing.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Expander.Collapsing.WithValue(fn))
 
     /// <summary>Listens to the Expander Expanding event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Expanding event fires.</param>
     [<Extension>]
     static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, fn: CancelRoutedEventArgs -> 'msg) =
-        this.AddScalar(Expander.Expanding.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Expander.Expanding.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct Expander control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -66,14 +66,14 @@ type ControlModifiers =
     /// <param name="fn">Raised when the user has completed a context input gesture, such as a right-click.</param>
     [<Extension>]
     static member inline onContextRequested(this: WidgetBuilder<'msg, #IFabControl>, fn: ContextRequestedEventArgs -> 'msg) =
-        this.AddScalar(Control.ContextRequested.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Control.ContextRequested.WithValue(fn))
 
     /// <summary>Listens to the Control RequestBringIntoView event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when an element wishes to be scrolled into view.</param>
     [<Extension>]
     static member inline onRequestBringIntoView(this: WidgetBuilder<'msg, #IFabControl>, fn: RequestBringIntoViewEventArgs -> 'msg) =
-        this.AddScalar(Control.RequestBringIntoView.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Control.RequestBringIntoView.WithValue(fn))
 
     /// <summary>Listens to the Control Loaded event.</summary>
     /// <param name="this">Current widget.</param>
@@ -81,18 +81,18 @@ type ControlModifiers =
     /// layout and render are complete.</param>
     [<Extension>]
     static member inline onLoaded(this: WidgetBuilder<'msg, #IFabControl>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Control.Loaded.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Control.Loaded.WithValue(fn))
 
     /// <summary>Listens to the Control UnLoaded event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control is removed from the visual tree.</param>
     [<Extension>]
     static member inline onUnLoaded(this: WidgetBuilder<'msg, #IFabControl>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Control.UnLoaded.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Control.UnLoaded.WithValue(fn))
 
     /// <summary>Listens to the Control SizeChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control's size changes.</param>
     [<Extension>]
     static member inline onSizeChanged(this: WidgetBuilder<'msg, #IFabControl>, fn: SizeChangedEventArgs -> 'msg) =
-        this.AddScalar(Control.SizeChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Control.SizeChanged.WithValue(fn))

@@ -183,17 +183,17 @@ type PopupModifiers =
 
     /// <summary>Listens to the Popup Closed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Popup is closed.</param>
+    /// <param name="msg">Raised when the Popup is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabPopup>, fn: 'msg) =
-        this.AddScalar(Popup.Closed.WithValue(fun _ -> fn |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabPopup>, msg: 'msg) =
+        this.AddScalar(Popup.Closed.WithValue(fun _ -> box msg))
 
     /// <summary>Listens to the Popup Opened event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Popup is opened.</param>
+    /// <param name="msg">Raised when the Popup is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabPopup>, fn: 'msg) =
-        this.AddScalar(Popup.Opened.WithValue(fn))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabPopup>, msg: 'msg) =
+        this.AddScalar(Popup.Opened.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
     /// <param name="this">Current widget.</param>

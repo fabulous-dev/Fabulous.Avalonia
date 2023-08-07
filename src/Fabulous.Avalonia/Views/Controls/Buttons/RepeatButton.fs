@@ -22,12 +22,12 @@ module RepeatButtonBuilders =
 
         /// <summary>Creates a RepeatButton widget.</summary>
         /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the button is clicked.</param>
-        static member inline RepeatButton<'msg>(text: string, fn: 'msg) =
+        /// <param name="msg">Raised when the button is clicked.</param>
+        static member inline RepeatButton<'msg>(text: string, msg: 'msg) =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> fn |> box)
+                Button.Clicked.WithValue(fun _ -> box msg)
             )
 
         /// <summary>Creates a RepeatButton widget.</summary>

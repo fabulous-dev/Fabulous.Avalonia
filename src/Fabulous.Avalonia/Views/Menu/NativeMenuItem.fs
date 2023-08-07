@@ -53,7 +53,7 @@ module NativeMenuItemBuilders =
             WidgetBuilder<'msg, IFabNativeMenuItem>(
                 NativeMenuItem.WidgetKey,
                 NativeMenuItem.Header.WithValue(header),
-                NativeMenuItem.Click.WithValue(onClicked)
+                NativeMenuItem.Click.WithValue(MsgValue onClicked)
             )
 
 [<Extension>]

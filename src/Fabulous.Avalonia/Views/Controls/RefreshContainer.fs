@@ -55,7 +55,7 @@ type RefreshContainerModifiers =
     /// <param name="fn">Raised when the RefreshRequested event is fired.</param>
     [<Extension>]
     static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFabRefreshContainer>, fn: RefreshRequestedEventArgs -> 'msg) =
-        this.AddScalar(RefreshContainer.RefreshRequested.WithValue(fun args -> fn args |> box))
+        this.AddScalar(RefreshContainer.RefreshRequested.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct RefreshContainer control instance.</summary>
     /// <param name="this">Current widget.</param>

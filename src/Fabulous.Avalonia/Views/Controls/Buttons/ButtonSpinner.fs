@@ -30,7 +30,7 @@ module ButtonSpinnerBuilders =
             WidgetBuilder<'msg, IFabButtonSpinner>(
                 ButtonSpinner.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                Spinner.Spin.WithValue(fun args -> fn args |> box)
+                Spinner.Spin.WithValue(fn)
             )
 
 [<Extension>]

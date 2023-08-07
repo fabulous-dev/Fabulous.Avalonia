@@ -60,7 +60,7 @@ module CalendarBuilders =
             WidgetBuilder<'msg, IFabCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
-                Calendar.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> fn args |> box))
+                Calendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
         /// <summary>Creates a Calendar widget.</summary>
@@ -71,7 +71,7 @@ module CalendarBuilders =
             WidgetBuilder<'msg, IFabCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(mode),
-                Calendar.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> fn args |> box))
+                Calendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
 [<Extension>]
@@ -144,14 +144,14 @@ type CalendarModifiers =
     /// <param name="fn">Raised when the DisplayDateChanged event is fired.</param>
     [<Extension>]
     static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabCalendar>, fn: CalendarDateChangedEventArgs -> 'msg) =
-        this.AddScalar(Calendar.DisplayDateChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Calendar.DisplayDateChanged.WithValue(fn))
 
     /// <summary>Listens to the Calendar DisplayModeChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayModeChanged event is fired.</param>
     [<Extension>]
     static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabCalendar>, fn: CalendarModeChangedEventArgs -> 'msg) =
-        this.AddScalar(Calendar.DisplayModeChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Calendar.DisplayModeChanged.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct Calendar control instance.</summary>
     /// <param name="this">Current widget.</param>

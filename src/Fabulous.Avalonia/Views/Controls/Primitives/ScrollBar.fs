@@ -45,8 +45,8 @@ module ScrollBarBuilders =
         static member inline ScrollBar(min: float, max: float, value: float, fn: float -> 'msg) =
             WidgetBuilder<'msg, IFabScrollBar>(
                 ScrollBar.WidgetKey,
-                RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> fn args |> box))
+                RangeBase.MinimumMaximum.WithValue(struct (min, max)),
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
 [<Extension>]
@@ -99,7 +99,7 @@ type ScrollBarModifiers =
     /// <param name="fn">Raised when the Scroll value changes.</param>
     [<Extension>]
     static member inline onScroll(this: WidgetBuilder<'msg, #IFabScrollBar>, fn: ScrollEventArgs -> 'msg) =
-        this.AddScalar(ScrollBar.Scroll.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ScrollBar.Scroll.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct ScrollBar control instance.</summary>
     /// <param name="this">Current widget.</param>

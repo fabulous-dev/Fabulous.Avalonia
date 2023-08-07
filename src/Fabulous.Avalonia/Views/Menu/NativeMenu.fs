@@ -38,24 +38,24 @@ module NativeMenuBuilders =
 type NativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Opening event fires.</param>
+    /// <param name="msg">Raised when the Opening event fires.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
-        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> fn |> box))
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
+        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> box msg))
 
     /// <summary>Listens to the NativeMenu Closed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Closed event fires.</param>
+    /// <param name="msg">Raised when the Closed event fires.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
-        this.AddScalar(NativeMenu.Closed.WithValue(fun _ -> fn |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
+        this.AddScalar(NativeMenu.Closed.WithValue(fun _ -> box msg))
 
     /// <summary>Listens to the NativeMenu NeedsUpdate event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the NeedsUpdate event fires.</param>
+    /// <param name="msg">Raised when the NeedsUpdate event fires.</param>
     [<Extension>]
-    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, fn: 'msg) =
-        this.AddScalar(NativeMenu.NeedsUpdate.WithValue(fun _ -> fn |> box))
+    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
+        this.AddScalar(NativeMenu.NeedsUpdate.WithValue(fun _ -> box msg))
 
     /// <summary>Link a ViewRef to access the direct NativeMenu control instance.</summary>
     /// <param name="this">Current widget.</param>

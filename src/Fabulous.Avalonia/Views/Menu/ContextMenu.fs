@@ -121,14 +121,14 @@ type ContextMenuModifiers =
     /// <param name="fn">Raised when the Opening event fires.</param>
     [<Extension>]
     static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.Opening.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ContextMenu.Opening.WithValue(fn))
 
     /// <summary>Listens to the ContextMenu Closing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Closing event fires.</param>
     [<Extension>]
     static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.Closing.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ContextMenu.Closing.WithValue(fn))
 
     /// <summary>Sets the PlacementTarget property.</summary>
     /// <param name="this">Current widget.</param>

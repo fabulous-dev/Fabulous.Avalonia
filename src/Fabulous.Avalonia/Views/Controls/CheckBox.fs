@@ -23,7 +23,7 @@ module CheckBoxBuilders =
         static member inline CheckBox<'msg>(isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a CheckBox widget.</summary>
@@ -34,7 +34,7 @@ module CheckBoxBuilders =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a CheckBox widget</summary>
@@ -45,7 +45,7 @@ module CheckBoxBuilders =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))),
+                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -59,7 +59,7 @@ module CheckBoxBuilders =
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
                 )
             )
 
@@ -73,7 +73,7 @@ module CheckBoxBuilders =
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
                 ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
+                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
                 )
             )
 
@@ -87,7 +87,7 @@ module CheckBoxBuilders =
                 AttributesBundle(
                     StackList.two(
                         ToggleButton.ThreeStateCheckedChanged.WithValue(
-                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
+                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
                         ),
                         ToggleButton.IsThreeState.WithValue(true)
                     ),

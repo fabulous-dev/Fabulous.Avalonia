@@ -120,14 +120,14 @@ type LayoutableModifiers =
     /// <param name="fn">Raised when the element's effective viewport changes.</param>
     [<Extension>]
     static member inline onEffectiveViewportChanged(this: WidgetBuilder<'msg, #IFabLayoutable>, fn: EffectiveViewportChangedEventArgs -> 'msg) =
-        this.AddScalar(Layoutable.EffectiveViewportChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Layoutable.EffectiveViewportChanged.WithValue(fn))
 
     /// <summary>Listens to the Layoutable LayoutUpdated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the element's layout is updated.</param>
+    /// <param name="msg">Raised when the element's layout is updated.</param>
     [<Extension>]
-    static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, fn: 'msg) =
-        this.AddScalar(Layoutable.LayoutUpdated.WithValue(fn))
+    static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, msg: 'msg) =
+        this.AddScalar(Layoutable.LayoutUpdated.WithValue(MsgValue msg))
 
 [<Extension>]
 type LayoutableExtraModifiers =

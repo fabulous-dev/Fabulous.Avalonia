@@ -59,10 +59,10 @@ type TrayIconModifiers =
 
     /// <summary>Listens to the TrayIcon Clicked event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Clicked event fires.</param>
+    /// <param name="msg">Raised when the Clicked event fires.</param>
     [<Extension>]
-    static member inline onClicked(this: WidgetBuilder<'msg, #IFabTrayIcon>, fn: 'msg) =
-        this.AddScalar(TrayIcon.Clicked.WithValue(fun _ -> fn |> box))
+    static member inline onClicked(this: WidgetBuilder<'msg, #IFabTrayIcon>, msg: 'msg) =
+        this.AddScalar(TrayIcon.Clicked.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct TrayIcon control instance.</summary>
     /// <param name="this">Current widget.</param>

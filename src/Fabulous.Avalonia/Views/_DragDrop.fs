@@ -28,28 +28,28 @@ type DragDropModifiers =
     /// <param name="fn">Raised when a drag-and-drop operation enters the element.</param>
     [<Extension>]
     static member inline onDragEnter(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.DragEnter.WithValue(fun args -> fn args |> box))
+        this.AddScalar(DragDrop.DragEnter.WithValue(fn))
 
     /// <summary>Listens to the DragDrop DragLeave event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a drag-and-drop operation leaves the element.</param>
     [<Extension>]
     static member inline onDragLeave(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.DragLeave.WithValue(fun args -> fn args |> box))
+        this.AddScalar(DragDrop.DragLeave.WithValue(fn))
 
     /// <summary>Listens to the DragDrop DragOver event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a drag-and-drop operation is in progress over the element.</param>
     [<Extension>]
     static member inline onDragOver(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.DragOver.WithValue(fun args -> fn args |> box))
+        this.AddScalar(DragDrop.DragOver.WithValue(fn))
 
     /// <summary>Listens to the DragDrop Drop event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a drag-and-drop operation is dropped on the element.</param>
     [<Extension>]
     static member inline onDrop(this: WidgetBuilder<'msg, #IFabInteractive>, fn: DragEventArgs -> 'msg) =
-        this.AddScalar(DragDrop.Drop.WithValue(fun args -> fn args |> box))
+        this.AddScalar(DragDrop.Drop.WithValue(fn))
 
     /// <summary>Sets the AllowDrop property.</summary>
     /// <param name="this">Current widget.</param>

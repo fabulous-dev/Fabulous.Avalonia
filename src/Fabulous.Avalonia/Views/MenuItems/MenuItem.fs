@@ -59,7 +59,7 @@ module MenuItemBuilders =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> onClick |> box)
+                MenuItem.Clicked.WithValue(fun _ -> box onClick)
             )
 
         /// <summary>Creates a MenuItem widget.</summary>
@@ -77,7 +77,7 @@ module MenuItemBuilders =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> onClick |> box)),
+                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
@@ -101,7 +101,7 @@ module MenuItemBuilders =
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> onClick |> box)
+                MenuItem.Clicked.WithValue(fun _ -> box onClick)
             )
 
         /// <summary>Creates a MenuItems widget.</summary>
@@ -118,7 +118,7 @@ module MenuItemBuilders =
         static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>, onClick: 'msg) =
             WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
                 MenuItem.WidgetKey
-                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> onClick |> box)))
+                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)))
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
 [<Extension>]
@@ -170,21 +170,21 @@ type MenuItemModifiers =
     /// <param name="fn">Raised when the PointerEnteredItem event is fired.</param>
     [<Extension>]
     static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fun args -> fn args |> box))
+        this.AddScalar(MenuItem.PointerEnteredItem.WithValue(fn))
 
     /// <summary>Listens to the MenuItem PointerExitedItem event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PointerExitedItem event is fired.</param>
     [<Extension>]
     static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuItem.PointerExitedItem.WithValue(fun args -> fn args |> box))
+        this.AddScalar(MenuItem.PointerExitedItem.WithValue(fn))
 
     /// <summary>Listens to the MenuItem SubmenuClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the SubmenuClosed event is fired.</param>
     [<Extension>]
     static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(MenuItem.SubmenuOpened.WithValue(fun args -> fn args |> box))
+        this.AddScalar(MenuItem.SubmenuOpened.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>

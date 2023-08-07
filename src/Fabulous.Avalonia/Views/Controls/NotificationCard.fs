@@ -46,7 +46,7 @@ type NotificationCardModifiers =
     /// <param name="fn">Raised when the NotificationCard is closed.</param>
     [<Extension>]
     static member inline onNotificationClosed(this: WidgetBuilder<'msg, #IFabNotificationCard>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(NotificationCard.NotificationClosed.WithValue(fun args -> fn args |> box))
+        this.AddScalar(NotificationCard.NotificationClosed.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct NotificationCard control instance.</summary>
     /// <param name="this">Current widget.</param>

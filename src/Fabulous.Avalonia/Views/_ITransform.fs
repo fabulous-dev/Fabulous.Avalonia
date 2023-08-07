@@ -16,7 +16,7 @@ module Transform =
 type TransformModifiers =
     /// <summary>Listens to the Transform changed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Transform changes.</param>
+    /// <param name="msg">Raised when the Transform changes.</param>
     [<Extension>]
-    static member inline onChanged(this: WidgetBuilder<'msg, #IFabTransform>, fn: 'msg) =
-        this.AddScalar(Transform.Changed.WithValue(fun _ -> fn |> box))
+    static member inline onChanged(this: WidgetBuilder<'msg, #IFabTransform>, msg: 'msg) =
+        this.AddScalar(Transform.Changed.WithValue(MsgValue msg))

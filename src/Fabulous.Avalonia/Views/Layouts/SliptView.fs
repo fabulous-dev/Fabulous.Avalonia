@@ -166,28 +166,28 @@ type SplitViewModifiers =
     /// <param name="fn">Raised when the PanClosed event fires.</param>
     [<Extension>]
     static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanClosed.WithValue(fun args -> fn args |> box))
+        this.AddScalar(SplitView.PanClosed.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanClosing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosing event fires.</param>
     [<Extension>]
     static member inline onPanClosing(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanClosing.WithValue(fun args -> fn args |> box))
+        this.AddScalar(SplitView.PanClosing.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpened event fires.</param>
     [<Extension>]
     static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanOpened.WithValue(fun args -> fn args |> box))
+        this.AddScalar(SplitView.PanOpened.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpening event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpening event fires.</param>
     [<Extension>]
     static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanOpening.WithValue(fun args -> fn args |> box))
+        this.AddScalar(SplitView.PanOpening.WithValue(fn))
 
     /// <summary>Listens to the SplitView IsPresented event.</summary>
     /// <param name="this">Current widget.</param>
@@ -195,7 +195,7 @@ type SplitViewModifiers =
     /// <param name="fn">Raised when the IsPresented event fires.</param>
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> 'msg) =
-        this.AddScalar(SplitView.IsPresented.WithValue(ValueEventData.create value (fun v -> fn v |> box)))
+        this.AddScalar(SplitView.IsPresented.WithValue(ValueEventData.create value fn))
 
     /// <summary>Link a ViewRef to access the direct SplitView control instance.</summary>
     /// <param name="this">Current widget.</param>

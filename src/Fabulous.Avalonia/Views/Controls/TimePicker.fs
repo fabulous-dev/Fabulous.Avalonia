@@ -30,7 +30,7 @@ module TimePickerBuilders =
         static member inline TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
             WidgetBuilder<'msg, IFabTimePicker>(
                 TimePicker.WidgetKey,
-                TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time (fun args -> fn args |> box))
+                TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time fn)
             )
 
 [<Extension>]

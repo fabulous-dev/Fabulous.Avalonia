@@ -48,7 +48,7 @@ module DatePickerBuilders =
         static member inline DatePicker(date: DateTimeOffset, fn: DateTimeOffset -> 'msg) =
             WidgetBuilder<'msg, IFabDatePicker>(
                 DatePicker.WidgetKey,
-                DatePicker.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> fn args |> box))
+                DatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
 [<Extension>]

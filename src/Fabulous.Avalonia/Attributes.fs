@@ -12,25 +12,26 @@ open Fabulous.ScalarAttributeDefinitions
 [<Struct>]
 type ValueEventData<'data, 'eventArgs> =
     { Value: 'data voption
-      Event: 'eventArgs -> obj }
+      Event: 'eventArgs -> MsgValue }
 
 module ValueEventData =
-    let create (value: 'data) (event: 'eventArgs -> obj) =
+    let create (value: 'data) (event: 'eventArgs -> 'msg) =
         { Value = ValueSome value
-          Event = event }
-
-    let createVOption (value: 'data voption) (event: 'eventArgs -> obj) = { Value = value; Event = event }
+          Event = event >> box >> MsgValue }
+        
+    let createVOption (value: 'data voption) (event: 'eventArgs -> 'msg) =
+        { Value = value; Event = event >> box >> MsgValue }
 
 module Attributes =
     /// Define an attribute for EventHandler<'T>
     let inline defineAvaloniaObservableEvent<'args>
         name
         ([<InlineIfLambda>] getObservable: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
-        : SimpleScalarAttributeDefinition<'args -> obj> =
+        : SimpleScalarAttributeDefinition<'args -> MsgValue> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                (fun _ (newValueOpt: ('args -> MsgValue) voption) (node: IViewNode) ->
                     let observable = getObservable node.Target
 
                     match node.TryGetHandler<IDisposable>(name) with
@@ -43,7 +44,7 @@ module Attributes =
                     | ValueSome fn ->
                         let disposable =
                             observable.Subscribe(fun args ->
-                                let r = fn args.NewValue.Value
+                                let (MsgValue r) = fn args.NewValue.Value
                                 Dispatcher.dispatch node r)
 
                         node.SetHandler(name, ValueSome disposable))
@@ -291,7 +292,7 @@ module Attributes =
                                 if args.Sender = target then
                                     if args.NewValue.HasValue then
                                         let args = args.NewValue.Value
-                                        let r = curr.Event(convertToModel args)
+                                        let (MsgValue r) = curr.Event(convertToModel args)
                                         Dispatcher.dispatch node r)
 
                         node.SetHandler(property.Name, ValueSome disposable))
@@ -303,11 +304,11 @@ module Attributes =
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
 
-    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> obj> =
+    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> MsgValue> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: ('args -> obj) voption) (node: IViewNode) ->
+                (fun _ (newValueOpt: ('args -> MsgValue) voption) (node: IViewNode) ->
                     match node.TryGetHandler<IDisposable>(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
@@ -318,7 +319,7 @@ module Attributes =
                     | ValueSome fn ->
                         let disposable =
                             property.AddClassHandler(fun _ args ->
-                                let r = fn args
+                                let (MsgValue r) = fn args
                                 Dispatcher.dispatch node r)
 
                         node.SetHandler(name, ValueSome disposable))
@@ -330,11 +331,11 @@ module Attributes =
     let inline defineCancelEvent
         name
         ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
-        : SimpleScalarAttributeDefinition<CancelEventArgs -> obj> =
+        : SimpleScalarAttributeDefinition<CancelEventArgs -> MsgValue> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: (CancelEventArgs -> obj) voption) (node: IViewNode) ->
+                (fun _ (newValueOpt: (CancelEventArgs -> MsgValue) voption) (node: IViewNode) ->
                     let event = getEvent node.Target
 
                     match node.TryGetHandler(name) with
@@ -347,7 +348,7 @@ module Attributes =
                     | ValueSome fn ->
                         let handler =
                             CancelEventHandler(fun _ args ->
-                                let r = fn args
+                                let (MsgValue r) = fn args
                                 Dispatcher.dispatch node r)
 
                         node.SetHandler(name, ValueSome handler)

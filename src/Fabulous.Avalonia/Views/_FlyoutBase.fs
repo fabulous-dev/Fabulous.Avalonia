@@ -24,17 +24,17 @@ module FlyoutBase =
 type FlyoutBaseModifiers =
     /// <summary>Listens to the FlyoutBase Opened event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the FlyoutBase is opened.</param>
+    /// <param name="msg">Raised when the FlyoutBase is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, fn: 'msg) =
-        this.AddScalar(FlyoutBase.Opened.WithValue(fun _ -> fn |> box))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, msg: 'msg) =
+        this.AddScalar(FlyoutBase.Opened.WithValue(MsgValue msg))
 
     /// <summary>Listens to the FlyoutBase Closed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the FlyoutBase is closed.</param>
+    /// <param name="msg">Raised when the FlyoutBase is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, fn: 'msg) =
-        this.AddScalar(FlyoutBase.Closed.WithValue(fun _ -> fn |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, msg: 'msg) =
+        this.AddScalar(FlyoutBase.Closed.WithValue(MsgValue msg))
 
     /// <summary>Sets the Target property.</summary>
     /// <param name="this">Current widget.</param>
