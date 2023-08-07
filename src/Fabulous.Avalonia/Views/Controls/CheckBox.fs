@@ -21,10 +21,7 @@ module CheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member inline CheckBox<'msg>(isChecked: bool, fn: bool -> 'msg) =
-            WidgetBuilder<'msg, IFabCheckBox>(
-                CheckBox.WidgetKey,
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
-            )
+            WidgetBuilder<'msg, IFabCheckBox>(CheckBox.WidgetKey, ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>
@@ -58,9 +55,7 @@ module CheckBoxBuilders =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a ThreeStateCheckBox widget.</summary>
@@ -72,9 +67,7 @@ module CheckBoxBuilders =
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a ThreeStateCheckBox widget.</summary>

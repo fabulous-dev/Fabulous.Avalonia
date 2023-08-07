@@ -38,9 +38,7 @@ module RadioButtonBuilders =
                 RadioButton.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a RadioButton widget.</summary>

@@ -18,9 +18,10 @@ module ValueEventData =
     let create (value: 'data) (event: 'eventArgs -> 'msg) =
         { Value = ValueSome value
           Event = event >> box >> MsgValue }
-        
+
     let createVOption (value: 'data voption) (event: 'eventArgs -> 'msg) =
-        { Value = value; Event = event >> box >> MsgValue }
+        { Value = value
+          Event = event >> box >> MsgValue }
 
 module Attributes =
     /// Define an attribute for EventHandler<'T>

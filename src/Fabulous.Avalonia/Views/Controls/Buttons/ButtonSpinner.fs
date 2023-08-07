@@ -27,11 +27,7 @@ module ButtonSpinnerBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the ButtonSpinner is clicked.</param>
         static member inline ButtonSpinner<'msg>(text: string, fn: SpinEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabButtonSpinner>(
-                ButtonSpinner.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                Spinner.Spin.WithValue(fn)
-            )
+            WidgetBuilder<'msg, IFabButtonSpinner>(ButtonSpinner.WidgetKey, ContentControl.ContentString.WithValue(text), Spinner.Spin.WithValue(fn))
 
 [<Extension>]
 type ButtonSpinnerModifiers =

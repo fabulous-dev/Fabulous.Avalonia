@@ -71,7 +71,7 @@ type TopLevelModifiers =
     /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(MsgValue (fn Application.Current.ActualThemeVariant)))
+        this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
 
     /// <summary>Sets the TransparencyLevelHint property.</summary>
     /// <param name="this">Current widget.</param>

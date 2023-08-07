@@ -60,9 +60,7 @@ module ToggleButtonBuilders =
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ToggleButton.IsThreeState.WithValue(true),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a ToggleButton widget.</summary>
