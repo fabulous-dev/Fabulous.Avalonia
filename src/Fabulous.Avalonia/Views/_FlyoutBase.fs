@@ -32,12 +32,3 @@ type FlyoutBaseModifiers =
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, msg: 'msg) =
         this.AddScalar(FlyoutBase.Closed.WithValue(MsgValue msg))
-
-    /// <summary>Sets the Target property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Target value.</param>
-    [<Extension>]
-    static member inline target(this: WidgetBuilder<'msg, #IFabFlyoutBase>, value: ViewRef<#Control>) =
-        match value.TryValue with
-        | None -> this
-        | Some value -> this.AddScalar(FlyoutBase.Target.WithValue(value))

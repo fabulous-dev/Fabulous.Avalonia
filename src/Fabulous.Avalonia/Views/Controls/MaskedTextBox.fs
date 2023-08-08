@@ -49,7 +49,7 @@ module MaskedTextBoxBuilders =
             WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 MaskedTextBox.Mask.WithValue(mask),
-                TextBox.TextChanged.WithValue(ValueEventData.create text fn)
+                MaskedTextBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
 [<Extension>]
