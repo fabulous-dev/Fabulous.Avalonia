@@ -46,7 +46,7 @@ module ToggleSwitchBuilders =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked (fun args -> fn args |> box))
+                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a ThreeStateToggleSwitch widget.</summary>
@@ -56,9 +56,7 @@ module ToggleSwitchBuilders =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(
-                    ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (fun args -> fn(ThreeState.toOption args) |> box)
-                )
+                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
 [<Extension>]

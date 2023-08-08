@@ -18,22 +18,22 @@ module DropDownButtonBuilders =
 
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the DropDownButton is clicked.</param>
-        static member inline DropDownButton<'msg>(text: string, fn: 'msg) =
+        /// <param name="msg">Raised when the DropDownButton is clicked.</param>
+        static member inline DropDownButton<'msg>(text: string, msg: 'msg) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                Button.Clicked.WithValue(fun _ -> box fn |> box)
+                Button.Clicked.WithValue(fun _ -> box msg)
             )
 
         /// <summary>Creates a DropDownButton widget.</summary>
-        /// <param name="fn">Raised when the DropDownButton is clicked.</param>
+        /// <param name="msg">Raised when the DropDownButton is clicked.</param>
         /// <param name="content">The content of the DropDownButton.</param>
-        static member inline DropDownButton(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member inline DropDownButton(msg: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(Button.Clicked.WithValue(fun _ -> fn |> box)),
+                    StackList.one(Button.Clicked.WithValue(fun _ -> box msg)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

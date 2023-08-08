@@ -15,10 +15,10 @@ module Effect =
 type EffectModifiers =
     /// <summary>Listens the Effect Invalidated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Effect is invalidated.</param>
+    /// <param name="msg">Raised when the Effect is invalidated.</param>
     [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabEffect>, fn: 'msg) =
-        this.AddScalar(Effect.Invalidated.WithValue(fun _ -> fn |> box))
+    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabEffect>, msg: 'msg) =
+        this.AddScalar(Effect.Invalidated.WithValue(MsgValue msg))
 
 [<Extension>]
 type AttachedEffectModifiers =

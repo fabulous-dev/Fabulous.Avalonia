@@ -71,7 +71,7 @@ type TopLevelModifiers =
     /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
+        this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
 
     /// <summary>Sets the TransparencyLevelHint property.</summary>
     /// <param name="this">Current widget.</param>
@@ -117,28 +117,28 @@ type TopLevelModifiers =
 
     /// <summary>Listens the TopLevel Opened event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is opened.</param>
+    /// <param name="msg">Raised when the window is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: 'msg) =
-        this.AddScalar(TopLevel.Opened.WithValue(fun _ -> fn |> box))
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
+        this.AddScalar(TopLevel.Opened.WithValue(MsgValue msg))
 
     /// <summary>Listens the TopLevel Closed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is closed.</param>
+    /// <param name="msg">Raised when the window is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: 'msg) =
-        this.AddScalar(TopLevel.Closed.WithValue(fun _ -> fn |> box))
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
+        this.AddScalar(TopLevel.Closed.WithValue(MsgValue msg))
 
     /// <summary>Listens the TopLevel BackRequested event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the back button is pressed.</param>
     [<Extension>]
     static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TopLevel.BackRequested.WithValue(fun args -> fn args |> box))
+        this.AddScalar(TopLevel.BackRequested.WithValue(fn))
 
     /// <summary>Listens the TopLevel ScalingChanged event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the TopLevel's scaling changes.</param>
+    /// <param name="msg">Raised when the TopLevel's scaling changes.</param>
     [<Extension>]
-    static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: 'msg) =
-        this.AddScalar(TopLevel.ScalingChanged.WithValue(fun _ -> fn |> box))
+    static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
+        this.AddScalar(TopLevel.ScalingChanged.WithValue(MsgValue msg))

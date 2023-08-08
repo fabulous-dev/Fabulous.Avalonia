@@ -28,10 +28,7 @@ module TimePickerBuilders =
         /// <param name="time">The initial time.</param>
         /// <param name="fn">Raised when the selected time changes.</param>
         static member inline TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
-            WidgetBuilder<'msg, IFabTimePicker>(
-                TimePicker.WidgetKey,
-                TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time (fun args -> fn args |> box))
-            )
+            WidgetBuilder<'msg, IFabTimePicker>(TimePicker.WidgetKey, TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time fn))
 
 [<Extension>]
 type TimePickerModifiers =

@@ -158,21 +158,21 @@ type WindowModifiers =
     /// <param name="fn">Raised when the window is closing.</param>
     [<Extension>]
     static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, fn: WindowClosingEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosing.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Window.WindowClosing.WithValue(fn))
 
     /// <summary>Listens to the Window WindowClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closed.</param>
     [<Extension>]
     static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosed.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Window.WindowClosed.WithValue(fn))
 
     /// <summary>Listens to the Window WindowOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
     static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowOpened.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Window.WindowOpened.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
     /// <param name="this">Current widget.</param>

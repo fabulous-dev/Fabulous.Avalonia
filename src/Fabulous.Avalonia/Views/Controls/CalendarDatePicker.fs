@@ -77,7 +77,7 @@ module CalendarDatePickerBuilders =
         static member CalendarDatePicker(date: DateTime option, fn: DateTime option -> 'msg) =
             WidgetBuilder<'msg, IFabCalendarDatePicker>(
                 CalendarDatePicker.WidgetKey,
-                CalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date (fun args -> fn args |> box))
+                CalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
 [<Extension>]
@@ -178,21 +178,21 @@ type CalendarDatePickerModifiers =
     /// <param name="fn">Raised when the DatePicker detects a format error.</param>
     [<Extension>]
     static member inline onDateValidationError(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: CalendarDatePickerDateValidationErrorEventArgs -> 'msg) =
-        this.AddScalar(CalendarDatePicker.DateValidationError.WithValue(fun args -> fn args |> box))
+        this.AddScalar(CalendarDatePicker.DateValidationError.WithValue(fn))
 
     /// <summary>Listens to the CalendarDatePicker CalendarClosed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the DatePicker closes its calendar.</param>
+    /// <param name="msg">Raised when the DatePicker closes its calendar.</param>
     [<Extension>]
-    static member inline onCalendarClosed(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: 'msg) =
-        this.AddScalar(CalendarDatePicker.CalendarClosed.WithValue(fn))
+    static member inline onCalendarClosed(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, msg: 'msg) =
+        this.AddScalar(CalendarDatePicker.CalendarClosed.WithValue(MsgValue msg))
 
     /// <summary>Listens to the CalendarDatePicker CalendarOpened event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the DatePicker opens its calendar.</param>
+    /// <param name="msg">Raised when the DatePicker opens its calendar.</param>
     [<Extension>]
-    static member inline onCalendarOpened(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: 'msg) =
-        this.AddScalar(CalendarDatePicker.CalendarOpened.WithValue(fn))
+    static member inline onCalendarOpened(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, msg: 'msg) =
+        this.AddScalar(CalendarDatePicker.CalendarOpened.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct CalendarDatePicker control instance.</summary>
     /// <param name="this">Current widget.</param>

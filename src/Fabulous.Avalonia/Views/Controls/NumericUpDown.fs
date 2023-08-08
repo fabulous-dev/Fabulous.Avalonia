@@ -100,13 +100,7 @@ module NumericUpDownBuilders =
                         | Some v -> Some(decimal v)
                         | None -> None
 
-                    ValueEventData.create value (fun args ->
-                        let args =
-                            match args with
-                            | Some v -> Some(float v)
-                            | None -> None
-
-                        fn args |> box)
+                    ValueEventData.create value (Option.map float >> fn)
                 )
             )
 
@@ -118,20 +112,14 @@ module NumericUpDownBuilders =
         static member inline NumericUpDown<'msg>(min: float, max: float, value: float option, fn: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
-                NumericUpDown.MinimumMaximum.WithValue(decimal min, decimal max),
+                NumericUpDown.MinimumMaximum.WithValue(struct (decimal min, decimal max)),
                 NumericUpDown.ValueChanged.WithValue(
                     let value =
                         match value with
                         | Some v -> Some(decimal v)
                         | None -> None
 
-                    ValueEventData.create value (fun args ->
-                        let args =
-                            match args with
-                            | Some v -> Some(float v)
-                            | None -> None
-
-                        fn args |> box)
+                    ValueEventData.create value (Option.map float >> fn)
                 )
             )
 

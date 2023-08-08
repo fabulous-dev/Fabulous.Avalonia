@@ -59,7 +59,7 @@ module Rotate3DTransformBuilders =
         static member Rotate3DTransform(angleX: float, angleY: float, angleZ: float, centerX: float, centerY: float, centerZ: float, depth: float) =
             WidgetBuilder<'msg, IFabRotate3DTransform>(
                 Rotate3DTransform.WidgetKey,
-                Rotate3DTransform.Angle.WithValue(angleX, angleY, angleZ),
-                Rotate3DTransform.Center.WithValue(centerX, centerY, centerZ),
+                Rotate3DTransform.Angle.WithValue(struct (angleX, angleY, angleZ)),
+                Rotate3DTransform.Center.WithValue(struct (centerX, centerY, centerZ)),
                 Rotate3DTransform.Depth.WithValue(depth)
             )

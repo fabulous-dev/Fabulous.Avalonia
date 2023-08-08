@@ -48,7 +48,7 @@ module SliderBuilders =
         /// <param name="value">The initial value of the slider.</param>
         /// <param name="fn">Raised when the slider value changes.</param>
         static member inline Slider<'msg>(value: float, fn: float -> 'msg) =
-            WidgetBuilder<'msg, IFabSlider>(Slider.WidgetKey, RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> fn args |> box)))
+            WidgetBuilder<'msg, IFabSlider>(Slider.WidgetKey, RangeBase.ValueChanged.WithValue(ValueEventData.create value fn))
 
         /// <summary>Creates a Slider widget.</summary>
         /// <param name="min">The minimum value of the slider.</param>
@@ -58,8 +58,8 @@ module SliderBuilders =
         static member inline Slider<'msg>(min: float, max: float, value: float, fn: float -> 'msg) =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
-                RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> fn args |> box))
+                RangeBase.MinimumMaximum.WithValue(struct (min, max)),
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
 [<Extension>]

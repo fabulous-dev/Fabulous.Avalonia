@@ -116,7 +116,7 @@ type ComboBoxModifiers =
     /// <param name="fn">Raised when the DropDownOpened event fires.</param>
     [<Extension>]
     static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabComboBox>, isOpen: bool, fn: bool -> 'msg) =
-        this.AddScalar(ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> fn args |> box)))
+        this.AddScalar(ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen fn))
 
     /// <summary>Link a ViewRef to access the direct ComboBox control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -141,11 +141,11 @@ type VisualModifiers =
     /// <param name="fn">Raised when the control is attached to a rooted visual tree.</param>
     [<Extension>]
     static member inline onAttachedToVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(Visual.AttachedToVisualTree.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Visual.AttachedToVisualTree.WithValue(fn))
 
     /// <summary>Listens to the Visual DetachedFromVisualTree event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control is detached from a rooted visual tree.</param>
     [<Extension>]
     static member inline onDetachedFromVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(Visual.DetachedFromVisualTree.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Visual.DetachedFromVisualTree.WithValue(fn))

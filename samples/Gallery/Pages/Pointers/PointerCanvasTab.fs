@@ -238,5 +238,5 @@ module PointerCanvasTabBuilders =
                 PointerCanvas.WidgetKey,
                 PointerCanvas.DrawOnlyPoints.WithValue(drawingPoint),
                 PointerCanvas.ThreadSleep.WithValue(threadSleep),
-                PointerCanvas.StatusChanged.WithValue(fun args -> fn args |> box)
+                PointerCanvas.StatusChanged.WithValue(fn)
             )

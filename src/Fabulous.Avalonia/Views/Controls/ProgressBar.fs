@@ -39,8 +39,8 @@ module ProgressBarBuilders =
         static member inline ProgressBar<'msg>(min: float, max: float, value: float, fn: float -> 'msg) =
             WidgetBuilder<'msg, IFabProgressBar>(
                 ProgressBar.WidgetKey,
-                RangeBase.MinimumMaximum.WithValue(min, max),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value (fun args -> fn args |> box))
+                RangeBase.MinimumMaximum.WithValue(struct (min, max)),
+                RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
 [<Extension>]

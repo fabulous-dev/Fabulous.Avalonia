@@ -76,7 +76,7 @@ module AutoCompleteBoxBuilders =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
                 AutoCompleteBox.ItemsSource.WithValue(items),
-                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text (fun args -> fn args |> box))
+                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
         /// <summary>Creates a CalendarDatePicker widget.</summary>
@@ -87,7 +87,7 @@ module AutoCompleteBoxBuilders =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(
                 AutoCompleteBox.WidgetKey,
                 AutoCompleteBox.AsyncPopulator.WithValue(populator),
-                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text (fun args -> fn args |> box))
+                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
 [<Extension>]
@@ -164,14 +164,14 @@ type AutoCompleteBoxModifiers =
 
     [<Extension>]
     static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: PopulatingEventArgs -> 'msg) =
-        this.AddScalar(AutoCompleteBox.Populating.WithValue(fun args -> fn args |> box))
+        this.AddScalar(AutoCompleteBox.Populating.WithValue(fn))
 
     /// <summary>Listens to the AutoCompleteBox Populated event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the AutoCompleteBox Populated event is fired.</param>
     [<Extension>]
     static member inline onPopulated(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: PopulatedEventArgs -> 'msg) =
-        this.AddScalar(AutoCompleteBox.Populated.WithValue(fun args -> fn args |> box))
+        this.AddScalar(AutoCompleteBox.Populated.WithValue(fn))
 
     /// <summary>Listens to the AutoCompleteBox DropDownOpened event.</summary>
     /// <param name="this">Current widget.</param>
@@ -179,14 +179,14 @@ type AutoCompleteBoxModifiers =
     /// <param name="fn">Raised when the AutoCompleteBox DropDownOpened event is fired.</param>
     [<Extension>]
     static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, isOpen: bool, fn: bool -> 'msg) =
-        this.AddScalar(AutoCompleteBox.DropDownOpened.WithValue(ValueEventData.create isOpen (fun args -> fn args |> box)))
+        this.AddScalar(AutoCompleteBox.DropDownOpened.WithValue(ValueEventData.create isOpen fn))
 
     /// <summary>Listens to the AutoCompleteBox SelectionChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the AutoCompleteBox SelectionChanged event is fired.</param>
     [<Extension>]
     static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: SelectionChangedEventArgs -> 'msg) =
-        this.AddScalar(AutoCompleteBox.SelectionChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(AutoCompleteBox.SelectionChanged.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct AutoCompleteBox control instance.</summary>
     /// <param name="this">Current widget.</param>

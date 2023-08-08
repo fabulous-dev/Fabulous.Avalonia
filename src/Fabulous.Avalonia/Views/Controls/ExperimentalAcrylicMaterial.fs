@@ -90,10 +90,10 @@ type ExperimentalAcrylicMaterialModifiers =
 
     /// <summary>Listens the ExperimentalAcrylicMaterial Invalidated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the ExperimentalAcrylicMaterial is invalidated.</param>
+    /// <param name="msg">Raised when the ExperimentalAcrylicMaterial is invalidated.</param>
     [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, fn: 'msg) =
-        this.AddScalar(ExperimentalAcrylicMaterial.Invalidated.WithValue(fun _ -> fn |> box))
+    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, msg: 'msg) =
+        this.AddScalar(ExperimentalAcrylicMaterial.Invalidated.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct ExperimentalAcrylicMaterial control instance.</summary>
     /// <param name="this">Current widget.</param>

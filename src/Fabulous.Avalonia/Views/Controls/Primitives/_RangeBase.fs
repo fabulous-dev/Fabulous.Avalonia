@@ -66,18 +66,18 @@ type RangeBaserModifiers =
     /// <param name="fn">Raised when the Thumb dragged started.</param>
     [<Extension>]
     static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabRangeBase>, fn: VectorEventArgs -> 'msg) =
-        this.AddScalar(Thumb.DragStarted.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Thumb.DragStarted.WithValue(fn))
 
     /// <summary>Listens to the Thumb DragDelta event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged.</param>
     [<Extension>]
     static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabRangeBase>, fn: VectorEventArgs -> 'msg) =
-        this.AddScalar(Thumb.DragDelta.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Thumb.DragDelta.WithValue(fn))
 
     /// <summary>Listens to the Thumb DragCompleted event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged is completed.</param>
     [<Extension>]
     static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabRangeBase>, fn: VectorEventArgs -> 'msg) =
-        this.AddScalar(Thumb.DragCompleted.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Thumb.DragCompleted.WithValue(fn))

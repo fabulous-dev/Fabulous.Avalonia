@@ -44,7 +44,7 @@ type ThemeVariantScopeModifiers =
     /// <param name="fn">Raised when the ThemeVariantChanged event is raised.</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabThemeVariantScope>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(ThemeVariantScope.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
+        this.AddScalar(ThemeVariantScope.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
 
     /// <summary>Link a ViewRef to access the direct ThemeVariantScope control instance.</summary>
     /// <param name="this">Current widget.</param>

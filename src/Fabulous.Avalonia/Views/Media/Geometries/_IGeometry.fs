@@ -22,7 +22,7 @@ type GeometryModifiers =
 
     /// <summary>Listens to the Geometry Changed event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the geometry changes.</param>
+    /// <param name="msg">Raised when the geometry changes.</param>
     [<Extension>]
-    static member inline onChanged(this: WidgetBuilder<'msg, #IFabGeometry>, fn: 'msg) =
-        this.AddScalar(Geometry.Changed.WithValue(fun _ -> fn |> box))
+    static member inline onChanged(this: WidgetBuilder<'msg, #IFabGeometry>, msg: 'msg) =
+        this.AddScalar(Geometry.Changed.WithValue(MsgValue msg))

@@ -67,18 +67,18 @@ type ItemsControlModifiers =
     /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
     static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerClearingEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerClearing.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ItemsControl.ContainerClearing.WithValue(fn))
 
     /// <summary>Listens to the ItemsControl ContainerIndexChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the index for the item it represents has changed.</param>
     [<Extension>]
     static member inline onContainerIndexChanged(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerIndexChangedEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ItemsControl.ContainerIndexChanged.WithValue(fn))
 
     /// <summary>Listens to the ItemsControl ContainerPrepared event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a container is prepared for use.</param>
     [<Extension>]
     static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> 'msg) =
-        this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fn))

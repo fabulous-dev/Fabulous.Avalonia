@@ -216,35 +216,35 @@ type ApplicationModifiers =
     /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
     static member inline themeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value (fun args -> fn args |> box)))
+        this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value fn))
 
     /// <summary>Listens to the application theme variant changed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
     static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(Application.ThemeVariantChanged.WithValue(fn Application.Current.ActualThemeVariant))
+        this.AddScalar(Application.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
 
     /// <summary>Listens to the application resources changed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the resources change.</param>
     [<Extension>]
     static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ResourcesChangedEventArgs -> 'msg) =
-        this.AddScalar(Application.ResourcesChanged.WithValue(fun target -> fn target |> box))
+        this.AddScalar(Application.ResourcesChanged.WithValue(fn))
 
     /// <summary>Listens to the application urls opened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the application receives urls to open.</param>
     [<Extension>]
     static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
-        this.AddScalar(Application.UrlsOpened.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Application.UrlsOpened.WithValue(fn))
 
     /// <summary>Listens to the PlatformSettings color values changed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when current system color values are changed. Including changing of a dark mode and accent colors.</param>
     [<Extension>]
     static member inline onColorValuesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.PlatformColorValues -> 'msg) =
-        this.AddScalar(Application.ColorValuesChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(Application.ColorValuesChanged.WithValue(fn))
 
     /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>

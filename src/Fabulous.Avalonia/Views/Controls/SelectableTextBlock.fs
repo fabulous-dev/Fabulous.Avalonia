@@ -40,7 +40,7 @@ module SelectableTextBlockBuilders =
             WidgetBuilder<'msg, IFabSelectableTextBlock>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Text.WithValue(text),
-                SelectableTextBlock.CopyingToClipboard.WithValue(fun args -> fn args |> box)
+                SelectableTextBlock.CopyingToClipboard.WithValue(fn)
             )
 
         /// <summary>Creates a SelectableTextBlock widget.</summary>
@@ -49,7 +49,7 @@ module SelectableTextBlockBuilders =
             CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Inlines,
-                SelectableTextBlock.CopyingToClipboard.WithValue(fun args -> fn args |> box)
+                SelectableTextBlock.CopyingToClipboard.WithValue(fn)
             )
 
 [<Extension>]

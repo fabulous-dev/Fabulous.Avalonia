@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 								pull_request.yml = .github/workflows/pull_request.yml
 								build.yml = .github/workflows/build.yml
 								release.yml = .github/workflows/release.yml
+		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Themes.Fluent", "src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj", "{74A67DCD-5093-4CC6-B421-77376153C714}"

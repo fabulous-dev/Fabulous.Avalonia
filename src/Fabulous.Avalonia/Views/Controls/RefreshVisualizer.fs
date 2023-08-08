@@ -45,7 +45,7 @@ type RefreshVisualizerModifiers =
     /// <param name="fn">Raised when the RefreshRequested event is fired.</param>
     [<Extension>]
     static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFabRefreshVisualizer>, fn: RefreshRequestedEventArgs -> 'msg) =
-        this.AddScalar(RefreshVisualizer.RefreshRequested.WithValue(fun args -> fn args |> box))
+        this.AddScalar(RefreshVisualizer.RefreshRequested.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct RefreshContainer control instance.</summary>
     /// <param name="this">Current widget.</param>

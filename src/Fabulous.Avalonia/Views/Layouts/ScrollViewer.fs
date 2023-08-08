@@ -148,7 +148,7 @@ type ScrollViewerModifiers =
     /// <param name="fn">Raised when the ScrollChanged event fires.</param>
     [<Extension>]
     static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, fn: ScrollChangedEventArgs -> 'msg) =
-        this.AddScalar(ScrollViewer.ScrollChanged.WithValue(fun args -> fn args |> box))
+        this.AddScalar(ScrollViewer.ScrollChanged.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct ScrollViewer control instance.</summary>
     /// <param name="this">Current widget.</param>

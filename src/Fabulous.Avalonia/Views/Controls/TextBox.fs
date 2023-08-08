@@ -120,7 +120,7 @@ module TextBoxBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the text changes.</param>
         static member inline TextBox<'msg>(text: string, fn: string -> 'msg) =
-            WidgetBuilder<'msg, IFabTextBox>(TextBox.WidgetKey, TextBox.TextChanged.WithValue(ValueEventData.create text (fun args -> fn args |> box)))
+            WidgetBuilder<'msg, IFabTextBox>(TextBox.WidgetKey, TextBox.TextChanged.WithValue(ValueEventData.create text fn))
 
 [<Extension>]
 type TextBoxModifiers =
@@ -354,21 +354,21 @@ type TextBoxModifiers =
     /// <param name="fn">Raised when the CopyingToClipboard changes.</param>
     [<Extension>]
     static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TextBox.CopyingToClipboard.WithValue(fun args -> fn args |> box))
+        this.AddScalar(TextBox.CopyingToClipboard.WithValue(fn))
 
     /// <summary>Listens to the TexBox CuttingToClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the CuttingToClipboard changes.</param>
     [<Extension>]
     static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TextBox.CuttingToClipboard.WithValue(fun args -> fn args |> box))
+        this.AddScalar(TextBox.CuttingToClipboard.WithValue(fn))
 
     /// <summary>Listens to the TexBox PastingFromClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PastingFromClipboard changes.</param>
     [<Extension>]
     static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TextBox.PastingFromClipboard.WithValue(fun args -> fn args |> box))
+        this.AddScalar(TextBox.PastingFromClipboard.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct TextBox control instance.</summary>
     /// <param name="this">Current widget.</param>
