@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.Controls.Notifications
+open Avalonia.Rendering
 open Avalonia.Styling
 open Avalonia.Themes.Fluent
 open Fabulous
@@ -164,6 +165,16 @@ module Application =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality Application.NameProperty
 
+    let DebugOverlays =
+        Attributes.definePropertyWithGetSet
+            "Application_DebugOverlays"
+            (fun target ->
+                (target :?> FabApplication)
+                    .TopLevel.RendererDiagnostics.DebugOverlays)
+            (fun target value ->
+                (target :?> FabApplication)
+                    .TopLevel.RendererDiagnostics.DebugOverlays <- value)
+
     let ThemeVariant =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_ThemeVariant" Application.RequestedThemeVariantProperty
 
@@ -209,6 +220,10 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
         this.AddScalar(Application.Name.WithValue(value))
+
+    [<Extension>]
+    static member inline debugOverlays(this: WidgetBuilder<'msg, #IFabApplication>, value: RendererDebugOverlays) =
+        this.AddScalar(Application.DebugOverlays.WithValue(value))
 
     /// <summary>Sets the application theme variant.</summary>
     /// <param name="this">Current widget.</param>

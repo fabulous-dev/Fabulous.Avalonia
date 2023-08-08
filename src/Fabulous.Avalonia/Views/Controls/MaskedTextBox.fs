@@ -34,6 +34,9 @@ module MaskedTextBox =
     let ResetOnSpace =
         Attributes.defineAvaloniaPropertyWithEquality MaskedTextBox.ResetOnSpaceProperty
 
+    let TextChanged =
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "MaskedTextBox_TextChanged" MaskedTextBox.TextProperty
+
 [<AutoOpen>]
 module MaskedTextBoxBuilders =
     type Fabulous.Avalonia.View with
@@ -46,7 +49,7 @@ module MaskedTextBoxBuilders =
             WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 MaskedTextBox.Mask.WithValue(mask),
-                TextBox.TextChanged.WithValue(ValueEventData.create text fn)
+                MaskedTextBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
 [<Extension>]

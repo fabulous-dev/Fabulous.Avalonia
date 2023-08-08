@@ -54,6 +54,8 @@ net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on 
 
 ## Documentation
 
+🚧 Documentation is a work-in-progress. 🚧
+
 The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/avalonia](https://docs.fabulous.dev/avalonia).
 
 Other useful links:

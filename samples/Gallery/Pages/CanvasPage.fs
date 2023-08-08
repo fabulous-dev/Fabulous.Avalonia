@@ -1,5 +1,6 @@
 namespace Gallery.Pages
 
+open System
 open Avalonia
 open Avalonia.Media
 open Fabulous.Avalonia
@@ -9,9 +10,9 @@ open type Fabulous.Avalonia.View
 open Gallery
 
 module CanvasPage =
-    type Model = { Nothing: bool }
+    type Model = { Time: DateTime }
 
-    type Msg = DoNothing
+    type Msg = Update of DateTime
 
     type CmdMsg = | NoMsg
 
@@ -19,13 +20,36 @@ module CanvasPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
-    let init () = { Nothing = true }, []
+    let init () = { Time = DateTime.Now }, []
+
+    type PointerType =
+        | Hour
+        | Minute
+        | Second
+
+    let calcPointerPosition (pointer: PointerType, time: DateTime) : Point =
+        let percent =
+            match pointer with
+            | Hour -> (float time.Hour) / 12.0
+            | Minute -> (float time.Minute) / 60.0
+            | Second -> (float time.Second) / 60.0
+
+        let length =
+            match pointer with
+            | Hour -> 50.0
+            | Minute -> 60.0
+            | Second -> 70.0
+
+        let angle = 2.0 * Math.PI * percent
+        let handX = (100.0 + length * cos(angle - Math.PI / 2.0))
+        let handY = (100.0 + length * sin(angle - Math.PI / 2.0))
+        Point(handX, handY)
 
     let update msg model =
         match msg with
-        | DoNothing -> model, []
+        | Update res -> { model with Time = res }, []
 
-    let view _ =
+    let view model =
         VStack(spacing = 15.) {
             TextBlock("A panel which lays out its children by explicit coordinates")
 
@@ -112,4 +136,33 @@ module CanvasPage =
                 .background(SolidColorBrush(Colors.Yellow))
                 .size(300., 400.)
 
+            (Canvas() {
+                Ellipse()
+                    .canvasTop(10.)
+                    .canvasLeft(10.)
+                    .width(180.)
+                    .height(180.)
+                    .fill(SolidColorBrush(Color.Parse("#ecf0f1")))
+
+                Line(Point(100., 100.), calcPointerPosition(Second, model.Time))
+                    .strokeThickness(2.)
+                    .stroke(SolidColorBrush(Color.Parse("#e74c3c")))
+
+                Line(Point(100., 100.), calcPointerPosition(Minute, model.Time))
+                    .strokeThickness(4.)
+                    .stroke(SolidColorBrush(Color.Parse("#7f8c8d")))
+
+                Line(Point(100., 100.), calcPointerPosition(Hour, model.Time))
+                    .strokeThickness(6.)
+                    .stroke(SolidColorBrush(Colors.Black))
+
+                Ellipse()
+                    .canvasTop(95.)
+                    .canvasLeft(95.)
+                    .width(10.)
+                    .height(10.)
+                    .fill(SolidColorBrush(Color.Parse("#95a5a6")))
+            })
+                .background(SolidColorBrush(Color.Parse("#2c3e50")))
+                .size(200., 200.)
         }
