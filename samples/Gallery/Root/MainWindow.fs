@@ -104,6 +104,7 @@ module MainWindow =
                     createListItem("ScrollBarPage", false)
                     createListItem("SplitViewPage", false)
                     createListItem("StackPanelPage", false)
+                    createListItem("StylesPage", false)
                     createListItem("ScrollViewerPage", false)
                     createListItem("ToggleSplitButtonPage", false)
                     createListItem("TextBlockPage", false)
@@ -250,5 +251,9 @@ module MainWindow =
                 .menu(createMenu model)
         )
             .trayIcon(trayIcon())
+            .styles(
+                [ "avares://Gallery/Styles/DefaultTheme.xaml"
+                  "avares://Gallery/Styles/TextStyles.xaml" ]
+            )
 //Enable this only for debugging purposes
 //.debugOverlays(RendererDebugOverlays.Fps ||| RendererDebugOverlays.DirtyRects)

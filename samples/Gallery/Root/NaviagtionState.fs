@@ -65,6 +65,7 @@ type SubpageModel =
     | ScrollBarPageModel of ScrollBarPage.Model
     | SplitViewPageModel of SplitViewPage.Model
     | StackPanelPageModel of StackPanelPage.Model
+    | StylesPageModel of StylesPage.Model
     | ScrollViewerPageModel of ScrollViewerPage.Model
     | ToggleSplitButtonPageModel of ToggleSplitButtonPage.Model
     | TextBlockPageModel of TextBlockPage.Model
@@ -142,6 +143,7 @@ type SubpageModel =
         | ScrollBarPageModel _ -> "ScrollBar"
         | SplitViewPageModel _ -> "SplitView"
         | StackPanelPageModel _ -> "StackPanel"
+        | StylesPageModel _ -> "Styles"
         | ScrollViewerPageModel _ -> "ScrollViewer"
         | ToggleSplitButtonPageModel _ -> "ToggleSplitButton"
         | TextBlockPageModel _ -> "TextBlock"
@@ -218,6 +220,7 @@ type SubpageMsg =
     | ScrollBarPageMsg of ScrollBarPage.Msg
     | SplitViewPageMsg of SplitViewPage.Msg
     | StackPanelPageMsg of StackPanelPage.Msg
+    | StylesPageMsg of StylesPage.Msg
     | ScrollViewerPageMsg of ScrollViewerPage.Msg
     | ToggleSplitButtonPageMsg of ToggleSplitButtonPage.Msg
     | TextBlockPageMsg of TextBlockPage.Msg
@@ -294,6 +297,7 @@ type SubpageCmdMsg =
     | ScrollBarPageCmdMsgs of ScrollBarPage.CmdMsg list
     | SplitViewPageCmdMsgs of SplitViewPage.CmdMsg list
     | StackPanelPageCmdMsgs of StackPanelPage.CmdMsg list
+    | StylesPageCmdMsgs of StylesPage.CmdMsg list
     | ScrollViewerPageCmdMsgs of ScrollViewerPage.CmdMsg list
     | ToggleSplitButtonPageCmdMsgs of ToggleSplitButtonPage.CmdMsg list
     | TextBlockPageCmdMsgs of TextBlockPage.CmdMsg list
@@ -386,6 +390,7 @@ module NavigationState =
             | ScrollViewerPageCmdMsgs subCmdMsgs -> map ScrollViewerPage.mapCmdMsgToCmd ScrollViewerPageMsg subCmdMsgs
             | SplitViewPageCmdMsgs subCmdMsgs -> map SplitViewPage.mapCmdMsgToCmd SplitViewPageMsg subCmdMsgs
             | StackPanelPageCmdMsgs subCmdMsgs -> map StackPanelPage.mapCmdMsgToCmd StackPanelPageMsg subCmdMsgs
+            | StylesPageCmdMsgs subCmdMsgs -> map StylesPage.mapCmdMsgToCmd StylesPageMsg subCmdMsgs
             | ScrollBarPageCmdMsgs subCmdMsgs -> map ScrollBarPage.mapCmdMsgToCmd ScrollBarPageMsg subCmdMsgs
             | TabControlPageCmdMsgs subCmdMsgs -> map TabControlPage.mapCmdMsgToCmd TabControlPageMsg subCmdMsgs
             | TabStripPageCmdMsgs subCmdMsgs -> map TabStripPage.mapCmdMsgToCmd TabStripPageMsg subCmdMsgs
@@ -590,6 +595,9 @@ module NavigationState =
         | NavigationRoute.StackPanelPage ->
             let m, c = StackPanelPage.init()
             StackPanelPageModel m, [ StackPanelPageCmdMsgs c ]
+        | NavigationRoute.StylesPage ->
+            let m, c = StylesPage.init()
+            StylesPageModel m, [ StylesPageCmdMsgs c ]
         | NavigationRoute.ScrollViewerPage ->
             let m, c = ScrollViewerPage.init()
             ScrollViewerPageModel m, [ ScrollViewerPageCmdMsgs c ]
@@ -873,6 +881,14 @@ module NavigationState =
                 let m, c = SplitViewPage.update subMsg m
                 SplitViewPageModel m, [ SplitViewPageCmdMsgs c ]
 
+            | StackPanelPageMsg subMsg, StackPanelPageModel m ->
+                let m, c = StackPanelPage.update subMsg m
+                StackPanelPageModel m, [ StackPanelPageCmdMsgs c ]
+
+            | StylesPageMsg subMsg, StylesPageModel m ->
+                let m, c = StylesPage.update subMsg m
+                StylesPageModel m, [ StylesPageCmdMsgs c ]
+
             | TabStripPageMsg subMsg, TabStripPageModel m ->
                 let m, c = TabStripPage.update subMsg m
                 TabStripPageModel m, [ TabStripPageCmdMsgs c ]
@@ -928,10 +944,6 @@ module NavigationState =
             | ShapesPageMsg subMsg, ShapesPageModel m ->
                 let m, c = ShapesPage.update subMsg m
                 ShapesPageModel m, [ ShapesPageCmdMsgs c ]
-
-            | StackPanelPageMsg subMsg, StackPanelPageModel m ->
-                let m, c = StackPanelPage.update subMsg m
-                StackPanelPageModel m, [ StackPanelPageCmdMsgs c ]
 
             | ViewBoxPageMsg subMsg, ViewBoxPageModel m ->
                 let m, c = ViewBoxPage.update subMsg m
@@ -1015,6 +1027,7 @@ module NavigationState =
         | ScrollBarPageModel m -> map ScrollBarPage.view ScrollBarPageMsg m
         | SplitViewPageModel m -> map SplitViewPage.view SplitViewPageMsg m
         | StackPanelPageModel m -> map StackPanelPage.view StackPanelPageMsg m
+        | StylesPageModel m -> map StylesPage.view StylesPageMsg m
         | ScrollViewerPageModel m -> map ScrollViewerPage.view ScrollViewerPageMsg m
         | ToggleSplitButtonPageModel m -> map ToggleSplitButtonPage.view ToggleSplitButtonPageMsg m
         | TextBlockPageModel m -> map TextBlockPage.view TextBlockPageMsg m

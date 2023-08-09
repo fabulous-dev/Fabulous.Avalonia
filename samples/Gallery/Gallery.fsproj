@@ -97,6 +97,7 @@
     <Compile Include="Pages\SliderPage.fs" />
     <Compile Include="Pages\SplitButtonPage.fs" />
     <Compile Include="Pages\SplitViewPage.fs" />
+    <Compile Include="Pages\StylesPage.fs" />
     <Compile Include="Pages\TabStripPage.fs" />
     <Compile Include="Pages\TabControlPage.fs" />
     <Compile Include="Pages\TextBoxPage.fs" />
