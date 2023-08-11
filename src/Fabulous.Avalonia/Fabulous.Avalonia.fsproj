@@ -225,18 +225,19 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Include="Fabulous" VersionOverride="[2.4.0, 2.5.0)" />    <PackageReference Include="Avalonia" VersionOverride="11.0.2" />
-    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.2" />
-    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.2" />
+    <PackageReference Include="Fabulous" VersionOverride="[2.4.0, 2.5.0)" />
+    <PackageReference Include="Avalonia" VersionOverride="11.0.3" />
+    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.2" />
+    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.3" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.2" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.3" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-      <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.2" />
+      <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.3" />
   </ItemGroup>
 </Project>

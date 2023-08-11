@@ -3,6 +3,7 @@
 open Avalonia.Controls
 open Avalonia.Data.Converters
 open Avalonia.Layout
+open Avalonia.Media
 open Fabulous
 open System.Globalization
 open System.Runtime.CompilerServices
@@ -80,6 +81,9 @@ module NumericUpDown =
 
     let Watermark =
         Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.WatermarkProperty
+
+    let TextAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality NumericUpDown.TextAlignmentProperty
 
     let ValueChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty Option.toNullable Option.ofNullable
@@ -223,6 +227,13 @@ type NumericUpDownModifiers =
     [<Extension>]
     static member inline watermark(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: string) =
         this.AddScalar(NumericUpDown.Watermark.WithValue(value))
+
+    /// <summary>Sets the TextAlignment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TextAlignment value.</param>
+    [<Extension>]
+    static member inline textAlignment(this: WidgetBuilder<'msg, #IFabNumericUpDown>, value: TextAlignment) =
+        this.AddScalar(NumericUpDown.TextAlignment.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct NumericUpDown control instance.</summary>
     /// <param name="this">Current widget.</param>

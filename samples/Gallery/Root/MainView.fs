@@ -7,7 +7,8 @@ open type Fabulous.Avalonia.View
 
 module MainView =
     let view (model: Model) =
-        SingleViewApplication(
-            (Grid() { ScrollViewer(NavigationState.view SubpageMsg model.Navigation.CurrentPage) })
-                .onLoaded(OnLoaded)
-        )
+        SingleViewApplication(Panel() { HamburgerMenu.mainView model })
+            .styles(
+                [ "avares://Gallery/Styles/DefaultTheme.xaml"
+                  "avares://Gallery/Styles/TextStyles.xaml" ]
+            )

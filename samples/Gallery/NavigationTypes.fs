@@ -61,6 +61,7 @@ type NavigationRoute =
     | ScrollBarPage
     | SplitViewPage
     | StackPanelPage
+    | StylesPage
     | ScrollViewerPage
     | ToggleSplitButtonPage
     | TextBlockPage
@@ -137,6 +138,7 @@ type NavigationRoute =
         | "ShapesPage" -> ShapesPage
         | "ScrollBarPage" -> ScrollBarPage
         | "SplitViewPage" -> SplitViewPage
+        | "StylesPage" -> StylesPage
         | "StackPanelPage" -> StackPanelPage
         | "ScrollViewerPage" -> ScrollViewerPage
         | "ToggleSplitButtonPage" -> ToggleSplitButtonPage

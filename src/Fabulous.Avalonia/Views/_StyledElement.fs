@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
+open Avalonia.Collections
 open Avalonia.LogicalTree
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -15,6 +16,17 @@ module StyledElement =
 
     let Styles =
         Attributes.defineAvaloniaListWidgetCollection "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles)
+
+    let Classes =
+        Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
+            let target = node.Target :?> StyledElement
+
+            match newValueOpt with
+            | ValueNone -> target.Classes.Clear()
+            | ValueSome classes ->
+                let coll = AvaloniaList<string>()
+                classes |> List.iter coll.Add
+                target.Classes.AddRange coll)
 
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
@@ -35,6 +47,20 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline name(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.Name.WithValue(value))
+
+    /// <summary>Sets the Classes property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Classes value.</param>
+    [<Extension>]
+    static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
+        this.AddScalar(StyledElement.Classes.WithValue(value))
+
+    /// <summary>Sets the Classes property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Classes value.</param>
+    [<Extension>]
+    static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.Classes.WithValue([ value ]))
 
     /// <summary>Sets the Style property.</summary>
     /// <param name="this">Current widget.</param>

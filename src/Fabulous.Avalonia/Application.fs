@@ -1,10 +1,12 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.Controls.Notifications
+open Avalonia.Markup.Xaml.Styling
 open Avalonia.Rendering
 open Avalonia.Styling
 open Avalonia.Themes.Fluent
@@ -175,6 +177,17 @@ module Application =
                 (target :?> FabApplication)
                     .TopLevel.RendererDiagnostics.DebugOverlays <- value)
 
+    let Styles =
+        Attributes.defineProperty "Styles" Unchecked.defaultof<string list> (fun target values ->
+            let styles = (target :?> FabApplication).Styles
+
+            values
+            |> List.iter(fun value ->
+                let style = StyleInclude(baseUri = null)
+                style.Source <- Uri(value)
+                styles.Add(style)))
+
+
     let ThemeVariant =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_ThemeVariant" Application.RequestedThemeVariantProperty
 
@@ -221,9 +234,19 @@ type ApplicationModifiers =
     static member inline name(this: WidgetBuilder<'msg, #IFabApplication>, value: string) =
         this.AddScalar(Application.Name.WithValue(value))
 
+    /// <summary>Sets the application debug overlays.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Debug overlays to be used for the application.</param>
     [<Extension>]
     static member inline debugOverlays(this: WidgetBuilder<'msg, #IFabApplication>, value: RendererDebugOverlays) =
         this.AddScalar(Application.DebugOverlays.WithValue(value))
+
+    /// <summary>Sets the application styles.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Application styles to be used for the application.</param>
+    [<Extension>]
+    static member inline styles(this: WidgetBuilder<'msg, #IFabApplication>, value: string list) =
+        this.AddScalar(Application.Styles.WithValue(value))
 
     /// <summary>Sets the application theme variant.</summary>
     /// <param name="this">Current widget.</param>

@@ -7,6 +7,10 @@
     <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
     <IsPackable>false</IsPackable>
+    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
+    <WarningsAsErrors>FS0025</WarningsAsErrors>
+    <NoWarn>MT7091;NETSDK1206</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
@@ -97,6 +101,7 @@
     <Compile Include="Pages\SliderPage.fs" />
     <Compile Include="Pages\SplitButtonPage.fs" />
     <Compile Include="Pages\SplitViewPage.fs" />
+    <Compile Include="Pages\StylesPage.fs" />
     <Compile Include="Pages\TabStripPage.fs" />
     <Compile Include="Pages\TabControlPage.fs" />
     <Compile Include="Pages\TextBoxPage.fs" />
@@ -128,9 +133,9 @@
     <Compile Include="Root\NaviagtionState.fs" />
     <Compile Include="Root\Types.fs" />
     <Compile Include="Root\State.fs" />
+    <Compile Include="Root\HamburgerMenu.fs" />
     <Compile Include="Root\MainWindow.fs" />
     <Compile Include="Root\MainView.fs" />
-    <Compile Include="Root\View.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   
