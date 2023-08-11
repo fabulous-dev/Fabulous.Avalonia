@@ -67,8 +67,16 @@ module State =
             let route = NavigationRoute.GetRoute(route)
             let modelRoute, cmdMsgs = NavigationState.initRoute route
 
+            let isPanOpen =
+#if MOBILE
+                false
+#else
+                model.IsPanOpen
+#endif
+
             { model with
                 Navigation = NavigationModel.Init(modelRoute)
+                IsPanOpen = isPanOpen
                 HeaderText = modelRoute.GetSubpageName() },
             [ SubpageCmdMsgs cmdMsgs ]
 

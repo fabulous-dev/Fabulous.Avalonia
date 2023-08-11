@@ -133,6 +133,7 @@
     <Compile Include="Root\NaviagtionState.fs" />
     <Compile Include="Root\Types.fs" />
     <Compile Include="Root\State.fs" />
+    <Compile Include="Root\HamburgerMenu.fs" />
     <Compile Include="Root\MainWindow.fs" />
     <Compile Include="Root\MainView.fs" />
     <Compile Include="Root\View.fs" />
