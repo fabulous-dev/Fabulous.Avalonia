@@ -20,7 +20,7 @@
 
     <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
         <Compile Include="$(DesktopPlatformFolder)Program.fs" />
-        <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.2" />
+        <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.3" />
     </ItemGroup>
     
 <!--    <Target Name="DebugFabulous" BeforeTargets="_ReadAppManifest">-->

@@ -7,6 +7,10 @@
     <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
     <IsPackable>false</IsPackable>
+    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
+    <WarningsAsErrors>FS0025</WarningsAsErrors>
+    <NoWarn>MT7091;NETSDK1206</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
