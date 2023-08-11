@@ -136,7 +136,6 @@
     <Compile Include="Root\HamburgerMenu.fs" />
     <Compile Include="Root\MainWindow.fs" />
     <Compile Include="Root\MainView.fs" />
-    <Compile Include="Root\View.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   

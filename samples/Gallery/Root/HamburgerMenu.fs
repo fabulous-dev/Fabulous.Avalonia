@@ -43,7 +43,7 @@ module HamburgerMenu =
                 TextBlock("Fabulous Gallery").centerHorizontal()
 
                 (ListBox() {
-                    createListItem("AcrylicPage", true)
+                    createListItem("AcrylicPage", false)
 
                     createListItem("AdornerLayerPage", false)
                     createListItem("AutoCompleteBoxPage", false)
@@ -170,8 +170,6 @@ module HamburgerMenu =
                 }
             )
                 .isPresented(model.IsPanOpen, OpenPanChanged)
-                .compactPaneLength(40.)
-                .openPaneLength(200.)
                 .displayMode(SplitViewDisplayMode.Inline)
                 .panePlacement(SplitViewPanePlacement.Left)
                 .paneBackground(Brushes.Transparent)

@@ -15,42 +15,20 @@ module State =
             Cmd.map SubpageMsg cmd
 
     let init () =
-#if MOBILE
         let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = false
-          HeaderText = model.GetSubpageName()
-          PaneLength = 150. },
+          HeaderText = "AcrylicPage" },
         [ SubpageCmdMsgs cmdMsgs ]
-#else
-        let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
-
-        { Navigation = NavigationModel.Init(model)
-          IsPanOpen = false
-          PaneLength = 250.
-          HeaderText = model.GetSubpageName() },
-        [ SubpageCmdMsgs cmdMsgs ]
-#endif
 
     let update msg model =
         match msg with
-        | OnLoaded _ ->
-#if MOBILE
-            { model with PaneLength = 180. }, []
-#else
-            model, []
-#endif
         | SubpageMsg subpageMsg ->
             let nav, cmdMsgs = NavigationState.update subpageMsg model.Navigation
             { model with Navigation = nav }, [ SubpageCmdMsgs cmdMsgs ]
 
         | OpenPanChanged x -> { model with IsPanOpen = x }, []
-
-        | OpenPan ->
-            { model with
-                IsPanOpen = not model.IsPanOpen },
-            []
 
         | OnSelectionChanged args ->
             let route =
@@ -59,25 +37,20 @@ module State =
                 |> Seq.tryHead
                 |> Option.map(fun x -> unbox<string>(x.Content))
 
-            let route =
+            let routeText =
                 match route with
                 | Some x -> x
                 | None -> failwithf "Could not find route"
 
-            let route = NavigationRoute.GetRoute(route)
+            let route = NavigationRoute.GetRoute(routeText)
             let modelRoute, cmdMsgs = NavigationState.initRoute route
-
-            let isPanOpen =
-#if MOBILE
-                false
-#else
-                model.IsPanOpen
-#endif
 
             { model with
                 Navigation = NavigationModel.Init(modelRoute)
-                IsPanOpen = isPanOpen
-                HeaderText = modelRoute.GetSubpageName() },
+#if MOBILE
+                IsPanOpen = not model.IsPanOpen
+#endif
+                HeaderText = routeText },
             [ SubpageCmdMsgs cmdMsgs ]
 
         | DoNothing -> model, []

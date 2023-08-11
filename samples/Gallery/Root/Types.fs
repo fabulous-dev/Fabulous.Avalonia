@@ -9,15 +9,12 @@ module Types =
     type Model =
         { Navigation: NavigationModel
           IsPanOpen: bool
-          PaneLength: float
           HeaderText: string }
 
     type Msg =
         | SubpageMsg of SubpageMsg
         | OnSelectionChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
-        | OpenPan
-        | OnLoaded of RoutedEventArgs
         | DoNothing
         | Update of DateTime
 

@@ -8,21 +8,26 @@ open Avalonia.Threading
 open System
 
 open type Fabulous.Avalonia.View
+open Gallery.Root
 
 
 module App =
-    let subscription (_model: Root.Types.Model) =
+    let subscription (_model: Types.Model) =
         Cmd.ofSub(fun dispatch ->
             DispatcherTimer.Run(
                 Func<bool>(fun _ ->
-                    dispatch(Root.Types.Msg.Update(DateTime.Now))
+                    dispatch(Types.Msg.Update(DateTime.Now))
                     true),
                 TimeSpan.FromMilliseconds 1000.0
             )
             |> ignore)
 
     let program =
-        Program.statefulWithCmdMsg Root.State.init Root.State.update Root.View.view Root.State.mapCmdMsgToCmd
+#if MOBILE
+        Program.statefulWithCmdMsg State.init State.update MainView.view State.mapCmdMsgToCmd
+#else
+        Program.statefulWithCmdMsg State.init State.update MainWindow.view State.mapCmdMsgToCmd
+#endif
         |> Program.withSubscription subscription
         |> Program.withThemeAwareness
 #if DEBUG

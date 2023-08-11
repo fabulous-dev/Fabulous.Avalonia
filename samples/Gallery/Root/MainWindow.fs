@@ -1,19 +1,9 @@
 namespace Gallery.Root
 
-open Avalonia
 open Avalonia.Controls
 
-open Avalonia.Rendering
-open Avalonia.Controls.Primitives
-open Avalonia.Layout
-open Avalonia.Media
 open Fabulous.Avalonia
-open Gallery
 open Types
-open System
-open Avalonia.Animation.Easings
-open Fabulous
-
 open type Fabulous.Avalonia.View
 
 module MainWindow =
@@ -22,7 +12,7 @@ module MainWindow =
             NativeMenuItem("Edit")
                 .menu(
                     NativeMenu() {
-                        NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), OpenPan)
+                        NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), DoNothing)
                         NativeMenuItemSeparator()
 
                         NativeMenuItem("After separator", DoNothing)
@@ -67,7 +57,7 @@ module MainWindow =
 
     let view (model: Model) =
         DesktopApplication(
-            Window(Panel() { (HamburgerMenu.mainView model).onLoaded(OnLoaded) })
+            Window(Panel() { HamburgerMenu.mainView model })
                 .title("Fabulous Gallery")
                 .menu(createMenu model)
         )

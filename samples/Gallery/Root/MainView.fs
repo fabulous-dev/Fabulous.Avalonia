@@ -7,7 +7,4 @@ open type Fabulous.Avalonia.View
 
 module MainView =
     let view (model: Model) =
-        SingleViewApplication(
-            (Panel() { HamburgerMenu.mainView model })
-                .onLoaded(OnLoaded)
-        )
+        SingleViewApplication(Panel() { HamburgerMenu.mainView model })
