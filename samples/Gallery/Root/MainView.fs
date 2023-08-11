@@ -8,3 +8,7 @@ open type Fabulous.Avalonia.View
 module MainView =
     let view (model: Model) =
         SingleViewApplication(Panel() { HamburgerMenu.mainView model })
+            .styles(
+                [ "avares://Gallery/Styles/DefaultTheme.xaml"
+                  "avares://Gallery/Styles/TextStyles.xaml" ]
+            )
