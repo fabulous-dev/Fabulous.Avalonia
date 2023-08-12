@@ -63,25 +63,26 @@ module TextBlockPage =
             )
                 .textWrapping(TextWrapping.Wrap)
 
+            let fontFamily = FontFamily("avares://Gallery/Assets/Fonts#Source Sans Pro")
             Border(
                 VStack(8.) {
                     TextBlock("Custom font regular")
-                        .fontFamily(FontFamily "SourceSansPro, Regular")
+                        .fontFamily(fontFamily)
                         .fontStyle(FontStyle.Normal)
                         .fontWeight(FontWeight.Normal)
 
                     TextBlock("Custom font bold")
-                        .fontFamily(FontFamily "SourceSansPro, Bold")
+                        .fontFamily(fontFamily)
                         .fontStyle(FontStyle.Normal)
                         .fontWeight(FontWeight.Bold)
 
                     TextBlock("Custom font italic")
-                        .fontFamily(FontFamily "SourceSansPro, Italic")
+                        .fontFamily(fontFamily)
                         .fontStyle(FontStyle.Italic)
                         .fontWeight(FontWeight.Normal)
 
                     TextBlock("Custom font italic bold")
-                        .fontFamily(FontFamily "SourceSansPro, Bold Italic")
+                        .fontFamily(fontFamily)
                         .fontStyle(FontStyle.Italic)
                         .fontWeight(FontWeight.Bold)
                 }
