@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Collections
 open Avalonia.Input
+open Avalonia.Input.GestureRecognizers
 open Avalonia.Input.TextInput
 open Avalonia.Interactivity
 open Fabulous
@@ -31,9 +32,7 @@ module InputElement =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
 
     let GestureRecognizers =
-        Attributes.defineAvaloniaListWidgetCollection "InputElement_GestureRecognizers" (fun target ->
-            let target = (target :?> InputElement)
-            AvaloniaList(target.GestureRecognizers))
+        Attributes.defineAvaloniaGestureRecognizerCollection "InputElement_GestureRecognizers" (fun target -> (target :?> InputElement).GestureRecognizers)
 
     let GotFocus =
         Attributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
@@ -239,3 +238,16 @@ type InputElementModifiers =
     [<Extension>]
     static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabInputElement>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(InputElement.DoubleTapped.WithValue(fn))
+
+    /// <summary>Sets the GestureRecognizers property.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline gestureRecognizers<'msg, 'marker when 'marker :> IFabInputElement>(this: WidgetBuilder<'msg, 'marker>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabGestureRecognizer>(this, InputElement.GestureRecognizers)
+
+    /// <summary>Sets the GestureRecognizers property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Gesture recognizer.</param>
+    [<Extension>]
+    static member inline gestureRecognizer(this: WidgetBuilder<'msg, #IFabInputElement>, value: WidgetBuilder<'msg, #IFabGestureRecognizer>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabGestureRecognizer>(this, InputElement.GestureRecognizers) { value }

@@ -50,6 +50,7 @@
     <Compile Include="Views\_Visual.fs" />
     <Compile Include="Views\_Layoutable.fs" />
     <Compile Include="Views\_Interactive.fs" />
+    <Compile Include="Views\_GestureRecognizer.fs" />
     <Compile Include="Views\_InputElement.fs" />
     <Compile Include="Views\_DragDrop.fs" />
     <Compile Include="Views\_FlyoutBase.fs" />
@@ -213,6 +214,9 @@
     <Compile Include="Views\Panels\DockPanel.fs" />
     <Compile Include="Views\Panels\WrapPanel.fs" />
     <Compile Include="Views\Panels\UniformGrid.fs" />
+    <Compile Include="Views\GestureRecognizers\PullGestureRecognizer.fs" />
+    <Compile Include="Views\GestureRecognizers\PinchGestureRecognizer.fs" />
+    <Compile Include="Views\GestureRecognizers\ScrollGestureRecognizer.fs" />
     <Compile Include="Application.fs" />
     <Compile Include="ThemeAware.fs" />
     <Compile Include="Any.fs" />
