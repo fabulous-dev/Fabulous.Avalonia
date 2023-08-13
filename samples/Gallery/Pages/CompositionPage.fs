@@ -62,6 +62,7 @@ module BorderExtensions =
     let EnableAnimations =
         Attributes.defineBool "Border_EnableAnimations" (fun _ newValueOpt node ->
             let border = node.Target :?> Border
+
             match newValueOpt with
             | ValueNone -> ()
             | ValueSome v -> SetEnableAnimations(border, v))
