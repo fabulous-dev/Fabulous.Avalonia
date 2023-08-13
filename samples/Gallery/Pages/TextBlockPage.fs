@@ -64,6 +64,7 @@ module TextBlockPage =
                 .textWrapping(TextWrapping.Wrap)
 
             let fontFamily = FontFamily("avares://Gallery/Assets/Fonts#Source Sans Pro")
+
             Border(
                 VStack(8.) {
                     TextBlock("Custom font regular")
