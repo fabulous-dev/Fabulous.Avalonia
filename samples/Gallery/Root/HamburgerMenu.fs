@@ -16,8 +16,8 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module HamburgerMenu =
-    let listBoxStyle (this: WidgetBuilder<'msg, IFabListBoxItem>) =
-        this
+    let createListItem (text: string, isSelected: bool) =
+        ListBoxItem(text, isSelected)
             .verticalContentAlignment(VerticalAlignment.Center)
             .horizontalAlignment(HorizontalAlignment.Stretch)
             .verticalAlignment(VerticalAlignment.Stretch)
@@ -31,9 +31,6 @@ module HamburgerMenu =
             .cornerRadius(8.)
             .clipToBounds(false)
 
-    let createListItem (text: string, isSelected: bool) =
-        ListBoxItem(text, isSelected).style(listBoxStyle)
-
     let header () =
         ScrollViewer(
             VStack(16.) {
@@ -44,7 +41,6 @@ module HamburgerMenu =
 
                 (ListBox() {
                     createListItem("AcrylicPage", false)
-
                     createListItem("AdornerLayerPage", false)
                     createListItem("AutoCompleteBoxPage", false)
                     createListItem("AnimationsPage", false)
@@ -60,6 +56,7 @@ module HamburgerMenu =
                     createListItem("CheckBoxPage", false)
                     createListItem("CarouselPage", false)
                     createListItem("ComboBoxPage", false)
+                    createListItem("CompositionPage", false)
                     createListItem("ContextMenuPage", false)
                     createListItem("ContextFlyoutPage", false)
                     createListItem("ClippingPage", false)

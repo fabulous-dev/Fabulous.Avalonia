@@ -22,6 +22,7 @@ type SubpageModel =
     | CheckBoxPageModel of CheckBoxPage.Model
     | CarouselPageModel of CarouselPage.Model
     | ComboBoxPageModel of ComboBoxPage.Model
+    | CompositionPageModel of CompositionPage.Model
     | ContextMenuPageModel of ContextMenuPage.Model
     | ContextFlyoutPageModel of ContextFlyoutPage.Model
     | ClippingPageModel of ClippingPage.Model
@@ -100,6 +101,7 @@ type SubpageModel =
         | CheckBoxPageModel _ -> "CheckBox"
         | CarouselPageModel _ -> "Carousel"
         | ComboBoxPageModel _ -> "ComboBox"
+        | CompositionPageModel _ -> "Composition"
         | ContextMenuPageModel _ -> "ContextMenu"
         | ContextFlyoutPageModel _ -> "ContextFlyout"
         | ClippingPageModel _ -> "Clipping"
@@ -177,6 +179,7 @@ type SubpageMsg =
     | CheckBoxPageMsg of CheckBoxPage.Msg
     | CarouselPageMsg of CarouselPage.Msg
     | ComboBoxPageMsg of ComboBoxPage.Msg
+    | CompositionPageMsg of CompositionPage.Msg
     | ContextMenuPageMsg of ContextMenuPage.Msg
     | ContextFlyoutPageMsg of ContextFlyoutPage.Msg
     | ClippingPageMsg of ClippingPage.Msg
@@ -254,6 +257,7 @@ type SubpageCmdMsg =
     | CheckBoxPageCmdMsgs of CheckBoxPage.CmdMsg list
     | CarouselPageCmdMsgs of CarouselPage.CmdMsg list
     | ComboBoxPageCmdMsgs of ComboBoxPage.CmdMsg list
+    | CompositionPageCmdMsgs of CompositionPage.CmdMsg list
     | ContextMenuPageCmdMsgs of ContextMenuPage.CmdMsg list
     | ContextFlyoutPageCmdMsgs of ContextFlyoutPage.CmdMsg list
     | ClippingPageCmdMsgs of ClippingPage.CmdMsg list
@@ -347,6 +351,7 @@ module NavigationState =
             | CheckBoxPageCmdMsgs subCmdMsgs -> map CheckBoxPage.mapCmdMsgToCmd CheckBoxPageMsg subCmdMsgs
             | CarouselPageCmdMsgs subCmdMsgs -> map CarouselPage.mapCmdMsgToCmd CarouselPageMsg subCmdMsgs
             | ComboBoxPageCmdMsgs subCmdMsgs -> map ComboBoxPage.mapCmdMsgToCmd ComboBoxPageMsg subCmdMsgs
+            | CompositionPageCmdMsgs subCmdMsgs -> map CompositionPage.mapCmdMsgToCmd CompositionPageMsg subCmdMsgs
             | ContextMenuPageCmdMsgs subCmdMsgs -> map ContextMenuPage.mapCmdMsgToCmd ContextMenuPageMsg subCmdMsgs
             | ContextFlyoutPageCmdMsgs subCmdMsgs -> map ContextFlyoutPage.mapCmdMsgToCmd ContextFlyoutPageMsg subCmdMsgs
             | ClipboardPageCmdMsgs subCmdMsgs -> map ClipboardPage.mapCmdMsgToCmd ClipboardPageMsg subCmdMsgs
@@ -463,6 +468,10 @@ module NavigationState =
         | NavigationRoute.ComboBoxPage ->
             let m, c = ComboBoxPage.init()
             ComboBoxPageModel m, [ ComboBoxPageCmdMsgs c ]
+
+        | NavigationRoute.CompositionPage ->
+            let m, c = CompositionPage.init()
+            CompositionPageModel m, [ CompositionPageCmdMsgs c ]
         | NavigationRoute.ContextMenuPage ->
             let m, c = ContextMenuPage.init()
             ContextMenuPageModel m, [ ContextMenuPageCmdMsgs c ]
@@ -472,7 +481,6 @@ module NavigationState =
         | NavigationRoute.ClippingPage ->
             let m, c = ClippingPage.init()
             ClippingPageModel m, [ ClippingPageCmdMsgs c ]
-
         | NavigationRoute.ClipboardPage ->
             let m, c = ClipboardPage.init()
             ClipboardPageModel m, [ ClipboardPageCmdMsgs c ]
@@ -485,23 +493,18 @@ module NavigationState =
         | NavigationRoute.DropDownButtonPage ->
             let m, c = DropDownButtonPage.init()
             DropDownButtonPageModel m, [ DropDownButtonPageCmdMsgs c ]
-
         | NavigationRoute.DialogsPage ->
             let m, c = DialogsPage.init()
             DialogsPageModel m, [ DialogsPageCmdMsgs c ]
-
         | NavigationRoute.DrawLineAnimationPage ->
             let m, c = DrawLineAnimationPage.init()
             DrawLineAnimationPageModel m, [ DrawLineAnimationPageCmdMsgs c ]
-
         | NavigationRoute.DrawingPage ->
             let m, c = DrawingPage.init()
             DrawingPageModel m, [ DrawingPageCmdMsgs c ]
-
         | NavigationRoute.EffectsPage ->
             let m, c = EffectsPage.init()
             EffectsPageModel m, [ EffectsPageCmdMsgs c ]
-
         | NavigationRoute.ExpanderPage ->
             let m, c = ExpanderPage.init()
             ExpanderPageModel m, [ ExpanderPageCmdMsgs c ]
@@ -721,6 +724,10 @@ module NavigationState =
             | ComboBoxPageMsg subMsg, ComboBoxPageModel m ->
                 let m, c = ComboBoxPage.update subMsg m
                 ComboBoxPageModel m, [ ComboBoxPageCmdMsgs c ]
+
+            | CompositionPageMsg subMsg, CompositionPageModel m ->
+                let m, c = CompositionPage.update subMsg m
+                CompositionPageModel m, [ CompositionPageCmdMsgs c ]
 
             | ContextFlyoutPageMsg subMsg, ContextFlyoutPageModel m ->
                 let m, c = ContextFlyoutPage.update subMsg m
@@ -984,6 +991,7 @@ module NavigationState =
         | CheckBoxPageModel m -> map CheckBoxPage.view CheckBoxPageMsg m
         | CarouselPageModel m -> map CarouselPage.view CarouselPageMsg m
         | ComboBoxPageModel m -> map ComboBoxPage.view ComboBoxPageMsg m
+        | CompositionPageModel m -> map CompositionPage.view CompositionPageMsg m
         | ContextMenuPageModel m -> map ContextMenuPage.view ContextMenuPageMsg m
         | ContextFlyoutPageModel m -> map ContextFlyoutPage.view ContextFlyoutPageMsg m
         | ClippingPageModel m -> map ClippingPage.view ClippingPageMsg m
