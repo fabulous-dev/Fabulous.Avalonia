@@ -2,7 +2,6 @@ namespace Gallery.Pages
 
 open System
 open System.Numerics
-open System.Runtime.CompilerServices
 open System.Threading
 open Avalonia
 open Avalonia.Animation
@@ -19,64 +18,10 @@ open Fabulous
 open type Fabulous.Avalonia.View
 open Gallery
 
-module BorderExtensions =
-    let mutable _implicitAnimations: ImplicitAnimationCollection = null
-
-    let EnsureImplicitAnimations (visual: Visual) =
-        if (_implicitAnimations = null) then
-            let compositor = ElementComposition.GetElementVisual(visual).Compositor
-
-            let offsetAnimation = compositor.CreateVector3KeyFrameAnimation()
-            offsetAnimation.Target <- "Offset"
-            offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue")
-            offsetAnimation.Duration <- TimeSpan.FromMilliseconds(400)
-
-            let rotationAnimation = compositor.CreateScalarKeyFrameAnimation()
-            rotationAnimation.Target <- "RotationAngle"
-            rotationAnimation.InsertKeyFrame(0.5f, 0.160f)
-            rotationAnimation.InsertKeyFrame(1f, 0f)
-            rotationAnimation.Duration <- TimeSpan.FromMilliseconds(400)
-
-            let animationGroup = compositor.CreateAnimationGroup()
-            animationGroup.Add(offsetAnimation)
-            animationGroup.Add(rotationAnimation)
-
-            _implicitAnimations <- compositor.CreateImplicitAnimationCollection()
-            _implicitAnimations["Offset"] <- animationGroup
-
-
-    let rec SetEnableAnimations (border: Border, enabled: bool) =
-        let page =
-            Avalonia.VisualTree.VisualExtensions.FindAncestorOfType<UserControl>(border)
-
-        if page = null then
-            border.AttachedToVisualTree.AddHandler(fun s t -> SetEnableAnimations(border, enabled))
-        else if ElementComposition.GetElementVisual(page) = null then
-            ()
-        else
-            EnsureImplicitAnimations(page)
-            let visualParent = Avalonia.VisualTree.VisualExtensions.GetVisualParent(border)
-            let compositionVisual = ElementComposition.GetElementVisual(visualParent)
-            compositionVisual.ImplicitAnimations <- _implicitAnimations
-
-    let EnableAnimations =
-        Attributes.defineBool "Border_EnableAnimations" (fun _ newValueOpt node ->
-            let border = node.Target :?> Border
-
-            match newValueOpt with
-            | ValueNone -> ()
-            | ValueSome v -> SetEnableAnimations(border, v))
-
-[<Extension>]
-type BorderControlModifiers =
-    [<Extension>]
-    static member inline enableAnimations(this: WidgetBuilder<'msg, #IFabBorder>, value: bool) =
-        this.AddScalar(BorderExtensions.EnableAnimations.WithValue(value))
-
 type CustomItemsControl() =
     inherit ItemsControl()
 
-    do CustomItemsControl.ItemsPanelProperty.OverrideDefaultValue<CustomItemsControl>(FuncTemplate<Panel>(fun _ -> WrapPanel()))
+    do base.ItemsPanel <- FuncTemplate<Panel>(fun _ -> WrapPanel())
 
     override this.StyleKeyOverride = typeof<ItemsControl>
 
@@ -115,6 +60,7 @@ module CompositionPage =
         | ButtonStopCustomVisual
         | CustomVisualHostVisualTreeAttached of VisualTreeAttachmentEventArgs
         | AttachAnimatedSolidVisual of VisualTreeAttachmentEventArgs
+        | AttachedToVisualTree of VisualTreeAttachmentEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -124,6 +70,8 @@ module CompositionPage =
 
     let mutable _customVisual: CompositionCustomVisual = null
     let mutable _solidVisual: CompositionSolidColorVisual = null
+    let mutable _implicitAnimations: ImplicitAnimationCollection = null
+    let borderRef = ViewRef<Border>()
 
     let createColorItems () =
         [ { Color = Color.FromArgb(byte 255, byte 255, byte 185, byte 0) }
@@ -193,6 +141,46 @@ module CompositionPage =
         else
             _solidVisual.Size <- Vector(v.Bounds.Width / float 3, v.Bounds.Height / float 3)
             _solidVisual.Offset <- Vector3D(v.Bounds.Width / float 3, v.Bounds.Height / float 3, 0)
+
+    let EnsureImplicitAnimations (visual: Visual) =
+        if (_implicitAnimations = null) then
+            let compositor = ElementComposition.GetElementVisual(visual).Compositor
+
+            let offsetAnimation = compositor.CreateVector3KeyFrameAnimation()
+            offsetAnimation.Target <- "Offset"
+            offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue")
+            offsetAnimation.Duration <- TimeSpan.FromMilliseconds(400)
+
+            let rotationAnimation = compositor.CreateScalarKeyFrameAnimation()
+            rotationAnimation.Target <- "RotationAngle"
+            rotationAnimation.InsertKeyFrame(0.5f, 0.160f)
+            rotationAnimation.InsertKeyFrame(1f, 0f)
+            rotationAnimation.Duration <- TimeSpan.FromMilliseconds(400)
+
+            let animationGroup = compositor.CreateAnimationGroup()
+            animationGroup.Add(offsetAnimation)
+            animationGroup.Add(rotationAnimation)
+
+            _implicitAnimations <- compositor.CreateImplicitAnimationCollection()
+            _implicitAnimations["Offset"] <- animationGroup
+
+
+    let rec SetEnableAnimations (border: Border, enabled: bool) =
+        let page =
+            Avalonia.VisualTree.VisualExtensions.FindAncestorOfType<UserControl>(border)
+
+        if page = null then
+            border.AttachedToVisualTree.AddHandler(fun s t -> SetEnableAnimations(border, enabled))
+        else if ElementComposition.GetElementVisual(page) = null then
+            ()
+        else
+            EnsureImplicitAnimations(page)
+            let visualParent = Avalonia.VisualTree.VisualExtensions.GetVisualParent(border)
+            let compositionVisual = ElementComposition.GetElementVisual(visualParent)
+
+            if compositionVisual <> null then
+                compositionVisual.ImplicitAnimations <- _implicitAnimations
+
 
     let update msg model =
         match msg with
@@ -265,6 +253,12 @@ module CompositionPage =
                     updateSolidVisual v)
 
             model, []
+        | AttachedToVisualTree _ ->
+            match borderRef.TryValue with
+            | None -> ()
+            | Some value -> SetEnableAnimations(value, true)
+
+            model, []
 
     let view model =
         UserControl(
@@ -284,7 +278,8 @@ module CompositionPage =
                                         .width(100.)
                                         .height(100.)
                                         .margin(10.)
-                                        .enableAnimations(true)
+                                        .reference(borderRef)
+                                        .onAttachedToVisualTree(AttachedToVisualTree)
                             )
 
                             GridSplitter(GridResizeDirection.Columns)
