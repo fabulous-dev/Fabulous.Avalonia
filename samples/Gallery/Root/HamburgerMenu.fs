@@ -11,7 +11,6 @@ open Gallery
 open Types
 open System
 open Avalonia.Animation.Easings
-open Fabulous
 
 open type Fabulous.Avalonia.View
 
@@ -121,7 +120,7 @@ module HamburgerMenu =
                     .onSelectionChanged(OnSelectionChanged)
             }
         )
-            .padding(0., 0., 0., 0.)
+            .padding(0.)
 
     let mainView model =
         (Grid() {

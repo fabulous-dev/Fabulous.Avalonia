@@ -18,30 +18,6 @@ open Fabulous
 open type Fabulous.Avalonia.View
 open Gallery
 
-type CustomItemsControl() =
-    inherit ItemsControl()
-
-    do base.ItemsPanel <- FuncTemplate<Panel>(fun _ -> WrapPanel())
-
-    override this.StyleKeyOverride = typeof<ItemsControl>
-
-type IFabCustomItemsControl =
-    inherit IFabItemsControl
-
-module CustomItemsControl =
-    let WidgetKey = Widgets.register<CustomItemsControl>()
-
-[<AutoOpen>]
-module CustomItemsControlBuilders =
-    type Fabulous.Avalonia.View with
-
-        static member inline CustomItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
-            WidgetHelpers.buildItems<'msg, IFabCustomItemsControl, 'itemData, 'itemMarker> CustomItemsControl.WidgetKey ItemsControl.ItemsSource items template
-
 [<Struct>]
 type CompositionPageColorItem =
     { Color: Color }
@@ -267,7 +243,7 @@ module CompositionPage =
                     "Implicit animations",
                     VStack() {
                         (Grid(coldefs = [ Auto; Pixel(10); Pixel(40) ], rowdefs = [ Auto ]) {
-                            View.CustomItemsControl(
+                            ItemsControl(
                                 model.Items,
                                 fun x ->
                                     Border(TextBlock(x.ColorHexValue))
@@ -281,6 +257,7 @@ module CompositionPage =
                                         .reference(borderRef)
                                         .onAttachedToVisualTree(AttachedToVisualTree)
                             )
+                                .itemsPanel(HWrapPanel())
 
                             GridSplitter(GridResizeDirection.Columns)
                                 .resizeBehavior(GridResizeBehavior.PreviousAndNext)
