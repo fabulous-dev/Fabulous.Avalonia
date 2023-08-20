@@ -60,6 +60,8 @@
     <Compile Include="Pages\ClippingPage.fs" />
     <Compile Include="Pages\ClipboardPage.fs" />
     <Compile Include="Pages\ComboBoxPage.fs" />
+    <Compile Include="Pages\CustomVisualHandler.fs" />
+    <Compile Include="Pages\CompositionPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
     <Compile Include="Pages\DockPanelPage.fs" />

@@ -28,9 +28,17 @@ module WrapPanelBuilders =
         static member VWrap<'msg>() =
             CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Vertical))
 
+        /// <summary>Creates a VWrapPanel widget.</summary>
+        static member VWrapPanel<'msg>() =
+            WidgetBuilder<'msg, IFabWrapPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Vertical))
+
         /// <summary>Creates a HWrap widget.</summary>
         static member HWrap<'msg>() =
             CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
+
+        /// <summary>Creates a HWrapPanel widget.</summary>
+        static member HWrapPanel<'msg>() =
+            WidgetBuilder<'msg, IFabWrapPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
 
 [<Extension>]
 type WrapPanelModifiers =

@@ -18,6 +18,7 @@ type NavigationRoute =
     | CheckBoxPage
     | CarouselPage
     | ComboBoxPage
+    | CompositionPage
     | ContextMenuPage
     | ContextFlyoutPage
     | ClippingPage
@@ -96,6 +97,7 @@ type NavigationRoute =
         | "CheckBoxPage" -> CheckBoxPage
         | "CarouselPage" -> CarouselPage
         | "ComboBoxPage" -> ComboBoxPage
+        | "CompositionPage" -> CompositionPage
         | "ContextMenuPage" -> ContextMenuPage
         | "ContextFlyoutPage" -> ContextFlyoutPage
         | "ClippingPage" -> ClippingPage
