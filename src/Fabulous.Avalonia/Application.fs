@@ -7,6 +7,7 @@ open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.Controls.Notifications
 open Avalonia.Markup.Xaml.Styling
+open Avalonia.Media
 open Avalonia.Rendering
 open Avalonia.Styling
 open Avalonia.Themes.Fluent
@@ -177,6 +178,24 @@ module Application =
                 (target :?> FabApplication)
                     .TopLevel.RendererDiagnostics.DebugOverlays <- value)
 
+    let IsSystemBarVisible =
+        Attributes.definePropertyWithGetSet
+            "Application_IsSystemBarVisible"
+            (fun target -> (target :?> FabApplication).InsetsManager.IsSystemBarVisible)
+            (fun target value -> (target :?> FabApplication).InsetsManager.IsSystemBarVisible <- value)
+
+    let DisplayEdgeToEdge =
+        Attributes.definePropertyWithGetSet
+            "Application_DisplayEdgeToEdge"
+            (fun target -> (target :?> FabApplication).InsetsManager.DisplayEdgeToEdge)
+            (fun target value -> (target :?> FabApplication).InsetsManager.DisplayEdgeToEdge <- value)
+
+    let SystemBarColor =
+        Attributes.definePropertyWithGetSet
+            "Application_SystemBarColor"
+            (fun target -> (target :?> FabApplication).InsetsManager.SystemBarColor)
+            (fun target value -> (target :?> FabApplication).InsetsManager.SystemBarColor <- value)
+
     let Styles =
         Attributes.defineProperty "Styles" Unchecked.defaultof<string list> (fun target values ->
             let styles = (target :?> FabApplication).Styles
@@ -204,6 +223,9 @@ module Application =
         Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
             (target :?> FabApplication)
                 .PlatformSettings.ColorValuesChanged)
+
+    let SafeAreaChanged =
+        Attributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
 
 [<AutoOpen>]
 module ApplicationBuilders =
@@ -240,6 +262,27 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline debugOverlays(this: WidgetBuilder<'msg, #IFabApplication>, value: RendererDebugOverlays) =
         this.AddScalar(Application.DebugOverlays.WithValue(value))
+
+    /// <summary>Sets the application system bar visibility.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">System bar visibility to be used for the application.</param>
+    [<Extension>]
+    static member inline isSystemBarVisible(this: WidgetBuilder<'msg, #IFabApplication>, value: bool) =
+        this.AddScalar(Application.IsSystemBarVisible.WithValue(value))
+
+    /// <summary>Sets the application display edge to edge.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Display edge to edge to be used for the application.</param>
+    [<Extension>]
+    static member inline displayEdgeToEdge(this: WidgetBuilder<'msg, #IFabApplication>, value: bool) =
+        this.AddScalar(Application.DisplayEdgeToEdge.WithValue(value))
+
+    /// <summary>Sets the application system bar color.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">System bar color to be used for the application.</param>
+    [<Extension>]
+    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabApplication>, value: Color) =
+        this.AddScalar(Application.SystemBarColor.WithValue(value))
 
     /// <summary>Sets the application styles.</summary>
     /// <param name="this">Current widget.</param>
@@ -283,6 +326,13 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline onColorValuesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.PlatformColorValues -> 'msg) =
         this.AddScalar(Application.ColorValuesChanged.WithValue(fn))
+
+    /// <summary>Listens to the PlatformSettings safe area changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the safe area is changed.</param>
+    [<Extension>]
+    static member inline onSafeAreaChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.SafeAreaChangedArgs -> 'msg) =
+        this.AddScalar(Application.SafeAreaChanged.WithValue(fn))
 
     /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>
