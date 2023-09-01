@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Input.TextInput
 open Avalonia.LogicalTree
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -27,6 +28,27 @@ module StyledElement =
                 let coll = AvaloniaList<string>()
                 classes |> List.iter coll.Add
                 target.Classes.AddRange coll)
+
+    let ContentType =
+        Attributes.defineAvaloniaPropertyWithEquality<TextInputContentType> TextInputOptions.ContentTypeProperty
+
+    let ReturnKeyType =
+        Attributes.defineAvaloniaPropertyWithEquality<TextInputReturnKeyType> TextInputOptions.ReturnKeyTypeProperty
+
+    let Multiline =
+        Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.MultilineProperty
+
+    let Lowercase =
+        Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.LowercaseProperty
+
+    let Uppercase =
+        Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.UppercaseProperty
+
+    let AutoCapitalization =
+        Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.AutoCapitalizationProperty
+
+    let IsSensitive =
+        Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.IsSensitiveProperty
 
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
@@ -67,6 +89,56 @@ type StyledElementModifiers =
     /// <param name="fn">The Style value.</param>
     [<Extension>]
     static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
+
+    /// <summary>Sets the ContentType property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ContentType value.</param>
+    [<Extension>]
+    static member inline contentType(this: WidgetBuilder<'msg, #IFabStyledElement>, value: TextInputContentType) =
+        this.AddScalar(StyledElement.ContentType.WithValue(value))
+
+
+    /// <summary>Sets the ReturnKeyType property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ReturnKeyType value.</param>
+    [<Extension>]
+    static member inline returnKeyType(this: WidgetBuilder<'msg, #IFabStyledElement>, value: TextInputReturnKeyType) =
+        this.AddScalar(StyledElement.ReturnKeyType.WithValue(value))
+
+    /// <summary>Sets the Multiline property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Multiline value.</param>
+    [<Extension>]
+    static member inline multiline(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
+        this.AddScalar(StyledElement.Multiline.WithValue(value))
+
+    /// <summary>Sets the Lowercase property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Lowercase value.</param>
+    [<Extension>]
+    static member inline lowercase(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
+        this.AddScalar(StyledElement.Lowercase.WithValue(value))
+
+    /// <summary>Sets the Uppercase property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Uppercase value.</param>
+    [<Extension>]
+    static member inline uppercase(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
+        this.AddScalar(StyledElement.Uppercase.WithValue(value))
+
+    /// <summary>Sets the AutoCapitalization property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The AutoCapitalization value.</param>
+    [<Extension>]
+    static member inline autoCapitalization(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
+        this.AddScalar(StyledElement.AutoCapitalization.WithValue(value))
+
+    /// <summary>Sets the IsSensitive property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSensitive value.</param>
+    [<Extension>]
+    static member inline isSensitive(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
+        this.AddScalar(StyledElement.IsSensitive.WithValue(value))
 
     /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
     /// <param name="this">Current widget.</param>

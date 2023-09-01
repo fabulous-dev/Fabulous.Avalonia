@@ -60,4 +60,20 @@ module ComboBoxPage =
                     ComboBoxItem(font.Name)
             })
                 .onDropDownOpened(model.IsDropDownOpen, DropDownOpened)
+
+            VStack() {
+                LayoutTransformControl(
+                    Grid() {
+                        (ComboBox() {
+                            ComboBoxItem("Inline Items")
+                            ComboBoxItem("Inline Item 2")
+                            ComboBoxItem("Inline Item 3")
+                            ComboBoxItem("Inline Item 4")
+                            ComboBoxItem("Inline Item 5")
+                        })
+                            .selectedIndex(0)
+                    }
+                )
+                    .layoutTransform(RotateTransform(45.))
+            }
         }
