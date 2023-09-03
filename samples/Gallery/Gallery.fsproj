@@ -59,9 +59,12 @@
     <Compile Include="Pages\CheckBoxPage.fs" />
     <Compile Include="Pages\ClippingPage.fs" />
     <Compile Include="Pages\ClipboardPage.fs" />
+    <Compile Include="Pages\Composition\CustomVisualHandler.fs" />
+    <Compile Include="Pages\Composition\ImplicitAnimations.fs" />
+    <Compile Include="Pages\Composition\Animations.fs" />
+    <Compile Include="Pages\Composition\CustomVisual.fs" />
+    <Compile Include="Pages\Composition\CompositionPage.fs" />
     <Compile Include="Pages\ComboBoxPage.fs" />
-    <Compile Include="Pages\CustomVisualHandler.fs" />
-    <Compile Include="Pages\CompositionPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
     <Compile Include="Pages\DockPanelPage.fs" />
