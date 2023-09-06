@@ -54,11 +54,6 @@ type OpenGlPageControl() =
     static let StartNew = Stopwatch.StartNew()
 
     do
-        OpenGlPageControl.AffectsRender<OpenGlPageControl>(OpenGlPageControl.YawProperty)
-        OpenGlPageControl.AffectsRender<OpenGlPageControl>(OpenGlPageControl.PitchProperty)
-        OpenGlPageControl.AffectsRender<OpenGlPageControl>(OpenGlPageControl.RollProperty)
-        OpenGlPageControl.AffectsRender<OpenGlPageControl>(OpenGlPageControl.DiscoProperty)
-        
         let name =
             typeof<OpenGlPageControl>.Assembly
                 .GetManifestResourceNames()
@@ -103,32 +98,28 @@ type OpenGlPageControl() =
 
     member this.Yaw
         with get () = _yaw
-        and set value =
-            _yaw <- value
+        and set value = _yaw <- value
 
     static member YawProperty: DirectProperty<OpenGlPageControl, float> =
         AvaloniaProperty.RegisterDirect<OpenGlPageControl, float>("Yaw", (fun o -> o.Yaw), (fun o v -> o.Yaw <- v))
 
     member this.Pitch
         with get () = _pitch
-        and set value =
-            _pitch <- value
+        and set value = _pitch <- value
 
     static member PitchProperty: DirectProperty<OpenGlPageControl, float> =
         AvaloniaProperty.RegisterDirect<OpenGlPageControl, float>("Pitch", (fun o -> o.Pitch), (fun o v -> o.Pitch <- v))
 
     member this.Roll
         with get () = _roll
-        and set value =
-            _roll <- value
+        and set value = _roll <- value
 
     static member RollProperty: DirectProperty<OpenGlPageControl, float> =
         AvaloniaProperty.RegisterDirect<OpenGlPageControl, float>("Roll", (fun o -> o.Roll), (fun o v -> o.Roll <- v))
 
     member this.Disco
         with get () = _disco
-        and set value =
-            _disco <- value
+        and set value = _disco <- value
 
     static member DiscoProperty: DirectProperty<OpenGlPageControl, float> =
         AvaloniaProperty.RegisterDirect<OpenGlPageControl, float>("Disco", (fun o -> o.Disco), (fun o v -> o.Disco <- v))
@@ -392,7 +383,7 @@ module OpenGlPageControl =
     let Data =
         Attributes.defineSimpleScalarWithEquality<struct (float * float * float * float)> "OpenGlPageControl_Data" (fun _ newValueOpt node ->
             let target = node.Target :?> OpenGlPageControl
-    
+
             match newValueOpt with
             | ValueNone ->
                 target.ClearValue(OpenGlPageControl.YawProperty)
@@ -410,9 +401,8 @@ module OpenGLWidgetBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline OpenGlPageControl<'msg>(yaw: float, pitch: float, roll: float, disco: float) =
-            WidgetBuilder<'msg, IFabOpenGlPageControl>(
-                OpenGlPageControl.WidgetKey,
-                OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
+            WidgetBuilder<'msg, IFabOpenGlPageControl>(OpenGlPageControl.WidgetKey, OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
+
 [<Extension>]
 type OpenGLWidgetModifiers =
     [<Extension>]
