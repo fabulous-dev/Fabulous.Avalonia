@@ -47,6 +47,7 @@ type NavigationRoute =
     | NumericUpDownPage
     | NotificationsPage
     | ProgressBarPage
+    | OpenGLPage
     | PanelPage
     | PathIconPage
     | PopupPage
@@ -125,6 +126,7 @@ type NavigationRoute =
         | "MenuPage" -> MenuPage
         | "NumericUpDownPage" -> NumericUpDownPage
         | "NotificationsPage" -> NotificationsPage
+        | "OpenGLPage" -> OpenGLPage
         | "ProgressBarPage" -> ProgressBarPage
         | "PanelPage" -> PanelPage
         | "PathIconPage" -> PathIconPage

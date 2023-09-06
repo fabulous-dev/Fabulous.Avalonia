@@ -50,6 +50,7 @@ type SubpageModel =
     | MenuPageModel of MenuPage.Model
     | NumericUpDownPageModel of NumericUpDownPage.Model
     | NotificationsPageModel of NotificationsPage.Model
+    | OpenGLPageModel of OpenGLPage.Model
     | ProgressBarPageModel of ProgressBarPage.Model
     | PanelPageModel of PanelPage.Model
     | PathIconPageModel of PathIconPage.Model
@@ -129,6 +130,7 @@ type SubpageModel =
         | MenuPageModel _ -> "Menu"
         | NumericUpDownPageModel _ -> "NumericUpDown"
         | NotificationsPageModel _ -> "Notifications"
+        | OpenGLPageModel _ -> "OpenGL"
         | ProgressBarPageModel _ -> "ProgressBar"
         | PanelPageModel _ -> "Panel"
         | PathIconPageModel _ -> "PathIcon"
@@ -207,6 +209,7 @@ type SubpageMsg =
     | MenuPageMsg of MenuPage.Msg
     | NumericUpDownPageMsg of NumericUpDownPage.Msg
     | NotificationsPageMsg of NotificationsPage.Msg
+    | OpenGLPageMsg of OpenGLPage.Msg
     | ProgressBarPageMsg of ProgressBarPage.Msg
     | PanelPageMsg of PanelPage.Msg
     | PathIconPageMsg of PathIconPage.Msg
@@ -285,6 +288,7 @@ type SubpageCmdMsg =
     | MenuPageCmdMsgs of MenuPage.CmdMsg list
     | NumericUpDownPageCmdMsgs of NumericUpDownPage.CmdMsg list
     | NotificationsPageCmdMsgs of NotificationsPage.CmdMsg list
+    | OpenGLPageCmdMsgs of OpenGLPage.CmdMsg list
     | ProgressBarPageCmdMsgs of ProgressBarPage.CmdMsg list
     | PanelPageCmdMsgs of PanelPage.CmdMsg list
     | PathIconPageCmdMsgs of PathIconPage.CmdMsg list
@@ -379,6 +383,7 @@ module NavigationState =
             | MaskedTextBoxPageCmdMsgs subCmdMsgs -> map MaskedTextBoxPage.mapCmdMsgToCmd MaskedTextBoxPageMsg subCmdMsgs
             | NumericUpDownPageCmdMsgs subCmdMsgs -> map NumericUpDownPage.mapCmdMsgToCmd NumericUpDownPageMsg subCmdMsgs
             | NotificationsPageCmdMsgs subCmdMsgs -> map NotificationsPage.mapCmdMsgToCmd NotificationsPageMsg subCmdMsgs
+            | OpenGLPageCmdMsgs subCmdMsgs -> map OpenGLPage.mapCmdMsgToCmd OpenGLPageMsg subCmdMsgs
             | ProgressBarPageCmdMsgs subCmdMsgs -> map ProgressBarPage.mapCmdMsgToCmd ProgressBarPageMsg subCmdMsgs
             | PanelPageCmdMsgs subCmdMsgs -> map PanelPage.mapCmdMsgToCmd PanelPageMsg subCmdMsgs
             | PathIconPageCmdMsgs subCmdMsgs -> map PathIconPage.mapCmdMsgToCmd PathIconPageMsg subCmdMsgs
@@ -550,6 +555,9 @@ module NavigationState =
         | NavigationRoute.NotificationsPage ->
             let m, c = NotificationsPage.init()
             NotificationsPageModel m, [ NotificationsPageCmdMsgs c ]
+        | NavigationRoute.OpenGLPage ->
+            let m, c = OpenGLPage.init()
+            OpenGLPageModel m, [ OpenGLPageCmdMsgs c ]
         | NavigationRoute.ProgressBarPage ->
             let m, c = ProgressBarPage.init()
             ProgressBarPageModel m, [ ProgressBarPageCmdMsgs c ]
@@ -828,6 +836,10 @@ module NavigationState =
                 let m, c = NotificationsPage.update subMsg m
                 NotificationsPageModel m, [ NotificationsPageCmdMsgs c ]
 
+            | OpenGLPageMsg subMsg, OpenGLPageModel m ->
+                let m, c = OpenGLPage.update subMsg m
+                OpenGLPageModel m, [ OpenGLPageCmdMsgs c ]
+
             | PanelPageMsg subMsg, PanelPageModel m ->
                 let m, c = PanelPage.update subMsg m
                 PanelPageModel m, [ PanelPageCmdMsgs c ]
@@ -1019,6 +1031,7 @@ module NavigationState =
         | MenuPageModel m -> map MenuPage.view MenuPageMsg m
         | NumericUpDownPageModel m -> map NumericUpDownPage.view NumericUpDownPageMsg m
         | NotificationsPageModel m -> map NotificationsPage.view NotificationsPageMsg m
+        | OpenGLPageModel m -> map OpenGLPage.view OpenGLPageMsg m
         | ProgressBarPageModel m -> map ProgressBarPage.view ProgressBarPageMsg m
         | PanelPageModel m -> map PanelPage.view PanelPageMsg m
         | PathIconPageModel m -> map PathIconPage.view PathIconPageMsg m
