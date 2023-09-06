@@ -1,5 +1,6 @@
 namespace Gallery.Root
 
+open Avalonia
 open Avalonia.Controls
 open Fabulous
 open Gallery

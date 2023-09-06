@@ -2,6 +2,7 @@ namespace Gallery.Root
 
 open Avalonia.Controls
 
+open Avalonia.Media
 open Fabulous.Avalonia
 open Types
 open type Fabulous.Avalonia.View
@@ -60,6 +61,9 @@ module MainWindow =
             Window(Panel() { HamburgerMenu.mainView model })
                 .title("Fabulous Gallery")
                 .menu(createMenu model)
+                .width(1024.)
+                .height(800.)
+                .icon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"))
         )
             .trayIcon(trayIcon())
             .styles(
