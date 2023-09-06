@@ -83,6 +83,7 @@ module HamburgerMenu =
                     createListItem("MenuPage", false)
                     createListItem("NumericUpDownPage", false)
                     createListItem("NotificationsPage", false)
+                    createListItem("OpenGLPage", false)
                     createListItem("ProgressBarPage", false)
                     createListItem("PanelPage", false)
                     createListItem("PathIconPage", false)

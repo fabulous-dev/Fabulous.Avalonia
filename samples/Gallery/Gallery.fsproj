@@ -35,7 +35,7 @@
     <EmbeddedResource Include="Assets\Fonts\SourceSansPro-BoldItalic.ttf" />
     <EmbeddedResource Include="Assets\Fonts\SourceSansPro-Italic.ttf" />
     <EmbeddedResource Include="Assets\Fonts\SourceSansPro-Regular.ttf" />
-    <EmbeddedResource Include="Assets\teapot.bin" />
+    <EmbeddedResource Include="Pages\teapot.bin" />
   </ItemGroup>
   
 <!--  Pages-->
@@ -98,6 +98,7 @@
     <Compile Include="Pages\MenuFlyoutPage.fs" />
     <Compile Include="Pages\NumericUpDownPage.fs" />
     <Compile Include="Pages\NotificationsPage.fs" />
+    <Compile Include="Pages\OpenGLPage.fs" />
     <Compile Include="Pages\PanelPage.fs" />
     <Compile Include="Pages\PathIconPage.fs" />
     <Compile Include="Pages\PageTransitions.fs" />
