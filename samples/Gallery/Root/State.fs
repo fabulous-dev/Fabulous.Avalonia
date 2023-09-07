@@ -2,7 +2,10 @@ namespace Gallery.Root
 
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Media
+open Avalonia.Styling
 open Fabulous
+open Fabulous.Avalonia
 open Gallery
 open Gallery.Pages
 open Types
@@ -20,7 +23,16 @@ module State =
 
         { Navigation = NavigationModel.Init(model)
           IsPanOpen = false
-          HeaderText = "AcrylicPage" },
+          ThemeVariants = [ ThemeVariant.Default; ThemeVariant.Dark; ThemeVariant.Light ]
+          FlowDirections = [ FlowDirection.LeftToRight; FlowDirection.RightToLeft ]
+          HeaderText = "AcrylicPage"
+          TransparencyLevels =
+            [ WindowTransparencyLevel.None
+              WindowTransparencyLevel.AcrylicBlur
+              WindowTransparencyLevel.Blur
+              WindowTransparencyLevel.Mica
+              WindowTransparencyLevel.Transparent ]
+          TransparencyLevel = [ WindowTransparencyLevel.None ] },
         [ SubpageCmdMsgs cmdMsgs ]
 
     let update msg model =
@@ -60,3 +72,29 @@ module State =
             match model.Navigation.CurrentPage with
             | CanvasPageModel _ -> model, [ NewMsg(SubpageMsg(CanvasPageMsg(CanvasPage.Msg.Update(date)))) ]
             | _ -> model, []
+
+        | Settings -> model, []
+
+        | DecorationsOnSelectionChanged args ->
+            let args = args.Source :?> ComboBox
+            let content = args.SelectedItem :?> ComboBoxItem
+            let decoration = SystemDecorations.Parse(content.Content.ToString())
+            FabApplication.Current.MainWindow.SystemDecorations <- decoration
+            model, []
+
+        | ThemeVariantsOnSelectionChanged args ->
+            let args = args.Source :?> ComboBox
+            let content = model.ThemeVariants[args.SelectedIndex]
+            FabApplication.Current.RequestedThemeVariant <- content
+            model, []
+
+        | FlowDirectionsOnSelectionChanged selectionChangedEventArgs ->
+            let args = selectionChangedEventArgs.Source :?> ComboBox
+            let content = model.FlowDirections[args.SelectedIndex]
+            FabApplication.Current.TopLevel.FlowDirection <- content
+            model, []
+
+        | TransparencyLevelsOnSelectionChanged args ->
+            let args = args.Source :?> ComboBox
+            let _content = model.TransparencyLevels[args.SelectedIndex]
+            model, []

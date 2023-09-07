@@ -4,11 +4,16 @@ open Avalonia.Controls
 open Avalonia.Interactivity
 open Avalonia
 open System
+open Avalonia.Media
+open Avalonia.Styling
 
 module Types =
     type Model =
         { Navigation: NavigationModel
           IsPanOpen: bool
+          ThemeVariants: ThemeVariant list
+          FlowDirections: FlowDirection list
+          TransparencyLevels: WindowTransparencyLevel list
           HeaderText: string }
 
     type Msg =
@@ -17,6 +22,11 @@ module Types =
         | OpenPanChanged of bool
         | DoNothing
         | Update of DateTime
+        | Settings
+        | DecorationsOnSelectionChanged of SelectionChangedEventArgs
+        | ThemeVariantsOnSelectionChanged of SelectionChangedEventArgs
+        | FlowDirectionsOnSelectionChanged of SelectionChangedEventArgs
+        | TransparencyLevelsOnSelectionChanged of SelectionChangedEventArgs
 
     type CmdMsg =
         | NewMsg of Msg
