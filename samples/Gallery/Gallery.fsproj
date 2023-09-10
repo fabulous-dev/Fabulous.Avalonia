@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Views\CustomNotificationView.fs" />
+    <AvaloniaResource Include="Views\HamburgerMenu.xaml" />
+    <Compile Include="Views\HamburgerMenu.fs" />
     <Compile Include="NavigationTypes.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />

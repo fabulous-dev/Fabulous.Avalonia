@@ -13,12 +13,12 @@ module MainWindow =
             NativeMenuItem("Edit")
                 .menu(
                     NativeMenu() {
-                        NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), DoNothing)
+                        NativeMenuItem("Close Pan", DoNothing)
+                        NativeMenuItem("Open Pan", DoNothing)
                         NativeMenuItemSeparator()
 
                         NativeMenuItem("After separator", DoNothing)
                             .toggleType(NativeMenuItemToggleType.CheckBox)
-                            .isChecked(model.IsPanOpen)
                     }
                 )
         }

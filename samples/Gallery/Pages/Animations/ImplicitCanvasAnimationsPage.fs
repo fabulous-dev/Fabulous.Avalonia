@@ -78,7 +78,6 @@ module ImplicitCanvasAnimationsPage =
         | ButtonAdd
         | ButtonFps
         | TimerTicked
-        | OnAttachedToLogicalTree of LogicalTreeAttachmentEventArgs
 
     type CmdMsg =
         | NoMsg
@@ -192,7 +191,6 @@ module ImplicitCanvasAnimationsPage =
             [ if model.BenchmarkRunning then
                   TickTimer ]
 
-        | OnAttachedToLogicalTree _ -> model, []
 
     let view model =
         Grid(coldefs = [], rowdefs = [ Star; Auto ]) {
@@ -200,7 +198,6 @@ module ImplicitCanvasAnimationsPage =
                 .clipToBounds(true)
                 .background(Brushes.WhiteSmoke)
                 .gridRow(0)
-                .onAttachedToLogicalTree(OnAttachedToLogicalTree)
 
             (HStack(6.) {
                 Button("Clear", ButtonClear)
