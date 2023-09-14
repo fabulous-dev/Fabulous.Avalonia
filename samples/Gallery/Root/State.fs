@@ -31,8 +31,7 @@ module State =
               WindowTransparencyLevel.AcrylicBlur
               WindowTransparencyLevel.Blur
               WindowTransparencyLevel.Mica
-              WindowTransparencyLevel.Transparent ]
-          TransparencyLevel = [ WindowTransparencyLevel.None ] },
+              WindowTransparencyLevel.Transparent ] },
         [ SubpageCmdMsgs cmdMsgs ]
 
     let update msg model =

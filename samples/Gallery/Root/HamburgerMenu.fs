@@ -39,20 +39,6 @@ module HamburgerMenu =
             .margin(4., 0., 8., 0.)
             .cornerRadius(8.)
             .clipToBounds(false)
-    //
-    //   <ControlTheme x:Key="NavigationButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-    // <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-    // <Setter Property="VerticalContentAlignment" Value="Center" />
-    // <Setter Property="HorizontalAlignment" Value="Stretch" />
-    // <Setter Property="VerticalAlignment" Value="Stretch" />
-    // <Setter Property="FontWeight" Value="Normal" />
-    // <Setter Property="MinHeight" Value="0" />
-    // <Setter Property="Height" Value="{StaticResource NavigationItemHeight}" />
-    // <Setter Property="Background" Value="Transparent" />
-    // <Setter Property="Padding" Value="12,0,4,0" />
-    // <Setter Property="Margin" Value="4,0,8,0" />
-    // <Setter Property="CornerRadius" Value="8" />
-    // <Setter Property="ClipToBounds" Value="False" />
 
     let settingsButtonStyle (this: WidgetBuilder<'msg, IFabButton>) =
         this
