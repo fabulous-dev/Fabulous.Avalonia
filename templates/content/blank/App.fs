@@ -52,6 +52,7 @@ module App =
 
     let view model =
         FabApplication.Current.AppTheme <- FluentTheme()
+
         (VStack() {
             TextBlock($"%d{model.Count}").centerText()
 

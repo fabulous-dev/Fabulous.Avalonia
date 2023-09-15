@@ -197,6 +197,7 @@ module App =
 
     let view (model: Model) =
         FabApplication.Current.AppTheme <- FluentTheme()
+
         (Dock() {
             View.map SettingMsg (Setting.view(model.Setting).dock(Dock.Bottom))
             View.map DrawingCanvasMsg (DrawingCanvas.view(model.DrawingCanvas).dock(Dock.Top))
