@@ -10,7 +10,6 @@ open Avalonia.Markup.Xaml.Styling
 open Avalonia.Media
 open Avalonia.Rendering
 open Avalonia.Styling
-open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
@@ -92,6 +91,11 @@ type FabApplication() =
             _mainView <- value
             this.UpdateLifetime()
 
+    member this.AppTheme
+        with set value =
+            this.Styles.Clear()
+            this.Styles.Add(value)
+
     /// <summary>Gets the current application instance.</summary>
     static member Current = Application.Current :?> FabApplication
 
@@ -102,10 +106,6 @@ type FabApplication() =
 
 type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
     inherit FabApplication()
-
-    override this.Initialize() =
-        this.Styles.Add(FluentTheme())
-        base.Initialize()
 
     override this.OnFrameworkInitializationCompleted() =
         let runner = Runners.create program
@@ -196,16 +196,6 @@ module Application =
             (fun target -> (target :?> FabApplication).InsetsManager.SystemBarColor)
             (fun target value -> (target :?> FabApplication).InsetsManager.SystemBarColor <- value)
 
-    let Styles =
-        Attributes.defineProperty "Styles" Unchecked.defaultof<string list> (fun target values ->
-            let styles = (target :?> FabApplication).Styles
-
-            values
-            |> List.iter(fun value ->
-                let style = StyleInclude(baseUri = null)
-                style.Source <- Uri(value)
-                styles.Add(style)))
-
 
     let ThemeVariant =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_ThemeVariant" Application.RequestedThemeVariantProperty
@@ -283,13 +273,6 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabApplication>, value: Color) =
         this.AddScalar(Application.SystemBarColor.WithValue(value))
-
-    /// <summary>Sets the application styles.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">Application styles to be used for the application.</param>
-    [<Extension>]
-    static member inline styles(this: WidgetBuilder<'msg, #IFabApplication>, value: string list) =
-        this.AddScalar(Application.Styles.WithValue(value))
 
     /// <summary>Sets the application theme variant.</summary>
     /// <param name="this">Current widget.</param>

@@ -43,6 +43,7 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.4" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
     <PackageReference Include="FSharp.Core" Version="FSharpCorePkgVersion" />
     <PackageReference Include="Fabulous" Version="FabulousPkgVersion" />
     <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />

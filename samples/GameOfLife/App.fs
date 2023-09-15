@@ -8,6 +8,7 @@ open Avalonia.Media
 open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -215,6 +216,8 @@ module App =
                 Cmd.none
 
     let view (model: Model) =
+        FabApplication.Current.AppTheme <- FluentTheme()
+
         (Dock() {
             Button("Start", StartEvolution)
                 .horizontalAlignment(HorizontalAlignment.Stretch)

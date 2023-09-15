@@ -5,6 +5,7 @@ open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -168,6 +169,8 @@ module App =
         (cell = Empty) && (getGameResult model = StillPlaying)
 
     let view model =
+        FabApplication.Current.AppTheme <- FluentTheme()
+
         (Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto ]) {
             TextBlock(getMessage model)
                 .textAlignment(TextAlignment.Center)

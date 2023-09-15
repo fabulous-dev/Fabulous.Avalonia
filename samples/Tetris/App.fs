@@ -9,6 +9,8 @@ open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
+open Avalonia.Themes.Fluent
+
 // Credits to https://github.com/RyushiAok/Tetris for the original code
 type Board =
     { width: int
@@ -265,6 +267,8 @@ module App =
         }
 
     let view (model: Model) =
+        FabApplication.Current.AppTheme <- FluentTheme()
+
         if model.isOver then
             AnyView(gameOverView())
         else
