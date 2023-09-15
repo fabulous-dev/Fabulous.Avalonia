@@ -229,7 +229,6 @@
     <PackageReference Include="Fabulous" VersionOverride="[2.4.0, 2.5.0)" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.4" />
     <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.4" />
-    <PackageReference Include="Avalonia.Themes.Fluent" VersionOverride="11.0.4" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">

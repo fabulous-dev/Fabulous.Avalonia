@@ -1,8 +1,8 @@
 namespace Gallery.Root
 
-open Avalonia
-open Avalonia.Controls
+open Avalonia.Themes.Fluent
 open Avalonia.Media
+open Avalonia.Controls
 open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
@@ -19,6 +19,8 @@ module State =
             Cmd.map SubpageMsg cmd
 
     let init () =
+        FabApplication.Current.AppTheme <- FluentTheme()
+
         let model, cmdMsgs = NavigationState.initRoute NavigationRoute.AcrylicPage
 
         { Navigation = NavigationModel.Init(model)

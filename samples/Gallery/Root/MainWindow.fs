@@ -1,8 +1,6 @@
 namespace Gallery.Root
 
 open Avalonia.Controls
-
-open Avalonia.Media
 open Fabulous.Avalonia
 open Types
 open type Fabulous.Avalonia.View

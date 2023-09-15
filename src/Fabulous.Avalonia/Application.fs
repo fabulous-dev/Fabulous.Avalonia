@@ -10,7 +10,6 @@ open Avalonia.Markup.Xaml.Styling
 open Avalonia.Media
 open Avalonia.Rendering
 open Avalonia.Styling
-open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
@@ -91,6 +90,12 @@ type FabApplication() =
         and set value =
             _mainView <- value
             this.UpdateLifetime()
+                   
+        
+    member this.AppTheme with set value =
+        this.Styles.Clear()
+        this.Styles.Add(value)
+
 
     /// <summary>Gets the current application instance.</summary>
     static member Current = Application.Current :?> FabApplication
@@ -102,10 +107,6 @@ type FabApplication() =
 
 type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
     inherit FabApplication()
-
-    override this.Initialize() =
-        this.Styles.Add(FluentTheme())
-        base.Initialize()
 
     override this.OnFrameworkInitializationCompleted() =
         let runner = Runners.create program
