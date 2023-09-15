@@ -59,8 +59,10 @@ You can find them in the [samples folder](https://github.com/fabulous-dev/Fabulo
 
 To run the `Gallery` sample app from the command line, navigate to the sample folder and run `dotnet run -f net7.0`.
 
-- `cd samples/Gallery`
-- `dotnet run -f net7.0`
+```sh
+cd samples/Gallery
+dotnet run -f net7.0
+```
 
 You can also open the solution `Fabulous.Avalonia.sln` with your favorite IDE(We recommend [Rider](https://www.jetbrains.com/rider/)) and select the platform you want, then press debug to deploy and run the app.
 
