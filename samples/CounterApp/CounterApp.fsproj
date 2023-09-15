@@ -23,13 +23,13 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="FSharp.Core" />
     <PackageReference Include="Fabulous" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
-    <ProjectReference Include="..\..\src\Fabulous.Avalonia.Themes.Fluent\Fabulous.Avalonia.Themes.Fluent.fsproj" />
   </ItemGroup>
   
   <Import Project="..\Fabulous.Avalonia.Samples.targets" />

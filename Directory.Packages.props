@@ -1,9 +1,7 @@
 <Project>
-
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageVersion Include="Fabulous" Version="2.4.0" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
@@ -22,5 +20,4 @@
     <PackageVersion Include="Avalonia.Browser" Version="11.0.4" />
     <PackageVersion Include="Avalonia.Skia" Version="11.0.4" />
   </ItemGroup>
-
 </Project>

@@ -7,6 +7,7 @@ open Avalonia.Markup.Xaml.Converters
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -21,8 +22,8 @@ module ColorPicker =
         match msg with
         | PointerPressed color -> { model with Color = color }
 
-
     let view (model: Model) =
+        FabApplication.Current.AppTheme <- FluentTheme()
         let brushes = [ Colors.Black; Colors.Red; Colors.Green; Colors.Blue; Colors.Yellow ]
 
         HStack(5.) {
@@ -195,6 +196,7 @@ module App =
             Cmd.none
 
     let view (model: Model) =
+        FabApplication.Current.AppTheme <- FluentTheme()
         (Dock() {
             View.map SettingMsg (Setting.view(model.Setting).dock(Dock.Bottom))
             View.map DrawingCanvasMsg (DrawingCanvas.view(model.DrawingCanvas).dock(Dock.Top))

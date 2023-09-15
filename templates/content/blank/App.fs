@@ -2,6 +2,7 @@ namespace NewApp
 
 open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -50,6 +51,7 @@ module App =
                 model, Cmd.none
 
     let view model =
+        FabApplication.Current.AppTheme <- FluentTheme()
         (VStack() {
             TextBlock($"%d{model.Count}").centerText()
 

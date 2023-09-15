@@ -3,6 +3,7 @@ namespace Gallery.Root
 open Avalonia.Controls
 open Fabulous.Avalonia
 open Types
+open Avalonia.Themes.Fluent
 open type Fabulous.Avalonia.View
 
 module MainWindow =
@@ -55,6 +56,8 @@ module MainWindow =
             )
 
     let view (model: Model) =
+        FabApplication.Current.AppTheme <- FluentTheme()
+
         DesktopApplication(
             Window(Panel() { HamburgerMenu.mainView model })
                 .title("Fabulous Gallery")

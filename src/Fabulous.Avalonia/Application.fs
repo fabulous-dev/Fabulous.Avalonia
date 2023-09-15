@@ -90,11 +90,11 @@ type FabApplication() =
         and set value =
             _mainView <- value
             this.UpdateLifetime()
-                   
-        
-    member this.AppTheme with set value =
-        this.Styles.Clear()
-        this.Styles.Add(value)
+
+    member this.AppTheme
+        with set value =
+            this.Styles.Clear()
+            this.Styles.Add(value)
 
 
     /// <summary>Gets the current application instance.</summary>
