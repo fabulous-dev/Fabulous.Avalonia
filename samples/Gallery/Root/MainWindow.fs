@@ -1,6 +1,8 @@
 namespace Gallery.Root
 
+open System
 open Avalonia.Controls
+open Avalonia.Markup.Xaml.Styling
 open Fabulous.Avalonia
 open Types
 open Avalonia.Themes.Fluent
@@ -56,7 +58,12 @@ module MainWindow =
             )
 
     let view (model: Model) =
-        FabApplication.Current.AppTheme <- FluentTheme()
+        //FabApplication.Current.AppTheme <- FluentTheme()
+        let theme = StyleInclude(baseUri = null)
+        theme.Source <- Uri("avares://Gallery/Styles/DefaultTheme.xaml")
+        let textStyles = StyleInclude(baseUri = null)
+        textStyles.Source <- Uri("avares://Gallery/Styles/TextStyles.xaml")
+        FabApplication.Current.Styles.AddRange([ theme; textStyles ])
 
         DesktopApplication(
             Window(Panel() { HamburgerMenu.mainView model })
@@ -67,9 +74,5 @@ module MainWindow =
                 .icon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"))
         )
             .trayIcon(trayIcon())
-            .styles(
-                [ "avares://Gallery/Styles/DefaultTheme.xaml"
-                  "avares://Gallery/Styles/TextStyles.xaml" ]
-            )
 //Enable this only for debugging purposes
 //.debugOverlays(RendererDebugOverlays.Fps ||| RendererDebugOverlays.DirtyRects)
