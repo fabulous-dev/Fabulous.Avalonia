@@ -40,3 +40,25 @@ module String =
                     .Replace(chr |> Char.ToLower |> string, ""))
             str
             chars
+
+[<AutoOpen>]
+module Task =
+    open System.Collections.Generic
+
+    type IAsyncEnumerable<'T> with
+
+        member this.AsTask() =
+            task {
+                let mutable nxt = true
+                let output = ResizeArray()
+                let enumerator = this.GetAsyncEnumerator()
+
+                while nxt do
+                    let! next = enumerator.MoveNextAsync()
+                    nxt <- next
+
+                    if nxt then
+                        output.Add enumerator.Current
+
+                return output.ToArray()
+            }

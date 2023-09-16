@@ -15,24 +15,6 @@ open type Fabulous.Avalonia.View
 open Gallery
 
 module DialogsPage =
-    type IAsyncEnumerable<'T> with
-
-        member this.AsTask() =
-            task {
-                let mutable nxt = true
-                let output = ResizeArray()
-                let enumerator = this.GetAsyncEnumerator()
-
-                while nxt do
-                    let! next = enumerator.MoveNextAsync()
-                    nxt <- next
-
-                    if nxt then
-                        output.Add enumerator.Current
-
-                return output.ToArray()
-            }
-
     type PickerResult =
         { BookmarkText: string
           FileContentText: string
