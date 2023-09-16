@@ -185,6 +185,8 @@ module HamburgerMenu =
                                 .selectedIndex(0)
                         }
                     )
+                        .showMode(FlyoutShowMode.Standard)
+                        .placement(PlacementMode.RightEdgeAlignedTop)
                 )
         }
 
