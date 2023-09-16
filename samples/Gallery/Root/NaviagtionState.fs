@@ -5,13 +5,161 @@ open Gallery.Pages
 open Fabulous
 open Fabulous.Avalonia
 
+[<RequireQualifiedAccess>]
+type NavigationRoute =
+    | AcrylicPage
+    | AdornerLayerPage
+    | AutoCompleteBoxPage
+    | ButtonsPage
+    | BrushesPage
+    | ButtonSpinnerPage
+    | BorderPage
+    | CalendarPage
+    | CalendarDatePickerPage
+    | CanvasPage
+    | CheckBoxPage
+    | CarouselPage
+    | ComboBoxPage
+    | CompositionPage
+    | ContextMenuPage
+    | ContextFlyoutPage
+    | ClippingPage
+    | ClipboardPage
+    | DockPanelPage
+    | DialogsPage
+    | DragAndDropPage
+    | DropDownButtonPage
+    | DrawingPage
+    | EffectsPage
+    | ExpanderPage
+    | FlyoutPage
+    | GesturesPage
+    | GeometriesPage
+    | GridPage
+    | GridSplitterPage
+    | ImagePage
+    | LabelPage
+    | LayoutTransformControlPage
+    | LineBoundsDemoControlPage
+    | ListBoxPage
+    | MenuFlyoutPage
+    | MaskedTextBoxPage
+    | MenuPage
+    | NumericUpDownPage
+    | NotificationsPage
+    | ProgressBarPage
+    | OpenGLPage
+    | PanelPage
+    | PathIconPage
+    | PopupPage
+    | PointersPage
+    | PageTransitionsPage
+    | RepeatButtonPage
+    | RadioButtonPage
+    | RefreshContainerPage
+    | SelectableTextBlockPage
+    | SplitButtonPage
+    | SliderPage
+    | ShapesPage
+    | ScrollBarPage
+    | SplitViewPage
+    | StackPanelPage
+    | StylesPage
+    | ScrollViewerPage
+    | ToggleSplitButtonPage
+    | TextBlockPage
+    | TextBoxPage
+    | TickBarPage
+    | ToggleSwitchPage
+    | ToggleButtonPage
+    | ToolTipPage
+    | TabControlPage
+    | TabStripPage
+    | TransformsPage
+    | ThemeAwarePage
+    | UniformGridPage
+    | ViewBoxPage
+
+    static member GetRoute(route: string) =
+        match route with
+        | "AcrylicPage" -> AcrylicPage
+        | "AdornerLayerPage" -> AdornerLayerPage
+        | "AutoCompleteBoxPage" -> AutoCompleteBoxPage
+        | "ButtonsPage" -> ButtonsPage
+        | "BrushesPage" -> BrushesPage
+        | "ButtonSpinnerPage" -> ButtonSpinnerPage
+        | "BorderPage" -> BorderPage
+        | "CalendarPage" -> CalendarPage
+        | "CalendarDatePickerPage" -> CalendarDatePickerPage
+        | "CanvasPage" -> CanvasPage
+        | "CheckBoxPage" -> CheckBoxPage
+        | "CarouselPage" -> CarouselPage
+        | "ComboBoxPage" -> ComboBoxPage
+        | "CompositionPage" -> CompositionPage
+        | "ContextMenuPage" -> ContextMenuPage
+        | "ContextFlyoutPage" -> ContextFlyoutPage
+        | "ClippingPage" -> ClippingPage
+        | "ClipboardPage" -> ClipboardPage
+        | "DockPanelPage" -> DockPanelPage
+        | "DragAndDropPage" -> DragAndDropPage
+        | "DialogsPage" -> DialogsPage
+        | "DropDownButtonPage" -> DropDownButtonPage
+        | "DrawingPage" -> DrawingPage
+        | "EffectsPage" -> EffectsPage
+        | "ExpanderPage" -> ExpanderPage
+        | "FlyoutPage" -> FlyoutPage
+        | "GesturesPage" -> GesturesPage
+        | "GeometriesPage" -> GeometriesPage
+        | "GridPage" -> GridPage
+        | "GridSplitterPage" -> GridSplitterPage
+        | "ImagePage" -> ImagePage
+        | "LabelPage" -> LabelPage
+        | "LayoutTransformControlPage" -> LayoutTransformControlPage
+        | "LineBoundsDemoControlPage" -> LineBoundsDemoControlPage
+        | "ListBoxPage" -> ListBoxPage
+        | "MenuFlyoutPage" -> MenuFlyoutPage
+        | "MaskedTextBoxPage" -> MaskedTextBoxPage
+        | "MenuPage" -> MenuPage
+        | "NumericUpDownPage" -> NumericUpDownPage
+        | "NotificationsPage" -> NotificationsPage
+        | "OpenGLPage" -> OpenGLPage
+        | "ProgressBarPage" -> ProgressBarPage
+        | "PanelPage" -> PanelPage
+        | "PathIconPage" -> PathIconPage
+        | "PopupPage" -> PopupPage
+        | "PointersPage" -> PointersPage
+        | "PageTransitionsPage" -> PageTransitionsPage
+        | "RepeatButtonPage" -> RepeatButtonPage
+        | "RadioButtonPage" -> RadioButtonPage
+        | "RefreshContainerPage" -> RefreshContainerPage
+        | "SelectableTextBlockPage" -> SelectableTextBlockPage
+        | "SplitButtonPage" -> SplitButtonPage
+        | "SliderPage" -> SliderPage
+        | "ShapesPage" -> ShapesPage
+        | "ScrollBarPage" -> ScrollBarPage
+        | "SplitViewPage" -> SplitViewPage
+        | "StylesPage" -> StylesPage
+        | "StackPanelPage" -> StackPanelPage
+        | "ScrollViewerPage" -> ScrollViewerPage
+        | "ToggleSplitButtonPage" -> ToggleSplitButtonPage
+        | "TextBlockPage" -> TextBlockPage
+        | "TextBoxPage" -> TextBoxPage
+        | "TickBarPage" -> TickBarPage
+        | "ToggleSwitchPage" -> ToggleSwitchPage
+        | "ToggleButtonPage" -> ToggleButtonPage
+        | "ToolTipPage" -> ToolTipPage
+        | "TabControlPage" -> TabControlPage
+        | "TabStripPage" -> TabStripPage
+        | "TransformsPage" -> TransformsPage
+        | "ThemeAwarePage" -> ThemeAwarePage
+        | "UniformGridPage" -> UniformGridPage
+        | "ViewBoxPage" -> ViewBoxPage
+        | _ -> failwithf $"Unknown route: %s{route}"
+
 type SubpageModel =
     | AcrylicPageModel of AcrylicPage.Model
     | AdornerLayerPageModel of AdornerLayerPage.Model
     | AutoCompleteBoxPageModel of AutoCompleteBoxPage.Model
-    | AnimationsPageModel of AnimationsPage.Model
-    | ImplicitCanvasAnimationsPageModel of ImplicitCanvasAnimationsPage.Model
-    | CompositorAnimationsPageModel of CompositorAnimationsPage.Model
     | ButtonsPageModel of ButtonsPage.Model
     | BrushesPageModel of BrushesPage.Model
     | ButtonSpinnerPageModel of ButtonSpinnerPage.Model
@@ -32,7 +180,6 @@ type SubpageModel =
     | DockPanelPageModel of DockPanelPage.Model
     | DropDownButtonPageModel of DropDownButtonPage.Model
     | DrawingPageModel of DrawingPage.Model
-    | DrawLineAnimationPageModel of DrawLineAnimationPage.Model
     | EffectsPageModel of EffectsPage.Model
     | ExpanderPageModel of ExpanderPage.Model
     | FlyoutPageModel of FlyoutPage.Model
@@ -78,7 +225,6 @@ type SubpageModel =
     | ToolTipPageModel of ToolTipPage.Model
     | TabControlPageModel of TabControlPage.Model
     | TabStripPageModel of TabStripPage.Model
-    | TransitionsPageModel of TransitionsPage.Model
     | TransformsPageModel of TransformsPage.Model
     | ThemeAwarePageModel of ThemeAwarePage.Model
     | UniformGridPageModel of UniformGridPage.Model
@@ -89,9 +235,6 @@ type SubpageModel =
         | AcrylicPageModel _ -> "Acrylic"
         | AdornerLayerPageModel _ -> "AdornerLayer"
         | AutoCompleteBoxPageModel _ -> "AutoCompleteBox"
-        | AnimationsPageModel _ -> "Animations"
-        | ImplicitCanvasAnimationsPageModel _ -> "ImplicitCanvasAnimations"
-        | CompositorAnimationsPageModel _ -> "CompositorAnimations"
         | ButtonsPageModel _ -> "Buttons"
         | BrushesPageModel _ -> "Brushes"
         | ButtonSpinnerPageModel _ -> "ButtonSpinner"
@@ -112,7 +255,6 @@ type SubpageModel =
         | DockPanelPageModel _ -> "DockPanel"
         | DropDownButtonPageModel _ -> "DropDownButton"
         | DrawingPageModel _ -> "Drawing"
-        | DrawLineAnimationPageModel _ -> "DrawLineAnimation"
         | EffectsPageModel _ -> "Effects"
         | ExpanderPageModel _ -> "Expander"
         | FlyoutPageModel _ -> "Flyout"
@@ -158,7 +300,6 @@ type SubpageModel =
         | ToolTipPageModel _ -> "ToolTip"
         | TabControlPageModel _ -> "TabControl"
         | TabStripPageModel _ -> "TabStrip"
-        | TransitionsPageModel _ -> "Transitions"
         | TransformsPageModel _ -> "Transforms"
         | ThemeAwarePageModel _ -> "ThemeAware"
         | UniformGridPageModel _ -> "UniformGrid"
@@ -168,9 +309,6 @@ type SubpageMsg =
     | AcrylicPageMsg of AcrylicPage.Msg
     | AdornerLayerPageMsg of AdornerLayerPage.Msg
     | AutoCompleteBoxPageMsg of AutoCompleteBoxPage.Msg
-    | AnimationsPageMsg of AnimationsPage.Msg
-    | ImplicitCanvasAnimationsPageMsg of ImplicitCanvasAnimationsPage.Msg
-    | CompositorAnimationsPageMsg of CompositorAnimationsPage.Msg
     | ButtonsPageMsg of ButtonsPage.Msg
     | BrushesPageMsg of BrushesPage.Msg
     | ButtonSpinnerPageMsg of ButtonSpinnerPage.Msg
@@ -190,7 +328,6 @@ type SubpageMsg =
     | DialogsPageMsg of DialogsPage.Msg
     | DragAndDropPageMsg of DragAndDropPage.Msg
     | DropDownButtonPageMsg of DropDownButtonPage.Msg
-    | DrawLineAnimationPageMsg of DrawLineAnimationPage.Msg
     | DrawingPageMsg of DrawingPage.Msg
     | EffectsPageMsg of EffectsPage.Msg
     | ExpanderPageMsg of ExpanderPage.Msg
@@ -237,7 +374,6 @@ type SubpageMsg =
     | ToolTipPageMsg of ToolTipPage.Msg
     | TabControlPageMsg of TabControlPage.Msg
     | TabStripPageMsg of TabStripPage.Msg
-    | TransitionsPageMsg of TransitionsPage.Msg
     | TransformsPageMsg of TransformsPage.Msg
     | ThemeAwarePageMsg of ThemeAwarePage.Msg
     | UniformGridPageMsg of UniformGridPage.Msg
@@ -247,9 +383,6 @@ type SubpageCmdMsg =
     | AcrylicPageCmdMsgs of AcrylicPage.CmdMsg list
     | AdornerLayerPageCmdMsgs of AdornerLayerPage.CmdMsg list
     | AutoCompleteBoxPageCmdMsgs of AutoCompleteBoxPage.CmdMsg list
-    | AnimationsPageCmdMsgs of AnimationsPage.CmdMsg list
-    | ImplicitCanvasAnimationsPageCmdMsgs of ImplicitCanvasAnimationsPage.CmdMsg list
-    | CompositorAnimationsPageCmdMsgs of CompositorAnimationsPage.CmdMsg list
     | ButtonsPageCmdMsgs of ButtonsPage.CmdMsg list
     | BrushesPageCmdMsgs of BrushesPage.CmdMsg list
     | ButtonSpinnerPageCmdMsgs of ButtonSpinnerPage.CmdMsg list
@@ -269,7 +402,6 @@ type SubpageCmdMsg =
     | DragAndDropPageCmdMsgs of DragAndDropPage.CmdMsg list
     | DialogsPageCmdMsgs of DialogsPage.CmdMsg list
     | DropDownButtonPageCmdMsgs of DropDownButtonPage.CmdMsg list
-    | DrawLineAnimationPageCmdMsgs of DrawLineAnimationPage.CmdMsg list
     | DrawingPageCmdMsgs of DrawingPage.CmdMsg list
     | EffectsPageCmdMsgs of EffectsPage.CmdMsg list
     | ExpanderPageCmdMsgs of ExpanderPage.CmdMsg list
@@ -316,7 +448,6 @@ type SubpageCmdMsg =
     | ToolTipPageCmdMsgs of ToolTipPage.CmdMsg list
     | TabControlPageCmdMsgs of TabControlPage.CmdMsg list
     | TabStripPageCmdMsgs of TabStripPage.CmdMsg list
-    | TransitionsPageCmdMsgs of TransitionsPage.CmdMsg list
     | TransformsPageCmdMsgs of TransformsPage.CmdMsg list
     | ThemeAwarePageCmdMsgs of ThemeAwarePage.CmdMsg list
     | UniformGridPageCmdMsgs of UniformGridPage.CmdMsg list
@@ -342,9 +473,6 @@ module NavigationState =
             | AcrylicPageCmdMsgs subCmdMsgs -> map AcrylicPage.mapCmdMsgToCmd AcrylicPageMsg subCmdMsgs
             | AdornerLayerPageCmdMsgs subCmdMsgs -> map AdornerLayerPage.mapCmdMsgToCmd AdornerLayerPageMsg subCmdMsgs
             | AutoCompleteBoxPageCmdMsgs subCmdMsgs -> map AutoCompleteBoxPage.mapCmdMsgToCmd AutoCompleteBoxPageMsg subCmdMsgs
-            | AnimationsPageCmdMsgs subCmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsPageMsg subCmdMsgs
-            | ImplicitCanvasAnimationsPageCmdMsgs cmdMsgs -> map ImplicitCanvasAnimationsPage.mapCmdMsgToCmd ImplicitCanvasAnimationsPageMsg cmdMsgs
-            | CompositorAnimationsPageCmdMsgs cmdMsgs -> map CompositorAnimationsPage.mapCmdMsgToCmd CompositorAnimationsPageMsg cmdMsgs
             | ButtonsPageCmdMsgs subCmdMsgs -> map ButtonsPage.mapCmdMsgToCmd ButtonsPageMsg subCmdMsgs
             | ButtonSpinnerPageCmdMsgs subCmdMsgs -> map ButtonSpinnerPage.mapCmdMsgToCmd ButtonSpinnerPageMsg subCmdMsgs
             | BorderPageCmdMsgs subCmdMsgs -> map BorderPage.mapCmdMsgToCmd BorderPageMsg subCmdMsgs
@@ -364,7 +492,6 @@ module NavigationState =
             | DialogsPageCmdMsgs subCmdMsgs -> map DialogsPage.mapCmdMsgToCmd DialogsPageMsg subCmdMsgs
             | DragAndDropPageCmdMsgs subCmdMsgs -> map DragAndDropPage.mapCmdMsgToCmd DragAndDropPageMsg subCmdMsgs
             | DropDownButtonPageCmdMsgs subCmdMsgs -> map DropDownButtonPage.mapCmdMsgToCmd DropDownButtonPageMsg subCmdMsgs
-            | DrawLineAnimationPageCmdMsgs subCmdMsgs -> map DrawLineAnimationPage.mapCmdMsgToCmd DrawLineAnimationPageMsg subCmdMsgs
             | DrawingPageCmdMsgs subCmdMsgs -> map DrawingPage.mapCmdMsgToCmd DrawingPageMsg subCmdMsgs
             | EffectsPageCmdMsgs subCmdMsgs -> map EffectsPage.mapCmdMsgToCmd EffectsPageMsg subCmdMsgs
             | ExpanderPageCmdMsgs subCmdMsgs -> map ExpanderPage.mapCmdMsgToCmd ExpanderPageMsg subCmdMsgs
@@ -415,7 +542,6 @@ module NavigationState =
             | UniformGridPageCmdMsgs subCmdMsgs -> map UniformGridPage.mapCmdMsgToCmd UniformGridPageMsg subCmdMsgs
             | ViewBoxPageCmdMsgs subCmdMsgs -> map ViewBoxPage.mapCmdMsgToCmd ViewBoxPageMsg subCmdMsgs
             | ToggleSplitButtonPageCmdMsgs cmdMsgs -> map ToggleSplitButtonPage.mapCmdMsgToCmd ToggleSplitButtonPageMsg cmdMsgs
-            | TransitionsPageCmdMsgs cmdMsgs -> map TransitionsPage.mapCmdMsgToCmd TransitionsPageMsg cmdMsgs
 
         cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -432,17 +558,7 @@ module NavigationState =
         | NavigationRoute.AutoCompleteBoxPage ->
             let m, c = AutoCompleteBoxPage.init()
             AutoCompleteBoxPageModel m, [ AutoCompleteBoxPageCmdMsgs c ]
-        | NavigationRoute.AnimationsPage ->
-            let m, c = AnimationsPage.init()
-            AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
 
-        | NavigationRoute.ImplicitCanvasAnimationsPage ->
-            let m, c = ImplicitCanvasAnimationsPage.init()
-            ImplicitCanvasAnimationsPageModel m, [ ImplicitCanvasAnimationsPageCmdMsgs c ]
-
-        | NavigationRoute.CompositorAnimationsPage ->
-            let m, c = CompositorAnimationsPage.init()
-            CompositorAnimationsPageModel m, [ CompositorAnimationsPageCmdMsgs c ]
         | NavigationRoute.ButtonsPage ->
             let m, c = ButtonsPage.init()
             ButtonsPageModel m, [ ButtonsPageCmdMsgs c ]
@@ -501,9 +617,6 @@ module NavigationState =
         | NavigationRoute.DialogsPage ->
             let m, c = DialogsPage.init()
             DialogsPageModel m, [ DialogsPageCmdMsgs c ]
-        | NavigationRoute.DrawLineAnimationPage ->
-            let m, c = DrawLineAnimationPage.init()
-            DrawLineAnimationPageModel m, [ DrawLineAnimationPageCmdMsgs c ]
         | NavigationRoute.DrawingPage ->
             let m, c = DrawingPage.init()
             DrawingPageModel m, [ DrawingPageCmdMsgs c ]
@@ -639,9 +752,6 @@ module NavigationState =
         | NavigationRoute.TabStripPage ->
             let m, c = TabStripPage.init()
             TabStripPageModel m, [ TabStripPageCmdMsgs c ]
-        | NavigationRoute.TransitionsPage ->
-            let m, c = TransitionsPage.init()
-            TransitionsPageModel m, [ TransitionsPageCmdMsgs c ]
         | NavigationRoute.TransformsPage ->
             let m, c = TransformsPage.init()
             TransformsPageModel m, [ TransformsPageCmdMsgs c ]
@@ -672,18 +782,6 @@ module NavigationState =
             | AutoCompleteBoxPageMsg subMsg, AutoCompleteBoxPageModel m ->
                 let m, c = AutoCompleteBoxPage.update subMsg m
                 AutoCompleteBoxPageModel m, [ AutoCompleteBoxPageCmdMsgs c ]
-
-            | AnimationsPageMsg subMsg, AnimationsPageModel m ->
-                let m, c = AnimationsPage.update subMsg m
-                AnimationsPageModel m, [ AnimationsPageCmdMsgs c ]
-
-            | ImplicitCanvasAnimationsPageMsg subMsg, ImplicitCanvasAnimationsPageModel m ->
-                let m, c = ImplicitCanvasAnimationsPage.update subMsg m
-                ImplicitCanvasAnimationsPageModel m, [ ImplicitCanvasAnimationsPageCmdMsgs c ]
-
-            | CompositorAnimationsPageMsg subMsg, CompositorAnimationsPageModel m ->
-                let m, c = CompositorAnimationsPage.update subMsg m
-                CompositorAnimationsPageModel m, [ CompositorAnimationsPageCmdMsgs c ]
 
             | ButtonsPageMsg subMsg, ButtonsPageModel m ->
                 let m, c = ButtonsPage.update subMsg m
@@ -759,10 +857,6 @@ module NavigationState =
             | DropDownButtonPageMsg subMsg, DropDownButtonPageModel m ->
                 let m, c = DropDownButtonPage.update subMsg m
                 DropDownButtonPageModel m, [ DropDownButtonPageCmdMsgs c ]
-
-            | DrawLineAnimationPageMsg subMsg, DrawLineAnimationPageModel m ->
-                let m, c = DrawLineAnimationPage.update subMsg m
-                DrawLineAnimationPageModel m, [ DrawLineAnimationPageCmdMsgs c ]
 
             | DrawingPageMsg subMsg, DrawingPageModel m ->
                 let m, c = DrawingPage.update subMsg m
@@ -940,10 +1034,6 @@ module NavigationState =
                 let m, c = ToggleSplitButtonPage.update subMsg m
                 ToggleSplitButtonPageModel m, [ ToggleSplitButtonPageCmdMsgs c ]
 
-            | TransitionsPageMsg subMsg, TransitionsPageModel m ->
-                let m, c = TransitionsPage.update subMsg m
-                TransitionsPageModel m, [ TransitionsPageCmdMsgs c ]
-
             | ThemeAwarePageMsg subMsg, ThemeAwarePageModel m ->
                 let m, c = ThemeAwarePage.update subMsg m
                 ThemeAwarePageModel m, [ ThemeAwarePageCmdMsgs c ]
@@ -990,9 +1080,6 @@ module NavigationState =
         | AcrylicPageModel m -> map AcrylicPage.view AcrylicPageMsg m
         | AdornerLayerPageModel m -> map AdornerLayerPage.view AdornerLayerPageMsg m
         | AutoCompleteBoxPageModel m -> map AutoCompleteBoxPage.view AutoCompleteBoxPageMsg m
-        | AnimationsPageModel m -> map AnimationsPage.view AnimationsPageMsg m
-        | ImplicitCanvasAnimationsPageModel m -> map ImplicitCanvasAnimationsPage.view ImplicitCanvasAnimationsPageMsg m
-        | CompositorAnimationsPageModel m -> map CompositorAnimationsPage.view CompositorAnimationsPageMsg m
         | ButtonsPageModel m -> map ButtonsPage.view ButtonsPageMsg m
         | BrushesPageModel m -> map BrushesPage.view BrushesPageMsg m
         | ButtonSpinnerPageModel m -> map ButtonSpinnerPage.view ButtonSpinnerPageMsg m
@@ -1012,7 +1099,6 @@ module NavigationState =
         | DialogsPageModel m -> map DialogsPage.view DialogsPageMsg m
         | DragAndDropPageModel m -> map DragAndDropPage.view DragAndDropPageMsg m
         | DropDownButtonPageModel m -> map DropDownButtonPage.view DropDownButtonPageMsg m
-        | DrawLineAnimationPageModel m -> map DrawLineAnimationPage.view DrawLineAnimationPageMsg m
         | DrawingPageModel m -> map DrawingPage.view DrawingPageMsg m
         | EffectsPageModel m -> map EffectsPage.view EffectsPageMsg m
         | ExpanderPageModel m -> map ExpanderPage.view ExpanderPageMsg m
@@ -1059,7 +1145,6 @@ module NavigationState =
         | ToolTipPageModel m -> map ToolTipPage.view ToolTipPageMsg m
         | TabControlPageModel m -> map TabControlPage.view TabControlPageMsg m
         | TabStripPageModel m -> map TabStripPage.view TabStripPageMsg m
-        | TransitionsPageModel m -> map TransitionsPage.view TransitionsPageMsg m
         | TransformsPageModel m -> map TransformsPage.view TransformsPageMsg m
         | ThemeAwarePageModel m -> map ThemeAwarePage.view ThemeAwarePageMsg m
         | UniformGridPageModel m -> map UniformGridPage.view UniformGridPageMsg m
