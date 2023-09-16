@@ -30,6 +30,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Tests", "src\Fabulous.Avalonia.Tests\Fabulous.Avalonia.Tests.fsproj", "{ACA3C16C-4537-479A-B420-0718B2A2BF0B}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo", "samples\RenderDemo\RenderDemo.fsproj", "{03B93AA4-9BCC-415B-8B6F-7C797FB82182}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +55,15 @@ Global
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B93AA4-9BCC-415B-8B6F-7C797FB82182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B93AA4-9BCC-415B-8B6F-7C797FB82182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B93AA4-9BCC-415B-8B6F-7C797FB82182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B93AA4-9BCC-415B-8B6F-7C797FB82182}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9EB9291D-09F8-43DD-9A95-154D4E6BA78E} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
 		{ACA3C16C-4537-479A-B420-0718B2A2BF0B} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
+		{03B93AA4-9BCC-415B-8B6F-7C797FB82182} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
 	EndGlobalSection
 EndGlobal

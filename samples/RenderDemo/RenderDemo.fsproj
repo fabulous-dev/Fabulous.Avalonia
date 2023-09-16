@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\src\Fabulous.Avalonia.props" />
+  
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks>
+    <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS'">
+    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
+    <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Common.fs" />
+    <Compile Include="Animations\Animations1.fs" />
+    <Compile Include="Animations\Animations2.fs" />
+    <Compile Include="Animations\Animations3.fs" />
+    <Compile Include="Animations\AnimationsPage.fs" />
+    <Compile Include="Animations\SlidingAnimation.fs" />
+    <Compile Include="Animations\Vector3KeyFrameAnimation.fs" />
+    <Compile Include="Animations\ExpressionAnimation.fs" />
+    <Compile Include="Animations\GalaxyAnimation.fs" />
+    <Compile Include="Animations\CompositorAnimationsPage.fs" />
+    <Compile Include="Animations\DrawLineAnimationPage.fs" />
+    <Compile Include="Animations\ImplicitCanvasAnimationsPage.fs" />
+    <Compile Include="Transitions\Transitions1.fs" />
+    <Compile Include="Transitions\Transitions10.fs" />
+    <Compile Include="Transitions\Transitions11.fs" />
+    <Compile Include="Transitions\Transitions12.fs" />
+    <Compile Include="Transitions\Transitions2.fs" />
+    <Compile Include="Transitions\Transitions3.fs" />
+    <Compile Include="Transitions\Transitions4.fs" />
+    <Compile Include="Transitions\Transitions5.fs" />
+    <Compile Include="Transitions\Transitions6.fs" />
+    <Compile Include="Transitions\Transitions7.fs" />
+    <Compile Include="Transitions\Transitions8.fs" />
+    <Compile Include="Transitions\Transitions9.fs" />
+    <Compile Include="Transitions\TransitionsPage.fs" />
+    <Compile Include="App.fs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="FSharp.Core" />
+    <PackageReference Include="Fabulous" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+  </ItemGroup>
+  
+  <Import Project="..\Fabulous.Avalonia.Samples.targets" />
+</Project>
