@@ -3,6 +3,7 @@ namespace Gallery.Pages
 open System
 open Avalonia
 open Avalonia.Media
+open Avalonia.Threading
 open Fabulous.Avalonia
 open Fabulous
 
@@ -14,13 +15,23 @@ module CanvasPage =
 
     type Msg = Update of DateTime
 
-    type CmdMsg = | NoMsg
+    type CmdMsg = | StartTimer
+
+    let timer () =
+        Cmd.ofSub(fun dispatch ->
+            DispatcherTimer.Run(
+                Func<bool>(fun _ ->
+                    dispatch(Update(DateTime.Now))
+                    true),
+                TimeSpan.FromMilliseconds 1000.0
+            )
+            |> ignore)
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Cmd.none
+        | StartTimer -> timer()
 
-    let init () = { Time = DateTime.Now }, []
+    let init () = { Time = DateTime.Now }, [ StartTimer ]
 
     type PointerType =
         | Hour

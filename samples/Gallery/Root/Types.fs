@@ -21,7 +21,6 @@ module Types =
         | OnSelectionChanged of SelectionChangedEventArgs
         | OpenPanChanged of bool
         | DoNothing
-        | Update of DateTime
         | Settings
         | DecorationsOnSelectionChanged of SelectionChangedEventArgs
         | ThemeVariantsOnSelectionChanged of SelectionChangedEventArgs
