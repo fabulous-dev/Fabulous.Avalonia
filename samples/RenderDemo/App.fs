@@ -9,7 +9,7 @@ open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Rendering.Composition
 open Avalonia.Rendering.Composition.Animations
-open Avalonia.Themes.Fluent
+open Avalonia.Markup.Xaml.Styling
 open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
@@ -221,8 +221,15 @@ module App =
         }
 
     let view model =
-        FabApplication.Current.AppTheme <- FluentTheme()
-        TabControl() { TabItem("Implicit Animations", implicitAnimations model) }
+        //FabApplication.Current.AppTheme <- FluentTheme()
+        let theme = StyleInclude(baseUri = null)
+        theme.Source <- Uri("avares://RenderDemo/App.xaml")
+        FabApplication.Current.Styles.Add(theme)
+
+        (HamburgerMenu() { TabItem("Implicit Animations", implicitAnimations model) })
+            .paneBackground(Brushes.WhiteSmoke)
+            .contentBackground(Brushes.Green)
+            .expandedModeThresholdWidth(200)
 
 
 #if MOBILE

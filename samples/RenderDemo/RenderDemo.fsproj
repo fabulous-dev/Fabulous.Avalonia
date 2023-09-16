@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Compile Include="Common.fs" />
+    <Compile Include="Widgets.fs" />
     <Compile Include="Animations\Animations1.fs" />
     <Compile Include="Animations\Animations2.fs" />
     <Compile Include="Animations\Animations3.fs" />
@@ -44,7 +45,12 @@
     <Compile Include="Transitions\Transitions8.fs" />
     <Compile Include="Transitions\Transitions9.fs" />
     <Compile Include="Transitions\TransitionsPage.fs" />
+    <Content Include="App.xaml" />
     <Compile Include="App.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="*.xaml" />
   </ItemGroup>
   
   <ItemGroup>
@@ -55,6 +61,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+    <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
   </ItemGroup>
   
   <Import Project="..\Fabulous.Avalonia.Samples.targets" />
