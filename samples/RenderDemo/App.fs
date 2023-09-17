@@ -1,235 +1,130 @@
 namespace RenderDemo
 
 open System
-open Avalonia
-open Avalonia.Animation.Easings
-open Avalonia.Controls
-open Avalonia.Input
-open Avalonia.Layout
-open Avalonia.Media
-open Avalonia.Rendering.Composition
-open Avalonia.Rendering.Composition.Animations
 open Avalonia.Markup.Xaml.Styling
-open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
-
-type CanvasItem() as this =
-    inherit Border()
-    let mutable _timer: DispatcherTimer = null
-    let mutable _textBlock: TextBlock = null
-
-    do
-        this.Setup()
-        _textBlock <- this.CreateTextBlock()
-        this.Child <- _textBlock
-
-    override this.OnPointerPressed(_: PointerPressedEventArgs) =
-        this.Background <- Brushes.Green
-        _textBlock.Text <- "Stop"
-        _timer.Stop()
-
-    override this.OnAttachedToVisualTree(_: VisualTreeAttachmentEventArgs) =
-        _timer <- DispatcherTimer()
-        _timer.Interval <- TimeSpan.FromMilliseconds(1000.0)
-
-        _timer.Tick.Add(fun _ -> Dispatcher.UIThread.Post(fun _ -> this.Move()))
-
-        _timer.Start()
-
-    override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) =
-        _timer.Stop()
-        _timer <- null
-
-    member this.Setup() =
-        this.CornerRadius <- CornerRadius(6.)
-        this.Width <- 60.
-        this.Height <- 60.
-        this.Background <- Brushes.Gray
-
-    member this.CreateTextBlock() =
-        let textBlock = TextBlock()
-        textBlock.HorizontalAlignment <- HorizontalAlignment.Center
-        textBlock.VerticalAlignment <- VerticalAlignment.Center
-        textBlock.Text <- "Run"
-        textBlock.Foreground <- Brushes.White
-        textBlock
-
-    member this.Move() =
-        match this.Parent with
-        | :? Canvas as canvas ->
-            let left = Random.Shared.NextDouble() * canvas.Bounds.Width
-            let top = Random.Shared.NextDouble() * canvas.Bounds.Height
-            Canvas.SetLeft(this, left)
-            Canvas.SetTop(this, top)
-        | _ -> ()
 
 open type Fabulous.Avalonia.View
 
 
 module App =
     type Model =
-        { ChildrenCount: int
-          BenchmarkRunning: bool
-          ImplicitAnimations: ImplicitAnimationCollection }
+        { ImplicitAnimationModel: ImplicitCanvasAnimationsPage.Model
+          DrawLineAnimationModel: DrawLineAnimationPage.Model
+          CompositorAnimationsModel: CompositorAnimationsPage.Model
+          AnimationsModel: AnimationsPage.Model
+          TransitionModel: TransitionsPage.Model }
 
     type Msg =
-        | ButtonClear
-        | ButtonBenchmark
-        | ButtonAdd
-        | ButtonFps
-        | TimerTicked
+        | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
+        | DraLineAnimationMsg of DrawLineAnimationPage.Msg
+        | CompositorAnimationsMsg of CompositorAnimationsPage.Msg
+        | AnimationsMsg of AnimationsPage.Msg
+        | TransitionMsg of TransitionsPage.Msg
+
+    type SubpageCmdMsg =
+        | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
+        | DrawLineAnimationCmdMsg of DrawLineAnimationPage.CmdMsg list
+        | CompositorAnimationsCmdMsg of CompositorAnimationsPage.CmdMsg list
+        | AnimationsCmdMsg of AnimationsPage.CmdMsg list
+        | TransitionCmdMsg of TransitionsPage.CmdMsg list
 
     type CmdMsg =
-        | NoMsg
-        | TickTimer
-
-    let timer () =
-        async {
-            do! Async.Sleep 50
-            return TimerTicked
-        }
+        | NoCmdMsg
+        | SubpageCmdMsgs of SubpageCmdMsg list
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Cmd.none
-        | TickTimer -> Cmd.ofAsyncMsg(timer())
+        | NoCmdMsg -> Cmd.none
+        | SubpageCmdMsgs cmdMsgs ->
+            let mapSubpageCmdMsg (cmdMsgs: SubpageCmdMsg) =
+                let map (mapCmdMsgFn: 'subCmdMsg -> Cmd<'subMsg>) (mapFn: 'subMsg -> 'msg) (subCmdMsgs: 'subCmdMsg list) =
+                    subCmdMsgs
+                    |> List.map(fun c ->
+                        let cmd = mapCmdMsgFn c
+                        Cmd.map mapFn cmd)
 
-    let canvasRef = ViewRef<Canvas>()
+                match cmdMsgs with
+                | ImplicitAnimationCmdMsg subCmdMsgs -> map ImplicitCanvasAnimationsPage.mapCmdMsgToCmd ImplicitAnimationMsg subCmdMsgs
+                | DrawLineAnimationCmdMsg cmdMsgs -> map DrawLineAnimationPage.mapCmdMsgToCmd DraLineAnimationMsg cmdMsgs
+                | CompositorAnimationsCmdMsg cmdMsgs -> map CompositorAnimationsPage.mapCmdMsgToCmd CompositorAnimationsMsg cmdMsgs
+                | AnimationsCmdMsg cmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsMsg cmdMsgs
+                | TransitionCmdMsg cmdMsgs -> map TransitionsPage.mapCmdMsgToCmd TransitionMsg cmdMsgs
+
+            cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
     let init () =
-        { ChildrenCount = 0
-          ImplicitAnimations = null
-          BenchmarkRunning = false },
-        []
+        let implAnimModel, implCmdMsgs = ImplicitCanvasAnimationsPage.init()
+        let drawLineModel, drawLineCmdMsgs = DrawLineAnimationPage.init()
+        let compositorModel, compositorCmdMsgs = CompositorAnimationsPage.init()
+        let animationsModel, animationsCmdMsgs = AnimationsPage.init()
+        let transitionModel, transitionCmdMsgs = TransitionsPage.init()
 
-    let ensureImplicitAnimations (implicitAnimations: ImplicitAnimationCollection) =
-        let mutable implicitAnimations = implicitAnimations
-
-        if implicitAnimations <> null then
-            implicitAnimations
-        else
-            let compositor =
-                ElementComposition
-                    .GetElementVisual(canvasRef.Value)
-                    .Compositor
-
-            let sprintEasing1 = SpringEasing(1.5, 2000., 20.)
-            let sprintEasing2 = SpringEasing(1., 1000., 20.)
-
-            let offsetAnimation = compositor.CreateVector3KeyFrameAnimation()
-            offsetAnimation.Target <- "Offset"
-            offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue", sprintEasing1)
-            offsetAnimation.Duration <- TimeSpan.FromMilliseconds(400)
-
-            let rotationAnimation = compositor.CreateScalarKeyFrameAnimation()
-            rotationAnimation.Target <- "RotationAngle"
-            rotationAnimation.InsertKeyFrame(0.0f, 0.0f, sprintEasing2)
-            rotationAnimation.InsertKeyFrame(1.0f, float32(Math.PI * 2.0), sprintEasing2)
-            rotationAnimation.Duration <- TimeSpan.FromMilliseconds(400)
-
-            let animationGroup = compositor.CreateAnimationGroup()
-            animationGroup.Add(offsetAnimation)
-            animationGroup.Add(rotationAnimation)
-
-            implicitAnimations <- compositor.CreateImplicitAnimationCollection()
-            implicitAnimations["Offset"] <- animationGroup
-            implicitAnimations
-
-    let add model =
-        let mutable implicitAnimations = model.ImplicitAnimations
-        let canvasItem = CanvasItem()
-
-        let left = Random.Shared.NextDouble() * canvasRef.Value.Bounds.Width
-        let top = Random.Shared.NextDouble() * canvasRef.Value.Bounds.Height
-
-        Canvas.SetLeft(canvasItem, left)
-        Canvas.SetTop(canvasItem, top)
-
-        canvasItem.AttachedToVisualTree.AddHandler(fun x y ->
-            implicitAnimations <- ensureImplicitAnimations model.ImplicitAnimations
-            let compositionVisual = ElementComposition.GetElementVisual(canvasItem)
-
-            if (compositionVisual <> null) then
-                compositionVisual.ImplicitAnimations <- implicitAnimations)
-
-        canvasRef.Value.Children.Add(canvasItem)
+        { ImplicitAnimationModel = implAnimModel
+          DrawLineAnimationModel = drawLineModel
+          CompositorAnimationsModel = compositorModel
+          AnimationsModel = animationsModel
+          TransitionModel = transitionModel },
+        [ SubpageCmdMsgs implCmdMsgs
+          SubpageCmdMsgs drawLineCmdMsgs
+          SubpageCmdMsgs compositorCmdMsgs
+          SubpageCmdMsgs animationsCmdMsgs
+          SubpageCmdMsgs transitionCmdMsgs ]
 
     let update msg model =
         match msg with
-        | ButtonClear ->
-            canvasRef.Value.Children.Clear()
+        | ImplicitAnimationMsg msg ->
+            let implAnimModel, cmdMsgs =
+                ImplicitCanvasAnimationsPage.update msg model.ImplicitAnimationModel
 
             { model with
-                ChildrenCount = 0
-                BenchmarkRunning = false },
-            []
-        | ButtonBenchmark ->
-            let model =
-                { model with
-                    BenchmarkRunning = not model.BenchmarkRunning }
+                ImplicitAnimationModel = implAnimModel },
+            [ SubpageCmdMsgs [ ImplicitAnimationCmdMsg cmdMsgs ] ]
 
-            model, [ TickTimer ]
-        | ButtonAdd ->
-            add model
+        | DraLineAnimationMsg msg ->
+            let drawLineModel, cmdMsgs =
+                DrawLineAnimationPage.update msg model.DrawLineAnimationModel
 
-            let model =
-                { model with
-                    ChildrenCount = model.ChildrenCount + 1 }
+            { model with
+                DrawLineAnimationModel = drawLineModel },
+            [ SubpageCmdMsgs [ DrawLineAnimationCmdMsg cmdMsgs ] ]
 
-            model, []
-        | ButtonFps -> model, []
-        | TimerTicked ->
-            Dispatcher.UIThread.Post(fun _ -> add model)
+        | CompositorAnimationsMsg msg ->
+            let compositorModel, cmdMsgs =
+                CompositorAnimationsPage.update msg model.CompositorAnimationsModel
 
-            let model =
-                { model with
-                    ChildrenCount = model.ChildrenCount + 1 }
+            { model with
+                CompositorAnimationsModel = compositorModel },
+            [ SubpageCmdMsgs [ CompositorAnimationsCmdMsg cmdMsgs ] ]
 
-            model,
-            [ if model.BenchmarkRunning then
-                  TickTimer ]
+        | AnimationsMsg msg ->
+            let animationsModel, cmdMsgs = AnimationsPage.update msg model.AnimationsModel
 
-    let implicitAnimations model =
-        Grid(coldefs = [], rowdefs = [ Star; Auto ]) {
-            Canvas(canvasRef)
-                .clipToBounds(true)
-                .background(Brushes.WhiteSmoke)
-                .gridRow(0)
+            { model with
+                AnimationsModel = animationsModel },
+            [ SubpageCmdMsgs [ AnimationsCmdMsg cmdMsgs ] ]
 
-            (HStack(6.) {
-                Button("Clear", ButtonClear)
-                    .horizontalAlignment(HorizontalAlignment.Center)
+        | TransitionMsg msg ->
+            let transitionModel, cmdMsgs = TransitionsPage.update msg model.TransitionModel
 
-                Button((if model.BenchmarkRunning then "Stop" else "Benchmark"), ButtonBenchmark)
-                    .horizontalAlignment(HorizontalAlignment.Center)
-
-                Button("Add", ButtonAdd)
-                    .horizontalAlignment(HorizontalAlignment.Center)
-
-            })
-                .margin(0., 6)
-                .horizontalAlignment(HorizontalAlignment.Center)
-                .gridRow(1)
-
-            TextBlock($"Items: {model.ChildrenCount}")
-                .margin(6.)
-                .verticalAlignment(VerticalAlignment.Center)
-                .horizontalAlignment(HorizontalAlignment.Left)
-                .gridRow(1)
-
-        }
+            { model with
+                TransitionModel = transitionModel },
+            [ SubpageCmdMsgs [ TransitionCmdMsg cmdMsgs ] ]
 
     let view model =
-        //FabApplication.Current.AppTheme <- FluentTheme()
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
         FabApplication.Current.Styles.Add(theme)
 
-        (HamburgerMenu() { TabItem("Implicit Animations", implicitAnimations model) })
-            .paneBackground(Brushes.WhiteSmoke)
-            .contentBackground(Brushes.Green)
-            .expandedModeThresholdWidth(200)
+        (HamburgerMenu() {
+            TabItem("Implicit Animations", (View.map ImplicitAnimationMsg (ImplicitCanvasAnimationsPage.view model.ImplicitAnimationModel)))
+            TabItem("Draw Line Animation", (View.map DraLineAnimationMsg (DrawLineAnimationPage.view model.DrawLineAnimationModel)))
+            TabItem("Compositor Animations", (View.map CompositorAnimationsMsg (CompositorAnimationsPage.view model.CompositorAnimationsModel)))
+            TabItem("Animations", (View.map AnimationsMsg (AnimationsPage.view model.AnimationsModel)))
+            TabItem("Transitions", (View.map TransitionMsg (TransitionsPage.view model.TransitionModel)))
+        })
+            .expandedModeThresholdWidth(760)
 
 
 #if MOBILE

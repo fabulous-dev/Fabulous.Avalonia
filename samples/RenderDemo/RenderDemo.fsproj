@@ -17,6 +17,12 @@
   <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
     <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
   </PropertyGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Styles\*.xaml" />
+    <AvaloniaResource Include="*.xaml" />
+    <AvaloniaResource Include="Assets\**\*" />
+    <AvaloniaResource Include="Assets\*" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="Common.fs" />
@@ -48,10 +54,6 @@
     <Content Include="App.xaml" />
     <Compile Include="App.fs" />
   </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Include="*.xaml" />
-  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Avalonia.Themes.Fluent" />
@@ -62,6 +64,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Styles\Animations.xaml" />
   </ItemGroup>
   
   <Import Project="..\Fabulous.Avalonia.Samples.targets" />

@@ -61,9 +61,7 @@ module MainWindow =
         //FabApplication.Current.AppTheme <- FluentTheme()
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://Gallery/Styles/DefaultTheme.xaml")
-        let textStyles = StyleInclude(baseUri = null)
-        textStyles.Source <- Uri("avares://Gallery/Styles/TextStyles.xaml")
-        FabApplication.Current.Styles.AddRange([ theme; textStyles ])
+        FabApplication.Current.Styles.Add(theme)
 
         DesktopApplication(
             Window(Panel() { HamburgerMenu.mainView model })

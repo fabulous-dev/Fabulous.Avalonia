@@ -9,7 +9,9 @@ type IFabDecorator =
     inherit IFabControl
 
 module Decorator =
-    let Child = Attributes.defineAvaloniaPropertyWidget Decorator.ChildProperty
+    let ChildWidget = Attributes.defineAvaloniaPropertyWidget Decorator.ChildProperty
+
+    let Child = Attributes.defineAvaloniaPropertyWithEquality Decorator.ChildProperty
 
     let Padding =
         Attributes.defineAvaloniaPropertyWithEquality Decorator.PaddingProperty
@@ -28,7 +30,14 @@ type DecoratorModifiers =
     /// <param name="value">The Child value.</param>
     [<Extension>]
     static member inline child(this: WidgetBuilder<'msg, #IFabDecorator>, value: WidgetBuilder<'msg, #IFabControl>) =
-        this.AddWidget(Decorator.Child.WithValue(value.Compile()))
+        this.AddWidget(Decorator.ChildWidget.WithValue(value.Compile()))
+
+    /// <summary>Sets the Child property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Child value.</param>
+    [<Extension>]
+    static member inline child(this: WidgetBuilder<'msg, #IFabDecorator>, value: Control) =
+        this.AddScalar(Decorator.Child.WithValue(value))
 
 [<Extension>]
 type DecoratorExtraModifiers =

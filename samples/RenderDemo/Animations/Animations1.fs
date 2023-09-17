@@ -22,7 +22,7 @@ module Animations1 =
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this
             .child(
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                Image(ImageSource.fromString "avares://RenderDemo/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .margin(5)
             )
             .size(200., 200.)

@@ -1,8 +1,10 @@
 namespace RenderDemo
 
+open Avalonia
+open Avalonia.Layout
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
 
@@ -142,19 +144,125 @@ module TransitionsPage =
                 Transitions12 = transitions12 },
             []
 
-    let view model =
-        Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ]) {
-            View.map Transition1Msg ((Transitions1.view model.Transitions1).gridRow(0))
+    let borderTest1 (this: WidgetBuilder<'msg, IFabBorder>) =
+        this.child(
+            Path(Paths.Path1)
+                .fill(SolidColorBrush(Colors.White))
+                .stretch(Stretch.Uniform)
+        )
 
-            View.map Transition2Msg ((Transitions2.view model.Transitions2).gridRow(1))
-            View.map Transition3Msg ((Transitions3.view model.Transitions3).gridRow(2))
-            View.map Transition4Msg ((Transitions4.view model.Transitions4).gridRow(3))
-            View.map Transition5Msg ((Transitions5.view model.Transitions5).gridRow(4))
-            View.map Transition6Msg ((Transitions6.view model.Transitions6).gridRow(5))
-            View.map Transition7Msg ((Transitions7.view model.Transitions7).gridRow(6))
-            View.map Transition8Msg ((Transitions8.view model.Transitions8).gridRow(7))
-            View.map Transition9Msg ((Transitions9.view model.Transitions9).gridRow(8))
-            View.map Transition10Msg ((Transitions10.view model.Transitions10).gridRow(9))
-            View.map Transition11Msg ((Transitions11.view model.Transitions11).gridRow(10))
-            View.map Transition12Msg ((Transitions12.view model.Transitions12).gridRow(11))
+    let borderTest2 (this: WidgetBuilder<'msg, IFabBorder>) =
+        this.child(
+            Path(Paths.Path2)
+                .fill(SolidColorBrush(Colors.Red))
+                .stretch(Stretch.Uniform)
+        )
+
+    let view model =
+        Grid() {
+            (VStack() {
+                (HStack(20.) {
+                    TextBlock("Hover to activate Transitions.")
+                        .verticalAlignment(VerticalAlignment.Center)
+                })
+                    .verticalAlignment(VerticalAlignment.Center)
+
+                UserControl(
+                    (HWrap() {
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect1" ])
+                            .background(Brushes.DarkRed)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect2" ])
+                            .background(Brushes.Magenta)
+
+                        Border().style(borderTest2).classes([ "Test"; "Rect3" ])
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect4" ])
+                            .background(Brushes.Navy)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect5" ])
+                            .background(Brushes.SeaGreen)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect6" ])
+                            .background(Brushes.Orange)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect7" ])
+                            .background(Brushes.Gold)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect8" ])
+                            .background(Brushes.Gray)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect9" ])
+                            .background(Brushes.Red)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Shadow" ])
+                            .cornerRadius(CornerRadius(10.))
+                            .child(null)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Shadow" ])
+                            .cornerRadius(CornerRadius(0., 30., 60., 0.))
+                            .child(null)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Shadow" ])
+                            .cornerRadius(CornerRadius(0., 30., 60., 0.))
+                            .child(null)
+
+                        Border().style(borderTest1).classes([ "Test"; "Rect10" ])
+
+
+                        Border().style(borderTest1).classes([ "Test"; "Rect11" ])
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect12" ])
+                            .child(null)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect13" ])
+                            .child(null)
+
+                        Border()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect14" ])
+                            .child(null)
+
+                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+
+                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+
+                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+
+                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+                    })
+                        .clipToBounds(false)
+                )
+                    .styles([ "avares://RenderDemo/Styles/Transitions.xaml" ])
+
+            })
+                .horizontalAlignment(HorizontalAlignment.Center)
+                .verticalAlignment(VerticalAlignment.Center)
+                .clipToBounds(false)
         }
