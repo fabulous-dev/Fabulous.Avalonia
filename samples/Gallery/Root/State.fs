@@ -66,11 +66,6 @@ module State =
 
         | DoNothing -> model, []
 
-        | Update date ->
-            match model.Navigation.CurrentPage with
-            | CanvasPageModel _ -> model, [ NewMsg(SubpageMsg(CanvasPageMsg(CanvasPage.Msg.Update(date)))) ]
-            | _ -> model, []
-
         | Settings -> model, []
 
         | DecorationsOnSelectionChanged args ->
