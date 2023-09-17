@@ -14,7 +14,8 @@ module App =
           DrawLineAnimationModel: DrawLineAnimationPage.Model
           CompositorAnimationsModel: CompositorAnimationsPage.Model
           AnimationsModel: AnimationsPage.Model
-          TransitionModel: TransitionsPage.Model }
+          TransitionModel: TransitionsPage.Model
+          BrushesModel: BrushesPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -22,6 +23,7 @@ module App =
         | CompositorAnimationsMsg of CompositorAnimationsPage.Msg
         | AnimationsMsg of AnimationsPage.Msg
         | TransitionMsg of TransitionsPage.Msg
+        | BrushesMsg of BrushesPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -29,6 +31,7 @@ module App =
         | CompositorAnimationsCmdMsg of CompositorAnimationsPage.CmdMsg list
         | AnimationsCmdMsg of AnimationsPage.CmdMsg list
         | TransitionCmdMsg of TransitionsPage.CmdMsg list
+        | BrushesCmdMsg of BrushesPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -51,6 +54,7 @@ module App =
                 | CompositorAnimationsCmdMsg cmdMsgs -> map CompositorAnimationsPage.mapCmdMsgToCmd CompositorAnimationsMsg cmdMsgs
                 | AnimationsCmdMsg cmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsMsg cmdMsgs
                 | TransitionCmdMsg cmdMsgs -> map TransitionsPage.mapCmdMsgToCmd TransitionMsg cmdMsgs
+                | BrushesCmdMsg cmdMsgs -> map BrushesPage.mapCmdMsgToCmd BrushesMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -60,17 +64,20 @@ module App =
         let compositorModel, compositorCmdMsgs = CompositorAnimationsPage.init()
         let animationsModel, animationsCmdMsgs = AnimationsPage.init()
         let transitionModel, transitionCmdMsgs = TransitionsPage.init()
+        let brushesModel, brushesCmdMsgs = BrushesPage.init()
 
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
           CompositorAnimationsModel = compositorModel
           AnimationsModel = animationsModel
-          TransitionModel = transitionModel },
+          TransitionModel = transitionModel
+          BrushesModel = brushesModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
           SubpageCmdMsgs animationsCmdMsgs
-          SubpageCmdMsgs transitionCmdMsgs ]
+          SubpageCmdMsgs transitionCmdMsgs
+          SubpageCmdMsgs brushesCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -112,6 +119,13 @@ module App =
                 TransitionModel = transitionModel },
             [ SubpageCmdMsgs [ TransitionCmdMsg cmdMsgs ] ]
 
+        | BrushesMsg msg ->
+            let brushesModel, cmdMsgs = BrushesPage.update msg model.BrushesModel
+
+            { model with
+                BrushesModel = brushesModel },
+            [ SubpageCmdMsgs [ BrushesCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -123,6 +137,7 @@ module App =
             TabItem("Compositor Animations", (View.map CompositorAnimationsMsg (CompositorAnimationsPage.view model.CompositorAnimationsModel)))
             TabItem("Animations", (View.map AnimationsMsg (AnimationsPage.view model.AnimationsModel)))
             TabItem("Transitions", (View.map TransitionMsg (TransitionsPage.view model.TransitionModel)))
+            TabItem("Brushes", (View.map BrushesMsg (BrushesPage.view model.BrushesModel)))
         })
             .expandedModeThresholdWidth(760)
 

@@ -5,7 +5,6 @@
         <Setter Property="Margin" Value="15" />
         <Setter Property="Width" Value="100" />
         <Setter Property="Height" Value="100" />
-        <!-- <Setter Property="Child" Value="{StaticResource Acorn}"/> -->
         <Setter Property="Transitions">
             <Transitions>
                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:1" />
@@ -23,7 +22,6 @@
     </Style>
 
     <Style Selector="Border.Rect3">
-        <!-- <Setter Property="Child" Value="{StaticResource Heart}"/> -->
     </Style>
 
     <Style Selector="Border.Rect3:pointerover">

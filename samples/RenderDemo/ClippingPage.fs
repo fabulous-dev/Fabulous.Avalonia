@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace RenderDemo
 
 open System
 open Avalonia.Input
@@ -8,7 +8,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ClippingPage =
     type Model = { IsChecked: bool; BrushColor: IBrush }

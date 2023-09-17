@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace RenderDemo
 
 open Avalonia
 open Avalonia.Layout
@@ -7,7 +7,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module TransformsPage =
     type Model =

@@ -25,6 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="BrushesPage.fs" />
+    <Compile Include="ClippingPage.fs" />
+    <Compile Include="DrawingPage.fs" />
+    <Compile Include="LineBoundsDemoControlPage.fs" />
+    <Compile Include="TransformsPage.fs" />
     <Compile Include="Common.fs" />
     <Compile Include="Widgets.fs" />
     <Compile Include="Animations\Animations1.fs" />
@@ -38,20 +43,8 @@
     <Compile Include="Animations\CompositorAnimationsPage.fs" />
     <Compile Include="Animations\DrawLineAnimationPage.fs" />
     <Compile Include="Animations\ImplicitCanvasAnimationsPage.fs" />
-    <Compile Include="Transitions\Transitions1.fs" />
-    <Compile Include="Transitions\Transitions10.fs" />
-    <Compile Include="Transitions\Transitions11.fs" />
-    <Compile Include="Transitions\Transitions12.fs" />
-    <Compile Include="Transitions\Transitions2.fs" />
-    <Compile Include="Transitions\Transitions3.fs" />
-    <Compile Include="Transitions\Transitions4.fs" />
-    <Compile Include="Transitions\Transitions5.fs" />
-    <Compile Include="Transitions\Transitions6.fs" />
-    <Compile Include="Transitions\Transitions7.fs" />
-    <Compile Include="Transitions\Transitions8.fs" />
-    <Compile Include="Transitions\Transitions9.fs" />
-    <Compile Include="Transitions\TransitionsPage.fs" />
     <Content Include="App.xaml" />
+    <Compile Include="TransitionsPage.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   

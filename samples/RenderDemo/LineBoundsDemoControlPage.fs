@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace RenderDemo
 
 open System
 open Avalonia
@@ -8,7 +8,6 @@ open Avalonia.Controls
 open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
-open Gallery
 
 [<RequireQualifiedAccess>]
 module LineBoundsHelper =

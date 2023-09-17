@@ -46,7 +46,6 @@
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\AutoCompleteBoxPage.fs" />
     <Compile Include="Pages\BorderPage.fs" />
-    <Compile Include="Pages\BrushesPage.fs" />
     <Compile Include="Pages\ButtonSpinnerPage.fs" />
     <Compile Include="Pages\ButtonsPage.fs" />
     <Compile Include="Pages\CalendarPage.fs" />
@@ -54,7 +53,6 @@
     <Compile Include="Pages\CanvasPage.fs" />
     <Compile Include="Pages\CarouselPage.fs" />
     <Compile Include="Pages\CheckBoxPage.fs" />
-    <Compile Include="Pages\ClippingPage.fs" />
     <Compile Include="Pages\ClipboardPage.fs" />
     <Compile Include="Pages\Composition\CustomVisualHandler.fs" />
     <Compile Include="Pages\Composition\ImplicitAnimations.fs" />
@@ -68,7 +66,6 @@
     <Compile Include="Pages\DialogsPage.fs" />
     <Compile Include="Pages\DragAndDropPage.fs" />
     <Compile Include="Pages\DropDownButtonPage.fs" />
-    <Compile Include="Pages\DrawingPage.fs" />
     <Compile Include="Pages\EffectsPage.fs" />
     <Compile Include="Pages\ExpanderPage.fs" />
     <Compile Include="Pages\FlyoutPage.fs" />
@@ -79,7 +76,6 @@
     <Compile Include="Pages\ImagePage.fs" />
     <Compile Include="Pages\LabelPage.fs" />
     <Compile Include="Pages\LayoutTransformControlPage.fs" />
-    <Compile Include="Pages\LineBoundsDemoControlPage.fs" />
     <Compile Include="Pages\ListBoxPage.fs" />
     <Compile Include="Pages\MaskedTextBoxPage.fs" />
     <Compile Include="Pages\MenuPage.fs" />
@@ -115,7 +111,6 @@
     <Compile Include="Pages\ToggleSwitchPage.fs" />
     <Compile Include="Pages\ThemeAwarePage.fs" />
     <Compile Include="Pages\ToolTipPage.fs" />
-    <Compile Include="Pages\TransformsPage.fs" />
     <Compile Include="Pages\UniformGridPage.fs" />
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />

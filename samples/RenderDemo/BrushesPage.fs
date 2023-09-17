@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace RenderDemo
 
 open Avalonia
 open Avalonia.Media
@@ -6,7 +6,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module BrushesPage =
     type Model = { Nothing: bool }
@@ -85,7 +84,7 @@ module BrushesPage =
                 .width(440.0)
                 .height(50.0)
                 .fill(
-                    ImageBrush(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                    ImageBrush(ImageSource.fromString("avares://RenderDemo/Assets/Icons/fabulous-icon.png"))
                         .tileMode(TileMode.Tile)
                         .sourceRect(Point(0., 0.), Size(20., 20.), RelativeUnit.Absolute)
                         .destinationRect(Point(0., 0.), Size(20., 20.), RelativeUnit.Absolute)
