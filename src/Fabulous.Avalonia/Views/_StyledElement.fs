@@ -73,8 +73,12 @@ module StyledElement =
                 | true, value ->
                     match value with
                     | :? ControlTheme as controlTheme -> target.Theme <- controlTheme
-                    | _ -> ()
-                | _ -> ())
+                    | _ ->
+                        node.TreeContext.Logger.Warn("The resource '{0}' is not a ControlTheme. The theme has been unset.", themeKey)
+                        target.Theme <- null
+                | _ ->
+                    node.TreeContext.Logger.Warn("The resource '{0}' was not found. The theme has been unset", themeKey)
+                    target.Theme <- null)
 
 [<Extension>]
 type StyledElementModifiers =
