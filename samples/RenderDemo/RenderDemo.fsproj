@@ -43,7 +43,6 @@
     <Compile Include="Animations\CompositorAnimationsPage.fs" />
     <Compile Include="Animations\DrawLineAnimationPage.fs" />
     <Compile Include="Animations\ImplicitCanvasAnimationsPage.fs" />
-    <Content Include="App.xaml" />
     <Compile Include="TransitionsPage.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
@@ -57,10 +56,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Styles\Animations.xaml" />
   </ItemGroup>
   
   <Import Project="..\Fabulous.Avalonia.Samples.targets" />

@@ -15,7 +15,11 @@ module App =
           CompositorAnimationsModel: CompositorAnimationsPage.Model
           AnimationsModel: AnimationsPage.Model
           TransitionModel: TransitionsPage.Model
-          BrushesModel: BrushesPage.Model }
+          BrushesModel: BrushesPage.Model
+          ClippingModel: ClippingPage.Model
+          DrawingModel: DrawingPage.Model
+          LineBoundsModel: LineBoundsDemoControlPage.Model
+          TransformModel: TransformsPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -24,6 +28,10 @@ module App =
         | AnimationsMsg of AnimationsPage.Msg
         | TransitionMsg of TransitionsPage.Msg
         | BrushesMsg of BrushesPage.Msg
+        | ClippingMsg of ClippingPage.Msg
+        | DrawingMsg of DrawingPage.Msg
+        | LineBoundsMsg of LineBoundsDemoControlPage.Msg
+        | TransformMsg of TransformsPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -32,6 +40,10 @@ module App =
         | AnimationsCmdMsg of AnimationsPage.CmdMsg list
         | TransitionCmdMsg of TransitionsPage.CmdMsg list
         | BrushesCmdMsg of BrushesPage.CmdMsg list
+        | ClippingCmdMsg of ClippingPage.CmdMsg list
+        | DrawingCmdMsg of DrawingPage.CmdMsg list
+        | LineBoundsCmdMsg of LineBoundsDemoControlPage.CmdMsg list
+        | TransformCmdMsg of TransformsPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -55,6 +67,10 @@ module App =
                 | AnimationsCmdMsg cmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsMsg cmdMsgs
                 | TransitionCmdMsg cmdMsgs -> map TransitionsPage.mapCmdMsgToCmd TransitionMsg cmdMsgs
                 | BrushesCmdMsg cmdMsgs -> map BrushesPage.mapCmdMsgToCmd BrushesMsg cmdMsgs
+                | ClippingCmdMsg cmdMsgs -> map ClippingPage.mapCmdMsgToCmd ClippingMsg cmdMsgs
+                | DrawingCmdMsg cmdMsgs -> map DrawingPage.mapCmdMsgToCmd DrawingMsg cmdMsgs
+                | LineBoundsCmdMsg cmdMsgs -> map LineBoundsDemoControlPage.mapCmdMsgToCmd LineBoundsMsg cmdMsgs
+                | TransformCmdMsg cmdMsgs -> map TransformsPage.mapCmdMsgToCmd TransformMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -65,19 +81,30 @@ module App =
         let animationsModel, animationsCmdMsgs = AnimationsPage.init()
         let transitionModel, transitionCmdMsgs = TransitionsPage.init()
         let brushesModel, brushesCmdMsgs = BrushesPage.init()
+        let clippingModel, clippingCmdMsgs = ClippingPage.init()
+        let drawingModel, drawingCmdMsgs = DrawingPage.init()
+        let lineBoundsModel, lineBoundsCmdMsgs = LineBoundsDemoControlPage.init()
+        let transformModel, transformCmdMsgs = TransformsPage.init()
 
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
           CompositorAnimationsModel = compositorModel
           AnimationsModel = animationsModel
           TransitionModel = transitionModel
-          BrushesModel = brushesModel },
+          BrushesModel = brushesModel
+          ClippingModel = clippingModel
+          DrawingModel = drawingModel
+          LineBoundsModel = lineBoundsModel
+          TransformModel = transformModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
           SubpageCmdMsgs animationsCmdMsgs
           SubpageCmdMsgs transitionCmdMsgs
-          SubpageCmdMsgs brushesCmdMsgs ]
+          SubpageCmdMsgs brushesCmdMsgs
+          SubpageCmdMsgs clippingCmdMsgs
+          SubpageCmdMsgs drawingCmdMsgs
+          SubpageCmdMsgs lineBoundsCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -126,6 +153,35 @@ module App =
                 BrushesModel = brushesModel },
             [ SubpageCmdMsgs [ BrushesCmdMsg cmdMsgs ] ]
 
+        | ClippingMsg msg ->
+            let clippingModel, cmdMsgs = ClippingPage.update msg model.ClippingModel
+
+            { model with
+                ClippingModel = clippingModel },
+            [ SubpageCmdMsgs [ ClippingCmdMsg cmdMsgs ] ]
+
+        | DrawingMsg msg ->
+            let drawingModel, cmdMsgs = DrawingPage.update msg model.DrawingModel
+
+            { model with
+                DrawingModel = drawingModel },
+            [ SubpageCmdMsgs [ DrawingCmdMsg cmdMsgs ] ]
+
+        | LineBoundsMsg msg ->
+            let lineBoundsModel, cmdMsgs =
+                LineBoundsDemoControlPage.update msg model.LineBoundsModel
+
+            { model with
+                LineBoundsModel = lineBoundsModel },
+            [ SubpageCmdMsgs [ LineBoundsCmdMsg cmdMsgs ] ]
+
+        | TransformMsg msg ->
+            let transformModel, cmdMsgs = TransformsPage.update msg model.TransformModel
+
+            { model with
+                TransformModel = transformModel },
+            [ SubpageCmdMsgs [ TransformCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -138,6 +194,10 @@ module App =
             TabItem("Animations", (View.map AnimationsMsg (AnimationsPage.view model.AnimationsModel)))
             TabItem("Transitions", (View.map TransitionMsg (TransitionsPage.view model.TransitionModel)))
             TabItem("Brushes", (View.map BrushesMsg (BrushesPage.view model.BrushesModel)))
+            TabItem("Clipping", (View.map ClippingMsg (ClippingPage.view model.ClippingModel)))
+            TabItem("Drawing", (View.map DrawingMsg (DrawingPage.view model.DrawingModel)))
+            TabItem("Line Bounds", (View.map LineBoundsMsg (LineBoundsDemoControlPage.view model.LineBoundsModel)))
+            TabItem("Transforms", (View.map TransformMsg (TransformsPage.view model.TransformModel)))
         })
             .expandedModeThresholdWidth(760)
 
