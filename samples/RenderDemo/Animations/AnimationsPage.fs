@@ -11,13 +11,11 @@ open type Fabulous.Avalonia.View
 module AnimationsPage =
     type Model =
         { Animations1: Animations1.Model
-          Animations2: Animations2.Model
-          Animations3: Animations3.Model }
+          Animations2: Animations2.Model }
 
     type Msg =
         | Animations1 of Animations1.Msg
         | Animations2 of Animations2.Msg
-        | Animations3 of Animations3.Msg
 
     type CmdMsg = | NoMsg
 
@@ -27,8 +25,7 @@ module AnimationsPage =
 
     let init () =
         { Animations1 = Animations1.init()
-          Animations2 = Animations2.init()
-          Animations3 = Animations3.init() },
+          Animations2 = Animations2.init() },
         []
 
     let update msg model =
@@ -45,13 +42,6 @@ module AnimationsPage =
 
             { model with
                 Animations2 = transitions2 },
-            []
-
-        | Animations3 msg ->
-            let transitions3 = Animations3.update msg model.Animations3
-
-            { model with
-                Animations3 = transitions3 },
             []
 
     let borderTest1 (this: WidgetBuilder<'msg, IFabBorder>) =
@@ -174,6 +164,5 @@ module AnimationsPage =
 
                 View.map Animations1 (Animations1.view model.Animations1)
                 View.map Animations2 (Animations2.view model.Animations2)
-                View.map Animations3 (Animations3.view model)
             }
         )

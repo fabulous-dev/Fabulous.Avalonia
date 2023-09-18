@@ -8,7 +8,7 @@ open Fabulous
 
 open type Fabulous.Avalonia.View
 
-module TransformsPage =
+module Transform3DPage =
     type Model =
         { CenterX: float
           CenterY: float

@@ -6,6 +6,7 @@ open Avalonia.Media
 open Controls.HamburgerMenu
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabHamburgerMenu =
     inherit IFabTabControl

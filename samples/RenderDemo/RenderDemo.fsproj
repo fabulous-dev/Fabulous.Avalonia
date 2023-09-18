@@ -25,16 +25,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Common.fs" />
     <Compile Include="BrushesPage.fs" />
     <Compile Include="ClippingPage.fs" />
     <Compile Include="DrawingPage.fs" />
     <Compile Include="LineBoundsDemoControlPage.fs" />
-    <Compile Include="TransformsPage.fs" />
-    <Compile Include="Common.fs" />
-    <Compile Include="Widgets.fs" />
+    <Compile Include="Transform3DPage.fs" />
+    <Compile Include="WriteableBitmapPage.fs" />
     <Compile Include="Animations\Animations1.fs" />
     <Compile Include="Animations\Animations2.fs" />
-    <Compile Include="Animations\Animations3.fs" />
+    <Compile Include="Animations\CustomAnimatorPage.fs" />
+    <Compile Include="Animations\CustomSkiaPage.fs" />
     <Compile Include="Animations\AnimationsPage.fs" />
     <Compile Include="Animations\SlidingAnimation.fs" />
     <Compile Include="Animations\Vector3KeyFrameAnimation.fs" />
@@ -44,6 +45,7 @@
     <Compile Include="Animations\DrawLineAnimationPage.fs" />
     <Compile Include="Animations\ImplicitCanvasAnimationsPage.fs" />
     <Compile Include="TransitionsPage.fs" />
+    <Compile Include="Widgets.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   

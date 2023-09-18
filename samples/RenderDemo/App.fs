@@ -19,7 +19,10 @@ module App =
           ClippingModel: ClippingPage.Model
           DrawingModel: DrawingPage.Model
           LineBoundsModel: LineBoundsDemoControlPage.Model
-          TransformModel: TransformsPage.Model }
+          TransformModel: Transform3DPage.Model
+          WritableBitmapModel: WriteableBitmapPage.Model
+          CustomAnimatorModel: CustomAnimatorPage.Model
+          CustomSkiaControlModel: CustomSkiaPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -31,7 +34,10 @@ module App =
         | ClippingMsg of ClippingPage.Msg
         | DrawingMsg of DrawingPage.Msg
         | LineBoundsMsg of LineBoundsDemoControlPage.Msg
-        | TransformMsg of TransformsPage.Msg
+        | TransformMsg of Transform3DPage.Msg
+        | WritableBitmapMsg of WriteableBitmapPage.Msg
+        | CustomAnimatorMsg of CustomAnimatorPage.Msg
+        | CustomSkiaControlMsg of CustomSkiaPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -43,7 +49,10 @@ module App =
         | ClippingCmdMsg of ClippingPage.CmdMsg list
         | DrawingCmdMsg of DrawingPage.CmdMsg list
         | LineBoundsCmdMsg of LineBoundsDemoControlPage.CmdMsg list
-        | TransformCmdMsg of TransformsPage.CmdMsg list
+        | TransformCmdMsg of Transform3DPage.CmdMsg list
+        | WritableBitmapCmdMsg of WriteableBitmapPage.CmdMsg list
+        | CustomAnimatorCmdMsg of CustomAnimatorPage.CmdMsg list
+        | CustomSkiaControlCmdMsg of CustomSkiaPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -70,7 +79,10 @@ module App =
                 | ClippingCmdMsg cmdMsgs -> map ClippingPage.mapCmdMsgToCmd ClippingMsg cmdMsgs
                 | DrawingCmdMsg cmdMsgs -> map DrawingPage.mapCmdMsgToCmd DrawingMsg cmdMsgs
                 | LineBoundsCmdMsg cmdMsgs -> map LineBoundsDemoControlPage.mapCmdMsgToCmd LineBoundsMsg cmdMsgs
-                | TransformCmdMsg cmdMsgs -> map TransformsPage.mapCmdMsgToCmd TransformMsg cmdMsgs
+                | TransformCmdMsg cmdMsgs -> map Transform3DPage.mapCmdMsgToCmd TransformMsg cmdMsgs
+                | WritableBitmapCmdMsg cmdMsgs -> map WriteableBitmapPage.mapCmdMsgToCmd WritableBitmapMsg cmdMsgs
+                | CustomAnimatorCmdMsg cmdMsgs -> map CustomAnimatorPage.mapCmdMsgToCmd CustomAnimatorMsg cmdMsgs
+                | CustomSkiaControlCmdMsg cmdMsgs -> map CustomSkiaPage.mapCmdMsgToCmd CustomSkiaControlMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -84,7 +96,10 @@ module App =
         let clippingModel, clippingCmdMsgs = ClippingPage.init()
         let drawingModel, drawingCmdMsgs = DrawingPage.init()
         let lineBoundsModel, lineBoundsCmdMsgs = LineBoundsDemoControlPage.init()
-        let transformModel, transformCmdMsgs = TransformsPage.init()
+        let transformModel, transformCmdMsgs = Transform3DPage.init()
+        let writableBitmapModel, writableBitmapCmdMsgs = WriteableBitmapPage.init()
+        let customAnimatorModel, customAnimatorCmdMsgs = CustomAnimatorPage.init()
+        let customSkiaControlModel, customSkiaControlCmdMsgs = CustomSkiaPage.init()
 
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
@@ -95,7 +110,10 @@ module App =
           ClippingModel = clippingModel
           DrawingModel = drawingModel
           LineBoundsModel = lineBoundsModel
-          TransformModel = transformModel },
+          TransformModel = transformModel
+          WritableBitmapModel = writableBitmapModel
+          CustomAnimatorModel = customAnimatorModel
+          CustomSkiaControlModel = customSkiaControlModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
@@ -104,7 +122,11 @@ module App =
           SubpageCmdMsgs brushesCmdMsgs
           SubpageCmdMsgs clippingCmdMsgs
           SubpageCmdMsgs drawingCmdMsgs
-          SubpageCmdMsgs lineBoundsCmdMsgs ]
+          SubpageCmdMsgs lineBoundsCmdMsgs
+          SubpageCmdMsgs transformCmdMsgs
+          SubpageCmdMsgs writableBitmapCmdMsgs
+          SubpageCmdMsgs customAnimatorCmdMsgs
+          SubpageCmdMsgs customSkiaControlCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -176,11 +198,35 @@ module App =
             [ SubpageCmdMsgs [ LineBoundsCmdMsg cmdMsgs ] ]
 
         | TransformMsg msg ->
-            let transformModel, cmdMsgs = TransformsPage.update msg model.TransformModel
+            let transformModel, cmdMsgs = Transform3DPage.update msg model.TransformModel
 
             { model with
                 TransformModel = transformModel },
             [ SubpageCmdMsgs [ TransformCmdMsg cmdMsgs ] ]
+
+        | WritableBitmapMsg msg ->
+            let writableBitmapModel, cmdMsgs =
+                WriteableBitmapPage.update msg model.WritableBitmapModel
+
+            { model with
+                WritableBitmapModel = writableBitmapModel },
+            [ SubpageCmdMsgs [ WritableBitmapCmdMsg cmdMsgs ] ]
+
+        | CustomAnimatorMsg msg ->
+            let customAnimatorModel, cmdMsgs =
+                CustomAnimatorPage.update msg model.CustomAnimatorModel
+
+            { model with
+                CustomAnimatorModel = customAnimatorModel },
+            [ SubpageCmdMsgs [ CustomAnimatorCmdMsg cmdMsgs ] ]
+
+        | CustomSkiaControlMsg msg ->
+            let customSkiaControlModel, cmdMsgs =
+                CustomSkiaPage.update msg model.CustomSkiaControlModel
+
+            { model with
+                CustomSkiaControlModel = customSkiaControlModel },
+            [ SubpageCmdMsgs [ CustomSkiaControlCmdMsg cmdMsgs ] ]
 
     let view model =
         let theme = StyleInclude(baseUri = null)
@@ -197,7 +243,10 @@ module App =
             TabItem("Clipping", (View.map ClippingMsg (ClippingPage.view model.ClippingModel)))
             TabItem("Drawing", (View.map DrawingMsg (DrawingPage.view model.DrawingModel)))
             TabItem("Line Bounds", (View.map LineBoundsMsg (LineBoundsDemoControlPage.view model.LineBoundsModel)))
-            TabItem("Transforms", (View.map TransformMsg (TransformsPage.view model.TransformModel)))
+            TabItem("Transform3D", (View.map TransformMsg (Transform3DPage.view model.TransformModel)))
+            TabItem("Writable Bitmap", (View.map WritableBitmapMsg (WriteableBitmapPage.view model.WritableBitmapModel)))
+            TabItem("Custom Animator", (View.map CustomAnimatorMsg (CustomAnimatorPage.view model.CustomAnimatorModel)))
+            TabItem("Custom Skia", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
         })
             .expandedModeThresholdWidth(760)
 

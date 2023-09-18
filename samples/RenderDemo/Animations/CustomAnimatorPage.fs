@@ -6,6 +6,7 @@ open Avalonia.Controls
 open Avalonia.Interactivity
 open Avalonia.Styling
 open Fabulous.Avalonia
+open Fabulous
 
 open type Fabulous.Avalonia.View
 
@@ -22,20 +23,26 @@ type CustomStringAnimator() =
             let result = newValue.Substring(0, length + 1)
             result
 
-module Animations3 =
+module CustomAnimatorPage =
     type Model = { Value: int }
 
     type Msg = Loaded of RoutedEventArgs
 
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let init () =
         Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
-        { Value = 0 }
+        { Value = 0 }, []
 
     let update msg model =
         match msg with
         | Loaded _ ->
             Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
-            model
+            model, []
 
     let view _ =
         Grid() {
