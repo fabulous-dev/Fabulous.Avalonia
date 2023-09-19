@@ -10,22 +10,19 @@ open Avalonia.Rendering.SceneGraph
 open Avalonia.Skia
 open Fabulous.Avalonia
 open Fabulous
-
-open type Fabulous.Avalonia.View
 open Fabulous.StackAllocatedCollections.StackList
 open SkiaSharp
 
+open type Fabulous.Avalonia.View
 
 type CustomDrawOp(bounds: Rect, noSkia: GlyphRun) =
     let mutable _noSkia = null
-
     static let St = Stopwatch.StartNew()
 
     do _noSkia <- noSkia.TryCreateImmutableGlyphRunReference()
 
-
-    member this.Animate(d, from, to') =
-        let ms = int(St.ElapsedMilliseconds / int64 d)
+    member this.Animate(d: int, from: int, to': int) =
+        let ms = int(St.ElapsedMilliseconds) / d
         let diff = to' - from
         let range = diff * 2
         let v = ms % range
@@ -37,7 +34,7 @@ type CustomDrawOp(bounds: Rect, noSkia: GlyphRun) =
         rv <- v + from
 
         if rv < from || rv > to' then
-            raise(Exception("WTF"))
+            printfn $"Animate: %d{d} %d{from} %d{to'} %d{ms} %d{diff} %d{range}"
 
         rv
 
@@ -88,9 +85,7 @@ type CustomDrawOp(bounds: Rect, noSkia: GlyphRun) =
                 use blur =
                     SKImageFilter.CreateBlur(float32(this.Animate(100, 2, 10)), float32(this.Animate(100, 5, 15)))
 
-                use paint = new SKPaint(Shader = shader, ImageFilter = blur)
-
-                canvas.DrawPaint(paint)
+                using (new SKPaint(Shader = shader, ImageFilter = blur)) (fun paint -> canvas.DrawPaint(paint))
 
                 use pseudoLight =
                     SKShader.CreateRadialGradient(
@@ -104,9 +99,7 @@ type CustomDrawOp(bounds: Rect, noSkia: GlyphRun) =
                         SKShaderTileMode.Clamp
                     )
 
-                use paint = new SKPaint(Shader = pseudoLight)
-
-                canvas.DrawPaint(paint)
+                using (new SKPaint(Shader = pseudoLight)) (fun paint -> canvas.DrawPaint(paint))
 
                 canvas.Restore()
 
@@ -129,7 +122,7 @@ type CustomSkiaControl() as this =
         _noSkia <- new GlyphRun(Typeface.Default.GlyphTypeface, 12., text.AsMemory(), glyphs)
 
     override this.Render(context: DrawingContext) =
-        context.Custom(new CustomDrawOp(new Rect(0, 0, this.Bounds.Width, this.Bounds.Height), _noSkia))
+        context.Custom(new CustomDrawOp(Rect(0, 0, this.Bounds.Width, this.Bounds.Height), _noSkia))
 
         Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(this.InvalidateVisual, Avalonia.Threading.DispatcherPriority.Background)
         |> ignore

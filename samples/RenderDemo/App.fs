@@ -246,7 +246,7 @@ module App =
             TabItem("Transform3D", (View.map TransformMsg (Transform3DPage.view model.TransformModel)))
             TabItem("Writable Bitmap", (View.map WritableBitmapMsg (WriteableBitmapPage.view model.WritableBitmapModel)))
             TabItem("Custom Animator", (View.map CustomAnimatorMsg (CustomAnimatorPage.view model.CustomAnimatorModel)))
-            TabItem("Custom Skia", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
+            TabItem("SkCanvas", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
         })
             .expandedModeThresholdWidth(760)
 
