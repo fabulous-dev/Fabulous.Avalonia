@@ -18,7 +18,7 @@ module App =
           BrushesModel: BrushesPage.Model
           ClippingModel: ClippingPage.Model
           DrawingModel: DrawingPage.Model
-          LineBoundsModel: LineBoundsDemoControlPage.Model
+          LineBoundsModel: LineBoundsPage.Model
           TransformModel: Transform3DPage.Model
           WritableBitmapModel: WriteableBitmapPage.Model
           CustomAnimatorModel: CustomAnimatorPage.Model
@@ -35,7 +35,7 @@ module App =
         | BrushesMsg of BrushesPage.Msg
         | ClippingMsg of ClippingPage.Msg
         | DrawingMsg of DrawingPage.Msg
-        | LineBoundsMsg of LineBoundsDemoControlPage.Msg
+        | LineBoundsMsg of LineBoundsPage.Msg
         | TransformMsg of Transform3DPage.Msg
         | WritableBitmapMsg of WriteableBitmapPage.Msg
         | CustomAnimatorMsg of CustomAnimatorPage.Msg
@@ -52,7 +52,7 @@ module App =
         | BrushesCmdMsg of BrushesPage.CmdMsg list
         | ClippingCmdMsg of ClippingPage.CmdMsg list
         | DrawingCmdMsg of DrawingPage.CmdMsg list
-        | LineBoundsCmdMsg of LineBoundsDemoControlPage.CmdMsg list
+        | LineBoundsCmdMsg of LineBoundsPage.CmdMsg list
         | TransformCmdMsg of Transform3DPage.CmdMsg list
         | WritableBitmapCmdMsg of WriteableBitmapPage.CmdMsg list
         | CustomAnimatorCmdMsg of CustomAnimatorPage.CmdMsg list
@@ -84,7 +84,7 @@ module App =
                 | BrushesCmdMsg cmdMsgs -> map BrushesPage.mapCmdMsgToCmd BrushesMsg cmdMsgs
                 | ClippingCmdMsg cmdMsgs -> map ClippingPage.mapCmdMsgToCmd ClippingMsg cmdMsgs
                 | DrawingCmdMsg cmdMsgs -> map DrawingPage.mapCmdMsgToCmd DrawingMsg cmdMsgs
-                | LineBoundsCmdMsg cmdMsgs -> map LineBoundsDemoControlPage.mapCmdMsgToCmd LineBoundsMsg cmdMsgs
+                | LineBoundsCmdMsg cmdMsgs -> map LineBoundsPage.mapCmdMsgToCmd LineBoundsMsg cmdMsgs
                 | TransformCmdMsg cmdMsgs -> map Transform3DPage.mapCmdMsgToCmd TransformMsg cmdMsgs
                 | WritableBitmapCmdMsg cmdMsgs -> map WriteableBitmapPage.mapCmdMsgToCmd WritableBitmapMsg cmdMsgs
                 | CustomAnimatorCmdMsg cmdMsgs -> map CustomAnimatorPage.mapCmdMsgToCmd CustomAnimatorMsg cmdMsgs
@@ -103,7 +103,7 @@ module App =
         let brushesModel, brushesCmdMsgs = BrushesPage.init()
         let clippingModel, clippingCmdMsgs = ClippingPage.init()
         let drawingModel, drawingCmdMsgs = DrawingPage.init()
-        let lineBoundsModel, lineBoundsCmdMsgs = LineBoundsDemoControlPage.init()
+        let lineBoundsModel, lineBoundsCmdMsgs = LineBoundsPage.init()
         let transformModel, transformCmdMsgs = Transform3DPage.init()
         let writableBitmapModel, writableBitmapCmdMsgs = WriteableBitmapPage.init()
         let customAnimatorModel, customAnimatorCmdMsgs = CustomAnimatorPage.init()
@@ -204,8 +204,7 @@ module App =
             [ SubpageCmdMsgs [ DrawingCmdMsg cmdMsgs ] ]
 
         | LineBoundsMsg msg ->
-            let lineBoundsModel, cmdMsgs =
-                LineBoundsDemoControlPage.update msg model.LineBoundsModel
+            let lineBoundsModel, cmdMsgs = LineBoundsPage.update msg model.LineBoundsModel
 
             { model with
                 LineBoundsModel = lineBoundsModel },
@@ -271,7 +270,7 @@ module App =
             TabItem("Brushes", (View.map BrushesMsg (BrushesPage.view model.BrushesModel)))
             TabItem("Clipping", (View.map ClippingMsg (ClippingPage.view model.ClippingModel)))
             TabItem("Drawing", (View.map DrawingMsg (DrawingPage.view model.DrawingModel)))
-            TabItem("Line Bounds", (View.map LineBoundsMsg (LineBoundsDemoControlPage.view model.LineBoundsModel)))
+            TabItem("Line Bounds", (View.map LineBoundsMsg (LineBoundsPage.view model.LineBoundsModel)))
             TabItem("Transform3D", (View.map TransformMsg (Transform3DPage.view model.TransformModel)))
             TabItem("Writable Bitmap", (View.map WritableBitmapMsg (WriteableBitmapPage.view model.WritableBitmapModel)))
             TabItem("Custom Animator", (View.map CustomAnimatorMsg (CustomAnimatorPage.view model.CustomAnimatorModel)))

@@ -29,7 +29,7 @@
     <Compile Include="BrushesPage.fs" />
     <Compile Include="ClippingPage.fs" />
     <Compile Include="DrawingPage.fs" />
-    <Compile Include="LineBoundsDemoControlPage.fs" />
+    <Compile Include="LineBoundsPage.fs" />
     <Compile Include="Transform3DPage.fs" />
     <Compile Include="WriteableBitmapPage.fs" />
     <Compile Include="GlyphRunPage.fs" />

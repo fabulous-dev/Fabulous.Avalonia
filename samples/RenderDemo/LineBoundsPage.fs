@@ -58,13 +58,13 @@ module LineBoundsHelper =
             calculateBounds(p1, p2, p.Thickness, radians)
 
 
-type LineBoundsDemoControl() =
+type LineBoundsControl() =
     inherit Control()
     static let mutable _angle: float = 0.
 
     let mutable _timer: DispatcherTimer = null
 
-    do LineBoundsDemoControl.AffectsRender<LineBoundsDemoControl>(LineBoundsDemoControl.AngleProperty)
+    do LineBoundsControl.AffectsRender<LineBoundsControl>(LineBoundsControl.AngleProperty)
 
     // do
     //     let timer = DispatcherTimer()
@@ -89,7 +89,7 @@ type LineBoundsDemoControl() =
         and set value = _angle <- value
 
     static member AngleProperty: StyledProperty<float> =
-        AvaloniaProperty.Register<LineBoundsDemoControl, float>("Angle")
+        AvaloniaProperty.Register<LineBoundsControl, float>("Angle")
 
     override this.Render(drawingContext: DrawingContext) =
         let lineLength = Math.Sqrt((100. * 100.) + (100. * 100.))
@@ -112,23 +112,23 @@ type LineBoundsDemoControl() =
 type IFabLineBoundsDemoControl =
     inherit IFabControl
 
-module LineBoundsDemoControl =
-    let WidgetKey = Widgets.register<LineBoundsDemoControl>()
+module LineBoundsControl =
+    let WidgetKey = Widgets.register<LineBoundsControl>()
 
     let Angle =
-        Attributes.defineAvaloniaPropertyWithEquality LineBoundsDemoControl.AngleProperty
+        Attributes.defineAvaloniaPropertyWithEquality LineBoundsControl.AngleProperty
 
 [<AutoOpen>]
 module LineBoundsDemoControlBuilders =
     type Fabulous.Avalonia.View with
 
         static member LineBoundsDemoControl(angle: float) =
-            WidgetBuilder<'msg, IFabLineBoundsDemoControl>(LineBoundsDemoControl.WidgetKey, LineBoundsDemoControl.Angle.WithValue(angle))
+            WidgetBuilder<'msg, IFabLineBoundsDemoControl>(LineBoundsControl.WidgetKey, LineBoundsControl.Angle.WithValue(angle))
 
 
 open type Fabulous.Avalonia.View
 
-module LineBoundsDemoControlPage =
+module LineBoundsPage =
     type Model = { Nothing: float }
 
     type Msg = | Nothing
