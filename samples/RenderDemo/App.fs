@@ -22,7 +22,8 @@ module App =
           TransformModel: Transform3DPage.Model
           WritableBitmapModel: WriteableBitmapPage.Model
           CustomAnimatorModel: CustomAnimatorPage.Model
-          CustomSkiaControlModel: CustomSkiaPage.Model }
+          CustomSkiaControlModel: CustomSkiaPage.Model
+          GlyphRunModel: GlyphRunPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -38,6 +39,7 @@ module App =
         | WritableBitmapMsg of WriteableBitmapPage.Msg
         | CustomAnimatorMsg of CustomAnimatorPage.Msg
         | CustomSkiaControlMsg of CustomSkiaPage.Msg
+        | GlyphRunMsg of GlyphRunPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -53,6 +55,7 @@ module App =
         | WritableBitmapCmdMsg of WriteableBitmapPage.CmdMsg list
         | CustomAnimatorCmdMsg of CustomAnimatorPage.CmdMsg list
         | CustomSkiaControlCmdMsg of CustomSkiaPage.CmdMsg list
+        | GlyphRunCmdMsg of GlyphRunPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -83,6 +86,7 @@ module App =
                 | WritableBitmapCmdMsg cmdMsgs -> map WriteableBitmapPage.mapCmdMsgToCmd WritableBitmapMsg cmdMsgs
                 | CustomAnimatorCmdMsg cmdMsgs -> map CustomAnimatorPage.mapCmdMsgToCmd CustomAnimatorMsg cmdMsgs
                 | CustomSkiaControlCmdMsg cmdMsgs -> map CustomSkiaPage.mapCmdMsgToCmd CustomSkiaControlMsg cmdMsgs
+                | GlyphRunCmdMsg cmdMsgs -> map GlyphRunPage.mapCmdMsgToCmd GlyphRunMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -100,6 +104,7 @@ module App =
         let writableBitmapModel, writableBitmapCmdMsgs = WriteableBitmapPage.init()
         let customAnimatorModel, customAnimatorCmdMsgs = CustomAnimatorPage.init()
         let customSkiaControlModel, customSkiaControlCmdMsgs = CustomSkiaPage.init()
+        let glyphRunModel, glyphRunCmdMsgs = GlyphRunPage.init()
 
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
@@ -113,7 +118,8 @@ module App =
           TransformModel = transformModel
           WritableBitmapModel = writableBitmapModel
           CustomAnimatorModel = customAnimatorModel
-          CustomSkiaControlModel = customSkiaControlModel },
+          CustomSkiaControlModel = customSkiaControlModel
+          GlyphRunModel = glyphRunModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
@@ -126,7 +132,8 @@ module App =
           SubpageCmdMsgs transformCmdMsgs
           SubpageCmdMsgs writableBitmapCmdMsgs
           SubpageCmdMsgs customAnimatorCmdMsgs
-          SubpageCmdMsgs customSkiaControlCmdMsgs ]
+          SubpageCmdMsgs customSkiaControlCmdMsgs
+          SubpageCmdMsgs glyphRunCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -228,6 +235,13 @@ module App =
                 CustomSkiaControlModel = customSkiaControlModel },
             [ SubpageCmdMsgs [ CustomSkiaControlCmdMsg cmdMsgs ] ]
 
+        | GlyphRunMsg msg ->
+            let glyphRunModel, cmdMsgs = GlyphRunPage.update msg model.GlyphRunModel
+
+            { model with
+                GlyphRunModel = glyphRunModel },
+            [ SubpageCmdMsgs [ GlyphRunCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -247,6 +261,7 @@ module App =
             TabItem("Writable Bitmap", (View.map WritableBitmapMsg (WriteableBitmapPage.view model.WritableBitmapModel)))
             TabItem("Custom Animator", (View.map CustomAnimatorMsg (CustomAnimatorPage.view model.CustomAnimatorModel)))
             TabItem("SkCanvas", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
+            TabItem("GlyphRun", (View.map GlyphRunMsg (GlyphRunPage.view model.GlyphRunModel)))
         })
             .expandedModeThresholdWidth(760)
 
