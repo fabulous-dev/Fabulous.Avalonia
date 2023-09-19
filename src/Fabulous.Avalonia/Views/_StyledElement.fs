@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Collections
 open Avalonia.Input.TextInput
 open Avalonia.LogicalTree
+open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -60,6 +61,24 @@ module StyledElement =
 
     let ActualThemeVariantChanged =
         Attributes.defineEventNoArg "StyledElement_ActualThemeVariantChanged" (fun target -> (target :?> StyledElement).ActualThemeVariantChanged)
+
+    let ThemeKey =
+        Attributes.defineSimpleScalarWithEquality<string> "StyledElement_ThemeKey" (fun _ newValueOpt node ->
+            let target = node.Target :?> StyledElement
+
+            match newValueOpt with
+            | ValueNone -> target.Theme <- null
+            | ValueSome themeKey ->
+                match Application.Current.Styles.TryGetResource(themeKey, null) with
+                | true, value ->
+                    match value with
+                    | :? ControlTheme as controlTheme -> target.Theme <- controlTheme
+                    | _ ->
+                        node.TreeContext.Logger.Warn("The resource '{0}' is not a ControlTheme. The theme has been unset.", themeKey)
+                        target.Theme <- null
+                | _ ->
+                    node.TreeContext.Logger.Warn("The resource '{0}' was not found. The theme has been unset", themeKey)
+                    target.Theme <- null)
 
 [<Extension>]
 type StyledElementModifiers =
@@ -160,6 +179,14 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, msg: 'msg) =
         this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(MsgValue msg))
+
+    /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
+    /// application styles that is applied to the control.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ThemeKey value.</param>
+    [<Extension>]
+    static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.ThemeKey.WithValue(value))
 
 [<Extension>]
 type StyledElementCollectionBuilderExtensions =
