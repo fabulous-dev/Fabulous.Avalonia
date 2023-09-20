@@ -24,7 +24,8 @@ module App =
           CustomAnimatorModel: CustomAnimatorPage.Model
           CustomSkiaControlModel: CustomSkiaPage.Model
           GlyphRunModel: GlyphRunPage.Model
-          FormattedTextModel: FormattedTextPage.Model }
+          FormattedTextModel: FormattedTextPage.Model
+          TextFormatterModel: TextFormatterPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -42,6 +43,7 @@ module App =
         | CustomSkiaControlMsg of CustomSkiaPage.Msg
         | GlyphRunMsg of GlyphRunPage.Msg
         | FormattedTextMsg of FormattedTextPage.Msg
+        | TextFormatterMsg of TextFormatterPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -59,6 +61,7 @@ module App =
         | CustomSkiaControlCmdMsg of CustomSkiaPage.CmdMsg list
         | GlyphRunCmdMsg of GlyphRunPage.CmdMsg list
         | FormattedTextCmdMsg of FormattedTextPage.CmdMsg list
+        | TextFormatterCmdMsg of TextFormatterPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -91,6 +94,7 @@ module App =
                 | CustomSkiaControlCmdMsg cmdMsgs -> map CustomSkiaPage.mapCmdMsgToCmd CustomSkiaControlMsg cmdMsgs
                 | GlyphRunCmdMsg cmdMsgs -> map GlyphRunPage.mapCmdMsgToCmd GlyphRunMsg cmdMsgs
                 | FormattedTextCmdMsg cmdMsgs -> map FormattedTextPage.mapCmdMsgToCmd FormattedTextMsg cmdMsgs
+                | TextFormatterCmdMsg cmdMsgs -> map TextFormatterPage.mapCmdMsgToCmd TextFormatterMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -110,6 +114,7 @@ module App =
         let customSkiaControlModel, customSkiaControlCmdMsgs = CustomSkiaPage.init()
         let glyphRunModel, glyphRunCmdMsgs = GlyphRunPage.init()
         let formattedTextModel, formattedTextCmdMsgs = FormattedTextPage.init()
+        let textFormatterModel, textFormatterCmdMsgs = TextFormatterPage.init()
 
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
@@ -125,7 +130,8 @@ module App =
           CustomAnimatorModel = customAnimatorModel
           CustomSkiaControlModel = customSkiaControlModel
           GlyphRunModel = glyphRunModel
-          FormattedTextModel = formattedTextModel },
+          FormattedTextModel = formattedTextModel
+          TextFormatterModel = textFormatterModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
@@ -140,7 +146,8 @@ module App =
           SubpageCmdMsgs customAnimatorCmdMsgs
           SubpageCmdMsgs customSkiaControlCmdMsgs
           SubpageCmdMsgs glyphRunCmdMsgs
-          SubpageCmdMsgs formattedTextCmdMsgs ]
+          SubpageCmdMsgs formattedTextCmdMsgs
+          SubpageCmdMsgs textFormatterCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -256,6 +263,14 @@ module App =
                 FormattedTextModel = formattedTextModel },
             [ SubpageCmdMsgs [ FormattedTextCmdMsg cmdMsgs ] ]
 
+        | TextFormatterMsg msg ->
+            let textFormatterModel, cmdMsgs =
+                TextFormatterPage.update msg model.TextFormatterModel
+
+            { model with
+                TextFormatterModel = textFormatterModel },
+            [ SubpageCmdMsgs [ TextFormatterCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -277,6 +292,7 @@ module App =
             TabItem("SkCanvas", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
             TabItem("GlyphRun", (View.map GlyphRunMsg (GlyphRunPage.view model.GlyphRunModel)))
             TabItem("FormattedText", (View.map FormattedTextMsg (FormattedTextPage.view model.FormattedTextModel)))
+            TabItem("TextFormatter", (View.map TextFormatterMsg (TextFormatterPage.view model.TextFormatterModel)))
         })
             .expandedModeThresholdWidth(760)
 

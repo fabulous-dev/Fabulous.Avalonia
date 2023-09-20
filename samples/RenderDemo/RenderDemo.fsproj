@@ -34,6 +34,7 @@
     <Compile Include="WriteableBitmapPage.fs" />
     <Compile Include="GlyphRunPage.fs" />
     <Compile Include="FormattedTextPage.fs" />
+    <Compile Include="TextFormatterPage.fs" />
     <Compile Include="Animations\Animations1.fs" />
     <Compile Include="Animations\Animations2.fs" />
     <Compile Include="Animations\CustomAnimatorPage.fs" />
