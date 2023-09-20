@@ -54,11 +54,7 @@
     <Compile Include="Pages\CarouselPage.fs" />
     <Compile Include="Pages\CheckBoxPage.fs" />
     <Compile Include="Pages\ClipboardPage.fs" />
-    <Compile Include="Pages\Composition\CustomVisualHandler.fs" />
-    <Compile Include="Pages\Composition\ImplicitAnimations.fs" />
-    <Compile Include="Pages\Composition\Animations.fs" />
-    <Compile Include="Pages\Composition\CustomVisual.fs" />
-    <Compile Include="Pages\Composition\CompositionPage.fs" />
+    <Compile Include="Pages\CompositionPage.fs" />
     <Compile Include="Pages\ComboBoxPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
@@ -132,6 +128,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+    <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
   </ItemGroup>
 
   <Import Project="..\Fabulous.Avalonia.Samples.targets" />
