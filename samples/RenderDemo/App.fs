@@ -26,7 +26,8 @@ module App =
           CustomSkiaControlModel: CustomSkiaPage.Model
           GlyphRunModel: GlyphRunPage.Model
           FormattedTextModel: FormattedTextPage.Model
-          TextFormatterModel: TextFormatterPage.Model }
+          TextFormatterModel: TextFormatterPage.Model
+          RenderTransformModel: RenderTransformPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -45,6 +46,7 @@ module App =
         | GlyphRunMsg of GlyphRunPage.Msg
         | FormattedTextMsg of FormattedTextPage.Msg
         | TextFormatterMsg of TextFormatterPage.Msg
+        | RenderTransformMsg of RenderTransformPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -63,6 +65,7 @@ module App =
         | GlyphRunCmdMsg of GlyphRunPage.CmdMsg list
         | FormattedTextCmdMsg of FormattedTextPage.CmdMsg list
         | TextFormatterCmdMsg of TextFormatterPage.CmdMsg list
+        | RenderTransformCmdMsg of RenderTransformPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -116,6 +119,7 @@ module App =
         let glyphRunModel, glyphRunCmdMsgs = GlyphRunPage.init()
         let formattedTextModel, formattedTextCmdMsgs = FormattedTextPage.init()
         let textFormatterModel, textFormatterCmdMsgs = TextFormatterPage.init()
+        let renderTransformModel, renderTransformCmdMsgs = RenderTransformPage.init()
 
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
@@ -132,7 +136,8 @@ module App =
           CustomSkiaControlModel = customSkiaControlModel
           GlyphRunModel = glyphRunModel
           FormattedTextModel = formattedTextModel
-          TextFormatterModel = textFormatterModel },
+          TextFormatterModel = textFormatterModel
+          RenderTransformModel = renderTransformModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
@@ -148,7 +153,8 @@ module App =
           SubpageCmdMsgs customSkiaControlCmdMsgs
           SubpageCmdMsgs glyphRunCmdMsgs
           SubpageCmdMsgs formattedTextCmdMsgs
-          SubpageCmdMsgs textFormatterCmdMsgs ]
+          SubpageCmdMsgs textFormatterCmdMsgs
+          SubpageCmdMsgs renderTransformCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -272,6 +278,14 @@ module App =
                 TextFormatterModel = textFormatterModel },
             [ SubpageCmdMsgs [ TextFormatterCmdMsg cmdMsgs ] ]
 
+        | RenderTransformMsg msg ->
+            let renderTransformModel, cmdMsgs =
+                RenderTransformPage.update msg model.RenderTransformModel
+
+            { model with
+                RenderTransformModel = renderTransformModel },
+            [ SubpageCmdMsgs [ RenderTransformCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -283,6 +297,7 @@ module App =
             TabItem("Compositor Animations", (View.map CompositorAnimationsMsg (CompositorAnimationsPage.view model.CompositorAnimationsModel)))
             TabItem("Animations", (View.map AnimationsMsg (AnimationsPage.view model.AnimationsModel)))
             TabItem("Transitions", (View.map TransitionMsg (TransitionsPage.view model.TransitionModel)))
+            TabItem("Render Transform", (View.map RenderTransformMsg (RenderTransformPage.view model.RenderTransformModel)))
             TabItem("Brushes", (View.map BrushesMsg (BrushesPage.view model.BrushesModel)))
             TabItem("Clipping", (View.map ClippingMsg (ClippingPage.view model.ClippingModel)))
             TabItem("Drawing", (View.map DrawingMsg (DrawingPage.view model.DrawingModel)))

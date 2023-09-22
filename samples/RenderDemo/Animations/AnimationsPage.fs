@@ -9,13 +9,9 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module AnimationsPage =
-    type Model =
-        { Animations1: Animations1.Model
-          Animations2: Animations2.Model }
+    type Model = { Nothing: string }
 
-    type Msg =
-        | Animations1 of Animations1.Msg
-        | Animations2 of Animations2.Msg
+    type Msg = | Nothing
 
     type CmdMsg = | NoMsg
 
@@ -23,26 +19,11 @@ module AnimationsPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
-    let init () =
-        { Animations1 = Animations1.init()
-          Animations2 = Animations2.init() },
-        []
+    let init () = { Nothing = "" }, []
 
     let update msg model =
         match msg with
-        | Animations1 msg ->
-            let transitions1 = Animations1.update msg model.Animations1
-
-            { model with
-                Animations1 = transitions1 },
-            []
-
-        | Animations2 msg ->
-            let transitions2 = Animations2.update msg model.Animations2
-
-            { model with
-                Animations2 = transitions2 },
-            []
+        | Nothing -> model, []
 
     let borderTest1 (this: WidgetBuilder<'msg, IFabBorder>) =
         this.child(
@@ -58,7 +39,7 @@ module AnimationsPage =
                 .stretch(Stretch.Uniform)
         )
 
-    let view (model: Model) =
+    let view (_: Model) =
         ScrollViewer(
             VStack() {
                 Grid() {
@@ -147,8 +128,5 @@ module AnimationsPage =
                         .verticalAlignment(VerticalAlignment.Center)
                         .clipToBounds(false)
                 }
-
-                View.map Animations1 (Animations1.view model.Animations1)
-                View.map Animations2 (Animations2.view model.Animations2)
             }
         )
