@@ -27,7 +27,8 @@ module App =
           GlyphRunModel: GlyphRunPage.Model
           FormattedTextModel: FormattedTextPage.Model
           TextFormatterModel: TextFormatterPage.Model
-          RenderTransformModel: RenderTransformPage.Model }
+          RenderTransformModel: RenderTransformPage.Model
+          RenderTargetBitmapModel: RenderTargetBitmapPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -47,6 +48,7 @@ module App =
         | FormattedTextMsg of FormattedTextPage.Msg
         | TextFormatterMsg of TextFormatterPage.Msg
         | RenderTransformMsg of RenderTransformPage.Msg
+        | RenderTargetBitmapMsg of RenderTargetBitmapPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -66,6 +68,7 @@ module App =
         | FormattedTextCmdMsg of FormattedTextPage.CmdMsg list
         | TextFormatterCmdMsg of TextFormatterPage.CmdMsg list
         | RenderTransformCmdMsg of RenderTransformPage.CmdMsg list
+        | RenderTargetBitmapCmdMsg of RenderTargetBitmapPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -99,6 +102,8 @@ module App =
                 | GlyphRunCmdMsg cmdMsgs -> map GlyphRunPage.mapCmdMsgToCmd GlyphRunMsg cmdMsgs
                 | FormattedTextCmdMsg cmdMsgs -> map FormattedTextPage.mapCmdMsgToCmd FormattedTextMsg cmdMsgs
                 | TextFormatterCmdMsg cmdMsgs -> map TextFormatterPage.mapCmdMsgToCmd TextFormatterMsg cmdMsgs
+                | RenderTransformCmdMsg cmdMsgs -> map RenderTransformPage.mapCmdMsgToCmd RenderTransformMsg cmdMsgs
+                | RenderTargetBitmapCmdMsg cmdMsgs -> map RenderTargetBitmapPage.mapCmdMsgToCmd RenderTargetBitmapMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -121,6 +126,9 @@ module App =
         let textFormatterModel, textFormatterCmdMsgs = TextFormatterPage.init()
         let renderTransformModel, renderTransformCmdMsgs = RenderTransformPage.init()
 
+        let renderTargetBitmapModel, renderTargetBitmapCmdMsgs =
+            RenderTargetBitmapPage.init()
+
         { ImplicitAnimationModel = implAnimModel
           DrawLineAnimationModel = drawLineModel
           CompositorAnimationsModel = compositorModel
@@ -137,7 +145,8 @@ module App =
           GlyphRunModel = glyphRunModel
           FormattedTextModel = formattedTextModel
           TextFormatterModel = textFormatterModel
-          RenderTransformModel = renderTransformModel },
+          RenderTransformModel = renderTransformModel
+          RenderTargetBitmapModel = renderTargetBitmapModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
@@ -154,7 +163,8 @@ module App =
           SubpageCmdMsgs glyphRunCmdMsgs
           SubpageCmdMsgs formattedTextCmdMsgs
           SubpageCmdMsgs textFormatterCmdMsgs
-          SubpageCmdMsgs renderTransformCmdMsgs ]
+          SubpageCmdMsgs renderTransformCmdMsgs
+          SubpageCmdMsgs renderTargetBitmapCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -286,6 +296,14 @@ module App =
                 RenderTransformModel = renderTransformModel },
             [ SubpageCmdMsgs [ RenderTransformCmdMsg cmdMsgs ] ]
 
+        | RenderTargetBitmapMsg msg ->
+            let renderTargetBitmapModel, cmdMsgs =
+                RenderTargetBitmapPage.update msg model.RenderTargetBitmapModel
+
+            { model with
+                RenderTargetBitmapModel = renderTargetBitmapModel },
+            [ SubpageCmdMsgs [ RenderTargetBitmapCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -304,6 +322,7 @@ module App =
             TabItem("Line Bounds", (View.map LineBoundsMsg (LineBoundsPage.view model.LineBoundsModel)))
             TabItem("Transform3D", (View.map TransformMsg (Transform3DPage.view model.TransformModel)))
             TabItem("Writable Bitmap", (View.map WritableBitmapMsg (WriteableBitmapPage.view model.WritableBitmapModel)))
+            TabItem("Render Target Bitmap", (View.map RenderTargetBitmapMsg (RenderTargetBitmapPage.view model.RenderTargetBitmapModel)))
             TabItem("Custom Animator", (View.map CustomAnimatorMsg (CustomAnimatorPage.view model.CustomAnimatorModel)))
             TabItem("SkCanvas", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
             TabItem("GlyphRun", (View.map GlyphRunMsg (GlyphRunPage.view model.GlyphRunModel)))

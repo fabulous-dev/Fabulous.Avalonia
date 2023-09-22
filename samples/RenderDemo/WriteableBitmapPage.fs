@@ -14,6 +14,7 @@ open Fabulous
 
 open type Fabulous.Avalonia.View
 
+
 type WriteableBitmapControl() =
     inherit Control()
 
@@ -108,4 +109,4 @@ module WriteableBitmapPage =
         match msg with
         | DoNothing -> model, []
 
-    let view model = Grid() { View.WriteableBitmap() }
+    let view _ = Grid() { View.WriteableBitmap() }

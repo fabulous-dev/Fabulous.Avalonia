@@ -19,6 +19,10 @@ module RenderTransformPage =
 
     let init () = { Value = 0 }, []
 
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
     let update msg model =
         match msg with
         | DoNothing -> model, []
