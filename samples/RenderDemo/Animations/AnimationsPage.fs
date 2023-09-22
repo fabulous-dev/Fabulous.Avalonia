@@ -102,33 +102,19 @@ module AnimationsPage =
                                     .style(borderTest1)
                                     .classes([ "Test"; "Shadow" ])
                                     .cornerRadius(CornerRadius(10.))
-                                    .child(null)
 
                                 Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Shadow" ])
                                     .cornerRadius(CornerRadius(0., 30., 60., 0.))
-                                    .child(null)
 
-                                Border()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect7" ])
-                                    .child(null)
+                                Border().style(borderTest1).classes([ "Test"; "Rect7" ])
 
-                                Border()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect8" ])
-                                    .child(null)
+                                Border().style(borderTest1).classes([ "Test"; "Rect8" ])
 
-                                Border()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect9" ])
-                                    .child(null)
+                                Border().style(borderTest1).classes([ "Test"; "Rect9" ])
 
-                                Border()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect10" ])
-                                    .child(null)
+                                Border().style(borderTest1).classes([ "Test"; "Rect10" ])
 
                                 Border()
                                     .style(borderTest1)

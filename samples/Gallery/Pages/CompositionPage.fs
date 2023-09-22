@@ -41,4 +41,4 @@ module CompositionPage =
         match msg with
         | NothingMsg -> model, []
 
-    let rec view _ = View.CompositionPageControl()
+    let view _ = View.CompositionPageControl()

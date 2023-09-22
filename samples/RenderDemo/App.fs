@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open Avalonia.Markup.Xaml.Styling
 open Fabulous
 open Fabulous.Avalonia
@@ -302,5 +303,14 @@ module App =
 #else
     let app model = DesktopApplication(Window(view model))
 #endif
-
-    let program = Program.statefulWithCmdMsg init update app mapCmdMsgToCmd
+    let program =
+        Program.statefulWithCmdMsg init update app mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )

@@ -96,39 +96,27 @@ module TransitionsPage =
                             .style(borderTest1)
                             .classes([ "Test"; "Shadow" ])
                             .cornerRadius(CornerRadius(10.))
-                            .child(null)
 
                         Border()
                             .style(borderTest1)
                             .classes([ "Test"; "Shadow" ])
                             .cornerRadius(CornerRadius(0., 30., 60., 0.))
-                            .child(null)
 
                         Border()
                             .style(borderTest1)
                             .classes([ "Test"; "Shadow" ])
                             .cornerRadius(CornerRadius(0., 30., 60., 0.))
-                            .child(null)
 
                         Border().style(borderTest1).classes([ "Test"; "Rect10" ])
 
 
                         Border().style(borderTest1).classes([ "Test"; "Rect11" ])
 
-                        Border()
-                            .style(borderTest1)
-                            .classes([ "Test"; "Rect12" ])
-                            .child(null)
+                        Border().style(borderTest1).classes([ "Test"; "Rect12" ])
 
-                        Border()
-                            .style(borderTest1)
-                            .classes([ "Test"; "Rect13" ])
-                            .child(null)
+                        Border().style(borderTest1).classes([ "Test"; "Rect13" ])
 
-                        Border()
-                            .style(borderTest1)
-                            .classes([ "Test"; "Rect14" ])
-                            .child(null)
+                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
 
                         Border().style(borderTest1).classes([ "Test"; "Rect14" ])
 
