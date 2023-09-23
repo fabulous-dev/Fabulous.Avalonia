@@ -66,12 +66,6 @@ type LineBoundsControl() =
 
     do LineBoundsControl.AffectsRender<LineBoundsControl>(LineBoundsControl.AngleProperty)
 
-    // do
-    //     let timer = DispatcherTimer()
-    //     timer.Interval <- TimeSpan.FromSeconds(1. / 60.)
-    //     timer.Tick.Add(fun _ -> _angle <- _angle + Math.PI / 360.)
-    //     timer.Start()
-
     override this.OnAttachedToVisualTree(_: VisualTreeAttachmentEventArgs) =
         _timer <- DispatcherTimer()
         _timer.Interval <- TimeSpan.FromSeconds(1. / 60.)

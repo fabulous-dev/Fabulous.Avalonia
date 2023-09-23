@@ -1,5 +1,7 @@
 namespace Gallery
 
+open Avalonia.Controls
+open Avalonia.Layout
 open Fabulous
 open Fabulous.Avalonia
 open Gallery
@@ -8,24 +10,9 @@ open Types
 open type Fabulous.Avalonia.View
 
 module HamburgerMenu =
-    // let settingsButtonStyle (this: WidgetBuilder<'msg, IFabButton>) =
-    //     this
-    //         .horizontalContentAlignment(HorizontalAlignment.Stretch)
-    //         .verticalContentAlignment(VerticalAlignment.Center)
-    //         .horizontalAlignment(HorizontalAlignment.Stretch)
-    //         .verticalAlignment(VerticalAlignment.Stretch)
-    //         .fontWeight(FontWeight.Normal)
-    //         .minHeight(0.)
-    //         .height(36.)
-    //         .background(Brushes.Transparent)
-    //         .padding(12., 0., 4., 0.)
-    //         .margin(4., 0., 8., 0.)
-    //         .cornerRadius(8.)
-    //         .clipToBounds(false)
-
     let mainView model =
         Grid(rowdefs = [ Star; Auto ], coldefs = [ Star ]) {
-            HamburgerMenu() {
+            (HamburgerMenu() {
                 TabItem("AcrylicPage", AnyView(View.map AcrylicPageMsg (AcrylicPage.view model.AcrylicPageModel)))
                 TabItem("AdornerLayerPage", AnyView(View.map AdornerLayerPageMsg (AdornerLayerPage.view model.AdornerLayerPageModel)))
                 TabItem("AutoCompleteBoxPage", AnyView(View.map AutoCompleteBoxPageMsg (AutoCompleteBoxPage.view model.AutoCompleteBoxPageModel)))
@@ -103,56 +90,52 @@ module HamburgerMenu =
                 TabItem("ThemeAwarePage", AnyView(View.map ThemeAwarePageMsg (ThemeAwarePage.view model.ThemeAwarePageModel)))
                 TabItem("UniformGridPage", AnyView(View.map UniformGridPageMsg (UniformGridPage.view model.UniformGridPageModel)))
                 TabItem("ViewBoxPage", AnyView(View.map ViewBoxPageMsg (ViewBoxPage.view model.ViewBoxPageModel)))
-            }
+            })
+                .attachedFlyout(
+                    Flyout(
+                        VStack() {
+                            (ComboBox() {
+                                ComboBoxItem("None")
+                                ComboBoxItem("BorderOnly")
+                                ComboBoxItem("Full")
+                            })
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .placeholderText("Decorations")
+                                .onSelectionChanged(DecorationsOnSelectionChanged)
 
-        // Button("Settings", Settings)
-        //     .style(settingsButtonStyle)
-        //     .gridRow(2)
-        //     .flyout(
-        //         Flyout(
-        //             VStack() {
-        //                 (ComboBox() {
-        //                     ComboBoxItem("None")
-        //                     ComboBoxItem("BorderOnly")
-        //                     ComboBoxItem("Full")
-        //                 })
-        //                     .horizontalAlignment(HorizontalAlignment.Stretch)
-        //                     .placeholderText("Decorations")
-        //                     .onSelectionChanged(DecorationsOnSelectionChanged)
-        //
-        //                 ComboBox(model.ThemeVariants, (fun i -> TextBlock(i.ToString())))
-        //                     .horizontalAlignment(HorizontalAlignment.Stretch)
-        //                     .placeholderText("Themes")
-        //                     .onSelectionChanged(ThemeVariantsOnSelectionChanged)
-        //
-        //                 ComboBox(model.FlowDirections, (fun x -> TextBlock(x.ToString())))
-        //                     .horizontalAlignment(HorizontalAlignment.Stretch)
-        //                     .placeholderText("FlowDirections")
-        //                     .onSelectionChanged(FlowDirectionsOnSelectionChanged)
-        //
-        //                 (ComboBox() {
-        //                     ComboBoxItem("Fluent")
-        //                     ComboBoxItem("Simple")
-        //                 })
-        //                     .horizontalAlignment(HorizontalAlignment.Stretch)
-        //                     .selectedIndex(0)
-        //
-        //                 ComboBox(model.TransparencyLevels, (fun x -> TextBlock(x.ToString())))
-        //                     .horizontalAlignment(HorizontalAlignment.Stretch)
-        //                     .placeholderText("TransparencyLevels")
-        //                     .onSelectionChanged(TransparencyLevelsOnSelectionChanged)
-        //
-        //                 (ComboBox() {
-        //                     ComboBoxItem("Normal")
-        //                     ComboBoxItem("Minimized")
-        //                     ComboBoxItem("Maximized")
-        //                     ComboBoxItem("FullScreen")
-        //                 })
-        //                     .horizontalAlignment(HorizontalAlignment.Stretch)
-        //                     .selectedIndex(0)
-        //             }
-        //         )
-        //             .showMode(FlyoutShowMode.Standard)
-        //             .placement(PlacementMode.RightEdgeAlignedTop)
-        //     )
+                            ComboBox(model.ThemeVariants, (fun i -> TextBlock(i.ToString())))
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .placeholderText("Themes")
+                                .onSelectionChanged(ThemeVariantsOnSelectionChanged)
+
+                            ComboBox(model.FlowDirections, (fun x -> TextBlock(x.ToString())))
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .placeholderText("FlowDirections")
+                                .onSelectionChanged(FlowDirectionsOnSelectionChanged)
+
+                            (ComboBox() {
+                                ComboBoxItem("Fluent")
+                                ComboBoxItem("Simple")
+                            })
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .selectedIndex(0)
+
+                            ComboBox(model.TransparencyLevels, (fun x -> TextBlock(x.ToString())))
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .placeholderText("TransparencyLevels")
+                                .onSelectionChanged(TransparencyLevelsOnSelectionChanged)
+
+                            (ComboBox() {
+                                ComboBoxItem("Normal")
+                                ComboBoxItem("Minimized")
+                                ComboBoxItem("Maximized")
+                                ComboBoxItem("FullScreen")
+                            })
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .selectedIndex(0)
+                        }
+                    )
+                        .showMode(FlyoutShowMode.Standard)
+                        .placement(PlacementMode.RightEdgeAlignedTop)
+                )
         }

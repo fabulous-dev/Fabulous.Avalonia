@@ -41,9 +41,6 @@ module ItemsControl =
 
     let WidgetKey = Widgets.register<FabItemsControl>()
 
-    let ItemsPanel =
-        Attributes.defineWidget "ItemsControl_ItemTemplate" ItemsControlUpdaters.itemsPanelApplyDiff ItemsControlUpdaters.itemsPanelUpdateNode
-
     let Items =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
@@ -95,11 +92,6 @@ module ItemsControlBuilders =
 
 [<Extension>]
 type ItemsControlModifiers =
-
-    [<Extension>]
-    static member inline itemsPanel(this: WidgetBuilder<'msg, #IFabItemsControl>, value: WidgetBuilder<'msg, #IFabPanel>) =
-        this.AddWidget(ItemsControl.ItemsPanel.WithValue(value.Compile()))
-
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the actual theme variant changes.</param>
