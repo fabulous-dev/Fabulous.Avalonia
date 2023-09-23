@@ -28,7 +28,8 @@ module App =
           FormattedTextModel: FormattedTextPage.Model
           TextFormatterModel: TextFormatterPage.Model
           RenderTransformModel: RenderTransformPage.Model
-          RenderTargetBitmapModel: RenderTargetBitmapPage.Model }
+          RenderTargetBitmapModel: RenderTargetBitmapPage.Model
+          PathMeasurementModel: PathMeasurementPage.Model }
 
     type Msg =
         | ImplicitAnimationMsg of ImplicitCanvasAnimationsPage.Msg
@@ -49,6 +50,7 @@ module App =
         | TextFormatterMsg of TextFormatterPage.Msg
         | RenderTransformMsg of RenderTransformPage.Msg
         | RenderTargetBitmapMsg of RenderTargetBitmapPage.Msg
+        | PathMeasurementMsg of PathMeasurementPage.Msg
 
     type SubpageCmdMsg =
         | ImplicitAnimationCmdMsg of ImplicitCanvasAnimationsPage.CmdMsg list
@@ -69,6 +71,7 @@ module App =
         | TextFormatterCmdMsg of TextFormatterPage.CmdMsg list
         | RenderTransformCmdMsg of RenderTransformPage.CmdMsg list
         | RenderTargetBitmapCmdMsg of RenderTargetBitmapPage.CmdMsg list
+        | PathMeasurementCmdMsg of PathMeasurementPage.CmdMsg list
 
     type CmdMsg =
         | NoCmdMsg
@@ -104,6 +107,7 @@ module App =
                 | TextFormatterCmdMsg cmdMsgs -> map TextFormatterPage.mapCmdMsgToCmd TextFormatterMsg cmdMsgs
                 | RenderTransformCmdMsg cmdMsgs -> map RenderTransformPage.mapCmdMsgToCmd RenderTransformMsg cmdMsgs
                 | RenderTargetBitmapCmdMsg cmdMsgs -> map RenderTargetBitmapPage.mapCmdMsgToCmd RenderTargetBitmapMsg cmdMsgs
+                | PathMeasurementCmdMsg cmdMsgs -> map PathMeasurementPage.mapCmdMsgToCmd PathMeasurementMsg cmdMsgs
 
             cmdMsgs |> List.map mapSubpageCmdMsg |> List.collect id |> Cmd.batch
 
@@ -125,6 +129,7 @@ module App =
         let formattedTextModel, formattedTextCmdMsgs = FormattedTextPage.init()
         let textFormatterModel, textFormatterCmdMsgs = TextFormatterPage.init()
         let renderTransformModel, renderTransformCmdMsgs = RenderTransformPage.init()
+        let pathMeasurementModel, pathMeasurementCmdMsgs = PathMeasurementPage.init()
 
         let renderTargetBitmapModel, renderTargetBitmapCmdMsgs =
             RenderTargetBitmapPage.init()
@@ -146,7 +151,8 @@ module App =
           FormattedTextModel = formattedTextModel
           TextFormatterModel = textFormatterModel
           RenderTransformModel = renderTransformModel
-          RenderTargetBitmapModel = renderTargetBitmapModel },
+          RenderTargetBitmapModel = renderTargetBitmapModel
+          PathMeasurementModel = pathMeasurementModel },
         [ SubpageCmdMsgs implCmdMsgs
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
@@ -164,7 +170,8 @@ module App =
           SubpageCmdMsgs formattedTextCmdMsgs
           SubpageCmdMsgs textFormatterCmdMsgs
           SubpageCmdMsgs renderTransformCmdMsgs
-          SubpageCmdMsgs renderTargetBitmapCmdMsgs ]
+          SubpageCmdMsgs renderTargetBitmapCmdMsgs
+          SubpageCmdMsgs pathMeasurementCmdMsgs ]
 
     let update msg model =
         match msg with
@@ -304,6 +311,14 @@ module App =
                 RenderTargetBitmapModel = renderTargetBitmapModel },
             [ SubpageCmdMsgs [ RenderTargetBitmapCmdMsg cmdMsgs ] ]
 
+        | PathMeasurementMsg msg ->
+            let pathMeasurementModel, cmdMsgs =
+                PathMeasurementPage.update msg model.PathMeasurementModel
+
+            { model with
+                PathMeasurementModel = pathMeasurementModel },
+            [ SubpageCmdMsgs [ PathMeasurementCmdMsg cmdMsgs ] ]
+
     let view model =
         let theme = StyleInclude(baseUri = null)
         theme.Source <- Uri("avares://RenderDemo/App.xaml")
@@ -323,6 +338,7 @@ module App =
             TabItem("Transform3D", (View.map TransformMsg (Transform3DPage.view model.TransformModel)))
             TabItem("Writable Bitmap", (View.map WritableBitmapMsg (WriteableBitmapPage.view model.WritableBitmapModel)))
             TabItem("Render Target Bitmap", (View.map RenderTargetBitmapMsg (RenderTargetBitmapPage.view model.RenderTargetBitmapModel)))
+            TabItem("Path Measurement", (View.map PathMeasurementMsg (PathMeasurementPage.view model.PathMeasurementModel)))
             TabItem("Custom Animator", (View.map CustomAnimatorMsg (CustomAnimatorPage.view model.CustomAnimatorModel)))
             TabItem("SkCanvas", (View.map CustomSkiaControlMsg (CustomSkiaPage.view model.CustomSkiaControlModel)))
             TabItem("GlyphRun", (View.map GlyphRunMsg (GlyphRunPage.view model.GlyphRunModel)))
@@ -339,9 +355,9 @@ module App =
 #endif
     let program =
         Program.statefulWithCmdMsg init update app mapCmdMsgToCmd
+#if DEBUG
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
             printfn $"Exception: %s{ex.ToString()}"
             false
 #else
