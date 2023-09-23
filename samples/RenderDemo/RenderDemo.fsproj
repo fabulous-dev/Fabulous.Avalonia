@@ -38,6 +38,7 @@
     <Compile Include="FormattedTextPage.fs" />
     <Compile Include="TextFormatterPage.fs" />
     <Compile Include="Animations\RenderTransformPage.fs" />
+    <Compile Include="Animations\SpringAnimationsPage.fs" />
     <Compile Include="Animations\CustomAnimatorPage.fs" />
     <Compile Include="Animations\CustomSkiaPage.fs" />
     <Compile Include="Animations\AnimationsPage.fs" />

@@ -15,6 +15,7 @@ module App =
           DrawLineAnimationModel: DrawLineAnimationPage.Model
           CompositorAnimationsModel: CompositorAnimationsPage.Model
           AnimationsModel: AnimationsPage.Model
+          SpringAnimationsModel: SpringAnimationsPage.Model
           TransitionModel: TransitionsPage.Model
           BrushesModel: BrushesPage.Model
           ClippingModel: ClippingPage.Model
@@ -36,6 +37,7 @@ module App =
         | DraLineAnimationMsg of DrawLineAnimationPage.Msg
         | CompositorAnimationsMsg of CompositorAnimationsPage.Msg
         | AnimationsMsg of AnimationsPage.Msg
+        | SpringAnimationsMsg of SpringAnimationsPage.Msg
         | TransitionMsg of TransitionsPage.Msg
         | BrushesMsg of BrushesPage.Msg
         | ClippingMsg of ClippingPage.Msg
@@ -57,6 +59,7 @@ module App =
         | DrawLineAnimationCmdMsg of DrawLineAnimationPage.CmdMsg list
         | CompositorAnimationsCmdMsg of CompositorAnimationsPage.CmdMsg list
         | AnimationsCmdMsg of AnimationsPage.CmdMsg list
+        | SpringAnimationsCmdMsg of SpringAnimationsPage.CmdMsg list
         | TransitionCmdMsg of TransitionsPage.CmdMsg list
         | BrushesCmdMsg of BrushesPage.CmdMsg list
         | ClippingCmdMsg of ClippingPage.CmdMsg list
@@ -93,6 +96,7 @@ module App =
                 | DrawLineAnimationCmdMsg cmdMsgs -> map DrawLineAnimationPage.mapCmdMsgToCmd DraLineAnimationMsg cmdMsgs
                 | CompositorAnimationsCmdMsg cmdMsgs -> map CompositorAnimationsPage.mapCmdMsgToCmd CompositorAnimationsMsg cmdMsgs
                 | AnimationsCmdMsg cmdMsgs -> map AnimationsPage.mapCmdMsgToCmd AnimationsMsg cmdMsgs
+                | SpringAnimationsCmdMsg cmdMsgs -> map SpringAnimationsPage.mapCmdMsgToCmd SpringAnimationsMsg cmdMsgs
                 | TransitionCmdMsg cmdMsgs -> map TransitionsPage.mapCmdMsgToCmd TransitionMsg cmdMsgs
                 | BrushesCmdMsg cmdMsgs -> map BrushesPage.mapCmdMsgToCmd BrushesMsg cmdMsgs
                 | ClippingCmdMsg cmdMsgs -> map ClippingPage.mapCmdMsgToCmd ClippingMsg cmdMsgs
@@ -116,6 +120,7 @@ module App =
         let drawLineModel, drawLineCmdMsgs = DrawLineAnimationPage.init()
         let compositorModel, compositorCmdMsgs = CompositorAnimationsPage.init()
         let animationsModel, animationsCmdMsgs = AnimationsPage.init()
+        let springAnimationsModel, springAnimationsCmdMsgs = SpringAnimationsPage.init()
         let transitionModel, transitionCmdMsgs = TransitionsPage.init()
         let brushesModel, brushesCmdMsgs = BrushesPage.init()
         let clippingModel, clippingCmdMsgs = ClippingPage.init()
@@ -138,6 +143,7 @@ module App =
           DrawLineAnimationModel = drawLineModel
           CompositorAnimationsModel = compositorModel
           AnimationsModel = animationsModel
+          SpringAnimationsModel = springAnimationsModel 
           TransitionModel = transitionModel
           BrushesModel = brushesModel
           ClippingModel = clippingModel
@@ -157,6 +163,7 @@ module App =
           SubpageCmdMsgs drawLineCmdMsgs
           SubpageCmdMsgs compositorCmdMsgs
           SubpageCmdMsgs animationsCmdMsgs
+          SubpageCmdMsgs springAnimationsCmdMsgs
           SubpageCmdMsgs transitionCmdMsgs
           SubpageCmdMsgs brushesCmdMsgs
           SubpageCmdMsgs clippingCmdMsgs
@@ -205,6 +212,13 @@ module App =
             { model with
                 AnimationsModel = animationsModel },
             [ SubpageCmdMsgs [ AnimationsCmdMsg cmdMsgs ] ]
+            
+        | SpringAnimationsMsg msg ->
+            let springAnimationsModel, cmdMsgs = SpringAnimationsPage.update msg model.SpringAnimationsModel
+
+            { model with
+                SpringAnimationsModel = springAnimationsModel },
+            [ SubpageCmdMsgs [ SpringAnimationsCmdMsg cmdMsgs ] ]
 
         | TransitionMsg msg ->
             let transitionModel, cmdMsgs = TransitionsPage.update msg model.TransitionModel
@@ -329,6 +343,7 @@ module App =
             TabItem("Draw Line Animation", (View.map DraLineAnimationMsg (DrawLineAnimationPage.view model.DrawLineAnimationModel)))
             TabItem("Compositor Animations", (View.map CompositorAnimationsMsg (CompositorAnimationsPage.view model.CompositorAnimationsModel)))
             TabItem("Animations", (View.map AnimationsMsg (AnimationsPage.view model.AnimationsModel)))
+            TabItem("Spring Animations", (View.map SpringAnimationsMsg (SpringAnimationsPage.view model.SpringAnimationsModel)))
             TabItem("Transitions", (View.map TransitionMsg (TransitionsPage.view model.TransitionModel)))
             TabItem("Render Transform", (View.map RenderTransformMsg (RenderTransformPage.view model.RenderTransformModel)))
             TabItem("Brushes", (View.map BrushesMsg (BrushesPage.view model.BrushesModel)))
