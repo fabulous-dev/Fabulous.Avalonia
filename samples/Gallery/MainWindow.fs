@@ -1,4 +1,4 @@
-namespace Gallery.Root
+namespace Gallery
 
 open System
 open Avalonia.Controls
@@ -14,12 +14,12 @@ module MainWindow =
             NativeMenuItem("Edit")
                 .menu(
                     NativeMenu() {
-                        NativeMenuItem((if model.IsPanOpen then "Close Pan" else "Open Pan"), DoNothing)
+                        NativeMenuItem("Close Pan", DoNothing)
+                        NativeMenuItem("Open Pan", DoNothing)
                         NativeMenuItemSeparator()
 
                         NativeMenuItem("After separator", DoNothing)
                             .toggleType(NativeMenuItemToggleType.CheckBox)
-                            .isChecked(model.IsPanOpen)
                     }
                 )
         }
@@ -60,7 +60,7 @@ module MainWindow =
     let view (model: Model) =
         //FabApplication.Current.AppTheme <- FluentTheme()
         let theme = StyleInclude(baseUri = null)
-        theme.Source <- Uri("avares://Gallery/Styles/DefaultTheme.xaml")
+        theme.Source <- Uri("avares://Gallery/App.xaml")
         FabApplication.Current.Styles.Add(theme)
 
         DesktopApplication(

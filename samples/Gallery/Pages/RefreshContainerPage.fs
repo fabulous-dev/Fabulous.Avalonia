@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System.Collections.ObjectModel
 open System.Threading.Tasks

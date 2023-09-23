@@ -77,12 +77,12 @@ module App =
         | PathMeasurementCmdMsg of PathMeasurementPage.CmdMsg list
 
     type CmdMsg =
-        | NoCmdMsg
+        | NewMsg of Msg
         | SubpageCmdMsgs of SubpageCmdMsg list
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoCmdMsg -> Cmd.none
+        | NewMsg msg -> Cmd.ofMsg msg
         | SubpageCmdMsgs cmdMsgs ->
             let mapSubpageCmdMsg (cmdMsgs: SubpageCmdMsg) =
                 let map (mapCmdMsgFn: 'subCmdMsg -> Cmd<'subMsg>) (mapFn: 'subMsg -> 'msg) (subCmdMsgs: 'subCmdMsg list) =
@@ -143,7 +143,7 @@ module App =
           DrawLineAnimationModel = drawLineModel
           CompositorAnimationsModel = compositorModel
           AnimationsModel = animationsModel
-          SpringAnimationsModel = springAnimationsModel 
+          SpringAnimationsModel = springAnimationsModel
           TransitionModel = transitionModel
           BrushesModel = brushesModel
           ClippingModel = clippingModel
@@ -212,9 +212,10 @@ module App =
             { model with
                 AnimationsModel = animationsModel },
             [ SubpageCmdMsgs [ AnimationsCmdMsg cmdMsgs ] ]
-            
+
         | SpringAnimationsMsg msg ->
-            let springAnimationsModel, cmdMsgs = SpringAnimationsPage.update msg model.SpringAnimationsModel
+            let springAnimationsModel, cmdMsgs =
+                SpringAnimationsPage.update msg model.SpringAnimationsModel
 
             { model with
                 SpringAnimationsModel = springAnimationsModel },
@@ -370,9 +371,9 @@ module App =
 #endif
     let program =
         Program.statefulWithCmdMsg init update app mapCmdMsgToCmd
-#if DEBUG
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
             printfn $"Exception: %s{ex.ToString()}"
             false
 #else

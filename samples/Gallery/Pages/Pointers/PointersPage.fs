@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Avalonia.Controls
 open Avalonia.Input
@@ -105,7 +105,7 @@ Position: {position.X} {position.Y}"
             TabItem(
                 TextBlock("IntermediatePoints"),
                 (Panel() {
-                    PointerCanvas(true, model.ThreadSleep, StatusChanged)
+                    View.PointerCanvas(true, model.ThreadSleep, StatusChanged)
 
                     Border(
                         (VStack() {
@@ -130,7 +130,7 @@ Position: {position.X} {position.Y}"
             TabItem(
                 TextBlock("Pressure"),
                 (Panel() {
-                    PointerCanvas(false, 0, StatusChanged2)
+                    View.PointerCanvas(false, 0, StatusChanged2)
 
                     TextBlock(model.Status2)
                         .horizontalAlignment(HorizontalAlignment.Left)

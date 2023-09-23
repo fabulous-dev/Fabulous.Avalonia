@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Styles\*.xaml" />
+    <AvaloniaResource Include="*.xaml" />
     <AvaloniaResource Include="Assets\**\*" />
     <AvaloniaResource Include="Assets\*" />
     <AvaloniaResource Include="Assets\Fonts\*" />
@@ -41,7 +42,6 @@
 <!--  Pages-->
   <ItemGroup>
     <Compile Include="Common.fs" />
-    <Compile Include="Views\CustomNotificationView.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\AutoCompleteBoxPage.fs" />
@@ -111,12 +111,11 @@
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />
     <Compile Include="Pages\ViewBoxPage.fs" />
-    <Compile Include="Root\NaviagtionState.fs" />
-    <Compile Include="Root\Types.fs" />
-    <Compile Include="Root\State.fs" />
-    <Compile Include="Root\HamburgerMenu.fs" />
-    <Compile Include="Root\MainWindow.fs" />
-    <Compile Include="Root\MainView.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="State.fs" />
+    <Compile Include="HamburgerMenu.fs" />
+    <Compile Include="MainWindow.fs" />
+    <Compile Include="MainView.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   
