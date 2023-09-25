@@ -48,10 +48,6 @@ module BorderBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-        /// <summary>Creates a Border widget.</summary>
-        static member Border<'msg>() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 [<Extension>]
 type BorderModifiers =
     /// <summary>Sets the Background property.</summary>

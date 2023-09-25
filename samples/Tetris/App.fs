@@ -11,6 +11,16 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 open Avalonia.Themes.Fluent
 
+open Fabulous.StackAllocatedCollections.StackList
+
+[<AutoOpen>]
+module EmptyBorderBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a empty Border widget.</summary>
+        static member Border<'msg>() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 // Credits to https://github.com/RyushiAok/Tetris for the original code
 type Board =
     { width: int
@@ -204,7 +214,7 @@ module App =
             let colors = toColor state
 
             for color in colors do
-                AnyView(Border(Border().background(color)).padding(0.8))
+                AnyView(Border(View.Border().background(color)).padding(0.8))
         })
             .width(280.)
             .height(480.)
@@ -229,7 +239,7 @@ module App =
                 | None -> ()
                 | Some colors ->
                     for color in colors do
-                        Border(Border().background(color)).padding(1.5)
+                        Border(View.Border().background(color)).padding(1.5)
             })
                 .height(70.0)
                 .width(70.0)

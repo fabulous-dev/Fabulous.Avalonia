@@ -1,7 +1,6 @@
 namespace RenderDemo
 
 open System.Runtime.CompilerServices
-open Avalonia.Controls
 open Avalonia.Media
 open Controls.HamburgerMenu
 open Fabulous
@@ -50,3 +49,11 @@ type HamburgerMenuModifiers =
     [<Extension>]
     static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: int) =
         this.AddScalar(HamburgerMenu.ExpandedModeThresholdWidth.WithValue(value))
+
+[<AutoOpen>]
+module EmptyBorderBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a empty Border widget.</summary>
+        static member Border<'msg>() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

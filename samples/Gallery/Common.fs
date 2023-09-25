@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System.Runtime.CompilerServices
+open Avalonia.Controls
 open Avalonia.Media
 open Controls.HamburgerMenu
 open Fabulous.Avalonia
@@ -68,6 +69,16 @@ module Task =
                 return output.ToArray()
             }
 
+open Fabulous.StackAllocatedCollections.StackList
+
+[<AutoOpen>]
+module EmptyBorderBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a empty Border widget.</summary>
+        static member Border<'msg>() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 type IFabHamburgerMenu =
     inherit IFabTabControl
 
@@ -109,7 +120,25 @@ type HamburgerMenuModifiers =
     static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: int) =
         this.AddScalar(HamburgerMenuExt.ExpandedModeThresholdWidth.WithValue(value))
 
-open Avalonia.Controls
+type IFabItemsControl =
+    inherit IFabTemplatedControl
+
+module FabItemsControl =
+
+    let WidgetKey = Widgets.register<ItemsControl>()
+
+[<AutoOpen>]
+module FabItemsControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member inline ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+            (
+                items: seq<'itemData>,
+                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
+            ) =
+            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> FabItemsControl.WidgetKey ItemsControl.ItemsSource items template
+
+
 open Avalonia.Layout
 open type Fabulous.Avalonia.View
 

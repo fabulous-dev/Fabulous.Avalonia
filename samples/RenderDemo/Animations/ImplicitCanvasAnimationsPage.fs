@@ -83,7 +83,7 @@ module ImplicitCanvasAnimationsPage =
         | AddChild
         | ToggleBenchmark
         | StopBenchmarkAndClearChildren
-    
+
     let canvasRef = ViewRef<Canvas>()
     let mutable implicitAnimations: ImplicitAnimationCollection = null
 
@@ -140,44 +140,43 @@ module ImplicitCanvasAnimationsPage =
 
 
     let mutable cts: CancellationTokenSource = null
-    
+
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
         | AddChild ->
             Cmd.ofSub(fun dispatch ->
-                add ()
-                dispatch ChildAdded
-            )
-            
+                add()
+                dispatch ChildAdded)
+
         | ToggleBenchmark ->
-            Cmd.ofSub(fun dispatch ->
+            Cmd.ofSub(fun _ ->
                 if cts = null then
                     cts <- new CancellationTokenSource()
+
                     let renderDemo =
                         async {
                             let! ct = Async.CancellationToken
+
                             while not ct.IsCancellationRequested do
                                 do! Async.Sleep 50
-                                Dispatcher.UIThread.Post(fun _ ->
-                                    add ()
-                                    // TODO: Investigate performance of the MVU loop on Fabulous
-                                    //dispatch ChildAdded
+                                Dispatcher.UIThread.Post(fun _ -> add()
+                                // TODO: Investigate performance of the MVU loop on Fabulous
+                                //dispatch ChildAdded
                                 )
                         }
-                    
+
                     Async.Start(renderDemo, cts.Token)
                 else
                     cts.Cancel()
                     cts.Dispose()
-                    cts <- null
-            )
-            
+                    cts <- null)
+
         | StopBenchmarkAndClearChildren ->
             if cts <> null then
                 cts.Cancel()
                 cts.Dispose()
                 cts <- null
-            
+
             canvasRef.Value.Children.Clear()
             Cmd.ofMsg ChildrenCleared
 
@@ -189,20 +188,21 @@ module ImplicitCanvasAnimationsPage =
     let update msg model =
         match msg with
         | ChildAdded ->
-            { model with ChildrenCount = model.ChildrenCount + 1 }, []
-            
-        | ChildrenCleared ->
-            { model with ChildrenCount = 0 }, []
-        
-        | ButtonClear ->
-            model, [StopBenchmarkAndClearChildren]
-            
+            { model with
+                ChildrenCount = model.ChildrenCount + 1 },
+            []
+
+        | ChildrenCleared -> { model with ChildrenCount = 0 }, []
+
+        | ButtonClear -> model, [ StopBenchmarkAndClearChildren ]
+
         | ButtonBenchmark ->
-            { model with BenchmarkRunning = not model.BenchmarkRunning }, [ToggleBenchmark]
-            
-        | ButtonAdd ->
-            model, [AddChild]
-            
+            { model with
+                BenchmarkRunning = not model.BenchmarkRunning },
+            [ ToggleBenchmark ]
+
+        | ButtonAdd -> model, [ AddChild ]
+
         | ButtonFps -> model, []
 
 

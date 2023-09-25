@@ -11,6 +11,16 @@ open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
+open Fabulous.StackAllocatedCollections.StackList
+
+[<AutoOpen>]
+module EmptyBorderBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a empty Border widget.</summary>
+        static member Border<'msg>() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 module ColorPicker =
     type Model = { Color: Color }
 
@@ -28,7 +38,8 @@ module ColorPicker =
 
         HStack(5.) {
             for item in brushes do
-                Border()
+                View
+                    .Border()
                     .width(32.0)
                     .height(32.0)
                     .cornerRadius(16.0)
@@ -59,7 +70,8 @@ module SizePicker =
 
         HStack(5.) {
             for item in sizes do
-                Border()
+                View
+                    .Border()
                     .width(item)
                     .height(item)
                     .cornerRadius(item / 2.0)

@@ -2,45 +2,12 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Controls.Templates
 open Fabulous
-
-type FabItemsControl() =
-    inherit ItemsControl()
-    let mutable _itemsPanel: Panel = null
-
-    let funcTemplate = FuncTemplate<Panel>(fun _ -> _itemsPanel)
-
-    do base.ItemsPanel <- funcTemplate
-
-    member this.ItemsPanel
-        with get () = _itemsPanel
-        and set value = _itemsPanel <- value
-
-    override this.StyleKeyOverride = typeof<ItemsControl>
-
-module ItemsControlUpdaters =
-    let itemsPanelApplyDiff (diff: WidgetDiff) (node: IViewNode) =
-        let target = node.Target :?> FabItemsControl
-        let childViewNode = node.TreeContext.GetViewNode(target.ItemsPanel)
-        childViewNode.ApplyDiff(&diff)
-
-    let itemsPanelUpdateNode (_: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
-        let target = node.Target :?> FabItemsControl
-
-        match currOpt with
-        | ValueNone -> target.ItemsPanel <- Unchecked.defaultof<_>
-        | ValueSome widget ->
-            let struct (_, view) = Helpers.createViewForWidget node widget
-            target.ItemsPanel <- view :?> Panel
 
 type IFabItemsControl =
     inherit IFabTemplatedControl
 
 module ItemsControl =
-
-    let WidgetKey = Widgets.register<FabItemsControl>()
-
     let Items =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
@@ -78,17 +45,6 @@ module ItemsControl =
 
     let ContainerPrepared =
         Attributes.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
-
-[<AutoOpen>]
-module ItemsControlBuilders =
-    type Fabulous.Avalonia.View with
-
-        static member inline ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
-            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSource items template
 
 [<Extension>]
 type ItemsControlModifiers =
