@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Threading
 open Avalonia
 open Avalonia.Animation.Easings
 open Avalonia.Controls
@@ -68,40 +69,23 @@ open type Fabulous.Avalonia.View
 module ImplicitCanvasAnimationsPage =
     type Model =
         { ChildrenCount: int
-          BenchmarkRunning: bool
-          ImplicitAnimations: ImplicitAnimationCollection }
+          BenchmarkRunning: bool }
 
     type Msg =
         | ButtonClear
         | ButtonBenchmark
         | ButtonAdd
         | ButtonFps
-        | TimerTicked
+        | ChildAdded
+        | ChildrenCleared
 
     type CmdMsg =
-        | NoMsg
-        | TickTimer
-
-    let timer () =
-        async {
-            do! Async.Sleep 50
-            return TimerTicked
-        }
-        |> Cmd.ofAsyncMsg
-
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-        | TickTimer -> timer()
-
+        | AddChild
+        | ToggleBenchmark
+        | StopBenchmarkAndClearChildren
+    
     let canvasRef = ViewRef<Canvas>()
-
-    let init () =
-        { ChildrenCount = 0
-          ImplicitAnimations = null
-          BenchmarkRunning = false },
-        []
+    let mutable implicitAnimations: ImplicitAnimationCollection = null
 
     let ensureImplicitAnimations (implicitAnimations: ImplicitAnimationCollection) =
         let mutable implicitAnimations = implicitAnimations
@@ -136,8 +120,7 @@ module ImplicitCanvasAnimationsPage =
             implicitAnimations["Offset"] <- animationGroup
             implicitAnimations
 
-    let add model =
-        let mutable implicitAnimations = model.ImplicitAnimations
+    let add () =
         let canvasItem = CanvasItem()
 
         let left = Random.Shared.NextDouble() * canvasRef.Value.Bounds.Width
@@ -147,7 +130,7 @@ module ImplicitCanvasAnimationsPage =
         Canvas.SetTop(canvasItem, top)
 
         canvasItem.AttachedToVisualTree.AddHandler(fun x y ->
-            implicitAnimations <- ensureImplicitAnimations model.ImplicitAnimations
+            implicitAnimations <- ensureImplicitAnimations implicitAnimations
             let compositionVisual = ElementComposition.GetElementVisual(canvasItem)
 
             if (compositionVisual <> null) then
@@ -155,40 +138,72 @@ module ImplicitCanvasAnimationsPage =
 
         canvasRef.Value.Children.Add(canvasItem)
 
+
+    let mutable cts: CancellationTokenSource = null
+    
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | AddChild ->
+            Cmd.ofSub(fun dispatch ->
+                add ()
+                dispatch ChildAdded
+            )
+            
+        | ToggleBenchmark ->
+            Cmd.ofSub(fun dispatch ->
+                if cts = null then
+                    cts <- new CancellationTokenSource()
+                    let renderDemo =
+                        async {
+                            let! ct = Async.CancellationToken
+                            while not ct.IsCancellationRequested do
+                                do! Async.Sleep 50
+                                Dispatcher.UIThread.Post(fun _ ->
+                                    add ()
+                                    // TODO: Investigate performance of the MVU loop on Fabulous
+                                    //dispatch ChildAdded
+                                )
+                        }
+                    
+                    Async.Start(renderDemo, cts.Token)
+                else
+                    cts.Cancel()
+                    cts.Dispose()
+                    cts <- null
+            )
+            
+        | StopBenchmarkAndClearChildren ->
+            if cts <> null then
+                cts.Cancel()
+                cts.Dispose()
+                cts <- null
+            
+            canvasRef.Value.Children.Clear()
+            Cmd.ofMsg ChildrenCleared
+
+    let init () =
+        { ChildrenCount = 0
+          BenchmarkRunning = false },
+        []
+
     let update msg model =
         match msg with
+        | ChildAdded ->
+            { model with ChildrenCount = model.ChildrenCount + 1 }, []
+            
+        | ChildrenCleared ->
+            { model with ChildrenCount = 0 }, []
+        
         | ButtonClear ->
-            canvasRef.Value.Children.Clear()
-
-            { model with
-                ChildrenCount = 0
-                BenchmarkRunning = false },
-            []
+            model, [StopBenchmarkAndClearChildren]
+            
         | ButtonBenchmark ->
-            let model =
-                { model with
-                    BenchmarkRunning = not model.BenchmarkRunning }
-
-            model, [ TickTimer ]
+            { model with BenchmarkRunning = not model.BenchmarkRunning }, [ToggleBenchmark]
+            
         | ButtonAdd ->
-            add model
-
-            let model =
-                { model with
-                    ChildrenCount = model.ChildrenCount + 1 }
-
-            model, []
+            model, [AddChild]
+            
         | ButtonFps -> model, []
-        | TimerTicked ->
-            Dispatcher.UIThread.Post(fun _ -> add model)
-
-            let model =
-                { model with
-                    ChildrenCount = model.ChildrenCount + 1 }
-
-            model,
-            [ if model.BenchmarkRunning then
-                  TickTimer ]
 
 
     let view model =
