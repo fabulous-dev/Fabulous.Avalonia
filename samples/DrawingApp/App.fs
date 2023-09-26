@@ -38,7 +38,8 @@ module ColorPicker =
 
         HStack(5.) {
             for item in brushes do
-                View.EmptyBorder()
+                View
+                    .EmptyBorder()
                     .width(32.0)
                     .height(32.0)
                     .cornerRadius(16.0)
@@ -69,7 +70,8 @@ module SizePicker =
 
         HStack(5.) {
             for item in sizes do
-                View.EmptyBorder()
+                View
+                    .EmptyBorder()
                     .width(item)
                     .height(item)
                     .cornerRadius(item / 2.0)
