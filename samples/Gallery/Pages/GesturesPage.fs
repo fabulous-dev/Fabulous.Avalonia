@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Avalonia.Controls
 open Avalonia.Layout
@@ -40,7 +40,7 @@ module GesturesPage =
             Border(
                 (Dock() {
                     Border(
-                        Border()
+                        EmptyBorder()
                             .width(10.)
                             .height(10.)
                             .horizontalAlignment(HorizontalAlignment.Center)
@@ -60,7 +60,7 @@ module GesturesPage =
                         .borderThickness(1.)
 
                     Border(
-                        Border()
+                        EmptyBorder()
                             .width(10.)
                             .name("BottomBall")
                             .horizontalAlignment(HorizontalAlignment.Center)
@@ -79,7 +79,7 @@ module GesturesPage =
                         .borderThickness(1.)
 
                     Border(
-                        Border()
+                        EmptyBorder()
                             .width(10.)
                             .height(10.)
                             .name("RightBall")
@@ -99,7 +99,7 @@ module GesturesPage =
                         .borderThickness(1.)
 
                     Border(
-                        Border()
+                        EmptyBorder()
                             .width(10.)
                             .height(10.)
                             .name("LeftBall")

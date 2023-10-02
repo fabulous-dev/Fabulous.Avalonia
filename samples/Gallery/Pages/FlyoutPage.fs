@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System.ComponentModel
 open Avalonia.Controls

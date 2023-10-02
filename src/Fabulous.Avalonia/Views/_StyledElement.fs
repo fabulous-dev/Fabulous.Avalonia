@@ -1,10 +1,12 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Input.TextInput
 open Avalonia.LogicalTree
+open Avalonia.Markup.Xaml.Styling
 open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
@@ -16,8 +18,8 @@ module StyledElement =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality StyledElement.NameProperty
 
-    let Styles =
-        Attributes.defineAvaloniaListWidgetCollection "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles)
+    let StylesWidget =
+        Attributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
 
     let Classes =
         Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
@@ -50,6 +52,16 @@ module StyledElement =
 
     let IsSensitive =
         Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.IsSensitiveProperty
+
+    let Styles =
+        Attributes.defineProperty "StyledElement_Styles" Unchecked.defaultof<string list> (fun target values ->
+            let styles = (target :?> StyledElement).Styles
+
+            values
+            |> List.iter(fun value ->
+                let style = StyleInclude(baseUri = null)
+                style.Source <- Uri(value)
+                styles.Add(style)))
 
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
@@ -158,6 +170,13 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline isSensitive(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
         this.AddScalar(StyledElement.IsSensitive.WithValue(value))
+
+    /// <summary>Sets the application styles.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Application styles to be used for the control.</param>
+    [<Extension>]
+    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
+        this.AddScalar(StyledElement.Styles.WithValue(value))
 
     /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
     /// <param name="this">Current widget.</param>

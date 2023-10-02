@@ -62,7 +62,7 @@
     <Compile Include="Views\_TopLevel.fs" />
     <Compile Include="Views\_TextElement.fs" />
     <Compile Include="Views\Panel.fs" />
-    <Compile Include="Views\ItemsControl.fs" />
+    <Compile Include="Views\_ItemsControl.fs" />
     <Compile Include="Views\_HeaderedItemsControl.fs" />
     <Compile Include="Views\_HeaderedContentControl.fs" />
     <Compile Include="Views\_SelectingItemsControl.fs" />
