@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre14] - 2023-10-02
+
+### Added
+- Add render demo
+- Add support for ControlThemes by @kevkov
+
+### Changed
+- Make Fabulous.Avalonia theme-less by default
+
 ## [2.0.0-pre13] - 2023-09-14
 
 ### Added
@@ -118,7 +127,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre13...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre14...HEAD
+[2.0.0-pre14]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre14
 [2.0.0-pre13]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre13
 [2.0.0-pre12]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre12
 [2.0.0-pre11]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre11
