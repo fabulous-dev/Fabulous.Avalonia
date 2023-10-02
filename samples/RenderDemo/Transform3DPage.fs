@@ -62,7 +62,7 @@ module Transform3DPage =
 
     let view model =
         Grid(coldefs = [ Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto ]) {
-            Border()
+            EmptyBorder()
                 .style(borderTestStyle)
                 .background(
                     LinearGradientBrush(Point(0., 0.), Point(0., 1.)) {

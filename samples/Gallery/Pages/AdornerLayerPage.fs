@@ -66,13 +66,25 @@ module AdornerLayerPage =
                 .horizontalAlignment(HorizontalAlignment.Center)
 
             (Grid(coldefs = [ Pixel(24.); Auto; Pixel(24.) ], rowdefs = [ Pixel(24.); Auto; Pixel(24.) ]) {
-                Border().background(Brushes.Red).gridColumn(1).gridRow(0)
+                EmptyBorder()
+                    .background(Brushes.Red)
+                    .gridColumn(1)
+                    .gridRow(0)
 
-                Border().background(Brushes.Blue).gridColumn(0).gridRow(1)
+                EmptyBorder()
+                    .background(Brushes.Blue)
+                    .gridColumn(0)
+                    .gridRow(1)
 
-                Border().background(Brushes.Green).gridColumn(2).gridRow(1)
+                EmptyBorder()
+                    .background(Brushes.Green)
+                    .gridColumn(2)
+                    .gridRow(1)
 
-                Border().background(Brushes.Yellow).gridColumn(1).gridRow(2)
+                EmptyBorder()
+                    .background(Brushes.Yellow)
+                    .gridColumn(1)
+                    .gridRow(2)
 
                 LayoutTransformControl(
                     Button("Adorner Button", DoNothing)

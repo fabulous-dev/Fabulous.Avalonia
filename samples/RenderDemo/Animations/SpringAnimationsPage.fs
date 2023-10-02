@@ -38,7 +38,7 @@ module SpringAnimationsPage =
 
     let view _ =
         Grid() {
-            Border()
+            EmptyBorder()
                 .width(100.0)
                 .height(100.0)
                 .background(Brushes.Red)

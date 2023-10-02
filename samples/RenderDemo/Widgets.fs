@@ -55,5 +55,5 @@ module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a empty Border widget.</summary>
-        static member Border<'msg>() =
+        static member EmptyBorder<'msg>() =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

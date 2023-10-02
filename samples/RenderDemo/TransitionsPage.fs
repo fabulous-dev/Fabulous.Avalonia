@@ -50,81 +50,101 @@ module TransitionsPage =
 
                 UserControl(
                     (HWrap() {
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect1" ])
                             .background(Brushes.DarkRed)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect2" ])
                             .background(Brushes.Magenta)
 
-                        Border().style(borderTest2).classes([ "Test"; "Rect3" ])
+                        EmptyBorder()
+                            .style(borderTest2)
+                            .classes([ "Test"; "Rect3" ])
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect4" ])
                             .background(Brushes.Navy)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect5" ])
                             .background(Brushes.SeaGreen)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect6" ])
                             .background(Brushes.Orange)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect7" ])
                             .background(Brushes.Gold)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect8" ])
                             .background(Brushes.Gray)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Rect9" ])
                             .background(Brushes.Red)
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Shadow" ])
                             .cornerRadius(CornerRadius(10.))
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Shadow" ])
                             .cornerRadius(CornerRadius(0., 30., 60., 0.))
 
-                        Border()
+                        EmptyBorder()
                             .style(borderTest1)
                             .classes([ "Test"; "Shadow" ])
                             .cornerRadius(CornerRadius(0., 30., 60., 0.))
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect10" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect10" ])
 
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect11" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect11" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect12" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect12" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect13" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect13" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect14" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect14" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect14" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect14" ])
 
-                        Border().style(borderTest1).classes([ "Test"; "Rect14" ])
+                        EmptyBorder()
+                            .style(borderTest1)
+                            .classes([ "Test"; "Rect14" ])
                     })
                         .clipToBounds(false)
                 )
