@@ -5,9 +5,6 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ABA8AB78-3A20-48AB-8E49-C5001869FA22}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		global.json = global.json
-		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "NewApp", "NewApp\NewApp.fsproj", "{F5326282-392A-4018-A065-72225A879492}"
