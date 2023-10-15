@@ -5,6 +5,7 @@ open Android.Content.PM
 open Avalonia
 open Avalonia.Android
 open Fabulous.Avalonia
+open NewApp
 
 [<Activity(Label = "NewApp.Android",
            Theme = "@style/MyTheme.NoActionBar",

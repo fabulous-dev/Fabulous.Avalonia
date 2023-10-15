@@ -77,14 +77,7 @@ module App =
         })
             .center()
 
-    //-:cnd:noEmit
-
-#if MOBILE
     let app model = SingleViewApplication(view model)
-#else
-    let app model = DesktopApplication(Window(view model))
-#endif
+    //let app model = DesktopApplication(Window(view model))
 
-    //+:cnd:noEmit
-
-	let program = Program.statefulWithCmd init update app
+    let program = Program.statefulWithCmd init update app
