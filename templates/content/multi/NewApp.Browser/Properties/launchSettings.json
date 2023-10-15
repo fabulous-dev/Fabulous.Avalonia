@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "AvaApp.Browser": {
+    "NewApp.Browser": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
