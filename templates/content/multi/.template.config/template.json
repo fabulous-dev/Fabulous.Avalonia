@@ -7,7 +7,7 @@
   "name": "Fabulous Avalonia MultiProject",
   "groupIdentity": "Fabulous.Avalonia.App.MultiProject",
   "identity": "Fabulous.Avalonia.MultiProject",
-  "shortName": "fabulous-avalonia",
+  "shortName": "fabulous-avalonia-multi",
   "tags": {
     "language": "F#",
     "type": "project"

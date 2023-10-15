@@ -10,8 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="$(AvaloniaPkgVersion)" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaPkgVersion)" />
-        <PackageReference Include="Fabulous.Avalonia" Version="$(FabulousPkgVersion)" />
+        <PackageReference Include="Avalonia" Version="AvaloniaPkgVersion" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaPkgVersion" />
+        <PackageReference Include="Fabulous.Avalonia" Version="FabulousPkgVersion" />
     </ItemGroup>
 </Project>
