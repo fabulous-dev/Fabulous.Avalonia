@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>FrameworkParameter</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="App.fs" />
+        <AvaloniaResource Include="**\*.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaThemesFluentPkgVersion)" />
+        <PackageReference Include="Fabulous.Avalonia" Version="$(FabulousPkgVersion)" />
+    </ItemGroup>
+</Project>
