@@ -1,6 +1,8 @@
+namespace NewApp.Desktop
+
 open System
-open System.Diagnostics
 open Avalonia
+open Fabulous.Avalonia
 open NewApp
 
 // Initialization code. Don't use any Avalonia, third-party APIs or any
@@ -8,17 +10,9 @@ open NewApp
 // yet and stuff might break.
 [<STAThread; EntryPoint>]
 let Main (args: string array) =
-    About.urlOpen <-
-        fun url ->
-            if OperatingSystem.IsWindows() then
-                Process.Start(ProcessStartInfo("cmd", $"/c start %s{url}")) |> ignore
-            elif OperatingSystem.IsLinux() || OperatingSystem.IsFreeBSD() then
-                Process.Start("xdg-open", url) |> ignore
-            elif OperatingSystem.IsMacOS() then
-                Process.Start("open", url) |> ignore
 
     AppBuilder
-        .Configure<App>()
+        .Configure(fun () -> Program.startApplication App.program)
         .UsePlatformDetect()
         .LogToTrace(?level = None)
         .StartWithClassicDesktopLifetime(args)

@@ -2,24 +2,13 @@
 
 open Android.App
 open Android.Content
-open Android.Net
+open Avalonia
 open Avalonia.Android
-
-type Application = Android.App.Application
+open Fabulous.Avalonia
 
 [<Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)>]
 type SplashActivity() =
-    inherit AvaloniaSplashActivity<NewApp.App>()
-
-    override this.CustomizeAppBuilder builder =
-        AvaApp.About.urlOpen <-
-            fun url ->
-                this.StartActivity(
-                    (new Intent(Intent.ActionView, Uri.Parse url))
-                        .SetFlags(ActivityFlags.ClearTop ||| ActivityFlags.NewTask)
-                )
-
-        base.CustomizeAppBuilder builder
+    inherit Activity()
 
     override this.OnResume() =
         base.OnResume()

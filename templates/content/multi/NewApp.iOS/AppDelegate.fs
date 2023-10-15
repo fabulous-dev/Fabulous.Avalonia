@@ -1,15 +1,18 @@
 namespace NewApp.iOS
 
+open Fabulous.Avalonia
 open Foundation
+open MyApp
 open UIKit
-open Avalonia
-open Avalonia.Controls
-open Avalonia.iOS
-open Avalonia.Media
 
-// The UIApplicationDelegate for the application. This class is responsible for launching the
-// User Interface of the application, as well as listening (and optionally responding) to
-// application events from iOS.
 [<Register("AppDelegate")>]
 type AppDelegate() =
-    inherit AvaloniaAppDelegate<NewApp.App>()
+    inherit FabAppDelegate()
+
+    override this.CreateApp() = Program.startApplication App.program
+
+module Main =
+    [<EntryPoint>]
+    let main (args: string array) =
+        UIApplication.Main(args, null, typeof<AppDelegate>)
+        0
