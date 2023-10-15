@@ -12,7 +12,8 @@ module Program =
     do ()
 
     [<CompiledName "BuildAvaloniaApp">]
-    let buildAvaloniaApp () = AppBuilder.Configure(fun () -> Program.startApplication App.program)
+    let buildAvaloniaApp () =
+        AppBuilder.Configure(fun () -> Program.startApplication App.program)
 
     [<EntryPoint>]
     let main argv =

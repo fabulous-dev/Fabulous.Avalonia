@@ -18,4 +18,3 @@ type MainActivity() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
-
