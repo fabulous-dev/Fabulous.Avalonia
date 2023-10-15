@@ -5,8 +5,8 @@
     "Avalonia"
   ],
   "name": "Fabulous Avalonia MultiProject",
-  "groupIdentity": "Fabulous.Avalonia.App.Blank",
-  "identity": "Fabulous.Avalonia.Blank",
+  "groupIdentity": "Fabulous.Avalonia.App.MultiProject",
+  "identity": "Fabulous.Avalonia.MultiProject",
   "shortName": "fabulous-avalonia",
   "tags": {
     "language": "F#",
@@ -64,10 +64,10 @@
       "replaces": "FSharpAndroidResourcePkgVersion",
       "defaultValue": "1.0.4"
     },
-    "AvaloniaThemesFluentPkgVersion": {
+    "AvaloniaPkgVersion": {
       "type": "parameter",
       "dataType": "string",
-      "replaces": "AvaloniaThemesFluentPkgVersion",
+      "replaces": "AvaloniaPkgVersion",
       "defaultValue": "11.0.4"
     }
   }
