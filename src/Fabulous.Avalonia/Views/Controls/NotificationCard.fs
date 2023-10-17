@@ -12,6 +12,9 @@ type IFabNotificationCard =
 module NotificationCard =
     let WidgetKey = Widgets.register<NotificationCard>()
 
+    let NotificationType =
+        Attributes.defineAvaloniaPropertyWithEquality NotificationCard.NotificationTypeProperty
+
     let IsClosed =
         Attributes.defineAvaloniaPropertyWithEquality NotificationCard.IsClosedProperty
 
@@ -40,6 +43,13 @@ module NotificationCardBuilders =
 
 [<Extension>]
 type NotificationCardModifiers =
+
+    /// <summary>Sets the NotificationType property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The NotificationType value.</param>
+    [<Extension>]
+    static member inline notificationType(this: WidgetBuilder<'msg, #IFabNotificationCard>, value: NotificationType) =
+        this.AddScalar(NotificationCard.NotificationType.WithValue(value))
 
     /// <summary>Listens to the NotificationCard NotificationClosed event.</summary>
     /// <param name="this">Current widget.</param>
