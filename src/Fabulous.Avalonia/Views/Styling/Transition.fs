@@ -14,20 +14,16 @@ module DoubleTransition =
     let WidgetKey = Widgets.register<DoubleTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "DoubleTransition_Duration" (fun target -> (target :?> DoubleTransition).Duration) (fun target value ->
-            (target :?> DoubleTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "DoubleTransition_Delay" (fun target -> (target :?> DoubleTransition).Delay) (fun target value ->
-            (target :?> DoubleTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "DoubleTransition_Easing" (fun target -> (target :?> DoubleTransition).Easing) (fun target value ->
-            (target :?> DoubleTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "DoubleTransition_Property" (fun target -> (target :?> DoubleTransition).Property) (fun target value ->
-            (target :?> DoubleTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module DoubleTransitionBuilders =
@@ -75,20 +71,16 @@ module BoxShadowsTransition =
     let WidgetKey = Widgets.register<BoxShadowsTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "BoxShadowsTransition_Duration" (fun target -> (target :?> BoxShadowsTransition).Duration) (fun target value ->
-            (target :?> BoxShadowsTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "BoxShadowsTransition_Delay" (fun target -> (target :?> BoxShadowsTransition).Delay) (fun target value ->
-            (target :?> BoxShadowsTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "BoxShadowsTransition_Easing" (fun target -> (target :?> BoxShadowsTransition).Easing) (fun target value ->
-            (target :?> BoxShadowsTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "BoxShadowsTransition_Property" (fun target -> (target :?> BoxShadowsTransition).Property) (fun target value ->
-            (target :?> BoxShadowsTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 
 [<AutoOpen>]
@@ -138,20 +130,16 @@ module BrushTransition =
     let WidgetKey = Widgets.register<BrushTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "BrushTransition_Duration" (fun target -> (target :?> BrushTransition).Duration) (fun target value ->
-            (target :?> BrushTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "BrushTransition_Delay" (fun target -> (target :?> BrushTransition).Delay) (fun target value ->
-            (target :?> BrushTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "BrushTransition_Easing" (fun target -> (target :?> BrushTransition).Easing) (fun target value ->
-            (target :?> BrushTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "BrushTransition_Property" (fun target -> (target :?> BrushTransition).Property) (fun target value ->
-            (target :?> BrushTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module BrushTransitionBuilders =
@@ -198,20 +186,16 @@ module ColorTransition =
     let WidgetKey = Widgets.register<ColorTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "ColorTransition_Duration" (fun target -> (target :?> ColorTransition).Duration) (fun target value ->
-            (target :?> ColorTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "ColorTransition_Delay" (fun target -> (target :?> ColorTransition).Delay) (fun target value ->
-            (target :?> ColorTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "ColorTransition_Easing" (fun target -> (target :?> ColorTransition).Easing) (fun target value ->
-            (target :?> ColorTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "ColorTransition_Property" (fun target -> (target :?> ColorTransition).Property) (fun target value ->
-            (target :?> ColorTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module ColorTransitionBuilders =
@@ -259,21 +243,16 @@ module CornerRadiusTransition =
     let WidgetKey = Widgets.register<CornerRadiusTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "CornerRadiusTransition_Duration" (fun target -> (target :?> CornerRadiusTransition).Duration) (fun target value ->
-            (target :?> CornerRadiusTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "CornerRadiusTransition_Delay" (fun target -> (target :?> CornerRadiusTransition).Delay) (fun target value ->
-            (target :?> CornerRadiusTransition).Delay <- value)
-
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "CornerRadiusTransition_Easing" (fun target -> (target :?> CornerRadiusTransition).Easing) (fun target value ->
-            (target :?> CornerRadiusTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "CornerRadiusTransition_Property" (fun target -> (target :?> CornerRadiusTransition).Property) (fun target value ->
-            (target :?> CornerRadiusTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module CornerRadiusTransitionBuilders =
@@ -320,20 +299,16 @@ module FloatTransition =
     let WidgetKey = Widgets.register<FloatTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "FloatTransition_Duration" (fun target -> (target :?> FloatTransition).Duration) (fun target value ->
-            (target :?> FloatTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "FloatTransition_Delay" (fun target -> (target :?> FloatTransition).Delay) (fun target value ->
-            (target :?> FloatTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "FloatTransition_Easing" (fun target -> (target :?> FloatTransition).Easing) (fun target value ->
-            (target :?> FloatTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "FloatTransition_Property" (fun target -> (target :?> FloatTransition).Property) (fun target value ->
-            (target :?> FloatTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module FloatTransitionBuilders =
@@ -380,20 +355,16 @@ module IntegerTransition =
     let WidgetKey = Widgets.register<IntegerTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "IntegerTransition_Duration" (fun target -> (target :?> IntegerTransition).Duration) (fun target value ->
-            (target :?> IntegerTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "IntegerTransition_Delay" (fun target -> (target :?> IntegerTransition).Delay) (fun target value ->
-            (target :?> IntegerTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "IntegerTransition_Easing" (fun target -> (target :?> IntegerTransition).Easing) (fun target value ->
-            (target :?> IntegerTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "IntegerTransition_Property" (fun target -> (target :?> IntegerTransition).Property) (fun target value ->
-            (target :?> IntegerTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module IntegerTransitionBuilders =
@@ -441,20 +412,16 @@ module PointTransition =
     let WidgetKey = Widgets.register<PointTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "PointTransition_Duration" (fun target -> (target :?> PointTransition).Duration) (fun target value ->
-            (target :?> PointTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "PointTransition_Delay" (fun target -> (target :?> PointTransition).Delay) (fun target value ->
-            (target :?> PointTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "PointTransition_Easing" (fun target -> (target :?> PointTransition).Easing) (fun target value ->
-            (target :?> PointTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "PointTransition_Property" (fun target -> (target :?> PointTransition).Property) (fun target value ->
-            (target :?> PointTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module PointTransitionBuilders =
@@ -502,21 +469,16 @@ module SizeTransition =
     let WidgetKey = Widgets.register<SizeTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "SizeTransition_Duration" (fun target -> (target :?> SizeTransition).Duration) (fun target value ->
-            (target :?> SizeTransition).Duration <- value)
-
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "SizeTransition_Delay" (fun target -> (target :?> SizeTransition).Delay) (fun target value ->
-            (target :?> SizeTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "SizeTransition_Easing" (fun target -> (target :?> SizeTransition).Easing) (fun target value ->
-            (target :?> SizeTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "SizeTransition_Property" (fun target -> (target :?> SizeTransition).Property) (fun target value ->
-            (target :?> SizeTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module SizeTransitionBuilders =
@@ -564,20 +526,16 @@ module ThicknessTransition =
     let WidgetKey = Widgets.register<ThicknessTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "ThicknessTransition_Duration" (fun target -> (target :?> ThicknessTransition).Duration) (fun target value ->
-            (target :?> ThicknessTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "ThicknessTransition_Delay" (fun target -> (target :?> ThicknessTransition).Delay) (fun target value ->
-            (target :?> ThicknessTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "ThicknessTransition_Easing" (fun target -> (target :?> ThicknessTransition).Easing) (fun target value ->
-            (target :?> ThicknessTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "ThicknessTransition_Property" (fun target -> (target :?> ThicknessTransition).Property) (fun target value ->
-            (target :?> ThicknessTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module ThicknessTransitionBuilders =
@@ -625,28 +583,16 @@ module TransformOperationsTransition =
     let WidgetKey = Widgets.register<TransformOperationsTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet
-            "TransformOperationsTransition_Duration"
-            (fun target -> (target :?> TransformOperationsTransition).Duration)
-            (fun target value -> (target :?> TransformOperationsTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet
-            "TransformOperationsTransition_Delay"
-            (fun target -> (target :?> TransformOperationsTransition).Delay)
-            (fun target value -> (target :?> TransformOperationsTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet
-            "TransformOperationsTransition_Easing"
-            (fun target -> (target :?> TransformOperationsTransition).Easing)
-            (fun target value -> (target :?> TransformOperationsTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet
-            "TransformOperationsTransition_Property"
-            (fun target -> (target :?> TransformOperationsTransition).Property)
-            (fun target value -> (target :?> TransformOperationsTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module TransformOperationsTransitionBuilders =
@@ -695,20 +641,16 @@ module VectorTransition =
     let WidgetKey = Widgets.register<VectorTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "VectorTransition_Duration" (fun target -> (target :?> VectorTransition).Duration) (fun target value ->
-            (target :?> VectorTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "VectorTransition_Delay" (fun target -> (target :?> VectorTransition).Delay) (fun target value ->
-            (target :?> VectorTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "VectorTransition_Easing" (fun target -> (target :?> VectorTransition).Easing) (fun target value ->
-            (target :?> VectorTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "VectorTransition_Property" (fun target -> (target :?> VectorTransition).Property) (fun target value ->
-            (target :?> VectorTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module VectorTransitionBuilders =
@@ -755,20 +697,16 @@ module EffectTransition =
     let WidgetKey = Widgets.register<EffectTransition>()
 
     let Duration =
-        Attributes.definePropertyWithGetSet "EffectTransition_Duration" (fun target -> (target :?> EffectTransition).Duration) (fun target value ->
-            (target :?> EffectTransition).Duration <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DurationProperty
 
     let Delay =
-        Attributes.definePropertyWithGetSet "EffectTransition_Delay" (fun target -> (target :?> EffectTransition).Delay) (fun target value ->
-            (target :?> EffectTransition).Delay <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.DelayProperty
 
     let Easing =
-        Attributes.definePropertyWithGetSet "EffectTransition_Easing" (fun target -> (target :?> EffectTransition).Easing) (fun target value ->
-            (target :?> EffectTransition).Easing <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.EasingProperty
 
     let Property =
-        Attributes.definePropertyWithGetSet "EffectTransition_Property" (fun target -> (target :?> EffectTransition).Property) (fun target value ->
-            (target :?> EffectTransition).Property <- value)
+        Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
 [<AutoOpen>]
 module EffectTransitionBuilders =
