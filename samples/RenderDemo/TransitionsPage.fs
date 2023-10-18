@@ -1,6 +1,8 @@
 namespace RenderDemo
 
+open System
 open Avalonia
+open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
@@ -78,6 +80,10 @@ module TransitionsPage =
                             .style(borderTest1)
                             .classes([ "Test"; "Rect6" ])
                             .background(Brushes.Orange)
+                            .transition(
+                                TransformOperationsTransition(Border.RenderTransformProperty, TimeSpan.FromMilliseconds(500.))
+                                    .delay(TimeSpan.FromMilliseconds(1000.))
+                            )
 
                         EmptyBorder()
                             .style(borderTest1)

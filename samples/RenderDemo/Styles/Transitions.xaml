@@ -41,11 +41,6 @@
     </Style>
 
     <Style Selector="Border.Rect6">
-        <Setter Property="Transitions">
-            <Transitions>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.5" Delay="0:0:1" />
-            </Transitions>
-        </Setter>
         <Setter Property="RenderTransform" Value="scale(0.8)" />
     </Style>
 
