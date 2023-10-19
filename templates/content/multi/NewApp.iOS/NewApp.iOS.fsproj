@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0-ios</TargetFramework>
@@ -21,5 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia.iOS" Version="AvaloniaiOSPkgVersion" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
   </ItemGroup>
 </Project>

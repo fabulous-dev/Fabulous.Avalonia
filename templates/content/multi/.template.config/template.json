@@ -70,6 +70,12 @@
       "replaces": "AvaloniaAndroidPkgVersion",
       "defaultValue": "11.0.5"
     },
+    "AvaloniaBrowserPkgVersion": {
+      "type": "parameter",
+      "dataType": "string",
+      "replaces": "AvaloniaBrowserPkgVersion",
+      "defaultValue": "11.0.5"
+    },
     "AvaloniaDesktopPkgVersion": {
       "type": "parameter",
       "dataType": "string",

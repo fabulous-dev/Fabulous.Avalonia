@@ -14,7 +14,8 @@
 		<Content Include="runtimeconfig.template.json" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia.Browser" Version="AvaloniaPkgVersion" />
+		<PackageReference Include="Avalonia.Browser" Version="AvaloniaBrowserPkgVersion" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
 		<ProjectReference Include="..\NewApp\NewApp.fsproj" />
 	</ItemGroup>
 </Project>

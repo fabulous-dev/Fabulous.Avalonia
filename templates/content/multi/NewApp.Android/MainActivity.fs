@@ -4,6 +4,7 @@ open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
+open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
 open NewApp
 
