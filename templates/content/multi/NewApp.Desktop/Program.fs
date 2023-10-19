@@ -2,6 +2,7 @@ namespace NewApp.Desktop
 
 open System
 open Avalonia
+open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
 open NewApp
 
@@ -16,4 +17,5 @@ module Program =
             .Configure(fun () -> Program.startApplication App.program)
             .UsePlatformDetect()
             .LogToTrace(?level = None)
+            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
             .StartWithClassicDesktopLifetime(args)

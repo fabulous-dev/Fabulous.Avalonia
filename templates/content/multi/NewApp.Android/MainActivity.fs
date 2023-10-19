@@ -18,4 +18,5 @@ type MainActivity() =
     override this.CustomizeAppBuilder(_builder: AppBuilder) =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
+            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
             .UseAndroid()

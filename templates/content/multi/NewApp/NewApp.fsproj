@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -10,9 +9,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="AvaloniaPkgVersion" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaPkgVersion" />
-        <PackageReference Include="Fabulous" Version="FabulousPkgVersion" />
         <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
     </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
 namespace NewApp
 
+open System
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -51,8 +51,6 @@ module App =
                 model, Cmd.none
 
     let view model =
-        FabApplication.Current.AppTheme <- FluentTheme()
-
         (VStack() {
             TextBlock($"%d{model.Count}").centerText()
 
@@ -73,11 +71,12 @@ module App =
             TextBlock($"Step size: %d{model.Step}").centerText()
 
             Button("Reset", Reset).centerHorizontal()
-
         })
-            .center()
 
-    let app model = SingleViewApplication(view model)
-    //let app model = DesktopApplication(Window(view model))
+    let app model =
+        if OperatingSystem.IsAndroid() || OperatingSystem.IsIOS() then
+            SingleViewApplication(view model)
+        else
+            DesktopApplication(Window(view model))
 
     let program = Program.statefulWithCmd init update app

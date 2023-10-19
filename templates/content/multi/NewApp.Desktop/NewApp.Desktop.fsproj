@@ -2,7 +2,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
@@ -15,7 +14,7 @@
     <TrimmableAssembly Include="Avalonia.Themes.Default" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia.Desktop" Version="AvaloniaPkgVersion" />
+    <PackageReference Include="Avalonia.Desktop" Version="AvaloniaDesktopPkgVersion" />
     <ProjectReference Include="..\NewApp\NewApp.fsproj" />
     <Compile Include="Program.fs"/>
   </ItemGroup>
