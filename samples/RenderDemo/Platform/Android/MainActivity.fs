@@ -1,9 +1,11 @@
 namespace RenderDemo.Android
 
+open System
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
+open Avalonia.Markup.Xaml.Styling
 open RenderDemo
 open Fabulous.Avalonia
 
@@ -19,3 +21,7 @@ type MainActivity() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
+            .AfterSetup(fun _ ->
+                let theme = StyleInclude(baseUri = null)
+                theme.Source <- Uri("avares://RenderDemo/App.xaml")
+                FabApplication.Current.Styles.Add(theme))

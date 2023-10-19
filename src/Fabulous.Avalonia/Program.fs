@@ -117,11 +117,11 @@ module Program =
         define (fun arg -> let m, c = init arg in m, mapCmds c) (fun msg model -> let m, c = update msg model in m, mapCmds c) view
 
     /// Start the program
-    let startApplicationWithArgs (arg: 'arg) (program: Program<'arg, 'model, 'msg, #IFabApplication>) : Application =
+    let startApplicationWithArgs (arg: 'arg) (program: Program<'arg, 'model, 'msg, #IFabApplication>) : FabApplication =
         FabApplication<'arg, 'model, 'msg, #IFabApplication>(program, arg)
 
     /// Start the program
-    let startApplication (program: Program<unit, 'model, 'msg, #IFabApplication>) : Application =
+    let startApplication (program: Program<unit, 'model, 'msg, #IFabApplication>) : FabApplication =
         FabApplication<unit, 'model, 'msg, #IFabApplication>(program, ())
 
     /// Subscribe to external source of events.

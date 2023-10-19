@@ -1,11 +1,8 @@
 namespace Gallery
 
-open System
 open Avalonia.Controls
-open Avalonia.Markup.Xaml.Styling
 open Fabulous.Avalonia
 open Types
-open Avalonia.Themes.Fluent
 open type Fabulous.Avalonia.View
 
 module MainWindow =
@@ -58,11 +55,6 @@ module MainWindow =
             )
 
     let view (model: Model) =
-        //FabApplication.Current.AppTheme <- FluentTheme()
-        let theme = StyleInclude(baseUri = null)
-        theme.Source <- Uri("avares://Gallery/App.xaml")
-        FabApplication.Current.Styles.Add(theme)
-
         DesktopApplication(
             Window(Panel() { HamburgerMenu.mainView model })
                 .title("Fabulous Gallery")
