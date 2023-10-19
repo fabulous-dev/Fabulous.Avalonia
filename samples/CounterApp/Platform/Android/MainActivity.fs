@@ -4,6 +4,7 @@ open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
+open Avalonia.Themes.Fluent
 open CounterApp
 open Fabulous.Avalonia
 
@@ -19,3 +20,4 @@ type MainActivity() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
+            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())

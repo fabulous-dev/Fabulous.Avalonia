@@ -1,4 +1,4 @@
-namespace GameOfLife
+namespace GameOfLife.Android
 
 open Android.App
 open Android.Content

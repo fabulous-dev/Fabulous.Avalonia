@@ -1,9 +1,10 @@
-namespace GameOfLife
+namespace GameOfLife.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
+open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
 
 [<Activity(Label = "GameOfLife.Android",
@@ -18,3 +19,4 @@ type MainActivity() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
+            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())

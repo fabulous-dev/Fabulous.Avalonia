@@ -1,8 +1,9 @@
-namespace TicTacToe
+namespace TicTacToe.Desktop
 
 open System
 open Avalonia
 
+open Avalonia.Themes.Fluent
 open TicTacToe
 open Fabulous.Avalonia
 
@@ -14,6 +15,7 @@ module Program =
             .Configure(fun () -> Program.startApplication App.program)
             .LogToTrace(areas = Array.empty)
             .UsePlatformDetect()
+            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
 
     [<EntryPoint; STAThread>]
     let main argv =

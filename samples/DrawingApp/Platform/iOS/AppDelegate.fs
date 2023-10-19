@@ -1,14 +1,20 @@
-namespace DrawingApp
+namespace DrawingApp.iOS
 
 open Foundation
 open UIKit
-open Fabulous.Avalonia
 
-[<Register("AppDelegate")>]
+[<Register(nameof AppDelegate)>]
 type AppDelegate() =
-    inherit FabAppDelegate()
+    inherit UIResponder()
 
-    override this.CreateApp() = Program.startApplication App.program
+    interface IUIApplicationDelegate
+
+    [<Export("application:didFinishLaunchingWithOptions:")>]
+    member this.FinishedLaunching(_: UIApplication, _: NSDictionary) : bool = true
+
+    [<Export("application:configurationForConnectingSceneSession:options:")>]
+    member this.GetConfiguration(_: UIApplication, sceneSession: UISceneSession, _: UISceneConnectionOptions) =
+        UISceneConfiguration.Create("Default Configuration", sceneSession.Role)
 
 module Main =
     [<EntryPoint>]

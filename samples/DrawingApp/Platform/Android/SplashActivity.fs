@@ -1,4 +1,4 @@
-namespace DrawingApp
+namespace DrawingApp.Android
 
 open Android.App
 open Android.Content

@@ -1,4 +1,4 @@
-namespace TicTacToe
+namespace TicTacToe.Android
 
 open Android.App
 open Android.Content
