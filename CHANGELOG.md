@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre15] - 2023-10-19
+
+### Changed
+- Add support for AvaloniaUI 11.0.5
+
+### Fixed
+- Fix app on iOS, droid by setting theme earlier in the lifecycle
+
 ## [2.0.0-pre14] - 2023-10-02
 
 ### Added
@@ -127,7 +135,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre14...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre15...HEAD
+[2.0.0-pre15]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre15
 [2.0.0-pre14]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre14
 [2.0.0-pre13]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre13
 [2.0.0-pre12]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre12
