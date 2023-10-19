@@ -13,8 +13,8 @@ type AppDelegate() =
     member this.FinishedLaunching(_: UIApplication, _: NSDictionary) : bool = true
 
     [<Export("application:configurationForConnectingSceneSession:options:")>]
-        member this.GetConfiguration(_: UIApplication, sceneSession: UISceneSession, _: UISceneConnectionOptions) =
-            UISceneConfiguration.Create("Default Configuration", sceneSession.Role)
+    member this.GetConfiguration(_: UIApplication, sceneSession: UISceneSession, _: UISceneConnectionOptions) =
+        UISceneConfiguration.Create("Default Configuration", sceneSession.Role)
 
 module Main =
     [<EntryPoint>]

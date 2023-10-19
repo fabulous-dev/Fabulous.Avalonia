@@ -8,9 +8,8 @@ open NewApp
 [<Register(nameof SceneDelegate)>]
 type SceneDelegate() =
     inherit FabSceneDelegate()
-    
-    override this.CreateApp() =
-        Program.startApplication App.program
-        
+
+    override this.CreateApp() = Program.startApplication App.program
+
     override this.AfterSetup() =
         FabApplication.Current.AppTheme <- FluentTheme()
