@@ -14,7 +14,7 @@ _No unreleased changes_
 - Add support for AvaloniaUI 11.0.5
 
 ### Fixed
-- Fix app on iOS, droid by setting theme earlier in the lifecycle
+- Fix app on iOS and droid by setting theme earlier in the lifecycle
 
 ## [2.0.0-pre14] - 2023-10-02
 
