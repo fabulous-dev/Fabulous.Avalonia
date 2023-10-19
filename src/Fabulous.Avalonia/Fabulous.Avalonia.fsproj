@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <!-- net7.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net7.0-ios</TargetFrameworks>
     <IsPackable>true</IsPackable>
@@ -22,9 +22,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
-    <!-- Normalize casing -->
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == ''">Desktop</AvaloniaPlatform>
-    <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'android'">Android</AvaloniaPlatform>
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
   </PropertyGroup>
   <ItemGroup>
@@ -219,7 +216,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <Compile Include="Platform\iOS\FabAppDelegate.fs" />
+    <Compile Include="Platform\iOS\FabSceneDelegate.fs" />
   </ItemGroup>
   <ItemGroup>
     <!--
@@ -231,13 +228,7 @@
     <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.5" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.5" />
-  </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.5" />
-  </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Desktop'">
-      <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.5" />
   </ItemGroup>
 </Project>

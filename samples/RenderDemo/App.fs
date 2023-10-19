@@ -1,8 +1,6 @@
 namespace RenderDemo
 
-open System
 open System.Diagnostics
-open Avalonia.Markup.Xaml.Styling
 open Fabulous
 open Fabulous.Avalonia
 
@@ -335,10 +333,6 @@ module App =
             [ SubpageCmdMsgs [ PathMeasurementCmdMsg cmdMsgs ] ]
 
     let view model =
-        let theme = StyleInclude(baseUri = null)
-        theme.Source <- Uri("avares://RenderDemo/App.xaml")
-        FabApplication.Current.Styles.Add(theme)
-
         (HamburgerMenu() {
             TabItem("Implicit Animations", (View.map ImplicitAnimationMsg (ImplicitCanvasAnimationsPage.view model.ImplicitAnimationModel)))
             TabItem("Draw Line Animation", (View.map DraLineAnimationMsg (DrawLineAnimationPage.view model.DrawLineAnimationModel)))

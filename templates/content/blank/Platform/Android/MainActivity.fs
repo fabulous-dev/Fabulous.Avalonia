@@ -5,6 +5,7 @@ open Android.Content.PM
 open Avalonia
 open Avalonia.Android
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 [<Activity(Label = "NewApp.Android",
            Theme = "@style/MyTheme.NoActionBar",
@@ -18,3 +19,4 @@ type MainActivity() =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
             .UseAndroid()
+            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
