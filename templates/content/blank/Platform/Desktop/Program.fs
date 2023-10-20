@@ -1,11 +1,10 @@
-namespace NewApp
+namespace NewApp.Desktop
 
 open System
 open Avalonia
 open Avalonia.Themes.Fluent
-
-open NewApp
 open Fabulous.Avalonia
+open NewApp
 
 module Program =
 

@@ -1,4 +1,4 @@
-namespace NewApp
+namespace NewApp.Android
 
 open Android.App
 open Android.Content.PM
@@ -6,6 +6,7 @@ open Avalonia
 open Avalonia.Android
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
+open NewApp
 
 [<Activity(Label = "NewApp.Android",
            Theme = "@style/MyTheme.NoActionBar",

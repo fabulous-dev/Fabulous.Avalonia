@@ -50,7 +50,7 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "FabulousAvaloniaPkgVersion",
-      "defaultValue": "PKG_VERSION"
+      "defaultValue": "2.0.0-pre15"
     },
     "FSharpCorePkgVersion": {
       "type": "parameter",
