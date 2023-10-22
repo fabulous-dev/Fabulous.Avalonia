@@ -41,6 +41,7 @@ module HamburgerMenu =
                 TabItem("GridPage", AnyView(View.map GridPageMsg (GridPage.view model.GridPageModel)))
                 TabItem("GridSplitterPage", AnyView(View.map GridSplitterPageMsg (GridSplitterPage.view model.GridSplitterPageModel)))
                 TabItem("ImagePage", AnyView(View.map ImagePageMsg (ImagePage.view model.ImagePageModel)))
+                TabItem("ItemsRepeaterPage", AnyView(View.map ItemsRepeaterPageMsg (ItemsRepeaterPage.view model.ItemsRepeaterPageModel)))
                 TabItem("LabelPage", AnyView(View.map LabelPageMsg (LabelPage.view model.LabelPageModel)))
 
                 TabItem(

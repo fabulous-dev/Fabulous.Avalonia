@@ -49,6 +49,7 @@ module State =
                 | GridPageCmdMsgs subCmdMsgs -> map GridPage.mapCmdMsgToCmd GridPageMsg subCmdMsgs
                 | GridSplitterPageCmdMsgs subCmdMsgs -> map GridSplitterPage.mapCmdMsgToCmd GridSplitterPageMsg subCmdMsgs
                 | ImagePageCmdMsgs subCmdMsgs -> map ImagePage.mapCmdMsgToCmd ImagePageMsg subCmdMsgs
+                | ItemsRepeaterPageCmdMsgs subCmdMsgs -> map ItemsRepeaterPage.mapCmdMsgToCmd ItemsRepeaterPageMsg subCmdMsgs
                 | LabelPageCmdMsgs subCmdMsgs -> map LabelPage.mapCmdMsgToCmd LabelPageMsg subCmdMsgs
                 | LayoutTransformControlPageCmdMsgs subCmdMsgs -> map LayoutTransformControlPage.mapCmdMsgToCmd LayoutTransformControlPageMsg subCmdMsgs
                 | ListBoxPageCmdMsgs subCmdMsgs -> map ListBoxPage.mapCmdMsgToCmd ListBoxPageMsg subCmdMsgs
@@ -123,6 +124,7 @@ module State =
         let gridModel, gridCmdMsgs = GridPage.init()
         let gridSplitterModel, gridSplitterCmdMsgs = GridSplitterPage.init()
         let imageModel, imageCmdMsgs = ImagePage.init()
+        let itemsRepeaterModel, itemsRepeaterCmdMsgs = ItemsRepeaterPage.init()
         let labelModel, labelCmdMsgs = LabelPage.init()
 
         let layoutTransformControlModel, layoutTransformControlCmdMsgs =
@@ -197,6 +199,7 @@ module State =
           GridPageModel = gridModel
           GridSplitterPageModel = gridSplitterModel
           ImagePageModel = imageModel
+          ItemsRepeaterPageModel = itemsRepeaterModel
           LabelPageModel = labelModel
           LayoutTransformControlPageModel = layoutTransformControlModel
           ListBoxPageModel = listBoxModel
@@ -252,7 +255,7 @@ module State =
           SubpageCmdMsgs borderCmdMsgs
           SubpageCmdMsgs calendarCmdMsgs
           SubpageCmdMsgs calendarDatePickerCmdMsgs
-          SubpageCmdMsgs [ CanvasPageCmdMsgs canvasCmdMsgs ]
+          //SubpageCmdMsgs [ CanvasPageCmdMsgs canvasCmdMsgs ]
           SubpageCmdMsgs checkBoxCmdMsgs
           SubpageCmdMsgs carouselCmdMsgs
           SubpageCmdMsgs comboBoxCmdMsgs
@@ -272,6 +275,7 @@ module State =
           SubpageCmdMsgs gridCmdMsgs
           SubpageCmdMsgs gridSplitterCmdMsgs
           SubpageCmdMsgs imageCmdMsgs
+          SubpageCmdMsgs itemsRepeaterCmdMsgs
           SubpageCmdMsgs labelCmdMsgs
           SubpageCmdMsgs layoutTransformControlCmdMsgs
           SubpageCmdMsgs listBoxCmdMsgs
@@ -483,6 +487,13 @@ module State =
         | ImagePageMsg msg ->
             let model1, cmdMsgs = ImagePage.update msg model.ImagePageModel
             { model with ImagePageModel = model1 }, [ SubpageCmdMsgs cmdMsgs ]
+
+        | ItemsRepeaterPageMsg msg ->
+            let model1, cmdMsgs = ItemsRepeaterPage.update msg model.ItemsRepeaterPageModel
+
+            { model with
+                ItemsRepeaterPageModel = model1 },
+            [ SubpageCmdMsgs cmdMsgs ]
         | LabelPageMsg msg ->
             let model1, cmdMsgs = LabelPage.update msg model.LabelPageModel
             { model with LabelPageModel = model1 }, [ SubpageCmdMsgs cmdMsgs ]
