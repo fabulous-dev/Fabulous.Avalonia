@@ -1,5 +1,7 @@
 namespace Gallery
 
+open System
+open Avalonia.Markup.Xaml.Styling
 open System.Diagnostics
 open Fabulous.Avalonia
 open Gallery
@@ -7,6 +9,8 @@ open Gallery
 open type Fabulous.Avalonia.View
 
 module App =
+    let theme = StyleInclude(baseUri = null, Source = Uri("avares://Gallery/App.xaml"))
+
     let program =
 #if MOBILE
         Program.statefulWithCmdMsg State.init State.update MainView.view State.mapCmdMsgToCmd

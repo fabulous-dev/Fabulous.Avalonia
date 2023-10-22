@@ -10,5 +10,6 @@
 
     <ItemGroup>
         <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
     </ItemGroup>
 </Project>

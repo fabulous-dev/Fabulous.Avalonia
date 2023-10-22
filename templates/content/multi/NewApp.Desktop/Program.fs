@@ -2,7 +2,6 @@ namespace NewApp.Desktop
 
 open System
 open Avalonia
-open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
 open NewApp
 
@@ -12,10 +11,11 @@ module Program =
     // yet and stuff might break.
     [<STAThread; EntryPoint>]
     let Main (args: string array) =
-
         AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
+            .Configure(fun () ->
+                let app = Program.startApplication App.program
+                app.Styles.Add(App.theme)
+                app)
             .UsePlatformDetect()
             .LogToTrace(?level = None)
-            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
             .StartWithClassicDesktopLifetime(args)

@@ -23,8 +23,6 @@ type FabSceneDelegate() =
     override val Window = null with get, set
 
     abstract member CreateApp: unit -> FabApplication
-    abstract member AfterSetup: unit -> unit
-    default this.AfterSetup() = ()
 
     override this.WillConnect(scene: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
         let scene = scene :?> UIWindowScene
@@ -35,8 +33,6 @@ type FabSceneDelegate() =
             .Configure<FabApplication>(Func<_>(this.CreateApp))
             .UseiOS()
             .AfterSetup(fun _ ->
-                this.AfterSetup()
-
                 let view = new AvaloniaView()
                 lifetime.View <- view
 

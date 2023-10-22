@@ -4,7 +4,6 @@ open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
-open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
 open NewApp
 
@@ -18,6 +17,8 @@ type MainActivity() =
 
     override this.CustomizeAppBuilder(_builder: AppBuilder) =
         AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
-            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
+            .Configure(fun () ->
+                let app = Program.startApplication App.program
+                app.Styles.Add(App.theme)
+                app)
             .UseAndroid()
