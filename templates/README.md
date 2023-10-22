@@ -43,7 +43,8 @@ dotnet new fabulous-avalonia-multi -n MyApp
   - MyApp.Android
   - MyApp.iOS
   - MyApp.Desktop
-  - MyApp.Browser
+
+Note: Browser is not supported in multi project template.
 
 ### Documentation
 

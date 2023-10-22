@@ -46,10 +46,48 @@ let view model =
 You can start your new Fabulous.Avalonia app in a matter of seconds using the dotnet CLI templates.  
 For a starter guide see our [Get Started with Fabulous.Avalonia](https://docs.fabulous.dev/avalonia/get-started).
 
+## How to use the templates
+
+Using the dotnet CLI, install the templates:
+
 ```sh
 dotnet new install Fabulous.Avalonia.Templates
+```
+
+Then, you will be able to create new Fabulous.Avalonia projects with `dotnet new`:
+
+#### Single Project
+
+Single project takes the platform-specific development experiences and abstracts them into a single shared project that can target Android, iOS, Desktop.
+
+```sh
 dotnet new fabulous-avalonia -n MyApp
 ```
+
+- MyApp
+    - Platform
+        - Android
+        - iOS
+        - Desktop
+
+Note: Browser is not supported in single project template.
+
+#### Multi Project
+
+Multi project takes the platform-specific development and abstracts them into a multiple projects that can target Android, iOS, Desktop, Browser.
+
+```sh
+dotnet new fabulous-avalonia-multi -n MyApp
+```
+
+- MyApp
+    - MyApp
+    - MyApp.Android
+    - MyApp.iOS
+    - MyApp.Desktop
+
+Note: Browser is not supported in multi project template.
+
 net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on a Linux host.
 
 ## Samples
