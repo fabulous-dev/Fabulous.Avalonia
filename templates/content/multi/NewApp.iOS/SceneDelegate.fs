@@ -1,6 +1,5 @@
 namespace NewApp.iOS
 
-open Avalonia.Themes.Fluent
 open Foundation
 open Fabulous.Avalonia
 open NewApp
@@ -9,7 +8,7 @@ open NewApp
 type SceneDelegate() =
     inherit FabSceneDelegate()
 
-    override this.CreateApp() = Program.startApplication App.program
-
-    override this.AfterSetup() =
-        FabApplication.Current.AppTheme <- FluentTheme()
+    override this.CreateApp() =
+        let app = Program.startApplication App.program
+        app.Styles.Add(App.theme)
+        app

@@ -14,9 +14,10 @@ module Program =
 
     [<CompiledName "BuildAvaloniaApp">]
     let buildAvaloniaApp () =
-        AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
-            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
+        AppBuilder.Configure(fun () ->
+            let app = Program.startApplication App.program
+            app.Styles.Add(App.theme)
+            app)
 
     [<EntryPoint>]
     let main argv =

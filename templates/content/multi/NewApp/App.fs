@@ -1,6 +1,7 @@
 namespace NewApp
 
 open System
+open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
 
@@ -78,5 +79,7 @@ module App =
             SingleViewApplication(view model)
         else
             DesktopApplication(Window(view model))
+
+    let theme = FluentTheme()
 
     let program = Program.statefulWithCmd init update app

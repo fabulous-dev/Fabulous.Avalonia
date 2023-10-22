@@ -1,11 +1,12 @@
 namespace RenderDemo
 
+open System
 open System.Diagnostics
+open Avalonia.Markup.Xaml.Styling
 open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-
 
 module App =
     type Model =
@@ -357,12 +358,15 @@ module App =
         })
             .expandedModeThresholdWidth(760)
 
-
 #if MOBILE
     let app model = SingleViewApplication(view model)
 #else
     let app model = DesktopApplication(Window(view model))
 #endif
+
+    let theme =
+        StyleInclude(baseUri = null, Source = Uri("avares://RenderDemo/App.xaml"))
+
     let program =
         Program.statefulWithCmdMsg init update app mapCmdMsgToCmd
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))

@@ -15,7 +15,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia.Browser" Version="AvaloniaBrowserPkgVersion" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
 		<ProjectReference Include="..\NewApp\NewApp.fsproj" />
 	</ItemGroup>
 </Project>

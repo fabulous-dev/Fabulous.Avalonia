@@ -1,12 +1,10 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.Controls.Notifications
-open Avalonia.Markup.Xaml.Styling
 open Avalonia.Media
 open Avalonia.Rendering
 open Avalonia.Styling
@@ -91,17 +89,11 @@ type FabApplication() =
             _mainView <- value
             this.UpdateLifetime()
 
-    member this.AppTheme
-        with set value =
-            this.Styles.Clear()
-            this.Styles.Add(value)
-
     /// <summary>Gets the current application instance.</summary>
     static member Current = Application.Current :?> FabApplication
 
     override this.OnFrameworkInitializationCompleted() =
         this.UpdateLifetime()
-
         base.OnFrameworkInitializationCompleted()
 
 type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =

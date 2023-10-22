@@ -1,5 +1,6 @@
 namespace NewApp
 
+open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
 
@@ -83,5 +84,7 @@ module App =
 #endif
 
     //+:cnd:noEmit
+
+    let theme = FluentTheme()
 
     let program = Program.statefulWithCmd init update app
