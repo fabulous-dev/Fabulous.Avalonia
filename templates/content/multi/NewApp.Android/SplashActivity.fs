@@ -1,4 +1,4 @@
-namespace NewApp.Android
+﻿namespace NewApp.Android
 
 open Android.App
 open Android.Content

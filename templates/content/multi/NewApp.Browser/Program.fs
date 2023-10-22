@@ -1,21 +1,24 @@
-namespace NewApp.Desktop
+namespace NewApp.Browser
 
-open System
+open System.Runtime.Versioning
 open Avalonia
+open Avalonia.Browser
 open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
 open NewApp
 
+
 module Program =
+    [<assembly: SupportedOSPlatform("browser")>]
+    do ()
 
     [<CompiledName "BuildAvaloniaApp">]
     let buildAvaloniaApp () =
         AppBuilder
             .Configure(fun () -> Program.startApplication App.program)
-            .LogToTrace(areas = Array.empty)
-            .UsePlatformDetect()
             .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())
 
-    [<EntryPoint; STAThread>]
+    [<EntryPoint>]
     let main argv =
-        buildAvaloniaApp().StartWithClassicDesktopLifetime(argv)
+        buildAvaloniaApp().StartBrowserAppAsync("out") |> ignore
+        0
