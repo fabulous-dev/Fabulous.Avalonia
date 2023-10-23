@@ -1,19 +1,28 @@
-﻿# Fabulous for Avalonia
+﻿## ItemsRepeater for Fabulous.Avalonia
 
-Fabulous.Avalonia brings the great development experience of Fabulous to Avalonia, allowing you to take advantage of the latest cross-platform UI framework from Microsoft with a tailored declarative UI DSL and clean architecture.
+The ItemsRepeater control is a cross-platform view for presenting lists of data. It is a container control that can host multiple items and provides layout management for items. See the [Avalonia documentation](https://docs.avaloniaui.net/docs/next/reference/controls/itemsrepeater) for more information.
 
-Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windows, Linux and more!
+### How to use
+- Add the `Fabulous.Avalonia.ItemsRepeater` package to your project.
 
-## Getting Started
+3: Open `Fabulous.Aavalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
 
-You can start your new Fabulous.Avalonia app in a matter of seconds using the dotnet CLI templates.  
-For a starter guide see our [Get Started with Fabulous.Avalonia](https://fabulous.dev/avalonia/get-started).
-
-```sh
-dotnet new install Fabulous.Avalonia.Templates
-dotnet new fabulous-avalonia -n MyApp
+```fsharp
+open Fabulous.Aavalonia
 ```
 
-## Documentation
+#### Using the `ItemsRepeater` Widget
 
-Documentation can be found at [https://docs.fabulous.dev/v2/avalonia](https://docs.fabulous.dev/v2/avalonia).
+Now you can use the `MediaElement` widget in your Fabulous app as follows:
+
+```fsharp
+ItemsRepeater(["Item 1"; "Item 2"; "Item 3"], fun x -> TextBlock(x))
+```
+
+A full, working example is included in the `ItemsRepeaterPage` sample project in the `/samples/Gallery/Pages/ItemsRepeaterPage` directory.
+
+## Other useful links:
+- [The official Fabulous website](https://fabulous.dev)
+- [Get started](https://docs.fabulous.dev/avalonia/get-started)
+
+Additionally, we have the [Fabulous Discord server](https://discord.gg/bpTJMbSSYK) where you can ask any of your Fabulous related questions.
