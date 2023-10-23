@@ -14,7 +14,7 @@ module ItemsRepeater =
 
     let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>
-            "ItemsRepeater_Items"
+            "ItemsRepeater_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
                 let dataGrid = node.Target :?> ItemsRepeater
