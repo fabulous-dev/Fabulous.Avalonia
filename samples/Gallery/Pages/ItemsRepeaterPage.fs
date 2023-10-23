@@ -82,4 +82,26 @@ module ItemsRepeaterPage =
                     .margin(Thickness(0, 20, 0, 20))
             )
                 .horizontalScrollBarVisibility(ScrollBarVisibility.Auto)
+                
+            ItemsRepeater(
+                model.Items,
+                fun x ->
+                    Border(
+                        HStack() {
+                            TextBlock(x.Title)
+
+                            TextBlock($"{x.Number}")
+                                .margin(Thickness(5, 0, 0, 0))
+                                .fontWeight(FontWeight.Bold)
+                        }
+                    )
+                        .margin(Thickness(0, 10, 0, 0))
+                        .cornerRadius(5)
+                        .borderBrush(Brushes.Blue)
+                        .borderThickness(Thickness(1))
+                        .padding(Thickness(5))
+
+            )
+                .margin(Thickness(0, 20, 0, 20))
+            
         }
