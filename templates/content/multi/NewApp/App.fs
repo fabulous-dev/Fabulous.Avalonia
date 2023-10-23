@@ -75,7 +75,11 @@ module App =
         })
 
     let app model =
-        if OperatingSystem.IsAndroid() || OperatingSystem.IsIOS() then
+        if
+            OperatingSystem.IsAndroid()
+            || OperatingSystem.IsIOS()
+            || OperatingSystem.IsBrowser()
+        then
             SingleViewApplication(view model)
         else
             DesktopApplication(Window(view model))
