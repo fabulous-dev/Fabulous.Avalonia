@@ -16,6 +16,9 @@
     <Compile Include="SceneDelegate.fs" />
     <Compile Include="AppDelegate.fs" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\NewApp\NewApp.fsproj" />
   </ItemGroup>
