@@ -20,5 +20,6 @@
     <PackageVersion Include="Avalonia.Browser" Version="11.0.5" />
     <PackageVersion Include="Avalonia.Skia" Version="11.0.5" />
     <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.0.5" />
+    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.0.5" />
   </ItemGroup>
 </Project>

@@ -56,6 +56,7 @@
     <Compile Include="Pages\ClipboardPage.fs" />
     <Compile Include="Pages\CompositionPage.fs" />
     <Compile Include="Pages\ComboBoxPage.fs" />
+    <Compile Include="Pages\ColorPickerPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
     <Compile Include="Pages\DockPanelPage.fs" />
@@ -127,6 +128,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />

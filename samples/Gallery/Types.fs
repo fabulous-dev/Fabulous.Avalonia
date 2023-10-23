@@ -19,6 +19,7 @@ module Types =
           CheckBoxPageModel: CheckBoxPage.Model
           CarouselPageModel: CarouselPage.Model
           ComboBoxPageModel: ComboBoxPage.Model
+          ColorPickerPageModel: ColorPickerPage.Model
           CompositionPageModel: CompositionPage.Model
           ContextMenuPageModel: ContextMenuPage.Model
           ContextFlyoutPageModel: ContextFlyoutPage.Model
@@ -92,6 +93,7 @@ module Types =
         | CheckBoxPageMsg of CheckBoxPage.Msg
         | CarouselPageMsg of CarouselPage.Msg
         | ComboBoxPageMsg of ComboBoxPage.Msg
+        | ColorPickerPageMsg of ColorPickerPage.Msg
         | CompositionPageMsg of CompositionPage.Msg
         | ContextMenuPageMsg of ContextMenuPage.Msg
         | ContextFlyoutPageMsg of ContextFlyoutPage.Msg
@@ -168,6 +170,7 @@ module Types =
         | CheckBoxPageCmdMsgs of CheckBoxPage.CmdMsg list
         | CarouselPageCmdMsgs of CarouselPage.CmdMsg list
         | ComboBoxPageCmdMsgs of ComboBoxPage.CmdMsg list
+        | ColorPickerPageCmdMsgs of ColorPickerPage.CmdMsg list
         | CompositionPageCmdMsgs of CompositionPage.CmdMsg list
         | ContextMenuPageCmdMsgs of ContextMenuPage.CmdMsg list
         | ContextFlyoutPageCmdMsgs of ContextFlyoutPage.CmdMsg list
