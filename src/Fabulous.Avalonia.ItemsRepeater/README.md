@@ -4,16 +4,17 @@ The ItemsRepeater control is a cross-platform view for presenting lists of data.
 
 ### How to use
 - Add the `Fabulous.Avalonia.ItemsRepeater` package to your project.
-
-3: Open `Fabulous.Aavalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
+- Open `Fabulous.Aavalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
 
 ```fsharp
 open Fabulous.Aavalonia
+
+open type Fabulous.Avalonia.View
 ```
 
 #### Using the `ItemsRepeater` Widget
 
-Now you can use the `MediaElement` widget in your Fabulous app as follows:
+Now you can use the `ItemsRepeater` widget in your Fabulous app as follows:
 
 ```fsharp
 ItemsRepeater(["Item 1"; "Item 2"; "Item 3"], fun x -> TextBlock(x))

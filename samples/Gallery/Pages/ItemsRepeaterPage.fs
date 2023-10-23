@@ -82,7 +82,7 @@ module ItemsRepeaterPage =
                     .margin(Thickness(0, 20, 0, 20))
             )
                 .horizontalScrollBarVisibility(ScrollBarVisibility.Auto)
-                
+
             ItemsRepeater(
                 model.Items,
                 fun x ->
@@ -103,5 +103,5 @@ module ItemsRepeaterPage =
 
             )
                 .margin(Thickness(0, 20, 0, 20))
-            
+
         }

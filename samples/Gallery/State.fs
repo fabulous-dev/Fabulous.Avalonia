@@ -255,7 +255,7 @@ module State =
           SubpageCmdMsgs borderCmdMsgs
           SubpageCmdMsgs calendarCmdMsgs
           SubpageCmdMsgs calendarDatePickerCmdMsgs
-          //SubpageCmdMsgs [ CanvasPageCmdMsgs canvasCmdMsgs ]
+          SubpageCmdMsgs [ CanvasPageCmdMsgs canvasCmdMsgs ]
           SubpageCmdMsgs checkBoxCmdMsgs
           SubpageCmdMsgs carouselCmdMsgs
           SubpageCmdMsgs comboBoxCmdMsgs
