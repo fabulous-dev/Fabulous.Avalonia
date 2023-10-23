@@ -85,8 +85,7 @@ dotnet new fabulous-avalonia-multi -n MyApp
     - MyApp.Android
     - MyApp.iOS
     - MyApp.Desktop
-
-Note: Browser is not supported in multi project template.
+    - MyApp.Browser
 
 net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on a Linux host.
 
