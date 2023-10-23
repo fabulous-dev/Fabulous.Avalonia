@@ -5,7 +5,7 @@
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <!-- https://github.com/xamarin/xamarin-macios/issues/18469 -->
-  <PropertyGroup>
+  <PropertyGroup Condition=" '$(GITHUB_ACTIONS)' != 'true' ">
     <EnableCodeSigning>true</EnableCodeSigning>
     <CodesignRequireProvisioningProfile>true</CodesignRequireProvisioningProfile>
     <DisableCodesignVerification>true</DisableCodesignVerification>

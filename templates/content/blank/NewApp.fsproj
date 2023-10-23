@@ -19,6 +19,12 @@
   <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS'">
     <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
   </PropertyGroup>
+  <!-- https://github.com/xamarin/xamarin-macios/issues/18469 -->
+  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS' And '$(GITHUB_ACTIONS)' != 'true' ">
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <CodesignRequireProvisioningProfile>true</CodesignRequireProvisioningProfile>
+    <DisableCodesignVerification>true</DisableCodesignVerification>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.fs" />
   </ItemGroup>
