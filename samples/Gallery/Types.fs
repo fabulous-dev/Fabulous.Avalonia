@@ -35,6 +35,7 @@ module Types =
           GridPageModel: GridPage.Model
           GridSplitterPageModel: GridSplitterPage.Model
           ImagePageModel: ImagePage.Model
+          ItemsRepeaterPageModel: ItemsRepeaterPage.Model
           LabelPageModel: LabelPage.Model
           LayoutTransformControlPageModel: LayoutTransformControlPage.Model
           ListBoxPageModel: ListBoxPage.Model
@@ -107,6 +108,7 @@ module Types =
         | GridPageMsg of GridPage.Msg
         | GridSplitterPageMsg of GridSplitterPage.Msg
         | ImagePageMsg of ImagePage.Msg
+        | ItemsRepeaterPageMsg of ItemsRepeaterPage.Msg
         | LabelPageMsg of LabelPage.Msg
         | LayoutTransformControlPageMsg of LayoutTransformControlPage.Msg
         | ListBoxPageMsg of ListBoxPage.Msg
@@ -182,6 +184,7 @@ module Types =
         | GridPageCmdMsgs of GridPage.CmdMsg list
         | GridSplitterPageCmdMsgs of GridSplitterPage.CmdMsg list
         | ImagePageCmdMsgs of ImagePage.CmdMsg list
+        | ItemsRepeaterPageCmdMsgs of ItemsRepeaterPage.CmdMsg list
         | LabelPageCmdMsgs of LabelPage.CmdMsg list
         | LayoutTransformControlPageCmdMsgs of LayoutTransformControlPage.CmdMsg list
         | ListBoxPageCmdMsgs of ListBoxPage.CmdMsg list

@@ -70,6 +70,7 @@
     <Compile Include="Pages\GridPage.fs" />
     <Compile Include="Pages\GridSplitterPage.fs" />
     <Compile Include="Pages\ImagePage.fs" />
+    <Compile Include="Pages\ItemsRepeaterPage.fs" />
     <Compile Include="Pages\LabelPage.fs" />
     <Compile Include="Pages\LayoutTransformControlPage.fs" />
     <Compile Include="Pages\ListBoxPage.fs" />
@@ -126,6 +127,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
   </ItemGroup>
