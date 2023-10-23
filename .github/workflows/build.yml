@@ -38,6 +38,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Install dotnet workload
       run: dotnet workload restore
+    - name: Install workload wasm
+      run: dotnet workload install wasm-tools
     - name: Restore
       run: dotnet restore ${SLN_FILE}
     - name: Build
