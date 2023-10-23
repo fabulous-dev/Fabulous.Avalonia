@@ -4,7 +4,7 @@ The ItemsRepeater control is a cross-platform view for presenting lists of data.
 
 ### How to use
 - Add the `Fabulous.Avalonia.ItemsRepeater` package to your project.
-- Open `Fabulous.Aavalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
+- Open `Fabulous.Avalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
 
 ```fsharp
 open Fabulous.Aavalonia
@@ -20,7 +20,7 @@ Now you can use the `ItemsRepeater` widget in your Fabulous app as follows:
 ItemsRepeater(["Item 1"; "Item 2"; "Item 3"], fun x -> TextBlock(x))
 ```
 
-A full, working example is included in the `ItemsRepeaterPage` sample project in the `/samples/Gallery/Pages/ItemsRepeaterPage` directory.
+A full, working example is included in the [ItemsRepeaterPage](https://github.com/fabulous-dev/Fabulous.Avalonia/blob/main/samples/Gallery/Pages/ItemsRepeaterPage.fs) sample
 
 ## Other useful links:
 - [The official Fabulous website](https://fabulous.dev)
