@@ -37,7 +37,7 @@ jobs:
       with:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
-        path: ./CHANGELOG.md
+        path: src/Fabulous.Avalonia/CHANGELOG.md
     - name: Get Fabulous.Avalonia.ItemsRepeater Changelog Entry
       id: itemsrepeater_changelog
       uses: mindsers/changelog-reader-action@v2
