@@ -38,8 +38,6 @@ jobs:
         dotnet-version: 7.0.x
     - name: Install dotnet workload
       run: dotnet workload restore
-    - name: Install workload iOS
-      run: dotnet workload install ios
     - name: Install workload wasm
       run: dotnet workload install wasm-tools
     - name: Restore
