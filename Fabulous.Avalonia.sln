@@ -18,12 +18,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{918B7439-7A5D-4581-9910-8C81780E0D32}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		CHANGELOG.md = CHANGELOG.md
 		.gitignore = .gitignore
 								pull_request.yml = .github/workflows/pull_request.yml
 								build.yml = .github/workflows/build.yml
 								release.yml = .github/workflows/release.yml
 		Directory.Packages.props = Directory.Packages.props
+		src\Fabulous.Avalonia\CHANGELOG.md = src\Fabulous.Avalonia\CHANGELOG.md
+		src\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md = src\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\Gallery.fsproj", "{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}"
