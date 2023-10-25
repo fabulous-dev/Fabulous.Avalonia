@@ -410,8 +410,8 @@ module State =
             { model with
                 ComboBoxPageModel = model1 },
             [ SubpageCmdMsgs cmdMsgs ]
-            
-        | ColorPickerPageMsg msg -> 
+
+        | ColorPickerPageMsg msg ->
             let model1, cmdMsgs = ColorPickerPage.update msg model.ColorPickerPageModel
 
             { model with

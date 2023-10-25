@@ -10,10 +10,7 @@ open Gallery
 
 module ColorPickerPage =
 
-    type Model =
-        { Items: string list
-          Fonts: FontFamily seq
-          IsDropDownOpen: bool }
+    type Model = { Nothing: string }
 
     type Msg = DropDownOpened of bool
 
@@ -26,17 +23,36 @@ module ColorPickerPage =
     let fontComboBox () =
         FontManager.Current.SystemFonts |> Seq.map(fun x -> FontFamily(x.Name))
 
-    let init () =
-        { IsDropDownOpen = false
-          Items = [ "Inline Items"; "Inline Item 2"; "Inline Item 3"; "Inline Item 4" ]
-          Fonts = fontComboBox() },
-        []
+    let init () = { Nothing = "" }, []
 
     let update msg model =
         match msg with
-        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }, []
+        | DropDownOpened isOpen -> model, []
 
     let view _ =
-        HStack(16) {
+        Grid(coldefs = [ Auto; Pixel(10.); Auto ], rowdefs = [ Auto; Auto ]) {
+            ColorView()
+                .gridRow(0)
+                .gridColumn(0)
+                .colorSpectrumShape(ColorSpectrumShape.Ring)
+
             ColorPicker()
+                .gridRow(1)
+                .gridColumn(0)
+                .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+                .margin(0., 50., 0., 0.)
+                .palette(FlatHalfColorPalette())
+
+            (Grid(coldefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ], rowdefs = [ Auto ]) {
+                // <ColorSpectrum x:Name="ColorSpectrum1"
+                //      Grid.Row="0"
+                //      Color="Red"
+                //      CornerRadius="10"
+                //      Height="256"
+                //      Width="256" />
+                ()
+            })
+                .gridRow(0)
+                .gridColumn(2)
+
         }

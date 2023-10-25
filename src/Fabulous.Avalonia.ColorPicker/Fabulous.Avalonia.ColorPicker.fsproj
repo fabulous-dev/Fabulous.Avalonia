@@ -24,6 +24,7 @@
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
         <Compile Include="ColorView.fs" />
         <Compile Include="ColorPicker.fs" />
+        <Compile Include="ColorSpectrum.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="11.0.5" />
