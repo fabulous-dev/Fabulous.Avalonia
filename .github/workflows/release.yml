@@ -11,6 +11,7 @@ env:
   SLN_FILE: Fabulous.Avalonia.NoSamples.sln
   MAIN_PROJ: src/Fabulous.Avalonia/Fabulous.Avalonia.fsproj
   ITEMSREPEATER_PROJ: src/Fabulous.Avalonia/Fabulous.Avalonia.fsproj
+  COLORPICKER_PROJ: src/Fabulous.Avalonia.ColorPicker/Fabulous.Avalonia.ColorPicker.fsproj
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
 
 jobs:
@@ -45,6 +46,13 @@ jobs:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
         path: src/Fabulous.Avalonia.ItemsRepeater/CHANGELOG.md
+    - name: Get Fabulous.Avalonia.ColorPicker Changelog Entry
+      id: colorpicker_changelog
+      uses: mindsers/changelog-reader-action@v2
+      with:
+        validation_level: warn
+        version: '${{ env.RELEASE_VERSION }}'
+        path: src/Fabulous.Avalonia.ColorPicker/CHANGELOG.md
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -62,6 +70,7 @@ jobs:
         find templates -type f -name template.json | xargs sed -i bak "s/PKG_VERSION/${RELEASE_VERSION}/g"
         dotnet pack --project ${MAIN_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.fabulous_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
         dotnet pack --project ${ITEMSREPEATER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.itemsrepeater_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack --project ${COLORPICKER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.colorpicker_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
         dotnet pack ${TEMPLATE_PROJ} -p:Version=${RELEASE_VERSION} -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
