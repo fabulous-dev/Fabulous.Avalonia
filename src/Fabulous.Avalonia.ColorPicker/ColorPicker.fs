@@ -17,8 +17,20 @@ module ColorPicker =
 module ColorPickerBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ColorPicker widget.</summary>
         static member ColorPicker<'msg>() =
             WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorPicker widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorPicker<'msg>(color: Color) =
+            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorPicker widget.</summary>
+        /// <param name="color">The Color value.</param>
+        /// <param name="fn">Raised when the color changes.</param>
+        static member ColorPicker<'msg>(color: Color, fn: Color -> 'msg) =
+            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]
 type ColorPickerModifiers =

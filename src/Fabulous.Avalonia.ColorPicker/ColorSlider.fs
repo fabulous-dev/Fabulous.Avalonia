@@ -35,14 +35,29 @@ module ColorSlider =
         Attributes.defineAvaloniaPropertyWithEquality ColorSlider.IsRoundingEnabledProperty
 
     let ColorChanged =
-        Attributes.defineEvent "ColorSlider_ColorChanged" (fun target -> (target :?> ColorSlider).ColorChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
 
 [<AutoOpen>]
 module ColorSliderBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ColorSlider widget.</summary>
         static member ColorSlider<'msg>() =
             WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorSlider widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorSlider<'msg>(color: Color) =
+            WidgetBuilder<'msg, IFabColorSlider>(
+                ColorSlider.WidgetKey,
+                AttributesBundle(StackList.one(ColorSlider.Color.WithValue(color)), ValueNone, ValueNone)
+            )
+
+        /// <summary>Creates a ColorSlider widget.</summary>
+        /// <param name="color">The Color value.</param>
+        /// <param name="fn">Raised when the color changes.</param>
+        static member ColorSlider<'msg>(color: Color, fn: Color -> 'msg) =
+            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]
 type ColorSliderModifiers =
@@ -52,13 +67,6 @@ type ColorSliderModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabColorSlider>, value: ViewRef<ColorSlider>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-    /// <summary>Set the Color property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Color value.</param>
-    [<Extension>]
-    static member inline color(this: WidgetBuilder<'msg, IFabColorSlider>, value: Color) =
-        this.AddScalar(ColorSlider.Color.WithValue(value))
 
     /// <summary>Set the Components property.</summary>
     /// <param name="this">Current widget.</param>

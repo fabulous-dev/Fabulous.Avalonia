@@ -89,7 +89,7 @@ module ColorView =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.SelectedIndexProperty
 
     let ColorChanged =
-        Attributes.defineEvent "ColorView_ColorChanged" (fun target -> (target :?> ColorView).ColorChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
 
     let PaletteColors =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.PaletteColorsProperty
@@ -98,8 +98,20 @@ module ColorView =
 module ColorViewBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ColorView widget.</summary>
         static member ColorView<'msg>() =
             WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorView widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorView<'msg>(color: Color) =
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorView widget.</summary>
+        /// <param name="color">The Color value.</param>
+        /// <param name="fn">Raised when the color changes.</param>
+        static member ColorView<'msg>(color: Color, fn: Color -> 'msg) =
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]
 type ColorViewModifiers =
@@ -109,13 +121,6 @@ type ColorViewModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabColorView>, value: ViewRef<ColorView>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-    /// <summary>Set the Color property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Color value.</param>
-    [<Extension>]
-    static member inline color(this: WidgetBuilder<'msg, #IFabColorView>, value: Color) =
-        this.AddScalar(ColorView.Color.WithValue(value))
 
     /// <summary>Set the ColorModel property.</summary>
     /// <param name="this">Current widget.</param>

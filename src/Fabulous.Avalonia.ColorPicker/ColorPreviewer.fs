@@ -1,6 +1,7 @@
 ﻿namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
@@ -26,8 +27,14 @@ module ColorPreviewer =
 module ColorPreviewerBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ColorPreviewer widget.</summary>
         static member ColorPreviewer<'msg>() =
             WidgetBuilder<'msg, IFabColorPreviewer>(ColorPreviewer.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorPreviewer widget.</summary>
+        /// <param name="fn">Raised when the color changes.</param>
+        static member ColorPreviewer<'msg>(fn: ColorChangedEventArgs -> 'msg) =
+            WidgetBuilder<'msg, IFabColorPreviewer>(ColorPreviewer.WidgetKey, ColorPreviewer.ColorChanged.WithValue(fn))
 
 [<Extension>]
 type ColorPreviewerModifiers =

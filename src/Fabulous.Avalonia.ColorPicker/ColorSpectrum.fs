@@ -45,14 +45,29 @@ module ColorSpectrum =
         Attributes.defineAvaloniaPropertyWithEquality ColorSpectrum.ShapeProperty
 
     let ColorChanged =
-        Attributes.defineEvent "ColorView_ColorChanged" (fun target -> (target :?> ColorView).ColorChanged)
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorSpectrum_ColorChanged" ColorSpectrum.ColorProperty
 
 [<AutoOpen>]
 module ColorSpectrumBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a ColorSpectrum widget.</summary>
         static member ColorSpectrum<'msg>() =
             WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorSpectrum widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorSpectrum<'msg>(color: Color) =
+            WidgetBuilder<'msg, IFabColorSpectrum>(
+                ColorSpectrum.WidgetKey,
+                AttributesBundle(StackList.one(ColorSpectrum.Color.WithValue(color)), ValueNone, ValueNone)
+            )
+
+        /// <summary>Creates a ColorSpectrum widget.</summary>
+        /// <param name="color">The Color value.</param>
+        /// <param name="fn">Raised when the color changes.</param>
+        static member ColorSpectrum<'msg>(color: Color, fn: Color -> 'msg) =
+            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, ColorSpectrum.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]
 type ColorSpectrumModifiers =
@@ -62,13 +77,6 @@ type ColorSpectrumModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabColorSpectrum>, value: ViewRef<ColorSpectrum>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-    /// <summary>Set the Color property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Color value.</param>
-    [<Extension>]
-    static member inline color(this: WidgetBuilder<'msg, IFabColorSpectrum>, value: Color) =
-        this.AddScalar(ColorSpectrum.Color.WithValue(value))
 
     /// <summary>Set the Components property.</summary>
     /// <param name="this">Current widget.</param>

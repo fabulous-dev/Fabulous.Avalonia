@@ -1,9 +1,10 @@
-﻿## ItemsRepeater for Fabulous.Avalonia
+﻿## ColorPicker for Fabulous.Avalonia
 
-The ItemsRepeater control is a cross-platform view for presenting lists of data. It is a container control that can host multiple items and provides layout management for items. See the [Avalonia documentation](https://docs.avaloniaui.net/docs/next/reference/controls/itemsrepeater) for more information.
+The ColorPicker control is a cross-platform view for selecting, previewing, and editing colors in a Fabulous.Avalonia app.
+It is based on the Avalonia ColorPicker
 
 ### How to use
-- Add the `Fabulous.Avalonia.ItemsRepeater` package to your project.
+- Add the `Fabulous.Avalonia.ColorPicker` package to your project.
 - Open `Fabulous.Avalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
 
 ```fsharp
@@ -12,15 +13,34 @@ open Fabulous.Aavalonia
 open type Fabulous.Avalonia.View
 ```
 
-#### Using the `ItemsRepeater` Widget
+#### Using the `ColorPicker` Widget
 
-Now you can use the `ItemsRepeater` widget in your Fabulous app as follows:
+Now you can use the `ColorView`, `ColorPicker`, `ColorSpectrum`, `ColorSlider` and `ColorPreviewer` widgets in your Fabulous app as follows:
 
 ```fsharp
-ItemsRepeater(["Item 1"; "Item 2"; "Item 3"], fun x -> TextBlock(x))
+ColorView(...)
+    .colorSpectrumShape(ColorSpectrumShape.Ring)
+
+ColorPicker(...)
+    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+    .palette(FlatHalfColorPalette())
+    
+ColorSpectrum(...)
+    .cornerRadius(10.)
+    .height(256.)
+    .width(256.)
+
+ColorSlider(...)
+    .colorComponent(ColorComponent.Component1)
+    .colorModel(ColorModel.Hsva)
+    .hsvColor(model.ColorSpectrum.ToHsv())
+    
+ColorPreviewer(...)
+    .isAccentColorsVisible(false)
+    .hsvColor(model.ColorSpectrum.ToHsv())
 ```
 
-A full, working example is included in the [ItemsRepeaterPage](https://github.com/fabulous-dev/Fabulous.Avalonia/blob/main/samples/Gallery/Pages/ItemsRepeaterPage.fs) sample
+A full, working example is included in the [ColorPicker](https://github.com/fabulous-dev/Fabulous.Avalonia/blob/main/samples/Gallery/Pages/ColorPickerPage.fs) sample
 
 ## Other useful links:
 - [The official Fabulous website](https://fabulous.dev)
