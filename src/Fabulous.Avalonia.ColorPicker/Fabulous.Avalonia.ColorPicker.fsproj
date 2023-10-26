@@ -25,6 +25,8 @@
         <Compile Include="ColorView.fs" />
         <Compile Include="ColorPicker.fs" />
         <Compile Include="ColorSpectrum.fs" />
+        <Compile Include="ColorSlider.fs" />
+        <Compile Include="ColorPreviewer.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="11.0.5" />

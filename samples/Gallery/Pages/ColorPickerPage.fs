@@ -43,14 +43,49 @@ module ColorPickerPage =
                 .margin(0., 50., 0., 0.)
                 .palette(FlatHalfColorPalette())
 
-            (Grid(coldefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ], rowdefs = [ Auto ]) {
-                // <ColorSpectrum x:Name="ColorSpectrum1"
-                //      Grid.Row="0"
-                //      Color="Red"
-                //      CornerRadius="10"
-                //      Height="256"
-                //      Width="256" />
-                ()
+            (Grid(rowdefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ], coldefs = [ Auto ]) {
+                ColorSpectrum()
+                    .gridRow(0)
+                    .color(Colors.Red)
+                    .cornerRadius(10.)
+                    .height(256.)
+                    .width(256.)
+
+                //HSV Sliders
+                ColorSlider()
+                    .gridRow(1)
+                    .margin(0., 10., 0., 0.)
+                    .colorComponent(ColorComponent.Component1)
+                    .colorModel(ColorModel.Hsva)
+                    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+
+                ColorSlider()
+                    .gridRow(2)
+                    .margin(0., 10., 0., 0.)
+                    .colorComponent(ColorComponent.Component2)
+                    .colorModel(ColorModel.Hsva)
+                    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+
+
+                ColorSlider()
+                    .gridRow(3)
+                    .margin(0., 10., 0., 0.)
+                    .colorComponent(ColorComponent.Component3)
+                    .colorModel(ColorModel.Hsva)
+                    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+
+                ColorSlider()
+                    .gridRow(4)
+                    .margin(0., 10., 0., 0.)
+                    .colorComponent(ColorComponent.Alpha)
+                    .colorModel(ColorModel.Hsva)
+                    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+
+                ColorPreviewer()
+                    .gridRow(8)
+                    .isAccentColorsVisible(false)
+                    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+                    .margin(0., 2., 0., 0.)
             })
                 .gridRow(0)
                 .gridColumn(2)
