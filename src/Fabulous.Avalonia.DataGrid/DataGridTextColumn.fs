@@ -39,6 +39,8 @@ module DataGridTextColumnBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
         static member DataGridTextColumn<'msg>(header: string, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridTextColumn>(
                 DataGridTextColumn.WidgetKey,
@@ -47,6 +49,18 @@ module DataGridTextColumnBuilders =
             )
 
         /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
+        static member DataGridTextColumn<'msg>(header: string, binding: string) =
+            WidgetBuilder<'msg, IFabDataGridTextColumn>(
+                DataGridTextColumn.WidgetKey,
+                DataGridColumn.HeaderString.WithValue(header),
+                DataGridBoundColumn.Binding.WithValue(Binding(binding))
+            )
+
+        /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
         static member DataGridTextColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridTextColumn>(
                 DataGridTextColumn.WidgetKey,
@@ -57,6 +71,18 @@ module DataGridTextColumnBuilders =
                 )
             )
 
+        /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
+        static member DataGridTextColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: string) =
+            WidgetBuilder<'msg, IFabDataGridTextColumn>(
+                DataGridTextColumn.WidgetKey,
+                AttributesBundle(
+                    StackList.one(DataGridBoundColumn.Binding.WithValue(Binding(binding))),
+                    ValueSome [| DataGridColumn.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone
+                )
+            )
 
 [<Extension>]
 type DataGridTextColumnModifiers =

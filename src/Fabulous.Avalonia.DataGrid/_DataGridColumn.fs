@@ -28,18 +28,30 @@ module DataGridColumn =
 [<Extension>]
 type DataGridColumnModifiers =
 
+    /// <summary>Sets the CellTheme property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CellTheme value.</param>
     [<Extension>]
     static member inline cellTheme(this: WidgetBuilder<'msg, #IFabDataGridColumn>, value: ControlTheme) =
         this.AddScalar(DataGridColumn.CellTheme.WithValue(value))
 
+    /// <summary>Sets the Width property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Width value.</param>
     [<Extension>]
     static member inline width(this: WidgetBuilder<'msg, #IFabDataGridColumn>, value: DataGridLength) =
         this.AddScalar(DataGridColumn.Width.WithValue(value))
 
+    /// <summary>Sets the Width property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Width value.</param>
     [<Extension>]
     static member inline width(this: WidgetBuilder<'msg, #IFabDataGridColumn>, value: float) =
         this.AddScalar(DataGridColumn.Width.WithValue(DataGridLength(value)))
 
+    /// <summary>Sets the IsVisible property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsVisible value.</param>
     [<Extension>]
     static member inline isVisible(this: WidgetBuilder<'msg, #IFabDataGridColumn>, value: bool) =
         this.AddScalar(DataGridColumn.IsVisible.WithValue(value))

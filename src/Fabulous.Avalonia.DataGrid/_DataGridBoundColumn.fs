@@ -10,7 +10,7 @@ type IFabDataGridBoundColumn =
 module DataGridBoundColumn =
     let Binding =
         Attributes.definePropertyWithGetSet
-            "DataGridColumn_Binding"
+            "DataGridBoundColumn_Binding"
             (fun target ->
                 let target = target :?> DataGridBoundColumn
                 target.Binding)

@@ -578,7 +578,6 @@ type DataGridModifiers =
     static member inline onUnloadingRowDetails(this: WidgetBuilder<'msg, IFabDataGrid>, fn: DataGridRowDetailsEventArgs -> 'msg) =
         this.AddScalar(DataGrid.UnloadingRowDetails.WithValue(fn))
 
-
 [<Extension>]
 type DataGridCollectionBuilderExtensions =
     [<Extension>]

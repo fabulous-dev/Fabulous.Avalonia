@@ -45,5 +45,4 @@ module DataGridPage =
                 .gridLinesVisibility(DataGridGridLinesVisibility.Horizontal)
                 .borderThickness(1.0)
                 .borderBrush(SolidColorBrush(Colors.Gray))
-
         }

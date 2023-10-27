@@ -19,6 +19,8 @@ module DataGridCheckBoxColumnBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
         static member DataGridCheckBoxColumn<'msg>(header: string, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
@@ -27,6 +29,18 @@ module DataGridCheckBoxColumnBuilders =
             )
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
+        static member DataGridCheckBoxColumn<'msg>(header: string, binding: string) =
+            WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
+                DataGridCheckBoxColumn.WidgetKey,
+                DataGridColumn.HeaderString.WithValue(header),
+                DataGridBoundColumn.Binding.WithValue(Binding(binding))
+            )
+
+        /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
         static member DataGridCheckBoxColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
@@ -37,6 +51,18 @@ module DataGridCheckBoxColumnBuilders =
                 )
             )
 
+        /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
+        /// <param name="header">The column header</param>
+        /// <param name="binding">The column binding</param>
+        static member DataGridCheckBoxColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: string) =
+            WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
+                DataGridCheckBoxColumn.WidgetKey,
+                AttributesBundle(
+                    StackList.one(DataGridBoundColumn.Binding.WithValue(Binding(binding))),
+                    ValueSome [| DataGridColumn.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone
+                )
+            )
 
 [<Extension>]
 type DataGridCheckBoxColumnModifiers =
