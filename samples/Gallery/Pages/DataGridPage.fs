@@ -1,11 +1,8 @@
-namespace Gallery.Pages
+namespace Gallery
 
-open System.ComponentModel
-open Avalonia.Input
 open Fabulous.Avalonia
+open Fabulous
 
-
-open Fabulous.Avalonia.DataGid
 open type Fabulous.Avalonia.View
 
 module DataGridPage =
@@ -13,11 +10,17 @@ module DataGridPage =
 
     type Msg = | DoNothing
 
-    let init () = { Nothing = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Nothing = 0 }, []
 
     let update msg model =
         match msg with
-        | DoNothing -> model
+        | DoNothing -> model, []
 
-    let view model =
+    let view _ =
         DataGrid([ "A"; "B" ], (fun x -> TextBlock(x)))

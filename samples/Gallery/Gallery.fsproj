@@ -130,6 +130,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />

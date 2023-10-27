@@ -26,7 +26,7 @@
         <Compile Include="DataGrid.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="11.0.0-preview6" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="11.0.5" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>

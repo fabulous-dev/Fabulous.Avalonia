@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.DataGid
+namespace Fabulous.Avalonia
 
 open System
 open Avalonia.Controls
@@ -7,7 +7,7 @@ open Avalonia.Controls.Templates
 open Fabulous
 open Fabulous.Avalonia
 
-type WidgetControlTemplate(node: IViewNode, templateFn: obj -> Widget, supportsRecycling: bool) as this =
+type WidgetControlTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
     inherit FuncControlTemplate(System.Func<TemplatedControl, INameScope, Control>(fun data n -> this.Build(data, n)))
 
     member this.Recycle(newData: obj, prevWidget: Widget, rowNode: IViewNode) : Widget =
@@ -25,16 +25,6 @@ type WidgetControlTemplate(node: IViewNode, templateFn: obj -> Widget, supportsR
         let item = ContentControl()
         item.Content <- (view :?> Control)
 
-        let mutable prevWidget = widget
-
-        item.DataContextChanged.AddHandler(
-            EventHandler(fun sender args ->
-                if supportsRecycling then
-                    let currWidget = this.Recycle((sender :?> Control).DataContext, prevWidget, rowNode)
-
-                    prevWidget <- currWidget)
-        )
-
         item
 
 type IFabDataGrid =
@@ -43,9 +33,9 @@ type IFabDataGrid =
 module DataGrid =
     let WidgetKey = Widgets.register<DataGrid>()
 
-    let Items =
+    let ItemsSource =
         Attributes.defineSimpleScalar<WidgetItems>
-            "DataGrid_Items"
+            "DataGrid_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
                 let dataGrid = node.Target :?> DataGrid
@@ -53,12 +43,12 @@ module DataGrid =
                 match newValueOpt with
                 | ValueNone ->
                     dataGrid.ClearValue(DataGrid.TemplateProperty)
-                    dataGrid.ClearValue(DataGrid.ItemsProperty)
+                    dataGrid.ClearValue(DataGrid.ItemsSourceProperty)
                 | ValueSome value ->
-                    dataGrid.SetValue(DataGrid.TemplateProperty, WidgetControlTemplate(node, unbox >> value.Template, true))
+                    dataGrid.SetValue(DataGrid.TemplateProperty, WidgetControlTemplate(node, unbox >> value.Template))
                     |> ignore
 
-                    dataGrid.SetValue(DataGrid.ItemsProperty, value.OriginalItems))
+                    dataGrid.SetValue(DataGrid.ItemsSourceProperty, value.OriginalItems) |> ignore)
 
 
 [<AutoOpen>]
@@ -70,7 +60,7 @@ module DataGridBuilders =
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> DataGrid.WidgetKey DataGrid.Items items template
+            WidgetHelpers.buildItems<'msg, IFabDataGrid, 'itemData, 'itemMarker> DataGrid.WidgetKey DataGrid.ItemsSource items template
 
 // [<Extension>]
 // type DataGridModifiers =
