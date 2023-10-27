@@ -14,13 +14,16 @@ type IFabDataGridCheckBoxColumn =
 module DataGridCheckBoxColumn =
     let WidgetKey = Widgets.register<DataGridCheckBoxColumn>()
 
+    let IsThreeState =
+        Attributes.defineAvaloniaPropertyWithEquality DataGridCheckBoxColumn.IsThreeStateProperty
+
 [<AutoOpen>]
 module DataGridCheckBoxColumnBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
-        /// <param name="header">The column header</param>
-        /// <param name="binding">The column binding</param>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
         static member DataGridCheckBoxColumn<'msg>(header: string, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
@@ -29,8 +32,8 @@ module DataGridCheckBoxColumnBuilders =
             )
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
-        /// <param name="header">The column header</param>
-        /// <param name="binding">The column binding</param>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
         static member DataGridCheckBoxColumn<'msg>(header: string, binding: string) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
@@ -39,8 +42,8 @@ module DataGridCheckBoxColumnBuilders =
             )
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
-        /// <param name="header">The column header</param>
-        /// <param name="binding">The column binding</param>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
         static member DataGridCheckBoxColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
@@ -52,8 +55,8 @@ module DataGridCheckBoxColumnBuilders =
             )
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
-        /// <param name="header">The column header</param>
-        /// <param name="binding">The column binding</param>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
         static member DataGridCheckBoxColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: string) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
@@ -66,9 +69,16 @@ module DataGridCheckBoxColumnBuilders =
 
 [<Extension>]
 type DataGridCheckBoxColumnModifiers =
-    /// <summary>Link a ViewRef to access the direct DataGridCheckBoxColumn control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    /// <summary>Link a ViewRef to access the direct DataGridCheckBoxColumn control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>, value: ViewRef<DataGridCheckBoxColumn>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+    /// <summary>Set the IsThreeState property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsThreeState property value.</param>
+    [<Extension>]
+    static member inline isThreeState(this: WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>, value: bool) =
+        this.AddScalar(DataGridCheckBoxColumn.IsThreeState.WithValue(value))
