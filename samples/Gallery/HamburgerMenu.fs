@@ -25,6 +25,7 @@ module HamburgerMenu =
                 TabItem("CheckBoxPage", AnyView(View.map CheckBoxPageMsg (CheckBoxPage.view model.CheckBoxPageModel)))
                 TabItem("CarouselPage", AnyView(View.map CarouselPageMsg (CarouselPage.view model.CarouselPageModel)))
                 TabItem("ComboBoxPage", AnyView(View.map ComboBoxPageMsg (ComboBoxPage.view model.ComboBoxPageModel)))
+                TabItem("ColorPickerPage", AnyView(View.map ColorPickerPageMsg (ColorPickerPage.view model.ColorPickerPageModel)))
                 TabItem("CompositionPage", AnyView(View.map CompositionPageMsg (CompositionPage.view model.CompositionPageModel)))
                 TabItem("ContextMenuPage", AnyView(View.map ContextMenuPageMsg (ContextMenuPage.view model.ContextMenuPageModel)))
                 TabItem("ContextFlyoutPage", AnyView(View.map ContextFlyoutPageMsg (ContextFlyoutPage.view model.ContextFlyoutPageModel)))

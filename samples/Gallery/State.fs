@@ -33,6 +33,7 @@ module State =
                 | CheckBoxPageCmdMsgs subCmdMsgs -> map CheckBoxPage.mapCmdMsgToCmd CheckBoxPageMsg subCmdMsgs
                 | CarouselPageCmdMsgs subCmdMsgs -> map CarouselPage.mapCmdMsgToCmd CarouselPageMsg subCmdMsgs
                 | ComboBoxPageCmdMsgs subCmdMsgs -> map ComboBoxPage.mapCmdMsgToCmd ComboBoxPageMsg subCmdMsgs
+                | ColorPickerPageCmdMsgs subCmdMsgs -> map ColorPickerPage.mapCmdMsgToCmd ColorPickerPageMsg subCmdMsgs
                 | CompositionPageCmdMsgs subCmdMsgs -> map CompositionPage.mapCmdMsgToCmd CompositionPageMsg subCmdMsgs
                 | ContextMenuPageCmdMsgs subCmdMsgs -> map ContextMenuPage.mapCmdMsgToCmd ContextMenuPageMsg subCmdMsgs
                 | ContextFlyoutPageCmdMsgs subCmdMsgs -> map ContextFlyoutPage.mapCmdMsgToCmd ContextFlyoutPageMsg subCmdMsgs
@@ -108,6 +109,7 @@ module State =
         let checkBoxModel, checkBoxCmdMsgs = CheckBoxPage.init()
         let carouselModel, carouselCmdMsgs = CarouselPage.init()
         let comboBoxModel, comboBoxCmdMsgs = ComboBoxPage.init()
+        let colorPickerModel, colorPickerCmdMsgs = ColorPickerPage.init()
         let compositionModel, compositionCmdMsgs = CompositionPage.init()
         let contextMenuModel, contextMenuCmdMsgs = ContextMenuPage.init()
         let contextFlyoutModel, contextFlyoutCmdMsgs = ContextFlyoutPage.init()
@@ -183,6 +185,7 @@ module State =
           CheckBoxPageModel = checkBoxModel
           CarouselPageModel = carouselModel
           ComboBoxPageModel = comboBoxModel
+          ColorPickerPageModel = colorPickerModel
           CompositionPageModel = compositionModel
           ContextMenuPageModel = contextMenuModel
           ContextFlyoutPageModel = contextFlyoutModel
@@ -259,6 +262,7 @@ module State =
           SubpageCmdMsgs checkBoxCmdMsgs
           SubpageCmdMsgs carouselCmdMsgs
           SubpageCmdMsgs comboBoxCmdMsgs
+          SubpageCmdMsgs colorPickerCmdMsgs
           SubpageCmdMsgs compositionCmdMsgs
           SubpageCmdMsgs contextMenuCmdMsgs
           SubpageCmdMsgs contextFlyoutCmdMsgs
@@ -405,6 +409,13 @@ module State =
 
             { model with
                 ComboBoxPageModel = model1 },
+            [ SubpageCmdMsgs cmdMsgs ]
+
+        | ColorPickerPageMsg msg ->
+            let model1, cmdMsgs = ColorPickerPage.update msg model.ColorPickerPageModel
+
+            { model with
+                ColorPickerPageModel = model1 },
             [ SubpageCmdMsgs cmdMsgs ]
         | CompositionPageMsg msg ->
             let model1, cmdMsgs = CompositionPage.update msg model.CompositionPageModel

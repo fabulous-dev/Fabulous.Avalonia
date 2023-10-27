@@ -10,4 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/compare/2.0.0-pre15...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/compare/2.0.0-pre15...HEAD
