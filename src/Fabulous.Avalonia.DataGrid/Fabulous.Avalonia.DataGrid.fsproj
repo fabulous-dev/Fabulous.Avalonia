@@ -21,9 +21,9 @@
     <ItemGroup>
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-        <Compile Include="_DataGridColumn.fs" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="_DataGridColumn.fs" />
         <Compile Include="_DataGridBoundColumn.fs" />
         <Compile Include="DataGridTextColumn.fs" />
         <Compile Include="DataGridCheckBoxColumn.fs" />
