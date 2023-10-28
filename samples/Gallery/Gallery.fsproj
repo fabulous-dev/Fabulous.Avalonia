@@ -110,6 +110,7 @@
     <Compile Include="Pages\ToggleSwitchPage.fs" />
     <Compile Include="Pages\ThemeAwarePage.fs" />
     <Compile Include="Pages\ToolTipPage.fs" />
+    <Compile Include="Pages\TreeViewPage.fs" />
     <Compile Include="Pages\UniformGridPage.fs" />
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />
