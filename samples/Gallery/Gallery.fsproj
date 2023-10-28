@@ -59,6 +59,7 @@
     <Compile Include="Pages\ColorPickerPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
+    <Compile Include="Pages\DataGridPage.fs" />
     <Compile Include="Pages\DockPanelPage.fs" />
     <Compile Include="Pages\DialogsPage.fs" />
     <Compile Include="Pages\DragAndDropPage.fs" />
@@ -129,6 +130,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj" />
+    <ProjectReference Include="..\..\src\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />

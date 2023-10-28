@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		src\Fabulous.Avalonia\CHANGELOG.md = src\Fabulous.Avalonia\CHANGELOG.md
 		src\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md = src\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md
 		src\Fabulous.Avalonia.ColorPicker\CHANGELOG.md = src\Fabulous.Avalonia.ColorPicker\CHANGELOG.md
+		src\Fabulous.Avalonia.DataGrid\CHANGELOG.md = src\Fabulous.Avalonia.DataGrid\CHANGELOG.md
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\Gallery.fsproj", "{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}"
@@ -39,6 +40,8 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ItemsRepeater", "src\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj", "{752F6263-F7BA-4BC5-B756-F1EA76C253F3}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ColorPicker", "src\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj", "{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.DataGrid", "src\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj", "{5746DBF7-9C33-4B42-931A-138EDA1AFA31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +82,10 @@ Global
 		{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9EB9291D-09F8-43DD-9A95-154D4E6BA78E} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
@@ -88,5 +95,6 @@ Global
 		{3438C2E8-8221-497B-9ED2-FA351459A7C2} = {8D513303-98F9-40AA-AFA7-D92D920F96DF}
 		{752F6263-F7BA-4BC5-B756-F1EA76C253F3} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
+		{5746DBF7-9C33-4B42-931A-138EDA1AFA31} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 	EndGlobalSection
 EndGlobal

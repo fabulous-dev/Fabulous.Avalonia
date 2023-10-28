@@ -24,6 +24,7 @@ module Types =
           ContextMenuPageModel: ContextMenuPage.Model
           ContextFlyoutPageModel: ContextFlyoutPage.Model
           ClipboardPageModel: ClipboardPage.Model
+          DataGridPageModel: DataGridPage.Model
           DialogsPageModel: DialogsPage.Model
           DragAndDropPageModel: DragAndDropPage.Model
           DockPanelPageModel: DockPanelPage.Model
@@ -98,6 +99,7 @@ module Types =
         | ContextMenuPageMsg of ContextMenuPage.Msg
         | ContextFlyoutPageMsg of ContextFlyoutPage.Msg
         | ClipboardPageMsg of ClipboardPage.Msg
+        | DataGridPageMsg of DataGridPage.Msg
         | DockPanelPageMsg of DockPanelPage.Msg
         | DialogsPageMsg of DialogsPage.Msg
         | DragAndDropPageMsg of DragAndDropPage.Msg
@@ -175,6 +177,7 @@ module Types =
         | ContextMenuPageCmdMsgs of ContextMenuPage.CmdMsg list
         | ContextFlyoutPageCmdMsgs of ContextFlyoutPage.CmdMsg list
         | ClipboardPageCmdMsgs of ClipboardPage.CmdMsg list
+        | DataGridPageCmdMsgs of DataGridPage.CmdMsg list
         | DockPanelPageCmdMsgs of DockPanelPage.CmdMsg list
         | DragAndDropPageCmdMsgs of DragAndDropPage.CmdMsg list
         | DialogsPageCmdMsgs of DialogsPage.CmdMsg list
