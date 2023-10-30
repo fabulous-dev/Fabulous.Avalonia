@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		src\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md = src\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md
 		src\Fabulous.Avalonia.ColorPicker\CHANGELOG.md = src\Fabulous.Avalonia.ColorPicker\CHANGELOG.md
 		src\Fabulous.Avalonia.DataGrid\CHANGELOG.md = src\Fabulous.Avalonia.DataGrid\CHANGELOG.md
+		templates\CHANGELOG.md = templates\CHANGELOG.md
 	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\Gallery.fsproj", "{AADAEC1A-44A7-401C-8B5E-F5506A1AA5AB}"
