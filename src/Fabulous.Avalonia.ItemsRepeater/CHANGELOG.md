@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-pre16] - 2023-10-31
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/compare/2.0.0-pre15...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/compare/2.0.0-pre16...HEAD
+[2.0.0-pre16]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/releases/tag/2.0.0-pre16
