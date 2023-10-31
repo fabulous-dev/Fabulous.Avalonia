@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+_No unreleased changes_
 
-### Fixed
-- Fix black screen in multi-project template when targeting Browser
+## [2.0.0-pre16] - 2023-10-31
+
+### Changed
+- Sample apps better styling
 
 ## [2.0.0-pre15] - 2023-10-19
 
@@ -137,7 +140,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre15...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.0.0-pre16...HEAD
+[2.0.0-pre16]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre16
 [2.0.0-pre15]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre15
 [2.0.0-pre14]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre14
 [2.0.0-pre13]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0-pre13
