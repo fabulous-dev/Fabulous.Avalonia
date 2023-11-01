@@ -83,11 +83,11 @@ jobs:
     - name: Pack
       run: |
         find templates -type f -name template.json | xargs sed -i bak "s/PKG_VERSION/${RELEASE_VERSION}/g"
-        dotnet pack --project ${MAIN_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.fabulous_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
-        dotnet pack --project ${ITEMSREPEATER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.itemsrepeater_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
-        dotnet pack --project ${COLORPICKER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.colorpicker_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
-        dotnet pack --project ${DATAGRID_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.datagrid_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
-        dotnet pack --project ${TEMPLATE_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.templates_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${MAIN_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.fabulous_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${ITEMSREPEATER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.itemsrepeater_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${COLORPICKER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.colorpicker_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${DATAGRID_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.datagrid_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${TEMPLATE_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.templates_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
