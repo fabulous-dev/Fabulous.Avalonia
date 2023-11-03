@@ -89,6 +89,7 @@ module HamburgerMenu =
                 TabItem("ToggleButtonPage", AnyView(View.map ToggleButtonPageMsg (ToggleButtonPage.view model.ToggleButtonPageModel)))
                 TabItem("ToolTipPage", AnyView(View.map ToolTipPageMsg (ToolTipPage.view model.ToolTipPageModel)))
                 TabItem("TabControlPage", AnyView(View.map TabControlPageMsg (TabControlPage.view model.TabControlPageModel)))
+                TabItem("TreeViewPage", AnyView(View.map TreeViewPageMsg (TreeViewPage.view model.TreeViewPageModel)))
                 TabItem("TabStripPage", AnyView(View.map TabStripPageMsg (TabStripPage.view model.TabStripPageModel)))
                 TabItem("ThemeAwarePage", AnyView(View.map ThemeAwarePageMsg (ThemeAwarePage.view model.ThemeAwarePageModel)))
                 TabItem("UniformGridPage", AnyView(View.map UniformGridPageMsg (UniformGridPage.view model.UniformGridPageModel)))

@@ -72,6 +72,7 @@ module Types =
           ToggleSwitchPageModel: ToggleSwitchPage.Model
           ToggleButtonPageModel: ToggleButtonPage.Model
           ToolTipPageModel: ToolTipPage.Model
+          TreeViewPageModel: TreeViewPage.Model
           TabControlPageModel: TabControlPage.Model
           TabStripPageModel: TabStripPage.Model
           ThemeAwarePageModel: ThemeAwarePage.Model
@@ -149,6 +150,7 @@ module Types =
         | ToolTipPageMsg of ToolTipPage.Msg
         | TabControlPageMsg of TabControlPage.Msg
         | TabStripPageMsg of TabStripPage.Msg
+        | TreeViewPageMsg of TreeViewPage.Msg
         | ThemeAwarePageMsg of ThemeAwarePage.Msg
         | UniformGridPageMsg of UniformGridPage.Msg
         | ViewBoxPageMsg of ViewBoxPage.Msg
@@ -225,6 +227,7 @@ module Types =
         | ToggleSwitchPageCmdMsgs of ToggleSwitchPage.CmdMsg list
         | ToggleButtonPageCmdMsgs of ToggleButtonPage.CmdMsg list
         | ToolTipPageCmdMsgs of ToolTipPage.CmdMsg list
+        | TreeViewPageCmdMsgs of TreeViewPage.CmdMsg list
         | TabControlPageCmdMsgs of TabControlPage.CmdMsg list
         | TabStripPageCmdMsgs of TabStripPage.CmdMsg list
         | ThemeAwarePageCmdMsgs of ThemeAwarePage.CmdMsg list

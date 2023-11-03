@@ -195,6 +195,7 @@
     <Compile Include="Views\Collections\ListBox.fs" />
     <Compile Include="Views\Collections\Carousel.fs" />
     <Compile Include="Views\Collections\TabControl.fs" />
+    <Compile Include="Views\Collections\TreeView.fs" />
     <Compile Include="Views\Imaging\_IconElement.fs" />
     <Compile Include="Views\Imaging\CroppedBitmap.fs" />
     <Compile Include="Views\Imaging\Image.fs" />
