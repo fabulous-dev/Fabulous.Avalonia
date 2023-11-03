@@ -44,6 +44,13 @@ type ExperimentalAcrylicBorderModifiers =
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicBorder>, value: CornerRadius) =
         this.AddScalar(ExperimentalAcrylicBorder.CornerRadius.WithValue(value))
 
+    /// <summary>Sets the CornerRadius property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CornerRadius value.</param>
+    [<Extension>]
+    static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicBorder>, value: float) =
+        this.AddScalar(ExperimentalAcrylicBorder.CornerRadius.WithValue(CornerRadius(value)))
+
     /// <summary>Sets the Material property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Material value.</param>

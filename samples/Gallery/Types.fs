@@ -1,7 +1,6 @@
 namespace Gallery
 
 open Avalonia.Controls
-open System
 open Avalonia.Media
 open Avalonia.Styling
 
@@ -73,6 +72,7 @@ module Types =
           ToggleButtonPageModel: ToggleButtonPage.Model
           ToolTipPageModel: ToolTipPage.Model
           TreeViewPageModel: TreeViewPage.Model
+          TransitioningContentControlPageModel: TransitioningContentControlPage.Model
           TabControlPageModel: TabControlPage.Model
           TabStripPageModel: TabStripPage.Model
           ThemeAwarePageModel: ThemeAwarePage.Model
@@ -151,6 +151,7 @@ module Types =
         | TabControlPageMsg of TabControlPage.Msg
         | TabStripPageMsg of TabStripPage.Msg
         | TreeViewPageMsg of TreeViewPage.Msg
+        | TransitioningContentControlPageMsg of TransitioningContentControlPage.Msg
         | ThemeAwarePageMsg of ThemeAwarePage.Msg
         | UniformGridPageMsg of UniformGridPage.Msg
         | ViewBoxPageMsg of ViewBoxPage.Msg
@@ -228,6 +229,7 @@ module Types =
         | ToggleButtonPageCmdMsgs of ToggleButtonPage.CmdMsg list
         | ToolTipPageCmdMsgs of ToolTipPage.CmdMsg list
         | TreeViewPageCmdMsgs of TreeViewPage.CmdMsg list
+        | TransitioningContentControlPageCmdMsgs of TransitioningContentControlPage.CmdMsg list
         | TabControlPageCmdMsgs of TabControlPage.CmdMsg list
         | TabStripPageCmdMsgs of TabStripPage.CmdMsg list
         | ThemeAwarePageCmdMsgs of ThemeAwarePage.CmdMsg list
