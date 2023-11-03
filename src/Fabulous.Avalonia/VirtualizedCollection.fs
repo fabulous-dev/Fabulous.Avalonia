@@ -5,7 +5,6 @@ open System.Collections
 open Avalonia.Controls
 open Avalonia.Controls.Templates
 open Avalonia.Data
-open Avalonia.Markup.Xaml.Templates
 open Fabulous
 
 type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =

@@ -1,7 +1,8 @@
 namespace Gallery
 
-open System.Collections.ObjectModel
-
+open Avalonia.Controls
+open Avalonia.Layout
+open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
@@ -13,7 +14,7 @@ module TreeViewPage =
 
     type Model = { Nodes: Node list }
 
-    type Msg = DoNothing
+    type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
     type CmdMsg = | NoMsg
 
@@ -29,12 +30,34 @@ module TreeViewPage =
                       Children =
                         [ { Name = "Lion"; Children = [] }
                           { Name = "Cat"; Children = [] }
-                          { Name = "Zebra"; Children = [] } ] } ] } ] },
+                          { Name = "Zebra"; Children = [] } ] } ] }
+
+              { Name = "Birds"
+                Children =
+                  [ { Name = "Eagle"; Children = [] }
+                    { Name = "Sparrow"; Children = [] }
+                    { Name = "Dove"; Children = [] }
+                    { Name = "Owl"; Children = [] }
+                    { Name = "Parrot"; Children = [] }
+                    { Name = "Pigeon"; Children = [] } ] } ] },
         []
 
     let update msg model =
         match msg with
-        | DoNothing -> model, []
+        | SelectionItemChanged args -> model, []
 
     let view model =
-        VStack() { TreeView(model.Nodes, (fun node -> node.Children), (fun x -> TextBlock(x.Name))) }
+        VStack() {
+            TreeView(
+                model.Nodes,
+                (fun node -> node.Children),
+                (fun x ->
+                    Border(TextBlock(x.Name))
+                        .background(Brushes.Gray)
+                        .horizontalAlignment(HorizontalAlignment.Left)
+                        .borderThickness(1.0)
+                        .cornerRadius(5.0)
+                        .padding(15.0, 3.0))
+            )
+                .onSelectionChanged(SelectionItemChanged)
+        }
