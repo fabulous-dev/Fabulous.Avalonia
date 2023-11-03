@@ -1,8 +1,10 @@
 namespace Fabulous.Avalonia
 
 open System
+open System.Collections
 open Avalonia.Controls
 open Avalonia.Controls.Templates
+open Avalonia.Data
 open Avalonia.Markup.Xaml.Templates
 open Fabulous
 
@@ -26,17 +28,19 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
 
         item
 
-type WidgetTreeDataTemplate(node: IViewNode, templateFn: obj -> Widget) =
-    inherit TreeDataTemplate()
+type WidgetTreeDataTemplate(node: IViewNode, childrenFn: obj -> IEnumerable, templateFn: obj -> Widget) =
 
-    member this.Build(data: obj, _: INameScope) =
-        let widget = templateFn data
-        let definition = WidgetDefinitionStore.get widget.Key
+    interface ITreeDataTemplate with
+        member this.ItemsSelector(item) =
+            InstancedBinding.OneTime(childrenFn item)
 
-        let struct (_, view) =
-            definition.CreateView(widget, node.TreeContext, ValueSome node)
+        member this.Match(_data) = true
 
-        let item = ContentControl()
-        item.Content <- (view :?> Control)
+        member this.Build(data: obj) =
+            let widget = templateFn data
+            let definition = WidgetDefinitionStore.get widget.Key
 
-        item
+            let struct (_, view) =
+                definition.CreateView(widget, node.TreeContext, ValueSome node)
+
+            view :?> Control

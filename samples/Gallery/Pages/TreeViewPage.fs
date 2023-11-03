@@ -9,12 +9,9 @@ open type Fabulous.Avalonia.View
 open Gallery
 
 module TreeViewPage =
-    type Node(name: string, ?nodes: ObservableCollection<Node>) =
-        member this.Name = name
+    type Node = { Name: string; Children: Node list }
 
-        member this.Nodes = defaultArg nodes (ObservableCollection<Node>([]))
-
-    type Model = { Nodes: ObservableCollection<Node> }
+    type Model = { Nodes: Node list }
 
     type Msg = DoNothing
 
@@ -26,9 +23,13 @@ module TreeViewPage =
 
     let init () =
         { Nodes =
-            ObservableCollection<Node>(
-                [ Node("Animals", ObservableCollection<Node>([ Node("Mammals", ObservableCollection<Node>([ Node("Lion"); Node("Cat"); Node("Zebra") ])) ])) ]
-            ) },
+            [ { Name = "Animals"
+                Children =
+                  [ { Name = "Mammals"
+                      Children =
+                        [ { Name = "Lion"; Children = [] }
+                          { Name = "Cat"; Children = [] }
+                          { Name = "Zebra"; Children = [] } ] } ] } ] },
         []
 
     let update msg model =
@@ -36,8 +37,4 @@ module TreeViewPage =
         | DoNothing -> model, []
 
     let view model =
-        VStack() {
-            TreeView(model.Nodes, (fun x -> TextBlock(x.Name)))
-
-            TreeView() { TreeViewItem("Animals") }
-        }
+        VStack() { TreeView(model.Nodes, (fun node -> node.Children), (fun x -> TextBlock(x.Name))) }
