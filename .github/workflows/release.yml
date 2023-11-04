@@ -10,7 +10,7 @@ env:
   CONFIG: Release
   SLN_FILE: Fabulous.Avalonia.NoSamples.sln
   MAIN_PROJ: src/Fabulous.Avalonia/Fabulous.Avalonia.fsproj
-  ITEMSREPEATER_PROJ: src/Fabulous.Avalonia/Fabulous.Avalonia.fsproj
+  ITEMSREPEATER_PROJ: src/Fabulous.Avalonia.ItemsRepeater/Fabulous.Avalonia.ItemsRepeater.fsproj
   COLORPICKER_PROJ: src/Fabulous.Avalonia.ColorPicker/Fabulous.Avalonia.ColorPicker.fsproj
   DATAGRID_PROJ: src/Fabulous.Avalonia.DataGrid/Fabulous.Avalonia.DataGrid.fsproj
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
