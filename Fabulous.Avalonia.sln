@@ -44,6 +44,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ColorPick
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.DataGrid", "src\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj", "{5746DBF7-9C33-4B42-931A-138EDA1AFA31}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.TreeDataGrid", "src\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj", "{10A74AA1-E9F2-4899-BFC1-9BA9F32C1B9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5746DBF7-9C33-4B42-931A-138EDA1AFA31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A74AA1-E9F2-4899-BFC1-9BA9F32C1B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A74AA1-E9F2-4899-BFC1-9BA9F32C1B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A74AA1-E9F2-4899-BFC1-9BA9F32C1B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A74AA1-E9F2-4899-BFC1-9BA9F32C1B9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9EB9291D-09F8-43DD-9A95-154D4E6BA78E} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
@@ -97,5 +103,6 @@ Global
 		{752F6263-F7BA-4BC5-B756-F1EA76C253F3} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{37ECC0C5-7D3D-41FA-A70F-3AAB348FE823} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 		{5746DBF7-9C33-4B42-931A-138EDA1AFA31} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
+		{10A74AA1-E9F2-4899-BFC1-9BA9F32C1B9A} = {60AC1554-2FB2-4AED-90F5-A4F99F7DDF5E}
 	EndGlobalSection
 EndGlobal

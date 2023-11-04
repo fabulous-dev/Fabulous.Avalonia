@@ -22,5 +22,6 @@
     <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.0.5" />
     <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.0.5" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
+    <PackageVersion Include="Avalonia.Controls.TreeDataGrid" Version="11.0.1" />
   </ItemGroup>
 </Project>
