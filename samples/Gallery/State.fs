@@ -81,6 +81,7 @@ module State =
                 | ScrollBarPageCmdMsgs subCmdMsgs -> map ScrollBarPage.mapCmdMsgToCmd ScrollBarPageMsg subCmdMsgs
                 | TabControlPageCmdMsgs subCmdMsgs -> map TabControlPage.mapCmdMsgToCmd TabControlPageMsg subCmdMsgs
                 | TreeViewPageCmdMsgs treeViewPageCmdMsgs -> map TreeViewPage.mapCmdMsgToCmd TreeViewPageMsg treeViewPageCmdMsgs
+                | TreeDataGridPageCmdMsgs treeDataGridPageCmdMsgs -> map TreeDataGridPage.mapCmdMsgToCmd TreeDataGridPageMsg treeDataGridPageCmdMsgs
                 | TransitioningContentControlPageCmdMsgs subCmdMsgs ->
                     map TransitioningContentControlPage.mapCmdMsgToCmd TransitioningContentControlPageMsg subCmdMsgs
                 | TabStripPageCmdMsgs subCmdMsgs -> map TabStripPage.mapCmdMsgToCmd TabStripPageMsg subCmdMsgs
@@ -174,6 +175,7 @@ module State =
         let toolTipModel, toolTipCmdMsgs = ToolTipPage.init()
         let tabControlModel, tabControlCmdMsgs = TabControlPage.init()
         let treeViewModel, treeViewCmdMsgs = TreeViewPage.init()
+        let treeDataGridModel, treeDataGridCmdMsgs = TreeDataGridPage.init()
 
         let transitionControlModel, transitionControlCmdMsgs =
             TransitioningContentControlPage.init()
@@ -250,6 +252,7 @@ module State =
           ToolTipPageModel = toolTipModel
           TabControlPageModel = tabControlModel
           TreeViewPageModel = treeViewModel
+          TreeDataGridPageModel = treeDataGridModel
           TransitioningContentControlPageModel = transitionControlModel
           TabStripPageModel = tabStripModel
           ThemeAwarePageModel = themeAwareModel
@@ -330,6 +333,7 @@ module State =
           SubpageCmdMsgs toolTipCmdMsgs
           SubpageCmdMsgs tabControlCmdMsgs
           SubpageCmdMsgs treeViewCmdMsgs
+          SubpageCmdMsgs treeDataGridCmdMsgs
           SubpageCmdMsgs transitionControlCmdMsgs
           SubpageCmdMsgs tabStripCmdMsgs
           SubpageCmdMsgs themeAwareCmdMsgs
@@ -712,6 +716,13 @@ module State =
 
             { model with
                 TreeViewPageModel = model1 },
+            [ SubpageCmdMsgs cmdMsgs ]
+
+        | TreeDataGridPageMsg msg ->
+            let model1, cmdMsgs = TreeDataGridPage.update msg model.TreeDataGridPageModel
+
+            { model with
+                TreeDataGridPageModel = model1 },
             [ SubpageCmdMsgs cmdMsgs ]
 
         | TransitioningContentControlPageMsg msg ->
