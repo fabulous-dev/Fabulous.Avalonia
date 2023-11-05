@@ -81,6 +81,8 @@ module State =
                 | ScrollBarPageCmdMsgs subCmdMsgs -> map ScrollBarPage.mapCmdMsgToCmd ScrollBarPageMsg subCmdMsgs
                 | TabControlPageCmdMsgs subCmdMsgs -> map TabControlPage.mapCmdMsgToCmd TabControlPageMsg subCmdMsgs
                 | TreeViewPageCmdMsgs treeViewPageCmdMsgs -> map TreeViewPage.mapCmdMsgToCmd TreeViewPageMsg treeViewPageCmdMsgs
+                | TransitioningContentControlPageCmdMsgs subCmdMsgs ->
+                    map TransitioningContentControlPage.mapCmdMsgToCmd TransitioningContentControlPageMsg subCmdMsgs
                 | TabStripPageCmdMsgs subCmdMsgs -> map TabStripPage.mapCmdMsgToCmd TabStripPageMsg subCmdMsgs
                 | TextBlockPageCmdMsgs subCmdMsgs -> map TextBlockPage.mapCmdMsgToCmd TextBlockPageMsg subCmdMsgs
                 | TextBoxPageCmdMsgs subCmdMsgs -> map TextBoxPage.mapCmdMsgToCmd TextBoxPageMsg subCmdMsgs
@@ -172,6 +174,10 @@ module State =
         let toolTipModel, toolTipCmdMsgs = ToolTipPage.init()
         let tabControlModel, tabControlCmdMsgs = TabControlPage.init()
         let treeViewModel, treeViewCmdMsgs = TreeViewPage.init()
+
+        let transitionControlModel, transitionControlCmdMsgs =
+            TransitioningContentControlPage.init()
+
         let tabStripModel, tabStripCmdMsgs = TabStripPage.init()
         let themeAwareModel, themeAwareCmdMsgs = ThemeAwarePage.init()
         let uniformGridModel, uniformGridCmdMsgs = UniformGridPage.init()
@@ -244,6 +250,7 @@ module State =
           ToolTipPageModel = toolTipModel
           TabControlPageModel = tabControlModel
           TreeViewPageModel = treeViewModel
+          TransitioningContentControlPageModel = transitionControlModel
           TabStripPageModel = tabStripModel
           ThemeAwarePageModel = themeAwareModel
           UniformGridPageModel = uniformGridModel
@@ -323,6 +330,7 @@ module State =
           SubpageCmdMsgs toolTipCmdMsgs
           SubpageCmdMsgs tabControlCmdMsgs
           SubpageCmdMsgs treeViewCmdMsgs
+          SubpageCmdMsgs transitionControlCmdMsgs
           SubpageCmdMsgs tabStripCmdMsgs
           SubpageCmdMsgs themeAwareCmdMsgs
           SubpageCmdMsgs uniformGridCmdMsgs
@@ -704,6 +712,14 @@ module State =
 
             { model with
                 TreeViewPageModel = model1 },
+            [ SubpageCmdMsgs cmdMsgs ]
+
+        | TransitioningContentControlPageMsg msg ->
+            let model1, cmdMsgs =
+                TransitioningContentControlPage.update msg model.TransitioningContentControlPageModel
+
+            { model with
+                TransitioningContentControlPageModel = model1 },
             [ SubpageCmdMsgs cmdMsgs ]
         | TabStripPageMsg msg ->
             let model1, cmdMsgs = TabStripPage.update msg model.TabStripPageModel
