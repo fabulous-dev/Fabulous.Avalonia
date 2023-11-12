@@ -1,13 +1,13 @@
 ﻿## TreeDataGrid for Fabulous.Avalonia
 
-The TreeDataGrid control is a cross-platform view for presenting lists of data. It is a container control that can host multiple items and provides layout management for items. See the [Avalonia documentation](https://docs.avaloniaui.net/docs/next/reference/controls/treedatagrid) for more information.
+The tree data grid displays hierarchical and tabular data together in a single view. It is a combination of a tree view and data grid.. See the [Avalonia documentation](https://docs.avaloniaui.net/docs/next/reference/controls/detailed-reference/treedatagrid/) for more information.
 
 ### How to use
 - Add the `Fabulous.Avalonia.TreeDataGrid` package to your project.
 - Open `Fabulous.Avalonia` at the top of the file where you declare your Fabulous program (eg. Program.stateful).
 
 ```fsharp
-open Fabulous.Aavalonia
+open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 ```
@@ -17,7 +17,9 @@ open type Fabulous.Avalonia.View
 Now you can use the `TreeDataGrid` widget in your Fabulous app as follows:
 
 ```fsharp
-TreeDataGrid(["Item 1"; "Item 2"; "Item 3"], fun x -> TextBlock(x))
+TreeDataGrid(colums)
+
+TreeDataGrid(colums, rows)
 ```
 
 A full, working example is included in the [TreeDataGridPage](https://github.com/fabulous-dev/Fabulous.Avalonia/blob/main/samples/Gallery/Pages/TreeDataGridPage.fs) sample
