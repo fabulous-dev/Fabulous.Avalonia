@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.0.0-pre17] - 2023-11-12
+### Added
+- No changes
+
 ## [2.0.0-pre16] - 2023-10-31
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/compare/2.0.0-pre16...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/compare/2.0.0-pre17...HEAD
+[2.0.0-pre17]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/releases/tag/2.0.0-pre17
 [2.0.0-pre16]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/releases/tag/2.0.0-pre16
 

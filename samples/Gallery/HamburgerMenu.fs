@@ -90,6 +90,7 @@ module HamburgerMenu =
                 TabItem("ToolTipPage", AnyView(View.map ToolTipPageMsg (ToolTipPage.view model.ToolTipPageModel)))
                 TabItem("TabControlPage", AnyView(View.map TabControlPageMsg (TabControlPage.view model.TabControlPageModel)))
                 TabItem("TreeViewPage", AnyView(View.map TreeViewPageMsg (TreeViewPage.view model.TreeViewPageModel)))
+                TabItem("TreeDataGridViewPage", AnyView(View.map TreeDataGridPageMsg (TreeDataGridPage.view model.TreeDataGridPageModel)))
 
                 TabItem(
                     "TransitioningContentPage",

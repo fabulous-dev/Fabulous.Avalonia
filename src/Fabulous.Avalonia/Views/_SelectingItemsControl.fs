@@ -15,6 +15,9 @@ module SelectingItemsControl =
     let SelectedIndex =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.SelectedIndexProperty
 
+    let SelectedItem =
+        Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.SelectedItemProperty
+
     let IsTextSearchEnabled =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.IsTextSearchEnabledProperty
 
@@ -46,6 +49,13 @@ type SelectingItemsControlModifiers =
     [<Extension>]
     static member inline selectedIndex(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: int) =
         this.AddScalar(SelectingItemsControl.SelectedIndex.WithValue(value))
+
+    /// <summary>Sets the SelectedItem property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectedItem value.</param>
+    [<Extension>]
+    static member inline selectedItem(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: obj) =
+        this.AddScalar(SelectingItemsControl.SelectedItem.WithValue(value))
 
     /// <summary>Sets the IsTextSearchEnabled property.</summary>
     /// <param name="this">Current widget.</param>
