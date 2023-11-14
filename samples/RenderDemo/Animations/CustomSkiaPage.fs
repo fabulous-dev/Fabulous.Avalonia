@@ -13,6 +13,8 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 open SkiaSharp
 
+#nowarn "0044"
+
 open type Fabulous.Avalonia.View
 
 type CustomDrawOp(bounds: Rect, noSkia: GlyphRun) =
