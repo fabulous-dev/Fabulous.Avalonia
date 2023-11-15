@@ -32,7 +32,6 @@ module ColorPickerBuilders =
         static member ColorPicker<'msg>(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
 
-[<Extension>]
 type ColorPickerModifiers =
     /// <summary>Link a ViewRef to access the direct ColorPicker control instance</summary>
     /// <param name="this">Current widget</param>

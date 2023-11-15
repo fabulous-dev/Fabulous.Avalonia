@@ -52,7 +52,6 @@ module ComboBoxBuilders =
         static member ComboBox() =
             CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ItemsControl.Items)
 
-[<Extension>]
 type ComboBoxModifiers =
     /// <summary>Sets the IsDropDownOpen property.</summary>
     /// <param name="this">Current widget.</param>
@@ -125,7 +124,6 @@ type ComboBoxModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type ComboBoxCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>

@@ -11,7 +11,6 @@ module Geometry =
     let Changed =
         Attributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
 
-[<Extension>]
 type GeometryModifiers =
     /// <summary>Sets the Transform property.</summary>
     /// <param name="this">Current widget.</param>

@@ -84,7 +84,6 @@ module DataGridTextColumnBuilders =
                 )
             )
 
-[<Extension>]
 type DataGridTextColumnModifiers =
     /// <summary>Link a ViewRef to access the direct DataGridTextColumn control instance.</summary>
     /// <param name="this">Current widget.</param>

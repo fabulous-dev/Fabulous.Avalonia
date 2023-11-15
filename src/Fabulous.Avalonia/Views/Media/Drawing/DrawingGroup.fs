@@ -46,7 +46,6 @@ module DrawingGroupBuilders =
         static member DrawingGroup<'msg>(opacity: float) =
             CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
 
-[<Extension>]
 type DrawingGroupModifiers =
 
     /// <summary>Sets the OpacityMask property.</summary>
@@ -91,7 +90,6 @@ type DrawingGroupModifiers =
     static member inline clipGeometry(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: WidgetBuilder<'msg, #IFabGeometry>) =
         this.AddWidget(DrawingGroup.ClipGeometry.WithValue(value.Compile()))
 
-[<Extension>]
 type DrawingGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>

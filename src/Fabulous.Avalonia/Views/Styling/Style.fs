@@ -22,7 +22,6 @@ module StyleBuilders =
         static member Animations() =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
 
-[<Extension>]
 type StyleModifiers =
     /// <summary>Sets the Animations property.</summary>
     /// <param name="this">Current widget.</param>
@@ -47,7 +46,6 @@ type StyleModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabStyle>, value: ViewRef<Style>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type StyleCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>

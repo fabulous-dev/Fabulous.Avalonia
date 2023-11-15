@@ -43,7 +43,6 @@ module ExperimentalAcrylicMaterialBuilders =
                 AttributesBundle(StackList.empty(), ValueNone, ValueNone)
             )
 
-[<Extension>]
 type ExperimentalAcrylicMaterialModifiers =
 
     /// <summary>Sets the TintColor property.</summary>

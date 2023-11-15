@@ -11,7 +11,6 @@ module Effect =
     let Invalidated =
         Attributes.defineEventNoArg "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)
 
-[<Extension>]
 type EffectModifiers =
     /// <summary>Listens the Effect Invalidated event.</summary>
     /// <param name="this">Current widget.</param>
@@ -20,7 +19,6 @@ type EffectModifiers =
     static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabEffect>, msg: 'msg) =
         this.AddScalar(Effect.Invalidated.WithValue(MsgValue msg))
 
-[<Extension>]
 type AttachedEffectModifiers =
     /// <summary>Sets the Effect property.</summary>
     /// <param name="this">Current widget.</param>

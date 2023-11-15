@@ -49,7 +49,6 @@ module ScrollBarBuilders =
                 RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
-[<Extension>]
 type ScrollBarModifiers =
 
     /// <summary>Sets the ViewportSize property.</summary>

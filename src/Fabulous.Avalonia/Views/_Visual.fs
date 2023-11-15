@@ -50,7 +50,6 @@ module Visual =
     let DetachedFromVisualTree =
         Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
 
-[<Extension>]
 type VisualModifiers =
     /// <summary>Sets the ClipToBounds property.</summary>
     /// <param name="this">Current widget.</param>

@@ -30,7 +30,6 @@ module ToolTip =
     let ShowDelay =
         Attributes.defineAvaloniaPropertyWithEquality ToolTip.ShowDelayProperty
 
-[<Extension>]
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>

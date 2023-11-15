@@ -69,7 +69,6 @@ module ColorSpectrumBuilders =
         static member ColorSpectrum<'msg>(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, ColorSpectrum.ColorChanged.WithValue(ValueEventData.create color fn))
 
-[<Extension>]
 type ColorSpectrumModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSpectrum control instance</summary>
     /// <param name="this">Current widget</param>

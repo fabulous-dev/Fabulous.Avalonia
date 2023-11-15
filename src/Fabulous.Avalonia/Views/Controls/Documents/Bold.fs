@@ -23,7 +23,6 @@ module BoldBuilders =
         static member Bold<'msg>(text: string) =
             View.Bold<'msg>() { View.Run<'msg>(text) }
 
-[<Extension>]
 type BoldModifiers =
     /// <summary>Link a ViewRef to access the direct Bold control instance.</summary>
     /// <param name="this">Current widget.</param>

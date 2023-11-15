@@ -52,7 +52,6 @@ module SelectableTextBlockBuilders =
                 SelectableTextBlock.CopyingToClipboard.WithValue(fn)
             )
 
-[<Extension>]
 type SelectableTextBlockModifiers =
 
     /// <summary>Sets the SelectionStart property.</summary>
@@ -97,7 +96,6 @@ type SelectableTextBlockModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type SelectableTextBlockCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>

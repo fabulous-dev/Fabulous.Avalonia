@@ -56,7 +56,6 @@ module NativeMenuItemBuilders =
                 NativeMenuItem.Click.WithValue(MsgValue onClicked)
             )
 
-[<Extension>]
 type NativeMenuItemModifiers =
     /// <summary>Sets the Menu property.</summary>
     /// <param name="this">Current widget.</param>

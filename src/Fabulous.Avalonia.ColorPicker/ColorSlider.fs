@@ -59,7 +59,6 @@ module ColorSliderBuilders =
         static member ColorSlider<'msg>(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.ColorChanged.WithValue(ValueEventData.create color fn))
 
-[<Extension>]
 type ColorSliderModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>
     /// <param name="this">Current widget</param>

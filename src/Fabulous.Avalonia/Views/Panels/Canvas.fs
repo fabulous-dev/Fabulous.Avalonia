@@ -32,7 +32,6 @@ module CanvasBuilders =
         static member Canvas<'msg>(viewRef: ViewRef<Canvas>) =
             WidgetBuilder<'msg, IFabCanvas>(Canvas.WidgetKey, ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox))
 
-[<Extension>]
 type CanvasModifiers =
     /// <summary>Sets the Left property.</summary>
     /// <param name="this">Current widget.</param>

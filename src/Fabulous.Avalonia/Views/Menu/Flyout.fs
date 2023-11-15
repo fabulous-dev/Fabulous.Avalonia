@@ -27,7 +27,6 @@ module FlyoutBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type FlyoutModifiers =
     /// <summary>Link a ViewRef to access the direct Flyout control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -36,7 +35,6 @@ type FlyoutModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabFlyout>, value: ViewRef<Flyout>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type FlyoutAttachedModifiers =
     /// <summary>Sets the AttachedFlyout property.</summary>
     /// <param name="this">Current widget.</param>

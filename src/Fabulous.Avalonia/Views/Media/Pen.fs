@@ -56,7 +56,6 @@ module PenBuilders =
                 Pen.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
             )
 
-[<Extension>]
 type PenModifiers =
     /// <summary>Sets the DashStyle property.</summary>
     /// <param name="this">Current widget.</param>

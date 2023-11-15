@@ -39,7 +39,6 @@ module DropDownButtonBuilders =
                 )
             )
 
-[<Extension>]
 type DropDownButtonModifiers =
     /// <summary>Link a ViewRef to access the direct DropDownButton control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -43,7 +43,6 @@ module ProgressBarBuilders =
                 RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
-[<Extension>]
 type ProgressBarModifiers =
     /// <summary>Sets the IsIndeterminate property.</summary>
     /// <param name="this">Current widget.</param>

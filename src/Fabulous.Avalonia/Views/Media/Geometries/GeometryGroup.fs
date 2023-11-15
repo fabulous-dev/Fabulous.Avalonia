@@ -30,7 +30,6 @@ module GeometryGroupBuilders =
                 GeometryGroup.FillRule.WithValue(fillRule)
             )
 
-[<Extension>]
 type GeometryGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGeometry>

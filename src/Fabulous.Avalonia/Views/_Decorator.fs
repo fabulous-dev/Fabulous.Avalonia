@@ -16,7 +16,6 @@ module Decorator =
     let Padding =
         Attributes.defineAvaloniaPropertyWithEquality Decorator.PaddingProperty
 
-[<Extension>]
 type DecoratorModifiers =
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>
@@ -32,7 +31,6 @@ type DecoratorModifiers =
     static member inline child(this: WidgetBuilder<'msg, #IFabDecorator>, value: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(Decorator.ChildWidget.WithValue(value.Compile()))
 
-[<Extension>]
 type DecoratorExtraModifiers =
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>

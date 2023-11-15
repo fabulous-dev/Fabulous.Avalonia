@@ -68,7 +68,6 @@ module WindowBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>
     /// <param name="this">Current widget.</param>
