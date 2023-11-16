@@ -3,7 +3,6 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
-        <LangVersion>11.0</LangVersion>
         <RootNamespace>Controls</RootNamespace>
     </PropertyGroup>
 
