@@ -46,6 +46,7 @@ module ItemsControl =
     let ContainerPrepared =
         Attributes.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
 
+[<Extension>]
 type ItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>
     /// <param name="this">Current widget.</param>

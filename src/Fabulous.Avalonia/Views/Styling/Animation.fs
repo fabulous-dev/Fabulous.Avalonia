@@ -51,6 +51,7 @@ module AnimationBuilders =
         static member Animation<'msg>() =
             CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children)
 
+[<Extension>]
 type AnimationModifiers =
     /// <summary>Sets the IterationCount property to Infinite.</summary>
     /// <param name="this">Current widget.</param>
@@ -114,6 +115,7 @@ type AnimationModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabAnimation>, value: ViewRef<Animation>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type AnimationCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabKeyFrame>

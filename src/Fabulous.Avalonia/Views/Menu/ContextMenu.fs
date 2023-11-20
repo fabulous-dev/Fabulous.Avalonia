@@ -64,6 +64,7 @@ module ContextMenuBuilders =
                 ContextMenu.Placement.WithValue(PlacementMode.Bottom)
             )
 
+[<Extension>]
 type ContextMenuModifiers =
     /// <summary>Sets the HorizontalOffset property.</summary>
     /// <param name="this">Current widget.</param>
@@ -144,6 +145,7 @@ type ContextMenuModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabContextMenu>, value: ViewRef<ContextMenu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type ContextMenuAttachedModifiers =
     /// <summary>Sets the ContextMenu property.</summary>
     /// <param name="this">Current widget.</param>
@@ -152,6 +154,7 @@ type ContextMenuAttachedModifiers =
     static member inline contextMenu(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, IFabContextMenu>) =
         this.AddWidget(Control.ContextMenu.WithValue(value.Compile()))
 
+[<Extension>]
 type ContextMenuCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>

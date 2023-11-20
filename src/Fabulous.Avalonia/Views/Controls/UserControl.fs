@@ -23,6 +23,7 @@ module UserControlBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
+[<Extension>]
 type UserControlModifiers =
     /// <summary>Link a ViewRef to access the direct UserControl control instance.</summary>
     /// <param name="this">Current widget.</param>

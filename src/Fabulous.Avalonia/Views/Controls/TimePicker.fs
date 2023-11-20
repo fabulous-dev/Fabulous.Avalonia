@@ -30,6 +30,7 @@ module TimePickerBuilders =
         static member inline TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
             WidgetBuilder<'msg, IFabTimePicker>(TimePicker.WidgetKey, TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time fn))
 
+[<Extension>]
 type TimePickerModifiers =
 
     /// <summary>Sets the ClockIdentifier property.</summary>
@@ -53,6 +54,7 @@ type TimePickerModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabTimePicker>, value: ViewRef<TimePicker>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type TimePickerExtraModifiers =
     /// <summary>Sets the ClockIdentifier property.</summary>
     /// <param name="this">Current widget.</param>

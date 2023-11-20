@@ -23,6 +23,7 @@ module AccessTextBuilders =
         static member inline AccessText(text: string, showAccessKey: bool) =
             WidgetBuilder<'msg, IFabAccessText>(AccessText.WidgetKey, TextBlock.Text.WithValue(text), AccessText.ShowAccessKey.WithValue(showAccessKey))
 
+[<Extension>]
 type AccessTextModifiers =
     /// <summary>Link a ViewRef to access the direct AccessText control instance.</summary>
     /// <param name="this">Current widget.</param>

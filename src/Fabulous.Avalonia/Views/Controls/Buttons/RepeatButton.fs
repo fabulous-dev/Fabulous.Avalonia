@@ -43,6 +43,7 @@ module RepeatButtonBuilders =
                 )
             )
 
+[<Extension>]
 type RepeatButtonModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>

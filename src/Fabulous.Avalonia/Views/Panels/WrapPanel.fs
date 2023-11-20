@@ -32,6 +32,7 @@ module WrapPanelBuilders =
         static member HWrap<'msg>() =
             CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
 
+[<Extension>]
 type WrapPanelModifiers =
     /// <summary>Sets the ItemWidth property.</summary>
     /// <param name="this">Current widget.</param>

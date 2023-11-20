@@ -48,6 +48,7 @@ module DatePickerBuilders =
         static member inline DatePicker(date: DateTimeOffset, fn: DateTimeOffset -> 'msg) =
             WidgetBuilder<'msg, IFabDatePicker>(DatePicker.WidgetKey, DatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn))
 
+[<Extension>]
 type DatePickerModifiers =
     /// <summary>Sets the DayVisible property.</summary>
     /// <param name="this">Current widget.</param>

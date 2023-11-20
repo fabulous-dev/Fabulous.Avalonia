@@ -21,6 +21,7 @@ module DragDrop =
     let AllowDrop =
         Attributes.defineAvaloniaPropertyWithEquality DragDrop.AllowDropProperty
 
+[<Extension>]
 type DragDropModifiers =
     /// <summary>Listens to the DragDrop DragEnter event.</summary>
     /// <param name="this">Current widget.</param>

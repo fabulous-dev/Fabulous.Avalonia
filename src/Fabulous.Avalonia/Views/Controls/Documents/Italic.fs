@@ -23,6 +23,7 @@ module ItalicBuilders =
         static member Italic<'msg>(text: string) =
             View.Italic<'msg>() { View.Run<'msg>(text) }
 
+[<Extension>]
 type ItalicModifiers =
     /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>
     /// <param name="this">Current widget.</param>

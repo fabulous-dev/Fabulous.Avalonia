@@ -113,6 +113,7 @@ module GeometryDrawingBuilders =
                 )
             )
 
+[<Extension>]
 type GeometryDrawingModifiers =
 
     /// <summary>Sets the Pen property.</summary>

@@ -122,6 +122,7 @@ module TextBoxBuilders =
         static member inline TextBox<'msg>(text: string, fn: string -> 'msg) =
             WidgetBuilder<'msg, IFabTextBox>(TextBox.WidgetKey, TextBox.TextChanged.WithValue(ValueEventData.create text fn))
 
+[<Extension>]
 type TextBoxModifiers =
 
     /// <summary>Sets the TextAlignment property.</summary>
@@ -376,6 +377,7 @@ type TextBoxModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabTextBox>, value: ViewRef<TextBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type TextBoxExtraModifiers =
     /// <summary>Sets the TextAlignment to center.</summary>
     /// <param name="this">Current widget.</param>

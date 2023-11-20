@@ -74,6 +74,7 @@ module TreeViewBuilders =
 
             WidgetBuilder<'msg, IFabTreeView>(TreeView.WidgetKey, TreeView.ItemsSource.WithValue(data))
 
+[<Extension>]
 type TreeViewModifiers =
     /// <summary>Link a ViewRef to access the direct TreeView control instance.</summary>
     /// <param name="this">Current widget.</param>

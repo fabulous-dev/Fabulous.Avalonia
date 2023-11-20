@@ -48,6 +48,7 @@ module RenderOptions =
                 let target = target :?> Visual
                 RenderOptions.SetTextRenderingMode(target, value))
 
+[<Extension>]
 type RenderOptionsModifiers =
     /// <summary> Sets the BitmapInterpolationMode property.</summary>
     /// <param name="this">Current widget.</param>

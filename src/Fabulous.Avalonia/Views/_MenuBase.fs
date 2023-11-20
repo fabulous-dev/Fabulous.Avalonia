@@ -15,6 +15,7 @@ module MenuBase =
     let Closed =
         Attributes.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
 
+[<Extension>]
 type MenuBaseModifiers =
     /// <summary>Listens to the MenuOpened event.</summary>
     /// <param name="this">Current widget.</param>

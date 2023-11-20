@@ -23,6 +23,7 @@ module UnderlineBuilders =
         static member Underline<'msg>(text: string) =
             View.Underline<'msg>() { View.Run<'msg>(text) }
 
+[<Extension>]
 type UnderlineModifiers =
     /// <summary>Link a ViewRef to access the direct Underline control instance.</summary>
     /// <param name="this">Current widget.</param>

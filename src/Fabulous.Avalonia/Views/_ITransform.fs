@@ -12,6 +12,7 @@ module Transform =
     let Changed =
         Attributes.defineEventNoArg "Transform_Changed" (fun target -> (target :?> Transform).Changed)
 
+[<Extension>]
 type TransformModifiers =
     /// <summary>Listens to the Transform changed event.</summary>
     /// <param name="this">Current widget.</param>

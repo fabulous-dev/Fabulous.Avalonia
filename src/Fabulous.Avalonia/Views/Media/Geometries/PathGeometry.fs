@@ -44,6 +44,7 @@ module PathGeometryBuilders =
                 PathGeometry.FillRule.WithValue(fillRule)
             )
 
+[<Extension>]
 type PathGeometryBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathFigure>

@@ -36,6 +36,7 @@ module ListBoxBuilders =
         static member ListBox() =
             CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
 
+[<Extension>]
 type ListBoxModifiers =
     /// <summary>Sets the SelectionMode property.</summary>
     /// <param name="this">Current widget.</param>
@@ -58,6 +59,7 @@ type ListBoxModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabListBox>, value: ViewRef<ListBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type ListBoxCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>

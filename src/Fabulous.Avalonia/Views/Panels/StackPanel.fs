@@ -29,6 +29,7 @@ module StackPanel =
     let VerticalSnapPointsChanged =
         Attributes.defineEvent "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
 
+[<Extension>]
 type StackPanelModifiers =
     /// <summary>Sets the AreHorizontalSnapPointsRegular property.</summary>
     /// <param name="this">Current widget.</param>

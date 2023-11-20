@@ -29,6 +29,7 @@ module ButtonSpinnerBuilders =
         static member inline ButtonSpinner<'msg>(text: string, fn: SpinEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabButtonSpinner>(ButtonSpinner.WidgetKey, ContentControl.ContentString.WithValue(text), Spinner.Spin.WithValue(fn))
 
+[<Extension>]
 type ButtonSpinnerModifiers =
 
     /// <summary>Sets the AllowSpin property.</summary>

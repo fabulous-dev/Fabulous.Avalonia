@@ -43,6 +43,7 @@ module Layoutable =
     let LayoutUpdated =
         Attributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
 
+[<Extension>]
 type LayoutableModifiers =
     /// <summary>Sets the Width property.</summary>
     /// <param name="this">Current widget.</param>
@@ -128,6 +129,7 @@ type LayoutableModifiers =
     static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, msg: 'msg) =
         this.AddScalar(Layoutable.LayoutUpdated.WithValue(MsgValue msg))
 
+[<Extension>]
 type LayoutableExtraModifiers =
     /// <summary>Sets the HorizontalAlignment property to Center.</summary>
     /// <param name="this">Current widget.</param>

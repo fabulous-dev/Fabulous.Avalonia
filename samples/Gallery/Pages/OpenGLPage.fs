@@ -403,6 +403,7 @@ module OpenGLWidgetBuilders =
         static member inline OpenGlPageControl<'msg>(yaw: float, pitch: float, roll: float, disco: float) =
             WidgetBuilder<'msg, IFabOpenGlPageControl>(OpenGlPageControl.WidgetKey, OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
 
+[<Extension>]
 type OpenGLWidgetModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabOpenGlPageControl>, value: ViewRef<OpenGlPageControl>) =

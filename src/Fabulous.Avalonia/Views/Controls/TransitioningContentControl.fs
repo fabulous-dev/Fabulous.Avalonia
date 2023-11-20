@@ -26,6 +26,7 @@ module TransitioningContentControlBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
+[<Extension>]
 type TransitioningContentControlModifiers =
     /// <summary>Link a ViewRef to access the direct TransitioningContentControl control instance.</summary>
     /// <param name="this">Current widget.</param>

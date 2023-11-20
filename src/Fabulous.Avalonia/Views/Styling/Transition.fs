@@ -40,6 +40,7 @@ module DoubleTransitionBuilders =
                 DoubleTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type DoubleTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -97,6 +98,7 @@ module BoxShadowsTransitionBuilders =
                 BoxShadowsTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type BoxShadowsTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -154,6 +156,7 @@ module BrushTransitionBuilders =
                 BrushTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type BrushTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -209,6 +212,7 @@ module ColorTransitionBuilders =
                 ColorTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type ColorTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -265,6 +269,7 @@ module CornerRadiusTransitionBuilders =
                 CornerRadiusTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type CornerRadiusTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -320,6 +325,7 @@ module FloatTransitionBuilders =
                 FloatTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type FloatTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -375,6 +381,7 @@ module IntegerTransitionBuilders =
                 IntegerTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type IntegerTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -431,6 +438,7 @@ module PointTransitionBuilders =
                 PointTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type PointTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -487,6 +495,7 @@ module SizeTransitionBuilders =
                 SizeTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type SizeTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -543,6 +552,7 @@ module ThicknessTransitionBuilders =
                 ThicknessTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type ThicknessTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -599,6 +609,7 @@ module TransformOperationsTransitionBuilders =
                 TransformOperationsTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type TransformOperationsTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -656,6 +667,7 @@ module VectorTransitionBuilders =
                 VectorTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type VectorTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -711,6 +723,7 @@ module EffectTransitionBuilders =
                 EffectTransition.Duration.WithValue(duration)
             )
 
+[<Extension>]
 type EffectTransitionModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>

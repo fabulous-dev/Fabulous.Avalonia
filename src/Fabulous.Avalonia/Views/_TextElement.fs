@@ -37,6 +37,7 @@ module TextElement =
     let Foreground =
         Attributes.defineAvaloniaPropertyWithEquality TextElement.ForegroundProperty
 
+[<Extension>]
 type TextElementModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>

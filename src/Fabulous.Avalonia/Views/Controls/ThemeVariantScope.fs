@@ -36,6 +36,7 @@ module ThemeVariantScopeBuilders =
                 )
             )
 
+[<Extension>]
 type ThemeVariantScopeModifiers =
 
     /// <summary>Listens the ThemeVariantScope ThemeVariantChanged event.</summary>

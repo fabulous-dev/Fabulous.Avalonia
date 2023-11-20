@@ -96,6 +96,7 @@ module ToggleButtonBuilders =
                 )
             )
 
+[<Extension>]
 type ToggleButtonModifiers =
     /// <summary>Link a ViewRef to access the direct ToggleButton control instance.</summary>
     /// <param name="this">Current widget.</param>

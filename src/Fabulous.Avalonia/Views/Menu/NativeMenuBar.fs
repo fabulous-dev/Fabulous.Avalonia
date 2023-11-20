@@ -24,6 +24,7 @@ module NativeMenuBarBuilders =
         static member inline NativeMenuBar() =
             WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
+[<Extension>]
 type NativeMenuBarAttachedModifiers =
 
     /// <summary>Sets the EnableMenuItemClickForwarding property.</summary>

@@ -92,6 +92,7 @@ module StyledElement =
                     node.TreeContext.Logger.Warn("The resource '{0}' was not found. The theme has been unset", themeKey)
                     target.Theme <- null)
 
+[<Extension>]
 type StyledElementModifiers =
     /// <summary>Sets the Name property.</summary>
     /// <param name="this">Current widget.</param>
@@ -206,6 +207,7 @@ type StyledElementModifiers =
     static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.ThemeKey.WithValue(value))
 
+[<Extension>]
 type StyledElementCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =

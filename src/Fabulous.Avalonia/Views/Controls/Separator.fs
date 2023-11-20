@@ -19,6 +19,7 @@ module SeparatorBuilders =
         static member Separator() =
             WidgetBuilder<'msg, IFabSeparator>(Separator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
+[<Extension>]
 type SeparatorModifiers =
     /// <summary>Link a ViewRef to access the direct Separator control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -34,6 +34,7 @@ module TabControlBuilders =
         static member TabControl() =
             CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, ItemsControl.Items, TabControl.TabStripPlacement.WithValue(Dock.Top))
 
+[<Extension>]
 type TabControlModifiers =
     /// <summary>Sets the HorizontalContentAlignment property.</summary>
     /// <param name="this">Current widget.</param>
@@ -56,6 +57,7 @@ type TabControlModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabTabControl>, value: ViewRef<TabControl>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type TabControlExtraModifiers =
 
     /// <summary>Sets the HorizontalContentAlignment property to center.</summary>
@@ -76,6 +78,7 @@ type TabControlExtraModifiers =
     static member inline center(this: WidgetBuilder<'msg, #IFabTabControl>) =
         this.centerHorizontal().centerVertical()
 
+[<Extension>]
 type TabControlCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTabItem>

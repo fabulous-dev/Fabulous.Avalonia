@@ -28,6 +28,7 @@ module DrawingImageBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| DrawingImage.Drawing.WithValue(source.Compile()) |], ValueNone)
             )
 
+[<Extension>]
 type DrawingImageModifiers =
     /// <summary>Listens the DrawingImage Invalidated event.</summary>
     /// <param name="this">Current widget.</param>

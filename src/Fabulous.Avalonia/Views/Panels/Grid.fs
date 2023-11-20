@@ -96,6 +96,7 @@ module GridBuilders =
         /// <summary>Creates a Grid widget with a single column and row.</summary>
         static member inline Grid<'msg>() = View.Grid<'msg>([ Star ], [ Star ])
 
+[<Extension>]
 type GridModifiers =
     /// <summary>Sets the ShowGridLines property.</summary>
     /// <param name="this">Current widget.</param>
@@ -111,6 +112,7 @@ type GridModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabGrid>, value: ViewRef<Grid>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type GridAttachedModifiers =
     /// <summary>Sets the Column property.</summary>
     /// <param name="this">Current widget.</param>

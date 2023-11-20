@@ -195,6 +195,7 @@ module DataGridBuilders =
         static member CustomDataGrid(items: #IEnumerable) =
             CollectionBuilder<'msg, IFabDataGrid, #IFabDataGridColumn>(DataGrid.WidgetKey, DataGrid.Columns, DataGrid.Items.WithValue(items))
 
+[<Extension>]
 type DataGridModifiers =
     /// <summary>Link a ViewRef to access the direct DataGrid control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -581,6 +582,7 @@ type DataGridModifiers =
     static member inline onUnloadingRowDetails(this: WidgetBuilder<'msg, IFabDataGrid>, fn: DataGridRowDetailsEventArgs -> 'msg) =
         this.AddScalar(DataGrid.UnloadingRowDetails.WithValue(fn))
 
+[<Extension>]
 type DataGridCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDataGridColumn>

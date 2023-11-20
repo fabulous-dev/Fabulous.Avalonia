@@ -32,6 +32,7 @@ module PolylineBuilders =
         static member Polyline(points: Point list) =
             WidgetBuilder<'msg, IFabPolyline>(Polyline.WidgetKey, Polyline.Points.WithValue(points))
 
+[<Extension>]
 type PolylineModifiers =
     /// <summary>Link a ViewRef to access the direct Polyline control instance.</summary>
     /// <param name="this">Current widget.</param>

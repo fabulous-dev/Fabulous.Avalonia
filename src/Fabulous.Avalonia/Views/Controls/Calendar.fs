@@ -74,6 +74,7 @@ module CalendarBuilders =
                 Calendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
+[<Extension>]
 type CalendarModifiers =
     /// <summary>Sets the FirstDayOfWeek property.</summary>
     /// <param name="this">Current widget.</param>

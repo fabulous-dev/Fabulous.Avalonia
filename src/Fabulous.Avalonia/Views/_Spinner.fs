@@ -15,6 +15,7 @@ module Spinner =
     let Spin =
         Attributes.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)
 
+[<Extension>]
 type SpinnerModifiers =
 
     /// <summary>Sets the ValidSpinDirection property.</summary>

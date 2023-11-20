@@ -82,6 +82,7 @@ module SplitViewBuilders =
                 )
             )
 
+[<Extension>]
 type SplitViewModifiers =
     /// <summary>Sets the CompactPaneLength property.</summary>
     /// <param name="this">Current widget.</param>

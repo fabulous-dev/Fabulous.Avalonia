@@ -50,6 +50,7 @@ module TopLevel =
     let BackRequested =
         Attributes.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
 
+[<Extension>]
 type TopLevelModifiers =
     /// <summary>Sets the PointerOverElement property.</summary>
     /// <param name="this">Current widget.</param>

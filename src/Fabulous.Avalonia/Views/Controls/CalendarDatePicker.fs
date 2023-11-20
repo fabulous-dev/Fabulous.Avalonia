@@ -80,6 +80,7 @@ module CalendarDatePickerBuilders =
                 CalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
+[<Extension>]
 type CalendarDatePickerModifiers =
     /// <summary>Sets the DisplayDate property.</summary>
     /// <param name="this">Current widget.</param>

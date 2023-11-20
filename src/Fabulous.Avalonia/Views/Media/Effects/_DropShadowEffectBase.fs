@@ -17,6 +17,7 @@ module DropShadowEffectBase =
     let Opacity =
         Attributes.defineAvaloniaPropertyWithEquality DropShadowEffectBase.OpacityProperty
 
+[<Extension>]
 type DropShadowEffectBaseModifiers =
     /// <summary>Sets the BlurRadius property.</summary>
     /// <param name="this">Current widget.</param>

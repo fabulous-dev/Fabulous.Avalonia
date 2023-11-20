@@ -45,6 +45,7 @@ module RangeBase =
     let ValueChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
 
+[<Extension>]
 type RangeBaserModifiers =
     /// <summary>Sets the SmallChange property.</summary>
     /// <param name="this">Current widget.</param>

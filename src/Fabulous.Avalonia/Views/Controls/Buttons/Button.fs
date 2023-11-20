@@ -51,6 +51,7 @@ module ButtonBuilders =
 
             )
 
+[<Extension>]
 type ButtonModifiers =
     /// <summary>Sets the ClickMode property.</summary>
     /// <param name="this">Current widget.</param>

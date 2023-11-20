@@ -89,6 +89,7 @@ module CheckBoxBuilders =
                 )
             )
 
+[<Extension>]
 type CheckBoxModifiers =
     /// <summary>Link a ViewRef to access the direct CheckBox control instance.</summary>
     /// <param name="this">Current widget.</param>

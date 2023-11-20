@@ -34,6 +34,7 @@ module NativeMenuBuilders =
         static member inline NativeMenu() =
             CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, NativeMenu.Items)
 
+[<Extension>]
 type NativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>
     /// <param name="this">Current widget.</param>
@@ -63,6 +64,7 @@ type NativeMenuModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabNativeMenu>, value: ViewRef<NativeMenu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type NativeMenuAttachedModifiers =
     /// <summary>Sets the NativeMenu property.</summary>
     /// <param name="this">Current widget.</param>
@@ -78,6 +80,7 @@ type NativeMenuAttachedModifiers =
     static member inline isNativeMenuExported(this: WidgetBuilder<'msg, #IFabTopLevel>, value: bool) =
         this.AddScalar(NativeMenuAttached.IsNativeMenuExported.WithValue(value))
 
+[<Extension>]
 type NativeViewYieldExtensions =
     [<Extension>]
     static member inline Yield(_: CollectionBuilder<'msg, #IFabNativeMenu, IFabNativeMenuItem>, x: WidgetBuilder<'msg, #IFabNativeMenuItem>) : Content<'msg> =

@@ -35,6 +35,7 @@ module ArcSegmentBuilders =
         static member inline ArcSegment<'msg>(point: Point, size: Size) =
             WidgetBuilder<'msg, IFabArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
 
+[<Extension>]
 type ArcSegmentModifiers =
 
     /// <summary>Sets the RotationAngle property.</summary>

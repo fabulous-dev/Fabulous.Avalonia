@@ -38,6 +38,7 @@ module Control =
     let SizeChanged =
         Attributes.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
 
+[<Extension>]
 type ControlModifiers =
     /// <summary>Sets the ContextFlyout property.</summary>
     /// <param name="this">Current widget.</param>

@@ -78,6 +78,7 @@ module ViewExtensions =
             | ValueNone -> ()
             | ValueSome v -> SetBottom(target, v))
 
+[<Extension>]
 type AnimatedControlModifiers =
     [<Extension>]
     static member inline slideLeft(this: WidgetBuilder<'msg, #IFabControl>, value: float) =

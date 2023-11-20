@@ -19,6 +19,7 @@ module MenuBuilders =
         static member inline Menu() =
             CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ItemsControl.Items)
 
+[<Extension>]
 type MenuModifiers =
     /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -27,6 +28,7 @@ type MenuModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabMenu>, value: ViewRef<Menu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type MenuCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>

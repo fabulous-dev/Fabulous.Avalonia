@@ -19,6 +19,7 @@ module EllipseBuilders =
         static member Ellipse() =
             WidgetBuilder<'msg, IFabEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
+[<Extension>]
 type EllipseModifiers =
     /// <summary>Link a ViewRef to access the direct Ellipse control instance.</summary>
     /// <param name="this">Current widget.</param>

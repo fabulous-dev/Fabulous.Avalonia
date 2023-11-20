@@ -21,6 +21,7 @@ module ContentControl =
     let VerticalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality ContentControl.VerticalContentAlignmentProperty
 
+[<Extension>]
 type ContentControlModifiers =
     /// <summary>Sets the HorizontalContentAlignment property.</summary>
     /// <param name="this">Current widget.</param>

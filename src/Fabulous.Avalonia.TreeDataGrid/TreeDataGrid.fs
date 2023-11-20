@@ -60,6 +60,7 @@ module TreeDataGridBuilders =
         static member TreeDataGrid(source: #ITreeDataGridSource, rows: IRows) =
             WidgetBuilder<'msg, IFabTreeDataGrid>(TreeDataGrid.WidgetKey, TreeDataGrid.Source.WithValue(source), TreeDataGrid.Rows.WithValue(rows))
 
+[<Extension>]
 type TreeDataGridModifiers =
     /// <summary>Link a ViewRef to access the direct TreeDataGrid control instance</summary>
     /// <param name="this">Current widget</param>

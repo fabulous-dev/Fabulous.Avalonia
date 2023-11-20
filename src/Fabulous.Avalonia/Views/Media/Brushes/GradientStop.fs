@@ -37,6 +37,7 @@ module GradientStopBuilders =
                 GradientStop.Offset.WithValue(offset)
             )
 
+[<Extension>]
 type GradientStopBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGradientStop>

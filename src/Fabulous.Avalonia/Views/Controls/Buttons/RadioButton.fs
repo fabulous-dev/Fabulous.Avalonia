@@ -74,6 +74,7 @@ module RadioButtonBuilders =
                 )
             )
 
+[<Extension>]
 type RadioButtonAttachedModifiers =
     /// <summary>Sets the GroupName property.</summary>
     /// <param name="this">Current widget.</param>

@@ -77,6 +77,7 @@ module CarouselBuilders =
             ) =
             WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSource items template
 
+[<Extension>]
 type CarouselModifiers =
 
     /// <summary>Sets the PageTransition property.</summary>

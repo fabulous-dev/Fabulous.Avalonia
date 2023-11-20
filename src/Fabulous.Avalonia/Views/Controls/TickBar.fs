@@ -59,6 +59,7 @@ module TickBarBuilders =
         static member TickBar(min: float, max: float) =
             WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
 
+[<Extension>]
 type TickBarModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>

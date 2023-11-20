@@ -46,6 +46,7 @@ module Shape =
     let StrokeJoin =
         Attributes.defineAvaloniaPropertyWithEquality Shape.StrokeJoinProperty
 
+[<Extension>]
 type ShapeModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>

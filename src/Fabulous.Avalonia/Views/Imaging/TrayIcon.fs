@@ -41,6 +41,7 @@ module TrayIconBuilders =
         static member inline TrayIcon(icon: WindowIcon, tooltipText: string) =
             WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.Icon.WithValue(icon), TrayIcon.ToolTipText.WithValue(tooltipText))
 
+[<Extension>]
 type TrayIconModifiers =
     /// <summary>Sets the Menu property.</summary>
     /// <param name="this">Current widget.</param>

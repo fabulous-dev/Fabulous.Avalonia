@@ -29,6 +29,7 @@ module CroppedBitmapBuilders =
         static member CroppedBitmap(source: IImage, rect: PixelRect) =
             WidgetBuilder<'msg, IFabCroppedBitmap>(CroppedBitmap.WidgetKey, CroppedBitmap.Source.WithValue(source), CroppedBitmap.SourceRect.WithValue(rect))
 
+[<Extension>]
 type CroppedBitmapModifiers =
     /// <summary>Link a ViewRef to access the direct CroppedBitmap control instance.</summary>
     /// <param name="this">Current widget.</param>

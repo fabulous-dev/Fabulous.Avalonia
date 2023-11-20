@@ -79,6 +79,7 @@ module PopupBuilders =
                 AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
+[<Extension>]
 type PopupModifiers =
     /// <summary>Sets the WindowManagerAddShadowHint property.</summary>
     /// <param name="this">Current widget.</param>

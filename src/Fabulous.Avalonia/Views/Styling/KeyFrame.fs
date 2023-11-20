@@ -56,6 +56,7 @@ module KeyFrameBuilders =
         static member KeyFrame(property: AvaloniaProperty, value: obj) =
             WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setter.WithValue(Setter(property, value)))
 
+[<Extension>]
 type KeyFrameModifiers =
     /// <summary>Sets the Cue property.</summary>
     /// <param name="this">Current widget.</param>

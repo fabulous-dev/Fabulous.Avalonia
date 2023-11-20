@@ -58,6 +58,7 @@ module UniformGridBuilders =
                     UniformGrid.Rows.WithValue(0)
                 )
 
+[<Extension>]
 type UniformGridModifiers =
     /// <summary>Sets the FirstColumn property.</summary>
     /// <param name="this">Current widget.</param>

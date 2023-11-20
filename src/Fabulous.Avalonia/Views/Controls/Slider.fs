@@ -62,6 +62,7 @@ module SliderBuilders =
                 RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
+[<Extension>]
 type SliderModifiers =
     /// <summary>Sets the Orientation property.</summary>
     /// <param name="this">Current widget.</param>

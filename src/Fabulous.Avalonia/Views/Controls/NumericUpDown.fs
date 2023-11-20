@@ -127,6 +127,7 @@ module NumericUpDownBuilders =
                 )
             )
 
+[<Extension>]
 type NumericUpDownModifiers =
 
     /// <summary>Sets the AllowSpin property.</summary>

@@ -23,6 +23,7 @@ module TransformGroupBuilders =
         static member TransformGroup() =
             CollectionBuilder<'msg, IFabTransformGroup, IFabTransform>(TransformGroup.WidgetKey, TransformGroup.Children)
 
+[<Extension>]
 type TransformGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTransform>

@@ -22,6 +22,7 @@ module SpanBuilders =
         static member Span<'msg>() =
             CollectionBuilder<'msg, IFabSpan, IFabInline>(Span.WidgetKey, Span.Inlines)
 
+[<Extension>]
 type SpanModifiers =
     /// <summary>Link a ViewRef to access the direct Span control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -30,6 +31,7 @@ type SpanModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabSpan>, value: ViewRef<Span>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
+[<Extension>]
 type SpanCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>

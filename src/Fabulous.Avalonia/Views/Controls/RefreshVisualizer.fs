@@ -31,6 +31,7 @@ module RefreshVisualizerBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
+[<Extension>]
 type RefreshVisualizerModifiers =
     /// <summary>Sets the Orientation property.</summary>
     /// <param name="this">Current widget.</param>

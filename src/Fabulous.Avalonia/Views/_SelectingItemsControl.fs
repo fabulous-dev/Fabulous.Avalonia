@@ -34,6 +34,7 @@ module SelectingItemsControl =
     let SelectedIndexChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
 
+[<Extension>]
 type SelectingItemsControlModifiers =
     /// <summary>Sets the AutoScrollToSelectedItem property.</summary>
     /// <param name="this">Current widget.</param>

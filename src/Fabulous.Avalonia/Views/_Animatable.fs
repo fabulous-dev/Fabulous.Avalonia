@@ -20,6 +20,7 @@ module Animatable =
             else
                 target.Transitions)
 
+[<Extension>]
 type AnimatableCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
@@ -53,6 +54,7 @@ type AnimatableCollectionBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
+[<Extension>]
 type AnimatableCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>
     /// <param name="this">Current widget.</param>

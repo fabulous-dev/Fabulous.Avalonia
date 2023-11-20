@@ -59,6 +59,7 @@ module ToggleSwitchBuilders =
                 ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
+[<Extension>]
 type ToggleSwitchModifiers =
     /// <summary>Sets the OffContent property.</summary>
     /// <param name="this">Current widget.</param>

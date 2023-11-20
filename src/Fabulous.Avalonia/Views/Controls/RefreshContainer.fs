@@ -34,6 +34,7 @@ module RefreshContainerBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
+[<Extension>]
 type RefreshContainerModifiers =
     /// <summary>Sets the PullDirection property.</summary>
     /// <param name="this">Current widget.</param>

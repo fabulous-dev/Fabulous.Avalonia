@@ -78,6 +78,7 @@ module InputElement =
     let DoubleTapped =
         Attributes.defineEvent<TappedEventArgs> "InputElement_DoubleTapped" (fun target -> (target :?> InputElement).DoubleTapped)
 
+[<Extension>]
 type InputElementModifiers =
     /// <summary>Sets the Focusable property.</summary>
     /// <param name="this">Current widget.</param>

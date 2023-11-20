@@ -60,6 +60,7 @@ module TextDecorationBuilders =
         static member inline TextDecoration<'msg>(location: TextDecorationLocation) =
             WidgetBuilder<'msg, IFabTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
+[<Extension>]
 type TextDecorationModifiers =
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
