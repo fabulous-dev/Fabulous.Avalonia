@@ -45,7 +45,7 @@ module FlyoutPage =
                 FlyoutBase.ShowAttachedFlyout(control)
                 model, []
             | _ -> model, []
-        | MenuOpening _ -> model, []
+        | MenuOpening -> model, []
         | MenuClosing _ -> model, []
         | Increment ->
             { model with
