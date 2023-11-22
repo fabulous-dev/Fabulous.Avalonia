@@ -4,8 +4,8 @@ open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
-open Avalonia.Themes.Fluent
 open Fabulous.Avalonia
+open GameOfLife
 
 [<Activity(Label = "GameOfLife.Android",
            Theme = "@style/MyTheme.NoActionBar",
@@ -17,6 +17,8 @@ type MainActivity() =
 
     override this.CustomizeAppBuilder(_builder: AppBuilder) =
         AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
+            .Configure(fun () ->
+                let app = Program.startApplication App.program
+                app.Styles.Add(App.theme)
+                app)
             .UseAndroid()
-            .AfterSetup(fun _ -> FabApplication.Current.AppTheme <- FluentTheme())

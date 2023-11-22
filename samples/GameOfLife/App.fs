@@ -173,6 +173,8 @@ module Board =
         }
 
 module App =
+    let theme = FluentTheme()
+
     type Model =
         { board: BoardMatrix
           evolutionRunning: bool }
@@ -216,8 +218,6 @@ module App =
                 Cmd.none
 
     let view (model: Model) =
-        FabApplication.Current.AppTheme <- FluentTheme()
-
         (Dock() {
             Button("Start", StartEvolution)
                 .horizontalAlignment(HorizontalAlignment.Stretch)
