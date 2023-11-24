@@ -42,6 +42,8 @@ type Row = GameCell list
 
 
 module App =
+    let theme = FluentTheme()
+
     type Msg =
         | Play of Pos
         | Restart
@@ -169,8 +171,6 @@ module App =
         (cell = Empty) && (getGameResult model = StillPlaying)
 
     let view model =
-        FabApplication.Current.AppTheme <- FluentTheme()
-
         (Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto ]) {
             TextBlock(getMessage model)
                 .textAlignment(TextAlignment.Center)

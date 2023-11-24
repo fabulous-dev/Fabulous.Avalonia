@@ -9,7 +9,7 @@ open GameOfLife
 type SceneDelegate() =
     inherit FabSceneDelegate()
 
-    override this.CreateApp() = Program.startApplication App.program
-
-    override this.AfterSetup() =
-        FabApplication.Current.AppTheme <- FluentTheme()
+    override this.CreateApp() =
+        let app = Program.startApplication App.program
+        app.Styles.Add(App.theme)
+        app

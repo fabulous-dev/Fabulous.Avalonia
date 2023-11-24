@@ -28,6 +28,8 @@ type Board =
       board: TetrisBoard }
 
 module App =
+    let theme = FluentTheme()
+
     type Model =
         { Tetrimino: Tetrimino
           hold: Tetrimino option
@@ -277,8 +279,6 @@ module App =
         }
 
     let view (model: Model) =
-        FabApplication.Current.AppTheme <- FluentTheme()
-
         if model.isOver then
             AnyView(gameOverView())
         else
