@@ -17,7 +17,7 @@
     <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS'">
-    <SupportedOSPlatformVersion>10.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <!-- https://github.com/xamarin/xamarin-macios/issues/18469 -->
   <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS' And '$(GITHUB_ACTIONS)' != 'true' ">
