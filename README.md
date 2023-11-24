@@ -87,18 +87,18 @@ dotnet new fabulous-avalonia-multi -n MyApp
     - MyApp.Desktop
     - MyApp.Browser
 
-net7.0-ios is not supported on Linux, thus net7.0-ios is excluded from build on a Linux host.
+net8.0-ios is not supported on Linux, thus net8.0-ios is excluded from build on a Linux host.
 
 ## Samples
 We have a range of samples to help you get started.
 
 You can find them in the [samples folder](https://github.com/fabulous-dev/Fabulous.Avalonia/tree/main/samples).
 
-To run the `Gallery` sample app from the command line, navigate to the sample folder and run `dotnet run -f net7.0`.
+To run the `Gallery` sample app from the command line, navigate to the sample folder and run `dotnet run -f net8.0`.
 
 ```sh
 cd samples/Gallery
-dotnet run -f net7.0
+dotnet run -f net8.0
 ```
 
 You can also open the solution `Fabulous.Avalonia.sln` with your favorite IDE(We recommend [Rider](https://www.jetbrains.com/rider/)) and select the platform you want, then press debug to deploy and run the app.
