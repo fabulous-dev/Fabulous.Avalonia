@@ -5,8 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="Fabulous" Version="2.4.0" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
-    <PackageVersion Include="FSharp.Android.Resource" Version="1.0.4" />
-    <PackageVersion Include="FSharp.Core" Version="7.0.0" />
+    <PackageVersion Include="FSharp.Core" Version="8.0.100" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="NUnit" Version="3.13.3" />

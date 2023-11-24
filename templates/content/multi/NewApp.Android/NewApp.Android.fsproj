@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0-android</TargetFramework>
+    <TargetFramework>net8.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
@@ -9,7 +9,7 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <PublishTrimmed>True</PublishTrimmed>
     <RunAOTCompilation>True</RunAOTCompilation>
-    <AndroidEnableProfiledAot>True</AndroidEnableProfiledAot>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <!-- https://github.com/dotnet/runtime/issues/79910 -->
     <EnableLLVM>False</EnableLLVM>
     <AndroidLinkTool>r8</AndroidLinkTool>

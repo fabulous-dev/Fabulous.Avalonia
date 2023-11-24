@@ -169,7 +169,7 @@ module ClipboardPage =
     let update msg model =
         match msg with
         | CopyText -> model, [ TextCopied(model.ClipboardContentText) ]
-        | CopiedText _ -> model, []
+        | CopiedText -> model, []
         | PasteText -> model, [ TextPasted ]
         | PastedText s -> { model with ClipboardContentText = s }, []
         | CopyTextDataObject -> model, [ TextDataObjectCopied(model.ClipboardContentText) ]

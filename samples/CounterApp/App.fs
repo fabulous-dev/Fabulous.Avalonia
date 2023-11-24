@@ -7,6 +7,8 @@ open Avalonia.Themes.Fluent
 open type Fabulous.Avalonia.View
 
 module App =
+    let theme = FluentTheme()
+
     type Model =
         { Count: int; Step: int; TimerOn: bool }
 
@@ -51,8 +53,6 @@ module App =
                 model, Cmd.none
 
     let view model =
-        FabApplication.Current.AppTheme <- FluentTheme()
-
         (VStack() {
             TextBlock($"%d{model.Count}").centerText()
 

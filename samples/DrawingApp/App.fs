@@ -5,9 +5,9 @@ open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Markup.Xaml.Converters
 open Avalonia.Media
+open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -22,6 +22,7 @@ module EmptyBorderBuilders =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module ColorPicker =
+
     type Model = { Color: Color }
 
     type Msg = PointerPressed of Color
@@ -30,10 +31,9 @@ module ColorPicker =
 
     let update msg model =
         match msg with
-        | PointerPressed color -> { model with Color = color }
+        | PointerPressed color -> { Color = color }
 
     let view (model: Model) =
-        FabApplication.Current.AppTheme <- FluentTheme()
         let brushes = [ Colors.Black; Colors.Red; Colors.Green; Colors.Blue; Colors.Yellow ]
 
         HStack(5.) {
@@ -176,6 +176,8 @@ module DrawingCanvas =
             .onPointerMoved(PointerMoved)
 
 module App =
+    let theme = FluentTheme()
+
     type Model =
         { Setting: Setting.Model
           DrawingCanvas: DrawingCanvas.Model }
@@ -208,8 +210,6 @@ module App =
             Cmd.none
 
     let view (model: Model) =
-        FabApplication.Current.AppTheme <- FluentTheme()
-
         (Dock() {
             View.map SettingMsg (Setting.view(model.Setting).dock(Dock.Bottom))
             View.map DrawingCanvasMsg (DrawingCanvas.view(model.DrawingCanvas).dock(Dock.Top))

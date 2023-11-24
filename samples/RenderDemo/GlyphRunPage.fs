@@ -8,6 +8,8 @@ open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.Avalonia
 open Fabulous
 
+#nowarn "0044"
+
 open type Fabulous.Avalonia.View
 
 type GlyphRunControl() =
@@ -27,14 +29,14 @@ type GlyphRunControl() =
 
     let mutable _timer = DispatcherTimer()
 
-    override this.OnAttachedToVisualTree e =
+    override this.OnAttachedToVisualTree _e =
         _timer <- DispatcherTimer(Interval = TimeSpan.FromSeconds(1.0))
 
         _timer.Tick.Add(fun _ -> this.InvalidateVisual())
 
         _timer.Start()
 
-    override this.OnDetachedFromVisualTree e =
+    override this.OnDetachedFromVisualTree _e =
         _timer.Stop()
 
         _timer <- null
@@ -49,9 +51,9 @@ type GlyphRunControl() =
 
         _fontSize <- _fontSize + float _direction
 
-        _glyphIndices.[0] <- _glyphTypeface.GetGlyph(uint32 c)
+        _glyphIndices[0] <- _glyphTypeface.GetGlyph(uint32 c)
 
-        _characters.[0] <- c
+        _characters[0] <- c
 
         let glyphRun = new GlyphRun(_glyphTypeface, _fontSize, _characters, _glyphIndices)
 
@@ -74,14 +76,14 @@ type GlyphRunGeometryControl() =
 
     let mutable _timer = DispatcherTimer()
 
-    override this.OnAttachedToVisualTree e =
+    override this.OnAttachedToVisualTree _e =
         _timer <- DispatcherTimer(Interval = TimeSpan.FromSeconds(1.0))
 
         _timer.Tick.Add(fun _ -> this.InvalidateVisual())
 
         _timer.Start()
 
-    override this.OnDetachedFromVisualTree e =
+    override this.OnDetachedFromVisualTree _e =
         _timer.Stop()
 
         _timer <- null
@@ -96,9 +98,9 @@ type GlyphRunGeometryControl() =
 
         _fontSize <- _fontSize + float _direction
 
-        _glyphIndices.[0] <- _glyphTypeface.GetGlyph(uint32 c)
+        _glyphIndices[0] <- _glyphTypeface.GetGlyph(uint32 c)
 
-        _characters.[0] <- c
+        _characters[0] <- c
 
         let glyphRun = new GlyphRun(_glyphTypeface, _fontSize, _characters, _glyphIndices)
 
