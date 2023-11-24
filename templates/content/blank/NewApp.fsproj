@@ -36,7 +36,6 @@
     <None Include="$(AndroidPlatformFolder)AndroidManifest.xml" />
     <Compile Include="$(AndroidPlatformFolder)MainActivity.fs" />
     <Compile Include="$(AndroidPlatformFolder)SplashActivity.fs" />
-    <PackageReference Include="FSharp.Android.Resource" Version="FSharpAndroidResourcePkgVersion" />
     <PackageReference Include="Avalonia.Android" Version="AvaloniaAndroidPkgVersion" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
