@@ -226,11 +226,11 @@
       This version will be used as the lower bound in the NuGet package
     -->
     <PackageReference Include="Fabulous" VersionOverride="[2.4.0, 2.5.0)" />
-    <PackageReference Include="Avalonia" VersionOverride="11.0.5" />
-    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.5" />
+    <PackageReference Include="Avalonia" VersionOverride="11.0.6" />
+    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.6" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.5" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.6" />
   </ItemGroup>
 </Project>

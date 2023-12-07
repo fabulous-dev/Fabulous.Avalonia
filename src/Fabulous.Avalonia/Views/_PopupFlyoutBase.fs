@@ -33,6 +33,9 @@ module PopupFlyoutBase =
     let OverlayInputPassThroughElement =
         Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.OverlayInputPassThroughElementProperty
 
+    let PlacementConstraintAdjustment =
+        Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.PlacementConstraintAdjustmentProperty
+
     let Opening =
         Attributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
 
@@ -89,6 +92,13 @@ type PopupFlyoutBaseModifiers =
     [<Extension>]
     static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: IInputElement) =
         this.AddScalar(PopupFlyoutBase.OverlayInputPassThroughElement.WithValue(value))
+
+    /// <summary>Sets the PlacementConstraintAdjustment property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlacementConstraintAdjustment value.</param>
+    [<Extension>]
+    static member inline placementConstraintAdjustment(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: PopupPositionerConstraintAdjustment) =
+        this.AddScalar(PopupFlyoutBase.PlacementConstraintAdjustment.WithValue(value))
 
     /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>
     /// <param name="this">Current widget.</param>

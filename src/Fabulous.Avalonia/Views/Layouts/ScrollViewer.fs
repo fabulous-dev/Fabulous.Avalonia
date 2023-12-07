@@ -49,6 +49,9 @@ module ScrollViewer =
     let IsScrollInertiaEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsScrollInertiaEnabledProperty
 
+    let IsDeferredScrollingEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsDeferredScrollingEnabledProperty
+
     let ScrollChanged =
         Attributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
 
@@ -149,6 +152,13 @@ type ScrollViewerModifiers =
     [<Extension>]
     static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, fn: ScrollChangedEventArgs -> 'msg) =
         this.AddScalar(ScrollViewer.ScrollChanged.WithValue(fn))
+
+    /// <summary>Sets the IsDeferredScrollingEnabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsDeferredScrollingEnabled value.</param>
+    [<Extension>]
+    static member inline isDeferredScrollingEnabled(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
+        this.AddScalar(ScrollViewer.IsDeferredScrollingEnabled.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct ScrollViewer control instance.</summary>
     /// <param name="this">Current widget.</param>
