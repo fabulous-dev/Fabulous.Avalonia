@@ -33,7 +33,7 @@ module AdornerLayerPage =
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with Angle = value }, []
+        | ValueChanged value -> { Angle = value }, []
         | AddAdorner ->
             let adorner = AdornerLayer.GetAdorner(buttonRef.Value)
             AdornerLayer.SetAdorner(buttonRef.Value, adorner)

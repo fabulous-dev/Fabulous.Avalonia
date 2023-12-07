@@ -34,6 +34,9 @@ module NativeMenuItem =
     let IsEnabled =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.IsEnabledProperty
 
+    let ToolTip =
+        Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.ToolTipProperty
+
     let Click =
         Attributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
 
@@ -99,6 +102,13 @@ type NativeMenuItemModifiers =
     [<Extension>]
     static member inline isEnabled(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: bool) =
         this.AddScalar(NativeMenuItem.IsEnabled.WithValue(value))
+
+    /// <summary>Sets the ToolTip property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ToolTip value.</param>
+    [<Extension>]
+    static member inline toolTip(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: string) =
+        this.AddScalar(NativeMenuItem.ToolTip.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct NativeMenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -105,6 +105,9 @@ module DataGrid =
     let RowDetailsVisibilityMode =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.RowDetailsVisibilityModeProperty
 
+    let IsScrollInertiaEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality DataGrid.IsScrollInertiaEnabledProperty
+
     let Items =
         Attributes.definePropertyWithGetSet
             "DataGrid_Items"
@@ -434,6 +437,13 @@ type DataGridModifiers =
     [<Extension>]
     static member inline rowDetailsVisibilityMode(this: WidgetBuilder<'msg, IFabDataGrid>, value: DataGridRowDetailsVisibilityMode) =
         this.AddScalar(DataGrid.RowDetailsVisibilityMode.WithValue(value))
+
+    /// <summary>Sets the IsScrollInertiaEnabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsScrollInertiaEnabled value.</param>
+    [<Extension>]
+    static member inline isScrollInertiaEnabled(this: WidgetBuilder<'msg, IFabDataGrid>, value: bool) =
+        this.AddScalar(DataGrid.IsScrollInertiaEnabled.WithValue(value))
 
     /// <summary>Listens to the HorizontalScroll Scroll event.</summary>
     /// <param name="this">Current widget.</param>

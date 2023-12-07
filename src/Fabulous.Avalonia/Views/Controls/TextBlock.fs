@@ -68,6 +68,9 @@ module TextBlock =
     let TextTrimming =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.TextTrimmingProperty
 
+    let LineSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality TextBlock.LineSpacingProperty
+
     let TextDecorations =
         Attributes.defineAvaloniaListWidgetCollection "TextBlock_TextDecorations" (fun target ->
             let target = target :?> TextBlock
@@ -237,6 +240,13 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline textTrimming(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextTrimming) =
         this.AddScalar(TextBlock.TextTrimming.WithValue(value))
+
+    /// <summary>Sets the LineSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LineSpacing value.</param>
+    [<Extension>]
+    static member inline lineSpacing(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
+        this.AddScalar(TextBlock.LineSpacing.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct TextBlock control instance.</summary>
     /// <param name="this">Current widget.</param>
