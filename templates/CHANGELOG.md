@@ -22,6 +22,7 @@ _No unreleased changes_
 - Add a new template for a multi-project Fabulous.Avalonia app. 
 - Fix black screen in multi-project template when targeting Browser
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/2.0.0-pre17...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/2.0.0-pre18...HEAD
+[2.0.0-pre18]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.0.0-pre18
 [2.0.0-pre17]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.0.0-pre17
 [2.0.0-pre16]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.0.0-pre16

@@ -20,7 +20,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/compare/2.0.0-pre17...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/compare/2.0.0-pre18...HEAD
+[2.0.0-pre18]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/releases/tag/2.0.0-pre18
 [2.0.0-pre17]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/releases/tag/2.0.0-pre17
 [2.0.0-pre16]: https://github.com/fabulous-dev/Fabulous.Avalonia.ColorPicker/releases/tag/2.0.0-pre16
 
