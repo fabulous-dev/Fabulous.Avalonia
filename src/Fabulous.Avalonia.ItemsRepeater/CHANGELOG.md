@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 _No unreleased changes_
+## [2.0.0-pre18] - 2023-12-07
+### Added
+- Add support for Avalonia 11.0.6
 
 ## [2.0.0-pre17] - 2023-11-12
 ### Added
