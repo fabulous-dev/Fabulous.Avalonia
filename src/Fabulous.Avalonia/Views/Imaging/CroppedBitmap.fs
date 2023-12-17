@@ -7,7 +7,7 @@ open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabCroppedBitmap =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module CroppedBitmap =
 

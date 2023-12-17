@@ -7,10 +7,7 @@ open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabNativeMenuItem =
-    inherit IFabObject
-
-type IFabNativeMenu =
-    inherit IFabObject
+    inherit IFabAvaloniaObject
 
 module NativeMenuItem =
     let WidgetKey = Widgets.register<NativeMenuItem>()
@@ -61,13 +58,6 @@ module NativeMenuItemBuilders =
 
 [<Extension>]
 type NativeMenuItemModifiers =
-    /// <summary>Sets the Menu property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Menu value.</param>
-    [<Extension>]
-    static member inline menu(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
-        this.AddWidget(NativeMenuItem.Menu.WithValue(value.Compile()))
-
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Icon value.</param>

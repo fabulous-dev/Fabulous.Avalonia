@@ -8,7 +8,7 @@ open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTextDecoration =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module TextDecoration =
     let WidgetKey = Widgets.register<TextDecoration>()

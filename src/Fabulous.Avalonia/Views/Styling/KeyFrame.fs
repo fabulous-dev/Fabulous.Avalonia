@@ -9,7 +9,7 @@ open Avalonia.Styling
 open Fabulous
 
 type IFabKeyFrame =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module KeyFrame =
 

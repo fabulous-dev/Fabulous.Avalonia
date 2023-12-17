@@ -7,7 +7,7 @@ open Avalonia.Controls
 open Fabulous.StackAllocatedCollections
 
 type IFabTrayIcon =
-    inherit IFabObject
+    inherit IFabAvaloniaObject
 
 module TrayIcon =
     let WidgetKey = Widgets.register<TrayIcon>()

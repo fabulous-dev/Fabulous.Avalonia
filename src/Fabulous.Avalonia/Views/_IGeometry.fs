@@ -1,4 +1,4 @@
 namespace Fabulous.Avalonia
 
 type IFabGeometry =
-    inherit IFabElement
+    inherit IFabAvaloniaObject

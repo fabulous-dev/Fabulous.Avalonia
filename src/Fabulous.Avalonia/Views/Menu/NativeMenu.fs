@@ -5,6 +5,9 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
+type IFabNativeMenu =
+    inherit IFabNativeMenuItemBase
+
 module NativeMenu =
     let WidgetKey = Widgets.register<NativeMenu>()
 
@@ -66,19 +69,28 @@ type NativeMenuModifiers =
 
 [<Extension>]
 type NativeMenuAttachedModifiers =
-    /// <summary>Sets the NativeMenu property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The NativeMenu value.</param>
-    [<Extension>]
-    static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
-        this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(value.Compile()))
-
     /// <summary>Sets the IsNativeMenuExported property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsNativeMenuExported value.</param>
     [<Extension>]
     static member inline isNativeMenuExported(this: WidgetBuilder<'msg, #IFabTopLevel>, value: bool) =
         this.AddScalar(NativeMenuAttached.IsNativeMenuExported.WithValue(value))
+
+    /// <summary>Sets the Menu property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Menu value.</param>
+    [<Extension>]
+    static member inline menu(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
+        this.AddWidget(NativeMenuItem.Menu.WithValue(value.Compile()))
+
+[<Extension>]
+type WindowMenuAttachedModifiers =
+    /// <summary>Sets the NativeMenu property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The NativeMenu value.</param>
+    [<Extension>]
+    static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
+        this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(value.Compile()))
 
 [<Extension>]
 type NativeViewYieldExtensions =

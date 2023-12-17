@@ -1,4 +1,4 @@
 namespace Fabulous.Avalonia
 
-type IFabTransition =
+type IFabNativeMenuItemBase =
     inherit IFabAvaloniaObject

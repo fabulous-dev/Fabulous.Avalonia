@@ -16,7 +16,7 @@ open Fabulous.StackAllocatedCollections.StackList
 #nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
 
 type IFabApplication =
-    inherit IFabObject
+    inherit IFabAvaloniaObject
 
 type FabApplication() =
     inherit Application()
@@ -215,7 +215,7 @@ module Application =
 module ApplicationBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary> Creates a DesktopApplication widget with a content widget.</summary>
+        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
         /// <param name="window">The main Window of the Application.</param>
         static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(

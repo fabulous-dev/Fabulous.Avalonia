@@ -6,7 +6,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabGradientStop =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module GradientStop =
 

@@ -6,7 +6,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabAnimatable =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module Animatable =
     let Transitions =

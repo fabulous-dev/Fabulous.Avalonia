@@ -119,7 +119,12 @@ type StyledElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">The Style value.</param>
     [<Extension>]
-    static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
+    static member inline style
+        (
+            this: WidgetBuilder<'msg, #IFabAvaloniaObject>,
+            fn: WidgetBuilder<'msg, #IFabAvaloniaObject> -> WidgetBuilder<'msg, #IFabAvaloniaObject>
+        ) =
+        fn this
 
     /// <summary>Sets the ContentType property.</summary>
     /// <param name="this">Current widget.</param>
