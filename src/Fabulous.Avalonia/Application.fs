@@ -76,7 +76,7 @@ type FabApplication() =
     member this.InsetsManager =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
-        | :? ISingleViewApplicationLifetime  when _mainView <> null -> TopLevel.GetTopLevel(_mainView).InsetsManager
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).InsetsManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
     member this.MainWindow
