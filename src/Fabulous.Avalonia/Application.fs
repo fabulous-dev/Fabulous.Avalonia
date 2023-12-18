@@ -273,7 +273,7 @@ type ApplicationModifiers =
     /// <param name="value">Theme variant to be used for the application.</param>
     /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
-    static member inline themeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
+    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
         this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value fn))
 
     /// <summary>Listens to the application theme variant changed event.</summary>
