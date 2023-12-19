@@ -57,11 +57,10 @@ module StyledElement =
         Attributes.defineProperty "StyledElement_Styles" Unchecked.defaultof<string list> (fun target values ->
             let styles = (target :?> StyledElement).Styles
 
-            values
-            |> List.iter(fun value ->
+            for value in values do
                 let style = StyleInclude(baseUri = null)
                 style.Source <- Uri(value)
-                styles.Add(style)))
+                styles.Add(style))
 
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
@@ -183,6 +182,14 @@ type StyledElementModifiers =
     static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
         this.AddScalar(StyledElement.Styles.WithValue(value))
 
+    /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
+    /// application styles that is applied to the control.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ThemeKey value.</param>
+    [<Extension>]
+    static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.ThemeKey.WithValue(value))
+
     /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the styled element is attached to a rooted logical tree.</param>
@@ -203,14 +210,6 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, msg: 'msg) =
         this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(MsgValue msg))
-
-    /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
-    /// application styles that is applied to the control.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ThemeKey value.</param>
-    [<Extension>]
-    static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
-        this.AddScalar(StyledElement.ThemeKey.WithValue(value))
 
 [<Extension>]
 type StyledElementCollectionBuilderExtensions =
