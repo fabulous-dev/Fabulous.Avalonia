@@ -13,7 +13,9 @@ module Visual =
     let ClipToBounds =
         Attributes.defineAvaloniaPropertyWithEquality Visual.ClipToBoundsProperty
 
-    let Clip = Attributes.defineAvaloniaPropertyWidget Visual.ClipProperty
+    let ClipWidget = Attributes.defineAvaloniaPropertyWidget Visual.ClipProperty
+
+    let Clip = Attributes.defineAvaloniaPropertyWithEquality Visual.ClipProperty
 
     let IsVisible =
         Attributes.defineAvaloniaPropertyWithEquality Visual.IsVisibleProperty
@@ -64,7 +66,14 @@ type VisualModifiers =
     /// <param name="value">The Clip value.</param>
     [<Extension>]
     static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabGeometry>) =
-        this.AddWidget(Visual.Clip.WithValue(value.Compile()))
+        this.AddWidget(Visual.ClipWidget.WithValue(value.Compile()))
+
+    /// <summary>Sets the Clip property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Clip value.</param>
+    [<Extension>]
+    static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: Geometry) =
+        this.AddScalar(Visual.Clip.WithValue(value))
 
     /// <summary>Sets the IsVisible property.</summary>
     /// <param name="this">Current widget.</param>
