@@ -1,21 +1,17 @@
 namespace Gallery
 
 open System
-open System.Diagnostics
-open System.Threading
 open Avalonia
 open System.Collections.Generic
 open Avalonia.Controls
 open Avalonia.Input
 open Avalonia.Media
 open Avalonia.Media.Immutable
-open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 open Fabulous.StackAllocatedCollections.StackList
-open Gallery
 
 type PointerInfo() =
     member val Color = Unchecked.defaultof<Color> with get, set
