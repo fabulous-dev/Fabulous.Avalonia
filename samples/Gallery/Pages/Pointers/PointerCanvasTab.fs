@@ -93,23 +93,17 @@ type PointerCanvas() =
     let _pointers = Dictionary<int, PointerPoints>()
     let mutable _lastProperties: PointerPointProperties = Unchecked.defaultof<_>
     let mutable _lastNonOtherUpdateKind: PointerUpdateKind = Unchecked.defaultof<_>
-    let mutable _threadSleep: int = 0
-    let mutable _drawOnlyPoints = false
     let statusChanged = Event<EventHandler<string>, string>()
 
     [<CLIEvent>]
     member this.StatusChanged = statusChanged.Publish
 
-    member this.ThreadSleep
-        with get () = _threadSleep
-        and set value = _threadSleep <- value
+    member val ThreadSleep = 0 with get, set
 
     static member ThreadSleepProperty: DirectProperty<PointerCanvas, int> =
         AvaloniaProperty.RegisterDirect<PointerCanvas, int>("ThreadSleep", (fun o -> o.ThreadSleep), (fun o v -> o.ThreadSleep <- v))
 
-    member this.DrawOnlyPoints
-        with get () = _drawOnlyPoints
-        and set value = _drawOnlyPoints <- value
+    member val DrawOnlyPoints = false with get, set
 
     static member DrawOnlyPointsProperty: DirectProperty<PointerCanvas, bool> =
         AvaloniaProperty.RegisterDirect<PointerCanvas, bool>("DrawOnlyPoints", (fun o -> o.DrawOnlyPoints), (fun o v -> o.DrawOnlyPoints <- v))
@@ -156,8 +150,8 @@ Twist: {_lastProperties.Twist}"
     member this.HandleEvent(e: PointerEventArgs) =
         _events <- _events + 1
 
-        if _threadSleep <> 0 then
-            Thread.Sleep(_threadSleep)
+        if this.ThreadSleep <> 0 then
+            Thread.Sleep(this.ThreadSleep)
 
         this.InvalidateVisual()
 
@@ -190,7 +184,7 @@ Twist: {_lastProperties.Twist}"
         context.FillRectangle(Brushes.White, this.Bounds)
 
         for KeyValue(_, pt) in _pointers do
-            pt.Render context _drawOnlyPoints
+            pt.Render context this.DrawOnlyPoints
 
         base.Render(context)
 
