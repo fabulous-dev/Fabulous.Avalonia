@@ -20,9 +20,6 @@ module TopLevel =
     let ThemeVariant =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.RequestedThemeVariantProperty
 
-    let ThemeVariantChanged =
-        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
-
     let TransparencyLevelHint =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyLevelHintProperty
 
@@ -49,6 +46,9 @@ module TopLevel =
 
     let BackRequested =
         Attributes.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
+
+    let ThemeVariantChanged =
+        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
 [<Extension>]
 type TopLevelModifiers =
