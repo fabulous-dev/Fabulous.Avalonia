@@ -36,7 +36,7 @@ module HeaderedContentControlBuilders =
         /// <summary>Creates a HeaderedContentControl widget.</summary>
         /// <param name="header">The header widget.</param>
         /// <param name="content">The content widget.</param>
-        static member HeaderedContentControl(header: WidgetBuilder<'msg, IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member HeaderedContentControl(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabHeaderedContentControl>(
                 HeaderedContentControl.WidgetKey,
                 AttributesBundle(

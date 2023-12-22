@@ -58,10 +58,8 @@
     <Compile Include="Views\_Spinner.fs" />
     <Compile Include="Views\_TopLevel.fs" />
     <Compile Include="Views\_TextElement.fs" />
-    <Compile Include="Views\Panel.fs" />
     <Compile Include="Views\_ItemsControl.fs" />
     <Compile Include="Views\_HeaderedItemsControl.fs" />
-    <Compile Include="Views\HeaderedContentControl.fs" />
     <Compile Include="Views\_SelectingItemsControl.fs" />
     <Compile Include="Views\_MenuBase.fs" />
     <Compile Include="Views\_HeaderedSelectingItemsControl.fs" />
@@ -122,6 +120,7 @@
     <Compile Include="Views\Controls\ThemeVariantScope.fs" />
     <Compile Include="Views\Controls\ExperimentalAcrylicMaterial.fs" />
     <Compile Include="Views\Controls\ExperimentalAcrylicBorder.fs" />
+    <Compile Include="Views\Controls\HeaderedContentControl.fs" />
     <Compile Include="Views\Controls\LayoutTransformControl.fs" />
     <Compile Include="Views\Controls\TickBar.fs" />
     <Compile Include="Views\Controls\DataValidationErrors.fs" />
@@ -205,6 +204,7 @@
     <Compile Include="Views\Imaging\PathIcon.fs" />
     <Compile Include="Views\Layouts\SliptView.fs" />
     <Compile Include="Views\Layouts\ScrollViewer.fs" />
+    <Compile Include="Views\Panels\Panel.fs" />
     <Compile Include="Views\Panels\Canvas.fs" />
     <Compile Include="Views\Panels\AdornerLayer.fs" />
     <Compile Include="Views\Panels\Grid.fs" />
