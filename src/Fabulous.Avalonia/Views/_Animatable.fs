@@ -59,7 +59,7 @@ type AnimatableCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline transitions(this: WidgetBuilder<'msg, #IFabAnimatable>) =
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>) =
         AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions)
 
     /// <summary>Sets the Transition property.</summary>

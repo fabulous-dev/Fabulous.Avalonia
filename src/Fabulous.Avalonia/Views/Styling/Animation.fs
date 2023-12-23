@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Animation
 open Avalonia.Animation.Easings
 open Fabulous
