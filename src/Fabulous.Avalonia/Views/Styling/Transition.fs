@@ -6,6 +6,10 @@ open Avalonia
 open Avalonia.Animation
 open Avalonia.Animation.Easings
 open Fabulous
+open Fabulous.StackAllocatedCollections
+
+type IFabTransition =
+    inherit IFabAvaloniaObject
 
 module TransitionBase =
     let Duration =
@@ -323,3 +327,36 @@ module EffectTransitionBuilders =
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
             )
+
+[<Extension>]
+type TransitionBaseCollectionBuilderExtensions =
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+[<Extension>]
+type TransitionCollectionModifiers =
+    /// <summary>Sets the Transitions property.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>) =
+        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions)
+
+    /// <summary>Sets the Transition property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Transition value.</param>
+    [<Extension>]
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabTransition>) =
+        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions) { value }

@@ -7,6 +7,9 @@ open Avalonia.Animation.Easings
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
+type IFabAnimation =
+    inherit IFabAvaloniaObject
+
 module Animation =
 
     let WidgetKey = Widgets.register<Animation>()
@@ -144,6 +147,22 @@ type AnimationCollectionBuilderExtensions =
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
         (
             _: CollectionBuilder<'msg, 'marker, IFabAnimation>,
+            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabAnimation>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>,
+            x: WidgetBuilder<'msg, 'itemType>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabAnimation>
+        (
+            _: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>,
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

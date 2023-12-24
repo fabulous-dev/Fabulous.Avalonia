@@ -36,8 +36,6 @@
     <Compile Include="Widgets.fs" />
     <Compile Include="Views\_RenderOptions.fs" />
     <Compile Include="Views\_IDrawing.fs" />
-    <Compile Include="Views\_Transition.fs" />
-    <Compile Include="Views\_Animation.fs" />
     <Compile Include="Views\_Animatable.fs" />
     <Compile Include="Views\_Style.fs" />
     <Compile Include="Views\_StyledElement.fs" />
