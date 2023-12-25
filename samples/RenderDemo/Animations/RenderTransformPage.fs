@@ -41,7 +41,7 @@ module RenderTransformPage =
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
                 .background(SolidColorBrush(Colors.DarkRed))
-                .animations(
+                .animation(
                     Animations() {
                         (Animation(TimeSpan.FromSeconds(3.)) {
                             KeyFrame(Rotate3DTransform.AngleXProperty, 0.).cue(0.)

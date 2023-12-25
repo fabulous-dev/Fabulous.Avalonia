@@ -70,7 +70,7 @@ type StyleModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Animation value.</param>
     [<Extension>]
-    static member inline animations(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabStyle>) =
+    static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabStyle>) =
         AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.StylesWidget) { value }
 
     /// <summary>Link a ViewRef to access the direct Style control instance.</summary>
