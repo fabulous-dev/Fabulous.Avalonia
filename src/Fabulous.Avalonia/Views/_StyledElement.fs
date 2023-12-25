@@ -9,7 +9,6 @@ open Avalonia.LogicalTree
 open Avalonia.Markup.Xaml.Styling
 open Avalonia.Styling
 open Fabulous
-open Fabulous.StackAllocatedCollections
 
 type IFabStyledElement =
     inherit IFabAnimatable
@@ -210,17 +209,3 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, msg: 'msg) =
         this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(MsgValue msg))
-
-[<Extension>]
-type StyledElementCollectionBuilderExtensions =
-    [<Extension>]
-    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
