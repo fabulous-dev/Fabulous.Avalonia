@@ -1,8 +1,8 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRotateTransform =
@@ -45,3 +45,12 @@ module RotateTransformBuilders =
         /// <summary>Creates a RotateTransform widget.</summary>
         static member RotateTransform() =
             WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+[<Extension>]
+type RotateTransformTransformModifiers =
+    /// <summary>Link a ViewRef to access the direct RotateTransform control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabRotateTransform>, value: ViewRef<RotateTransform>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -35,3 +36,12 @@ module ScaleTransformBuilders =
         /// <summary>Creates a ScaleTransform widget.</summary>
         static member ScaleTransform() =
             WidgetBuilder<'msg, IFabScaleTransform>(ScaleTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+[<Extension>]
+type ScaleTransformModifiers =
+    /// <summary>Link a ViewRef to access the direct ScaleTransform control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabScaleTransform>, value: ViewRef<ScaleTransform>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
