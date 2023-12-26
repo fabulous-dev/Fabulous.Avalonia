@@ -63,6 +63,7 @@ type TileBrushModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="point">The Point value.</param>
     /// <param name="size">The Size value.</param>
+    /// <param name="unit">The RelativeUnit value.</param>
     [<Extension>]
     static member inline destinationRect(this: WidgetBuilder<'msg, #IFabTileBrush>, point: Point, size: Size, unit: RelativeUnit) =
         this.AddScalar(TileBrush.DestinationRect.WithValue(RelativeRect(point, size, unit)))
@@ -86,6 +87,7 @@ type TileBrushModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="point">The Point value.</param>
     /// <param name="size">The Size value.</param>
+    /// <param name="unit">The RelativeUnit value.</param>
     [<Extension>]
     static member inline sourceRect(this: WidgetBuilder<'msg, #IFabTileBrush>, point: Point, size: Size, unit: RelativeUnit) =
         this.AddScalar(TileBrush.SourceRect.WithValue(RelativeRect(point, size, unit)))
