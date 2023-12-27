@@ -86,13 +86,6 @@ type VisualModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The RenderTransform value.</param>
     [<Extension>]
-    static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabTransform>) =
-        this.AddWidget(Visual.RenderTransformWidget.WithValue(value.Compile()))
-
-    /// <summary>Sets the RenderTransform property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The RenderTransform value.</param>
-    [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: ITransform) =
         this.AddScalar(Visual.RenderTransform.WithValue(value))
 
