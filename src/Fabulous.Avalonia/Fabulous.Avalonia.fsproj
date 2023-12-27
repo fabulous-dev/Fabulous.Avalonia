@@ -68,6 +68,7 @@
     <Compile Include="Views\Media\_IPathSegment.fs" />
     <Compile Include="Views\Media\_IGeometry.fs" />
     <Compile Include="Views\Media\_Effect.fs" />
+    <Compile Include="Views\Media\_DropShadowEffectBase.fs" />
     <Compile Include="Views\Media\Transforms\MatrixTransform.fs" />
     <Compile Include="Views\Media\Transforms\SkewTransform.fs" />
     <Compile Include="Views\Media\Transforms\RotateTransform.fs" />
@@ -104,7 +105,6 @@
     <Compile Include="Views\Media\Drawing\DrawingGroup.fs" />
     <Compile Include="Views\Media\Drawing\ImageDrawing.fs" />
     <Compile Include="Views\Media\Drawing\DrawingImage.fs" />
-    <Compile Include="Views\Media\Effects\_DropShadowEffectBase.fs" />
     <Compile Include="Views\Media\Effects\DropShadowEffect.fs" />
     <Compile Include="Views\Media\Effects\DropShadowDirectionEffect.fs" />
     <Compile Include="Views\Media\Effects\BlurEffect.fs" />

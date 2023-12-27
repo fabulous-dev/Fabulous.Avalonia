@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Collections.Generic
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -25,3 +26,13 @@ module BlurEffectBuilders =
         /// <param name="radius">The radius of the blur effect.</param>
         static member BlurEffect(radius: float) =
             WidgetBuilder<'msg, IFabBlurEffect>(BlurEffect.WidgetKey, BlurEffect.Radius.WithValue(radius))
+
+[<Extension>]
+type BlurEffectModifiers =
+
+    /// <summary>Link a ViewRef to access the direct BlurEffect control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabBlurEffect>, value: ViewRef<BlurEffect>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
