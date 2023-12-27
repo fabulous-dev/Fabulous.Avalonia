@@ -42,7 +42,7 @@ module ToggleSwitchBuilders =
         /// <summary>Creates a ToggleSwitch widget.</summary>
         /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
         /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
-        static member inline ToggleSwitch<'msg>(isChecked: bool, fn: bool -> 'msg) =
+        static member inline ToggleSwitch(isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
@@ -52,7 +52,7 @@ module ToggleSwitchBuilders =
         /// <summary>Creates a ThreeStateToggleSwitch widget.</summary>
         /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
         /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
-        static member inline ThreeStateToggleSwitch<'msg>(isChecked: bool option, fn: bool option -> 'msg) =
+        static member inline ThreeStateToggleSwitch(isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),

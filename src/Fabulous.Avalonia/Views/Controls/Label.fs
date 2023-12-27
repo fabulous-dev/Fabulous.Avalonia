@@ -21,7 +21,7 @@ module LabelBuilders =
 
         /// <summary>Creates a Label widget.</summary>
         /// <param name="text">The text to display.</param>
-        static member inline Label<'msg>(text: string) =
+        static member inline Label(text: string) =
             WidgetBuilder<'msg, IFabLabel>(Label.WidgetKey, ContentControl.ContentString.WithValue(text))
 
         /// <summary>Creates a Label widget.</summary>

@@ -45,7 +45,7 @@ module MaskedTextBoxBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="mask">The mask to apply.</param>
         /// <param name="fn">Raised when the text changes.</param>
-        static member inline MaskedTextBox<'msg>(text: string, mask: string, fn: string -> 'msg) =
+        static member inline MaskedTextBox(text: string, mask: string, fn: string -> 'msg) =
             WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 MaskedTextBox.Mask.WithValue(mask),

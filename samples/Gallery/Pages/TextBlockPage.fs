@@ -172,7 +172,7 @@ module TextBlockPage =
                     Bold("variety")
                     Run(" of ")
                     Italic("styles")
+                    Underline("Underlined 11")
                 }
             }
-
         }

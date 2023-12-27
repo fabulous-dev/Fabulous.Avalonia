@@ -20,14 +20,14 @@ module CheckBoxBuilders =
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
-        static member inline CheckBox<'msg>(isChecked: bool, fn: bool -> 'msg) =
+        static member inline CheckBox(isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(CheckBox.WidgetKey, ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
-        static member inline CheckBox<'msg>(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member inline CheckBox(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -51,7 +51,7 @@ module CheckBoxBuilders =
         /// <summary>Creates a ThreeStateCheckBox widget.</summary>
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
-        static member inline ThreeStateCheckBox<'msg>(isChecked: bool option, fn: bool option -> 'msg) =
+        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
@@ -62,7 +62,7 @@ module CheckBoxBuilders =
         /// <param name="text">The ThreeStateCheckBox text.</param>
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
-        static member inline ThreeStateCheckBox<'msg>(text: string, isChecked: bool option, fn: bool option -> 'msg) =
+        static member inline ThreeStateCheckBox(text: string, isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),

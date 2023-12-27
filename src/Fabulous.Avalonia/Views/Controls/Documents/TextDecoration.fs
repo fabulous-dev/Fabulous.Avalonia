@@ -57,7 +57,7 @@ module TextDecorationBuilders =
 
         /// <summary>Creates a TextDecoration widget.</summary>
         /// <param name="location">The location of the TextDecoration.</param>
-        static member inline TextDecoration<'msg>(location: TextDecorationLocation) =
+        static member inline TextDecoration(location: TextDecorationLocation) =
             WidgetBuilder<'msg, IFabTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
 [<Extension>]
