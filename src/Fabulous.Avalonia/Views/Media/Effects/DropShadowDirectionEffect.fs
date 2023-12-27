@@ -34,7 +34,7 @@ module DropShadowDirectionEffectBuilders =
                 DropShadowDirectionEffect.ShadowDepth.WithValue(shadowDepth),
                 DropShadowDirectionEffect.Direction.WithValue(direction)
             )
-            
+
 [<Extension>]
 type DropShadowDirectionEffectModifiers =
 
