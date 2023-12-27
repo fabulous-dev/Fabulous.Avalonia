@@ -32,7 +32,7 @@ module ArcSegmentBuilders =
         /// <summary>Creates a ArcSegment widget.</summary>
         /// <param name="point">The point at which the arc ends.</param>
         /// <param name="size">The size of the arc.</param>
-        static member inline ArcSegment<'msg>(point: Point, size: Size) =
+        static member inline ArcSegment(point: Point, size: Size) =
             WidgetBuilder<'msg, IFabArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
 
 [<Extension>]
@@ -58,3 +58,10 @@ type ArcSegmentModifiers =
     [<Extension>]
     static member inline isLargeArc(this: WidgetBuilder<'msg, #IFabArcSegment>, value: bool) =
         this.AddScalar(ArcSegment.IsLargeArc.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct ArcSegment control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabArcSegment>, value: ViewRef<ArcSegment>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
