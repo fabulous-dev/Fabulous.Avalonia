@@ -4,6 +4,9 @@ open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 
+type IFabGeometry =
+    inherit IFabAvaloniaObject
+
 module Geometry =
 
     let Transform = Attributes.defineAvaloniaPropertyWidget Geometry.TransformProperty
@@ -26,3 +29,12 @@ type GeometryModifiers =
     [<Extension>]
     static member inline onChanged(this: WidgetBuilder<'msg, #IFabGeometry>, msg: 'msg) =
         this.AddScalar(Geometry.Changed.WithValue(MsgValue msg))
+
+[<Extension>]
+type GeometryAttachedModifiers =
+    /// <summary>Sets the Clip property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Clip value.</param>
+    [<Extension>]
+    static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabGeometry>) =
+        this.AddWidget(Visual.ClipWidget.WithValue(value.Compile()))

@@ -65,13 +65,6 @@ type VisualModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Clip value.</param>
     [<Extension>]
-    static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabGeometry>) =
-        this.AddWidget(Visual.ClipWidget.WithValue(value.Compile()))
-
-    /// <summary>Sets the Clip property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Clip value.</param>
-    [<Extension>]
     static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: Geometry) =
         this.AddScalar(Visual.Clip.WithValue(value))
 
