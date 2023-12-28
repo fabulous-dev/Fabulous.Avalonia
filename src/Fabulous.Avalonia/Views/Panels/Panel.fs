@@ -27,7 +27,7 @@ module PanelBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a Panel widget.</summary>
-        static member Panel<'msg>() =
+        static member Panel() =
             CollectionBuilder<'msg, IFabPanel, IFabControl>(Panel.WidgetKey, Panel.Children)
 
 [<Extension>]
@@ -73,6 +73,13 @@ type PanelModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
         this.AddScalar(TextElement.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+
+    /// <summary>Link a ViewRef to access the direct Panel control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPanel>, value: ViewRef<Panel>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type PanelCollectionBuilderExtensions =

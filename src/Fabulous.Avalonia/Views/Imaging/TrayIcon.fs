@@ -1,10 +1,8 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Fabulous
 open Avalonia.Controls
-open Fabulous.StackAllocatedCollections
 
 type IFabTrayIcon =
     inherit IFabAvaloniaObject
@@ -37,9 +35,9 @@ module TrayIconBuilders =
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
-        /// <param name="tooltipText">The tooltip text to display.</param>
-        static member inline TrayIcon(icon: WindowIcon, tooltipText: string) =
-            WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.Icon.WithValue(icon), TrayIcon.ToolTipText.WithValue(tooltipText))
+        /// <param name="text">The tooltip text to display.</param>
+        static member inline TrayIcon(icon: WindowIcon, text: string) =
+            WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.Icon.WithValue(icon), TrayIcon.ToolTipText.WithValue(text))
 
 [<Extension>]
 type TrayIconModifiers =

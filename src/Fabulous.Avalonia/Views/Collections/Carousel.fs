@@ -1,11 +1,9 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Avalonia.Controls
-open Avalonia.Styling
 open Fabulous
 
 type IFabCarousel =

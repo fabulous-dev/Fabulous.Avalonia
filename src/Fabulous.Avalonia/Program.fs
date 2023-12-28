@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Diagnostics
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Threading
 

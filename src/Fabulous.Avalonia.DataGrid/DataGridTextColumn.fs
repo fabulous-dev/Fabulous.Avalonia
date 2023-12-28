@@ -41,7 +41,7 @@ module DataGridTextColumnBuilders =
         /// <summary>Creates a DataGridTextColumn widget.</summary>
         /// <param name="header">The column header.</param>
         /// <param name="binding">The column binding.</param>
-        static member DataGridTextColumn<'msg>(header: string, binding: IBinding) =
+        static member DataGridTextColumn(header: string, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridTextColumn>(
                 DataGridTextColumn.WidgetKey,
                 DataGridColumn.HeaderString.WithValue(header),
@@ -51,7 +51,7 @@ module DataGridTextColumnBuilders =
         /// <summary>Creates a DataGridTextColumn widget.</summary>
         /// <param name="header">The column header.</param>
         /// <param name="binding">The column binding.</param>
-        static member DataGridTextColumn<'msg>(header: string, binding: string) =
+        static member DataGridTextColumn(header: string, binding: string) =
             WidgetBuilder<'msg, IFabDataGridTextColumn>(
                 DataGridTextColumn.WidgetKey,
                 DataGridColumn.HeaderString.WithValue(header),
