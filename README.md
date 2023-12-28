@@ -105,8 +105,6 @@ You can also open the solution `Fabulous.Avalonia.sln` with your favorite IDE(We
 
 ## Documentation
 
-🚧 Documentation is a work-in-progress. 🚧
-
 The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/avalonia](https://docs.fabulous.dev/avalonia).
 
 Other useful links:
