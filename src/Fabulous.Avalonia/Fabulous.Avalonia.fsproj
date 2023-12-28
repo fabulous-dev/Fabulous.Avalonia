@@ -177,12 +177,12 @@
     <Compile Include="Views\MenuItems\ListBoxItem.fs" />
     <Compile Include="Views\MenuItems\ComboBoxItem.fs" />
     <Compile Include="Views\MenuItems\TabItem.fs" />
+    <Compile Include="Views\Menu\_NativeMenuItemBase.fs" />
     <Compile Include="Views\Menu\Flyout.fs" />
     <Compile Include="Views\Menu\Menu.fs" />
     <Compile Include="Views\Menu\NativeMenuBar.fs" />
     <Compile Include="Views\Menu\MenuFlyout.fs" />
     <Compile Include="Views\Menu\ContextMenu.fs" />
-    <Compile Include="Views\Menu\_NativeMenuItemBase.fs" />
     <Compile Include="Views\Menu\NativeMenuItem.fs" />
     <Compile Include="Views\Menu\NativeMenu.fs" />
     <Compile Include="Views\Menu\NativeMenuSeparator.fs" />
