@@ -1,7 +1,7 @@
 ﻿## ColorPicker for Fabulous.Avalonia
 
 The ColorPicker control is a cross-platform view for selecting, previewing, and editing colors in a Fabulous.Avalonia app.
-It is based on the Avalonia ColorPicker
+It is based on the Avalonia . See the [Avalonia documentation]
 
 ### How to use
 - Add the `Fabulous.Avalonia.ColorPicker` package to your project.
