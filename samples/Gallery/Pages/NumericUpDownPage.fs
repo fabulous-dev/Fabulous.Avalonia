@@ -11,7 +11,6 @@ open Fabulous
 open Avalonia.Data.Converters
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module NumericUpDownPage =
     type FormatObject = { Value: string; Name: string }
@@ -102,7 +101,7 @@ module NumericUpDownPage =
         | DecimalValueChanged value -> { model with DecimalValue = value }, []
         | CultureSelectionChanged args ->
             let control = args.Source :?> ComboBox
-            let culture = model.Cultures.[control.SelectedIndex]
+            let culture = model.Cultures[control.SelectedIndex]
 
             { model with
                 NumberFormat = culture.NumberFormat },
@@ -110,7 +109,7 @@ module NumericUpDownPage =
 
         | SelectedFormatChanged args ->
             let control = args.Source :?> ComboBox
-            let format = model.Formats.[control.SelectedIndex]
+            let format = model.Formats[control.SelectedIndex]
             { model with SelectedFormat = format }, []
 
         | DoubleValueChanged value -> { model with DoubleValue = value }, []
