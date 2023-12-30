@@ -36,3 +36,10 @@ type DrawingImageModifiers =
     [<Extension>]
     static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabDrawingImage>, msg: 'msg) =
         this.AddScalar(DrawingImage.Invalidated.WithValue(MsgValue msg))
+
+    /// <summary>Link a ViewRef to access the direct DrawingImage control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabDrawingImage>, value: ViewRef<DrawingImage>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

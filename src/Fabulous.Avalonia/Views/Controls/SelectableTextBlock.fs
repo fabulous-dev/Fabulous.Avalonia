@@ -36,7 +36,7 @@ module SelectableTextBlockBuilders =
         /// <summary>Creates a SelectableTextBlock widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
-        static member inline SelectableTextBlock<'msg>(text: string, fn: RoutedEventArgs -> 'msg) =
+        static member inline SelectableTextBlock(text: string, fn: RoutedEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabSelectableTextBlock>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Text.WithValue(text),

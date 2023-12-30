@@ -102,10 +102,10 @@ type PopupFlyoutBaseModifiers =
 
     /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the PopupFlyoutBase is opening.</param>
+    /// <param name="fn">Raised when the PopupFlyoutBase is opening.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, msg: 'msg) =
-        this.AddScalar(PopupFlyoutBase.Opening.WithValue(MsgValue msg))
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, fn: 'msg) =
+        this.AddScalar(PopupFlyoutBase.Opening.WithValue(MsgValue fn))
 
     /// <summary>Listens to the PopupFlyoutBase Closing event.</summary>
     /// <param name="this">Current widget.</param>

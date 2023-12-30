@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -12,16 +11,16 @@ type IFabMenuFlyout =
 module MenuFlyout =
     let WidgetKey = Widgets.register<MenuFlyout>()
 
-    let ItemsSource =
-        Attributes.defineListWidgetCollection "MenuFlyout_Items" (fun target ->
+    let Items =
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "MenuFlyout_Items" (fun target ->
             let target = target :?> MenuFlyout
 
-            if target.ItemsSource = null then
-                let newColl = List<_>()
-                target.ItemsSource <- newColl
+            if target.Items = null then
+                let newColl = ItemCollection.Empty
+                target.Items.Add newColl |> ignore
                 newColl
             else
-                target.ItemsSource :?> IList<_>)
+                target.Items)
 
 [<AutoOpen>]
 module MenuFlyoutBuilders =
@@ -29,7 +28,7 @@ module MenuFlyoutBuilders =
 
         /// <summary>Creates a MenuFlyout widget.</summary>
         static member inline MenuFlyout() =
-            CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.ItemsSource)
+            CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.Items)
 
 [<Extension>]
 type MenuFlyoutModifiers =

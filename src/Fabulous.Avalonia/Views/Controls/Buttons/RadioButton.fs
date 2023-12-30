@@ -22,7 +22,7 @@ module RadioButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
-        static member inline RadioButton<'msg>(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member inline RadioButton(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -33,7 +33,7 @@ module RadioButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
-        static member inline ThreeStateRadioButton<'msg>(text: string, isChecked: bool option, fn: bool option -> 'msg) =
+        static member inline ThreeStateRadioButton(text: string, isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),

@@ -20,9 +20,6 @@ module TopLevel =
     let ThemeVariant =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.RequestedThemeVariantProperty
 
-    let ThemeVariantChanged =
-        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
-
     let TransparencyLevelHint =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyLevelHintProperty
 
@@ -49,6 +46,9 @@ module TopLevel =
 
     let BackRequested =
         Attributes.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
+
+    let ThemeVariantChanged =
+        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
 [<Extension>]
 type TopLevelModifiers =
@@ -80,12 +80,6 @@ type TopLevelModifiers =
     static member inline transparencyLevelHint(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WindowTransparencyLevel list) =
         this.AddScalar(TopLevel.TransparencyLevelHint.WithValue(value))
 
-    /// <summary>Sets the TransparencyBackgroundFallbackWidget property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyBackgroundFallbackWidget value.</param>
-    [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TopLevel.TransparencyBackgroundFallbackWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
     /// <param name="this">Current widget.</param>
@@ -100,13 +94,6 @@ type TopLevelModifiers =
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
         this.AddScalar(TopLevel.TransparencyBackgroundFallback.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the SystemBarColorWidget property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The SystemBarColorWidget value.</param>
-    [<Extension>]
-    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TopLevel.SystemBarColorWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the SystemBarColor property.</summary>
     /// <param name="this">Current widget.</param>

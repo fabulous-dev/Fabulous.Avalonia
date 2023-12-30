@@ -6,7 +6,6 @@ open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
 

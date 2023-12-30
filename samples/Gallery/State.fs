@@ -38,6 +38,7 @@ module State =
                 | ContextMenuPageCmdMsgs subCmdMsgs -> map ContextMenuPage.mapCmdMsgToCmd ContextMenuPageMsg subCmdMsgs
                 | ContextFlyoutPageCmdMsgs subCmdMsgs -> map ContextFlyoutPage.mapCmdMsgToCmd ContextFlyoutPageMsg subCmdMsgs
                 | ClipboardPageCmdMsgs subCmdMsgs -> map ClipboardPage.mapCmdMsgToCmd ClipboardPageMsg subCmdMsgs
+                | CursorPageCmdMsgs subCmdMsgs -> map CursorPage.mapCmdMsgToCmd CursorPageMsg subCmdMsgs
                 | DataGridPageCmdMsgs subCmdMsgs -> map DataGridPage.mapCmdMsgToCmd DataGridPageMsg subCmdMsgs
                 | DockPanelPageCmdMsgs subCmdMsgs -> map DockPanelPage.mapCmdMsgToCmd DockPanelPageMsg subCmdMsgs
                 | DialogsPageCmdMsgs subCmdMsgs -> map DialogsPage.mapCmdMsgToCmd DialogsPageMsg subCmdMsgs
@@ -119,6 +120,7 @@ module State =
         let contextMenuModel, contextMenuCmdMsgs = ContextMenuPage.init()
         let contextFlyoutModel, contextFlyoutCmdMsgs = ContextFlyoutPage.init()
         let clipboardModel, clipboardCmdMsgs = ClipboardPage.init()
+        let cursorModel, cursorCmdMsgs = CursorPage.init()
         let dataGridModel, dataGridCmdMsgs = DataGridPage.init()
         let dialogsModel, dialogsCmdMsgs = DialogsPage.init()
         let dragAndDropModel, dragAndDropCmdMsgs = DragAndDropPage.init()
@@ -202,6 +204,7 @@ module State =
           ContextMenuPageModel = contextMenuModel
           ContextFlyoutPageModel = contextFlyoutModel
           ClipboardPageModel = clipboardModel
+          CursorPageModel = cursorModel
           DataGridPageModel = dataGridModel
           DialogsPageModel = dialogsModel
           DragAndDropPageModel = dragAndDropModel
@@ -283,6 +286,7 @@ module State =
           SubpageCmdMsgs contextMenuCmdMsgs
           SubpageCmdMsgs contextFlyoutCmdMsgs
           SubpageCmdMsgs clipboardCmdMsgs
+          SubpageCmdMsgs cursorCmdMsgs
           SubpageCmdMsgs dataGridCmdMsgs
           SubpageCmdMsgs [ DialogsPageCmdMsgs dialogsCmdMsgs ]
           SubpageCmdMsgs dragAndDropCmdMsgs
@@ -461,6 +465,11 @@ module State =
             { model with
                 ClipboardPageModel = model1 },
             [ SubpageCmdMsgs [ (ClipboardPageCmdMsgs cmdMsgs) ] ]
+
+        | CursorPageMsg msg ->
+            let model1, cmdMsgs = CursorPage.update msg model.CursorPageModel
+
+            { model with CursorPageModel = model1 }, [ SubpageCmdMsgs cmdMsgs ]
 
         | DataGridPageMsg msg ->
             let model1, cmdMsgs = DataGridPage.update msg model.DataGridPageModel

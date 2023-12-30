@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Media
 open Fabulous
@@ -63,3 +64,12 @@ module Rotate3DTransformBuilders =
                 Rotate3DTransform.Center.WithValue(struct (centerX, centerY, centerZ)),
                 Rotate3DTransform.Depth.WithValue(depth)
             )
+
+[<Extension>]
+type Rotate3DTransformModifiers =
+    /// <summary>Link a ViewRef to access the direct Rotate3DTransform control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabRotate3DTransform>, value: ViewRef<Rotate3DTransform>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

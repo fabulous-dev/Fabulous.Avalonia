@@ -13,7 +13,9 @@ module Visual =
     let ClipToBounds =
         Attributes.defineAvaloniaPropertyWithEquality Visual.ClipToBoundsProperty
 
-    let Clip = Attributes.defineAvaloniaPropertyWidget Visual.ClipProperty
+    let ClipWidget = Attributes.defineAvaloniaPropertyWidget Visual.ClipProperty
+
+    let Clip = Attributes.defineAvaloniaPropertyWithEquality Visual.ClipProperty
 
     let IsVisible =
         Attributes.defineAvaloniaPropertyWithEquality Visual.IsVisibleProperty
@@ -63,8 +65,8 @@ type VisualModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Clip value.</param>
     [<Extension>]
-    static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabGeometry>) =
-        this.AddWidget(Visual.Clip.WithValue(value.Compile()))
+    static member inline clip(this: WidgetBuilder<'msg, #IFabVisual>, value: Geometry) =
+        this.AddScalar(Visual.Clip.WithValue(value))
 
     /// <summary>Sets the IsVisible property.</summary>
     /// <param name="this">Current widget.</param>
@@ -79,34 +81,6 @@ type VisualModifiers =
     [<Extension>]
     static member inline opacity(this: WidgetBuilder<'msg, #IFabVisual>, value: double) =
         this.AddScalar(Visual.Opacity.WithValue(value))
-
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(Visual.OpacityMaskWidget.WithValue(value.Compile()))
-
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: IBrush) =
-        this.AddScalar(Visual.OpacityMask.WithValue(value))
-
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: string) =
-        this.AddScalar(Visual.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the RenderTransform property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The RenderTransform value.</param>
-    [<Extension>]
-    static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabTransform>) =
-        this.AddWidget(Visual.RenderTransformWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the RenderTransform property.</summary>
     /// <param name="this">Current widget.</param>

@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Input
-open Avalonia.Interactivity
 open Fabulous
 
 module DragDrop =

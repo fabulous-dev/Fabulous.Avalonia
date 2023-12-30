@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Avalonia.Media.Imaging
 open Fabulous
@@ -18,5 +19,14 @@ module ImageBrushBuilders =
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
-        static member ImageBrush<'msg>(source: Bitmap) =
+        static member ImageBrush(source: Bitmap) =
             WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(source))
+
+[<Extension>]
+type ImageBrushModifiers =
+    /// <summary>Link a ViewRef to access the direct ImageBrush control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabImageBrush>, value: ViewRef<ImageBrush>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -48,3 +48,10 @@ type CombinedGeometryModifiers =
     [<Extension>]
     static member inline geometryCombineMode(this: WidgetBuilder<'msg, #IFabCombinedGeometry>, value: GeometryCombineMode) =
         this.AddScalar(CombinedGeometry.GeometryCombineMode.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct CombinedGeometry control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabCombinedGeometry>, value: ViewRef<CombinedGeometry>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -6,6 +6,9 @@ open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
+type IFabStyle =
+    inherit IFabAvaloniaObject
+
 module Style =
 
     let WidgetKey = Widgets.register<Style>()
@@ -21,31 +24,6 @@ module StyleBuilders =
         /// <summary>Creates an Animations widget.</summary>
         static member Animations() =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
-
-[<Extension>]
-type StyleModifiers =
-    /// <summary>Sets the Animations property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Animation value.</param>
-    [<Extension>]
-    static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabAnimation>) =
-        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.StylesWidget) {
-            CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations) { value }
-        }
-
-    /// <summary>Sets the Animations property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Animation value.</param>
-    [<Extension>]
-    static member inline animations(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabStyle>) =
-        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.StylesWidget) { value }
-
-    /// <summary>Link a ViewRef to access the direct Style control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabStyle>, value: ViewRef<Style>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type StyleCollectionBuilderExtensions =
@@ -64,3 +42,40 @@ type StyleCollectionBuilderExtensions =
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield
+        (
+            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
+            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
+        ) : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+[<Extension>]
+type StyleModifiers =
+    /// <summary>Sets the Animations property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Animation value.</param>
+    [<Extension>]
+    static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabAnimation>) =
+        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.StylesWidget) {
+            CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations) { value }
+        }
+
+    /// <summary>Sets the Animations property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Animation value.</param>
+    [<Extension>]
+    static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabStyle>) =
+        AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.StylesWidget) { value }
+
+    /// <summary>Link a ViewRef to access the direct Style control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabStyle>, value: ViewRef<Style>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabPathFigure =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module PathFigure =
     let WidgetKey = Widgets.register<PathFigure>()
@@ -49,6 +49,13 @@ type PathFigureModifiers =
     [<Extension>]
     static member inline isFilled(this: WidgetBuilder<'msg, #IFabPathFigure>, value: bool) =
         this.AddScalar(PathFigure.IsFilled.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct PathFigure control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPathFigure>, value: ViewRef<PathFigure>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type PathFigureBuilderExtensions =

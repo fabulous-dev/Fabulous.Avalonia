@@ -16,7 +16,7 @@ open Fabulous.StackAllocatedCollections.StackList
 #nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
 
 type IFabApplication =
-    inherit IFabObject
+    inherit IFabAvaloniaObject
 
 type FabApplication() =
     inherit Application()
@@ -33,50 +33,50 @@ type FabApplication() =
     /// <summary>Gets the top-level window or view for the application.</summary>
     member this.TopLevel =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow)
-        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView)
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow)
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView)
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary> Initializes a new instance of the WindowNotificationManager class.</summary>
     member this.WindowNotificationManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
-        | :? ISingleViewApplicationLifetime -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform's clipboard implementation</summary>
     member this.Clipboard =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).Clipboard
-        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).Clipboard
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).Clipboard
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).Clipboard
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>File System storage service used for file pickers and bookmarks.</summary>
     member this.StorageProvider =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
-        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).StorageProvider
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).StorageProvider
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Manages focus for the application.</summary>
     member this.FocusManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).FocusManager
-        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).FocusManager
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).FocusManager
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).FocusManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform-specific settings for the application.</summary>
     member this.PlatformSettings =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
-        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).PlatformSettings
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).PlatformSettings
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform-specific insets manager for the application.</summary>
     member this.InsetsManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
-        | :? ISingleViewApplicationLifetime -> TopLevel.GetTopLevel(_mainView).InsetsManager
+        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
+        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).InsetsManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
     member this.MainWindow
@@ -215,7 +215,7 @@ module Application =
 module ApplicationBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary> Creates a DesktopApplication widget with a content widget.</summary>
+        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
         /// <param name="window">The main Window of the Application.</param>
         static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(
@@ -273,7 +273,7 @@ type ApplicationModifiers =
     /// <param name="value">Theme variant to be used for the application.</param>
     /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
-    static member inline themeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
+    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
         this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value fn))
 
     /// <summary>Listens to the application theme variant changed event.</summary>

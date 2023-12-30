@@ -52,7 +52,7 @@ module ColorSpectrumBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a ColorSpectrum widget.</summary>
-        static member ColorSpectrum<'msg>() =
+        static member ColorSpectrum() =
             WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
         /// <summary>Creates a ColorSpectrum widget.</summary>
@@ -66,7 +66,7 @@ module ColorSpectrumBuilders =
         /// <summary>Creates a ColorSpectrum widget.</summary>
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
-        static member ColorSpectrum<'msg>(color: Color, fn: Color -> 'msg) =
+        static member ColorSpectrum(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, ColorSpectrum.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]

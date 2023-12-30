@@ -19,7 +19,7 @@ module DropDownButtonBuilders =
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>
-        static member inline DropDownButton<'msg>(text: string, msg: 'msg) =
+        static member inline DropDownButton(text: string, msg: 'msg) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),

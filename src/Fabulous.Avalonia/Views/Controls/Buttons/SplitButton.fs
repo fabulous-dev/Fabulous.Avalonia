@@ -23,7 +23,7 @@ module SplitButtonBuilders =
         /// <summary>Creates a SplitButton widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the SplitButton is clicked.</param>
-        static member inline SplitButton<'msg>(text: string, fn: 'msg) =
+        static member inline SplitButton(text: string, fn: 'msg) =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),

@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabPen =
-    inherit IFabElement
+    inherit IFabAvaloniaObject
 
 module Pen =
     let WidgetKey = Widgets.register<Pen>()
@@ -85,3 +85,10 @@ type PenModifiers =
     [<Extension>]
     static member inline miterLimit(this: WidgetBuilder<'msg, #IFabPen>, value: float) =
         this.AddScalar(Pen.MiterLimit.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct Pen control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPen>, value: ViewRef<Pen>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

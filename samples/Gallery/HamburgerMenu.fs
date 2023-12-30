@@ -30,6 +30,7 @@ module HamburgerMenu =
                 TabItem("ContextMenuPage", AnyView(View.map ContextMenuPageMsg (ContextMenuPage.view model.ContextMenuPageModel)))
                 TabItem("ContextFlyoutPage", AnyView(View.map ContextFlyoutPageMsg (ContextFlyoutPage.view model.ContextFlyoutPageModel)))
                 TabItem("ClipboardPage", AnyView(View.map ClipboardPageMsg (ClipboardPage.view model.ClipboardPageModel)))
+                TabItem("CursorPage", AnyView(View.map CursorPageMsg (CursorPage.view model.CursorPageModel)))
                 TabItem("DataGridPage", AnyView(View.map DataGridPageMsg (DataGridPage.view model.DataGridPageModel)))
                 TabItem("DockPanelPage", AnyView(View.map DockPanelPageMsg (DockPanelPage.view model.DockPanelPageModel)))
                 TabItem("DialogsPage", AnyView(View.map DialogsPageMsg (DialogsPage.view model.DialogsPageModel)))
