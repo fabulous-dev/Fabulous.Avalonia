@@ -126,6 +126,13 @@ type TextBlockModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
+        this.AddScalar(TextBlock.Background.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
         this.AddScalar(TextBlock.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -184,6 +191,13 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: IBrush) =
         this.AddScalar(TextBlock.Foreground.WithValue(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
+        this.AddScalar(TextBlock.Foreground.WithValue(value |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>

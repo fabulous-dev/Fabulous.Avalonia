@@ -79,6 +79,13 @@ type TickBarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Fill value.</param>
     [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: Color) =
+        this.AddScalar(TickBar.Fill.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
         this.AddScalar(TickBar.Fill.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 

@@ -290,6 +290,13 @@ type TextBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The CaretBrush value.</param>
     [<Extension>]
+    static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: Color) =
+        this.AddScalar(TextBox.CaretBrush.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the CaretBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CaretBrush value.</param>
+    [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
         this.AddScalar(TextBox.CaretBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -325,6 +332,13 @@ type TextBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SelectionBrush value.</param>
     [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: Color) =
+        this.AddScalar(TextBox.SelectionBrush.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the SelectionBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionBrush value.</param>
+    [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
         this.AddScalar(TextBox.SelectionBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -341,6 +355,13 @@ type TextBoxModifiers =
     [<Extension>]
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: IBrush) =
         this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(value))
+
+    /// <summary>Sets the SelectionForegroundBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionForegroundBrush value.</param>
+    [<Extension>]
+    static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: Color) =
+        this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(value |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the SelectionForegroundBrush property.</summary>
     /// <param name="this">Current widget.</param>

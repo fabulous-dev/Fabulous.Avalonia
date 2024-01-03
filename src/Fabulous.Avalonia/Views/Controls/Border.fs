@@ -68,6 +68,13 @@ type BorderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
+        this.AddScalar(Border.Background.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         this.AddScalar(Border.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -84,6 +91,13 @@ type BorderModifiers =
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.BorderBrush.WithValue(value))
+
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
+        this.AddScalar(Border.BorderBrush.WithValue(value |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>

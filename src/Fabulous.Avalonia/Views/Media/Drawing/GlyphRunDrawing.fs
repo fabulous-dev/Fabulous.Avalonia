@@ -50,6 +50,16 @@ module GlyphRunDrawingBuilders =
         /// <summary>Creates a GlyphRunDrawing widget.</summary>
         /// <param name="brush">The content of the drawing.</param>
         /// <param name="glyphRun">The glyph run to draw.</param>
+        static member GlyphRunDrawing(brush: Color, glyphRun: GlyphRun) =
+            WidgetBuilder<'msg, IFabGlyphRunDrawing>(
+                GlyphRunDrawing.WidgetKey,
+                GlyphRunDrawing.GlyphRun.WithValue(glyphRun),
+                GlyphRunDrawing.Foreground.WithValue(brush |> ImmutableSolidColorBrush)
+            )
+
+        /// <summary>Creates a GlyphRunDrawing widget.</summary>
+        /// <param name="brush">The content of the drawing.</param>
+        /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             WidgetBuilder<'msg, IFabGlyphRunDrawing>(
                 GlyphRunDrawing.WidgetKey,

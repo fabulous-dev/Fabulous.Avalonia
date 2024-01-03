@@ -67,6 +67,13 @@ type DrawingGroupModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: Color) =
+        this.AddScalar(DrawingGroup.OpacityMask.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 

@@ -87,6 +87,13 @@ type SelectableTextBlockModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SelectionBrush value.</param>
     [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: Color) =
+        this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the SelectionBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionBrush value.</param>
+    [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: string) =
         this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 

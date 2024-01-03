@@ -93,6 +93,13 @@ type ComboBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PlaceholderForeground value.</param>
     [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: Color) =
+        this.AddScalar(ComboBox.PlaceholderForeground.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
     static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
         this.AddScalar(ComboBox.PlaceholderForeground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 

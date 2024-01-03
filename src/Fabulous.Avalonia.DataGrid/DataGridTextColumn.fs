@@ -139,5 +139,12 @@ type DataGridTextColumnModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground property value.</param>
     [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: Color) =
+        this.AddScalar(TextElement.Foreground.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Set the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground property value.</param>
+    [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: string) =
         this.AddScalar(TextElement.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))

@@ -323,6 +323,13 @@ type DataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HorizontalGridLinesBrush value.</param>
     [<Extension>]
+    static member inline horizontalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: Color) =
+        this.AddScalar(DataGrid.HorizontalGridLinesBrush.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the HorizontalGridLinesBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalGridLinesBrush value.</param>
+    [<Extension>]
     static member inline horizontalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
         this.AddScalar(DataGrid.HorizontalGridLinesBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -365,6 +372,13 @@ type DataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The RowBackground value.</param>
     [<Extension>]
+    static member inline rowBackground(this: WidgetBuilder<'msg, IFabDataGrid>, value: Color) =
+        this.AddScalar(DataGrid.RowBackground.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the RowBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RowBackground value.</param>
+    [<Extension>]
     static member inline rowBackground(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
         this.AddScalar(DataGrid.RowBackground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -395,6 +409,13 @@ type DataGridModifiers =
     [<Extension>]
     static member inline verticalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: IBrush) =
         this.AddScalar(DataGrid.VerticalGridLinesBrush.WithValue(value))
+
+    /// <summary>Sets the VerticalGridLinesBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalGridLinesBrush value.</param>
+    [<Extension>]
+    static member inline verticalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: Color) =
+        this.AddScalar(DataGrid.VerticalGridLinesBrush.WithValue(value |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the VerticalGridLinesBrush property.</summary>
     /// <param name="this">Current widget.</param>

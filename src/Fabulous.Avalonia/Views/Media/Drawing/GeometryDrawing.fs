@@ -61,6 +61,22 @@ module GeometryDrawingBuilders =
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: string, brush: Color) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.two(
+                        GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry)),
+                        GeometryDrawing.Brush.WithValue(brush |> ImmutableSolidColorBrush)
+                    ),
+                    ValueNone,
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: string, brush: string) =
             WidgetBuilder<'msg, IFabGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
@@ -70,6 +86,19 @@ module GeometryDrawingBuilders =
                         GeometryDrawing.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
                     ),
                     ValueNone,
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: Color) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.one(GeometryDrawing.Brush.WithValue(brush |> ImmutableSolidColorBrush)),
+                    ValueSome [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
                     ValueNone
                 )
             )

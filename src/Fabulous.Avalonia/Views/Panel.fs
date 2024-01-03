@@ -50,6 +50,13 @@ type PanelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: Color) =
+        this.AddScalar(Panel.Background.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
         this.AddScalar(Panel.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
@@ -66,6 +73,13 @@ type PanelModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: Color) =
+        this.AddScalar(TextElement.Foreground.WithValue(value |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>

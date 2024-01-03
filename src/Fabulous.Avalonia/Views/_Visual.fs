@@ -98,6 +98,13 @@ type VisualModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: Color) =
+        this.AddScalar(Visual.OpacityMask.WithValue(value |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: string) =
         this.AddScalar(Visual.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
