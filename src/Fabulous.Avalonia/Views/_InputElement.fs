@@ -87,7 +87,7 @@ type InputElementModifiers =
     static member inline focusable(this: WidgetBuilder<'msg, #IFabInputElement>, value: bool) =
         this.AddScalar(InputElement.Focusable.WithValue(value))
 
-    /// <summary>Sets the IsEnabled property..</summary>
+    /// <summary>Sets the IsEnabled property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsEnabled value.</param>
     [<Extension>]
@@ -201,7 +201,7 @@ type InputElementModifiers =
 
     /// <summary>Listens to the InputElement PointerCaptureLost event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when he control or its child control loses the pointer capture for any reason event will not be triggered for a parent control if capture was transferred to another child of that parent control.</param>
+    /// <param name="fn">Raised when the control or its child control loses the pointer capture for any reason event will not be triggered for a parent control if capture was transferred to another child of that parent control.</param>
     [<Extension>]
     static member inline onPointerCaptureLost(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerCaptureLostEventArgs -> 'msg) =
         this.AddScalar(InputElement.PointerCaptureLost.WithValue(fn))

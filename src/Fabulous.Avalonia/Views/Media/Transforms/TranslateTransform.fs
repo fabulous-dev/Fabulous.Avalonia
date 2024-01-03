@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -33,3 +34,12 @@ module TranslateTransformBuilders =
         /// <summary>Creates a TranslateTransform widget.</summary>
         static member TranslateTransform() =
             WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+[<Extension>]
+type TranslateTransformModifiers =
+    /// <summary>Link a ViewRef to access the direct TranslateTransform control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabTranslateTransform>, value: ViewRef<TranslateTransform>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

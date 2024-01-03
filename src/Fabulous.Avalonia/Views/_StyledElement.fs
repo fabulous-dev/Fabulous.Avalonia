@@ -9,7 +9,6 @@ open Avalonia.LogicalTree
 open Avalonia.Markup.Xaml.Styling
 open Avalonia.Styling
 open Fabulous
-open Fabulous.StackAllocatedCollections
 
 type IFabStyledElement =
     inherit IFabAnimatable
@@ -57,11 +56,10 @@ module StyledElement =
         Attributes.defineProperty "StyledElement_Styles" Unchecked.defaultof<string list> (fun target values ->
             let styles = (target :?> StyledElement).Styles
 
-            values
-            |> List.iter(fun value ->
+            for value in values do
                 let style = StyleInclude(baseUri = null)
                 style.Source <- Uri(value)
-                styles.Add(style)))
+                styles.Add(style))
 
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
@@ -119,7 +117,12 @@ type StyledElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">The Style value.</param>
     [<Extension>]
-    static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
+    static member inline style
+        (
+            this: WidgetBuilder<'msg, #IFabAvaloniaObject>,
+            fn: WidgetBuilder<'msg, #IFabAvaloniaObject> -> WidgetBuilder<'msg, #IFabAvaloniaObject>
+        ) =
+        fn this
 
     /// <summary>Sets the ContentType property.</summary>
     /// <param name="this">Current widget.</param>
@@ -178,6 +181,14 @@ type StyledElementModifiers =
     static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
         this.AddScalar(StyledElement.Styles.WithValue(value))
 
+    /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
+    /// application styles that is applied to the control.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ThemeKey value.</param>
+    [<Extension>]
+    static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.ThemeKey.WithValue(value))
+
     /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the styled element is attached to a rooted logical tree.</param>
@@ -198,25 +209,3 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, msg: 'msg) =
         this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(MsgValue msg))
-
-    /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
-    /// application styles that is applied to the control.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ThemeKey value.</param>
-    [<Extension>]
-    static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
-        this.AddScalar(StyledElement.ThemeKey.WithValue(value))
-
-[<Extension>]
-type StyledElementCollectionBuilderExtensions =
-    [<Extension>]
-    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }

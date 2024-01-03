@@ -60,7 +60,6 @@ module LineBoundsHelper =
 
 type LineBoundsControl() =
     inherit Control()
-    static let mutable _angle: float = 0.
 
     let mutable _timer: DispatcherTimer = null
 
@@ -71,16 +70,14 @@ type LineBoundsControl() =
         _timer.Interval <- TimeSpan.FromSeconds(1. / 60.)
 
         _timer.Tick.Add(fun _ ->
-            _angle <- _angle + Math.PI / 360.
+            this.Angle <- this.Angle + Math.PI / 360.
             this.InvalidateVisual())
 
         _timer.Start()
 
     override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) = _timer.Stop()
 
-    member this.Angle
-        with get () = _angle
-        and set value = _angle <- value
+    member val Angle = 0. with get, set
 
     static member AngleProperty: StyledProperty<float> =
         AvaloniaProperty.Register<LineBoundsControl, float>("Angle")

@@ -24,7 +24,7 @@ module DataGridCheckBoxColumnBuilders =
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
         /// <param name="header">The column header.</param>
         /// <param name="binding">The column binding.</param>
-        static member DataGridCheckBoxColumn<'msg>(header: string, binding: IBinding) =
+        static member DataGridCheckBoxColumn(header: string, binding: IBinding) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
                 DataGridColumn.HeaderString.WithValue(header),
@@ -34,7 +34,7 @@ module DataGridCheckBoxColumnBuilders =
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
         /// <param name="header">The column header.</param>
         /// <param name="binding">The column binding.</param>
-        static member DataGridCheckBoxColumn<'msg>(header: string, binding: string) =
+        static member DataGridCheckBoxColumn(header: string, binding: string) =
             WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>(
                 DataGridCheckBoxColumn.WidgetKey,
                 DataGridColumn.HeaderString.WithValue(header),

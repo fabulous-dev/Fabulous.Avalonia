@@ -99,18 +99,18 @@ module ColorViewBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a ColorView widget.</summary>
-        static member ColorView<'msg>() =
+        static member ColorView() =
             WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
         /// <summary>Creates a ColorView widget.</summary>
         /// <param name="color">The Color value.</param>
-        static member ColorView<'msg>(color: Color) =
+        static member ColorView(color: Color) =
             WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
 
         /// <summary>Creates a ColorView widget.</summary>
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
-        static member ColorView<'msg>(color: Color, fn: Color -> 'msg) =
+        static member ColorView(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]

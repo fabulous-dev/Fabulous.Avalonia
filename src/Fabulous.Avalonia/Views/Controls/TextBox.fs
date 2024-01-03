@@ -119,7 +119,7 @@ module TextBoxBuilders =
         /// <summary>Creates a TextBox widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the text changes.</param>
-        static member inline TextBox<'msg>(text: string, fn: string -> 'msg) =
+        static member inline TextBox(text: string, fn: string -> 'msg) =
             WidgetBuilder<'msg, IFabTextBox>(TextBox.WidgetKey, TextBox.TextChanged.WithValue(ValueEventData.create text fn))
 
 [<Extension>]

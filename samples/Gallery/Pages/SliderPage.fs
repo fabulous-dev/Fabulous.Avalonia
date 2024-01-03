@@ -81,7 +81,7 @@ module SliderPage =
                 .tickPlacement(TickPlacement.BottomRight)
                 .isSnapToTickEnabled(true)
                 .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
-                .tooltip(TextBlock(model.SliderValue3.ToString()))
+                .tip(ToolTip(model.SliderValue3.ToString()))
                 .tooltipPlacement(PlacementMode.Top)
                 .style(sliderStyle)
 

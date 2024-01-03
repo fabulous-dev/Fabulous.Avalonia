@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Avalonia.Media.Immutable
 open Fabulous
@@ -66,3 +67,13 @@ module GlyphRunDrawingBuilders =
                 GlyphRunDrawing.GlyphRun.WithValue(glyphRun),
                 GlyphRunDrawing.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
             )
+
+[<Extension>]
+type GlyphRunDrawingModifiers =
+
+    /// <summary>Link a ViewRef to access the direct GlyphRunDrawing control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabGlyphRunDrawing>, value: ViewRef<GlyphRunDrawing>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

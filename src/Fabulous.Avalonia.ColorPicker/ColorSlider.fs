@@ -42,12 +42,12 @@ module ColorSliderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a ColorSlider widget.</summary>
-        static member ColorSlider<'msg>() =
+        static member ColorSlider() =
             WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
         /// <summary>Creates a ColorSlider widget.</summary>
         /// <param name="color">The Color value.</param>
-        static member ColorSlider<'msg>(color: Color) =
+        static member ColorSlider(color: Color) =
             WidgetBuilder<'msg, IFabColorSlider>(
                 ColorSlider.WidgetKey,
                 AttributesBundle(StackList.one(ColorSlider.Color.WithValue(color)), ValueNone, ValueNone)
@@ -56,7 +56,7 @@ module ColorSliderBuilders =
         /// <summary>Creates a ColorSlider widget.</summary>
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
-        static member ColorSlider<'msg>(color: Color, fn: Color -> 'msg) =
+        static member ColorSlider(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.ColorChanged.WithValue(ValueEventData.create color fn))
 
 [<Extension>]

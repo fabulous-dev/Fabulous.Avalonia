@@ -55,12 +55,6 @@ module TemplatedControl =
 
 [<Extension>]
 type TemplatedControlModifiers =
-    /// <summary>Sets the BackgroundWidget property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BackgroundWidget value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TemplatedControl.BackgroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -82,13 +76,6 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: string) =
         this.AddScalar(TemplatedControl.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the BorderBrushWidget property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrushWidget value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TemplatedControl.BorderBrushWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
@@ -166,13 +153,6 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline fontStretch(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: FontStretch) =
         this.AddScalar(TemplatedControl.FontStretch.WithValue(value))
-
-    /// <summary>Sets the ForegroundWidget property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ForegroundWidget value.</param>
-    [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
-        this.AddWidget(TemplatedControl.ForegroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>

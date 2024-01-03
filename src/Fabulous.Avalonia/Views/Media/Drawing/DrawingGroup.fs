@@ -98,6 +98,13 @@ type DrawingGroupModifiers =
     static member inline clipGeometry(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: WidgetBuilder<'msg, #IFabGeometry>) =
         this.AddWidget(DrawingGroup.ClipGeometry.WithValue(value.Compile()))
 
+    /// <summary>Link a ViewRef to access the direct DrawingGroup control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabDrawingGroup>, value: ViewRef<DrawingGroup>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 [<Extension>]
 type DrawingGroupCollectionBuilderExtensions =
     [<Extension>]

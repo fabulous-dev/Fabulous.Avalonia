@@ -99,12 +99,12 @@ module TextBlockBuilders =
 
         /// <summary>Creates a TextBlock widget.</summary>
         /// <param name="text">The text to display.</param>
-        static member inline TextBlock<'msg>(text: string) =
+        static member inline TextBlock(text: string) =
             WidgetBuilder<'msg, IFabTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
 
         /// <summary>Creates a TextBlock widget.</summary>
-        static member inline TextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>() =
-            CollectionBuilder<'msg, IFabTextBlock, 'childMarker>(TextBlock.WidgetKey, TextBlock.Inlines)
+        static member inline TextBlock() =
+            CollectionBuilder<'msg, IFabTextBlock, IFabInline>(TextBlock.WidgetKey, TextBlock.Inlines)
 
 [<Extension>]
 type TextBlockModifiers =

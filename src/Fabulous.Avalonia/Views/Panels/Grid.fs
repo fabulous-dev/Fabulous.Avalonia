@@ -85,7 +85,7 @@ module GridBuilders =
         /// <summary>Creates a Grid widget.</summary>
         /// <param name="coldefs">Column definitions.</param>
         /// <param name="rowdefs">Row definitions.</param>
-        static member inline Grid<'msg>(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
+        static member inline Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
             CollectionBuilder<'msg, IFabGrid, IFabControl>(
                 Grid.WidgetKey,
                 Panel.Children,

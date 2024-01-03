@@ -11,9 +11,6 @@ type IFabToolTip =
 module ToolTip =
     let WidgetKey = Widgets.register<ToolTip>()
 
-    let TipString =
-        Attributes.defineAvaloniaProperty<string, obj> ToolTip.TipProperty box ScalarAttributeComparers.equalityCompare
-
     let TipWidget = Attributes.defineAvaloniaPropertyWidget ToolTip.TipProperty
 
     let IsOpen = Attributes.defineAvaloniaPropertyWithEquality ToolTip.IsOpenProperty
@@ -30,27 +27,35 @@ module ToolTip =
     let ShowDelay =
         Attributes.defineAvaloniaPropertyWithEquality ToolTip.ShowDelayProperty
 
+[<AutoOpen>]
+module ToolTipBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ToolTip widget.</summary>
+        static member ToolTip(content: string) =
+            WidgetBuilder<'msg, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
+
+        /// <summary>Creates a ToolTip widget.</summary>
+        static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabToolTip>(
+                ToolTip.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+            )
+
 [<Extension>]
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Tip value.</param>
     [<Extension>]
-    static member inline tooltip(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
-        this.AddScalar(ToolTip.TipString.WithValue(value))
-
-    /// <summary>Sets the Tip property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Tip value.</param>
-    [<Extension>]
-    static member inline tooltip(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, #IFabControl>) =
+    static member inline tip(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, IFabToolTip>) =
         this.AddWidget(ToolTip.TipWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the IsOpen property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsOpen value.</param>
     [<Extension>]
-    static member inline tooltipIsOpen(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+    static member inline isOpen(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
         this.AddScalar(ToolTip.IsOpen.WithValue(value))
 
     /// <summary>Sets the Placement property.</summary>
@@ -80,3 +85,10 @@ type ToolTipModifiers =
     [<Extension>]
     static member inline tooltipShowDelay(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(ToolTip.ShowDelay.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct ToolTip control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabToolTip>, value: ViewRef<ToolTip>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -52,3 +52,10 @@ type EllipseGeometryModifiers =
     [<Extension>]
     static member inline rect(this: WidgetBuilder<'msg, #IFabEllipseGeometry>, value: Rect) =
         this.AddScalar(EllipseGeometry.Rect.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct EllipseGeometry control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabEllipseGeometry>, value: ViewRef<EllipseGeometry>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -50,30 +50,30 @@ module RenderOptions =
 
 [<Extension>]
 type RenderOptionsModifiers =
-    /// <summary> Sets the BitmapInterpolationMode property.</summary>
+    /// <summary>Sets the BitmapInterpolationMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BitmapInterpolationMode value.</param>
     [<Extension>]
-    static member inline bitmapInterpolationMode(this: WidgetBuilder<'msg, #IFabElement>, value: BitmapInterpolationMode) =
+    static member inline bitmapInterpolationMode(this: WidgetBuilder<'msg, #IFabAvaloniaObject>, value: BitmapInterpolationMode) =
         this.AddScalar(RenderOptions.BitmapInterpolationMode.WithValue(value))
 
     /// <summary> Sets the BitmapBlendingMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BitmapBlendingMode value.</param>
     [<Extension>]
-    static member inline bitmapBlendingMode(this: WidgetBuilder<'msg, #IFabElement>, value: BitmapBlendingMode) =
+    static member inline bitmapBlendingMode(this: WidgetBuilder<'msg, #IFabAvaloniaObject>, value: BitmapBlendingMode) =
         this.AddScalar(RenderOptions.BitmapBlendingMode.WithValue(value))
 
-    /// <summary> Sets the EdgeMode property.</summary>
+    /// <summary>Sets the EdgeMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The EdgeMode value.</param>
     [<Extension>]
-    static member inline edgeMode(this: WidgetBuilder<'msg, #IFabElement>, value: EdgeMode) =
+    static member inline edgeMode(this: WidgetBuilder<'msg, #IFabAvaloniaObject>, value: EdgeMode) =
         this.AddScalar(RenderOptions.EdgeMode.WithValue(value))
 
-    /// <summary> Sets the TextRenderingMode property.</summary>
+    /// <summary>Sets the TextRenderingMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TextRenderingMode value.</param>
     [<Extension>]
-    static member inline textRenderingMode(this: WidgetBuilder<'msg, #IFabElement>, value: TextRenderingMode) =
+    static member inline textRenderingMode(this: WidgetBuilder<'msg, #IFabAvaloniaObject>, value: TextRenderingMode) =
         this.AddScalar(RenderOptions.TextRenderingMode.WithValue(value))

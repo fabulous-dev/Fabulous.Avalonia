@@ -23,7 +23,7 @@ module RepeatButtonBuilders =
         /// <summary>Creates a RepeatButton widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the button is clicked.</param>
-        static member inline RepeatButton<'msg>(text: string, msg: 'msg) =
+        static member inline RepeatButton(text: string, msg: 'msg) =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
