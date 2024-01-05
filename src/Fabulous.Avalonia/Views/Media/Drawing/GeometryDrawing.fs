@@ -67,7 +67,7 @@ module GeometryDrawingBuilders =
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: string, brush: string) =
-            View.GeometryDrawing(geometry, View.SolidColorBrush(Color.Parse(brush)))
+            View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
 
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
@@ -79,7 +79,7 @@ module GeometryDrawingBuilders =
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior of the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: string) =
-            View.GeometryDrawing(geometry, View.SolidColorBrush(Color.Parse(brush)))
+            View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
 
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>

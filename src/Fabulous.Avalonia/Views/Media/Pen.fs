@@ -56,7 +56,7 @@ module PenBuilders =
         /// <param name="brush">The brush used to draw the stroke.</param>
         /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: string, thickness: float) =
-            View.Pen(View.SolidColorBrush(Color.Parse(brush)), thickness)
+            View.Pen(View.SolidColorBrush(brush), thickness)
 
 [<Extension>]
 type PenModifiers =

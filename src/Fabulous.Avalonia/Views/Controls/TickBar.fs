@@ -137,4 +137,4 @@ type TickBarExtraModifiers =
     /// <param name="value">The Fill value.</param>
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
-        TickBarModifiers.fill(this, View.SolidColorBrush(Color.Parse(value)))
+        TickBarModifiers.fill(this, View.SolidColorBrush(value))

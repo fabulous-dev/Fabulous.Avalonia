@@ -375,7 +375,7 @@ type TextBoxExtraModifiers =
     /// <param name="value">The CaretBrush value.</param>
     [<Extension>]
     static member inline caretBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
-        TextBoxModifiers.caretBrush(this, View.SolidColorBrush(Color.Parse(value)))
+        TextBoxModifiers.caretBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SelectionBrush property.</summary>
     /// <param name="this">Current widget.</param>
@@ -389,7 +389,7 @@ type TextBoxExtraModifiers =
     /// <param name="value">The SelectionBrush value.</param>
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
-        TextBoxModifiers.selectionBrush(this, View.SolidColorBrush(Color.Parse(value)))
+        TextBoxModifiers.selectionBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SelectionForegroundBrush property.</summary>
     /// <param name="this">Current widget.</param>
@@ -403,4 +403,4 @@ type TextBoxExtraModifiers =
     /// <param name="value">The SelectionForegroundBrush value.</param>
     [<Extension>]
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: string) =
-        TextBoxModifiers.selectionForegroundBrush(this, View.SolidColorBrush(Color.Parse(value)))
+        TextBoxModifiers.selectionForegroundBrush(this, View.SolidColorBrush(value))

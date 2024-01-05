@@ -131,7 +131,7 @@ type ComboBoxExtraModifier =
     /// <param name="value">The PlaceholderForeground value.</param>
     [<Extension>]
     static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
-        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(Color.Parse(value)))
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
 
 [<Extension>]
 type ComboBoxCollectionBuilderExtensions =

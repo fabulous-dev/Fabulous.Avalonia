@@ -63,7 +63,7 @@ module SplitButtonPage =
         })
             .placement(PlacementMode.Bottom)
 
-    let availableColors colors =
+    let availableColors (colors: Color list) =
         (MenuFlyout() {
             MenuItem(
                 ScrollViewer(

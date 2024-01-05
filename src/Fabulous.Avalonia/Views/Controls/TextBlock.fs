@@ -286,7 +286,7 @@ type TextBlockExtraModifiers =
     /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
-        TextBlockModifiers.background(this, View.SolidColorBrush(Color.Parse(value)))
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
@@ -300,7 +300,7 @@ type TextBlockExtraModifiers =
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
-        TextBlockModifiers.foreground(this, View.SolidColorBrush(Color.Parse(value)))
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
 
 [<Extension>]
 type TextBlockCollectionBuilderExtensions =

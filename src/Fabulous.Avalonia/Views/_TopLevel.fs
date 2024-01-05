@@ -143,7 +143,7 @@ type TopLevelExtraModifiers =
     /// <param name="value">The TransparencyBackgroundFallback value.</param>
     [<Extension>]
     static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
-        TopLevelModifiers.transparencyBackgroundFallback(this, View.SolidColorBrush(Color.Parse(value)))
+        TopLevelModifiers.transparencyBackgroundFallback(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SystemBarColor property.</summary>
     /// <param name="this">Current widget.</param>
@@ -157,4 +157,4 @@ type TopLevelExtraModifiers =
     /// <param name="value">The SystemBarColor value.</param>
     [<Extension>]
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
-        TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(Color.Parse(value)))
+        TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(value))

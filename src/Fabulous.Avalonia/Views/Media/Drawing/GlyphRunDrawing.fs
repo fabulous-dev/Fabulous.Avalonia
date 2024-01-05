@@ -58,7 +58,7 @@ module GlyphRunDrawingBuilders =
         /// <param name="brush">The content of the drawing.</param>
         /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
-            View.GlyphRunDrawing(View.SolidColorBrush(Color.Parse(brush)), glyphRun)
+            View.GlyphRunDrawing(View.SolidColorBrush(brush), glyphRun)
 
 [<Extension>]
 type GlyphRunDrawingModifiers =

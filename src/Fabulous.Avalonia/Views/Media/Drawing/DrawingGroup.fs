@@ -105,7 +105,7 @@ type DrawingGroupExtraModifiers =
     /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
-        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(Color.Parse(value)))
+        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
 
 [<Extension>]
 type DrawingGroupCollectionBuilderExtensions =

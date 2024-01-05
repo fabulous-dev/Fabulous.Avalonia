@@ -132,7 +132,7 @@ type ShapeExtraModifiers =
     /// <param name="value">The Fill value.</param>
     [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, value: string) =
-        ShapeModifiers.fill(this, View.SolidColorBrush(Color.Parse(value)))
+        ShapeModifiers.fill(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
@@ -146,4 +146,4 @@ type ShapeExtraModifiers =
     /// <param name="value">The Stroke value.</param>
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, value: string) =
-        ShapeModifiers.stroke(this, View.SolidColorBrush(Color.Parse(value)))
+        ShapeModifiers.stroke(this, View.SolidColorBrush(value))

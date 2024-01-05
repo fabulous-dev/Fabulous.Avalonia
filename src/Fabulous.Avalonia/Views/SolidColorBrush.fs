@@ -22,6 +22,11 @@ module SolidColorBrushBuilders =
         static member SolidColorBrush(color: Color) =
             WidgetBuilder<'msg, IFabSolidColorBrush>(SolidColorBrush.WidgetKey, SolidColorBrush.Color.WithValue(color))
 
+        /// <summary>Creates a SolidColorBrush widget.</summary>
+        /// <param name="color">The color of the brush.</param>
+        static member SolidColorBrush(color: string) =
+            View.SolidColorBrush(Color.Parse(color))
+
 [<Extension>]
 type SolidColorBrushModifiers =
     /// <summary>Link a ViewRef to access the direct SolidColorBrush control instance.</summary>

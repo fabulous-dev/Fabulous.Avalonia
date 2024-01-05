@@ -138,16 +138,25 @@ type VisualModifiers =
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: IBrush) =
         this.AddScalar(Visual.OpacityMask.WithValue(value))
 
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: string) =
-        this.AddScalar(Visual.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the RenderTransform property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The RenderTransform value.</param>
     [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Visual.RenderTransformWidget.WithValue(value.Compile()))
+
+[<Extension>]
+type VisualExtraModifiers =
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: Color) =
+        VisualModifiers.opacityMask(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: string) =
+        VisualModifiers.opacityMask(this, View.SolidColorBrush(value))

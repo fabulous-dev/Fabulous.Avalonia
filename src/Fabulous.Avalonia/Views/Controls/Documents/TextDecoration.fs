@@ -146,4 +146,4 @@ type TextDecorationExtraModifiers =
     /// <param name="value">The Stroke value.</param>
     [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: string) =
-        TextDecorationModifiers.stroke(this, View.SolidColorBrush(Color.Parse(value)))
+        TextDecorationModifiers.stroke(this, View.SolidColorBrush(value))

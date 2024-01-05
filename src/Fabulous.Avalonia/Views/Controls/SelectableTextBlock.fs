@@ -104,7 +104,7 @@ type SelectableTextBlockExtraModifiers =
     /// <param name="value">The SelectionBrush value.</param>
     [<Extension>]
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: string) =
-        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(Color.Parse(value)))
+        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
 
 [<Extension>]
 type SelectableTextBlockCollectionBuilderExtensions =

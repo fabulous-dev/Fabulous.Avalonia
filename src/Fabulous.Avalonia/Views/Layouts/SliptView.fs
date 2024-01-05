@@ -210,4 +210,4 @@ type SplitViewExtraModifiers =
     /// <param name="value">The PaneBackground value.</param>
     [<Extension>]
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: string) =
-        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(Color.Parse(value)))
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))

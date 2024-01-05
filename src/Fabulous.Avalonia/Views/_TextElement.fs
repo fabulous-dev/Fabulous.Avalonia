@@ -116,7 +116,7 @@ type TextElementExtraModifiers =
     /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, value: string) =
-        TextElementModifiers.background(this, View.SolidColorBrush(Color.Parse(value)))
+        TextElementModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
@@ -130,4 +130,4 @@ type TextElementExtraModifiers =
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, value: string) =
-        TextElementModifiers.foreground(this, View.SolidColorBrush(Color.Parse(value)))
+        TextElementModifiers.foreground(this, View.SolidColorBrush(value))

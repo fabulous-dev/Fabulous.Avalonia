@@ -201,7 +201,7 @@ type BorderExtraModifiers =
     /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.borderBrush(this, View.SolidColorBrush(Color.Parse(value)))
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -215,4 +215,4 @@ type BorderExtraModifiers =
     /// <param name="value">The Background value.</param>
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.background(this, View.SolidColorBrush(Color.Parse(value)))
+        BorderModifiers.background(this, View.SolidColorBrush(value))
