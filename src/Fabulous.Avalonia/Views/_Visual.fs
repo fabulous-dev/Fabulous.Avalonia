@@ -123,3 +123,31 @@ type VisualModifiers =
     [<Extension>]
     static member inline onDetachedFromVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
         this.AddScalar(Visual.DetachedFromVisualTree.WithValue(fn))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(Visual.OpacityMaskWidget.WithValue(value.Compile()))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: IBrush) =
+        this.AddScalar(Visual.OpacityMask.WithValue(value))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: string) =
+        this.AddScalar(Visual.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+
+    /// <summary>Sets the RenderTransform property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RenderTransform value.</param>
+    [<Extension>]
+    static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabTransform>) =
+        this.AddWidget(Visual.RenderTransformWidget.WithValue(value.Compile()))
