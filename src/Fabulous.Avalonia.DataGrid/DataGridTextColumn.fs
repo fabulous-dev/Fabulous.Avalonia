@@ -34,6 +34,9 @@ module DataGridTextColumn =
     let Foreground =
         Attributes.defineAvaloniaPropertyWithEquality DataGridTextColumn.ForegroundProperty
 
+    let ForegroundWidget =
+        Attributes.defineAvaloniaPropertyWidget DataGridTextColumn.ForegroundProperty
+
 [<AutoOpen>]
 module DataGridTextColumnBuilders =
     type Fabulous.Avalonia.View with
@@ -139,12 +142,21 @@ type DataGridTextColumnModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground property value.</param>
     [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(DataGridTextColumn.ForegroundWidget.WithValue(value.Compile()))
+
+[<Extension>]
+type DataGridTextColumnExtraModifiers =
+    /// <summary>Set the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground property value.</param>
+    [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: Color) =
-        this.AddScalar(TextElement.Foreground.WithValue(value |> ImmutableSolidColorBrush))
+        DataGridTextColumnModifiers.foreground(this, View.SolidColorBrush(value))
 
     /// <summary>Set the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground property value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: string) =
-        this.AddScalar(TextElement.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        DataGridTextColumnModifiers.foreground(this, View.SolidColorBrush(Color.Parse(value)))
