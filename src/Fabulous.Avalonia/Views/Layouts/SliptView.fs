@@ -125,20 +125,6 @@ type SplitViewModifiers =
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: IBrush) =
         this.AddScalar(SplitView.PaneBackground.WithValue(value))
 
-    /// <summary>Sets the PaneBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PaneBackground value.</param>
-    [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: Color) =
-        this.AddScalar(SplitView.PaneBackground.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the PaneBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PaneBackground value.</param>
-    [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: string) =
-        this.AddScalar(SplitView.PaneBackground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the PanePlacement property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PanePlacement value.</param>
@@ -209,3 +195,19 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabSplitView>, value: ViewRef<SplitView>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type SplitViewExtraModifiers =
+    /// <summary>Sets the PaneBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PaneBackground value.</param>
+    [<Extension>]
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: Color) =
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the PaneBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PaneBackground value.</param>
+    [<Extension>]
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: string) =
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(Color.Parse(value)))

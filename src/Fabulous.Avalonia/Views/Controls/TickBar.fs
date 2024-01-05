@@ -6,7 +6,6 @@ open Avalonia.Collections
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTickBar =
@@ -75,20 +74,6 @@ type TickBarModifiers =
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: IBrush) =
         this.AddScalar(TickBar.Fill.WithValue(value))
 
-    /// <summary>Sets the Fill property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value.</param>
-    [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: Color) =
-        this.AddScalar(TickBar.Fill.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the Fill property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value.</param>
-    [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
-        this.AddScalar(TickBar.Fill.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the TickFrequency property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TickFrequency value.</param>
@@ -137,3 +122,19 @@ type TickBarModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTickBar>, value: ViewRef<TickBar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type TickBarExtraModifiers =
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: Color) =
+        TickBarModifiers.fill(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
+        TickBarModifiers.fill(this, View.SolidColorBrush(Color.Parse(value)))

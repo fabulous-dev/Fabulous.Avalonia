@@ -63,20 +63,6 @@ type DrawingGroupModifiers =
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: IBrush) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(value))
 
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: Color) =
-        this.AddScalar(DrawingGroup.OpacityMask.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
-        this.AddScalar(DrawingGroup.OpacityMask.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the Transform property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Transform value.</param>
@@ -104,6 +90,22 @@ type DrawingGroupModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabDrawingGroup>, value: ViewRef<DrawingGroup>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type DrawingGroupExtraModifiers =
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: Color) =
+        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
+        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(Color.Parse(value)))
 
 [<Extension>]
 type DrawingGroupCollectionBuilderExtensions =

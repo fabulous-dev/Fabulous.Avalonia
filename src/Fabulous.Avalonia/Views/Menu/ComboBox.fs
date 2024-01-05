@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -89,20 +88,6 @@ type ComboBoxModifiers =
     static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: IBrush) =
         this.AddScalar(ComboBox.PlaceholderForeground.WithValue(value))
 
-    /// <summary>Sets the PlaceholderForeground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PlaceholderForeground value.</param>
-    [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: Color) =
-        this.AddScalar(ComboBox.PlaceholderForeground.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the PlaceholderForeground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PlaceholderForeground value.</param>
-    [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
-        this.AddScalar(ComboBox.PlaceholderForeground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the HorizontalContentAlignment property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HorizontalContentAlignment value.</param>
@@ -131,6 +116,22 @@ type ComboBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type ComboBoxExtraModifier =
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: Color) =
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(Color.Parse(value)))
 
 [<Extension>]
 type ComboBoxCollectionBuilderExtensions =

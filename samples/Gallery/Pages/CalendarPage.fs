@@ -6,7 +6,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module CalendarPage =
     type Model =

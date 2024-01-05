@@ -50,17 +50,13 @@ module PenBuilders =
         /// <param name="brush">The brush used to draw the stroke.</param>
         /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: Color, thickness: float) =
-            WidgetBuilder<'msg, IFabPen>(Pen.WidgetKey, Pen.Thickness.WithValue(thickness), Pen.Brush.WithValue(brush |> ImmutableSolidColorBrush))
+            View.Pen(View.SolidColorBrush(brush), thickness)
 
         /// <summary>Creates a Pen widget.</summary>
         /// <param name="brush">The brush used to draw the stroke.</param>
         /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: string, thickness: float) =
-            WidgetBuilder<'msg, IFabPen>(
-                Pen.WidgetKey,
-                Pen.Thickness.WithValue(thickness),
-                Pen.Brush.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
-            )
+            View.Pen(View.SolidColorBrush(Color.Parse(brush)), thickness)
 
 [<Extension>]
 type PenModifiers =

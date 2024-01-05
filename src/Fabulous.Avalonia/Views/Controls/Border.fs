@@ -64,20 +64,6 @@ type BorderModifiers =
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.Background.WithValue(value))
 
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
-        this.AddScalar(Border.Background.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        this.AddScalar(Border.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BorderBrush value.</param>
@@ -91,20 +77,6 @@ type BorderModifiers =
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.BorderBrush.WithValue(value))
-
-    /// <summary>Sets the BorderBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
-        this.AddScalar(Border.BorderBrush.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the BorderBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        this.AddScalar(Border.BorderBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>
@@ -126,6 +98,13 @@ type BorderModifiers =
     [<Extension>]
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
         this.AddScalar(Border.BoxShadow.WithValue(value))
+
+    /// <summary>Link a ViewRef to access the direct Border control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 [<Extension>]
 type BorderExtraModifiers =
@@ -210,9 +189,30 @@ type BorderExtraModifiers =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
         BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))
 
-    /// <summary>Link a ViewRef to access the direct Border control instance.</summary>
+    /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(Color.Parse(value)))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
+        BorderModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
+        BorderModifiers.background(this, View.SolidColorBrush(Color.Parse(value)))

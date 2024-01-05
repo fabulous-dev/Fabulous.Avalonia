@@ -104,20 +104,6 @@ type CalendarModifiers =
     static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: IBrush) =
         this.AddScalar(Calendar.HeaderBackground.WithValue(value))
 
-    /// <summary>Sets the HeaderBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The HeaderBackground value.</param>
-    [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: Color) =
-        this.AddScalar(Calendar.HeaderBackground.WithValue(value |> ImmutableSolidColorBrush))
-
-    /// <summary>Sets the HeaderBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The HeaderBackground value.</param>
-    [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: string) =
-        this.AddScalar(Calendar.HeaderBackground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the DisplayMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The DisplayMode value.</param>
@@ -166,3 +152,19 @@ type CalendarModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type CalendarExtraModifiers =
+    /// <summary>Sets the HeaderBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HeaderBackground value.</param>
+    [<Extension>]
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: Color) =
+        CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the HeaderBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HeaderBackground value.</param>
+    [<Extension>]
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: string) =
+        CalendarModifiers.headerBackground(this, View.SolidColorBrush(Color.Parse(value)))
