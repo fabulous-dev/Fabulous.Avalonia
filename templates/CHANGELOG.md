@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.1.0] - 2024-01-07
+### Added
+- No changes
+
 ## [2.0.0] - 2024-01-01
 ### Changed
 - Update multi-proj template to work with net8.0
@@ -26,7 +30,8 @@ _No unreleased changes_
 - Add a new template for a multi-project Fabulous.Avalonia app. 
 - Fix black screen in multi-project template when targeting Browser
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/2.0.0...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.1.0
 [2.0.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.0.0
 [2.0.0-pre18]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.0.0-pre18
 [2.0.0-pre17]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.0.0-pre17
