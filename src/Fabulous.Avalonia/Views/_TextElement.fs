@@ -39,6 +39,12 @@ module TextElement =
 
 [<Extension>]
 type TextElementModifiers =
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BackgroundWidget value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(TextElement.BackgroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -46,13 +52,6 @@ type TextElementModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, value: IBrush) =
         this.AddScalar(TextElement.Background.WithValue(value))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, value: string) =
-        this.AddScalar(TextElement.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
 
     /// <summary>Sets the FontFamily property.</summary>
     /// <param name="this">Current widget.</param>
@@ -93,12 +92,42 @@ type TextElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(TextElement.ForegroundWidget.WithValue(value.Compile()))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
+
+[<Extension>]
+type TextElementExtraModifiers =
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, value: Color) =
+        TextElementModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextElement>, value: string) =
+        TextElementModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, value: Color) =
+        TextElementModifiers.foreground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, value: string) =
-        this.AddScalar(TextElement.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        TextElementModifiers.foreground(this, View.SolidColorBrush(value))

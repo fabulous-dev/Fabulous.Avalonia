@@ -76,13 +76,6 @@ type TextDecorationModifiers =
     static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: IBrush) =
         this.AddScalar(TextDecoration.Stroke.WithValue(value))
 
-    /// <summary>Sets the Stroke property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Stroke value.</param>
-    [<Extension>]
-    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: string) =
-        this.AddScalar(TextDecoration.Stroke.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the StrokeThicknessUnit property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The StrokeThicknessUnit value.</param>
@@ -138,3 +131,19 @@ type TextDecorationModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTextDecoration>, value: ViewRef<TextDecoration>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type TextDecorationExtraModifiers =
+    /// <summary>Sets the Stroke property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Stroke value.</param>
+    [<Extension>]
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: Color) =
+        TextDecorationModifiers.stroke(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Stroke property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Stroke value.</param>
+    [<Extension>]
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: string) =
+        TextDecorationModifiers.stroke(this, View.SolidColorBrush(value))

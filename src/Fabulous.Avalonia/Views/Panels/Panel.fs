@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -46,13 +45,6 @@ type PanelModifiers =
     static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: IBrush) =
         this.AddScalar(Panel.Background.WithValue(value))
 
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
-        this.AddScalar(Panel.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
@@ -67,19 +59,42 @@ type PanelModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
 
-    /// <summary>Sets the Foreground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value.</param>
-    [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
-        this.AddScalar(TextElement.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
-
     /// <summary>Link a ViewRef to access the direct Panel control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabPanel>, value: ViewRef<Panel>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+[<Extension>]
+type PanelExtraModifiers =
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: Color) =
+        PanelModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
+        PanelModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: Color) =
+        PanelModifiers.foreground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
+        PanelModifiers.foreground(this, View.SolidColorBrush(value))
 
 [<Extension>]
 type PanelCollectionBuilderExtensions =

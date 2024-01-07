@@ -63,6 +63,9 @@ module DataGrid =
     let HorizontalGridLinesBrush =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.HorizontalGridLinesBrushProperty
 
+    let HorizontalGridLinesBrushWidget =
+        Attributes.defineAvaloniaPropertyWidget DataGrid.HorizontalGridLinesBrushProperty
+
     let HorizontalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.HorizontalScrollBarVisibilityProperty
 
@@ -78,6 +81,9 @@ module DataGrid =
     let RowBackground =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.RowBackgroundProperty
 
+    let RowBackgroundWidget =
+        Attributes.defineAvaloniaPropertyWidget DataGrid.RowBackgroundProperty
+
     let RowHeight =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.RowHeightProperty
 
@@ -89,6 +95,9 @@ module DataGrid =
 
     let VerticalGridLinesBrush =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.VerticalGridLinesBrushProperty
+
+    let VerticalGridLinesBrushWidget =
+        Attributes.defineAvaloniaPropertyWidget DataGrid.VerticalGridLinesBrushProperty
 
     let VerticalScrollBarVisibility =
         Attributes.defineAvaloniaPropertyWithEquality DataGrid.VerticalScrollBarVisibilityProperty
@@ -323,8 +332,8 @@ type DataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HorizontalGridLinesBrush value.</param>
     [<Extension>]
-    static member inline horizontalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
-        this.AddScalar(DataGrid.HorizontalGridLinesBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+    static member inline horizontalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(DataGrid.HorizontalGridLinesBrushWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the HorizontalScrollBarVisibility property.</summary>
     /// <param name="this">Current widget.</param>
@@ -365,8 +374,8 @@ type DataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The RowBackground value.</param>
     [<Extension>]
-    static member inline rowBackground(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
-        this.AddScalar(DataGrid.RowBackground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+    static member inline rowBackground(this: WidgetBuilder<'msg, IFabDataGrid>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(DataGrid.RowBackgroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the RowHeight property.</summary>
     /// <param name="this">Current widget.</param>
@@ -400,8 +409,8 @@ type DataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The VerticalGridLinesBrush value.</param>
     [<Extension>]
-    static member inline verticalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
-        this.AddScalar(DataGrid.VerticalGridLinesBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+    static member inline verticalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(DataGrid.VerticalGridLinesBrushWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the VerticalScrollBarVisibility property.</summary>
     /// <param name="this">Current widget.</param>
@@ -591,6 +600,50 @@ type DataGridModifiers =
     [<Extension>]
     static member inline onUnloadingRowDetails(this: WidgetBuilder<'msg, IFabDataGrid>, fn: DataGridRowDetailsEventArgs -> 'msg) =
         this.AddScalar(DataGrid.UnloadingRowDetails.WithValue(fn))
+
+[<Extension>]
+type DataGridExtraModifiers =
+    /// <summary>Sets the HorizontalGridLinesBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalGridLinesBrush value.</param>
+    [<Extension>]
+    static member inline horizontalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: Color) =
+        DataGridModifiers.horizontalGridLinesBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the HorizontalGridLinesBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalGridLinesBrush value.</param>
+    [<Extension>]
+    static member inline horizontalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
+        DataGridModifiers.horizontalGridLinesBrush(this, View.SolidColorBrush(Color.Parse(value)))
+
+    /// <summary>Sets the RowBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RowBackground value.</param>
+    [<Extension>]
+    static member inline rowBackground(this: WidgetBuilder<'msg, IFabDataGrid>, value: Color) =
+        DataGridModifiers.rowBackground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the RowBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RowBackground value.</param>
+    [<Extension>]
+    static member inline rowBackground(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
+        DataGridModifiers.rowBackground(this, View.SolidColorBrush(Color.Parse(value)))
+
+    /// <summary>Sets the VerticalGridLinesBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalGridLinesBrush value.</param>
+    [<Extension>]
+    static member inline verticalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: Color) =
+        DataGridModifiers.verticalGridLinesBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the VerticalGridLinesBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalGridLinesBrush value.</param>
+    [<Extension>]
+    static member inline verticalGridLinesBrush(this: WidgetBuilder<'msg, IFabDataGrid>, value: string) =
+        DataGridModifiers.verticalGridLinesBrush(this, View.SolidColorBrush(Color.Parse(value)))
 
 [<Extension>]
 type DataGridCollectionBuilderExtensions =

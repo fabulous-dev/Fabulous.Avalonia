@@ -37,6 +37,9 @@
     <Compile Include="Views\_RenderOptions.fs" />
     <Compile Include="Views\_Animatable.fs" />
     <Compile Include="Views\_StyledElement.fs" />
+    <Compile Include="Views\_ITransform.fs" />
+    <Compile Include="Views\_Brush.fs" />
+    <Compile Include="Views\SolidColorBrush.fs" />
     <Compile Include="Views\_Visual.fs" />
     <Compile Include="Views\_Layoutable.fs" />
     <Compile Include="Views\_Interactive.fs" />
@@ -62,8 +65,6 @@
     <Compile Include="Views\Styling\Transition.fs" />
     <Compile Include="Views\Styling\Style.fs" />
     <Compile Include="Views\Media\_IDrawing.fs" />
-    <Compile Include="Views\Media\_ITransform.fs" />
-    <Compile Include="Views\Media\_Brush.fs" />
     <Compile Include="Views\Media\_TileBrush.fs" />
     <Compile Include="Views\Media\_IPathSegment.fs" />
     <Compile Include="Views\Media\_IGeometry.fs" />
@@ -76,7 +77,6 @@
     <Compile Include="Views\Media\Transforms\ScaleTransform.fs" />
     <Compile Include="Views\Media\Transforms\Rotate3DTransform.fs" />
     <Compile Include="Views\Media\Transforms\TransformGroup.fs" />
-    <Compile Include="Views\Media\Brushes\SolidColorBrush.fs" />
     <Compile Include="Views\Media\Brushes\VisualBrush.fs" />
     <Compile Include="Views\Media\Brushes\ImageBrush.fs" />
     <Compile Include="Views\Media\Brushes\DrawingBrush.fs" />

@@ -6,7 +6,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module BorderPage =
     type Model = { Nothing: bool }
@@ -49,14 +48,14 @@ module BorderPage =
                 .horizontalAlignment(HorizontalAlignment.Center)
 
             Border(TextBlock("Rounded Corners"))
-                .borderBrush(SolidColorBrush(Colors.BlueViolet))
+                .borderBrush(Brushes.BlueViolet)
                 .borderThickness(4.)
                 .cornerRadius(8.)
                 .padding(16.)
                 .horizontalAlignment(HorizontalAlignment.Center)
 
             Border(TextBlock("Rounded Corners"))
-                .background(SolidColorBrush(Colors.Magenta))
+                .background(Colors.Magenta)
                 .cornerRadius(8.)
                 .padding(16.)
                 .horizontalAlignment(HorizontalAlignment.Center)
@@ -65,7 +64,7 @@ module BorderPage =
                 .width(100.)
                 .height(100.)
                 .borderThickness(0.)
-                .background(SolidColorBrush(Colors.Green))
+                .background("#00fa9a")
                 .cornerRadius(100.)
                 .clipToBounds(true)
         }

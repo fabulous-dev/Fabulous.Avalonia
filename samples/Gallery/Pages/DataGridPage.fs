@@ -36,9 +36,15 @@ module DataGridPage =
     let view model =
         VStack() {
             DataGrid(model.People)
+                .gridLinesVisibility(DataGridGridLinesVisibility.Horizontal ||| DataGridGridLinesVisibility.Vertical)
+                .horizontalGridLinesBrush(Colors.Yellow)
+                .rowBackground(Colors.LightBlue)
+                .verticalGridLinesBrush(Colors.Red)
 
             (CustomDataGrid(model.People) {
                 DataGridTextColumn("Name", Binding("Name"))
+                    .foreground(Colors.Green)
+
                 DataGridTextColumn(TextBlock("Age"), Binding("Age"))
 
                 DataGridCheckBoxColumn("IsMale", Binding("IsMale"))
