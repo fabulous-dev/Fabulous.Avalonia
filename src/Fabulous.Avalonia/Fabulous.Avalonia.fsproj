@@ -60,6 +60,7 @@
     <Compile Include="Views\_MenuBase.fs" />
     <Compile Include="Views\_HeaderedSelectingItemsControl.fs" />
     <Compile Include="Views\_WindowBase.fs" />
+    <Compile Include="Views\_ImageSource.fs" />
     <Compile Include="Views\Styling\KeyFrame.fs" />
     <Compile Include="Views\Styling\Animation.fs" />
     <Compile Include="Views\Styling\Transition.fs" />
