@@ -44,7 +44,7 @@ module DropDownButtonPage =
                 .flyout(
                     (MenuFlyout() {
                         MenuItem("Item 1")
-                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                            .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
                         MenuItems("Item 2", Increment) {
                             MenuItem("Subitem 1")
@@ -67,7 +67,7 @@ module DropDownButtonPage =
                     Flyout(
                         VWrap() {
                             TextBlock("Item 1")
-                            Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png")
+                            Image("avares://Gallery/Assets/Icons/fabulous-icon.png")
                         }
                     )
                         .showMode(FlyoutShowMode.Standard)

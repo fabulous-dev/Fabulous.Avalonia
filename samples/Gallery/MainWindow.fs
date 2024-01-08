@@ -22,7 +22,7 @@ module MainWindow =
         }
 
     let trayIcon () =
-        TrayIcon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"), "Avalonia Tray Icon Tooltip")
+        TrayIcon("avares://Gallery/Assets/Icons/logo.ico", "Avalonia Tray Icon Tooltip")
             .menu(
                 NativeMenu() {
                     NativeMenuItem("Settings")
@@ -43,7 +43,7 @@ module MainWindow =
                                     .isChecked(true)
 
                                 NativeMenuItem("Restore defaults", DoNothing)
-                                    .icon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico")
+                                    .icon("avares://Gallery/Assets/Icons/logo.ico")
 
                                 NativeMenuItem("Disabled option", DoNothing)
                                     .isEnabled(false)
@@ -61,7 +61,7 @@ module MainWindow =
                 .menu(createMenu model)
                 .width(1024.)
                 .height(800.)
-                .icon(WindowIcon(ImageSource.fromString "avares://Gallery/Assets/Icons/logo.ico"))
+                .icon("avares://Gallery/Assets/Icons/logo.ico")
         )
             .trayIcon(trayIcon())
 //Enable this only for debugging purposes

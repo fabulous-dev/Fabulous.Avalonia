@@ -66,7 +66,7 @@ module ToggleSplitButtonPage =
                 model.IsChecked2,
                 CheckedChanged2,
                 HStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(32., 32.)
                 }
             )

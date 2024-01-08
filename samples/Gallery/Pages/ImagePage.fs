@@ -27,10 +27,10 @@ module ImagePage =
 
     let view _ =
         VStack(spacing = 15.) {
-            Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.Uniform)
+            Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.Uniform)
                 .size(200., 200.)
 
-            Image(Stretch.Uniform, CroppedBitmap(ImageSource.fromString "avares://Gallery/Assets/Icons/fsharp-icon.png", PixelRect(0, 0, 320, 320)))
+            Image(Stretch.Uniform, CroppedBitmap("avares://Gallery/Assets/Icons/fsharp-icon.png", PixelRect(0, 0, 320, 320)))
                 .size(200., 200.)
 
             Image(

@@ -144,7 +144,7 @@ module TransitioningContentControlPage =
             Button(">", NextImage).dock(Dock.Right)
 
             Border(
-                TransitioningContentControl(Image(ImageSource.fromString model.SelectedImage))
+                TransitioningContentControl(Image(model.SelectedImage))
                     .pageTransition(model.Transition)
                     .size(200., 200.)
             )

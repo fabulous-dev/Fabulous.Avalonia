@@ -39,7 +39,7 @@ module ButtonsPage =
             Button(
                 Clicked,
                 HStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(32., 32.)
 
                     TextBlock("Button with image")
