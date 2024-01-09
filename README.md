@@ -26,7 +26,7 @@ let update msg model =
 
 let view model =
     VStack(spacing = 16.) {
-        Image(ImageSource.fromString "fabulous.png", Stretch.Uniform)
+        Image("fabulous.png", Stretch.Uniform)
 
         TextBlock($"Count is {model.Count}")
 

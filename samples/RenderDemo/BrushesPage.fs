@@ -84,7 +84,7 @@ module BrushesPage =
                 .width(440.0)
                 .height(50.0)
                 .fill(
-                    ImageBrush(ImageSource.fromString("avares://RenderDemo/Assets/Icons/fabulous-icon.png"))
+                    ImageBrush("avares://RenderDemo/Assets/Icons/fabulous-icon.png")
                         .tileMode(TileMode.Tile)
                         .sourceRect(Point(0., 0.), Size(20., 20.), RelativeUnit.Absolute)
                         .destinationRect(Point(0., 0.), Size(20., 20.), RelativeUnit.Absolute)

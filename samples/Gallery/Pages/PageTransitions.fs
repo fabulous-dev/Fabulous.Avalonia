@@ -113,7 +113,7 @@ module PageTransitionsPage =
                                 .textAlignment(TextAlignment.Center)
                                 .horizontalAlignment(HorizontalAlignment.Center)
 
-                            Image(ImageSource.fromString($"avares://Gallery/Assets/Icons/{x.Image}.png"))
+                            Image($"avares://Gallery/Assets/Icons/{x.Image}.png")
 
                         })
                 )

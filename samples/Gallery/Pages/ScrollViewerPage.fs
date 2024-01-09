@@ -163,7 +163,7 @@ module ScrollViewerPage =
                         }
 
                         ScrollViewer(
-                            Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                                 .width(800.)
                                 .height(800.)
 

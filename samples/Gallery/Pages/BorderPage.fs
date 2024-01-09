@@ -60,7 +60,7 @@ module BorderPage =
                 .padding(16.)
                 .horizontalAlignment(HorizontalAlignment.Center)
 
-            Border(Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png")))
+            Border(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
                 .width(100.)
                 .height(100.)
                 .borderThickness(0.)

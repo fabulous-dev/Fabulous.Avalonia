@@ -61,7 +61,7 @@ module TabControlPage =
                             VStack() {
                                 TextBlock("This is the first page in the TabControl.")
 
-                                Image(ImageSource.fromString "avares://Gallery/Assets/delicate-arch.jpg")
+                                Image("avares://Gallery/Assets/delicate-arch.jpg")
                                     .width(300.)
                             }
                         )
@@ -71,8 +71,7 @@ module TabControlPage =
                             VStack() {
                                 TextBlock("This is the second page in the TabControl.")
 
-                                Image(ImageSource.fromString "avares://Gallery/Assets/maple-leaf.jpg")
-                                    .width(300.)
+                                Image("avares://Gallery/Assets/maple-leaf.jpg").width(300.)
                             }
                         )
 

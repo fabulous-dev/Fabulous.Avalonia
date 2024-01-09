@@ -32,7 +32,7 @@ module RepeatButtonPage =
             RepeatButton(
                 Clicked,
                 HStack(16.) {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png")
+                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png")
                         .width(20.)
                         .height(20.)
 

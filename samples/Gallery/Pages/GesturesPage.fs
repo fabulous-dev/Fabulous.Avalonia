@@ -130,7 +130,7 @@ module GesturesPage =
                 .margin(5.)
 
             Border(
-                Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                     .size(100., 100.)
             )
                 .clipToBounds(true)

@@ -45,7 +45,7 @@ module CheckBoxPage =
                 model.IsChecked3,
                 ValueChanged3,
                 VStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(100., 100.)
 
                     TextBlock("Fabulous")

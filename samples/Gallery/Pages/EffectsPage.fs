@@ -27,7 +27,7 @@ module EffectsPage =
 
     let view _ =
         (VStack(spacing = 15.) {
-            Image(ImageSource.fromString "avares://Gallery/Assets/delicate-arch.jpg")
+            Image("avares://Gallery/Assets/delicate-arch.jpg")
                 .width(300.)
                 .height(300.)
                 .effect(BlurEffect(10.))

@@ -62,7 +62,7 @@ module LayoutTransformControlPage =
                     .gridColumn(1)
                     .gridRow(2)
 
-                LayoutTransformControl(Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png")))
+                LayoutTransformControl(Image(("avares://Gallery/Assets/Icons/fabulous-icon.png")))
                     .layoutTransform(RotateTransform(model.Angle, 0., 0))
                     .gridColumn(1)
                     .gridRow(1)

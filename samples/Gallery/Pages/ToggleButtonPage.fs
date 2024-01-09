@@ -86,7 +86,7 @@ module ToggleButtonPage =
                 model.Value2,
                 CheckedChanged2,
                 HStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(16., 16.)
 
                     TextBlock(model.Text2)
@@ -99,7 +99,7 @@ module ToggleButtonPage =
                 model.Value4,
                 ThreeStateChanged4,
                 HStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
                         .size(16., 16.)
 
                     TextBlock(model.Text4)
