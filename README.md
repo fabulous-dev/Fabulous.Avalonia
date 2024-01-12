@@ -40,6 +40,14 @@ let view model =
     let app model = DesktopApplication(Window(view model))
 #endif
 ```
+## Additionals Controls
+
+We also provide additional binding for Avalonia controls, you can find them in the following packages:
+
+- Fabulous.Avalonia.DataGrid [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.DataGrid)](https://www.nuget.org/packages/Fabulous.Avalonia.DataGrid#readme-body-tab)
+- Fabulous.Avalonia.ColorPicker [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.ColorPicker)](https://www.nuget.org/packages/Fabulous.Avalonia.ColorPicker#readme-body-tab)
+- Fabulous.Avalonia.ItemsRepeater [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.ItemsRepeater)](https://www.nuget.org/packages/Fabulous.Avalonia.ItemsRepeater#readme-body-tab)
+- Fabulous.Avalonia.TreeDataGrid [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.TreeDataGrid)](https://www.nuget.org/packages/Fabulous.Avalonia.TreeDataGrid#readme-body-tab)
 
 ## Getting Started
 
