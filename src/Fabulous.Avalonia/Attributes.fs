@@ -3,11 +3,21 @@ namespace Fabulous.Avalonia
 open System
 open System.Collections
 open System.ComponentModel
+open System.IO
 open Avalonia
 open Avalonia.Collections
+open Avalonia.Controls
 open Avalonia.Interactivity
+open Avalonia.Media.Imaging
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
+
+[<RequireQualifiedAccess>]
+type ImageSourceValue =
+    | Bitmap of source: Bitmap
+    | File of source: string
+    | Uri of source: Uri
+    | Stream of source: Stream
 
 [<Struct>]
 type ValueEventData<'data, 'eventArgs> =
@@ -358,3 +368,40 @@ module Attributes =
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
+
+
+    /// Performance optimization: avoid allocating a new ImageSource instance on each update
+    /// we store the user value (eg. Bitmap, string, Uri, Stream) and convert it to an ImageSource only when needed
+    let inline defineBindableImageSource (property: AvaloniaProperty) =
+        Attributes.defineScalar<ImageSourceValue, ImageSourceValue> property.Name id ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
+            let target = node.Target :?> AvaloniaObject
+
+            match newValueOpt with
+            | ValueNone -> target.ClearValue(property)
+            | ValueSome v ->
+                let value =
+                    match v with
+                    | ImageSourceValue.Bitmap source -> source
+                    | ImageSourceValue.File file -> ImageSource.fromString file
+                    | ImageSourceValue.Uri uri -> ImageSource.fromUri uri
+                    | ImageSourceValue.Stream stream -> ImageSource.fromStream(stream)
+
+                target.SetValue(property, value) |> ignore)
+
+    /// Performance optimization: avoid allocating a new WindowIcon instance on each update
+    /// we store the user value (eg. Bitmap, string, Uri, Stream) and convert it to an ImageSource only when needed
+    let inline defineBindableWindowIconSource (property: AvaloniaProperty) =
+        Attributes.defineScalar<ImageSourceValue, ImageSourceValue> property.Name id ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
+            let target = node.Target :?> AvaloniaObject
+
+            match newValueOpt with
+            | ValueNone -> target.ClearValue(property)
+            | ValueSome v ->
+                let value =
+                    match v with
+                    | ImageSourceValue.Bitmap source -> WindowIcon(source)
+                    | ImageSourceValue.File file -> WindowIcon(ImageSource.fromString file)
+                    | ImageSourceValue.Uri uri -> WindowIcon(ImageSource.fromUri uri)
+                    | ImageSourceValue.Stream stream -> WindowIcon(ImageSource.fromStream(stream))
+
+                target.SetValue(property, value) |> ignore)

@@ -13,23 +13,7 @@ type IFabImageBrush =
 module ImageBrush =
     let WidgetKey = Widgets.register<ImageBrush>()
 
-    /// Performance optimization: avoid allocating a new ImageSource instance on each update
-    /// we store the user value (eg. string, Uri, Stream) and convert it to an ImageSource only when needed
-    let inline private defineSourceAttribute<'model when 'model: equality> ([<InlineIfLambda>] convertModelToValue: 'model -> Bitmap) =
-        Attributes.defineScalar<'model, 'model> ImageBrush.SourceProperty.Name id ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
-            let target = node.Target :?> ImageBrush
-
-            match newValueOpt with
-            | ValueNone -> target.ClearValue(ImageBrush.SourceProperty)
-            | ValueSome v -> target.SetValue(ImageBrush.SourceProperty, convertModelToValue v) |> ignore)
-
-    let Source = Attributes.defineAvaloniaPropertyWithEquality ImageBrush.SourceProperty
-
-    let SourceFile = defineSourceAttribute<string> ImageSource.fromString
-
-    let SourceUri = defineSourceAttribute<Uri> ImageSource.fromUri
-
-    let SourceStream = defineSourceAttribute<Stream> ImageSource.fromStream
+    let Source = Attributes.defineBindableImageSource ImageBrush.SourceProperty
 
 [<AutoOpen>]
 module ImageBrushBuilders =
@@ -38,22 +22,22 @@ module ImageBrushBuilders =
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Bitmap) =
-            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(source))
+            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Bitmap(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: string) =
-            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.SourceFile.WithValue(source))
+            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.File(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Uri) =
-            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.SourceUri.WithValue(source))
+            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Uri(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Stream) =
-            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.SourceStream.WithValue(source))
+            WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))
 
 [<Extension>]
 type ImageBrushModifiers =

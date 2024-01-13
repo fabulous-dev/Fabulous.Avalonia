@@ -14,25 +14,9 @@ type IFabNativeMenuItem =
 module NativeMenuItem =
     let WidgetKey = Widgets.register<NativeMenuItem>()
 
-    /// Performance optimization: avoid allocating a new ImageSource instance on each update
-    /// we store the user value (eg. string, Uri, Stream) and convert it to an ImageSource only when needed
-    let inline private defineSourceAttribute<'model when 'model: equality> ([<InlineIfLambda>] convertModelToValue: 'model -> Bitmap) =
-        Attributes.defineScalar<'model, 'model> NativeMenuItem.IconProperty.Name id ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
-            let target = node.Target :?> NativeMenuItem
-
-            match newValueOpt with
-            | ValueNone -> target.ClearValue(NativeMenuItem.IconProperty)
-            | ValueSome v -> target.SetValue(NativeMenuItem.IconProperty, convertModelToValue v) |> ignore)
-
     let Menu = Attributes.defineAvaloniaPropertyWidget NativeMenuItem.MenuProperty
 
-    let Icon = Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.IconProperty
-
-    let IconFile = defineSourceAttribute<string> ImageSource.fromString
-
-    let IconUri = defineSourceAttribute<Uri> ImageSource.fromUri
-
-    let IconStream = defineSourceAttribute<Stream> ImageSource.fromStream
+    let Icon = Attributes.defineBindableImageSource NativeMenuItem.IconProperty
 
     let Header =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.HeaderProperty
@@ -125,25 +109,25 @@ type NativeMenuItemExtraModifiers =
     /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Bitmap) =
-        this.AddScalar(NativeMenuItem.Icon.WithValue(value))
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.Bitmap(value)))
 
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: string) =
-        this.AddScalar(NativeMenuItem.IconFile.WithValue(value))
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.File(value)))
 
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Uri) =
-        this.AddScalar(NativeMenuItem.IconUri.WithValue(value))
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.Uri(value)))
 
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Stream) =
-        this.AddScalar(NativeMenuItem.IconStream.WithValue(value))
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.Stream(value)))

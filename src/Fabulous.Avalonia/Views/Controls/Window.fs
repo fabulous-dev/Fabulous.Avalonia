@@ -4,6 +4,7 @@ open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Interactivity
+open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -13,16 +14,6 @@ type IFabWindow =
 
 module Window =
     let WidgetKey = Widgets.register<Window>()
-
-    /// Performance optimization: avoid allocating a new ImageSource instance on each update
-    /// we store the user value (eg. string, Uri, Stream) and convert it to an ImageSource only when needed
-    let inline private defineSourceAttribute<'model when 'model: equality> ([<InlineIfLambda>] convertModelToValue: 'model -> WindowIcon) =
-        Attributes.defineScalar<'model, 'model> Window.IconProperty.Name id ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
-            let target = node.Target :?> Window
-
-            match newValueOpt with
-            | ValueNone -> target.ClearValue(Window.IconProperty)
-            | ValueSome v -> target.SetValue(Window.IconProperty, convertModelToValue v) |> ignore)
 
     let SizeToContent =
         Attributes.defineAvaloniaPropertyWithEquality Window.SizeToContentProperty
@@ -50,13 +41,7 @@ module Window =
 
     let Title = Attributes.defineAvaloniaPropertyWithEquality Window.TitleProperty
 
-    let Icon = Attributes.defineAvaloniaPropertyWithEquality Window.IconProperty
-
-    let IconFile =
-        defineSourceAttribute<string>(fun x -> WindowIcon(ImageSource.fromString x))
-
-    let IconStream =
-        defineSourceAttribute<Stream>(fun x -> WindowIcon(ImageSource.fromStream x))
+    let IconSource = Attributes.defineBindableWindowIconSource Window.IconProperty
 
     let WindowStartupLocation =
         Attributes.defineAvaloniaPropertyWithEquality Window.WindowStartupLocationProperty
@@ -149,13 +134,6 @@ type WindowModifiers =
     static member inline title(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
         this.AddScalar(Window.Title.WithValue(value))
 
-    /// <summary>Sets the Icon property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Icon value.</param>
-    [<Extension>]
-    static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowIcon) =
-        this.AddScalar(Window.Icon.WithValue(value))
-
     /// <summary>Sets the WindowStartupLocation property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The WindowStartupLocation value.</param>
@@ -204,12 +182,19 @@ type WindowExtraModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Icon value.</param>
     [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: Bitmap) =
+        this.AddScalar(Window.IconSource.WithValue(ImageSourceValue.Bitmap(value)))
+
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
-        this.AddScalar(Window.IconFile.WithValue(value))
+        this.AddScalar(Window.IconSource.WithValue(ImageSourceValue.File(value)))
 
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Icon value.</param>
     [<Extension>]
     static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: Stream) =
-        this.AddScalar(Window.IconStream.WithValue(value))
+        this.AddScalar(Window.IconSource.WithValue(ImageSourceValue.Stream(value)))
