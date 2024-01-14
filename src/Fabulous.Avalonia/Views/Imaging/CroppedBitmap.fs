@@ -15,24 +15,7 @@ module CroppedBitmap =
 
     let WidgetKey = Widgets.register<CroppedBitmap>()
 
-    /// Performance optimization: avoid allocating a new ImageSource instance on each update
-    /// we store the user value (eg. string, Uri, Stream) and convert it to an ImageSource only when needed
-    let inline private defineSourceAttribute<'model when 'model: equality> ([<InlineIfLambda>] convertModelToValue: 'model -> Bitmap) =
-        Attributes.defineScalar<'model, 'model> CroppedBitmap.SourceProperty.Name id ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
-            let target = node.Target :?> CroppedBitmap
-
-            match newValueOpt with
-            | ValueNone -> target.ClearValue(CroppedBitmap.SourceProperty)
-            | ValueSome v -> target.SetValue(CroppedBitmap.SourceProperty, convertModelToValue v) |> ignore)
-
-    let Source =
-        Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceProperty
-
-    let SourceFile = defineSourceAttribute<string> ImageSource.fromString
-
-    let SourceUri = defineSourceAttribute<Uri> ImageSource.fromUri
-
-    let SourceStream = defineSourceAttribute<Stream> ImageSource.fromStream
+    let Source = Attributes.defineBindableImageSource CroppedBitmap.SourceProperty
 
     let SourceRect =
         Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceRectProperty
@@ -44,8 +27,12 @@ module CroppedBitmapBuilders =
         /// <summary>Creates a CroppedBitmap widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
-        static member CroppedBitmap(source: IImage, rect: PixelRect) =
-            WidgetBuilder<'msg, IFabCroppedBitmap>(CroppedBitmap.WidgetKey, CroppedBitmap.Source.WithValue(source), CroppedBitmap.SourceRect.WithValue(rect))
+        static member CroppedBitmap(source: Bitmap, rect: PixelRect) =
+            WidgetBuilder<'msg, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                CroppedBitmap.Source.WithValue(ImageSourceValue.Bitmap(source)),
+                CroppedBitmap.SourceRect.WithValue(rect)
+            )
 
         /// <summary>Creates a CroppedBitmap widget.</summary>
         /// <param name="source">The source image.</param>
@@ -53,7 +40,7 @@ module CroppedBitmapBuilders =
         static member CroppedBitmap(source: string, rect: PixelRect) =
             WidgetBuilder<'msg, IFabCroppedBitmap>(
                 CroppedBitmap.WidgetKey,
-                CroppedBitmap.SourceFile.WithValue(source),
+                CroppedBitmap.Source.WithValue(ImageSourceValue.File(source)),
                 CroppedBitmap.SourceRect.WithValue(rect)
             )
 
@@ -61,7 +48,11 @@ module CroppedBitmapBuilders =
         /// <param name="source">The source image.</param>
         /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
         static member CroppedBitmap(source: Uri, rect: PixelRect) =
-            WidgetBuilder<'msg, IFabCroppedBitmap>(CroppedBitmap.WidgetKey, CroppedBitmap.SourceUri.WithValue(source), CroppedBitmap.SourceRect.WithValue(rect))
+            WidgetBuilder<'msg, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                CroppedBitmap.Source.WithValue(ImageSourceValue.Uri(source)),
+                CroppedBitmap.SourceRect.WithValue(rect)
+            )
 
         /// <summary>Creates a CroppedBitmap widget.</summary>
         /// <param name="source">The source image.</param>
@@ -69,7 +60,7 @@ module CroppedBitmapBuilders =
         static member CroppedBitmap(source: Stream, rect: PixelRect) =
             WidgetBuilder<'msg, IFabCroppedBitmap>(
                 CroppedBitmap.WidgetKey,
-                CroppedBitmap.SourceStream.WithValue(source),
+                CroppedBitmap.Source.WithValue(ImageSourceValue.Stream(source)),
                 CroppedBitmap.SourceRect.WithValue(rect)
             )
 
