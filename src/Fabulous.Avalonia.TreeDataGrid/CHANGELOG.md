@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.3.0] - 2024-01-17
+### Added
+- No changes
+
 ## [2.2.0] - 2024-01-09
 ### Added
 - No changes
@@ -28,7 +32,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.TreeDataGrid/compare/2.2.0...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.TreeDataGrid/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.TreeDataGrid/releases/tag/2.3.0
 [2.2.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.TreeDataGrid/releases/tag/2.2.0
 [2.1.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.TreeDataGrid/releases/tag/2.1.0
 [2.0.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.TreeDataGrid/releases/tag/2.0.0

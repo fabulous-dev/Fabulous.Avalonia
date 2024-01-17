@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.3.0] - 2024-01-17
+### Added
+- ImageSource constructors and modifiers consolidations
+
+### Changed
+- Update to use Avalonia 11.0.7
+
 ## [2.2.0] - 2024-01-09
 ### Added
 - Add new widget constructors and modifiers to support Uri Bitmap and Stream
@@ -167,7 +174,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.2.0...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.3.0
 [2.2.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.2.0
 [2.1.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.1.0
 [2.0.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.0.0
