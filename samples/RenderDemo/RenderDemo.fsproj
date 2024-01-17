@@ -16,7 +16,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
     <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
+
   <ItemGroup>
     <AvaloniaResource Include="Styles\*.xaml" />
     <AvaloniaResource Include="*.xaml" />
