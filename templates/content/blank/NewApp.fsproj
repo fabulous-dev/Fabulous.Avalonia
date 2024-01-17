@@ -22,7 +22,6 @@
   <!-- https://github.com/xamarin/xamarin-macios/issues/18469 -->
   <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS' And '$(GITHUB_ACTIONS)' != 'true' ">
     <EnableCodeSigning>true</EnableCodeSigning>
-    <MtouchLink>SdkOnly</MtouchLink>
     <CodesignRequireProvisioningProfile>true</CodesignRequireProvisioningProfile>
     <DisableCodesignVerification>true</DisableCodesignVerification>
   </PropertyGroup>
