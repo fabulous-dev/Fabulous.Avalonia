@@ -1,51 +1,17 @@
-namespace Fabulous.Avalonia
+namespace HelloComponent.iOS
 
-open System
-open UIKit
 open Avalonia
-open Avalonia.Controls.ApplicationLifetimes
-open Avalonia.iOS
+open Foundation
+open Fabulous.Avalonia
+open HelloComponent
+open UIKit
 
-type SingleViewLifetime() =
-    member val View: AvaloniaView = null with get, set
-
-    interface ISingleViewApplicationLifetime with
-        member this.MainView
-            with get () = this.View.Content
-            and set value =
-                if this.View <> null then
-                    this.View.Content <- value
-
-[<AbstractClass>]
-type FabSceneDelegate() =
+[<Register(nameof SceneDelegate)>]
+type SceneDelegate() =
     inherit UIWindowSceneDelegate()
 
-    override val Window = null with get, set
-
-    abstract member CreateApp: unit -> FabApplication
-
-    override this.WillConnect(scene: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
-        let scene = scene :?> UIWindowScene
-
-        let lifetime = SingleViewLifetime()
-
-        AppBuilder
-            .Configure<FabApplication>(Func<_>(this.CreateApp))
-            .UseiOS()
-            .AfterSetup(fun _ ->
-                let view = new AvaloniaView()
-                lifetime.View <- view
-
-                let win = new UIWindow(scene.CoordinateSpace.Bounds, WindowScene = scene)
-                let controller = new DefaultAvaloniaViewController(View = view)
-                win.RootViewController <- controller
-                view.InitWithController(controller)
-
-                this.Window <- win
-                this.Window.MakeKeyAndVisible())
-            .SetupWithLifetime(lifetime)
-        |> ignore
-
+    override this.WillConnect(_: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
+        AppBuilder.UseFabulousApp(App.view, App.theme) |> ignore
 
     /// Called as the scene is being released by the system.
     /// This occurs shortly after the scene enters the background, or when its session is discarded.

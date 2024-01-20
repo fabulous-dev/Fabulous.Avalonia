@@ -9,13 +9,7 @@ module Program =
 
     [<CompiledName "BuildAvaloniaApp">]
     let buildAvaloniaApp () =
-        AppBuilder
-            .Configure(fun () ->
-                let app = Program.startApplication App.program
-                app.Styles.Add(App.theme)
-                app)
-            .LogToTrace(areas = Array.empty)
-            .UsePlatformDetect()
+        AppBuilder.UseFabulousApp(App.program, App.theme)
 
     [<EntryPoint; STAThread>]
     let main argv =

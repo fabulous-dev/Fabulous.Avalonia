@@ -15,9 +15,4 @@ type MainActivity() =
     inherit AvaloniaMainActivity<FabApplication>()
 
     override this.CustomizeAppBuilder(_builder: AppBuilder) =
-        AppBuilder
-            .Configure(fun () ->
-                let app = Program.startApplication App.program
-                app.Styles.Add(App.theme)
-                app)
-            .UseAndroid()
+        AppBuilder.UseFabulousApp(App.program, App.theme)

@@ -368,7 +368,7 @@ module App =
         StyleInclude(baseUri = null, Source = Uri("avares://RenderDemo/App.xaml"))
 
     let program =
-        Program.statefulWithCmdMsg init update app mapCmdMsgToCmd
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
@@ -378,3 +378,4 @@ module App =
             true
 #endif
         )
+        |> Program.withView app

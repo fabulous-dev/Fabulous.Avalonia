@@ -24,6 +24,17 @@ type FabApplication() =
     let mutable _mainWindow: Window = null
     let mutable _mainView: Control = null
 
+    let mutable _onFrameworkInitialized: Application -> unit = fun _ -> ()
+
+    member this.OnFrameworkInitialized
+        with get () = _onFrameworkInitialized
+        and set value = _onFrameworkInitialized <- value
+
+    override this.OnFrameworkInitializationCompleted() =
+        this.UpdateLifetime()
+        this.OnFrameworkInitialized(this)
+        base.OnFrameworkInitializationCompleted()
+
     member private this.UpdateLifetime() =
         match this.ApplicationLifetime with
         | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime -> desktopLifetime.MainWindow <- _mainWindow
@@ -93,22 +104,6 @@ type FabApplication() =
 
     /// <summary>Gets the current application instance.</summary>
     static member Current = Application.Current :?> FabApplication
-
-    override this.OnFrameworkInitializationCompleted() =
-        this.UpdateLifetime()
-        base.OnFrameworkInitializationCompleted()
-
-type FabApplication<'arg, 'model, 'msg, 'marker when 'marker :> IFabApplication>(program: Program<'arg, 'model, 'msg, 'marker>, arg: 'arg) =
-    inherit FabApplication()
-
-    override this.OnFrameworkInitializationCompleted() =
-        let runner = Runners.create program
-        runner.Start(arg)
-
-        let adapter = ViewAdapters.create ViewNode.get runner
-        adapter.Attach(this)
-
-        base.OnFrameworkInitializationCompleted()
 
 module ApplicationUpdaters =
     let mainWindowApplyDiff (diff: WidgetDiff) (node: IViewNode) =

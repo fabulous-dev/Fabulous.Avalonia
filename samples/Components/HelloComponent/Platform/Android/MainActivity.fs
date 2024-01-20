@@ -1,13 +1,13 @@
-namespace RenderDemo.Android
+namespace HelloComponent.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
-open RenderDemo
 open Fabulous.Avalonia
+open HelloComponent
 
-[<Activity(Label = "Counter.Android",
+[<Activity(Label = "NewApp.Android",
            Theme = "@style/MyTheme.NoActionBar",
            Icon = "@drawable/icon",
            LaunchMode = LaunchMode.SingleTop,
@@ -16,4 +16,4 @@ type MainActivity() =
     inherit AvaloniaMainActivity<FabApplication>()
 
     override this.CustomizeAppBuilder(_builder: AppBuilder) =
-        AppBuilder.UseFabulousApp(App.program, App.theme)
+        AppBuilder.UseFabulousApp(App.view, App.theme)
