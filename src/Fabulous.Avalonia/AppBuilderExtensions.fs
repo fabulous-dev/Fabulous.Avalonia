@@ -58,8 +58,11 @@ type FabulousAppBuilder private () =
         FabulousAppBuilder.Configure(canReuseView, logger, themeFn, (fun () -> (View.Component() { view() }).Compile()))
 
 #if IOS
+open UIKit
+open Avalonia.iOS
+
 type SingleViewLifetime() =
-    member val View: Avalonia.iOS.AvaloniaView = null with get, set
+    member val View: AvaloniaView = null with get, set
 
     interface Avalonia.Controls.ApplicationLifetimes.ISingleViewApplicationLifetime with
         member this.MainView
@@ -72,20 +75,21 @@ type SingleViewLifetime() =
 module FabulousiOSAppBuilderExtensions =
     type AppBuilder with
 
-        member this.UseiOS(scene: UIKit.UIWindowScene) =
+        member this.UseiOS(sceneDelegate: UIWindowSceneDelegate, scene: UIWindowScene) =
             let lifetime = SingleViewLifetime()
 
             this
                 .UseiOS()
                 .AfterSetup(fun _ ->
-                    let view = new Avalonia.iOS.AvaloniaView()
+                    let view = new AvaloniaView()
                     lifetime.View <- view
 
-                    let win = new UIKit.UIWindow(scene.CoordinateSpace.Bounds, WindowScene = scene)
-                    let controller = new Avalonia.iOS.DefaultAvaloniaViewController(View = view)
+                    let win = new UIWindow(scene.CoordinateSpace.Bounds, WindowScene = scene)
+                    let controller = new DefaultAvaloniaViewController(View = view)
                     win.RootViewController <- controller
                     view.InitWithController(controller)
 
+                    sceneDelegate.Window <- win
                     win.MakeKeyAndVisible())
                 .SetupWithLifetime(lifetime)
 #endif
