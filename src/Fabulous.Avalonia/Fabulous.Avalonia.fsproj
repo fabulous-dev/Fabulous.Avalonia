@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net8.0-android</TargetFrameworks>
+    <UseLocalProjectReference>false</UseLocalProjectReference>
+    
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
     <IsPackable>true</IsPackable>
@@ -221,7 +223,7 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Include="Fabulous" VersionOverride="[2.5.0-pre5]" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[2.5.0-pre5]" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.7" />
     <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
@@ -234,5 +236,8 @@
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />
   </ItemGroup>
 </Project>

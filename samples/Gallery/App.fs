@@ -10,21 +10,26 @@ open Gallery
 open type Fabulous.Avalonia.View
 
 module App =
-    let theme = StyleInclude(baseUri = null, Source = Uri("avares://Gallery/App.xaml"))
+    let create () =
+        let theme () =
+            StyleInclude(baseUri = null, Source = Uri("avares://Gallery/App.xaml"))
 
-    let program =
-#if MOBILE
-        Program.statefulWithCmdMsg State.init State.update State.mapCmdMsgToCmd
-#else
-        Program.statefulWithCmdMsg State.init State.update State.mapCmdMsgToCmd
-#endif
-        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-        |> Program.withExceptionHandler(fun ex ->
+        let program =
+            Program.statefulWithCmdMsg State.init State.update State.mapCmdMsgToCmd
+            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+            |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
-            printfn $"Exception: %s{ex.ToString()}"
-            false
+                printfn $"Exception: %s{ex.ToString()}"
+                false
 #else
-            true
+                true
 #endif
-        )
-        |> Program.withView MainWindow.view
+            )
+
+#if MOBILE
+            |> Program.withView MainView.view
+#else
+            |> Program.withView MainWindow.view
+#endif
+
+        FabulousAppBuilder.Configure(theme, program)

@@ -1,6 +1,5 @@
 namespace Gallery.iOS
 
-open Avalonia
 open Foundation
 open Fabulous.Avalonia
 open Gallery
@@ -10,8 +9,8 @@ open UIKit
 type SceneDelegate() =
     inherit UIWindowSceneDelegate()
 
-    override this.WillConnect(_: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
-        AppBuilder.UseFabulousApp(App.program, App.theme) |> ignore
+    override this.WillConnect(scene: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
+        App.create().UseiOS(scene :?> UIWindowScene) |> ignore
 
     /// Called as the scene is being released by the system.
     /// This occurs shortly after the scene enters the background, or when its session is discarded.

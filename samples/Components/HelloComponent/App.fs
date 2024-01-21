@@ -88,4 +88,5 @@ module App =
 #endif
         }
 
-    let theme = FluentTheme()
+    let create () =
+        FabulousAppBuilder.Configure(FluentTheme, view)

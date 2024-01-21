@@ -333,7 +333,7 @@ module App =
                 PathMeasurementModel = pathMeasurementModel },
             [ SubpageCmdMsgs [ PathMeasurementCmdMsg cmdMsgs ] ]
 
-    let view model =
+    let content model =
         (HamburgerMenu() {
             TabItem("Implicit Animations", (View.map ImplicitAnimationMsg (ImplicitCanvasAnimationsPage.view model.ImplicitAnimationModel)))
             TabItem("Draw Line Animation", (View.map DraLineAnimationMsg (DrawLineAnimationPage.view model.DrawLineAnimationModel)))
@@ -359,23 +359,27 @@ module App =
             .expandedModeThresholdWidth(760)
 
 #if MOBILE
-    let app model = SingleViewApplication(view model)
+    let view model = SingleViewApplication(content model)
 #else
-    let app model = DesktopApplication(Window(view model))
+    let view model =
+        DesktopApplication(Window(content model))
 #endif
 
-    let theme =
-        StyleInclude(baseUri = null, Source = Uri("avares://RenderDemo/App.xaml"))
+    let create () =
+        let theme () =
+            StyleInclude(baseUri = null, Source = Uri("avares://RenderDemo/App.xaml"))
 
-    let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
-        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-        |> Program.withExceptionHandler(fun ex ->
+        let program =
+            Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+            |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
-            printfn $"Exception: %s{ex.ToString()}"
-            false
+                printfn $"Exception: %s{ex.ToString()}"
+                false
 #else
-            true
+                true
 #endif
-        )
-        |> Program.withView app
+            )
+            |> Program.withView view
+
+        FabulousAppBuilder.Configure(theme, program)

@@ -14,5 +14,4 @@ open Gallery
 type MainActivity() =
     inherit AvaloniaMainActivity<FabApplication>()
 
-    override this.CustomizeAppBuilder(_builder: AppBuilder) =
-        AppBuilder.UseFabulousApp(App.program, App.theme)
+    override this.CustomizeAppBuilder(_builder: AppBuilder) = App.create().UseAndroid()
