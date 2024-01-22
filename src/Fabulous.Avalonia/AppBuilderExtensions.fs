@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open Avalonia
 open Avalonia.Styling
-open Avalonia.Threading
 open Fabulous
 
 [<AbstractClass; Sealed>]
@@ -54,7 +53,6 @@ type FabulousAppBuilder private () =
             | Some logger -> logger
             | None -> ProgramDefaults.defaultLogger()
 
-        // It is very important to keep the Dispatcher.UIThread in a lambda here, otherwise UIThread will be initialized before Avalonia and the app will crash
         FabulousAppBuilder.Configure(canReuseView, logger, themeFn, (fun () -> (View.Component() { view() }).Compile()))
 
 #if IOS
@@ -84,7 +82,8 @@ module FabulousiOSAppBuilderExtensions =
                     let view = new AvaloniaView()
                     lifetime.View <- view
 
-                    let win = new UIWindow(scene.CoordinateSpace.Bounds, WindowScene = scene)
+                    let win = new UIWindow(WindowScene = scene)
+                    
                     let controller = new DefaultAvaloniaViewController(View = view)
                     win.RootViewController <- controller
                     view.InitWithController(controller)

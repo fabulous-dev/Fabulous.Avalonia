@@ -31,7 +31,6 @@ type FabApplication() =
         and set value = _onFrameworkInitialized <- value
 
     override this.OnFrameworkInitializationCompleted() =
-        this.UpdateLifetime()
         this.OnFrameworkInitialized(this)
         base.OnFrameworkInitializationCompleted()
 
