@@ -11,22 +11,6 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module TransitionsPage =
-    type Msg = | Nothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    type Model = { Nothing: string }
-
-    let init () = { Nothing = "" }, []
-
-    let update msg model =
-        match msg with
-        | Nothing -> model, []
-
     let borderTest1 (this: WidgetBuilder<'msg, IFabBorder>) =
         this.child(
             Path(Paths.Path1)
@@ -41,7 +25,7 @@ module TransitionsPage =
                 .stretch(Stretch.Uniform)
         )
 
-    let view model =
+    let view () =
         Grid() {
             (VStack() {
                 (HStack(20.) {

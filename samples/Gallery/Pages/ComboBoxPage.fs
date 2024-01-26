@@ -1,11 +1,11 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ComboBoxPage =
 
@@ -35,45 +35,61 @@ module ComboBoxPage =
         match msg with
         | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }, []
 
-    let view model =
-        HStack(16) {
-            ComboBox(model.Items, (fun x -> TextBlock(x)))
-                .selectedIndex(0)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            (ComboBox() {
-                ComboBoxItem(Rectangle().size(10., 50.).fill(SolidColorBrush(Colors.Red)))
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                ComboBoxItem(
-                    Ellipse()
-                        .size(50., 50.)
-                        .fill(SolidColorBrush(Colors.Yellow))
-                )
+            HStack(16) {
+                ComboBox(model.Items, (fun x -> TextBlock(x)))
+                    .selectedIndex(0)
 
-                ComboBoxItem(TextBlock("Unknown"))
-            })
-                .selectedIndex(0)
+                (ComboBox() {
+                    ComboBoxItem(Rectangle().size(10., 50.).fill(SolidColorBrush(Colors.Red)))
 
-            (ComboBox() {
-                ComboBoxItem("Select a font", true)
+                    ComboBoxItem(
+                        Ellipse()
+                            .size(50., 50.)
+                            .fill(SolidColorBrush(Colors.Yellow))
+                    )
 
-                for font in model.Fonts do
-                    ComboBoxItem(font.Name)
-            })
-                .onDropDownOpened(model.IsDropDownOpen, DropDownOpened)
+                    ComboBoxItem(TextBlock("Unknown"))
+                })
+                    .selectedIndex(0)
 
-            VStack() {
-                LayoutTransformControl(
-                    Grid() {
-                        (ComboBox() {
-                            ComboBoxItem("Inline Items")
-                            ComboBoxItem("Inline Item 2")
-                            ComboBoxItem("Inline Item 3")
-                            ComboBoxItem("Inline Item 4")
-                            ComboBoxItem("Inline Item 5")
-                        })
-                            .selectedIndex(0)
-                    }
-                )
-                    .layoutTransform(RotateTransform(45.))
+                (ComboBox() {
+                    ComboBoxItem("Select a font", true)
+
+                    for font in model.Fonts do
+                        ComboBoxItem(font.Name)
+                })
+                    .onDropDownOpened(model.IsDropDownOpen, DropDownOpened)
+
+                VStack() {
+                    LayoutTransformControl(
+                        Grid() {
+                            (ComboBox() {
+                                ComboBoxItem("Inline Items")
+                                ComboBoxItem("Inline Item 2")
+                                ComboBoxItem("Inline Item 3")
+                                ComboBoxItem("Inline Item 4")
+                                ComboBoxItem("Inline Item 5")
+                            })
+                                .selectedIndex(0)
+                        }
+                    )
+                        .layoutTransform(RotateTransform(45.))
+                }
             }
         }

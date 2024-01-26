@@ -2,6 +2,7 @@ namespace Gallery
 
 open System
 open System.Collections.Generic
+open System.Diagnostics
 open System.Linq
 open Avalonia
 open Avalonia.Controls
@@ -55,26 +56,42 @@ module CursorPage =
             let scm = control.SelectedItem :?> StandardCursorModel
             { model with CustomCursor = scm.Cursor }, []
 
-    let view model =
-        Grid(coldefs = [ Star; Star ], rowdefs = [ Auto; Star ]) {
-            (VStack(4) {
-                TextBlock(text = "Defines a cursor (mouse pointer)")
-                    .classes("h2")
-            })
-                .gridColumnSpan(2)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ListBox(model.StandardCursors, (fun x -> TextBlock($"{x.Type}")))
-                .onSelectionChanged(SelectionChanged)
-                .margin(0, 8, 8, 8)
-                .gridRow(1)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            (VStack() {
-                Button("Custom Cursor", Nothing)
-                    .cursor(model.CustomCursor)
+            Grid(coldefs = [ Star; Star ], rowdefs = [ Auto; Star ]) {
+                (VStack(4) {
+                    TextBlock(text = "Defines a cursor (mouse pointer)")
+                        .classes("h2")
+                })
+                    .gridColumnSpan(2)
+
+                ListBox(model.StandardCursors, (fun x -> TextBlock($"{x.Type}")))
+                    .onSelectionChanged(SelectionChanged)
+                    .margin(0, 8, 8, 8)
+                    .gridRow(1)
+
+                (VStack() {
+                    Button("Custom Cursor", Nothing)
+                        .cursor(model.CustomCursor)
+                        .margin(8, 8, 0, 8)
+                        .padding(16)
+                })
+                    .gridColumn(1)
+                    .gridRow(1)
                     .margin(8, 8, 0, 8)
-                    .padding(16)
-            })
-                .gridColumn(1)
-                .gridRow(1)
-                .margin(8, 8, 0, 8)
+            }
         }

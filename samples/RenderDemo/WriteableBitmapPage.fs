@@ -93,20 +93,5 @@ module WriteableBitmapBuilders =
             WidgetBuilder<'msg, IFabWriteableBitmap>(WriteableBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module WriteableBitmapPage =
-    type Model = { Nothing: bool }
 
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ = Grid() { View.WriteableBitmap() }
+    let view () = Grid() { View.WriteableBitmap() }

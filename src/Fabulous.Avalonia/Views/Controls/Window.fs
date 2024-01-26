@@ -70,6 +70,10 @@ module WindowBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
+        /// <summary>Creates a Window widget.</summary>
+        static member inline Window<'msg, 'childMarker>() =
+            SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
+
 [<Extension>]
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>

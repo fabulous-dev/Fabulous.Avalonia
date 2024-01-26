@@ -1,12 +1,12 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module TextBoxPage =
     type Model =
@@ -33,33 +33,49 @@ module TextBoxPage =
         | SingleLineTextChanged text -> { model with SingleLineText = text }, []
         | MultiLineTextChanged text -> { model with MultiLineText = text }, []
 
-    let view model =
-        VStack(spacing = 15) {
-            TextBox(model.SingleLineText, SingleLineTextChanged)
-                .textAlignment(TextAlignment.Center)
-                .watermark("Enter some text...")
-                .useFloatingWatermark(false)
-                .caretBrush(SolidColorBrush(Colors.DarkBlue))
-                .selectionBrush(SolidColorBrush(Colors.DarkBlue))
-                .selectionForegroundBrush(SolidColorBrush(Colors.White))
-                .width(300)
-                .horizontalAlignment(HorizontalAlignment.Left)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            TextBlock($"You Entered: {model.SingleLineText}")
-                .margin(0, 0, 0, 30)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            TextBox(model.MultiLineText, MultiLineTextChanged)
-                .height(120)
-                .textAlignment(TextAlignment.Left)
-                .verticalContentAlignment(VerticalAlignment.Top)
-                .acceptsReturn(true)
-                .acceptsTab(true)
-                .maxLines(5)
-                .watermark("Enter up to 5 lines of text...")
-                .useFloatingWatermark(true)
-                .caretBrush(SolidColorBrush(Colors.DarkBlue))
-                .selectionBrush(SolidColorBrush(Colors.DarkBlue))
-                .selectionForegroundBrush(SolidColorBrush(Colors.White))
+            VStack(spacing = 15) {
+                TextBox(model.SingleLineText, SingleLineTextChanged)
+                    .textAlignment(TextAlignment.Center)
+                    .watermark("Enter some text...")
+                    .useFloatingWatermark(false)
+                    .caretBrush(SolidColorBrush(Colors.DarkBlue))
+                    .selectionBrush(SolidColorBrush(Colors.DarkBlue))
+                    .selectionForegroundBrush(SolidColorBrush(Colors.White))
+                    .width(300)
+                    .horizontalAlignment(HorizontalAlignment.Left)
 
-            TextBlock($"You Entered: {model.MultiLineText}")
+                TextBlock($"You Entered: {model.SingleLineText}")
+                    .margin(0, 0, 0, 30)
+
+                TextBox(model.MultiLineText, MultiLineTextChanged)
+                    .height(120)
+                    .textAlignment(TextAlignment.Left)
+                    .verticalContentAlignment(VerticalAlignment.Top)
+                    .acceptsReturn(true)
+                    .acceptsTab(true)
+                    .maxLines(5)
+                    .watermark("Enter up to 5 lines of text...")
+                    .useFloatingWatermark(true)
+                    .caretBrush(SolidColorBrush(Colors.DarkBlue))
+                    .selectionBrush(SolidColorBrush(Colors.DarkBlue))
+                    .selectionForegroundBrush(SolidColorBrush(Colors.White))
+
+                TextBlock($"You Entered: {model.MultiLineText}")
+            }
         }

@@ -1,13 +1,12 @@
 namespace Gallery
 
-open System.Drawing
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ColorPickerPage =
 
@@ -50,62 +49,78 @@ module ColorPickerPage =
                 ColorPreviewer = args.NewColor },
             []
 
-    let view model =
-        Grid(coldefs = [ Auto; Pixel(10.); Auto ], rowdefs = [ Auto; Auto ]) {
-            ColorView(model.ColorView, ColorViewChanged)
-                .gridRow(0)
-                .gridColumn(0)
-                .colorSpectrumShape(ColorSpectrumShape.Ring)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ColorPicker(model.ColorPicker, ColorPickerChanged)
-                .gridRow(1)
-                .gridColumn(0)
-                .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
-                .margin(0., 50., 0., 0.)
-                .palette(FlatHalfColorPalette())
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            (Grid(rowdefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ], coldefs = [ Auto ]) {
-                ColorSpectrum(model.ColorSpectrum, ColorSpectrumChanged)
+            Grid(coldefs = [ Auto; Pixel(10.); Auto ], rowdefs = [ Auto; Auto ]) {
+                ColorView(model.ColorView, ColorViewChanged)
                     .gridRow(0)
-                    .cornerRadius(10.)
-                    .height(256.)
-                    .width(256.)
+                    .gridColumn(0)
+                    .colorSpectrumShape(ColorSpectrumShape.Ring)
 
-                ColorSlider()
+                ColorPicker(model.ColorPicker, ColorPickerChanged)
                     .gridRow(1)
-                    .margin(0., 10., 0., 0.)
-                    .colorComponent(ColorComponent.Component1)
-                    .colorModel(ColorModel.Hsva)
-                    .hsvColor(model.ColorSpectrum.ToHsv())
+                    .gridColumn(0)
+                    .hsvColor(HsvColor.Parse("hsv(120, 1, 1)"))
+                    .margin(0., 50., 0., 0.)
+                    .palette(FlatHalfColorPalette())
 
-                ColorSlider()
-                    .gridRow(2)
-                    .margin(0., 10., 0., 0.)
-                    .colorComponent(ColorComponent.Component2)
-                    .colorModel(ColorModel.Hsva)
-                    .hsvColor(model.ColorSpectrum.ToHsv())
+                (Grid(rowdefs = [ Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto; Auto ], coldefs = [ Auto ]) {
+                    ColorSpectrum(model.ColorSpectrum, ColorSpectrumChanged)
+                        .gridRow(0)
+                        .cornerRadius(10.)
+                        .height(256.)
+                        .width(256.)
 
-                ColorSlider()
-                    .gridRow(3)
-                    .margin(0., 10., 0., 0.)
-                    .colorComponent(ColorComponent.Component3)
-                    .colorModel(ColorModel.Hsva)
-                    .hsvColor(model.ColorSpectrum.ToHsv())
+                    ColorSlider()
+                        .gridRow(1)
+                        .margin(0., 10., 0., 0.)
+                        .colorComponent(ColorComponent.Component1)
+                        .colorModel(ColorModel.Hsva)
+                        .hsvColor(model.ColorSpectrum.ToHsv())
 
-                ColorSlider()
-                    .gridRow(4)
-                    .margin(0., 10., 0., 0.)
-                    .colorComponent(ColorComponent.Alpha)
-                    .colorModel(ColorModel.Hsva)
-                    .hsvColor(model.ColorSpectrum.ToHsv())
+                    ColorSlider()
+                        .gridRow(2)
+                        .margin(0., 10., 0., 0.)
+                        .colorComponent(ColorComponent.Component2)
+                        .colorModel(ColorModel.Hsva)
+                        .hsvColor(model.ColorSpectrum.ToHsv())
 
-                ColorPreviewer(ColorPreviewerChanged)
-                    .gridRow(8)
-                    .isAccentColorsVisible(false)
-                    .hsvColor(model.ColorSpectrum.ToHsv())
-                    .margin(0., 2., 0., 0.)
-            })
-                .gridRow(0)
-                .gridColumn(2)
+                    ColorSlider()
+                        .gridRow(3)
+                        .margin(0., 10., 0., 0.)
+                        .colorComponent(ColorComponent.Component3)
+                        .colorModel(ColorModel.Hsva)
+                        .hsvColor(model.ColorSpectrum.ToHsv())
 
+                    ColorSlider()
+                        .gridRow(4)
+                        .margin(0., 10., 0., 0.)
+                        .colorComponent(ColorComponent.Alpha)
+                        .colorModel(ColorModel.Hsva)
+                        .hsvColor(model.ColorSpectrum.ToHsv())
+
+                    ColorPreviewer(ColorPreviewerChanged)
+                        .gridRow(8)
+                        .isAccentColorsVisible(false)
+                        .hsvColor(model.ColorSpectrum.ToHsv())
+                        .margin(0., 2., 0., 0.)
+                })
+                    .gridRow(0)
+                    .gridColumn(2)
+
+            }
         }

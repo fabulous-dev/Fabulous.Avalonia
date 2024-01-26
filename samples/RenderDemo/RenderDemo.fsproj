@@ -53,6 +53,8 @@
     <Compile Include="Animations\ImplicitCanvasAnimationsPage.fs" />
     <Compile Include="TransitionsPage.fs" />
     <Compile Include="App.fs" />
+    <Compile Include="MainWindow.fs" />
+    <Compile Include="MainView.fs" />
   </ItemGroup>
   
   <ItemGroup>

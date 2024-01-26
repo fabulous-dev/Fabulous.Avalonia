@@ -1,9 +1,9 @@
 namespace Gallery
 
+open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ProgressBarPage =
     type Model = { Progress: int; Max: int }
@@ -28,17 +28,33 @@ module ProgressBarPage =
             []
         | ProgressChanged p -> model, []
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock("Progress Bar")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ProgressBar(0, model.Max, model.Progress, ProgressChanged)
-                .showProgressText(true)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            Button("Advance Progress Bar", Clicked)
+            VStack(spacing = 15.) {
+                TextBlock("Progress Bar")
 
-            TextBlock("Indeterminate Progress Bar").margin(0, 30, 0, 0)
+                ProgressBar(0, model.Max, model.Progress, ProgressChanged)
+                    .showProgressText(true)
 
-            ProgressBar(0, model.Max, model.Progress, ProgressChanged)
-                .isIndeterminate(true)
+                Button("Advance Progress Bar", Clicked)
+
+                TextBlock("Indeterminate Progress Bar").margin(0, 30, 0, 0)
+
+                ProgressBar(0, model.Max, model.Progress, ProgressChanged)
+                    .isIndeterminate(true)
+            }
         }

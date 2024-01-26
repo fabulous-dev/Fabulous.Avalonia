@@ -1,12 +1,12 @@
 namespace Gallery
 
 open System.ComponentModel
+open System.Diagnostics
 open Avalonia.Input
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ContextFlyoutPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -34,55 +34,71 @@ module ContextFlyoutPage =
         | MenuOpening -> model, []
         | MenuClosing _ -> model, []
 
-    let view model =
-        VStack(spacing = 15.) {
-            Border(TextBlock("A right click Flyout that can be applied to any control."))
-                .contextFlyout(
-                    (MenuFlyout() {
-                        MenuItem("Standard _Menu Item")
-                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-                        MenuItem("Standard _Menu Item")
-                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                        MenuItem("_Disabled Menu Item")
-                            .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
-                            .isEnabled(false)
+            VStack(spacing = 15.) {
+                Border(TextBlock("A right click Flyout that can be applied to any control."))
+                    .contextFlyout(
+                        (MenuFlyout() {
+                            MenuItem("Standard _Menu Item")
+                                .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
-                        Separator()
+                            MenuItem("Standard _Menu Item")
+                                .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
-                        MenuItems("Menu with _Submenu") {
-                            MenuItem("Submenu _1")
-                            MenuItem("Submenu _1")
-                            MenuItem("Submenu _2")
-                            MenuItem("Submenu _2")
-                        }
-                    })
-                        .onClosed(MenuClosed)
-                        .onOpened(MenuOpened)
-                )
+                            MenuItem("_Disabled Menu Item")
+                                .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
+                                .isEnabled(false)
 
-            Border(TextBlock("A right click Flyout that can be applied to any control."))
-                .contextFlyout(
-                    (MenuFlyout() {
+                            Separator()
 
-                        MenuItem("Menu Item with _Icon")
-                            .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
-                            .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                            MenuItems("Menu with _Submenu") {
+                                MenuItem("Submenu _1")
+                                MenuItem("Submenu _1")
+                                MenuItem("Submenu _2")
+                                MenuItem("Submenu _2")
+                            }
+                        })
+                            .onClosed(MenuClosed)
+                            .onOpened(MenuOpened)
+                    )
 
-                        MenuItem("Menu Item with _Checkbox")
-                            .icon(
-                                CheckBox(model.IsChecked, ValueChanged)
-                                    .borderThickness(0.)
-                                    .isHitTestVisible(false)
-                            )
+                Border(TextBlock("A right click Flyout that can be applied to any control."))
+                    .contextFlyout(
+                        (MenuFlyout() {
 
-                        MenuItem("Menu Item that won't close on click")
-                            .staysOpenOnClick(true)
+                            MenuItem("Menu Item with _Icon")
+                                .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
+                                .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                        MenuItem("Menu Item that will close on click")
-                    })
-                        .onClosing(MenuClosing)
-                        .onOpening(MenuOpening)
-                )
+                            MenuItem("Menu Item with _Checkbox")
+                                .icon(
+                                    CheckBox(model.IsChecked, ValueChanged)
+                                        .borderThickness(0.)
+                                        .isHitTestVisible(false)
+                                )
+
+                            MenuItem("Menu Item that won't close on click")
+                                .staysOpenOnClick(true)
+
+                            MenuItem("Menu Item that will close on click")
+                        })
+                            .onClosing(MenuClosing)
+                            .onOpening(MenuOpening)
+                    )
+            }
         }

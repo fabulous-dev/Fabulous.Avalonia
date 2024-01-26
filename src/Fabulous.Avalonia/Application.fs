@@ -217,6 +217,10 @@ module ApplicationBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone)
             )
 
+        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
+        static member inline DesktopApplication<'msg, 'childMarker>() =
+            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainWindow)
+
         /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
         /// <param name="view">The main View of the Application.</param>
         static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
@@ -224,6 +228,10 @@ module ApplicationBuilders =
                 Application.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone)
             )
+
+        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
+        static member inline SingleViewApplication<'msg, 'childMarker>() =
+            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
 [<Extension>]
 type ApplicationModifiers =

@@ -61,20 +61,4 @@ module RenderTargetBitmapBuilders =
             WidgetBuilder<'msg, IFabRenderTargetBitmap>(RenderTargetBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module RenderTargetBitmapPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ = Grid() { View.RenderTargetBitmap() }
+    let view () = Grid() { View.RenderTargetBitmap() }

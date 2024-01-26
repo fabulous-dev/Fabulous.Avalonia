@@ -3,6 +3,7 @@ namespace Gallery
 open System
 open System.Buffers
 open System.Collections.Generic
+open System.Diagnostics
 open System.IO
 open System.Reflection
 open Avalonia
@@ -356,37 +357,53 @@ CanBookmark: {item.Value.CanBookmark}"
                 OpenedFileContent = pickerResult.FileContentText },
             []
 
-    let view model =
-        (VStack(4.) {
-            TextBlock("Pickers:").margin(0., 20., 0., 0.)
-            CheckBox("Use filters", model.UseFilters, UseFiltersChanged)
-            CheckBox("Open multiple", model.OpenMultiple, OpenMultipleChanged)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            VStack(4.) {
-                Button("Open File Picker", OpenFilePicker)
-                Button("Open File From Bookmark", OpenFileFromBookmark)
-                Button("Open Folder From Bookmark", OpenFolderFromBookmark)
-                Button("Open Folder Picker", OpenFolderPicker)
-                Button("SaveFilePicker", SaveFilePicker)
-            }
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            AutoCompleteBox(model.CurrentFolderBox, CurrentFolderBoxTextChanged, [])
-                .watermark("Write full path/uri or well known folder name")
-                .onLoaded(CurrentFolderBoxLoaded)
+            (VStack(4.) {
+                TextBlock("Pickers:").margin(0., 20., 0., 0.)
+                CheckBox("Use filters", model.UseFilters, UseFiltersChanged)
+                CheckBox("Open multiple", model.OpenMultiple, OpenMultipleChanged)
 
-            TextBlock("Last picker results:")
-                .isVisible(model.PickerLastResultsVisible)
+                VStack(4.) {
+                    Button("Open File Picker", OpenFilePicker)
+                    Button("Open File From Bookmark", OpenFileFromBookmark)
+                    Button("Open Folder From Bookmark", OpenFolderFromBookmark)
+                    Button("Open Folder Picker", OpenFolderPicker)
+                    Button("SaveFilePicker", SaveFilePicker)
+                }
 
-            ItemsControl(model.FileResults, (fun item -> TextBlock(item)))
-                .isVisible(model.PickerLastResultsVisible)
+                AutoCompleteBox(model.CurrentFolderBox, CurrentFolderBoxTextChanged, [])
+                    .watermark("Write full path/uri or well known folder name")
+                    .onLoaded(CurrentFolderBoxLoaded)
 
-            TextBox(model.BookmarkContainer, BookmarkContainerTextChanged)
-                .watermark("Bookmark")
+                TextBlock("Last picker results:")
+                    .isVisible(model.PickerLastResultsVisible)
 
-            TextBox(model.OpenedFileContent, BookmarkContainerTextChanged)
-                .watermark("Picked file content")
-                .maxLines(10)
+                ItemsControl(model.FileResults, (fun item -> TextBlock(item)))
+                    .isVisible(model.PickerLastResultsVisible)
 
-        })
-            .margin(4.)
-            .onAttachedToVisualTree(OnAttachedToVisualTree)
+                TextBox(model.BookmarkContainer, BookmarkContainerTextChanged)
+                    .watermark("Bookmark")
+
+                TextBox(model.OpenedFileContent, BookmarkContainerTextChanged)
+                    .watermark("Picked file content")
+                    .maxLines(10)
+
+            })
+                .margin(4.)
+                .onAttachedToVisualTree(OnAttachedToVisualTree)
+        }

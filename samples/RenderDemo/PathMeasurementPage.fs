@@ -94,20 +94,4 @@ module PathMeasurementBuilders =
             WidgetBuilder<'msg, IFabPathMeasurement>(PathMeasurement.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module PathMeasurementPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ = Grid() { View.PathMeasurement() }
+    let view () = Grid() { View.PathMeasurement() }

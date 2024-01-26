@@ -3,29 +3,11 @@ namespace Gallery
 open Avalonia
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module TextBlockPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         VStack(spacing = 15.) {
             TextBlock("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
                 .margin(10., 0., 10., 0.)

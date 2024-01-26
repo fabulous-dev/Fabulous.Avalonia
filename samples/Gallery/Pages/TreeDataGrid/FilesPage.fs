@@ -2,6 +2,7 @@ namespace Gallery
 
 open System
 open System.Collections.Generic
+open System.Diagnostics
 open System.IO
 open System.Runtime.InteropServices
 open Avalonia.Controls
@@ -191,26 +192,42 @@ module FilesPage =
 
             { model with CellSelection = v }, []
 
-    let view model =
-        Dock() {
-            (Dock() {
-                ComboBox(model.Drives, (fun x -> TextBlock(x)))
-                    .selectedItem(model.SelectedDrive)
-                    .dock(Dock.Left)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-                CheckBox("Cell Selection", model.CellSelection, CellSelectionChanged)
-                    .margin(4, 0, 0, 0)
-                    .dock(Dock.Right)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                TextBox(model.SelectedPathText, SelectedPathTextChanged)
-                    .margin(4, 0, 0, 0)
-                    .verticalContentAlignment(VerticalAlignment.Center)
-                    .onKeyDown(SelectedPathKeyDown)
-            })
-                .dock(Dock.Top)
-                .margin(0, 4)
+            Dock() {
+                (Dock() {
+                    ComboBox(model.Drives, (fun x -> TextBlock(x)))
+                        .selectedItem(model.SelectedDrive)
+                        .dock(Dock.Left)
 
-            TreeDataGrid(model.Source)
-                .reference(files)
-                .autoDragDropRows(true)
+                    CheckBox("Cell Selection", model.CellSelection, CellSelectionChanged)
+                        .margin(4, 0, 0, 0)
+                        .dock(Dock.Right)
+
+                    TextBox(model.SelectedPathText, SelectedPathTextChanged)
+                        .margin(4, 0, 0, 0)
+                        .verticalContentAlignment(VerticalAlignment.Center)
+                        .onKeyDown(SelectedPathKeyDown)
+                })
+                    .dock(Dock.Top)
+                    .margin(0, 4)
+
+                TreeDataGrid(model.Source)
+                    .reference(files)
+                    .autoDragDropRows(true)
+            }
         }

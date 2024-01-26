@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open System.Numerics
 open Avalonia
 open Avalonia.Animation.Easings
@@ -20,7 +21,13 @@ module GalaxyAnimation =
 
     type Msg = OnLoaded of RoutedEventArgs
 
-    let init () = { Value = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Value = 0 }, []
 
     // let mutable _orbitVisual: CompositionVisual = null
 
@@ -84,75 +91,86 @@ module GalaxyAnimation =
     //     ))
     // |> ignore
 
-
     let orbit = ViewRef<Grid>()
     let planet = ViewRef<Grid>()
     let satellite = ViewRef<Ellipse>()
     let startField = ViewRef<Grid>()
-
     let rootVisual = ViewRef<Grid>()
-
 
     let update msg model =
         match msg with
         | OnLoaded _ ->
             Apply rootVisual.Value orbit.Value satellite.Value startField.Value planet.Value
-            model
+            model, []
 
-    let view (_: Model) =
-        (Grid() {
-            Ellipse()
-                .width(15.)
-                .height(15.)
-                .fill(SolidColorBrush(Colors.Orange))
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
+    let view () =
+        Component(program) {
             (Grid() {
-                Rectangle()
+                Ellipse()
                     .width(15.)
                     .height(15.)
-                    .fill(SolidColorBrush(Colors.Yellow))
-                    .renderTransform(TranslateTransform(200., 120.))
+                    .fill(SolidColorBrush(Colors.Orange))
 
-                Rectangle()
-                    .width(5.)
-                    .height(5.)
-                    .fill(SolidColorBrush(Colors.Yellow))
-                    .renderTransform(TranslateTransform(-200., 150.))
-
-                Rectangle()
-                    .width(10.)
-                    .height(10.)
-                    .fill(SolidColorBrush(Colors.Yellow))
-                    .renderTransform(TranslateTransform(-150., -150.))
-
-                Rectangle()
-                    .width(5.)
-                    .height(5.)
-                    .fill(SolidColorBrush(Colors.Yellow))
-                    .renderTransform(TranslateTransform(150., -200.))
-            })
-                .reference(startField)
-
-            (Grid() {
                 (Grid() {
-                    Ellipse()
-                        .width(30.)
-                        .height(30.)
-                        .fill(SolidColorBrush(Colors.DarkGreen))
-
-                    Ellipse()
+                    Rectangle()
                         .width(15.)
                         .height(15.)
-                        .fill(SolidColorBrush(Colors.DarkGray))
+                        .fill(SolidColorBrush(Colors.Yellow))
                         .renderTransform(TranslateTransform(200., 120.))
-                        .reference(satellite)
 
+                    Rectangle()
+                        .width(5.)
+                        .height(5.)
+                        .fill(SolidColorBrush(Colors.Yellow))
+                        .renderTransform(TranslateTransform(-200., 150.))
+
+                    Rectangle()
+                        .width(10.)
+                        .height(10.)
+                        .fill(SolidColorBrush(Colors.Yellow))
+                        .renderTransform(TranslateTransform(-150., -150.))
+
+                    Rectangle()
+                        .width(5.)
+                        .height(5.)
+                        .fill(SolidColorBrush(Colors.Yellow))
+                        .renderTransform(TranslateTransform(150., -200.))
                 })
-                    .reference(planet)
-            })
-                .reference(orbit)
+                    .reference(startField)
 
-        })
-            .background(SolidColorBrush(Colors.Black))
-            .onLoaded(OnLoaded)
-            .reference(rootVisual)
+                (Grid() {
+                    (Grid() {
+                        Ellipse()
+                            .width(30.)
+                            .height(30.)
+                            .fill(SolidColorBrush(Colors.DarkGreen))
+
+                        Ellipse()
+                            .width(15.)
+                            .height(15.)
+                            .fill(SolidColorBrush(Colors.DarkGray))
+                            .renderTransform(TranslateTransform(200., 120.))
+                            .reference(satellite)
+
+                    })
+                        .reference(planet)
+                })
+                    .reference(orbit)
+
+            })
+                .background(SolidColorBrush(Colors.Black))
+                .onLoaded(OnLoaded)
+                .reference(rootVisual)
+        }

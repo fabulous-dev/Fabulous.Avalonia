@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open System.Numerics
 open System.Runtime.CompilerServices
 open Avalonia
@@ -20,7 +21,13 @@ module ExpressionAnimation =
 
     type Msg = OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
 
-    let init () = { Value = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Value = 0 }, []
 
     let Apply (visual: Border) (visualRoot: Visual) =
         let compositionVisual = ElementComposition.GetElementVisual(visual)
@@ -42,22 +49,36 @@ module ExpressionAnimation =
         match msg with
         | OnAttachedToVisualTree _ ->
             Apply borderRef.Value visualRootRef.Value
-            model
+            model, []
 
-    let view (_: Model) =
-        (ScrollViewer(
-            Dock() {
-                TextBlock("Resize window horizontally to change Border opacity.")
-                    .horizontalAlignment(HorizontalAlignment.Center)
-                    .dock(Dock.Top)
-                    .margin(12.)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-                EmptyBorder()
-                    .background(SolidColorBrush(Colors.Red))
-                    .width(200.)
-                    .height(200.)
-                    .reference(borderRef)
-                    .onAttachedToVisualTree(OnAttachedToVisualTree)
-            }
-        ))
-            .reference(visualRootRef)
+    let view () =
+        Component(program) {
+            (ScrollViewer(
+                Dock() {
+                    TextBlock("Resize window horizontally to change Border opacity.")
+                        .horizontalAlignment(HorizontalAlignment.Center)
+                        .dock(Dock.Top)
+                        .margin(12.)
+
+                    EmptyBorder()
+                        .background(SolidColorBrush(Colors.Red))
+                        .width(200.)
+                        .height(200.)
+                        .reference(borderRef)
+                        .onAttachedToVisualTree(OnAttachedToVisualTree)
+                }
+            ))
+                .reference(visualRootRef)
+        }

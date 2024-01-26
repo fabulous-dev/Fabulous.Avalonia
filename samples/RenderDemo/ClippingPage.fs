@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
@@ -64,39 +65,55 @@ module ClippingPage =
  C 61.721916 0.22817968 60.165597 0.038541919 58.625 0.07421875 z 
 """
 
-    let view model =
-        (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {
-            let widgetBuilder =
-                Border(
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
+
+            (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {
+                let widgetBuilder =
                     Border(
-                        TextBlock("Avalonia")
-                            .opacity(0.9)
-                            .verticalAlignment(VerticalAlignment.Center)
+                        Border(
+                            TextBlock("Avalonia")
+                                .opacity(0.9)
+                                .verticalAlignment(VerticalAlignment.Center)
+                        )
+                            .name("clipChild")
+                            .margin(4.)
+                            .background(Brushes.Red)
+                            .width(100.)
+                            .height(100.)
+                            .renderTransform(RotateTransform())
+                            .animation(
+                                Animation(KeyFrame(RotateTransform.AngleProperty, 360.).cue(1.), TimeSpan.FromSeconds(2.))
+                                    .repeatForever()
+                            )
                     )
-                        .name("clipChild")
-                        .margin(4.)
-                        .background(Brushes.Red)
+                        .name("clipped")
+                        .background(model.BrushColor)
+                        .onPointerEntered(OnPointerEnter)
+                        .onPointerExited(OnPointerExited)
                         .width(100.)
                         .height(100.)
-                        .renderTransform(RotateTransform())
-                        .animation(
-                            Animation(KeyFrame(RotateTransform.AngleProperty, 360.).cue(1.), TimeSpan.FromSeconds(2.))
-                                .repeatForever()
-                        )
-                )
-                    .name("clipped")
-                    .background(model.BrushColor)
-                    .onPointerEntered(OnPointerEnter)
-                    .onPointerExited(OnPointerExited)
-                    .width(100.)
-                    .height(100.)
 
-            if model.IsChecked then
-                widgetBuilder.clip(PathGeometry(clip, FillRule.EvenOdd))
-            else
-                widgetBuilder
+                if model.IsChecked then
+                    widgetBuilder.clip(PathGeometry(clip, FillRule.EvenOdd))
+                else
+                    widgetBuilder
 
-            CheckBox(model.IsChecked, CheckChanged, TextBlock("Apply Geometry Clip"))
-                .gridRow(1)
-        })
-            .centerHorizontal()
+                CheckBox(model.IsChecked, CheckChanged, TextBlock("Apply Geometry Clip"))
+                    .gridRow(1)
+            })
+                .centerHorizontal()
+        }

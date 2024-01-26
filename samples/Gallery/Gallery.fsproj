@@ -121,12 +121,9 @@
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />
     <Compile Include="Pages\ViewBoxPage.fs" />
-    <Compile Include="Types.fs" />
-    <Compile Include="State.fs" />
-    <Compile Include="HamburgerMenu.fs" />
+    <Compile Include="App.fs" />
     <Compile Include="MainWindow.fs" />
     <Compile Include="MainView.fs" />
-    <Compile Include="App.fs" />
   </ItemGroup>
   
   <ItemGroup>

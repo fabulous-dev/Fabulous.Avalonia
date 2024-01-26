@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
@@ -46,86 +47,102 @@ module AdornerLayerPage =
         | DoNothing -> model, []
         | Previous -> model, []
 
-    let view model =
-        Dock() {
-            (Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
-                TextBlock("Rotation").gridColumn(0).gridRow(0)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-                Slider(0., 360., model.Angle, ValueChanged)
-                    .gridColumn(1)
-                    .gridRow(0)
-            })
-                .dock(Dock.Top)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            (HStack() {
-                Button("Add adorner", AddAdorner).margin(6.)
+            Dock() {
+                (Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
+                    TextBlock("Rotation").gridColumn(0).gridRow(0)
 
-                Button("Remove adorner", RemoveAdorner).margin(6.)
-            })
-                .dock(Dock.Top)
-                .horizontalAlignment(HorizontalAlignment.Center)
+                    Slider(0., 360., model.Angle, ValueChanged)
+                        .gridColumn(1)
+                        .gridRow(0)
+                })
+                    .dock(Dock.Top)
 
-            (Grid(coldefs = [ Pixel(24.); Auto; Pixel(24.) ], rowdefs = [ Pixel(24.); Auto; Pixel(24.) ]) {
-                EmptyBorder()
-                    .background(Brushes.Red)
-                    .gridColumn(1)
-                    .gridRow(0)
+                (HStack() {
+                    Button("Add adorner", AddAdorner).margin(6.)
 
-                EmptyBorder()
-                    .background(Brushes.Blue)
-                    .gridColumn(0)
-                    .gridRow(1)
+                    Button("Remove adorner", RemoveAdorner).margin(6.)
+                })
+                    .dock(Dock.Top)
+                    .horizontalAlignment(HorizontalAlignment.Center)
 
-                EmptyBorder()
-                    .background(Brushes.Green)
-                    .gridColumn(2)
-                    .gridRow(1)
+                (Grid(coldefs = [ Pixel(24.); Auto; Pixel(24.) ], rowdefs = [ Pixel(24.); Auto; Pixel(24.) ]) {
+                    EmptyBorder()
+                        .background(Brushes.Red)
+                        .gridColumn(1)
+                        .gridRow(0)
 
-                EmptyBorder()
-                    .background(Brushes.Yellow)
-                    .gridColumn(1)
-                    .gridRow(2)
+                    EmptyBorder()
+                        .background(Brushes.Blue)
+                        .gridColumn(0)
+                        .gridRow(1)
 
-                LayoutTransformControl(
-                    Button("Adorner Button", DoNothing)
-                        .horizontalAlignment(HorizontalAlignment.Stretch)
-                        .horizontalContentAlignment(HorizontalAlignment.Center)
-                        .verticalAlignment(VerticalAlignment.Stretch)
-                        .verticalContentAlignment(VerticalAlignment.Center)
-                        .width(200.)
-                        .height(42.)
-                        .reference(buttonRef)
-                        .adorner(
-                            (Canvas() {
-                                Line(Point.Parse("-100000,0"), Point.Parse("10000,0"))
-                                    .stroke(Brushes.Cyan)
-                                    .strokeThickness(1.)
+                    EmptyBorder()
+                        .background(Brushes.Green)
+                        .gridColumn(2)
+                        .gridRow(1)
 
-                                Line(Point.Parse("-100000,42"), Point.Parse("10000,42"))
-                                    .stroke(Brushes.Cyan)
-                                    .strokeThickness(1.)
+                    EmptyBorder()
+                        .background(Brushes.Yellow)
+                        .gridColumn(1)
+                        .gridRow(2)
 
-                                Line(Point.Parse("0,-100000"), Point.Parse("0,10000"))
-                                    .stroke(Brushes.Cyan)
-                                    .strokeThickness(1.)
+                    LayoutTransformControl(
+                        Button("Adorner Button", DoNothing)
+                            .horizontalAlignment(HorizontalAlignment.Stretch)
+                            .horizontalContentAlignment(HorizontalAlignment.Center)
+                            .verticalAlignment(VerticalAlignment.Stretch)
+                            .verticalContentAlignment(VerticalAlignment.Center)
+                            .width(200.)
+                            .height(42.)
+                            .reference(buttonRef)
+                            .adorner(
+                                (Canvas() {
+                                    Line(Point.Parse("-100000,0"), Point.Parse("10000,0"))
+                                        .stroke(Brushes.Cyan)
+                                        .strokeThickness(1.)
 
-                                Line(Point.Parse("200,-100000"), Point.Parse("200,10000"))
-                                    .stroke(Brushes.Cyan)
-                                    .strokeThickness(1.)
-                            })
-                                .horizontalAlignment(HorizontalAlignment.Stretch)
-                                .verticalAlignment(VerticalAlignment.Stretch)
-                                .background(Brushes.Cyan)
-                                .isHitTestVisible(false)
-                                .opacity(0.3)
-                                .isVisible(true)
-                        )
-                )
-                    .gridColumn(1)
-                    .gridRow(1)
-                    .layoutTransform(RotateTransform(model.Angle))
+                                    Line(Point.Parse("-100000,42"), Point.Parse("10000,42"))
+                                        .stroke(Brushes.Cyan)
+                                        .strokeThickness(1.)
 
-            })
-                .verticalAlignment(VerticalAlignment.Center)
-                .horizontalAlignment(HorizontalAlignment.Center)
+                                    Line(Point.Parse("0,-100000"), Point.Parse("0,10000"))
+                                        .stroke(Brushes.Cyan)
+                                        .strokeThickness(1.)
+
+                                    Line(Point.Parse("200,-100000"), Point.Parse("200,10000"))
+                                        .stroke(Brushes.Cyan)
+                                        .strokeThickness(1.)
+                                })
+                                    .horizontalAlignment(HorizontalAlignment.Stretch)
+                                    .verticalAlignment(VerticalAlignment.Stretch)
+                                    .background(Brushes.Cyan)
+                                    .isHitTestVisible(false)
+                                    .opacity(0.3)
+                                    .isVisible(true)
+                            )
+                    )
+                        .gridColumn(1)
+                        .gridRow(1)
+                        .layoutTransform(RotateTransform(model.Angle))
+
+                })
+                    .verticalAlignment(VerticalAlignment.Center)
+                    .horizontalAlignment(HorizontalAlignment.Center)
+            }
         }

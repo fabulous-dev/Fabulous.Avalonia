@@ -1,12 +1,12 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ToggleSplitButtonPage =
     type Model =
@@ -54,21 +54,36 @@ module ToggleSplitButtonPage =
             .showMode(FlyoutShowMode.Standard)
             .placement(PlacementMode.RightEdgeAlignedTop)
 
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock($"Count: i {model.Count}")
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged)
-                .flyout(menu())
+            VStack(spacing = 15.) {
+                TextBlock($"Count: i {model.Count}")
 
-            ToggleSplitButton(
-                model.IsChecked2,
-                CheckedChanged2,
-                HStack() {
-                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(32., 32.)
-                }
-            )
-                .flyout(menu())
+                ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged)
+                    .flyout(menu())
+
+                ToggleSplitButton(
+                    model.IsChecked2,
+                    CheckedChanged2,
+                    HStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(32., 32.)
+                    }
+                )
+                    .flyout(menu())
+            }
         }

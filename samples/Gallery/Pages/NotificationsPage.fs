@@ -1,14 +1,13 @@
 namespace Gallery
 
 open System
-open Avalonia
+open System.Diagnostics
 open Avalonia.Layout
 open Fabulous.Avalonia
 open Fabulous
 open Avalonia.Controls.Notifications
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 type NotificationViewModel(title, message) =
 
@@ -37,38 +36,65 @@ module NotificationsPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
-    let notificationManager = FabApplication.Current.WindowNotificationManager
+    let notificationManager () =
+        FabApplication.Current.WindowNotificationManager
 
     let init () = { Nothing = "" }, []
 
     let update msg model =
         match msg with
         | ShowManagedNotification ->
-            notificationManager.Position <- NotificationPosition.BottomRight
-            notificationManager.Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
+            notificationManager().Position <- NotificationPosition.BottomRight
+
+            notificationManager()
+                .Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
+
             model, []
         | ShowCustomManagedNotification ->
-            notificationManager.Show(NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+            notificationManager()
+                .Show(NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+
             model, []
         | ShowNativeNotification ->
-            notificationManager.Show(Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
+            notificationManager()
+                .Show(Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
+
             model, []
         | YesCommand ->
-            notificationManager.Show(Notification("Avalonia Notifications", "Start adding notifications to your app today."))
+            notificationManager()
+                .Show(Notification("Avalonia Notifications", "Start adding notifications to your app today."))
+
             model, []
 
         | NoCommand ->
-            notificationManager.Show(Notification("Avalonia Notifications", "Start adding notifications to your app today. To find out more visit..."))
+            notificationManager()
+                .Show(Notification("Avalonia Notifications", "Start adding notifications to your app today. To find out more visit..."))
 
             model, []
 
-    let view _ =
-        (VStack(4.) {
-            Button("Show Standard Managed Notification", ShowManagedNotification)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Button("Show Custom Managed Notification", ShowCustomManagedNotification)
-            Button("Show Native Notification", ShowNativeNotification)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            CustomNotificationView.view "Avalonia Notifications" "Start adding notifications to your app today." YesCommand NoCommand
-        })
-            .horizontalAlignment(HorizontalAlignment.Left)
+            (VStack(4.) {
+                Button("Show Standard Managed Notification", ShowManagedNotification)
+
+                Button("Show Custom Managed Notification", ShowCustomManagedNotification)
+                Button("Show Native Notification", ShowNativeNotification)
+
+                CustomNotification("Avalonia Notifications", "Start adding notifications to your app today.", YesCommand, NoCommand)
+            })
+                .horizontalAlignment(HorizontalAlignment.Left)
+        }

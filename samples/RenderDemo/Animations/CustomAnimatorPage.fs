@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.Interactivity
@@ -44,13 +45,27 @@ module CustomAnimatorPage =
             Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
             model, []
 
-    let view _ =
-        Grid() {
-            TextBlock("")
-                .centerHorizontal()
-                .onLoaded(Loaded)
-                .animation(
-                    Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
-                        .repeatForever()
-                )
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component(program) {
+            Grid() {
+                TextBlock("")
+                    .centerHorizontal()
+                    .onLoaded(Loaded)
+                    .animation(
+                        Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
+                            .repeatForever()
+                    )
+            }
         }

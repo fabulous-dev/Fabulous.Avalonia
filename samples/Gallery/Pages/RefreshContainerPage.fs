@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System.Collections.ObjectModel
+open System.Diagnostics
 open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Layout
@@ -9,7 +10,6 @@ open Fabulous
 open Avalonia.Input
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module RefreshContainerPage =
     type Model = { Items: ObservableCollection<string> }
@@ -43,20 +43,36 @@ module RefreshContainerPage =
             .horizontalAlignment(HorizontalAlignment.Stretch)
             .verticalAlignment(VerticalAlignment.Top)
 
-    let view model =
-        (Dock() {
-            Label("A control that supports pull to refresh")
-                .dock(Dock.Top)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            RefreshContainer(container model)
-                .onRefreshRequested(RefreshRequested)
-                .pullDirection(PullDirection.TopToBottom)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
+
+            (Dock() {
+                Label("A control that supports pull to refresh")
+                    .dock(Dock.Top)
+
+                RefreshContainer(container model)
+                    .onRefreshRequested(RefreshRequested)
+                    .pullDirection(PullDirection.TopToBottom)
+                    .horizontalAlignment(HorizontalAlignment.Stretch)
+                    .verticalAlignment(VerticalAlignment.Stretch)
+                    .margin(5.)
+                    .dock(Dock.Bottom)
+
+            })
                 .horizontalAlignment(HorizontalAlignment.Stretch)
-                .verticalAlignment(VerticalAlignment.Stretch)
-                .margin(5.)
-                .dock(Dock.Bottom)
-
-        })
-            .horizontalAlignment(HorizontalAlignment.Stretch)
-            .verticalAlignment(VerticalAlignment.Top)
-            .height(600.)
+                .verticalAlignment(VerticalAlignment.Top)
+                .height(600.)
+        }

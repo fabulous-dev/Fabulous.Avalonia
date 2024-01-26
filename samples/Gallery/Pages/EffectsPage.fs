@@ -3,29 +3,11 @@ namespace Gallery
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module EffectsPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | Clicked
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | Clicked -> model, []
-
-    let view _ =
+    let view () =
         (VStack(spacing = 15.) {
             Image("avares://Gallery/Assets/delicate-arch.jpg")
                 .width(300.)

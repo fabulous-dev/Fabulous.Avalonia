@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System.ComponentModel
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Input
@@ -11,7 +12,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module FlyoutPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -83,63 +83,79 @@ module FlyoutPage =
             .onOpening(openMsg)
             .onClosing(closeMsg)
 
-    let view _ =
-        VStack(spacing = 15.) {
-            TextBlock("MenuFlyout")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Button("Click me", Increment)
-                .flyout(
-                    Flyout(
-                        VStack() {
-                            Button("Increment", Increment).width(100)
-                            Button("Decrement", Decrement).width(100)
-                            Button("Reset", Reset).width(100)
-                        }
-                    )
-                        .showMode(FlyoutShowMode.Standard)
-                        .placement(PlacementMode.RightEdgeAlignedTop)
-                        .onOpened(Opened)
-                        .onClosed(Closed)
-                )
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            TextBlock("Attached Flyouts")
+            VStack(spacing = 15.) {
+                TextBlock("MenuFlyout")
 
-            Border(
-                (VWrap() {
-                    TextBlock("Click panel to launch AttachedFlyout")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(10.)
-                })
-                    .attachedFlyout(
+                Button("Click me", Increment)
+                    .flyout(
                         Flyout(
-                            VWrap() {
-                                TextBlock("Attached Flyout")
-                                    .verticalAlignment(VerticalAlignment.Center)
-                                    .margin(10.)
+                            VStack() {
+                                Button("Increment", Increment).width(100)
+                                Button("Decrement", Decrement).width(100)
+                                Button("Reset", Reset).width(100)
                             }
                         )
                             .showMode(FlyoutShowMode.Standard)
                             .placement(PlacementMode.RightEdgeAlignedTop)
+                            .onOpened(Opened)
+                            .onClosed(Closed)
                     )
-                    .background(Brushes.Blue)
-                    .onTapped(OnTapped)
-            )
-                .borderBrush(Brushes.Red)
-                .borderThickness(1.)
-                .padding(10.)
 
-            TextBlock("Shared MenuFlyout")
+                TextBlock("Attached Flyouts")
 
-            Border(
-                VStack() {
-                    Button("Launch Flyout on this button", Increment)
-                        .flyout(sharedMenuFlyout MenuOpening MenuClosing)
+                Border(
+                    (VWrap() {
+                        TextBlock("Click panel to launch AttachedFlyout")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(10.)
+                    })
+                        .attachedFlyout(
+                            Flyout(
+                                VWrap() {
+                                    TextBlock("Attached Flyout")
+                                        .verticalAlignment(VerticalAlignment.Center)
+                                        .margin(10.)
+                                }
+                            )
+                                .showMode(FlyoutShowMode.Standard)
+                                .placement(PlacementMode.RightEdgeAlignedTop)
+                        )
+                        .background(Brushes.Blue)
+                        .onTapped(OnTapped)
+                )
+                    .borderBrush(Brushes.Red)
+                    .borderThickness(1.)
+                    .padding(10.)
 
-                    Button("Launch Flyout on this button", Increment)
-                        .flyout(sharedMenuFlyout MenuOpening MenuClosing)
-                }
-            )
-                .borderThickness(1.)
-                .borderBrush(Brushes.Red)
-                .padding(10.)
+                TextBlock("Shared MenuFlyout")
+
+                Border(
+                    VStack() {
+                        Button("Launch Flyout on this button", Increment)
+                            .flyout(sharedMenuFlyout MenuOpening MenuClosing)
+
+                        Button("Launch Flyout on this button", Increment)
+                            .flyout(sharedMenuFlyout MenuOpening MenuClosing)
+                    }
+                )
+                    .borderThickness(1.)
+                    .borderBrush(Brushes.Red)
+                    .padding(10.)
+            }
         }

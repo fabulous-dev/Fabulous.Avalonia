@@ -140,23 +140,7 @@ module GlyphRunGeometryControlBuilders =
 
 
 module GlyphRunPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         (Grid(coldefs = [ Star; Star ], rowdefs = [ Auto ]) {
             View.GlyphRun().gridColumn(0)
             View.GlyphRunGeometry().gridColumn(1)
