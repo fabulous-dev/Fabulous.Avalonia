@@ -82,7 +82,7 @@ module Program =
         { State = state
           View = view
           CanReuseView = ViewHelpers.canReuseView
-          SyncAction = Dispatcher.UIThread.Post }
+          SyncAction = fun fn -> Dispatcher.UIThread.Post fn }
 
     let stateless (view: unit -> WidgetBuilder<unit, 'marker>) : Program<unit, unit, unit, 'marker> =
         Program.stateful (fun _ -> ()) (fun _ _ -> ()) |> withView view
