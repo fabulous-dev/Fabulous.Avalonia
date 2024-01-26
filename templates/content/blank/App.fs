@@ -85,6 +85,7 @@ module App =
 
     //+:cnd:noEmit
 
-    let theme = FluentTheme()
+    let create () =
+        let program = Program.statefulWithCmd init update |> Program.withView app
 
-    let program = Program.statefulWithCmd init update app
+        FabulousAppBuilder.Configure(FluentTheme, program)
