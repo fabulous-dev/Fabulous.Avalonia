@@ -237,7 +237,4 @@
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.7" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />
-  </ItemGroup>
 </Project>
