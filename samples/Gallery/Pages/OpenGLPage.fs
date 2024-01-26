@@ -14,7 +14,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 open Microsoft.FSharp.NativeInterop
 
 #nowarn "9"
@@ -451,53 +450,69 @@ module OpenGLPage =
                 GLInfo = openGlRef.Value.Info },
             []
 
-    let view model =
-        (Grid() {
-            UserControl(
-                View
-                    .OpenGlPageControl((model.Yaw, model.Pitch, model.Roll, model.Disco))
-                    .reference(openGlRef)
-            )
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            VStack() { TextBlock(model.GLInfo) }
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            (Grid(coldefs = [ Star; Auto ], rowdefs = [ Star ]) {
-                (VStack() {
-                    TextBlock("Yaw")
-                    Slider(0., 10., model.Yaw, YawChanged)
-                    TextBlock("Pitch")
-                    Slider(0., 10., model.Pitch, PitchChanged)
-                    TextBlock("Roll")
-                    Slider(0., 10., model.Roll, RollChanged)
+            (Grid() {
+                UserControl(
+                    View
+                        .OpenGlPageControl((model.Yaw, model.Pitch, model.Roll, model.Disco))
+                        .reference(openGlRef)
+                )
 
-                    HStack() {
-                        TextBlock("D")
-                            .fontWeight(FontWeight.Bold)
-                            .foreground(Brushes.Crimson)
+                VStack() { TextBlock(model.GLInfo) }
 
-                        TextBlock("I")
-                            .fontWeight(FontWeight.Bold)
-                            .foreground(Brushes.Cyan)
+                (Grid(coldefs = [ Star; Auto ], rowdefs = [ Star ]) {
+                    (VStack() {
+                        TextBlock("Yaw")
+                        Slider(0., 10., model.Yaw, YawChanged)
+                        TextBlock("Pitch")
+                        Slider(0., 10., model.Pitch, PitchChanged)
+                        TextBlock("Roll")
+                        Slider(0., 10., model.Roll, RollChanged)
 
-                        TextBlock("S")
-                            .fontWeight(FontWeight.Bold)
-                            .foreground(Brushes.Green)
+                        HStack() {
+                            TextBlock("D")
+                                .fontWeight(FontWeight.Bold)
+                                .foreground(Brushes.Crimson)
 
-                        TextBlock("C")
-                            .fontWeight(FontWeight.Bold)
-                            .foreground(Brushes.Orange)
+                            TextBlock("I")
+                                .fontWeight(FontWeight.Bold)
+                                .foreground(Brushes.Cyan)
 
-                        TextBlock("O")
-                            .fontWeight(FontWeight.Bold)
-                            .foreground(Brushes.Cyan)
+                            TextBlock("S")
+                                .fontWeight(FontWeight.Bold)
+                                .foreground(Brushes.Green)
 
-                    }
+                            TextBlock("C")
+                                .fontWeight(FontWeight.Bold)
+                                .foreground(Brushes.Orange)
 
-                    Slider(0., 1., model.Disco, DiscoChanged)
+                            TextBlock("O")
+                                .fontWeight(FontWeight.Bold)
+                                .foreground(Brushes.Cyan)
+
+                        }
+
+                        Slider(0., 1., model.Disco, DiscoChanged)
+                    })
+                        .gridColumn(1)
+                        .minWidth(300.)
                 })
-                    .gridColumn(1)
-                    .minWidth(300.)
+                    .margin(20.)
             })
-                .margin(20.)
-        })
-            .onLoaded(Loaded)
+                .onLoaded(Loaded)
+        }

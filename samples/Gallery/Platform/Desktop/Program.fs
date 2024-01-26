@@ -7,7 +7,7 @@ open Gallery
 module Program =
 
     [<CompiledName "BuildAvaloniaApp">]
-    let buildAvaloniaApp () = App.create().UsePlatformDetect()
+    let buildAvaloniaApp () = MainWindow.create().UsePlatformDetect()
 
     [<EntryPoint; STAThread>]
     let main argv =

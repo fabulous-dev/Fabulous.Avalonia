@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Controls
 open Fabulous.Avalonia
 open Fabulous
@@ -24,7 +25,6 @@ module ButtonSpinnerPage =
     let update msg model =
         match msg with
         | Increment args ->
-
             let spinner = args.Source :?> ButtonSpinner
             let currentSpinValue = spinner.Content :?> string
 
@@ -41,11 +41,27 @@ module ButtonSpinnerPage =
 
             spinner.Content <- currentValue.ToString()
 
-            { model with Count = model.Count + 1 }, []
+            { Count = model.Count + 1 }, []
 
-    let view _ =
-        VStack(spacing = 15.) {
-            TextBlock("Button spinner")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ButtonSpinner("1", Increment)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
+
+            VStack(spacing = 15.) {
+                TextBlock("Button spinner")
+
+                ButtonSpinner("1", Increment)
+            }
         }

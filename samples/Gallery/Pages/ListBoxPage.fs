@@ -2,13 +2,13 @@ namespace Gallery
 
 open System
 open System.Collections.ObjectModel
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Controls.Selection
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ListBoxPage =
     type ItemModel =
@@ -112,39 +112,54 @@ module ListBoxPage =
             let index = random.Next(0, model.Items.Count - 1)
             { model with SelectedIndex = index }, []
 
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        (Dock() {
-            (VStack() {
-                TextBlock("Hosts a collection of ListBoxItem.")
-                TextBlock("Each 5th item is highlighted with nth-child(5n+3) and nth-last-child(5n+4) rules.")
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
+
+            (Dock() {
+                (VStack() {
+                    TextBlock("Hosts a collection of ListBoxItem.")
+                    TextBlock("Each 5th item is highlighted with nth-child(5n+3) and nth-last-child(5n+4) rules.")
+                })
+                    .margin(4.0)
+                    .dock(Dock.Top)
+
+                (VStack() {
+                    CheckBox("Multiple", model.Multiple, MultipleChanged)
+                    CheckBox("Toggle", model.Toggle, ToggleChanged)
+                    CheckBox("AlwaysSelected", model.AlwaysSelected, AlwaysSelectedChanged)
+                    CheckBox("AutoScrollToSelectedItem", model.AutoScrollToSelectedItem, AutoScrollToSelectedItemChanged)
+                    CheckBox("WrappedSelection", model.WrappedSelection, WrappedSelectionChanged)
+                })
+                    .margin(4.)
+                    .dock(Dock.Right)
+
+                (HStack() {
+                    Button("Add", AddItem)
+                    Button("Remove", RemoveItem)
+                    Button("Select Random Item", SelectRandomItem)
+                })
+                    .margin(4.)
+                    .dock(Dock.Bottom)
+
+                ListBox(model.Items, (fun x -> TextBlock($"{x}")))
+                    .selectionModel(model.Selection)
+                    .selectionMode(model.SelectionMode)
+                    .wrapSelection(model.WrappedSelection)
+                    .selectedIndex(model.SelectedIndex)
+
             })
-                .margin(4.0)
-                .dock(Dock.Top)
-
-            (VStack() {
-                CheckBox("Multiple", model.Multiple, MultipleChanged)
-                CheckBox("Toggle", model.Toggle, ToggleChanged)
-                CheckBox("AlwaysSelected", model.AlwaysSelected, AlwaysSelectedChanged)
-                CheckBox("AutoScrollToSelectedItem", model.AutoScrollToSelectedItem, AutoScrollToSelectedItemChanged)
-                CheckBox("WrappedSelection", model.WrappedSelection, WrappedSelectionChanged)
-            })
-                .margin(4.)
-                .dock(Dock.Right)
-
-            (HStack() {
-                Button("Add", AddItem)
-                Button("Remove", RemoveItem)
-                Button("Select Random Item", SelectRandomItem)
-            })
-                .margin(4.)
-                .dock(Dock.Bottom)
-
-            ListBox(model.Items, (fun x -> TextBlock($"{x}")))
-                .selectionModel(model.Selection)
-                .selectionMode(model.SelectionMode)
-                .wrapSelection(model.WrappedSelection)
-                .selectedIndex(model.SelectedIndex)
-
-        })
-            .margin(16.0)
+                .margin(16.0)
+        }

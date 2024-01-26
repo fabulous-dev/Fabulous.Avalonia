@@ -7,7 +7,6 @@ open Fabulous
 
 open type Fabulous.Avalonia.View
 open Fabulous.StackAllocatedCollections.StackList
-open Gallery
 
 type IFabCompositionPage =
     inherit IFabControl
@@ -24,21 +23,4 @@ module CompositionPageControlBuilders =
             WidgetBuilder<'msg, IFabCompositionPage>(CompositionPageControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module CompositionPage =
-
-    type Model = { Nothing: string }
-
-    type Msg = | NothingMsg
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = "" }, []
-
-    let update msg model =
-        match msg with
-        | NothingMsg -> model, []
-
-    let view _ = View.CompositionPageControl()
+    let view () = View.CompositionPageControl()

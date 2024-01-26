@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Controls.Models.TreeDataGrid
 open Avalonia.Controls.Selection
@@ -373,44 +374,60 @@ module CountriesPage =
 
             model, []
 
-    let view model =
-        Dock() {
-            TextBlock("").classes("realized-count").dock(Dock.Bottom)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            (VStack(4.) {
-                CheckBox("Cell Selection", model.CellSelection, CellSelectionChanged)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                Label("_Country").target(countryTextBox)
+            Dock() {
+                TextBlock("").classes("realized-count").dock(Dock.Bottom)
 
-                TextBox(model.CountryText, CountryTextChanged)
-                    .name("countryTextBox")
+                (VStack(4.) {
+                    CheckBox("Cell Selection", model.CellSelection, CellSelectionChanged)
 
-                Label("_Region").target(regionTextBox)
+                    Label("_Country").target(countryTextBox)
 
-                TextBox(model.RegionText, RegionTextChanged)
-                    .name("regionTextBox")
+                    TextBox(model.CountryText, CountryTextChanged)
+                        .name("countryTextBox")
 
-                Label("_Population").target(populationTextBox)
+                    Label("_Region").target(regionTextBox)
 
-                TextBox(model.PopulationText, PopulationTextChanged)
-                    .name("populationTextBox")
+                    TextBox(model.RegionText, RegionTextChanged)
+                        .name("regionTextBox")
 
-                Label("_Area").target(areaTextBox)
+                    Label("_Population").target(populationTextBox)
 
-                TextBox(model.AreaText, AreaTextChanged).name("areaTextBox")
+                    TextBox(model.PopulationText, PopulationTextChanged)
+                        .name("populationTextBox")
 
-                Label("_GDP").target(gdpTextBox)
+                    Label("_Area").target(areaTextBox)
 
-                TextBox(model.GDPText, GDPTextChanged).name("gdpTextBox")
+                    TextBox(model.AreaText, AreaTextChanged).name("areaTextBox")
 
-                Button("Add", AddCountryClick)
+                    Label("_GDP").target(gdpTextBox)
 
-                Button("Remove", RemoveSelected)
-            })
-                .margin(4., 0., 0., 0.)
-                .dock(Dock.Right)
+                    TextBox(model.GDPText, GDPTextChanged).name("gdpTextBox")
 
-            TreeDataGrid(model.Source)
-                .reference(countries)
-                .autoDragDropRows(true)
+                    Button("Add", AddCountryClick)
+
+                    Button("Remove", RemoveSelected)
+                })
+                    .margin(4., 0., 0., 0.)
+                    .dock(Dock.Right)
+
+                TreeDataGrid(model.Source)
+                    .reference(countries)
+                    .autoDragDropRows(true)
+            }
         }

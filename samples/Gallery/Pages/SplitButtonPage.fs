@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
 open Avalonia.Layout
@@ -8,7 +9,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module SplitButtonPage =
     type Model = { Colors: Color list }
@@ -77,18 +77,33 @@ module SplitButtonPage =
         })
             .placement(PlacementMode.Bottom)
 
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        (VStack(spacing = 16.) {
-            SplitButton("Content", Clicked).flyout(menuFlyout())
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            SplitButton("Disabled", Clicked).isEnabled(false)
+            (VStack(spacing = 16.) {
+                SplitButton("Content", Clicked).flyout(menuFlyout())
 
-            SplitButton("Re-themed", Clicked)
-                .flyout(menuFlyout())
-                .foreground(SolidColorBrush(Colors.White))
+                SplitButton("Disabled", Clicked).isEnabled(false)
 
-            SplitButton(Clicked, Rectangle().size(32., 32.).fill(SolidColorBrush(Colors.Red)))
-                .flyout(availableColors model.Colors)
-        })
-            .horizontalAlignment(HorizontalAlignment.Center)
+                SplitButton("Re-themed", Clicked)
+                    .flyout(menuFlyout())
+                    .foreground(SolidColorBrush(Colors.White))
+
+                SplitButton(Clicked, Rectangle().size(32., 32.).fill(SolidColorBrush(Colors.Red)))
+                    .flyout(availableColors model.Colors)
+            })
+                .horizontalAlignment(HorizontalAlignment.Center)
+        }

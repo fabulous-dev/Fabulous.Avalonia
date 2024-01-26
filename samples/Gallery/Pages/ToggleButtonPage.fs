@@ -1,11 +1,11 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ToggleButtonPage =
     type Model =
@@ -78,31 +78,47 @@ module ToggleButtonPage =
 
             { model with Value4 = b; Text4 = text }, []
 
-    let view model =
-        VStack(spacing = 15.) {
-            ToggleButton(model.Text1, model.Value1, CheckedChanged)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ToggleButton(
-                model.Value2,
-                CheckedChanged2,
-                HStack() {
-                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(16., 16.)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                    TextBlock(model.Text2)
-                }
-            )
+            VStack(spacing = 15.) {
+                ToggleButton(model.Text1, model.Value1, CheckedChanged)
 
-            ThreeStateToggleButton(model.Text3, model.Value3, ThreeStateChanged3)
+                ToggleButton(
+                    model.Value2,
+                    CheckedChanged2,
+                    HStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(16., 16.)
 
-            ThreeStateToggleButton(
-                model.Value4,
-                ThreeStateChanged4,
-                HStack() {
-                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(16., 16.)
+                        TextBlock(model.Text2)
+                    }
+                )
 
-                    TextBlock(model.Text4)
-                }
-            )
+                ThreeStateToggleButton(model.Text3, model.Value3, ThreeStateChanged3)
+
+                ThreeStateToggleButton(
+                    model.Value4,
+                    ThreeStateChanged4,
+                    HStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(16., 16.)
+
+                        TextBlock(model.Text4)
+                    }
+                )
+            }
         }

@@ -3,27 +3,11 @@ namespace Gallery
 open Avalonia.Media
 open Fabulous.Avalonia
 open Avalonia.Controls
-open Fabulous
 
 open type Fabulous.Avalonia.View
 
 module DockPanelPage =
-    type Model = { Nothing: bool }
-
-    type Msg = DoNothing
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         (Dock() {
             Rectangle()
                 .fill(SolidColorBrush(Colors.Red))

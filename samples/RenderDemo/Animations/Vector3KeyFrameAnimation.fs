@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open System.Numerics
 open Avalonia
 open Avalonia.Animation
@@ -18,7 +19,13 @@ module Vector3KeyFrameAnimation =
 
     type Msg = OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
 
-    let init () = { Value = 0 }
+    type CmdMsg = | NoMsg
+
+    let mapCmdMsgToCmd cmdMsg =
+        match cmdMsg with
+        | NoMsg -> Cmd.none
+
+    let init () = { Value = 0 }, []
 
     let Apply (visual: Border) =
 
@@ -42,15 +49,29 @@ module Vector3KeyFrameAnimation =
         match msg with
         | OnAttachedToVisualTree _ ->
             Apply borderRef.Value
-            model
+            model, []
 
-    let view (_: Model) =
-        (Canvas() {
-            EmptyBorder()
-                .background(Brushes.Red)
-                .width(100.)
-                .height(100.)
-                .reference(borderRef)
-                .onAttachedToVisualTree(OnAttachedToVisualTree)
-        })
-            .background(SolidColorBrush(Colors.WhiteSmoke))
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component(program) {
+            (Canvas() {
+                EmptyBorder()
+                    .background(Brushes.Red)
+                    .width(100.)
+                    .height(100.)
+                    .reference(borderRef)
+                    .onAttachedToVisualTree(OnAttachedToVisualTree)
+            })
+                .background(SolidColorBrush(Colors.WhiteSmoke))
+        }

@@ -120,23 +120,7 @@ module LineBoundsDemoControlBuilders =
 open type Fabulous.Avalonia.View
 
 module LineBoundsPage =
-    type Model = { Nothing: float }
-
-    type Msg = | Nothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = 0. }, []
-
-    let update msg model =
-        match msg with
-        | Nothing -> model, []
-
-    let view _ =
+    let view () =
         Panel() {
             LineBoundsDemoControl(15.)
                 .verticalAlignment(VerticalAlignment.Top)

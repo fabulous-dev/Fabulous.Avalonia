@@ -1,5 +1,6 @@
 namespace RenderDemo
 
+open System.Diagnostics
 open Avalonia
 open Avalonia.Layout
 open Avalonia.Media
@@ -60,55 +61,71 @@ module Transform3DPage =
             .borderThickness(2.)
             .borderBrush(SolidColorBrush(Colors.Black))
 
-    let view model =
-        Grid(coldefs = [ Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto ]) {
-            EmptyBorder()
-                .style(borderTestStyle)
-                .background(
-                    LinearGradientBrush(Point(0., 0.), Point(0., 1.)) {
-                        GradientStop(Colors.Red, 0.)
-                        GradientStop(Colors.Blue, 1.)
-                    }
-                )
-                .gridRow(0)
-                .gridColumn(2)
-                .zIndex(-2)
-                .verticalAlignment(VerticalAlignment.Center)
-                .renderTransform(Rotate3DTransform(model.AngleX, model.AngleY, model.AngleZ, model.CenterX, model.CenterY, model.CenterZ, 200.))
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            TextBlock("Center X: ").gridRow(1)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            Slider(-100., 100., model.CenterX, CenterXChanged)
-                .gridRow(1)
-                .gridColumn(2)
+            Grid(coldefs = [ Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto ]) {
+                EmptyBorder()
+                    .style(borderTestStyle)
+                    .background(
+                        LinearGradientBrush(Point(0., 0.), Point(0., 1.)) {
+                            GradientStop(Colors.Red, 0.)
+                            GradientStop(Colors.Blue, 1.)
+                        }
+                    )
+                    .gridRow(0)
+                    .gridColumn(2)
+                    .zIndex(-2)
+                    .verticalAlignment(VerticalAlignment.Center)
+                    .renderTransform(Rotate3DTransform(model.AngleX, model.AngleY, model.AngleZ, model.CenterX, model.CenterY, model.CenterZ, 200.))
 
-            TextBlock("Center Y: ").gridRow(2)
+                TextBlock("Center X: ").gridRow(1)
 
-            Slider(-100., 100., model.CenterY, CenterYChanged)
-                .gridRow(2)
-                .gridColumn(2)
+                Slider(-100., 100., model.CenterX, CenterXChanged)
+                    .gridRow(1)
+                    .gridColumn(2)
 
-            TextBlock("Center Z: ").gridRow(3)
+                TextBlock("Center Y: ").gridRow(2)
 
-            Slider(-100., 100., model.CenterZ, CenterZChanged)
-                .gridRow(3)
-                .gridColumn(2)
+                Slider(-100., 100., model.CenterY, CenterYChanged)
+                    .gridRow(2)
+                    .gridColumn(2)
 
-            TextBlock("Angle X: ").gridRow(4)
+                TextBlock("Center Z: ").gridRow(3)
 
-            Slider(-180., 180., model.AngleX, AngleXChanged)
-                .gridRow(4)
-                .gridColumn(2)
+                Slider(-100., 100., model.CenterZ, CenterZChanged)
+                    .gridRow(3)
+                    .gridColumn(2)
 
-            TextBlock("Angle Y: ").gridRow(5)
+                TextBlock("Angle X: ").gridRow(4)
 
-            Slider(-180., 180., model.AngleY, AngleYChanged)
-                .gridRow(5)
-                .gridColumn(2)
+                Slider(-180., 180., model.AngleX, AngleXChanged)
+                    .gridRow(4)
+                    .gridColumn(2)
 
-            TextBlock("Angle Z: ").gridRow(6)
+                TextBlock("Angle Y: ").gridRow(5)
 
-            Slider(-180., 180., model.AngleZ, AngleZChanged)
-                .gridRow(6)
-                .gridColumn(2)
+                Slider(-180., 180., model.AngleY, AngleYChanged)
+                    .gridRow(5)
+                    .gridColumn(2)
+
+                TextBlock("Angle Z: ").gridRow(6)
+
+                Slider(-180., 180., model.AngleZ, AngleZChanged)
+                    .gridRow(6)
+                    .gridColumn(2)
+            }
         }

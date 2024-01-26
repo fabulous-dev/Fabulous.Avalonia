@@ -1,11 +1,11 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module CheckBoxPage =
     type Model =
@@ -36,19 +36,35 @@ module CheckBoxPage =
         | ValueChanged2 b -> { model with IsChecked2 = b }, []
         | ValueChanged3 b -> { model with IsChecked3 = b }, []
 
-    let view model =
-        VStack(spacing = 15.) {
-            CheckBox(model.IsChecked1, ValueChanged)
-            CheckBox("Checked by default", model.IsChecked2, ValueChanged2)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ThreeStateCheckBox(
-                model.IsChecked3,
-                ValueChanged3,
-                VStack() {
-                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(100., 100.)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                    TextBlock("Fabulous")
-                }
-            )
+            VStack(spacing = 15.) {
+                CheckBox(model.IsChecked1, ValueChanged)
+                CheckBox("Checked by default", model.IsChecked2, ValueChanged2)
+
+                ThreeStateCheckBox(
+                    model.IsChecked3,
+                    ValueChanged3,
+                    VStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(100., 100.)
+
+                        TextBlock("Fabulous")
+                    }
+                )
+            }
         }

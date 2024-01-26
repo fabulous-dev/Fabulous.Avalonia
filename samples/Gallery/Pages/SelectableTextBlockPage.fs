@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous.Avalonia
@@ -7,7 +8,6 @@ open Fabulous
 open Avalonia.Controls
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module SelectableTextBlockPage =
     type Model = { Text: string }
@@ -27,49 +27,65 @@ module SelectableTextBlockPage =
         | CopyingToClipboard args ->
             let control = args.Source :?> SelectableTextBlock
             let s = control.SelectedText
-            { model with Text = s }, []
+            { Text = s }, []
 
-    let view model =
-        VStack(spacing = 15.) {
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            TextBlock($"Copied to clipboard {model.Text}")
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            SelectableTextBlock("Select some text. You can use the cursor to change the selection.", CopyingToClipboard)
-                .selectionBrush(SolidColorBrush(Colors.LightBlue))
-                .selectionStart(7)
-                .selectionEnd(11)
+            VStack(spacing = 15.) {
 
-            Border(
-                SelectableTextBlock(CopyingToClipboard) {
-                    Run("This ")
+                TextBlock($"Copied to clipboard {model.Text}")
 
-                    Span() { Run("is").fontWeight(FontWeight.Bold) }
+                SelectableTextBlock("Select some text. You can use the cursor to change the selection.", CopyingToClipboard)
+                    .selectionBrush(SolidColorBrush(Colors.LightBlue))
+                    .selectionStart(7)
+                    .selectionEnd(11)
 
-                    Run(" a ")
+                Border(
+                    SelectableTextBlock(CopyingToClipboard) {
+                        Run("This ")
 
-                    Span() {
-                        Run("TextBlock")
-                            .background(SolidColorBrush(Colors.Silver))
-                            .foreground(SolidColorBrush(Colors.Maroon))
+                        Span() { Run("is").fontWeight(FontWeight.Bold) }
+
+                        Run(" a ")
+
+                        Span() {
+                            Run("TextBlock")
+                                .background(SolidColorBrush(Colors.Silver))
+                                .foreground(SolidColorBrush(Colors.Maroon))
+                        }
+
+                        Run(" with ")
+
+                        Span() {
+                            Run("several")
+                                .textDecoration(TextDecoration(TextDecorationLocation.Underline))
+                        }
+
+                        Span() { Run("Span").fontStyle(FontStyle.Italic) }
+
+                        Run(" elements, ")
+
+                        Span() {
+                            Run("using a ")
+                            Bold("variety")
+                            Run(" of ")
+                            Italic("styles")
+                        }
                     }
-
-                    Run(" with ")
-
-                    Span() {
-                        Run("several")
-                            .textDecoration(TextDecoration(TextDecorationLocation.Underline))
-                    }
-
-                    Span() { Run("Span").fontStyle(FontStyle.Italic) }
-
-                    Run(" elements, ")
-
-                    Span() {
-                        Run("using a ")
-                        Bold("variety")
-                        Run(" of ")
-                        Italic("styles")
-                    }
-                }
-            )
+                )
+            }
         }

@@ -145,20 +145,4 @@ module CustomSkiaBuilders =
             WidgetBuilder<'msg, IFabCustomSkiaControl>(CustomSkiaControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module CustomSkiaPage =
-    type Model = { Value: int }
-
-    type Msg = Loaded of RoutedEventArgs
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Value = 0 }, []
-
-    let update msg model =
-        match msg with
-        | Loaded _ -> model, []
-
-    let view _ = Grid() { View.CustomSkiaControl() }
+    let view () = Grid() { View.CustomSkiaControl() }

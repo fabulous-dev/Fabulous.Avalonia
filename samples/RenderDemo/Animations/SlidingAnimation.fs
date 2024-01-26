@@ -97,18 +97,7 @@ type AnimatedControlModifiers =
         this.AddScalar(ViewExtensions.SlideBottom.WithValue(value))
 
 module SlidingAnimation =
-    type Model = { Value: int }
-
-    type Msg = NoMsg
-
-
-    let init () = { Value = 0 }
-
-    let update msg model =
-        match msg with
-        | NoMsg -> model
-
-    let view (_: Model) =
+    let view () =
         TabControl() {
             TabItem(
                 "Left",

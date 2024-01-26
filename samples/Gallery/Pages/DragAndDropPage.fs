@@ -2,6 +2,7 @@ namespace Gallery
 
 open System
 open System.Buffers
+open System.Diagnostics
 open System.Reflection
 open Avalonia.Input
 open Avalonia.Layout
@@ -261,72 +262,88 @@ module DragAndDropPage =
             DragOver args
             model, []
 
-    let view model =
-        VStack(4.) {
-            TextBlock("Example of Drag+Drop capabilities")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            (VWrap() {
-                (VStack() {
-                    Border(
-                        TextBlock(model.DragStateTex)
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .padding(16.)
-                        .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
-                        .borderThickness(2.)
-                        .onPointerPressed(OnPointPressed1)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                    Border(
-                        TextBlock(model.DragStateFilesText)
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .padding(16.)
-                        .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
-                        .borderThickness(2.)
-                        .onPointerPressed(OnPointPressed2)
+            VStack(4.) {
+                TextBlock("Example of Drag+Drop capabilities")
 
-                    Border(
-                        TextBlock(model.DragStateCustomText)
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .padding(16.)
-                        .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
-                        .borderThickness(2.)
-                        .onPointerPressed(OnPointPressed3)
-                })
-                    .horizontalAlignment(HorizontalAlignment.Center)
+                (VWrap() {
+                    (VStack() {
+                        Border(
+                            TextBlock(model.DragStateTex)
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .padding(16.)
+                            .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
+                            .borderThickness(2.)
+                            .onPointerPressed(OnPointPressed1)
 
-                (HStack(8.) {
-                    Border(
-                        TextBlock("Drop some text or files here (Copy)")
-                            .textWrapping(TextWrapping.Wrap)
+                        Border(
+                            TextBlock(model.DragStateFilesText)
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .padding(16.)
+                            .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
+                            .borderThickness(2.)
+                            .onPointerPressed(OnPointPressed2)
+
+                        Border(
+                            TextBlock(model.DragStateCustomText)
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .padding(16.)
+                            .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
+                            .borderThickness(2.)
+                            .onPointerPressed(OnPointPressed3)
+                    })
+                        .horizontalAlignment(HorizontalAlignment.Center)
+
+                    (HStack(8.) {
+                        Border(
+                            TextBlock("Drop some text or files here (Copy)")
+                                .textWrapping(TextWrapping.Wrap)
+                                .allowDrop(true)
+                                .onDrop(Drop)
+                                .onDragOver(DraggedOver)
+                        )
+                            .name("CopyTarget")
+                            .padding(16.)
+                            .maxWidth(260.)
+                            .background(SolidColorBrush(Color.Parse("#aaa")))
+
+                        Border(
+                            TextBlock("Drop some text or files here (Move)")
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .name("MoveTarget")
                             .allowDrop(true)
                             .onDrop(Drop)
                             .onDragOver(DraggedOver)
-                    )
-                        .name("CopyTarget")
-                        .padding(16.)
-                        .maxWidth(260.)
-                        .background(SolidColorBrush(Color.Parse("#aaa")))
-
-                    Border(
-                        TextBlock("Drop some text or files here (Move)")
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .name("MoveTarget")
-                        .allowDrop(true)
-                        .onDrop(Drop)
-                        .onDragOver(DraggedOver)
-                        .padding(16.)
-                        .maxWidth(260.)
-                        .background(SolidColorBrush(Color.Parse("#aaa")))
+                            .padding(16.)
+                            .maxWidth(260.)
+                            .background(SolidColorBrush(Color.Parse("#aaa")))
+                    })
+                        .horizontalAlignment(HorizontalAlignment.Center)
                 })
-                    .horizontalAlignment(HorizontalAlignment.Center)
-            })
-                .margin(8.)
-                .maxWidth(160.)
+                    .margin(8.)
+                    .maxWidth(160.)
 
-            TextBlock(model.DropStateText)
-                .textWrapping(TextWrapping.Wrap)
+                TextBlock(model.DropStateText)
+                    .textWrapping(TextWrapping.Wrap)
 
+            }
         }

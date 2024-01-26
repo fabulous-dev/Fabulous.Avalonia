@@ -4,29 +4,11 @@ open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module TickBarPage =
-    type Model = { Nothing: bool }
-
-    let init () = { Nothing = true }, []
-
-    type Msg = DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         Grid(coldefs = [ Stars(0.5); Stars(0.5) ], rowdefs = [ Stars(0.5); Stars(0.5) ]) {
             TickBar(0., 300.)
                 .fill(SolidColorBrush(Colors.LightGreen))

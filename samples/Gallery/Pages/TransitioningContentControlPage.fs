@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Animation
 open Avalonia.Animation.Easings
 open Avalonia.Controls
@@ -10,7 +11,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 // https://github.com/AvaloniaUI/Avalonia/discussions/7875
 module TransitioningContentControlPage =
@@ -97,57 +97,73 @@ module TransitioningContentControlPage =
 
             { model with Transition = transition }, []
 
-    let view model =
-        Dock(true) {
-            TextBlock("The TransitioningContentControl control allows you to show a page transition whenever the Content changes.")
-                .classes([ "h2" ])
-                .dock(Dock.Top)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ExperimentalAcrylicBorder(
-                (HStack(5.) {
-                    HeaderedContentControl(
-                        "Select a transition",
-                        ComboBox(model.Transitions, (fun x -> TextBlock(x)))
-                            .selectedIndex(0)
-                            .onSelectionChanged(TransitionChanged)
-                            .verticalAlignment(VerticalAlignment.Center)
-                    )
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                    HeaderedContentControl(
-                        "Duration",
-                        NumericUpDown(100., 1000., model.Duration, DurationChanged)
-                            .increment(250.)
-                            .verticalAlignment(VerticalAlignment.Center)
-                    )
+            Dock(true) {
+                TextBlock("The TransitioningContentControl control allows you to show a page transition whenever the Content changes.")
+                    .classes([ "h2" ])
+                    .dock(Dock.Top)
 
-                    HeaderedContentControl(
-                        "Clip to Bounds",
-                        ToggleSwitch(model.ClipToBounds, ClipToBoundsChanged)
-                            .verticalAlignment(VerticalAlignment.Center)
-                    )
-                })
-                    .margin(5.)
-                    .isSharedSizeScope(true)
-                    .centerHorizontal()
-            )
-                .material(
-                    ExperimentalAcrylicMaterial()
-                        .backgroundSource(AcrylicBackgroundSource.Digger)
-                        .tintColor(Colors.White)
+                ExperimentalAcrylicBorder(
+                    (HStack(5.) {
+                        HeaderedContentControl(
+                            "Select a transition",
+                            ComboBox(model.Transitions, (fun x -> TextBlock(x)))
+                                .selectedIndex(0)
+                                .onSelectionChanged(TransitionChanged)
+                                .verticalAlignment(VerticalAlignment.Center)
+                        )
+
+                        HeaderedContentControl(
+                            "Duration",
+                            NumericUpDown(100., 1000., model.Duration, DurationChanged)
+                                .increment(250.)
+                                .verticalAlignment(VerticalAlignment.Center)
+                        )
+
+                        HeaderedContentControl(
+                            "Clip to Bounds",
+                            ToggleSwitch(model.ClipToBounds, ClipToBoundsChanged)
+                                .verticalAlignment(VerticalAlignment.Center)
+                        )
+                    })
+                        .margin(5.)
+                        .isSharedSizeScope(true)
+                        .centerHorizontal()
                 )
-                .dock(Dock.Bottom)
-                .margin(10.)
-                .cornerRadius(5.)
+                    .material(
+                        ExperimentalAcrylicMaterial()
+                            .backgroundSource(AcrylicBackgroundSource.Digger)
+                            .tintColor(Colors.White)
+                    )
+                    .dock(Dock.Bottom)
+                    .margin(10.)
+                    .cornerRadius(5.)
 
-            Button("<", PrevImage).dock(Dock.Left)
+                Button("<", PrevImage).dock(Dock.Left)
 
-            Button(">", NextImage).dock(Dock.Right)
+                Button(">", NextImage).dock(Dock.Right)
 
-            Border(
-                TransitioningContentControl(Image(model.SelectedImage))
-                    .pageTransition(model.Transition)
-                    .size(200., 200.)
-            )
-                .margin(5.)
-                .clipToBounds(model.ClipToBounds)
+                Border(
+                    TransitioningContentControl(Image(model.SelectedImage))
+                        .pageTransition(model.Transition)
+                        .size(200., 200.)
+                )
+                    .margin(5.)
+                    .clipToBounds(model.ClipToBounds)
+            }
         }

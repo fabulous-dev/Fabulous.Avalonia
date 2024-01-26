@@ -9,22 +9,6 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module DrawingPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
     let bulb () =
         (DrawingGroup() {
             (DrawingGroup() { GeometryDrawing(brush = "#FF7F8C8D", geometry = "F1 M24,14 A2,2,0,1,1,20,14 A2,2,0,1,1,24,14 z") })
@@ -64,7 +48,7 @@ module DrawingPage =
         })
             .transform(MatrixTransform(Matrix.Parse("1,0,0,1,0,-1028.4")))
 
-    let view _ =
+    let view () =
         (Grid(rowdefs = [ Auto; Auto; Auto ], coldefs = [ Auto; Auto; Auto; Auto; Auto ]) {
             TextBlock("None").margin(3.)
 

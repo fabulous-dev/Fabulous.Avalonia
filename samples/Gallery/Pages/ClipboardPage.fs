@@ -2,6 +2,7 @@ namespace Gallery
 
 open System
 open System.Collections.Generic
+open System.Diagnostics
 open Avalonia.Controls.Notifications
 open Avalonia.Input
 open Avalonia.Platform.Storage
@@ -9,7 +10,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ClipboardPage =
     type Model = { ClipboardContentText: string }
@@ -171,41 +171,54 @@ module ClipboardPage =
         | CopyText -> model, [ TextCopied(model.ClipboardContentText) ]
         | CopiedText -> model, []
         | PasteText -> model, [ TextPasted ]
-        | PastedText s -> { model with ClipboardContentText = s }, []
+        | PastedText s -> { ClipboardContentText = s }, []
         | CopyTextDataObject -> model, [ TextDataObjectCopied(model.ClipboardContentText) ]
         | PasteTextDataObject -> model, [ TextDataObjectPasted ]
         | CopyFilesDataObject -> model, []
         | PasteFilesDataObject -> model, []
         | GetFormats -> model, []
         | Clear -> model, [ Clearing ]
-        | ClipboardContentChanged text ->
-            { model with
-                ClipboardContentText = text },
-            []
+        | ClipboardContentChanged text -> { ClipboardContentText = text }, []
         | Cleared -> model, []
 
-    let view model =
-        VStack(spacing = 4.) {
-            TextBlock("Example of ClipboardPage capabilities")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Button("Copy text to clipboard", CopyText)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            Button("Paste text from clipboard", PasteText)
+            VStack(spacing = 4.) {
+                TextBlock("Example of ClipboardPage capabilities")
 
-            Button("Copy text to clipboard (data object)", CopyTextDataObject)
+                Button("Copy text to clipboard", CopyText)
 
-            Button("Paste text from clipboard (data object)", PasteTextDataObject)
+                Button("Paste text from clipboard", PasteText)
 
-            Button("Copy files to clipboard (data object)", CopyFilesDataObject)
+                Button("Copy text to clipboard (data object)", CopyTextDataObject)
 
-            Button("Paste files from clipboard (data object)", PasteFilesDataObject)
+                Button("Paste text from clipboard (data object)", PasteTextDataObject)
 
-            Button("Get clipboard formats", GetFormats)
+                Button("Copy files to clipboard (data object)", CopyFilesDataObject)
 
-            Button("Clear clipboard", Clear)
+                Button("Paste files from clipboard (data object)", PasteFilesDataObject)
 
-            TextBox(model.ClipboardContentText, ClipboardContentChanged)
-                .watermark("Text to copy of file names per line")
-                .minHeight(100.)
-                .acceptsReturn(true)
+                Button("Get clipboard formats", GetFormats)
+
+                Button("Clear clipboard", Clear)
+
+                TextBox(model.ClipboardContentText, ClipboardContentChanged)
+                    .watermark("Text to copy of file names per line")
+                    .minHeight(100.)
+                    .acceptsReturn(true)
+            }
         }

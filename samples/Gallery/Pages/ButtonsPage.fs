@@ -1,12 +1,12 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ButtonsPage =
     type Model = { Nothing: bool }
@@ -25,43 +25,59 @@ module ButtonsPage =
         match msg with
         | Clicked -> model, []
 
-    let view _ =
-        (VStack(spacing = 15.) {
-            Button("Regular button", Clicked)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Button("Disabled button", Clicked).isEnabled(false)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            Button("White text, red background", Clicked)
-                .background(SolidColorBrush(Colors.Red))
-                .foreground(SolidColorBrush(Colors.White))
-                .width(200.)
+            (VStack(spacing = 15.) {
+                Button("Regular button", Clicked)
 
-            Button(
-                Clicked,
-                HStack() {
-                    Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(32., 32.)
+                Button("Disabled button", Clicked).isEnabled(false)
 
-                    TextBlock("Button with image")
-                }
-            )
+                Button("White text, red background", Clicked)
+                    .background(SolidColorBrush(Colors.Red))
+                    .foreground(SolidColorBrush(Colors.White))
+                    .width(200.)
 
-            Button("No Border", Clicked).borderThickness(0.)
+                Button(
+                    Clicked,
+                    HStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(32., 32.)
 
-            Button("Border Color", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                        TextBlock("Button with image")
+                    }
+                )
 
-            Button("Thick Border", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .borderThickness(4.)
+                Button("No Border", Clicked).borderThickness(0.)
 
-            Button("Disabled", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .borderThickness(4.)
-                .isEnabled(false)
+                Button("Border Color", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
 
-            Button("IsTabStop=False", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .isTabStop(false)
-        })
-            .horizontalAlignment(HorizontalAlignment.Center)
+                Button("Thick Border", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                    .borderThickness(4.)
+
+                Button("Disabled", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                    .borderThickness(4.)
+                    .isEnabled(false)
+
+                Button("IsTabStop=False", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                    .isTabStop(false)
+            })
+                .horizontalAlignment(HorizontalAlignment.Center)
+        }

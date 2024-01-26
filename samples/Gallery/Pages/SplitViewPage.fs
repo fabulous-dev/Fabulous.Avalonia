@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
@@ -7,7 +8,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module SplitViewPage =
     type Model = { IsOpen: bool }
@@ -24,30 +24,46 @@ module SplitViewPage =
 
     let update msg model =
         match msg with
-        | Open -> { model with IsOpen = not model.IsOpen }, []
+        | Open -> { IsOpen = not model.IsOpen }, []
 
-    let view model =
-        VStack() {
-            Button("Open", Open)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            SplitView(
-                TextBlock("Pane")
-                    .fontSize(24.)
-                    .verticalAlignment(VerticalAlignment.Center)
-                    .horizontalAlignment(HorizontalAlignment.Center),
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                Grid() {
-                    TextBlock("Content")
+            VStack() {
+                Button("Open", Open)
+
+                SplitView(
+                    TextBlock("Pane")
                         .fontSize(24.)
                         .verticalAlignment(VerticalAlignment.Center)
-                        .horizontalAlignment(HorizontalAlignment.Center)
+                        .horizontalAlignment(HorizontalAlignment.Center),
 
-                }
-            )
-                .isPaneOpen(model.IsOpen)
-                .paneBackground(SolidColorBrush(Colors.LightGray))
-                .useLightDismissOverlayMode(true)
+                    Grid() {
+                        TextBlock("Content")
+                            .fontSize(24.)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .horizontalAlignment(HorizontalAlignment.Center)
 
-                .displayMode(SplitViewDisplayMode.Inline)
-                .openPaneLength(296.0)
+                    }
+                )
+                    .isPaneOpen(model.IsOpen)
+                    .paneBackground(SolidColorBrush(Colors.LightGray))
+                    .useLightDismissOverlayMode(true)
+
+                    .displayMode(SplitViewDisplayMode.Inline)
+                    .openPaneLength(296.0)
+            }
         }

@@ -1,10 +1,10 @@
 namespace Gallery
 
+open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module RadioButtonPage =
     type Model =
@@ -128,76 +128,91 @@ module RadioButtonPage =
         | OnThreeStateCheckedChanged13 v -> { model with ThreeStateChecked13 = v }, []
         | OnThreeStateCheckedChanged14 v -> { model with ThreeStateChecked14 = v }, []
 
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        VStack() {
-            TextBlock("Allows the selection of a single option of many")
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            HStack(16.) {
-                VStack(16.) {
-                    RadioButton("Option 1", model.IsChecked1, OnCheckedChanged1)
+            VStack() {
+                TextBlock("Allows the selection of a single option of many")
 
-                    RadioButton("Option 1", model.IsChecked2, OnCheckedChanged2)
-                    RadioButton("Option 2", model.IsChecked3, OnCheckedChanged3)
+                HStack(16.) {
+                    VStack(16.) {
+                        RadioButton("Option 1", model.IsChecked1, OnCheckedChanged1)
 
-                    RadioButton("Disabled", model.IsChecked4, OnCheckedChanged4)
-                        .isEnabled(false)
+                        RadioButton("Option 1", model.IsChecked2, OnCheckedChanged2)
+                        RadioButton("Option 2", model.IsChecked3, OnCheckedChanged3)
 
-                    ThreeStateRadioButton("Option 3", model.ThreeStateChecked1, OnThreeStateCheckedChanged1)
-                    ThreeStateRadioButton("Option 4", model.ThreeStateChecked2, OnThreeStateCheckedChanged2)
-                }
+                        RadioButton("Disabled", model.IsChecked4, OnCheckedChanged4)
+                            .isEnabled(false)
 
-                VStack(16.) {
-                    ThreeStateRadioButton("Three States: Option 1", model.ThreeStateChecked3, OnThreeStateCheckedChanged3)
-                    ThreeStateRadioButton("Three States: Option 1", model.ThreeStateChecked4, OnThreeStateCheckedChanged4)
-                    ThreeStateRadioButton("Three States: Option 2", model.ThreeStateChecked5, OnThreeStateCheckedChanged5)
-                    ThreeStateRadioButton("Three States: Option 2", model.ThreeStateChecked6, OnThreeStateCheckedChanged6)
-                    ThreeStateRadioButton("Three States: Option 3", model.ThreeStateChecked7, OnThreeStateCheckedChanged7)
-                    ThreeStateRadioButton("Three States: Option 3", model.ThreeStateChecked8, OnThreeStateCheckedChanged8)
+                        ThreeStateRadioButton("Option 3", model.ThreeStateChecked1, OnThreeStateCheckedChanged1)
+                        ThreeStateRadioButton("Option 4", model.ThreeStateChecked2, OnThreeStateCheckedChanged2)
+                    }
 
-                    ThreeStateRadioButton("Disabled", model.ThreeStateChecked9, OnThreeStateCheckedChanged9)
-                        .isEnabled(false)
+                    VStack(16.) {
+                        ThreeStateRadioButton("Three States: Option 1", model.ThreeStateChecked3, OnThreeStateCheckedChanged3)
+                        ThreeStateRadioButton("Three States: Option 1", model.ThreeStateChecked4, OnThreeStateCheckedChanged4)
+                        ThreeStateRadioButton("Three States: Option 2", model.ThreeStateChecked5, OnThreeStateCheckedChanged5)
+                        ThreeStateRadioButton("Three States: Option 2", model.ThreeStateChecked6, OnThreeStateCheckedChanged6)
+                        ThreeStateRadioButton("Three States: Option 3", model.ThreeStateChecked7, OnThreeStateCheckedChanged7)
+                        ThreeStateRadioButton("Three States: Option 3", model.ThreeStateChecked8, OnThreeStateCheckedChanged8)
 
-                    ThreeStateRadioButton("Disabled", model.ThreeStateChecked10, OnThreeStateCheckedChanged10)
-                        .isEnabled(false)
-                }
+                        ThreeStateRadioButton("Disabled", model.ThreeStateChecked9, OnThreeStateCheckedChanged9)
+                            .isEnabled(false)
 
-                VStack(16.) {
-                    RadioButton("Group A: Option 1", model.IsChecked5, OnCheckedChanged5)
-                        .groupName("A")
+                        ThreeStateRadioButton("Disabled", model.ThreeStateChecked10, OnThreeStateCheckedChanged10)
+                            .isEnabled(false)
+                    }
 
-                    RadioButton("Group A: Option 1", model.IsChecked6, OnCheckedChanged6)
-                        .groupName("A")
+                    VStack(16.) {
+                        RadioButton("Group A: Option 1", model.IsChecked5, OnCheckedChanged5)
+                            .groupName("A")
 
-                    RadioButton("Group A: Disabled", model.IsChecked7, OnCheckedChanged7)
-                        .groupName("A")
-                        .isEnabled(false)
+                        RadioButton("Group A: Option 1", model.IsChecked6, OnCheckedChanged6)
+                            .groupName("A")
 
-                    RadioButton("Group B: Option 1", model.IsChecked8, OnCheckedChanged8)
-                        .groupName("B")
+                        RadioButton("Group A: Disabled", model.IsChecked7, OnCheckedChanged7)
+                            .groupName("A")
+                            .isEnabled(false)
 
-                    ThreeStateRadioButton("Group B: Option 3", model.ThreeStateChecked11, OnThreeStateCheckedChanged11)
-                        .groupName("B")
+                        RadioButton("Group B: Option 1", model.IsChecked8, OnCheckedChanged8)
+                            .groupName("B")
 
-                    ThreeStateRadioButton("Group B: Option 3", model.ThreeStateChecked12, OnThreeStateCheckedChanged12)
-                        .groupName("B")
-                }
+                        ThreeStateRadioButton("Group B: Option 3", model.ThreeStateChecked11, OnThreeStateCheckedChanged11)
+                            .groupName("B")
 
-                VStack(16.) {
-                    RadioButton("Group A: Option 2", model.IsChecked9, OnCheckedChanged9)
-                        .groupName("A")
+                        ThreeStateRadioButton("Group B: Option 3", model.ThreeStateChecked12, OnThreeStateCheckedChanged12)
+                            .groupName("B")
+                    }
 
-                    RadioButton("Group A: Option 2", model.IsChecked10, OnCheckedChanged10)
-                        .groupName("A")
+                    VStack(16.) {
+                        RadioButton("Group A: Option 2", model.IsChecked9, OnCheckedChanged9)
+                            .groupName("A")
 
-                    RadioButton("Group B: Option 2", model.IsChecked11, OnCheckedChanged11)
-                        .groupName("B")
+                        RadioButton("Group A: Option 2", model.IsChecked10, OnCheckedChanged10)
+                            .groupName("A")
 
-                    ThreeStateRadioButton("Group B: Option 4", model.ThreeStateChecked13, OnThreeStateCheckedChanged13)
-                        .groupName("B")
+                        RadioButton("Group B: Option 2", model.IsChecked11, OnCheckedChanged11)
+                            .groupName("B")
 
-                    ThreeStateRadioButton("Group B: Option 4", model.ThreeStateChecked14, OnThreeStateCheckedChanged14)
-                        .groupName("B")
+                        ThreeStateRadioButton("Group B: Option 4", model.ThreeStateChecked13, OnThreeStateCheckedChanged13)
+                            .groupName("B")
+
+                        ThreeStateRadioButton("Group B: Option 4", model.ThreeStateChecked14, OnThreeStateCheckedChanged14)
+                            .groupName("B")
+                    }
                 }
             }
         }

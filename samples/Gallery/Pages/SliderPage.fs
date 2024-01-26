@@ -2,13 +2,13 @@ namespace Gallery
 
 
 open System
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module SliderPage =
     type Model =
@@ -62,57 +62,73 @@ module SliderPage =
             .largeChange(0.2)
             .smallChange(0.1)
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock($"Slider value: {model.SliderValue1}")
-            Slider(model.SliderValue1, ValueChanged1)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            TextBlock($"Slider value: {model.SliderValue2}")
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            Slider(0., 100., model.SliderValue2, ValueChanged2)
-                .tickPlacement(TickPlacement.BottomRight)
-                .isSnapToTickEnabled(true)
-                .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
-                .style(sliderStyle)
+            VStack(spacing = 15.) {
+                TextBlock($"Slider value: {model.SliderValue1}")
+                Slider(model.SliderValue1, ValueChanged1)
 
-            TextBlock($"Slider value: {model.SliderValue3}")
+                TextBlock($"Slider value: {model.SliderValue2}")
 
-            Slider(0., 100., model.SliderValue3, ValueChanged3)
-                .tickPlacement(TickPlacement.BottomRight)
-                .isSnapToTickEnabled(true)
-                .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
-                .tip(ToolTip(model.SliderValue3.ToString()))
-                .tooltipPlacement(PlacementMode.Top)
-                .style(sliderStyle)
+                Slider(0., 100., model.SliderValue2, ValueChanged2)
+                    .tickPlacement(TickPlacement.BottomRight)
+                    .isSnapToTickEnabled(true)
+                    .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
+                    .style(sliderStyle)
 
-            TextBlock($"Slider value: {model.SliderValue4}")
+                TextBlock($"Slider value: {model.SliderValue3}")
 
-            Slider(0., 100., model.SliderValue4, ValueChanged4)
-                .dataValidationErrors([ Exception() ])
-                .style(sliderStyle)
+                Slider(0., 100., model.SliderValue3, ValueChanged3)
+                    .tickPlacement(TickPlacement.BottomRight)
+                    .isSnapToTickEnabled(true)
+                    .ticks([ 0.; 20.; 25.; 40.; 75.; 100. ])
+                    .tip(ToolTip(model.SliderValue3.ToString()))
+                    .tooltipPlacement(PlacementMode.Top)
+                    .style(sliderStyle)
 
-            TextBlock($"Slider value: {model.SliderValue5}")
+                TextBlock($"Slider value: {model.SliderValue4}")
 
-            Slider(0., 100., model.SliderValue5, ValueChanged5)
-                .isDirectionReversed(true)
-                .style(sliderStyle)
+                Slider(0., 100., model.SliderValue4, ValueChanged4)
+                    .dataValidationErrors([ Exception() ])
+                    .style(sliderStyle)
 
-            TextBlock($"Slider value: {model.SliderValue6}")
+                TextBlock($"Slider value: {model.SliderValue5}")
 
-            Slider(0., 100., model.SliderValue6, ValueChanged6)
-                .height(300.)
-                .orientation(Orientation.Vertical)
-                .tickPlacement(TickPlacement.Outside)
-                .isSnapToTickEnabled(true)
-                .style(sliderStyle)
+                Slider(0., 100., model.SliderValue5, ValueChanged5)
+                    .isDirectionReversed(true)
+                    .style(sliderStyle)
 
-            TextBlock($"Slider value: {model.SliderValue7}")
+                TextBlock($"Slider value: {model.SliderValue6}")
 
-            Slider(0., 100., model.SliderValue7, ValueChanged7)
-                .height(300.)
-                .orientation(Orientation.Vertical)
-                .tickPlacement(TickPlacement.Outside)
-                .isSnapToTickEnabled(true)
-                .isDirectionReversed(true)
-                .style(sliderStyle)
+                Slider(0., 100., model.SliderValue6, ValueChanged6)
+                    .height(300.)
+                    .orientation(Orientation.Vertical)
+                    .tickPlacement(TickPlacement.Outside)
+                    .isSnapToTickEnabled(true)
+                    .style(sliderStyle)
+
+                TextBlock($"Slider value: {model.SliderValue7}")
+
+                Slider(0., 100., model.SliderValue7, ValueChanged7)
+                    .height(300.)
+                    .orientation(Orientation.Vertical)
+                    .tickPlacement(TickPlacement.Outside)
+                    .isSnapToTickEnabled(true)
+                    .isDirectionReversed(true)
+                    .style(sliderStyle)
+            }
         }

@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System
+open System.Diagnostics
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
@@ -349,87 +350,103 @@ module AutoCompleteBoxPage =
                 }
         }
 
-    let view model =
-        VStack() {
-            TextBlock("A control into which the user can input text")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            UniformGrid() {
-                VStack() {
-                    TextBlock("MinimumPrefixLength: 1")
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                    AutoCompleteBox("", TextChanged, model.Capitals)
-                        .minimumPrefixLength(1)
-                        .watermark("Select an item")
-                }
+            VStack() {
+                TextBlock("A control into which the user can input text")
 
-                VStack() {
-                    TextBlock("MinimumPrefixLength: 3")
+                UniformGrid() {
+                    VStack() {
+                        TextBlock("MinimumPrefixLength: 1")
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .watermark("Select an item")
-                        .minimumPrefixLength(3)
-                }
+                        AutoCompleteBox("", TextChanged, model.Capitals)
+                            .minimumPrefixLength(1)
+                            .watermark("Select an item")
+                    }
 
-                VStack() {
-                    TextBlock("MinimumPopulateDelay: 1s")
+                    VStack() {
+                        TextBlock("MinimumPrefixLength: 3")
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .watermark("Select an item")
-                        .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
-                }
+                        AutoCompleteBox("", TextChanged, model.Items)
+                            .watermark("Select an item")
+                            .minimumPrefixLength(3)
+                    }
 
-                VStack() {
-                    TextBlock("MaxDropDownHeight: 60")
+                    VStack() {
+                        TextBlock("MinimumPopulateDelay: 1s")
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .maxDropDownHeight(60.0)
-                        .watermark("Select an item")
-                }
+                        AutoCompleteBox("", TextChanged, model.Items)
+                            .watermark("Select an item")
+                            .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
+                    }
 
-                VStack() {
-                    TextBlock("Disabled")
+                    VStack() {
+                        TextBlock("MaxDropDownHeight: 60")
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .isEnabled(false)
-                        .watermark("Select an item")
-                }
+                        AutoCompleteBox("", TextChanged, model.Items)
+                            .maxDropDownHeight(60.0)
+                            .watermark("Select an item")
+                    }
 
-                VStack() {
-                    TextBlock("Multi-Binding")
+                    VStack() {
+                        TextBlock("Disabled")
 
-                    AutoCompleteBox("", TextChanged, model.Capitals)
-                        .watermark("Select an item")
-                        .reference(multiBindingBoxRef)
-                        .filterMode(AutoCompleteFilterMode.Contains)
-                        .onLoaded(MultiBindingLoaded)
-                }
+                        AutoCompleteBox("", TextChanged, model.Items)
+                            .isEnabled(false)
+                            .watermark("Select an item")
+                    }
 
-                VStack() {
-                    TextBlock("AsyncBox")
+                    VStack() {
+                        TextBlock("Multi-Binding")
 
-                    AutoCompleteBox("", TextChanged, getItemsAsync)
-                        .watermark("Select an item")
-                        .filterMode(AutoCompleteFilterMode.Contains)
-                }
+                        AutoCompleteBox("", TextChanged, model.Capitals)
+                            .watermark("Select an item")
+                            .reference(multiBindingBoxRef)
+                            .filterMode(AutoCompleteFilterMode.Contains)
+                            .onLoaded(MultiBindingLoaded)
+                    }
 
-                VStack() {
-                    TextBlock("Custom AutoComplete")
+                    VStack() {
+                        TextBlock("AsyncBox")
 
-                    AutoCompleteBox("", TextChanged, model.Custom)
-                        .watermark("Select an item")
-                        .reference(customAutoCompleteBoxRef)
-                        .filterMode(AutoCompleteFilterMode.None)
-                        .onLoaded(CustomAutoBoxLoaded)
+                        AutoCompleteBox("", TextChanged, getItemsAsync)
+                            .watermark("Select an item")
+                            .filterMode(AutoCompleteFilterMode.Contains)
+                    }
 
-                }
+                    VStack() {
+                        TextBlock("Custom AutoComplete")
 
-                VStack() {
-                    TextBlock("With Validation Errors")
+                        AutoCompleteBox("", TextChanged, model.Custom)
+                            .watermark("Select an item")
+                            .reference(customAutoCompleteBoxRef)
+                            .filterMode(AutoCompleteFilterMode.None)
+                            .onLoaded(CustomAutoBoxLoaded)
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .name("ValidationErrors")
-                        .filterMode(AutoCompleteFilterMode.None)
-                        .dataValidationErrors([ Exception() ])
+                    }
+
+                    VStack() {
+                        TextBlock("With Validation Errors")
+
+                        AutoCompleteBox("", TextChanged, model.Items)
+                            .name("ValidationErrors")
+                            .filterMode(AutoCompleteFilterMode.None)
+                            .dataValidationErrors([ Exception() ])
+                    }
                 }
             }
         }

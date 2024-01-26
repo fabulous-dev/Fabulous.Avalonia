@@ -1,6 +1,7 @@
 namespace RenderDemo
 
 open System
+open System.Diagnostics
 open System.Threading
 open Avalonia
 open Avalonia.Animation.Easings
@@ -205,33 +206,49 @@ module ImplicitCanvasAnimationsPage =
 
         | ButtonFps -> model, []
 
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        Grid(coldefs = [], rowdefs = [ Star; Auto ]) {
-            Canvas(canvasRef)
-                .clipToBounds(true)
-                .background(Brushes.WhiteSmoke)
-                .gridRow(0)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-            (HStack(6.) {
-                Button("Clear", ButtonClear)
+            Grid(coldefs = [], rowdefs = [ Star; Auto ]) {
+                Canvas(canvasRef)
+                    .clipToBounds(true)
+                    .background(Brushes.WhiteSmoke)
+                    .gridRow(0)
+
+                (HStack(6.) {
+                    Button("Clear", ButtonClear)
+                        .horizontalAlignment(HorizontalAlignment.Center)
+
+                    Button((if model.BenchmarkRunning then "Stop" else "Benchmark"), ButtonBenchmark)
+                        .horizontalAlignment(HorizontalAlignment.Center)
+
+                    Button("Add", ButtonAdd)
+                        .horizontalAlignment(HorizontalAlignment.Center)
+
+                })
+                    .margin(0., 6)
                     .horizontalAlignment(HorizontalAlignment.Center)
+                    .gridRow(1)
 
-                Button((if model.BenchmarkRunning then "Stop" else "Benchmark"), ButtonBenchmark)
-                    .horizontalAlignment(HorizontalAlignment.Center)
+                TextBlock($"Items: {model.ChildrenCount}")
+                    .margin(6.)
+                    .verticalAlignment(VerticalAlignment.Center)
+                    .horizontalAlignment(HorizontalAlignment.Left)
+                    .gridRow(1)
 
-                Button("Add", ButtonAdd)
-                    .horizontalAlignment(HorizontalAlignment.Center)
-
-            })
-                .margin(0., 6)
-                .horizontalAlignment(HorizontalAlignment.Center)
-                .gridRow(1)
-
-            TextBlock($"Items: {model.ChildrenCount}")
-                .margin(6.)
-                .verticalAlignment(VerticalAlignment.Center)
-                .horizontalAlignment(HorizontalAlignment.Left)
-                .gridRow(1)
+            }
 
         }

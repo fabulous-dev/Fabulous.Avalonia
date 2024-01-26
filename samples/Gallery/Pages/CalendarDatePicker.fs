@@ -1,11 +1,11 @@
 namespace Gallery
 
 open System
+open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module CalendarDatePickerPage =
     type Model = { Date: DateTime option }
@@ -22,22 +22,38 @@ module CalendarDatePickerPage =
 
     let update msg model =
         match msg with
-        | SelectedDateChanged dateTime -> { model with Date = dateTime }, []
+        | SelectedDateChanged dateTime -> { Date = dateTime }, []
 
     let startFromYesterday = DateTime.Today.Subtract(TimeSpan.FromDays(1.0))
 
     let showUpToTomorrow = DateTime.Today.Add(TimeSpan.FromDays(1.0))
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock($"Selected date: {model.Date}")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            CalendarDatePicker(model.Date, SelectedDateChanged)
-                .watermark("Select a date")
-                .displayDateStart(Some startFromYesterday)
-                .displayDateEnd(Some showUpToTomorrow)
-                .isTodayHighlighted(true)
-                .useFloatingWatermark(true)
-                .isDropDownOpen(true)
-                .centerHorizontal()
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
+
+            VStack(spacing = 15.) {
+                TextBlock($"Selected date: {model.Date}")
+
+                CalendarDatePicker(model.Date, SelectedDateChanged)
+                    .watermark("Select a date")
+                    .displayDateStart(Some startFromYesterday)
+                    .displayDateEnd(Some showUpToTomorrow)
+                    .isTodayHighlighted(true)
+                    .useFloatingWatermark(true)
+                    .isDropDownOpen(true)
+                    .centerHorizontal()
+            }
         }

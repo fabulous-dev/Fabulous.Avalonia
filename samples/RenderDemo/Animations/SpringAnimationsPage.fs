@@ -10,22 +10,6 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module SpringAnimationsPage =
-    type Model = { Value: int }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let init () = { Value = 0 }, []
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this
             .child(

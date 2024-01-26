@@ -1,10 +1,10 @@
 namespace Gallery
 
+open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ToggleSwitchPage =
     type Model =
@@ -45,15 +45,31 @@ module ToggleSwitchPage =
             []
         | IntermediaryChanged -> model, []
 
-    let view model =
-        VStack(spacing = 15.) {
-            ToggleSwitch(model.Value1, ValueChanged)
-                .offContent(TextBlock("Nooo"))
-                .onContent("Yessss")
-                .content("Toggle me")
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ThreeStateToggleSwitch(model.Value2, ValueChanged1)
-                .offContent("Nooo")
-                .onContent(TextBlock("Yessss"))
-                .content(model.Text2)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
+
+            VStack(spacing = 15.) {
+                ToggleSwitch(model.Value1, ValueChanged)
+                    .offContent(TextBlock("Nooo"))
+                    .onContent("Yessss")
+                    .content("Toggle me")
+
+                ThreeStateToggleSwitch(model.Value2, ValueChanged1)
+                    .offContent("Nooo")
+                    .onContent(TextBlock("Yessss"))
+                    .content(model.Text2)
+            }
         }

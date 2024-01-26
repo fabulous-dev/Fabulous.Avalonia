@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System
+open System.Diagnostics
 open System.Globalization
 open Avalonia
 open Avalonia.Controls
@@ -153,260 +154,276 @@ module NumericUpDownPage =
                 with _ ->
                     AvaloniaProperty.UnsetValue }
 
-    let view model =
-        VStack(spacing = 4.) {
-            TextBlock("Features:")
-                .margin(2., 5., 2., 2.)
-                .fontSize(14.)
-                .fontWeight(FontWeight.Bold)
+    let program =
+        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            VWrap() {
-                Grid(coldefs = [ Auto; Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto ]) {
-                    TextBlock("ShowButtonSpinner:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
+    let view () =
+        Component(program) {
+            let! model = Mvu.State
 
-                    CheckBox(model.ShowButtonSpinner, ShowButtonSpinnerValueChanged)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(0)
-                        .gridColumn(1)
+            VStack(spacing = 4.) {
+                TextBlock("Features:")
+                    .margin(2., 5., 2., 2.)
+                    .fontSize(14.)
+                    .fontWeight(FontWeight.Bold)
 
-                    TextBlock("IsReadOnly:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(1)
-                        .gridColumn(0)
+                VWrap() {
+                    Grid(coldefs = [ Auto; Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto ]) {
+                        TextBlock("ShowButtonSpinner:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
 
-                    CheckBox(model.IsReadOnly, IsReadOnlyValueChanged)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(1)
-                        .gridColumn(1)
+                        CheckBox(model.ShowButtonSpinner, ShowButtonSpinnerValueChanged)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(0)
+                            .gridColumn(1)
 
-                    TextBlock("AllowSpin:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(2)
-                        .gridColumn(0)
+                        TextBlock("IsReadOnly:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(1)
+                            .gridColumn(0)
 
-                    CheckBox(model.AllowSpin, AllowSpinValueChanged)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(2)
-                        .gridColumn(1)
+                        CheckBox(model.IsReadOnly, IsReadOnlyValueChanged)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(1)
+                            .gridColumn(1)
 
-                    TextBlock("Number:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(3)
-                        .gridColumn(0)
+                        TextBlock("AllowSpin:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(2)
+                            .gridColumn(0)
 
-                    CheckBox(model.ClipValueToMinMax, ClipValueToMinMaxValueChanged)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(3)
-                        .gridColumn(1)
+                        CheckBox(model.AllowSpin, AllowSpinValueChanged)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(2)
+                            .gridColumn(1)
+
+                        TextBlock("Number:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(3)
+                            .gridColumn(0)
+
+                        CheckBox(model.ClipValueToMinMax, ClipValueToMinMaxValueChanged)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(3)
+                            .gridColumn(1)
+                    }
+
+                    (Grid(coldefs = [ Auto; Pixel(120.) ], rowdefs = [ Auto; Auto; Auto; Auto; Auto ]) {
+                        TextBlock("FormatString:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+
+                        ComboBox(
+                            model.Formats,
+                            fun format ->
+                                HStack(2.) {
+                                    TextBlock(format.Name)
+                                    TextBlock("-")
+                                    TextBlock(format.Value)
+                                }
+                        )
+                            .gridRow(0)
+                            .gridColumn(1)
+                            .selectedIndex(0)
+                            .margin(2.)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .onSelectionChanged(SelectedFormatChanged)
+
+                        TextBlock("ButtonSpinnerLocation:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(1)
+                            .gridColumn(0)
+
+                        ComboBox(model.SpinnerLocations, (fun format -> TextBlock(format)))
+                            .gridRow(1)
+                            .gridColumn(1)
+                            .selectedIndex(0)
+                            .margin(2.)
+                            .verticalAlignment(VerticalAlignment.Center)
+
+                        TextBlock("CultureInfo:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(2)
+                            .gridColumn(0)
+
+
+                        ComboBox(model.Cultures, (fun culture -> TextBlock(culture.Name)))
+                            .gridRow(2)
+                            .gridColumn(1)
+                            .selectedIndex(0)
+                            .margin(2.)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .onSelectionChanged(CultureSelectionChanged)
+
+                        TextBlock("Watermark:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(3)
+                            .gridColumn(0)
+
+                        TextBox(model.Watermark, WatermarkTextChanged)
+                            .gridRow(3)
+                            .gridColumn(1)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+
+                        TextBlock("Text:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(4)
+                            .gridColumn(0)
+
+                        TextBox(model.Text, TextChanged)
+                            .gridRow(4)
+                            .gridColumn(1)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                    })
+                        .margin(8.)
+
+                    Grid(coldefs = [ Auto; Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto ]) {
+                        TextBlock("Minimum:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(0)
+                            .gridColumn(0)
+
+                        NumericUpDown(0., 10., model.MinValue, MinimumValueChanged)
+                            .numberFormat(model.NumberFormat)
+                            .gridRow(0)
+                            .gridColumn(1)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .horizontalAlignment(HorizontalAlignment.Center)
+
+                        TextBlock("Maximum:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(1)
+                            .gridColumn(0)
+
+                        NumericUpDown(0., 10., model.MaxValue, MaximumValueChanged)
+                            .numberFormat(model.NumberFormat)
+                            .gridRow(1)
+                            .gridColumn(1)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .horizontalAlignment(HorizontalAlignment.Center)
+
+                        TextBlock("Increment:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(2)
+                            .gridColumn(0)
+
+                        NumericUpDown(0., 10., model.IncrementValue, IncrementValueChanged)
+                            .gridRow(2)
+                            .gridColumn(1)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .horizontalAlignment(HorizontalAlignment.Center)
+
+                        TextBlock("Value:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .gridRow(3)
+                            .gridColumn(0)
+
+                        NumericUpDown(0., 10., model.DecimalValue, DecimalValueChanged)
+                            .gridRow(3)
+                            .gridColumn(1)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .margin(2.)
+                            .horizontalAlignment(HorizontalAlignment.Center)
+                    }
                 }
 
-                (Grid(coldefs = [ Auto; Pixel(120.) ], rowdefs = [ Auto; Auto; Auto; Auto; Auto ]) {
-                    TextBlock("FormatString:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
+                VWrap() {
+                    VStack() {
+                        TextBlock("Usage of decimal NumericUpDown:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .fontWeight(FontWeight.Bold)
+                            .fontSize(14.)
+                            .margin(2.)
 
-                    ComboBox(
-                        model.Formats,
-                        fun format ->
-                            HStack(2.) {
-                                TextBlock(format.Name)
-                                TextBlock("-")
-                                TextBlock(format.Value)
-                            }
-                    )
-                        .gridRow(0)
-                        .gridColumn(1)
-                        .selectedIndex(0)
-                        .margin(2.)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .onSelectionChanged(SelectedFormatChanged)
+                        NumericUpDown(0., 10., model.DecimalValue, DecimalValueChanged)
+                            .increment(0.5)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .numberFormat(model.NumberFormat)
+                            .formatString(model.SelectedFormat.Value)
+                            .watermark("Enter text")
+                            .textConverter(cultureConverter())
+                            .margin(2.)
+                    }
 
-                    TextBlock("ButtonSpinnerLocation:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(1)
-                        .gridColumn(0)
+                    VStack() {
+                        TextBlock("Usage of double NumericUpDown:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .fontWeight(FontWeight.Bold)
+                            .fontSize(14.)
+                            .margin(2.)
 
-                    ComboBox(model.SpinnerLocations, (fun format -> TextBlock(format)))
-                        .gridRow(1)
-                        .gridColumn(1)
-                        .selectedIndex(0)
-                        .margin(2.)
-                        .verticalAlignment(VerticalAlignment.Center)
+                        NumericUpDown(0., 10., model.DoubleValue, DoubleValueChanged)
+                            .increment(0.5)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .numberFormat(model.NumberFormat)
+                            .formatString(model.SelectedFormat.Value)
+                            .watermark("Enter text")
+                            .margin(2.)
+                    }
 
-                    TextBlock("CultureInfo:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(2)
-                        .gridColumn(0)
+                    VStack() {
+                        TextBlock("NumericUpDown with Validation Errors:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .fontWeight(FontWeight.Bold)
+                            .fontSize(14.)
+                            .margin(2.)
 
+                        NumericUpDown(0, 10., model.DecimalValue, DecimalValueChanged)
+                            .increment(0.5)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .numberFormat(model.NumberFormat)
+                            .formatString(model.SelectedFormat.Value)
+                            .watermark("Enter text")
+                            .margin(2.)
+                            .dataValidationErrors([ Exception() ])
+                    }
 
-                    ComboBox(model.Cultures, (fun culture -> TextBlock(culture.Name)))
-                        .gridRow(2)
-                        .gridColumn(1)
-                        .selectedIndex(0)
-                        .margin(2.)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .onSelectionChanged(CultureSelectionChanged)
+                    VStack() {
+                        TextBlock("NumericUpDown in HEX mode:")
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .fontWeight(FontWeight.Bold)
+                            .fontSize(14.)
+                            .margin(2.)
 
-                    TextBlock("Watermark:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(3)
-                        .gridColumn(0)
-
-                    TextBox(model.Watermark, WatermarkTextChanged)
-                        .gridRow(3)
-                        .gridColumn(1)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-
-                    TextBlock("Text:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(4)
-                        .gridColumn(0)
-
-                    TextBox(model.Text, TextChanged)
-                        .gridRow(4)
-                        .gridColumn(1)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                })
-                    .margin(8.)
-
-                Grid(coldefs = [ Auto; Auto ], rowdefs = [ Auto; Auto; Auto; Auto; Auto ]) {
-                    TextBlock("Minimum:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(0)
-                        .gridColumn(0)
-
-                    NumericUpDown(0., 10., model.MinValue, MinimumValueChanged)
-                        .numberFormat(model.NumberFormat)
-                        .gridRow(0)
-                        .gridColumn(1)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .horizontalAlignment(HorizontalAlignment.Center)
-
-                    TextBlock("Maximum:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(1)
-                        .gridColumn(0)
-
-                    NumericUpDown(0., 10., model.MaxValue, MaximumValueChanged)
-                        .numberFormat(model.NumberFormat)
-                        .gridRow(1)
-                        .gridColumn(1)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .horizontalAlignment(HorizontalAlignment.Center)
-
-                    TextBlock("Increment:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(2)
-                        .gridColumn(0)
-
-                    NumericUpDown(0., 10., model.IncrementValue, IncrementValueChanged)
-                        .gridRow(2)
-                        .gridColumn(1)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .horizontalAlignment(HorizontalAlignment.Center)
-
-                    TextBlock("Value:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .gridRow(3)
-                        .gridColumn(0)
-
-                    NumericUpDown(0., 10., model.DecimalValue, DecimalValueChanged)
-                        .gridRow(3)
-                        .gridColumn(1)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .margin(2.)
-                        .horizontalAlignment(HorizontalAlignment.Center)
-                }
-            }
-
-            VWrap() {
-                VStack() {
-                    TextBlock("Usage of decimal NumericUpDown:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .fontWeight(FontWeight.Bold)
-                        .fontSize(14.)
-                        .margin(2.)
-
-                    NumericUpDown(0., 10., model.DecimalValue, DecimalValueChanged)
-                        .increment(0.5)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .numberFormat(model.NumberFormat)
-                        .formatString(model.SelectedFormat.Value)
-                        .watermark("Enter text")
-                        .textConverter(cultureConverter())
-                        .margin(2.)
-                }
-
-                VStack() {
-                    TextBlock("Usage of double NumericUpDown:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .fontWeight(FontWeight.Bold)
-                        .fontSize(14.)
-                        .margin(2.)
-
-                    NumericUpDown(0., 10., model.DoubleValue, DoubleValueChanged)
-                        .increment(0.5)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .numberFormat(model.NumberFormat)
-                        .formatString(model.SelectedFormat.Value)
-                        .watermark("Enter text")
-                        .margin(2.)
-                }
-
-                VStack() {
-                    TextBlock("NumericUpDown with Validation Errors:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .fontWeight(FontWeight.Bold)
-                        .fontSize(14.)
-                        .margin(2.)
-
-                    NumericUpDown(0, 10., model.DecimalValue, DecimalValueChanged)
-                        .increment(0.5)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .numberFormat(model.NumberFormat)
-                        .formatString(model.SelectedFormat.Value)
-                        .watermark("Enter text")
-                        .margin(2.)
-                        .dataValidationErrors([ Exception() ])
-                }
-
-                VStack() {
-                    TextBlock("NumericUpDown in HEX mode:")
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .fontWeight(FontWeight.Bold)
-                        .fontSize(14.)
-                        .margin(2.)
-
-                    NumericUpDown(0., 10., model.Value, ValueChanged)
-                        .increment(0.5)
-                        .verticalAlignment(VerticalAlignment.Center)
-                        .numberFormat(model.NumberFormat)
-                        .formatString(model.SelectedFormat.Value)
-                        .watermark("Enter text")
-                        .margin(2.)
-                        .textConverter(hexConverter())
+                        NumericUpDown(0., 10., model.Value, ValueChanged)
+                            .increment(0.5)
+                            .verticalAlignment(VerticalAlignment.Center)
+                            .numberFormat(model.NumberFormat)
+                            .formatString(model.SelectedFormat.Value)
+                            .watermark("Enter text")
+                            .margin(2.)
+                            .textConverter(hexConverter())
+                    }
                 }
             }
         }
