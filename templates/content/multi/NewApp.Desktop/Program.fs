@@ -11,11 +11,8 @@ module Program =
     // yet and stuff might break.
     [<STAThread; EntryPoint>]
     let Main (args: string array) =
-        AppBuilder
-            .Configure(fun () ->
-                let app = Program.startApplication App.program
-                app.Styles.Add(App.theme)
-                app)
+        App
+            .create()
             .UsePlatformDetect()
             .LogToTrace(?level = None)
             .StartWithClassicDesktopLifetime(args)

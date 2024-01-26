@@ -13,11 +13,7 @@ module Program =
     do ()
 
     [<CompiledName "BuildAvaloniaApp">]
-    let buildAvaloniaApp () =
-        AppBuilder.Configure(fun () ->
-            let app = Program.startApplication App.program
-            app.Styles.Add(App.theme)
-            app)
+    let buildAvaloniaApp () = AppBuilder.create()
 
     [<EntryPoint>]
     let main argv =
