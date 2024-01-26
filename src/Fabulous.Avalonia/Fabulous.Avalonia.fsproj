@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <UseLocalProjectReference>false</UseLocalProjectReference>
+    
     <TargetFrameworks>net8.0</TargetFrameworks>
     <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
@@ -35,6 +37,7 @@
     <Compile Include="Attributes.fs" />
     <Compile Include="VirtualizedCollection.fs" />
     <Compile Include="Widgets.fs" />
+    <Compile Include="Component.fs" />
     <Compile Include="Views\_RenderOptions.fs" />
     <Compile Include="Views\_Animatable.fs" />
     <Compile Include="Views\_StyledElement.fs" />
@@ -213,19 +216,23 @@
     <Compile Include="ThemeAware.fs" />
     <Compile Include="Any.fs" />
     <Compile Include="Program.fs" />
-  </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <Compile Include="Platform\iOS\FabSceneDelegate.fs" />
+    <Compile Include="AppBuilderExtensions.fs" />
   </ItemGroup>
   <ItemGroup>
     <!--
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Include="Fabulous" VersionOverride="[2.4.0, 2.5.0)" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[2.5.0-pre5]" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.7" />
     <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == ''">
+    <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.7" />
+  </ItemGroup>
+  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
+    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.7" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.7" />

@@ -1,11 +1,10 @@
-namespace Gallery.Desktop
+namespace HelloComponent.Desktop
 
 open System
 open Avalonia
-open Gallery
+open HelloComponent
 
 module Program =
-
     [<CompiledName "BuildAvaloniaApp">]
     let buildAvaloniaApp () = App.create().UsePlatformDetect()
 
