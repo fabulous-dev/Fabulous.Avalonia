@@ -9,6 +9,8 @@ open UIKit
 type SceneDelegate() =
     inherit UIWindowSceneDelegate()
 
+    override val Window = null with get, set
+
     override this.WillConnect(scene: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
         App.create().UseiOS(this, scene :?> UIWindowScene) |> ignore
 

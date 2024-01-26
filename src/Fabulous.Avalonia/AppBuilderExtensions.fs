@@ -8,23 +8,25 @@ open Fabulous
 type FabulousAppBuilder private () =
     static member inline private Configure(canReuseView, logger, [<InlineIfLambda>] themeFn: unit -> #IStyle, [<InlineIfLambda>] viewFn: unit -> Widget) =
         AppBuilder.Configure(fun () ->
-            FabApplication(
-                OnFrameworkInitialized =
-                    fun app ->
-                        app.Styles.Add(themeFn())
+            let app =
+                FabApplication(
+                    OnFrameworkInitialized =
+                        fun app ->
+                            let widget = viewFn()
 
-                        let widget = viewFn()
+                            let treeContext: ViewTreeContext =
+                                { CanReuseView = canReuseView
+                                  GetViewNode = ViewNode.get
+                                  GetComponent = Component.get
+                                  Logger = logger
+                                  Dispatch = ignore }
 
-                        let treeContext: ViewTreeContext =
-                            { CanReuseView = canReuseView
-                              GetViewNode = ViewNode.get
-                              GetComponent = Component.get
-                              Logger = logger
-                              Dispatch = ignore }
+                            let def = WidgetDefinitionStore.get widget.Key
+                            def.AttachView(widget, treeContext, ValueNone, app) |> ignore
+                )
 
-                        let def = WidgetDefinitionStore.get widget.Key
-                        def.AttachView(widget, treeContext, ValueNone, app) |> ignore
-            ))
+            app.Styles.Add(themeFn())
+            app)
 
     static member Configure(themeFn, program: Program<'arg, 'model, 'msg, #IFabApplication>, arg: 'arg) =
         FabulousAppBuilder.Configure(
@@ -83,7 +85,7 @@ module FabulousiOSAppBuilderExtensions =
                     lifetime.View <- view
 
                     let win = new UIWindow(WindowScene = scene)
-                    
+
                     let controller = new DefaultAvaloniaViewController(View = view)
                     win.RootViewController <- controller
                     view.InitWithController(controller)
