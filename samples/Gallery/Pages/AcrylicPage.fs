@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System
 open System.Diagnostics
 open Avalonia
 open Avalonia.Controls.Primitives
@@ -92,39 +93,33 @@ module AcrylicPage =
 
             VStack(spacing = 20.) {
                 ExperimentalAcrylicBorder(
-                    (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto; Auto ]) {
-                        TextBlock("TintOpacity")
-                            .gridRow(0)
-                            .gridColumn(0)
-                            .style(textBlockStyle)
+                    VStack(0.) {
+                        (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
+                            TextBlock("TintOpacity").style(textBlockStyle)
 
-                        Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
-                            .gridRow(0)
-                            .gridColumn(1)
-                            .style(sliderStyle)
+                            Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
+                                .gridColumn(1)
+                                .style(sliderStyle)
 
-                        TextBlock($"{model.TintOpacitySlider}")
-                            .gridRow(0)
-                            .gridColumn(2)
-                            .style(textBlockStyle)
+                            TextBlock($"{Math.Round(model.TintOpacitySlider, 2)}")
+                                .gridColumn(2)
+                                .style(textBlockStyle)
+                        })
+                            .margin(20., 10.)
 
-                        TextBlock("MaterialOpacity")
-                            .gridRow(1)
-                            .gridColumn(0)
-                            .style(textBlockStyle)
+                        (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
+                            TextBlock("MaterialOpacity").style(textBlockStyle)
 
-                        Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
-                            .gridRow(1)
-                            .gridColumn(1)
-                            .style(sliderStyle)
+                            Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
+                                .gridColumn(1)
+                                .style(sliderStyle)
 
-                        TextBlock($"{model.MaterialOpacitySlider}")
-                            .gridRow(1)
-                            .gridColumn(2)
-                            .style(textBlockStyle)
-
-                    })
-                        .margin(20., 10.)
+                            TextBlock($"{Math.Round(model.MaterialOpacitySlider, 2)}")
+                                .gridColumn(2)
+                                .style(textBlockStyle)
+                        })
+                            .margin(20., 10.)
+                    }
                 )
                     .material(
                         ExperimentalAcrylicMaterial()
