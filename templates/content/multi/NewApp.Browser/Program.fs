@@ -13,7 +13,7 @@ module Program =
     do ()
 
     [<CompiledName "BuildAvaloniaApp">]
-    let buildAvaloniaApp () = AppBuilder.create()
+    let buildAvaloniaApp () = App.create()
 
     [<EntryPoint>]
     let main argv =
