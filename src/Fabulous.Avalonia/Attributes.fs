@@ -34,6 +34,36 @@ module ValueEventData =
           Event = event >> box >> MsgValue }
 
 module Attributes =
+    /// Define an attribute for EventHandler<'T>
+    let inline defineAvaloniaObservableEvent<'args>
+        name
+        ([<InlineIfLambda>] getObservable: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
+        : SimpleScalarAttributeDefinition<'args -> MsgValue> =
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ('args -> MsgValue) voption) (node: IViewNode) ->
+                    let observable = getObservable node.Target
+
+                    match node.TryGetHandler<IDisposable>(name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+
+                    | ValueSome fn ->
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                let (MsgValue r) = fn args.NewValue.Value
+                                Dispatcher.dispatch node r)
+
+                        node.SetHandler(name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+
     /// Define an attribute for an AvaloniaProperty
     let inline defineAvaloniaProperty<'modelType, 'valueType>
         (property: AvaloniaProperty<'valueType>)
@@ -227,7 +257,7 @@ module Attributes =
                 avaloniaObject.ClearValue(property)
             else
                 avaloniaObject.SetValue(property, value) |> ignore)
-        
+
     let inline defineAvaloniaPropertyWithValueEventData<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)

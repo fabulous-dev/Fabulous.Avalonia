@@ -50,7 +50,7 @@ module AutoCompleteBox =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
     let TextChanged =
-        Attributes.defineAvaloniaPropertyWithValueEventData "AutoCompleteBox_TextChanged"  AutoCompleteBox.TextProperty id
+        Attributes.defineAvaloniaPropertyWithValueEventData "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty id
 
     let Populating =
         Attributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
