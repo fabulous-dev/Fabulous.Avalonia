@@ -39,8 +39,6 @@ module ButtonsPage =
 
     let view () =
         Component(program) {
-            let! model = Mvu.State
-
             (VStack(spacing = 15.) {
                 Button("Regular button", Clicked)
 
