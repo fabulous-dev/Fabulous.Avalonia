@@ -258,11 +258,47 @@ module Attributes =
             else
                 avaloniaObject.SetValue(property, value) |> ignore)
 
-    let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
+    let inline defineAvaloniaPropertyWithValueEventData<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)
-        (convert: 'modelType -> 'valueType)
-        (convertToModel: 'valueType -> 'modelType)
+        ([<InlineIfLambda>] convertToModel: 'valueType -> 'modelType)
+        : SimpleScalarAttributeDefinition<ValueEventData<'modelType, 'modelType>> =
+
+        let key =
+            SimpleScalarAttributeDefinition.CreateAttributeData(
+                ScalarAttributeComparers.noCompare,
+                (fun _ (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
+                    let target = node.Target :?> AvaloniaObject
+                    let observable = property.Changed
+
+                    // The attribute is no longer applied, so we clean up the event
+                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    | ValueNone -> ()
+                    | ValueSome handler -> handler.Dispose()
+
+                    match newValueOpt with
+                    | ValueNone -> node.SetHandler(name, ValueNone)
+                    | ValueSome curr ->
+                        // Set the new event handler
+                        let disposable =
+                            observable.Subscribe(fun args ->
+                                if args.Sender = target then
+                                    if args.NewValue.HasValue then
+                                        let args = args.NewValue.Value
+                                        let (MsgValue r) = curr.Event(convertToModel args)
+                                        Dispatcher.dispatch node r)
+
+                        node.SetHandler(property.Name, ValueSome disposable))
+            )
+            |> AttributeDefinitionStore.registerScalar
+
+        { Key = key; Name = name }
+
+    let inline defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
+        name
+        (property: AvaloniaProperty<'valueType>)
+        ([<InlineIfLambda>] convertToValue: 'modelType -> 'valueType)
+        ([<InlineIfLambda>] convertToModel: 'valueType -> 'modelType)
         : SimpleScalarAttributeDefinition<ValueEventData<'modelType, 'modelType>> =
 
         let key =
@@ -294,7 +330,7 @@ module Attributes =
                         match curr.Value with
                         | ValueNone -> ()
                         | ValueSome v ->
-                            let newValue = convert v
+                            let newValue = convertToValue v
                             target.SetValue(property, box newValue) |> ignore
 
                         // Set the new event handler
@@ -315,7 +351,7 @@ module Attributes =
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
 
-    let inline defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> MsgValue> =
+    let defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> MsgValue> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,

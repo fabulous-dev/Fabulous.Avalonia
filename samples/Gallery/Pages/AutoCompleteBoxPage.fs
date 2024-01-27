@@ -12,7 +12,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module AutoCompleteBoxPage =
 
