@@ -159,7 +159,6 @@
     <Compile Include="Views\Controls\Buttons\RadioButton.fs" />
     <Compile Include="Views\Controls\Buttons\ButtonSpinner.fs" />
     <Compile Include="Views\Controls\Buttons\DropDownButton.fs" />
-    <Compile Include="Views\Controls\NotificationCard.fs" />
     <Compile Include="Views\Controls\CheckBox.fs" />
     <Compile Include="Views\Controls\NumericUpDown.fs" />
     <Compile Include="Views\Controls\DatePicker.fs" />
@@ -177,6 +176,8 @@
     <Compile Include="Views\Controls\Expander.fs" />
     <Compile Include="Views\Controls\UserControl.fs" />
     <Compile Include="Views\Controls\AutoCompleteBox.fs" />
+    <Compile Include="Views\Controls\Notifications\NotificationCard.fs" />
+    <Compile Include="Views\Controls\Notifications\WindowNotificationManager.fs" />
     <Compile Include="Views\MenuItems\MenuItem.fs" />
     <Compile Include="Views\MenuItems\ListBoxItem.fs" />
     <Compile Include="Views\MenuItems\ComboBoxItem.fs" />

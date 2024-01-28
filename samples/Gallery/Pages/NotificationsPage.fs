@@ -2,10 +2,13 @@ namespace Gallery
 
 open System
 open System.Diagnostics
-open Avalonia.Layout
-open Fabulous.Avalonia
-open Fabulous
+open Avalonia
 open Avalonia.Controls.Notifications
+open Avalonia.Controls
+open Avalonia.Layout
+open Avalonia.Media
+open Fabulous
+open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
@@ -21,7 +24,8 @@ type NotificationViewModel(title, message) =
 
 
 module NotificationsPage =
-    type Model = { Nothing: string }
+    type Model =
+        { NotificationManager: WindowNotificationManager }
 
     type Msg =
         | ShowManagedNotification
@@ -29,6 +33,8 @@ module NotificationsPage =
         | ShowNativeNotification
         | YesCommand
         | NoCommand
+        | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs
+        | ControlNotificationsShow
 
     type CmdMsg = | NoMsg
 
@@ -36,40 +42,41 @@ module NotificationsPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
-    let notificationManager () =
-        FabApplication.Current.WindowNotificationManager
+    let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
-    let init () = { Nothing = "" }, []
+    let init () = { NotificationManager = null }, []
 
     let update msg model =
         match msg with
         | ShowManagedNotification ->
-            notificationManager().Position <- NotificationPosition.BottomRight
 
-            notificationManager()
-                .Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
+            model.NotificationManager.Position <- NotificationPosition.BottomRight
+
+            model.NotificationManager.Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
 
             model, []
         | ShowCustomManagedNotification ->
-            notificationManager()
-                .Show(NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+            model.NotificationManager.Show(NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
 
             model, []
         | ShowNativeNotification ->
-            notificationManager()
-                .Show(Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
+            model.NotificationManager.Show(Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
 
             model, []
         | YesCommand ->
-            notificationManager()
-                .Show(Notification("Avalonia Notifications", "Start adding notifications to your app today."))
+            model.NotificationManager.Show(Notification("Avalonia Notifications", "Start adding notifications to your app today."))
 
             model, []
 
         | NoCommand ->
-            notificationManager()
-                .Show(Notification("Avalonia Notifications", "Start adding notifications to your app today. To find out more visit..."))
+            model.NotificationManager.Show(Notification("Avalonia Notifications", "Start adding notifications to your app today. To find out more visit..."))
 
+            model, []
+
+        | AttachedToVisualTreeChanged args -> { NotificationManager = FabApplication.Current.WindowNotificationManager }, []
+
+        | ControlNotificationsShow ->
+            controlNotificationsRef.Value.Show(Notification("Control Notifications", "This notification is shown by the control itself."))
             model, []
 
     let program =
@@ -88,13 +95,49 @@ module NotificationsPage =
         Component(program) {
             let! model = Mvu.State
 
-            (VStack(4.) {
-                Button("Show Standard Managed Notification", ShowManagedNotification)
+            (Dock() {
+                TextBlock("TopLevel bound notification manager.")
+                    .dock(Dock.Top)
+                    .margin(2.)
+                    .classes([ "h2" ])
+                    .textWrapping(TextWrapping.Wrap)
 
-                Button("Show Custom Managed Notification", ShowCustomManagedNotification)
-                Button("Show Native Notification", ShowNativeNotification)
+                (VStack(4.) {
+                    Button("Show Standard Managed Notification", ShowManagedNotification)
+                    Button("Show Custom Managed Notification", ShowCustomManagedNotification)
+                })
+                    .dock(Dock.Top)
+                    .horizontalAlignment(HorizontalAlignment.Left)
+
+                TextBlock("Widget only notification manager.")
+                    .dock(Dock.Top)
+                    .margin(2.)
+                    .classes([ "h2" ])
+                    .textWrapping(TextWrapping.Wrap)
+
+                Button("Show Widget only notification", ControlNotificationsShow)
+                    .dock(Dock.Top)
+                    .horizontalAlignment(HorizontalAlignment.Left)
+
+                Border(
+                    WindowNotificationManager(controlNotificationsRef)
+                        .position(NotificationPosition.BottomRight)
+                        .maxItems(3)
+                )
+                    .padding(10)
+                    .borderBrush(SolidColorBrush(Colors.Yellow))
 
                 CustomNotification("Avalonia Notifications", "Start adding notifications to your app today.", YesCommand, NoCommand)
+                    .dock(Dock.Top)
+
+                Border(
+                    NotificationCard(false, "This is a notification card.")
+                        .size(200., 100.)
+                )
+                    .dock(Dock.Top)
+                    .padding(10)
+                    .borderBrush(SolidColorBrush(Colors.Blue))
+
             })
-                .horizontalAlignment(HorizontalAlignment.Left)
+                .onAttachedToVisualTree(AttachedToVisualTreeChanged)
         }
