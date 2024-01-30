@@ -42,7 +42,7 @@ module Widgets =
                         | ValueNone -> None
                         | ValueSome node -> Some node
 
-                    let node = ViewNode(parentNode, treeContext, weakReference)
+                    let node = new ViewNode(parentNode, treeContext, weakReference)
 
                     ViewNode.set node view
 
@@ -61,7 +61,7 @@ module Widgets =
                         | ValueNone -> None
                         | ValueSome node -> Some node
 
-                    let node = ViewNode(parentNode, treeContext, weakReference)
+                    let node = new ViewNode(parentNode, treeContext, weakReference)
 
                     ViewNode.set node view
 
