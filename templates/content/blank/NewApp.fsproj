@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="AvaloniaDiagnosticsPkgVersion" />
     <PackageReference Include="FSharp.Core" Version="FSharpCorePkgVersion" />
     <PackageReference Include="Fabulous" Version="FabulousPkgVersion" />
     <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
