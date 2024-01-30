@@ -30,7 +30,8 @@ module DialogsPage =
           IgnoreTextChanged: bool
           LastSelectedDirectory: IStorageFolder
           FileResults: string seq
-          PickerLastResultsVisible: bool }
+          PickerLastResultsVisible: bool
+          StorageProvider: IStorageProvider }
 
     type Msg =
         | UseFiltersChanged of bool
@@ -41,7 +42,6 @@ module DialogsPage =
         | OpenFileFromBookmark
         | OpenFolderFromBookmark
         | SaveFilePicker
-        | OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
         | FilePickerOpened of PickerResult
         | FolderPickerOpened of PickerResult
         | FilePickerSaved of PickerResult
@@ -53,25 +53,25 @@ module DialogsPage =
         | OpenedFileContentTextChanged of string
         | CurrentFolderBoxLoaded of RoutedEventArgs
         | GetIStorageFolder of IStorageFolder
-        | GetIsStorageAvailable of string
+        | GetStorageProviderStatus of string
+
+        | OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
 
     type CmdMsg =
-        | GettingIStorageFolder of string
-        | GettingIStorageAvailable
-        | OpeningFilePicker of lastSelectedDirectory: IStorageFolder * useFilters: bool * openMultiple: bool
-        | OpeningFolderPicker of lastSelectedDirectory: IStorageFolder * openMultiple: bool
-        | SavingFilePicker of lastSelectedDirectory: IStorageFolder * useFilters: bool * openedFileContent: string
-        | OpeningFileFromBookmark of bookmarkText: string
-        | OpeningFolderFromBookmark of bookmarkText: string
+        | GettingIStorageFolder of storageProvider: IStorageProvider * text: string
+        | GettingIStorageAvailable of storageProvider: IStorageProvider
+        | OpeningFilePicker of storageProvider: IStorageProvider * lastSelectedDirectory: IStorageFolder * useFilters: bool * openMultiple: bool
+        | OpeningFolderPicker of storageProvider: IStorageProvider * lastSelectedDirectory: IStorageFolder * openMultiple: bool
+        | SavingFilePicker of storageProvider: IStorageProvider * lastSelectedDirectory: IStorageFolder * useFilters: bool * openedFileContent: string
+        | OpeningFileFromBookmark of storageProvider: IStorageProvider * bookmarkText: string
+        | OpeningFolderFromBookmark of storageProvider: IStorageProvider * bookmarkText: string
 
-    let getStorageProvider () = FabApplication.Current.StorageProvider
-
-    let getStringFromStorageFile (text: string) =
+    let getStringFromStorageFile (storageProvider: IStorageProvider) (text: string) =
         task {
             let mutable folderEnum: WellKnownFolder = Unchecked.defaultof<WellKnownFolder>
 
             if Enum.TryParse<WellKnownFolder>(text, true, &folderEnum) then
-                let! lastSelectedDirectory = getStorageProvider().TryGetWellKnownFolderAsync(folderEnum)
+                let! lastSelectedDirectory = storageProvider.TryGetWellKnownFolderAsync(folderEnum)
                 return GetIStorageFolder lastSelectedDirectory
             else
                 let mutable folderLink: Uri = null
@@ -80,7 +80,7 @@ module DialogsPage =
                     Uri.TryCreate("file://" + text, UriKind.Absolute, &folderLink) |> ignore
 
                 if folderLink <> null then
-                    let! lastSelectedDirectory = getStorageProvider().TryGetFolderFromPathAsync(folderLink)
+                    let! lastSelectedDirectory = storageProvider.TryGetFolderFromPathAsync(folderLink)
                     return GetIStorageFolder lastSelectedDirectory
                 else
                     let uri =
@@ -88,20 +88,18 @@ module DialogsPage =
                         |> Seq.head
                         |> fun m -> m.FullyQualifiedName
 
-                    let! path = getStorageProvider().TryGetFolderFromPathAsync(Uri(uri))
+                    let! path = storageProvider.TryGetFolderFromPathAsync(Uri(uri))
                     return GetIStorageFolder path
         }
 
-    let getStorageProviderAvailability () =
+    let getStorageProviderAvailability (storageProvider: IStorageProvider) =
         try
-            let storageProvider = getStorageProvider()
-
-            GetIsStorageAvailable
+            GetStorageProviderStatus
                 $@"CanOpen: {storageProvider.CanOpen}
                                          CanSave: {storageProvider.CanSave}
                                          CanPickFolder: {storageProvider.CanPickFolder}"
         with ex ->
-            GetIsStorageAvailable("Storage provider is not available: " + ex.Message)
+            GetStorageProviderStatus("Storage provider is not available: " + ex.Message)
 
 
     let getFileTypes (useFilters: bool) =
@@ -190,7 +188,7 @@ CanBookmark: {item.Value.CanBookmark}"
                   Results = mappedResults }
         }
 
-    let openFilePicker (lastSelectedDirectory: IStorageFolder) (useFilters: bool) (openMultiple: bool) =
+    let openFilePicker (storageProvider: IStorageProvider) (lastSelectedDirectory: IStorageFolder) (useFilters: bool) (openMultiple: bool) =
         task {
             let options = FilePickerOpenOptions()
             options.Title <- "Open file"
@@ -198,13 +196,13 @@ CanBookmark: {item.Value.CanBookmark}"
             options.FileTypeFilter <- getFileTypes useFilters
 
             options.SuggestedStartLocation <- lastSelectedDirectory
-            let! res = getStorageProvider().OpenFilePickerAsync(options)
+            let! res = storageProvider.OpenFilePickerAsync(options)
             let res = res |> Seq.cast<IStorageItem>
             let! res = setPickerResult res
             return FilePickerOpened res
         }
 
-    let saveFilePicker (lastSelectedDirectory: IStorageFolder) (useFilters: bool) (openedFileContent: string) =
+    let saveFilePicker (storageProvider: IStorageProvider) (lastSelectedDirectory: IStorageFolder) (useFilters: bool) (openedFileContent: string) =
         task {
             let fileTypes = getFileTypes useFilters
             let options = FilePickerSaveOptions()
@@ -215,7 +213,7 @@ CanBookmark: {item.Value.CanBookmark}"
             options.DefaultExtension <- if not fileTypes.IsEmpty then "txt" else null
             options.ShowOverwritePrompt <- false
 
-            let! file = getStorageProvider().SaveFilePickerAsync(options)
+            let! file = storageProvider.SaveFilePickerAsync(options)
 
             if file <> null then
                 use! stream = file.OpenWriteAsync()
@@ -228,25 +226,25 @@ CanBookmark: {item.Value.CanBookmark}"
             return FilePickerSaved res
         }
 
-    let openFolderPicker (lastSelectedDirectory: IStorageFolder) (openMultiple: bool) =
+    let openFolderPicker (storageProvider: IStorageProvider) (lastSelectedDirectory: IStorageFolder) (openMultiple: bool) =
         task {
             let options = FolderPickerOpenOptions()
             options.Title <- "Select folder"
             options.AllowMultiple <- openMultiple
             options.SuggestedStartLocation <- lastSelectedDirectory
 
-            let! folders = getStorageProvider().OpenFolderPickerAsync(options)
+            let! folders = storageProvider.OpenFolderPickerAsync(options)
             let folders = folders |> Seq.cast<IStorageItem>
             let! res = setPickerResult folders
             return FolderPickerOpened res
         }
 
-    let openFileFromBookmark (bookmarkText: string) =
+    let openFileFromBookmark (storageProvider: IStorageProvider) (bookmarkText: string) =
         task {
             let mutable file: IStorageBookmarkFile = null
 
             if String.NotNullOrEmpty bookmarkText then
-                let! bookmarkFile = getStorageProvider().OpenFileBookmarkAsync(bookmarkText)
+                let! bookmarkFile = storageProvider.OpenFileBookmarkAsync(bookmarkText)
                 file <- bookmarkFile
 
             let bookmarkFiles = if file = null then Seq.empty else [| file |]
@@ -255,12 +253,12 @@ CanBookmark: {item.Value.CanBookmark}"
             return FileFromBookmarkOpened pickerResult
         }
 
-    let openFolderFromBookmark (bookmarkText: string) =
+    let openFolderFromBookmark (storageProvider: IStorageProvider) (bookmarkText: string) =
         task {
             let mutable folder: IStorageBookmarkFolder = null
 
             if String.NotNullOrEmpty bookmarkText then
-                let! bookmarkFolder = getStorageProvider().OpenFolderBookmarkAsync(bookmarkText)
+                let! bookmarkFolder = storageProvider.OpenFolderBookmarkAsync(bookmarkText)
                 folder <- bookmarkFolder
 
             let bookmarkFolders = if folder = null then Seq.empty else [| folder |]
@@ -272,14 +270,16 @@ CanBookmark: {item.Value.CanBookmark}"
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | GettingIStorageFolder text -> Cmd.ofTaskMsg(getStringFromStorageFile text)
-        | OpeningFilePicker(lastSelectedDirectory, useFilters, openMultiple) -> Cmd.ofTaskMsg(openFilePicker lastSelectedDirectory useFilters openMultiple)
-        | SavingFilePicker(lastSelectedDirectory, useFilters, openedFileContent) ->
-            Cmd.ofTaskMsg(saveFilePicker lastSelectedDirectory useFilters openedFileContent)
-        | GettingIStorageAvailable -> Cmd.ofMsg(getStorageProviderAvailability())
-        | OpeningFolderPicker(lastSelectedDirectory, openMultiple) -> Cmd.ofTaskMsg(openFolderPicker lastSelectedDirectory openMultiple)
-        | OpeningFileFromBookmark bookmarkText -> Cmd.ofTaskMsg(openFileFromBookmark bookmarkText)
-        | OpeningFolderFromBookmark bookmarkText -> Cmd.ofTaskMsg(openFolderFromBookmark bookmarkText)
+        | GettingIStorageFolder(storageProvider, text) -> Cmd.ofTaskMsg(getStringFromStorageFile storageProvider text)
+        | OpeningFilePicker(storageProvider, lastSelectedDirectory, useFilters, openMultiple) ->
+            Cmd.ofTaskMsg(openFilePicker storageProvider lastSelectedDirectory useFilters openMultiple)
+        | SavingFilePicker(storageProvider, lastSelectedDirectory, useFilters, openedFileContent) ->
+            Cmd.ofTaskMsg(saveFilePicker storageProvider lastSelectedDirectory useFilters openedFileContent)
+        | GettingIStorageAvailable storageProvider -> Cmd.ofMsg(getStorageProviderAvailability storageProvider)
+        | OpeningFolderPicker(storageProvider, lastSelectedDirectory, openMultiple) ->
+            Cmd.ofTaskMsg(openFolderPicker storageProvider lastSelectedDirectory openMultiple)
+        | OpeningFileFromBookmark(storageProvider, bookmarkText) -> Cmd.ofTaskMsg(openFileFromBookmark storageProvider bookmarkText)
+        | OpeningFolderFromBookmark(storageProvider, bookmarkText) -> Cmd.ofTaskMsg(openFolderFromBookmark storageProvider bookmarkText)
 
     let init () =
         { UseFilters = false
@@ -290,22 +290,23 @@ CanBookmark: {item.Value.CanBookmark}"
           IgnoreTextChanged = false
           LastSelectedDirectory = null
           FileResults = Seq.empty
-          PickerLastResultsVisible = false },
-        [ GettingIStorageFolder null ]
+          PickerLastResultsVisible = false
+          StorageProvider = null },
+        []
 
     let update msg model =
         match msg with
         | UseFiltersChanged b -> { model with UseFilters = b }, []
         | OpenMultipleChanged b -> { model with OpenMultiple = b }, []
-        | OpenFilePicker -> model, [ OpeningFilePicker(model.LastSelectedDirectory, model.UseFilters, model.OpenMultiple) ]
-        | SaveFilePicker -> model, [ SavingFilePicker(model.LastSelectedDirectory, model.UseFilters, model.OpenedFileContent) ]
-        | OpenFileFromBookmark -> model, [ OpeningFileFromBookmark(model.BookmarkContainer) ]
+        | OpenFilePicker -> model, [ OpeningFilePicker(model.StorageProvider, model.LastSelectedDirectory, model.UseFilters, model.OpenMultiple) ]
+        | SaveFilePicker -> model, [ SavingFilePicker(model.StorageProvider, model.LastSelectedDirectory, model.UseFilters, model.OpenedFileContent) ]
+        | OpenFileFromBookmark -> model, [ OpeningFileFromBookmark(model.StorageProvider, model.BookmarkContainer) ]
         | OpenFolderFromBookmark -> model, []
         | CurrentFolderBoxTextChanged text ->
             if model.IgnoreTextChanged then
                 { model with CurrentFolderBox = text }, []
             else
-                { model with CurrentFolderBox = text }, [ GettingIStorageFolder text ]
+                { model with CurrentFolderBox = text }, [ GettingIStorageFolder(model.StorageProvider, text) ]
         | CurrentFolderBoxLoaded _ -> model, []
         | BookmarkContainerTextChanged s -> { model with BookmarkContainer = s }, []
         | OpenedFileContentTextChanged s -> { model with OpenedFileContent = s }, []
@@ -330,11 +331,9 @@ CanBookmark: {item.Value.CanBookmark}"
                 PickerLastResultsVisible = true },
             []
 
-        | OnAttachedToVisualTree _ -> model, [ GettingIStorageAvailable ]
+        | GetStorageProviderStatus s -> { model with OpenedFileContent = s }, []
 
-        | GetIsStorageAvailable s -> { model with OpenedFileContent = s }, []
-
-        | OpenFolderPicker -> model, [ OpeningFolderPicker(model.LastSelectedDirectory, model.OpenMultiple) ]
+        | OpenFolderPicker -> model, [ OpeningFolderPicker(model.StorageProvider, model.LastSelectedDirectory, model.OpenMultiple) ]
         | FolderPickerOpened res ->
             let results = res.Results
 
@@ -356,6 +355,11 @@ CanBookmark: {item.Value.CanBookmark}"
                 BookmarkContainer = pickerResult.BookmarkText
                 OpenedFileContent = pickerResult.FileContentText },
             []
+
+        | OnAttachedToVisualTree _ ->
+            { model with
+                StorageProvider = FabApplication.Current.StorageProvider },
+            [ GettingIStorageAvailable FabApplication.Current.StorageProvider ]
 
     let program =
         Program.statefulWithCmdMsg init update mapCmdMsgToCmd

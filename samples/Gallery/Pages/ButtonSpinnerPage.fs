@@ -57,8 +57,6 @@ module ButtonSpinnerPage =
 
     let view () =
         Component(program) {
-            let! model = Mvu.State
-
             VStack(spacing = 15.) {
                 TextBlock("Button spinner")
 

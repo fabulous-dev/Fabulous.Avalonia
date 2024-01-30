@@ -20,7 +20,6 @@ module AdornerLayerPage =
         | AddAdorner
         | RemoveAdorner
         | DoNothing
-        | Previous
 
     type CmdMsg = | NoMsg
 
@@ -28,24 +27,34 @@ module AdornerLayerPage =
         match cmdMsg with
         | NoMsg -> Cmd.none
 
+    let mutable _adorner: Control = null
+
     let init () = { Angle = 0. }, []
 
-    let buttonRef = ViewRef<Button>()
+    let adornerButton = ViewRef<Button>()
 
     let update msg model =
         match msg with
         | ValueChanged value -> { Angle = value }, []
         | AddAdorner ->
-            let adorner = AdornerLayer.GetAdorner(buttonRef.Value)
-            AdornerLayer.SetAdorner(buttonRef.Value, adorner)
+            match adornerButton.TryValue with
+            | Some adornerButton when _adorner <> null -> AdornerLayer.SetAdorner(adornerButton, _adorner)
+            | _ -> ()
+
             model, []
         | RemoveAdorner ->
-            let adorner = AdornerLayer.GetAdorner(buttonRef.Value)
+            match adornerButton.TryValue with
+            | None -> ()
+            | Some adornerButton ->
+                let adorner = AdornerLayer.GetAdorner(adornerButton)
 
-            AdornerLayer.SetAdorner(adorner, null)
+                if adorner <> null then
+                    _adorner <- adorner
+
+                AdornerLayer.SetAdorner(adornerButton, null)
+
             model, []
         | DoNothing -> model, []
-        | Previous -> model, []
 
     let program =
         Program.statefulWithCmdMsg init update mapCmdMsgToCmd
@@ -110,22 +119,22 @@ module AdornerLayerPage =
                             .verticalContentAlignment(VerticalAlignment.Center)
                             .width(200.)
                             .height(42.)
-                            .reference(buttonRef)
+                            .reference(adornerButton)
                             .adorner(
                                 (Canvas() {
-                                    Line(Point.Parse("-100000,0"), Point.Parse("10000,0"))
+                                    Line(Point(-100000, 0), Point(10000, 0))
                                         .stroke(Brushes.Cyan)
                                         .strokeThickness(1.)
 
-                                    Line(Point.Parse("-100000,42"), Point.Parse("10000,42"))
+                                    Line(Point(-100000, 42), Point(10000, 42))
                                         .stroke(Brushes.Cyan)
                                         .strokeThickness(1.)
 
-                                    Line(Point.Parse("0,-100000"), Point.Parse("0,10000"))
+                                    Line(Point(0, -100000), Point(0, 10000))
                                         .stroke(Brushes.Cyan)
                                         .strokeThickness(1.)
 
-                                    Line(Point.Parse("200,-100000"), Point.Parse("200,10000"))
+                                    Line(Point(200, -100000), Point(200, 10000))
                                         .stroke(Brushes.Cyan)
                                         .strokeThickness(1.)
                                 })
@@ -133,6 +142,7 @@ module AdornerLayerPage =
                                     .verticalAlignment(VerticalAlignment.Stretch)
                                     .background(Brushes.Cyan)
                                     .isHitTestVisible(false)
+                                    .isClipEnabled(false)
                                     .opacity(0.3)
                                     .isVisible(true)
                             )
