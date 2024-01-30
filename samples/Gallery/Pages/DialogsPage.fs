@@ -270,16 +270,16 @@ CanBookmark: {item.Value.CanBookmark}"
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | GettingIStorageFolder(storageProvider, text) -> Cmd.ofTaskMsg(getStringFromStorageFile storageProvider text)
+        | GettingIStorageFolder(storageProvider, text) -> Cmd.OfTask.msg(getStringFromStorageFile storageProvider text)
         | OpeningFilePicker(storageProvider, lastSelectedDirectory, useFilters, openMultiple) ->
-            Cmd.ofTaskMsg(openFilePicker storageProvider lastSelectedDirectory useFilters openMultiple)
+            Cmd.OfTask.msg(openFilePicker storageProvider lastSelectedDirectory useFilters openMultiple)
         | SavingFilePicker(storageProvider, lastSelectedDirectory, useFilters, openedFileContent) ->
-            Cmd.ofTaskMsg(saveFilePicker storageProvider lastSelectedDirectory useFilters openedFileContent)
+            Cmd.OfTask.msg(saveFilePicker storageProvider lastSelectedDirectory useFilters openedFileContent)
         | GettingIStorageAvailable storageProvider -> Cmd.ofMsg(getStorageProviderAvailability storageProvider)
         | OpeningFolderPicker(storageProvider, lastSelectedDirectory, openMultiple) ->
-            Cmd.ofTaskMsg(openFolderPicker storageProvider lastSelectedDirectory openMultiple)
-        | OpeningFileFromBookmark(storageProvider, bookmarkText) -> Cmd.ofTaskMsg(openFileFromBookmark storageProvider bookmarkText)
-        | OpeningFolderFromBookmark(storageProvider, bookmarkText) -> Cmd.ofTaskMsg(openFolderFromBookmark storageProvider bookmarkText)
+            Cmd.OfTask.msg(openFolderPicker storageProvider lastSelectedDirectory openMultiple)
+        | OpeningFileFromBookmark(storageProvider, bookmarkText) -> Cmd.OfTask.msg(openFileFromBookmark storageProvider bookmarkText)
+        | OpeningFolderFromBookmark(storageProvider, bookmarkText) -> Cmd.OfTask.msg(openFolderFromBookmark storageProvider bookmarkText)
 
     let init () =
         { UseFilters = false
