@@ -6,7 +6,14 @@ open Fabulous
 
 [<AbstractClass; Sealed>]
 type FabulousAppBuilder private () =
-    static member inline private Configure(canReuseView, logger, [<InlineIfLambda>] themeFn: unit -> #IStyle, [<InlineIfLambda>] viewFn: unit -> Widget) =
+    static member inline private Configure
+        (
+            canReuseView,
+            logger,
+            syncAction: (unit -> unit) -> unit,
+            [<InlineIfLambda>] themeFn: unit -> #IStyle,
+            [<InlineIfLambda>] viewFn: unit -> Widget
+        ) =
         AppBuilder.Configure(fun () ->
             let app =
                 FabApplication(
@@ -18,6 +25,7 @@ type FabulousAppBuilder private () =
                                 { CanReuseView = canReuseView
                                   GetViewNode = ViewNode.get
                                   GetComponent = Component.get
+                                  SyncAction = syncAction
                                   Logger = logger
                                   Dispatch = ignore }
 
@@ -32,6 +40,7 @@ type FabulousAppBuilder private () =
         FabulousAppBuilder.Configure(
             program.CanReuseView,
             program.State.Logger,
+            program.SyncAction,
             themeFn,
             (fun () ->
                 (View.Component(program.State, arg) {
@@ -44,7 +53,7 @@ type FabulousAppBuilder private () =
     static member Configure(themeFn: unit -> #IStyle, program: Program<unit, 'model, 'msg, #IFabApplication>) =
         FabulousAppBuilder.Configure(themeFn, program, ())
 
-    static member Configure(themeFn: unit -> #IStyle, view: unit -> WidgetBuilder<unit, #IFabApplication>, ?canReuseView, ?logger) =
+    static member Configure(themeFn: unit -> #IStyle, view: unit -> WidgetBuilder<unit, #IFabApplication>, ?canReuseView, ?logger, ?syncAction) =
         let canReuseView =
             match canReuseView with
             | Some fn -> fn
@@ -55,7 +64,12 @@ type FabulousAppBuilder private () =
             | Some logger -> logger
             | None -> ProgramDefaults.defaultLogger()
 
-        FabulousAppBuilder.Configure(canReuseView, logger, themeFn, (fun () -> (View.Component() { view() }).Compile()))
+        let syncAction =
+            match syncAction with
+            | Some syncAction -> syncAction
+            | None -> ViewHelpers.defaultSyncAction
+
+        FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component() { view() }).Compile()))
 
 #if IOS
 open UIKit

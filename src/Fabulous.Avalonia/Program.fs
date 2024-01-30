@@ -73,6 +73,8 @@ module ViewHelpers =
         { Log = log
           MinLogLevel = LogLevel.Error }
 
+    let defaultSyncAction (action: unit -> unit) = Dispatcher.UIThread.Post action
+
     let defaultExceptionHandler exn =
         Trace.WriteLine(String.Format("Unhandled exception: {0}", exn.ToString()), "Debug")
         false
@@ -82,7 +84,7 @@ module Program =
         { State = state
           View = view
           CanReuseView = ViewHelpers.canReuseView
-          SyncAction = fun fn -> Dispatcher.UIThread.Post fn }
+          SyncAction = ViewHelpers.defaultSyncAction }
 
     let stateless (view: unit -> WidgetBuilder<unit, 'marker>) : Program<unit, unit, unit, 'marker> =
         Program.stateful (fun _ -> ()) (fun _ _ -> ()) |> withView view
