@@ -11,5 +11,6 @@
     <ItemGroup>
         <PackageReference Include="Fabulous.Avalonia" Version="FabulousAvaloniaPkgVersion" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="AvaloniaThemesFluentPkgVersion" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="AvaloniaDiagnosticsPkgVersion" />
     </ItemGroup>
 </Project>

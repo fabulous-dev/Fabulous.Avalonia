@@ -1,6 +1,7 @@
 namespace NewApp
 
 open System
+open Avalonia
 open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
@@ -87,4 +88,11 @@ module App =
     let create () =
         let program = Program.statefulWithCmd init update |> Program.withView app
 
-        FabulousAppBuilder.Configure(FluentTheme, program)
+        FabulousAppBuilder
+            .Configure(FluentTheme, program)
+            //-:cnd:noEmit
+
+#if DEBUG
+            .AfterSetup(fun builder -> builder.Instance.AttachDevTools())
+#endif
+//+:cnd:noEmit
