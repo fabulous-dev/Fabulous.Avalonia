@@ -224,7 +224,6 @@
     -->
     <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[2.5.0-pre8]" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.7" />
-    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == ''">
