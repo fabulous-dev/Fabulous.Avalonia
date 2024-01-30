@@ -226,9 +226,6 @@
     <PackageReference Include="Avalonia" VersionOverride="11.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == ''">
-    <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.7" />
-  </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
     <PackageReference Include="Avalonia.Android" VersionOverride="11.0.7" />
   </ItemGroup>
