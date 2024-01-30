@@ -5,41 +5,97 @@
 Fabulous.Avalonia brings the great development experience of Fabulous to [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia), allowing you to take advantage of this UI framework with a tailored declarative UI DSL and clean architecture.
 
 Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windows, Linux and more!
+<details>
+  <summary>MVU Sample</summary>
 
 ```fs
-/// A simple Counter app
-
-type Model =
-    { Count: int }
-
-type Msg =
-    | Increment
-    | Decrement
-
-let init () =
-    { Count = 0 }
-
-let update msg model =
-    match msg with
-    | Increment -> { model with Count = model.Count + 1 }
-    | Decrement -> { model with Count = model.Count - 1 }
-
-let view model =
-    VStack(spacing = 16.) {
-        Image("fabulous.png", Stretch.Uniform)
-
-        TextBlock($"Count is {model.Count}")
-
-        Button("Increment", Increment)
-        Button("Decrement", Decrement)
-    }
+    type Model =
+        { Count: int }
     
-#if MOBILE
-    let app model = SingleViewApplication(view model)
-#else
-    let app model = DesktopApplication(Window(view model))
-#endif
+    type Msg =
+        | Increment
+        | Decrement
+    
+    let init () =
+        { Count = 0 }
+    
+    let update msg model =
+        match msg with
+        | Increment -> { model with Count = model.Count + 1 }
+        | Decrement -> { model with Count = model.Count - 1 }
+    
+    let content model =
+        VStack(spacing = 16.) {
+            Image("fabulous.png", Stretch.Uniform)
+    
+            TextBlock($"Count is {model.Count}")
+    
+            Button("Increment", Increment)
+            Button("Decrement", Decrement)
+        }
+        
+    #if MOBILE
+        let app model = SingleViewApplication(content model)
+    #else
+        let app model = DesktopApplication(Window(content model))
+    #endif
+    
+    let create () =
+        let program = Program.statefulWithCmd init update |> Program.withView app
+
+        FabulousAppBuilder.Configure(FluentTheme, program)
 ```
+
+</details>
+
+<details>
+  <summary>MVU Component sample</summary>
+
+```fs
+    type Model =
+        { Count: int }
+    
+    type Msg =
+        | Increment
+        | Decrement
+    
+    let init () =
+        { Count = 0 }
+    
+    let update msg model =
+        match msg with
+        | Increment -> { model with Count = model.Count + 1 }
+        | Decrement -> { model with Count = model.Count - 1 }
+    
+    let content model =
+        VStack(spacing = 16.) {
+            Image("fabulous.png", Stretch.Uniform)
+    
+            TextBlock($"Count is {model.Count}")
+    
+            Button("Increment", Increment)
+            Button("Decrement", Decrement)
+        }
+        
+     let program = Program.statefulWithCmd init update
+    
+     let view () =
+         Component(program) {
+             let! model = Mvu.State
+    
+ #if MOBILE
+             SingleViewApplication(content model)
+ #else
+             DesktopApplication(Window(content model))
+ #endif
+         }
+    
+     let create () =
+         FabulousAppBuilder.Configure(FluentTheme, view)
+```
+
+</details>
+
 ## Additionals Controls
 
 We also provide additional binding for Avalonia controls, you can find them in the following packages:
