@@ -35,7 +35,7 @@ module DrawLineAnimationPage =
             do! Async.Sleep 1000
             return TimerTicked
         }
-        |> Cmd.ofAsyncMsg
+        |> Cmd.OfAsync.msg
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
