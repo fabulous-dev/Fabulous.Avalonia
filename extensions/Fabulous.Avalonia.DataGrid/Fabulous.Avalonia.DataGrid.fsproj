@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
-        <TargetFrameworks>net8.0</TargetFrameworks>
+        <TargetFramework>net8.0</TargetFramework>
         <IsPackable>true</IsPackable>
     </PropertyGroup>
     <!-- NuGet Package -->
     <PropertyGroup>
-        <Description>ColorPicker for Fabulous.Avalonia</Description>
+        <Description>DataGrid for Fabulous.Avalonia</Description>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NeutralLanguage>en-US</NeutralLanguage>
     </PropertyGroup>
@@ -22,18 +21,20 @@
     <ItemGroup>
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-        <Compile Include="ColorView.fs" />
-        <Compile Include="ColorPicker.fs" />
-        <Compile Include="ColorSpectrum.fs" />
-        <Compile Include="ColorSlider.fs" />
-        <Compile Include="ColorPreviewer.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="11.0.7" />
+        <Compile Include="_DataGridColumn.fs" />
+        <Compile Include="_DataGridBoundColumn.fs" />
+        <Compile Include="DataGridTextColumn.fs" />
+        <Compile Include="DataGridCheckBoxColumn.fs" />
+        <Compile Include="DataGrid.fs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="11.0.7" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+        <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     </ItemGroup>
-
 </Project>
+

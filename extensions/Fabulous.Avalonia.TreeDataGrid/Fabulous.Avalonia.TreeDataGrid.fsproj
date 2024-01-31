@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <IsPackable>true</IsPackable>
     </PropertyGroup>
     <!-- NuGet Package -->
     <PropertyGroup>
-        <Description>DataGrid for Fabulous.Avalonia</Description>
+        <Description>Tree Data Grid for Fabulous.Avalonia</Description>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NeutralLanguage>en-US</NeutralLanguage>
     </PropertyGroup>
@@ -23,18 +24,13 @@
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="_DataGridColumn.fs" />
-        <Compile Include="_DataGridBoundColumn.fs" />
-        <Compile Include="DataGridTextColumn.fs" />
-        <Compile Include="DataGridCheckBoxColumn.fs" />
-        <Compile Include="DataGrid.fs" />
+        <Compile Include="TreeDataGrid.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="11.0.7" />
+        <PackageReference Include="Avalonia.Controls.TreeDataGrid" VersionOverride="11.0.1" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+        <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     </ItemGroup>
 </Project>
-

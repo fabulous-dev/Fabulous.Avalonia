@@ -31,7 +31,7 @@
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+        <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     </ItemGroup>
 
 </Project>
