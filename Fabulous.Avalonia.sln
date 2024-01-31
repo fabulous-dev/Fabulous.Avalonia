@@ -36,8 +36,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Gallery", "samples\Gallery\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.Tests", "src\Fabulous.Avalonia.Tests\Fabulous.Avalonia.Tests.fsproj", "{ACA3C16C-4537-479A-B420-0718B2A2BF0B}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo", "samples\RenderDemo\RenderDemo.fsproj", "{03B93AA4-9BCC-415B-8B6F-7C797FB82182}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlSamples", "samples\ControlSamples\ControlSamples.csproj", "{3438C2E8-8221-497B-9ED2-FA351459A7C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "extensions", "extensions", "{B672FB45-6577-4721-8711-0EC28EE2E834}"
@@ -49,6 +47,16 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ItemsRepeater", "extensions\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj", "{AFA2343C-1250-4B81-9E6F-48001BA9A516}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.TreeDataGrid", "extensions\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj", "{88BF2500-3A9E-406C-8726-40CE837D0F36}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo", "samples\RenderDemo\RenderDemo.fsproj", "{03B93AA4-9BCC-415B-8B6F-7C797FB82182}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo.Browser", "samples\RenderDemo.Browser\RenderDemo.Browser.fsproj", "{0BE69799-E168-4C3D-B4AD-D1CA5E2B5E88}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo.Desktop", "samples\RenderDemo.Desktop\RenderDemo.Desktop.fsproj", "{ACE86B59-ED5E-405B-8E84-DABCADE6F7DB}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo.Android", "samples\RenderDemo.Android\RenderDemo.Android.fsproj", "{92AD0BE4-8E97-4D75-9085-CD691E11DD5B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo.iOS", "samples\RenderDemo.iOS\RenderDemo.iOS.fsproj", "{A64AE59A-F9FB-4515-AA2D-3E2856E9F93E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

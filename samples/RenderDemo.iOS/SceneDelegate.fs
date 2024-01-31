@@ -12,7 +12,6 @@ type SceneDelegate() =
     override val Window = null with get, set
 
     override this.WillConnect(scene: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
-
         MainView.create().UseiOS(this, scene :?> UIWindowScene) |> ignore
 
     /// Called as the scene is being released by the system.

@@ -1,23 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\src\Fabulous.Avalonia.props" />
-  
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net8.0-android</TargetFrameworks>
-    <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
+    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
-    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS'">
-    <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
-    <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
-  </PropertyGroup>
-
   <ItemGroup>
     <AvaloniaResource Include="Styles\*.xaml" />
     <AvaloniaResource Include="*.xaml" />
@@ -68,6 +53,4 @@
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
   </ItemGroup>
-  
-  <Import Project="..\Fabulous.Avalonia.Samples.targets" />
 </Project>
