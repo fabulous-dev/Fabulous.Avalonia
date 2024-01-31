@@ -133,10 +133,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\packages\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj" />
-    <ProjectReference Include="..\..\packages\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj" />
-    <ProjectReference Include="..\..\packages\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
-    <ProjectReference Include="..\..\packages\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj" />
+    <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj" />
+    <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj" />
+    <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
+    <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
   </ItemGroup>

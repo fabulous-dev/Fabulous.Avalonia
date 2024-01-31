@@ -24,11 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 								release.yml = .github/workflows/release.yml
 		Directory.Packages.props = Directory.Packages.props
 		src\Fabulous.Avalonia\CHANGELOG.md = src\Fabulous.Avalonia\CHANGELOG.md
-		packages\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md = packages\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md
-		packages\Fabulous.Avalonia.ColorPicker\CHANGELOG.md = packages\Fabulous.Avalonia.ColorPicker\CHANGELOG.md
-		packages\Fabulous.Avalonia.DataGrid\CHANGELOG.md = packages\Fabulous.Avalonia.DataGrid\CHANGELOG.md
+		extensions\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md = extensions\Fabulous.Avalonia.ItemsRepeater\CHANGELOG.md
+		extensions\Fabulous.Avalonia.ColorPicker\CHANGELOG.md = extensions\Fabulous.Avalonia.ColorPicker\CHANGELOG.md
+		extensions\Fabulous.Avalonia.DataGrid\CHANGELOG.md = extensions\Fabulous.Avalonia.DataGrid\CHANGELOG.md
 		templates\CHANGELOG.md = templates\CHANGELOG.md
-		packages\Fabulous.Avalonia.TreeDataGrid\CHANGELOG.md = packages\Fabulous.Avalonia.TreeDataGrid\CHANGELOG.md
+		extensions\Fabulous.Avalonia.TreeDataGrid\CHANGELOG.md = extensions\Fabulous.Avalonia.TreeDataGrid\CHANGELOG.md
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
@@ -40,15 +40,15 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RenderDemo", "samples\Rende
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlSamples", "samples\ControlSamples\ControlSamples.csproj", "{3438C2E8-8221-497B-9ED2-FA351459A7C2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{B672FB45-6577-4721-8711-0EC28EE2E834}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "extensions", "extensions", "{B672FB45-6577-4721-8711-0EC28EE2E834}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ColorPicker", "packages\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj", "{4A407417-727A-4A0E-9704-B825DC7C45FB}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ColorPicker", "extensions\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj", "{4A407417-727A-4A0E-9704-B825DC7C45FB}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.DataGrid", "packages\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj", "{F78C6BA2-5867-442D-AAC7-81110892AE05}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.DataGrid", "extensions\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj", "{F78C6BA2-5867-442D-AAC7-81110892AE05}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ItemsRepeater", "packages\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj", "{AFA2343C-1250-4B81-9E6F-48001BA9A516}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.ItemsRepeater", "extensions\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj", "{AFA2343C-1250-4B81-9E6F-48001BA9A516}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.TreeDataGrid", "packages\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj", "{88BF2500-3A9E-406C-8726-40CE837D0F36}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.Avalonia.TreeDataGrid", "extensions\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj", "{88BF2500-3A9E-406C-8726-40CE837D0F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
