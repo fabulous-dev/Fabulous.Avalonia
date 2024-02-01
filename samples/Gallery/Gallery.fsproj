@@ -130,8 +130,6 @@
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="FSharp.Core" />
     <PackageReference Include="Fabulous" />
-    <PackageReference Condition="$(AvaloniaPlatform) == ''" Include="Avalonia.Desktop" />
-    <PackageReference Condition="$(AvaloniaPlatform) == 'Android'" Include="Avalonia.Android" />
   </ItemGroup>
 
   <ItemGroup>
