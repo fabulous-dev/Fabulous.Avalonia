@@ -5,8 +5,8 @@
 Fabulous.Avalonia brings the great development experience of Fabulous to [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia), allowing you to take advantage of this UI framework with a tailored declarative UI DSL and clean architecture.
 
 Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windows, Linux and more!
-<details>
-  <summary>MVU Sample</summary>
+
+### MVU Sample
 
 ```fs
     type Model =
@@ -46,10 +46,7 @@ Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windo
         FabulousAppBuilder.Configure(FluentTheme, program)
 ```
 
-</details>
-
-<details>
-  <summary>MVU Component sample</summary>
+### MVU Component sample
 
 ```fs
     type Model =
@@ -94,9 +91,7 @@ Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windo
          FabulousAppBuilder.Configure(FluentTheme, view)
 ```
 
-</details>
-
-## Additionals Controls
+## Additional Controls
 
 We also provide additional binding for Avalonia controls, you can find them in the following packages:
 
