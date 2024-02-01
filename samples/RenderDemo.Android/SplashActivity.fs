@@ -1,7 +1,9 @@
-namespace RenderDemo.Android
+﻿namespace RenderDemo.Android
 
 open Android.App
 open Android.Content
+open Avalonia
+open Avalonia.Android
 open Fabulous.Avalonia
 
 [<Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)>]

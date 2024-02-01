@@ -224,14 +224,7 @@
     -->
     <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[2.5.0-pre8]" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.7" />
-    <PackageReference Include="Avalonia.Skia" VersionOverride="11.0.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == ''">
-    <PackageReference Include="Avalonia.Desktop" VersionOverride="11.0.7" />
-  </ItemGroup>
-  <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
-    <PackageReference Include="Avalonia.Android" VersionOverride="11.0.7" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
     <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.7" />

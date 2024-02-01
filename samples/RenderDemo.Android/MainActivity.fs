@@ -1,13 +1,13 @@
-namespace RenderDemo.Android
+﻿namespace RenderDemo.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
-open RenderDemo
 open Fabulous.Avalonia
+open RenderDemo
 
-[<Activity(Label = "Counter.Android",
+[<Activity(Label = "RenderDemo.Android",
            Theme = "@style/MyTheme.NoActionBar",
            Icon = "@drawable/icon",
            LaunchMode = LaunchMode.SingleTop,
