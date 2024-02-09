@@ -132,7 +132,7 @@ module PageTransitionsPage =
 
                             })
                     )
-                        .transition(model.Transition)
+                        .pageTransition(model.Transition)
                         .margin(16)
                         .gridColumn(1)
                         .controller(carouselController)
