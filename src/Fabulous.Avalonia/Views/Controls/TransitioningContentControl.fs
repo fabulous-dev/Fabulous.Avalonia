@@ -15,6 +15,9 @@ module TransitioningContentControl =
     let PageTransition =
         Attributes.defineAvaloniaPropertyWithEquality TransitioningContentControl.PageTransitionProperty
 
+    let IsTransitionReversed =
+        Attributes.defineAvaloniaPropertyWithEquality TransitioningContentControl.IsTransitionReversedProperty
+
 [<AutoOpen>]
 module TransitioningContentControlBuilders =
     type Fabulous.Avalonia.View with
@@ -39,5 +42,12 @@ type TransitioningContentControlModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PageTransition value.</param>
     [<Extension>]
-    static member inline pageTransition(this: WidgetBuilder<'msg, #IFabTransitioningContentControl>, value: IPageTransition) =
+    static member inline pageTransition(this: WidgetBuilder<'msg, #IFabTransitioningContentControl>, value: #IPageTransition) =
         this.AddScalar(TransitioningContentControl.PageTransition.WithValue(value))
+
+    /// <summary>Sets the IsTransitionReversed property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsTransitionReversed value.</param>
+    [<Extension>]
+    static member inline isTransitionReversed(this: WidgetBuilder<'msg, #IFabTransitioningContentControl>, value: bool) =
+        this.AddScalar(TransitioningContentControl.IsTransitionReversed.WithValue(value))
