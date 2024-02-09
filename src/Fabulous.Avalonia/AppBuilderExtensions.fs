@@ -25,6 +25,7 @@ type FabulousAppBuilder private () =
                                 { CanReuseView = canReuseView
                                   GetViewNode = ViewNode.get
                                   GetComponent = Component.get
+                                  SetComponent = Component.set
                                   SyncAction = syncAction
                                   Logger = logger
                                   Dispatch = ignore }

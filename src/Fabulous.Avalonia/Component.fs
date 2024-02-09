@@ -13,6 +13,7 @@ module Component =
     let set (comp: obj) (target: obj) =
         (target :?> AvaloniaObject)
             .SetValue(ComponentProperty, comp)
+        |> ignore
 
 [<AutoOpen>]
 module ComponentBuilders =

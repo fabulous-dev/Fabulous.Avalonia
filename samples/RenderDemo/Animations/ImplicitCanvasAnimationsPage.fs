@@ -145,12 +145,12 @@ module ImplicitCanvasAnimationsPage =
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
         | AddChild ->
-            Cmd.ofSub(fun dispatch ->
+            Cmd.ofEffect(fun dispatch ->
                 add()
                 dispatch ChildAdded)
 
         | ToggleBenchmark ->
-            Cmd.ofSub(fun _ ->
+            Cmd.ofEffect(fun _ ->
                 if cts = null then
                     cts <- new CancellationTokenSource()
 

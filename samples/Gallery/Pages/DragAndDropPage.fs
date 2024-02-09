@@ -193,8 +193,8 @@ module DragAndDropPage =
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | DragBegin(args, factory, effects, borderDragged) -> Cmd.ofAsyncMsg(doDrag args effects factory borderDragged)
-        | DropBegin(args) -> Cmd.ofAsyncMsg(doDrop args)
+        | DragBegin(args, factory, effects, borderDragged) -> Cmd.OfAsync.msg(doDrag args effects factory borderDragged)
+        | DropBegin(args) -> Cmd.OfAsync.msg(doDrop args)
 
     let init () =
         { DragStateTex = "Drag Me (text)"

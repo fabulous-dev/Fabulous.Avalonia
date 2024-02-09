@@ -82,14 +82,14 @@ type CarouselModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PageTransition value.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<'msg, #IFabCarousel>, value: IPageTransition) =
+    static member inline pageTransition(this: WidgetBuilder<'msg, IFabCarousel>, value: #IPageTransition) =
         this.AddScalar(Carousel.PageTransition.WithValue(value))
 
     /// <summary>Sets the Controller property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Controller value.</param>
     [<Extension>]
-    static member inline controller(this: WidgetBuilder<'msg, #IFabCarousel>, value: CarouselController) =
+    static member inline controller(this: WidgetBuilder<'msg, IFabCarousel>, value: CarouselController) =
         this.AddScalar(Carousel.Controller.WithValue(Some value))
 
     /// <summary>Link a ViewRef to access the direct Carousel control instance.</summary>

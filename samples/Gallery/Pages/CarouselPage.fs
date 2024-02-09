@@ -10,7 +10,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module CarouselPage =
 
@@ -113,13 +112,14 @@ module CarouselPage =
 
                         })
                 )
-                    .transition(Rotate3DTransition(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
+                    .pageTransition(Rotate3DTransition(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal))
                     .margin(16)
                     .gridColumn(1)
                     .controller(carouselController)
                     .centerHorizontal()
                     .centerVertical()
                     .onSelectionChanged(SelectionChanged)
+
 
                 Button(
                     Next,

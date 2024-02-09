@@ -155,14 +155,14 @@ module ClipboardPage =
 
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | TextCopied s -> Cmd.ofTaskMsg(copyText(s))
-        | TextDataObjectCopied s -> Cmd.ofTaskMsg(copyTextDataObject(s))
-        | TextDataObjectPasted -> Cmd.ofTaskMsg(pasteTextDataObject())
-        | FilesDataObjectCopied s -> Cmd.ofTaskMsg(copyFilesDataObject(s))
-        | FilesDataObjectPasted -> Cmd.ofTaskMsg(pasteFilesDataObject())
-        | TextPasted -> Cmd.ofTaskMsg(pasteText())
-        | FormatsGet -> Cmd.ofTaskMsg(getFormats())
-        | Clearing -> Cmd.ofTaskMsg(clear())
+        | TextCopied s -> Cmd.OfTask.msg(copyText(s))
+        | TextDataObjectCopied s -> Cmd.OfTask.msg(copyTextDataObject(s))
+        | TextDataObjectPasted -> Cmd.OfTask.msg(pasteTextDataObject())
+        | FilesDataObjectCopied s -> Cmd.OfTask.msg(copyFilesDataObject(s))
+        | FilesDataObjectPasted -> Cmd.OfTask.msg(pasteFilesDataObject())
+        | TextPasted -> Cmd.OfTask.msg(pasteText())
+        | FormatsGet -> Cmd.OfTask.msg(getFormats())
+        | Clearing -> Cmd.OfTask.msg(clear())
 
     let init () = { ClipboardContentText = "" }, []
 

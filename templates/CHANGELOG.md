@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.4.0-pre1] - 2024-02-09
+### Changed
+- Fix templates after Component API support by @TimLariviere at https://github.com/fabulous-dev/Fabulous.Avalonia/pull/207
+- Update to use version 11.0.9
+
 ## [2.3.0] - 2024-01-17
 ### Added
 - No changes

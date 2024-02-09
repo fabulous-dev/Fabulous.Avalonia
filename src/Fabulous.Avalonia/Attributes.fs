@@ -37,28 +37,28 @@ module Attributes =
     /// Define an attribute for EventHandler<'T>
     let inline defineAvaloniaObservableEvent<'args>
         name
-        ([<InlineIfLambda>] getObservable: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
+        ([<InlineIfLambda>] getEvent: obj -> IObservable<AvaloniaPropertyChangedEventArgs<'args>>)
         : SimpleScalarAttributeDefinition<'args -> MsgValue> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
                 (fun _ (newValueOpt: ('args -> MsgValue) voption) (node: IViewNode) ->
-                    let observable = getObservable node.Target
-
-                    match node.TryGetHandler<IDisposable>(name) with
+                    match node.TryGetHandler(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
 
                     match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
+                    | ValueNone -> node.Dispose()
 
                     | ValueSome fn ->
+                        let event = getEvent node.Target
+
                         let disposable =
-                            observable.Subscribe(fun args ->
+                            event.Subscribe(fun args ->
                                 let (MsgValue r) = fn args.NewValue.Value
                                 Dispatcher.dispatch node r)
 
-                        node.SetHandler(name, ValueSome disposable))
+                        node.SetHandler(name, disposable))
             )
             |> AttributeDefinitionStore.registerScalar
 
@@ -128,7 +128,7 @@ module Attributes =
 
                     // Trigger the unmounted event
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
-                    itemNode.Disconnect()
+                    itemNode.Dispose()
 
                     // Remove the child from the UI tree
                     targetColl.RemoveAt(index)
@@ -158,7 +158,7 @@ module Attributes =
 
                     // Trigger the unmounted event for the old child
                     Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget Lifecycle.Unmounted
-                    prevItemNode.Disconnect()
+                    prevItemNode.Dispose()
 
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- view
@@ -194,7 +194,7 @@ module Attributes =
 
                     // Trigger the unmounted event
                     Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
-                    itemNode.Disconnect()
+                    itemNode.Dispose()
 
                     // Remove the child from the UI tree
                     targetColl.RemoveAt(index)
@@ -224,7 +224,7 @@ module Attributes =
 
                     // Trigger the unmounted event for the old child
                     Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget Lifecycle.Unmounted
-                    prevItemNode.Disconnect()
+                    prevItemNode.Dispose()
 
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- unbox view
@@ -269,26 +269,26 @@ module Attributes =
                 ScalarAttributeComparers.noCompare,
                 (fun _ (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
                     let target = node.Target :?> AvaloniaObject
-                    let observable = property.Changed
 
                     // The attribute is no longer applied, so we clean up the event
-                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    match node.TryGetHandler(property.Name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
 
                     match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
+                    | ValueNone -> node.Dispose()
                     | ValueSome curr ->
+                        let event = property.Changed
                         // Set the new event handler
                         let disposable =
-                            observable.Subscribe(fun args ->
+                            event.Subscribe(fun args ->
                                 if args.Sender = target then
                                     if args.NewValue.HasValue then
                                         let args = args.NewValue.Value
                                         let (MsgValue r) = curr.Event(convertToModel args)
                                         Dispatcher.dispatch node r)
 
-                        node.SetHandler(property.Name, ValueSome disposable))
+                        node.SetHandler(property.Name, disposable))
             )
             |> AttributeDefinitionStore.registerScalar
 
@@ -306,10 +306,9 @@ module Attributes =
                 ScalarAttributeComparers.noCompare,
                 (fun oldValueOpt (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
                     let target = node.Target :?> AvaloniaObject
-                    let observable = property.Changed
 
                     // The attribute is no longer applied, so we clean up the event
-                    match node.TryGetHandler<IDisposable>(property.Name) with
+                    match node.TryGetHandler(property.Name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
 
@@ -321,7 +320,7 @@ module Attributes =
 
                     | ValueSome curr ->
                         // Clean up the old event handler if any
-                        match node.TryGetHandler<IDisposable>(property.Name) with
+                        match node.TryGetHandler(property.Name) with
                         | ValueNone -> ()
                         | ValueSome handler -> handler.Dispose()
 
@@ -333,16 +332,17 @@ module Attributes =
                             let newValue = convertToValue v
                             target.SetValue(property, box newValue) |> ignore
 
+                        let event = property.Changed
                         // Set the new event handler
                         let disposable =
-                            observable.Subscribe(fun args ->
+                            event.Subscribe(fun args ->
                                 if args.Sender = target then
                                     if args.NewValue.HasValue then
                                         let args = args.NewValue.Value
                                         let (MsgValue r) = curr.Event(convertToModel args)
                                         Dispatcher.dispatch node r)
 
-                        node.SetHandler(property.Name, ValueSome disposable))
+                        node.SetHandler(property.Name, disposable))
             )
             |> AttributeDefinitionStore.registerScalar
 
@@ -356,20 +356,20 @@ module Attributes =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
                 (fun _ (newValueOpt: ('args -> MsgValue) voption) (node: IViewNode) ->
-                    match node.TryGetHandler<IDisposable>(name) with
+                    match node.TryGetHandler(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
 
                     match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
+                    | ValueNone -> node.Dispose()
 
                     | ValueSome fn ->
-                        let disposable =
+                        let event =
                             property.AddClassHandler(fun _ args ->
                                 let (MsgValue r) = fn args
                                 Dispatcher.dispatch node r)
 
-                        node.SetHandler(name, ValueSome disposable))
+                        node.SetHandler(name, event))
             )
             |> AttributeDefinitionStore.registerScalar
 
@@ -383,23 +383,22 @@ module Attributes =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
                 (fun _ (newValueOpt: (CancelEventArgs -> MsgValue) voption) (node: IViewNode) ->
-                    let event = getEvent node.Target
-
                     match node.TryGetHandler(name) with
                     | ValueNone -> ()
-                    | ValueSome handler -> event.RemoveHandler handler
+                    | ValueSome handler -> handler.Dispose()
 
                     match newValueOpt with
-                    | ValueNone -> node.SetHandler(name, ValueNone)
+                    | ValueNone -> node.Dispose()
 
                     | ValueSome fn ->
+                        let event = getEvent node.Target
+
                         let handler =
-                            CancelEventHandler(fun _ args ->
+                            event.Subscribe(fun args ->
                                 let (MsgValue r) = fn args
                                 Dispatcher.dispatch node r)
 
-                        node.SetHandler(name, ValueSome handler)
-                        event.AddHandler handler)
+                        node.SetHandler(name, handler))
             )
             |> AttributeDefinitionStore.registerScalar
 

@@ -18,7 +18,7 @@ jobs:
     - name: Check code formatting
       run: |
         dotnet tool restore
-        dotnet fantomas --check src samples templates
+        dotnet fantomas . --check
     - name: Install dotnet workload
       run: dotnet workload restore
     - name: Restore

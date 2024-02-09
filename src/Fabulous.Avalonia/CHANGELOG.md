@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.4.0-pre1] - 2024-02-09
+### Added
+- Add support for Components by @TimLariviere at https://github.com/fabulous-dev/Fabulous.Avalonia/pull/206
+
+### Changed
+- Fix templates after Component API support by @TimLariviere at https://github.com/fabulous-dev/Fabulous.Avalonia/pull/207
+- Fix AutoCompleteBox by @edgarfgp at https://github.com/fabulous-dev/Fabulous.Avalonia/pull/210/files
+- Use Fabulous pre8
+- Fix for carrousel page transition modifiers by @edgarfgp at https://github.com/fabulous-dev/Fabulous.Avalonia/pull/218
+- Update to use version 11.0.9
+
 ## [2.3.0] - 2024-01-17
 ### Added
 - ImageSource constructors and modifiers consolidations

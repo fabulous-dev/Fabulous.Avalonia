@@ -18,7 +18,7 @@ module CanvasPage =
     type CmdMsg = | StartTimer
 
     let timer () =
-        Cmd.ofSub(fun dispatch ->
+        Cmd.ofEffect(fun dispatch ->
             DispatcherTimer.Run(
                 Func<bool>(fun _ ->
                     dispatch(Update(DateTime.Now))
