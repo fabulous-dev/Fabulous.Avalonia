@@ -79,13 +79,16 @@ module ViewHelpers =
         Trace.WriteLine(String.Format("Unhandled exception: {0}", exn.ToString()), "Debug")
         false
 
+//TODO how does this differ from Fabulous.Program? When to use which?
 module Program =
+    // TODO when would I want to use this?
     let withView (view: 'model -> WidgetBuilder<'msg, 'marker>) (state: Program<'arg, 'model, 'msg>) : Program<'arg, 'model, 'msg, 'marker> =
         { State = state
           View = view
           CanReuseView = ViewHelpers.canReuseView
           SyncAction = ViewHelpers.defaultSyncAction }
 
+    // TODO when would I want to use this?
     let stateless (view: unit -> WidgetBuilder<unit, 'marker>) : Program<unit, unit, unit, 'marker> =
         Program.stateful (fun _ -> ()) (fun _ _ -> ()) |> withView view
 
@@ -104,6 +107,7 @@ module Program =
 
         { program with View = traceView }
 
+//TODO RequireQualityDoco as well ;) - What is CmdMsg about?
 [<RequireQualifiedAccess>]
 module CmdMsg =
     let batch mapCmdMsgFn mapCmdFn cmdMsgs =

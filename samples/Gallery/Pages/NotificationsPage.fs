@@ -36,8 +36,10 @@ module NotificationsPage =
         | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs
         | ControlNotificationsShow
 
+    //TODO What is this about?
     type CmdMsg = | NoMsg
 
+    //TODO What is this about?
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
         | NoMsg -> Cmd.none
@@ -50,6 +52,7 @@ module NotificationsPage =
         match msg with
         | ShowManagedNotification ->
 
+            //TODO this changes global state! i.e. after receiving this message, all notifications appear bottom right. is that intended?
             model.NotificationManager.Position <- NotificationPosition.BottomRight
 
             model.NotificationManager.Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
@@ -73,6 +76,7 @@ module NotificationsPage =
 
             model, []
 
+        //TODO What is this about?
         | AttachedToVisualTreeChanged args -> { NotificationManager = FabApplication.Current.WindowNotificationManager }, []
 
         | ControlNotificationsShow ->
@@ -80,6 +84,7 @@ module NotificationsPage =
             model, []
 
     let program =
+        //TODO What is this about? What's the diff to Program.statefulWithCmd and Program.stateful? When to use which?
         Program.statefulWithCmdMsg init update mapCmdMsgToCmd
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
@@ -93,6 +98,7 @@ module NotificationsPage =
 
     let view () =
         Component(program) {
+            //TODO What is this about?
             let! model = Mvu.State
 
             (Dock() {
@@ -139,5 +145,6 @@ module NotificationsPage =
                     .borderBrush(SolidColorBrush(Colors.Blue))
 
             })
+                //TODO What is this about?
                 .onAttachedToVisualTree(AttachedToVisualTreeChanged)
         }

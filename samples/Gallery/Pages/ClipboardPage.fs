@@ -14,6 +14,7 @@ open type Fabulous.Avalonia.View
 module ClipboardPage =
     type Model = { ClipboardContentText: string }
 
+    // messages that are handled synchronously in pure Elm functions (?)
     type Msg =
         | CopyText
         | CopiedText
@@ -28,6 +29,7 @@ module ClipboardPage =
         | Cleared
         | ClipboardContentChanged of string
 
+    // messages triggering asynchronous side-effects (?)
     type CmdMsg =
         | TextCopied of string
         | TextDataObjectCopied of string
@@ -153,6 +155,7 @@ module ClipboardPage =
             return Cleared
         }
 
+    //TODO Why do this?
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
         | TextCopied s -> Cmd.OfTask.msg(copyText(s))
