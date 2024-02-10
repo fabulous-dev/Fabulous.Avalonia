@@ -31,18 +31,45 @@ module NotificationsPage =
         | ShowManagedNotification
         | ShowCustomManagedNotification
         | ShowNativeNotification
+        | ShowAsyncCompletedNotification
+        | ShowAsyncStatusNotifications
+        | NotifyInfo of string
         | YesCommand
         | NoCommand
         | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs
         | ControlNotificationsShow
 
     //TODO What is this about?
-    type CmdMsg = | NoMsg
+    type CmdMsg = | NotifyAsyncCompleted | NotifyAsyncStatusUpdates
+
+    let private notifyOneAsync =
+        async {
+            do! Async.Sleep 1000
+            return NotifyInfo "async operation completed"
+        }
+
+    let private notifyAsyncStatusUpdates dispatch =
+        async {
+            dispatch(NotifyInfo "started")
+            do! Async.Sleep 1000
+            dispatch(NotifyInfo "5")
+            do! Async.Sleep 1000
+            dispatch(NotifyInfo "4")
+            do! Async.Sleep 1000
+            dispatch(NotifyInfo "3")
+            do! Async.Sleep 1000
+            dispatch(NotifyInfo "2")
+            do! Async.Sleep 1000
+            dispatch(NotifyInfo "1")
+            do! Async.Sleep 1000
+            dispatch(NotifyInfo "completed")
+        } |> Async.Start
 
     //TODO What is this about?
     let mapCmdMsgToCmd cmdMsg =
         match cmdMsg with
-        | NoMsg -> Cmd.none
+        | NotifyAsyncCompleted -> Cmd.OfAsync.msg notifyOneAsync
+        | NotifyAsyncStatusUpdates -> Cmd.ofEffect notifyAsyncStatusUpdates
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
@@ -66,6 +93,14 @@ module NotificationsPage =
             model.NotificationManager.Show(Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
 
             model, []
+
+        | ShowAsyncCompletedNotification -> model, [NotifyAsyncCompleted]
+        | ShowAsyncStatusNotifications -> model, [NotifyAsyncStatusUpdates]
+
+        | NotifyInfo message ->
+            model.NotificationManager.Show(Notification(message, "", NotificationType.Information))
+            model, []
+
         | YesCommand ->
             model.NotificationManager.Show(Notification("Avalonia Notifications", "Start adding notifications to your app today."))
 
@@ -111,6 +146,8 @@ module NotificationsPage =
                 (VStack(4.) {
                     Button("Show Standard Managed Notification", ShowManagedNotification)
                     Button("Show Custom Managed Notification", ShowCustomManagedNotification)
+                    Button("Notify async operation completed", ShowAsyncCompletedNotification)
+                    Button("Notify status updates from async operation", ShowAsyncStatusNotifications)
                 })
                     .dock(Dock.Top)
                     .horizontalAlignment(HorizontalAlignment.Left)
