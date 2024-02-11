@@ -45,11 +45,13 @@ module NotificationsPage =
     let private notifyOneAsync =
         async {
             do! Async.Sleep 1000
+            // TODO causes an InvalidOperationException saying "Call from invalid thread" from the Dispatcher
             return NotifyInfo "async operation completed"
         }
 
     let private notifyAsyncStatusUpdates dispatch =
         async {
+            // TODO causes an InvalidOperationException saying "Call from invalid thread" from the Dispatcher
             dispatch(NotifyInfo "started")
             do! Async.Sleep 1000
             dispatch(NotifyInfo "5")
@@ -80,6 +82,7 @@ module NotificationsPage =
         | ShowManagedNotification ->
 
             //TODO this changes global state! i.e. after receiving this message, all notifications appear bottom right. is that intended?
+            //TODO Could you add a side-effect free example that applies custom positioning to just one message please?
             model.NotificationManager.Position <- NotificationPosition.BottomRight
 
             model.NotificationManager.Show(Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
