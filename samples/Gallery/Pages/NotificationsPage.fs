@@ -37,7 +37,7 @@ module NotificationsPage =
         | NotifyInfo of string
         | YesCommand
         | NoCommand
-        | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs
+        | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs // event after which WindowNotificationManager is available
         | ControlNotificationsShow
 
     //TODO What is this about?
@@ -119,7 +119,9 @@ module NotificationsPage =
 
             model, []
 
-        //TODO What is this about?
+        (*  WindowNotificationManager can't be used immediately after creating it,
+            so we need to wait for it to be attached to the visual tree.
+            See https://github.com/AvaloniaUI/Avalonia/issues/5442 *)
         | AttachedToVisualTreeChanged args -> { NotificationManager = FabApplication.Current.WindowNotificationManager }, []
 
         | ControlNotificationsShow ->
@@ -190,6 +192,5 @@ module NotificationsPage =
                     .borderBrush(SolidColorBrush(Colors.Blue))
 
             })
-                //TODO What is this about?
                 .onAttachedToVisualTree(AttachedToVisualTreeChanged)
         }
