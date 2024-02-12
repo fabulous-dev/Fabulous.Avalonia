@@ -5,6 +5,7 @@ open System.Diagnostics
 open Avalonia
 open Avalonia.Controls.Notifications
 open Avalonia.Controls
+open Avalonia.Threading
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
@@ -51,20 +52,19 @@ module NotificationsPage =
 
     let private notifyAsyncStatusUpdates dispatch =
         async {
-            // TODO causes an InvalidOperationException saying "Call from invalid thread" from the Dispatcher
-            dispatch(NotifyInfo "started")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "started"))
             do! Async.Sleep 1000
-            dispatch(NotifyInfo "5")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "5"))
             do! Async.Sleep 1000
-            dispatch(NotifyInfo "4")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "4"))
             do! Async.Sleep 1000
-            dispatch(NotifyInfo "3")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "3"))
             do! Async.Sleep 1000
-            dispatch(NotifyInfo "2")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "2"))
             do! Async.Sleep 1000
-            dispatch(NotifyInfo "1")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "1"))
             do! Async.Sleep 1000
-            dispatch(NotifyInfo "completed")
+            Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "completed"))
         } |> Async.Start
 
     //TODO What is this about?
