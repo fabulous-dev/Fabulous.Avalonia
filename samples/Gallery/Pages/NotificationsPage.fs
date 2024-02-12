@@ -46,12 +46,17 @@ module NotificationsPage =
     let private notifyOneAsync =
         async {
             do! Async.Sleep 1000
-            // TODO causes an InvalidOperationException saying "Call from invalid thread" from the Dispatcher
+            (*TODO still causes an InvalidOperationException saying "Call from invalid thread" from the Dispatcher
+                How do I dispatch this on the UI thread without having access to a dispatch function? *)
             return NotifyInfo "async operation completed"
         }
 
     let private notifyAsyncStatusUpdates dispatch =
         async {
+            (*  TODO this works now but feels really awkward.
+                dispatch(NotifyInfo "started") should suffice.
+                Why does Cmd.ofEffect hand me a dispatch function for a thread that's not the UI thread?
+                That seems wrong - or am I missing something? *)
             Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "started"))
             do! Async.Sleep 1000
             Dispatcher.UIThread.Post(fun _ -> dispatch(NotifyInfo "5"))
