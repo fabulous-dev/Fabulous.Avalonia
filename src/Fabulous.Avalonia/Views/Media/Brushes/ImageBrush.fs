@@ -39,7 +39,6 @@ module ImageBrushBuilders =
         static member ImageBrush(source: Stream) =
             WidgetBuilder<'msg, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))
 
-[<Extension>]
 type ImageBrushModifiers =
     /// <summary>Link a ViewRef to access the direct ImageBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

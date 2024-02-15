@@ -31,7 +31,6 @@ module ViewBoxBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type ViewBoxModifiers =
     /// <summary>Sets the Stretch property.</summary>
     /// <param name="this">Current widget.</param>

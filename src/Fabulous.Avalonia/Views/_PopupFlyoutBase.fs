@@ -42,7 +42,6 @@ module PopupFlyoutBase =
     let Closing =
         Attributes.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
 
-[<Extension>]
 type PopupFlyoutBaseModifiers =
     /// <summary>Sets the Placement property.</summary>
     /// <param name="this">Current widget.</param>

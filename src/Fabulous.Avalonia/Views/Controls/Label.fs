@@ -32,7 +32,6 @@ module LabelBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type LabelModifiers =
     /// <summary>Sets the Target property.</summary>
     /// <param name="this">Current widget.</param>

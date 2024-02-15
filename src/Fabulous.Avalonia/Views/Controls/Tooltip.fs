@@ -42,7 +42,6 @@ module ToolTipBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>

@@ -84,7 +84,6 @@ module ConicGradientBrushBuilders =
                 ConicGradientBrush.Angle.WithValue(0.)
             )
 
-[<Extension>]
 type ConicGradientBrushModifiers =
     /// <summary>Link a ViewRef to access the direct ConicGradientBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

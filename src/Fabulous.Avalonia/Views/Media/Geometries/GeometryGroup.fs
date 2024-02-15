@@ -30,7 +30,6 @@ module GeometryGroupBuilders =
                 GeometryGroup.FillRule.WithValue(fillRule)
             )
 
-[<Extension>]
 type GeometryGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGeometry>
@@ -48,7 +47,6 @@ type GeometryGroupCollectionBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type GeometryGroupModifiers =
 
     /// <summary>Link a ViewRef to access the direct GeometryGroup control instance.</summary>

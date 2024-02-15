@@ -114,7 +114,6 @@ module ImageBuilders =
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type ImageModifiers =
     /// <summary>Sets the StretchDirection property.</summary>
     /// <param name="this">Current widget.</param>

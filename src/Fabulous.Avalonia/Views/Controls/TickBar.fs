@@ -58,7 +58,6 @@ module TickBarBuilders =
         static member TickBar(min: float, max: float) =
             WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
 
-[<Extension>]
 type TickBarModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
@@ -123,7 +122,6 @@ type TickBarModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabTickBar>, value: ViewRef<TickBar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type TickBarExtraModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>

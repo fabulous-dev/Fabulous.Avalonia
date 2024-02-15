@@ -19,7 +19,6 @@ module LineBreakBuilders =
         static member LineBreak() =
             WidgetBuilder<'msg, IFabLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-[<Extension>]
 type LineBreakModifiers =
     /// <summary>Link a ViewRef to access the direct LineBreak control instance.</summary>
     /// <param name="this">Current widget.</param>

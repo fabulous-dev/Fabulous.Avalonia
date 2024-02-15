@@ -74,7 +74,6 @@ module CalendarBuilders =
                 Calendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
-[<Extension>]
 type CalendarModifiers =
     /// <summary>Sets the FirstDayOfWeek property.</summary>
     /// <param name="this">Current widget.</param>
@@ -153,7 +152,6 @@ type CalendarModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type CalendarExtraModifiers =
     /// <summary>Sets the HeaderBackground property.</summary>
     /// <param name="this">Current widget.</param>

@@ -43,7 +43,6 @@ module ToggleSplitButtonBuilders =
                 )
             )
 
-[<Extension>]
 type ToggleSplitButtonModifiers =
     /// <summary>Link a ViewRef to access the direct ToggleSplitButton control instance.</summary>
     /// <param name="this">Current widget.</param>

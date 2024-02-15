@@ -105,7 +105,6 @@ module TextBlockBuilders =
         static member inline TextBlock() =
             CollectionBuilder<'msg, IFabTextBlock, IFabInline>(TextBlock.WidgetKey, TextBlock.Inlines)
 
-[<Extension>]
 type TextBlockModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -241,7 +240,6 @@ type TextBlockModifiers =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 
-[<Extension>]
 type TextBlockExtraModifiers =
     /// <summary>Sets the TextAlignment property to center.</summary>
     /// <param name="this">Current widget.</param>
@@ -302,7 +300,6 @@ type TextBlockExtraModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
         TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
 
-[<Extension>]
 type TextBlockCollectionBuilderExtensions =
 
     [<Extension>]
@@ -337,7 +334,6 @@ type TextBlockCollectionBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type InlineCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
@@ -352,7 +348,6 @@ type InlineCollectionModifiers =
     static member inline textDecoration(this: WidgetBuilder<'msg, #IFabInline>, value: WidgetBuilder<'msg, IFabTextDecoration>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations) { value }
 
-[<Extension>]
 type TextBlockCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>

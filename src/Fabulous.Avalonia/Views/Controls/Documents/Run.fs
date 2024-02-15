@@ -21,7 +21,6 @@ module RunBuilders =
         static member Run(text: string) =
             WidgetBuilder<'msg, IFabRun>(Run.WidgetKey, Run.Text.WithValue(text))
 
-[<Extension>]
 type RunModifiers =
     /// <summary>Link a ViewRef to access the direct Run control instance.</summary>
     /// <param name="this">Current widget.</param>

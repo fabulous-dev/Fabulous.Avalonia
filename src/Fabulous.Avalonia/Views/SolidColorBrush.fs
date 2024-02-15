@@ -27,7 +27,6 @@ module SolidColorBrushBuilders =
         static member SolidColorBrush(color: string) =
             View.SolidColorBrush(Color.Parse(color))
 
-[<Extension>]
 type SolidColorBrushModifiers =
     /// <summary>Link a ViewRef to access the direct SolidColorBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

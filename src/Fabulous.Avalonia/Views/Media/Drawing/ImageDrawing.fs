@@ -80,7 +80,6 @@ module ImageDrawingBuilders =
                 )
             )
 
-[<Extension>]
 type ImageDrawingModifiers =
 
     /// <summary>Link a ViewRef to access the direct ImageDrawing control instance.</summary>

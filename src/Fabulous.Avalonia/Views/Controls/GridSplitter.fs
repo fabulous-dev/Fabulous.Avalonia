@@ -40,7 +40,6 @@ module GridSplitterBuilders =
         static member GridSplitter(resizeDirection: GridResizeDirection) =
             WidgetBuilder<'msg, IFabGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
 
-[<Extension>]
 type GridSplitterModifiers =
     /// <summary>Sets the ResizeBehavior property.</summary>
     /// <param name="this">Current widget.</param>

@@ -36,7 +36,6 @@ module ColorPreviewerBuilders =
         static member ColorPreviewer(fn: ColorChangedEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabColorPreviewer>(ColorPreviewer.WidgetKey, ColorPreviewer.ColorChanged.WithValue(fn))
 
-[<Extension>]
 type ColorPreviewerModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>
     /// <param name="this">Current widget</param>

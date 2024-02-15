@@ -18,7 +18,6 @@ module Brush =
     let TransformOrigin =
         Attributes.defineAvaloniaPropertyWithEquality Brush.TransformOriginProperty
 
-[<Extension>]
 type BrushModifiers =
 
     /// <summary>Sets the Opacity property.</summary>
