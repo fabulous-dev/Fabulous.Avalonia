@@ -68,7 +68,6 @@ module NotificationsPage =
 
     let showNotification (notificationManager: INotificationManager) notification =
         let notificationManager = notificationManager :?> WindowNotificationManager
-        notificationManager.Position <- NotificationPosition.BottomRight
         notificationManager.Show(notification)
         NotificationShowed
 
@@ -132,8 +131,8 @@ module NotificationsPage =
             []
 
         | ControlNotificationsShow ->
-            controlNotificationsRef.Value.Show(Notification("Control Notifications", "This notification is shown by the control itself."))
-            model, []
+            model,
+            [ ShowNotification(controlNotificationsRef.Value, Notification("Control Notifications", "This notification is shown by the control itself.")) ]
 
         | NotificationShowed -> model, []
 
