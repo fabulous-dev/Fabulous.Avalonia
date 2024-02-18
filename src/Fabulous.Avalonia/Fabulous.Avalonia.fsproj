@@ -216,6 +216,7 @@
     <Compile Include="Any.fs" />
     <Compile Include="Program.fs" />
     <Compile Include="AppBuilderExtensions.fs" />
+    <Compile Include="Async.fs" />
   </ItemGroup>
   <ItemGroup>
     <!--
