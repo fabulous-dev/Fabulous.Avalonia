@@ -28,16 +28,6 @@ module ClipboardPage =
         | Cleared
         | ClipboardContentChanged of string
 
-    // type CmdMsg =
-    //     | TextCopied of string
-    //     | TextDataObjectCopied of string
-    //     | FilesDataObjectCopied of string
-    //     | FilesDataObjectPasted
-    //     | TextDataObjectPasted
-    //     | TextPasted
-    //     | FormatsGet
-    //     | Clearing
-
     let copyText (clipboardText: string) =
         task {
             let clipboard = FabApplication.Current.Clipboard
@@ -152,17 +142,6 @@ module ClipboardPage =
             do! clipboard.ClearAsync()
             return Cleared
         }
-
-    // let mapCmdMsgToCmd cmdMsg =
-    //     match cmdMsg with
-    //     | TextCopied s -> Cmd.OfTask.msg(copyText(s))
-    //     | TextDataObjectCopied s -> Cmd.OfTask.msg(copyTextDataObject(s))
-    //     | TextDataObjectPasted -> Cmd.OfTask.msg(pasteTextDataObject())
-    //     | FilesDataObjectCopied s -> Cmd.OfTask.msg(copyFilesDataObject(s))
-    //     | FilesDataObjectPasted -> Cmd.OfTask.msg(pasteFilesDataObject())
-    //     | TextPasted -> Cmd.OfTask.msg(pasteText())
-    //     | FormatsGet -> Cmd.OfTask.msg(getFormats())
-    //     | Clearing -> Cmd.OfTask.msg(clear())
 
     let init () = { ClipboardContentText = "" }, Cmd.none
 
