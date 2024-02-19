@@ -14,20 +14,14 @@ module SplitViewPage =
 
     type Msg = | Open
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { IsOpen = false }, []
+    let init () = { IsOpen = false }, Cmd.none
 
     let update msg model =
         match msg with
-        | Open -> { IsOpen = not model.IsOpen }, []
+        | Open -> { IsOpen = not model.IsOpen }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

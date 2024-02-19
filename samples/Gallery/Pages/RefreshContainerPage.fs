@@ -16,14 +16,8 @@ module RefreshContainerPage =
 
     type Msg = RefreshRequested of RefreshRequestedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
-        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }, []
+        { Items = ObservableCollection([ 0..200 ] |> List.map(fun x -> $"Item %d{x}")) }, Cmd.none
 
     let update msg model =
         match msg with
@@ -36,7 +30,7 @@ module RefreshContainerPage =
 
             deferral.Complete()
 
-            model, []
+            model, Cmd.none
 
     let container model =
         ListBox(model.Items, (fun x -> TextBlock(x)))
@@ -44,7 +38,7 @@ module RefreshContainerPage =
             .verticalAlignment(VerticalAlignment.Top)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

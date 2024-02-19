@@ -17,24 +17,18 @@ module TextBoxPage =
         | SingleLineTextChanged of string
         | MultiLineTextChanged of string
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { SingleLineText = ""
           MultiLineText = "" },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | SingleLineTextChanged text -> { model with SingleLineText = text }, []
-        | MultiLineTextChanged text -> { model with MultiLineText = text }, []
+        | SingleLineTextChanged text -> { model with SingleLineText = text }, Cmd.none
+        | MultiLineTextChanged text -> { model with MultiLineText = text }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

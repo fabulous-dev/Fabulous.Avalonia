@@ -13,20 +13,14 @@ module MenuPage =
 
     type Msg = ValueChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { IsChecked = false }, []
+    let init () = { IsChecked = false }, Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { IsChecked = value }, []
+        | ValueChanged value -> { IsChecked = value }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

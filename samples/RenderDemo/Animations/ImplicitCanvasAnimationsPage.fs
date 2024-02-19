@@ -2,7 +2,6 @@ namespace RenderDemo
 
 open System
 open System.Diagnostics
-open System.Threading
 open Avalonia
 open Avalonia.Animation.Easings
 open Avalonia.Controls
@@ -74,16 +73,13 @@ module ImplicitCanvasAnimationsPage =
 
     type Msg =
         | ButtonClear
-        | ButtonBenchmark
+        | StartBenchmark
         | ButtonAdd
         | ButtonFps
         | ChildAdded
         | ChildrenCleared
-
-    type CmdMsg =
-        | AddChild
-        | ToggleBenchmark
-        | StopBenchmarkAndClearChildren
+        | TimedTick
+        | StopBenchmark
 
     let canvasRef = ViewRef<Canvas>()
     let mutable implicitAnimations: ImplicitAnimationCollection = null
@@ -140,74 +136,60 @@ module ImplicitCanvasAnimationsPage =
         canvasRef.Value.Children.Add(canvasItem)
 
 
-    let mutable cts: CancellationTokenSource = null
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | AddChild ->
-            Cmd.ofEffect(fun dispatch ->
-                add()
-                dispatch ChildAdded)
+    let timerCmd () =
+        async {
+            do! Async.Sleep 50
+            return TimedTick
+        }
 
-        | ToggleBenchmark ->
-            Cmd.ofEffect(fun _ ->
-                if cts = null then
-                    cts <- new CancellationTokenSource()
+    let addChild () =
+        add()
+        ChildAdded
 
-                    let renderDemo =
-                        async {
-                            let! ct = Async.CancellationToken
+    let addChildABenchmark () =
+        async {
+            add()
+            return ChildAdded
+        }
+        |> Async.executeOnMainThread
 
-                            while not ct.IsCancellationRequested do
-                                do! Async.Sleep 50
-                                Dispatcher.UIThread.Post(fun _ -> add()
-                                // TODO: Investigate performance of the MVU loop on Fabulous
-                                //dispatch ChildAdded
-                                )
-                        }
+    let stopBenchmarkAndClearChildren () =
+        if implicitAnimations <> null then
+            implicitAnimations.Clear()
+            implicitAnimations <- null
 
-                    Async.Start(renderDemo, cts.Token)
-                else
-                    cts.Cancel()
-                    cts.Dispose()
-                    cts <- null)
-
-        | StopBenchmarkAndClearChildren ->
-            if cts <> null then
-                cts.Cancel()
-                cts.Dispose()
-                cts <- null
-
-            canvasRef.Value.Children.Clear()
-            Cmd.ofMsg ChildrenCleared
+        ChildrenCleared
 
     let init () =
         { ChildrenCount = 0
           BenchmarkRunning = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
+        | TimedTick -> model, Cmd.batch [ Cmd.OfAsync.msg(timerCmd()); Cmd.OfAsync.msg(addChildABenchmark()) ]
+        | ButtonAdd -> model, Cmd.ofMsg(addChild())
         | ChildAdded ->
-            { model with
-                ChildrenCount = model.ChildrenCount + 1 },
-            []
-
-        | ChildrenCleared -> { model with ChildrenCount = 0 }, []
-
-        | ButtonClear -> model, [ StopBenchmarkAndClearChildren ]
-
-        | ButtonBenchmark ->
-            { model with
-                BenchmarkRunning = not model.BenchmarkRunning },
-            [ ToggleBenchmark ]
-
-        | ButtonAdd -> model, [ AddChild ]
-
-        | ButtonFps -> model, []
+            if model.BenchmarkRunning then
+                { model with
+                    ChildrenCount = model.ChildrenCount + 1 },
+                Cmd.none
+            else
+                model, Cmd.none
+        | ButtonClear -> model, Cmd.ofMsg(stopBenchmarkAndClearChildren())
+        | ChildrenCleared -> { model with ChildrenCount = 0 }, Cmd.ofMsg(stopBenchmarkAndClearChildren())
+        | StartBenchmark ->
+            { model with BenchmarkRunning = true },
+            if not model.BenchmarkRunning then
+                Cmd.OfAsync.msg(timerCmd())
+            else
+                Cmd.none
+        | StopBenchmark -> { model with BenchmarkRunning = false }, Cmd.none
+        | ButtonFps -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
@@ -222,7 +204,7 @@ module ImplicitCanvasAnimationsPage =
         Component(program) {
             let! model = Mvu.State
 
-            Grid(coldefs = [], rowdefs = [ Star; Auto ]) {
+            Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
                 Canvas(canvasRef)
                     .clipToBounds(true)
                     .background(Brushes.WhiteSmoke)
@@ -232,8 +214,12 @@ module ImplicitCanvasAnimationsPage =
                     Button("Clear", ButtonClear)
                         .horizontalAlignment(HorizontalAlignment.Center)
 
-                    Button((if model.BenchmarkRunning then "Stop" else "Benchmark"), ButtonBenchmark)
+                    Button("Start Benchmark", StartBenchmark)
                         .horizontalAlignment(HorizontalAlignment.Center)
+
+                    Button("Stop Benchmark", StopBenchmark)
+                        .horizontalAlignment(HorizontalAlignment.Center)
+
 
                     Button("Add", ButtonAdd)
                         .horizontalAlignment(HorizontalAlignment.Center)
@@ -250,5 +236,4 @@ module ImplicitCanvasAnimationsPage =
                     .gridRow(1)
 
             }
-
         }

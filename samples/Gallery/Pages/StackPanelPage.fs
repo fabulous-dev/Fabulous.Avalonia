@@ -17,22 +17,16 @@ module StackPanelPage =
         | Reverse of bool
         | SetSpacing of float option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
-        { Reversed = true; Spacing = Some(50.) }, []
+        { Reversed = true; Spacing = Some(50.) }, Cmd.none
 
     let update msg model =
         match msg with
-        | Reverse reversed -> { model with Reversed = reversed }, []
-        | SetSpacing spacing -> { model with Spacing = spacing }, []
+        | Reverse reversed -> { model with Reversed = reversed }, Cmd.none
+        | SetSpacing spacing -> { model with Spacing = spacing }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

@@ -19,24 +19,19 @@ module ContextMenuPage =
         | ContextMenuClosing of CancelEventArgs
         | ValueChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Counter = 0; IsChecked = false }, []
+    let init () =
+        { Counter = 0; IsChecked = false }, Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }, []
-        | ContextMenuOpening _ -> model, []
-        | ContextMenuClosing _ -> model, []
-        | MenuOpened _ -> model, []
-        | MenuClosed _ -> model, []
+        | ValueChanged value -> { model with IsChecked = value }, Cmd.none
+        | ContextMenuOpening _ -> model, Cmd.none
+        | ContextMenuClosing _ -> model, Cmd.none
+        | MenuOpened _ -> model, Cmd.none
+        | MenuClosed _ -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

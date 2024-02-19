@@ -25,19 +25,13 @@ module PointersPage =
         | Border_PointerCaptureLost of PointerCaptureLostEventArgs
         | Border_PointerUpdated of PointerEventArgs
 
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
     let pointerCanvasRef = ViewRef<PointerCanvas>()
 
     let init () =
         { ThreadSleep = 0
           Status = ""
           Status2 = "" },
-        []
+        Cmd.none
 
     let border1 = ViewRef<Border>()
 
@@ -45,9 +39,9 @@ module PointersPage =
 
     let update msg model =
         match msg with
-        | ThreadSleepSliderChanged v -> { model with ThreadSleep = int v }, []
-        | StatusChanged v -> { model with Status = v }, []
-        | StatusChanged2 v -> { model with Status2 = v }, []
+        | ThreadSleepSliderChanged v -> { model with ThreadSleep = int v }, Cmd.none
+        | StatusChanged v -> { model with Status = v }, Cmd.none
+        | StatusChanged2 v -> { model with Status2 = v }, Cmd.none
         | Border_PointerPressed args ->
             match args.Source with
             | :? Border as border ->
@@ -55,7 +49,7 @@ module PointersPage =
                 args.Handled <- true
             | _ -> ()
 
-            model, []
+            model, Cmd.none
         | Border_PointerReleased args ->
             match args.Source with
             | :? Border as border ->
@@ -66,7 +60,7 @@ module PointersPage =
                     raise(System.Exception("Unexpected capture"))
             | _ -> ()
 
-            model, []
+            model, Cmd.none
         | Border_PointerCaptureLost args ->
             match args.Source with
             | :? Border as border when (border.Child :? TextBlock) ->
@@ -79,8 +73,8 @@ PointerId: {args.Pointer.Id}
 Position: ??? ???"
 
                 args.Handled <- true
-                model, []
-            | _ -> model, []
+                model, Cmd.none
+            | _ -> model, Cmd.none
         | Border_PointerUpdated args ->
             match args.Source with
             | :? Border as border when (border.Child :? TextBlock) ->
@@ -94,11 +88,11 @@ PointerId: {args.Pointer.Id}
 Position: {position.X} {position.Y}"
 
                 args.Handled <- true
-                model, []
-            | _ -> model, []
+                model, Cmd.none
+            | _ -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

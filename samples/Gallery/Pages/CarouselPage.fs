@@ -27,12 +27,6 @@ module CarouselPage =
         | Previous
         | SelectionChanged of SelectionChangedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { SampleData =
             [ { Name = "Fabulous"
@@ -45,7 +39,7 @@ module CarouselPage =
                 Desc = "GitHub is a web-based hosting service for version control using Git."
                 Image = "github-icon" } ]
           SelectedIndex = 1 },
-        []
+        Cmd.none
 
     let carouselController = new CarouselController()
 
@@ -53,20 +47,20 @@ module CarouselPage =
         match msg with
         | Next ->
             carouselController.DoNext()
-            model, []
+            model, Cmd.none
         | Previous ->
             carouselController.DoPrevious()
-            model, []
+            model, Cmd.none
 
         | SelectionChanged args ->
             let control = args.Source :?> Carousel
 
             { model with
                 SelectedIndex = control.SelectedIndex },
-            []
+            Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

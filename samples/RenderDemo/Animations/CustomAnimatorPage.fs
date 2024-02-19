@@ -29,24 +29,18 @@ module CustomAnimatorPage =
 
     type Msg = Loaded of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
-        { Value = 0 }, []
+        { Value = 0 }, Cmd.none
 
     let update msg model =
         match msg with
         | Loaded _ ->
             Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
-            model, []
+            model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

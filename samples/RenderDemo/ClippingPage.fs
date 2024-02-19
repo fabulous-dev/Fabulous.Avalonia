@@ -18,28 +18,22 @@ module ClippingPage =
         | OnPointerExited of PointerEventArgs
         | CheckChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { IsChecked = false
           BrushColor = Brushes.Yellow },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
         | OnPointerEnter _ ->
             { model with
                 BrushColor = Brushes.Crimson },
-            []
+            Cmd.none
         | OnPointerExited _ ->
             { model with
                 BrushColor = Brushes.Yellow },
-            []
-        | CheckChanged isChecked -> { model with IsChecked = isChecked }, []
+            Cmd.none
+        | CheckChanged isChecked -> { model with IsChecked = isChecked }, Cmd.none
 
     let clip =
         """
@@ -66,7 +60,7 @@ module ClippingPage =
 """
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

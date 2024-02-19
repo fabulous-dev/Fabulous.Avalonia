@@ -12,24 +12,18 @@ module ProgressBarPage =
         | Clicked
         | ProgressChanged of float
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Progress = 5; Max = 20 }, []
+    let init () = { Progress = 5; Max = 20 }, Cmd.none
 
     let update msg model =
         match msg with
         | Clicked ->
             { model with
                 Progress = model.Progress % model.Max + 1 },
-            []
-        | ProgressChanged p -> model, []
+            Cmd.none
+        | ProgressChanged p -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

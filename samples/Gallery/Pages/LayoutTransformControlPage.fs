@@ -14,21 +14,15 @@ module LayoutTransformControlPage =
 
     type Msg = SliderValueChanged of float
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
-        { Min = 0.; Max = 360.; Angle = 0. }, []
+        { Min = 0.; Max = 360.; Angle = 0. }, Cmd.none
 
     let update msg model =
         match msg with
-        | SliderValueChanged value -> { model with Angle = value }, []
+        | SliderValueChanged value -> { model with Angle = value }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

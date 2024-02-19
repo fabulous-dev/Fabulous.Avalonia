@@ -18,26 +18,20 @@ module CheckBoxPage =
         | ValueChanged2 of bool
         | ValueChanged3 of bool option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { IsChecked1 = false
           IsChecked2 = true
           IsChecked3 = Some false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged b -> { model with IsChecked1 = b }, []
-        | ValueChanged2 b -> { model with IsChecked2 = b }, []
-        | ValueChanged3 b -> { model with IsChecked3 = b }, []
+        | ValueChanged b -> { model with IsChecked1 = b }, Cmd.none
+        | ValueChanged2 b -> { model with IsChecked2 = b }, Cmd.none
+        | ValueChanged3 b -> { model with IsChecked3 = b }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

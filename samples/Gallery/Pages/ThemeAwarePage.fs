@@ -26,12 +26,6 @@ module ThemeAwarePage =
         | DoNothing
         | ThemeVariantChanged of ThemeVariant
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { CurrentTheme = Avalonia.Application.Current.ActualThemeVariant
           ScopeTheme = ThemeVariant.Default
@@ -42,31 +36,31 @@ module ThemeAwarePage =
               ThemeVariant("Pink", ThemeVariant.Light) ]
           Text = ""
           Text2 = "" },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
         | SetTheme variant ->
             Avalonia.Application.Current.RequestedThemeVariant <- variant
-            { model with CurrentTheme = variant }, []
+            { model with CurrentTheme = variant }, Cmd.none
 
         | OnSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let index = control.SelectedIndex
             let variant = model.Items.[index]
 
-            { model with ScopeTheme = variant }, []
+            { model with ScopeTheme = variant }, Cmd.none
 
-        | TextChanged text -> { model with Text = text }, []
+        | TextChanged text -> { model with Text = text }, Cmd.none
 
-        | Text2Changed text -> { model with Text2 = text }, []
+        | Text2Changed text -> { model with Text2 = text }, Cmd.none
 
-        | DoNothing -> model, []
+        | DoNothing -> model, Cmd.none
 
         | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }, []
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

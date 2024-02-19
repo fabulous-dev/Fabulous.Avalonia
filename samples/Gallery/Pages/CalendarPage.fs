@@ -17,12 +17,6 @@ module CalendarPage =
         | SelectedDateChanged of DateTime option
         | SelectedDatesChanged2 of DateTime option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Date1 = Some DateTime.Now
           Date2 = Some DateTime.Now },
@@ -38,7 +32,7 @@ module CalendarPage =
     let showUpToTomorrow = DateTime.Today.Add(TimeSpan.FromDays(1.0))
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

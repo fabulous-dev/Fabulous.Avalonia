@@ -16,12 +16,6 @@ module TreeViewPage =
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Nodes =
             [ { Name = "Animals"
@@ -47,7 +41,7 @@ module TreeViewPage =
         | SelectionItemChanged args -> model, []
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
@@ -65,7 +59,7 @@ module TreeViewPage =
             VStack() {
                 TreeView(
                     model.Nodes,
-                    (fun node -> node.Children),
+                    (_.Children),
                     (fun x ->
                         Border(TextBlock(x.Name))
                             .background(Brushes.Gray)

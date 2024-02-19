@@ -12,24 +12,18 @@ module CalendarDatePickerPage =
 
     type Msg = SelectedDateChanged of DateTime option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Date = Some DateTime.Now }, []
+    let init () = { Date = Some DateTime.Now }, Cmd.none
 
     let update msg model =
         match msg with
-        | SelectedDateChanged dateTime -> { Date = dateTime }, []
+        | SelectedDateChanged dateTime -> { Date = dateTime }, Cmd.none
 
     let startFromYesterday = DateTime.Today.Subtract(TimeSpan.FromDays(1.0))
 
     let showUpToTomorrow = DateTime.Today.Add(TimeSpan.FromDays(1.0))
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

@@ -21,27 +21,21 @@ module AdornerLayerPage =
         | RemoveAdorner
         | DoNothing
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let mutable _adorner: Control = null
 
-    let init () = { Angle = 0. }, []
+    let init () = { Angle = 0. }, Cmd.none
 
     let adornerButton = ViewRef<Button>()
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { Angle = value }, []
+        | ValueChanged value -> { Angle = value }, Cmd.none
         | AddAdorner ->
             match adornerButton.TryValue with
             | Some adornerButton when _adorner <> null -> AdornerLayer.SetAdorner(adornerButton, _adorner)
             | _ -> ()
 
-            model, []
+            model, Cmd.none
         | RemoveAdorner ->
             match adornerButton.TryValue with
             | None -> ()
@@ -53,11 +47,11 @@ module AdornerLayerPage =
 
                 AdornerLayer.SetAdorner(adornerButton, null)
 
-            model, []
-        | DoNothing -> model, []
+            model, Cmd.none
+        | DoNothing -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

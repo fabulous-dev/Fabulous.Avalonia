@@ -25,12 +25,6 @@ module ToggleButtonPage =
         | ThreeStateChanged3 of bool option
         | ThreeStateChanged4 of bool option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Text1 = "Unchecked"
           Value1 = false
@@ -79,7 +73,7 @@ module ToggleButtonPage =
             { model with Value4 = b; Text4 = text }, []
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
