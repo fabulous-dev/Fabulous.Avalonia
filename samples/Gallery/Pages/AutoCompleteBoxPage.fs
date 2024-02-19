@@ -38,12 +38,6 @@ module AutoCompleteBoxPage =
         | MultiBindingLoaded of RoutedEventArgs
         | CustomAutoBoxLoaded of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let multiBindingBoxRef = ViewRef<AutoCompleteBox>()
 
     let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
@@ -244,7 +238,7 @@ module AutoCompleteBoxPage =
                 Capital = "Cheyenne" } ]
 
           Custom = [] },
-        []
+        Cmd.none
 
     let buildAllSentences () =
         [ "Hello world"
@@ -308,11 +302,11 @@ module AutoCompleteBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged _ -> model, []
-        | SelectionChanged _ -> model, []
-        | OnPopulating _ -> model, []
-        | OnPopulated _ -> model, []
-        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, []
+        | TextChanged _ -> model, Cmd.none
+        | SelectionChanged _ -> model, Cmd.none
+        | OnPopulating _ -> model, Cmd.none
+        | OnPopulated _ -> model, Cmd.none
+        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, Cmd.none
         | MultiBindingLoaded _ ->
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
@@ -327,14 +321,14 @@ module AutoCompleteBoxPage =
             binding.Bindings.Add(Binding("Abbreviation"))
 
             multiBindingBoxRef.Value.ValueMemberBinding <- binding
-            model, []
+            model, Cmd.none
 
         | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
             customAutoCompleteBoxRef.Value.ItemsSource <- strings
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
             customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item))
-            model, []
+            model, Cmd.none
 
     let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
         task {
@@ -350,7 +344,7 @@ module AutoCompleteBoxPage =
         }
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

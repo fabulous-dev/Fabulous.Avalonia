@@ -28,12 +28,6 @@ module FilesPage =
         | SelectedPathKeyDown of Avalonia.Input.KeyEventArgs
         | CellSelectionChanged of bool
 
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
     let files = ViewRef<TreeDataGrid>()
 
     let init () =
@@ -110,7 +104,7 @@ module FilesPage =
           SelectedPathText = ""
           CellSelection = false
           Source = source },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -168,14 +162,14 @@ module FilesPage =
             { model with
                 SelectedPathText = text
                 SelectedDrive = selectedDrive },
-            []
+            Cmd.none
         | SelectedPathKeyDown args ->
             if args.Key = Avalonia.Input.Key.Enter then
                 { model with
                     SelectedPathText = model.SelectedPathText },
-                []
+                Cmd.none
             else
-                model, []
+                model, Cmd.none
         | CellSelectionChanged v ->
             if v then
                 let treeDataGridCellSelectionModel =
@@ -190,10 +184,10 @@ module FilesPage =
                 treeDataGridRowSelectionModel.SingleSelect <- false
                 model.Source.Selection <- treeDataGridRowSelectionModel
 
-            { model with CellSelection = v }, []
+            { model with CellSelection = v }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

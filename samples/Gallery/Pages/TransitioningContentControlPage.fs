@@ -31,12 +31,6 @@ module TransitioningContentControlPage =
         | ClipToBoundsChanged of bool
         | ReverseChanged of bool
 
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
     let init () =
         { Images = [ "fabulous-icon.png"; "fsharp-icon.png"; "fabulous-icon.png" ]
           SelectedImage = "fabulous-icon.png"
@@ -45,7 +39,7 @@ module TransitioningContentControlPage =
           Duration = 250.
           IsReverse = false
           ClipToBounds = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -55,7 +49,7 @@ module TransitioningContentControlPage =
 
             { model with
                 SelectedImage = model.Images.[index] },
-            []
+            Cmd.none
 
         | PrevImage ->
             let index = model.Images |> List.findIndex(fun x -> x = model.SelectedImage)
@@ -64,16 +58,16 @@ module TransitioningContentControlPage =
 
             { model with
                 SelectedImage = model.Images.[index] },
-            []
+            Cmd.none
 
         | DurationChanged duration ->
             let duration = duration |> Option.defaultValue 500
-            { model with Duration = duration }, []
+            { model with Duration = duration }, Cmd.none
 
         | ClipToBoundsChanged clipToBounds ->
             { model with
                 ClipToBounds = clipToBounds },
-            []
+            Cmd.none
 
         | TransitionChanged selection ->
             let control = selection.Source :?> ComboBox
@@ -99,12 +93,12 @@ module TransitioningContentControlPage =
 
             { model with
                 PageTransition = transition },
-            []
+            Cmd.none
 
-        | ReverseChanged isReverse -> { model with IsReverse = isReverse }, []
+        | ReverseChanged isReverse -> { model with IsReverse = isReverse }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

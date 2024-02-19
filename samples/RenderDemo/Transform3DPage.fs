@@ -26,12 +26,6 @@ module Transform3DPage =
         | AngleYChanged of float
         | AngleZChanged of float
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
 
     let init () =
         { CenterX = 0.
@@ -40,16 +34,16 @@ module Transform3DPage =
           AngleX = 0.
           AngleY = 0.
           AngleZ = 0. },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | CenterXChanged value -> { model with CenterX = value }, []
-        | CenterYChanged value -> { model with CenterY = value }, []
-        | CenterZChanged value -> { model with CenterZ = value }, []
-        | AngleXChanged value -> { model with AngleX = value }, []
-        | AngleYChanged value -> { model with AngleY = value }, []
-        | AngleZChanged value -> { model with AngleZ = value }, []
+        | CenterXChanged value -> { model with CenterX = value }, Cmd.none
+        | CenterYChanged value -> { model with CenterY = value }, Cmd.none
+        | CenterZChanged value -> { model with CenterZ = value }, Cmd.none
+        | AngleXChanged value -> { model with AngleX = value }, Cmd.none
+        | AngleYChanged value -> { model with AngleY = value }, Cmd.none
+        | AngleZChanged value -> { model with AngleZ = value }, Cmd.none
 
     let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this
@@ -62,7 +56,7 @@ module Transform3DPage =
             .borderBrush(SolidColorBrush(Colors.Black))
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

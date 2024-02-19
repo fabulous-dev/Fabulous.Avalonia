@@ -51,12 +51,6 @@ module NumericUpDownPage =
         | CultureSelectionChanged of SelectionChangedEventArgs
         | SelectedFormatChanged of SelectionChangedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { MinValue = Some(1.)
           ShowButtonSpinner = false
@@ -86,36 +80,36 @@ module NumericUpDownPage =
           Value = None
           NumberFormat = CultureInfo.CurrentCulture.NumberFormat
           SelectedFormat = { Name = "Currency"; Value = "C2" } },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ShowButtonSpinnerValueChanged args -> { model with ShowButtonSpinner = args }, []
-        | IsReadOnlyValueChanged args -> { model with IsReadOnly = args }, []
-        | AllowSpinValueChanged args -> { model with AllowSpin = args }, []
-        | ClipValueToMinMaxValueChanged args -> { model with ClipValueToMinMax = args }, []
-        | WatermarkTextChanged s -> { model with Watermark = s }, []
-        | TextChanged s -> { model with Text = s }, []
-        | MinimumValueChanged min -> { model with MinValue = Some min.Value }, []
-        | MaximumValueChanged max -> { model with MaxValue = Some max.Value }, []
-        | IncrementValueChanged inc -> { model with IncrementValue = inc }, []
-        | DecimalValueChanged value -> { model with DecimalValue = value }, []
+        | ShowButtonSpinnerValueChanged args -> { model with ShowButtonSpinner = args }, Cmd.none
+        | IsReadOnlyValueChanged args -> { model with IsReadOnly = args }, Cmd.none
+        | AllowSpinValueChanged args -> { model with AllowSpin = args }, Cmd.none
+        | ClipValueToMinMaxValueChanged args -> { model with ClipValueToMinMax = args }, Cmd.none
+        | WatermarkTextChanged s -> { model with Watermark = s }, Cmd.none
+        | TextChanged s -> { model with Text = s }, Cmd.none
+        | MinimumValueChanged min -> { model with MinValue = Some min.Value }, Cmd.none
+        | MaximumValueChanged max -> { model with MaxValue = Some max.Value }, Cmd.none
+        | IncrementValueChanged inc -> { model with IncrementValue = inc }, Cmd.none
+        | DecimalValueChanged value -> { model with DecimalValue = value }, Cmd.none
         | CultureSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let culture = model.Cultures[control.SelectedIndex]
 
             { model with
                 NumberFormat = culture.NumberFormat },
-            []
+            Cmd.none
 
         | SelectedFormatChanged args ->
             let control = args.Source :?> ComboBox
             let format = model.Formats[control.SelectedIndex]
-            { model with SelectedFormat = format }, []
+            { model with SelectedFormat = format }, Cmd.none
 
-        | DoubleValueChanged value -> { model with DoubleValue = value }, []
+        | DoubleValueChanged value -> { model with DoubleValue = value }, Cmd.none
 
-        | ValueChanged value -> { model with Value = value }, []
+        | ValueChanged value -> { model with Value = value }, Cmd.none
 
     let cultureConverter () =
         { new IValueConverter with
@@ -155,7 +149,7 @@ module NumericUpDownPage =
                     AvaloniaProperty.UnsetValue }
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

@@ -34,12 +34,6 @@ module ScrollViewerPage =
         | SnapPointsAlignmentSelectionChanged of SelectionChangedEventArgs
         | AreSnapPointsRegularChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { AllowAutoHide = false
           EnableInertia = false
@@ -53,12 +47,12 @@ module ScrollViewerPage =
           VerticalSnapPointsAlignment = SnapPointsAlignment.Near
           HorizontalSnapPointsAlignment = SnapPointsAlignment.Near
           AreSnapPointsRegular = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | AllowAutoHideChanged b -> { model with AllowAutoHide = b }, []
-        | EnableInertiaChanged b -> { model with EnableInertia = b }, []
+        | AllowAutoHideChanged b -> { model with AllowAutoHide = b }, Cmd.none
+        | EnableInertiaChanged b -> { model with EnableInertia = b }, Cmd.none
         | VerticalSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let index = control.SelectedIndex
@@ -74,7 +68,7 @@ module ScrollViewerPage =
 
             { model with
                 VerticalScrollBarVisibility = scrollBarVisibility },
-            []
+            Cmd.none
 
         | HorizontalSelectionChanged args ->
             let control = args.Source :?> ComboBox
@@ -91,7 +85,7 @@ module ScrollViewerPage =
 
             { model with
                 HorizontalScrollBarVisibility = scrollBarVisibility },
-            []
+            Cmd.none
 
         | SnapPointsTypeSelectionChanged args ->
             let control = args.Source :?> ComboBox
@@ -108,7 +102,7 @@ module ScrollViewerPage =
             { model with
                 VerticalSnapPointsType = snapPointsType
                 HorizontalSnapPointsType = snapPointsType },
-            []
+            Cmd.none
 
         | SnapPointsAlignmentSelectionChanged args ->
             let control = args.Source :?> ComboBox
@@ -125,12 +119,12 @@ module ScrollViewerPage =
             { model with
                 VerticalSnapPointsAlignment = snapPointsAlignment
                 HorizontalSnapPointsAlignment = snapPointsAlignment },
-            []
+            Cmd.none
 
-        | AreSnapPointsRegularChanged b -> { model with AreSnapPointsRegular = b }, []
+        | AreSnapPointsRegularChanged b -> { model with AreSnapPointsRegular = b }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

@@ -17,13 +17,7 @@ module MainView =
         | SelectControl of RoutedEventArgs
         | GoBack
 
-    type CmdMsg = | NoMsg
-
-    let init () = { Details = None }, []
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
+    let init () = { Details = None }, Cmd.none
 
     let update msg model =
         match msg with
@@ -36,20 +30,8 @@ module MainView =
                 | CurrentPage page -> Some page
                 | _ -> None
 
-            { Details = detailPage }, []
-        | GoBack -> { Details = None }, []
-
-    //     let program =
-    //         Program.ForComponent.statefulWithCmdMsg init update mapCmdMsgToCmd
-    //         |> Program.ForComponent.withTrace(fun (format, args) -> System.Diagnostics.Debug.WriteLine(format, box args))
-    //         |> Program.ForComponent.withExceptionHandler(fun ex ->
-    // #if DEBUG
-    //             printfn $"Exception: %s{ex.ToString()}"
-    //             false
-    // #else
-    //             true
-    // #endif
-    //         )
+            { Details = detailPage }, Cmd.none
+        | GoBack -> { Details = None }, Cmd.none
 
     let controlNames =
         [ "Implicit Animations"
@@ -103,7 +85,7 @@ module MainView =
             StyleInclude(baseUri = null, Source = Uri("avares://RenderDemo/App.xaml"))
 
         let program =
-            Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+            Program.statefulWithCmd init update
             |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
             |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

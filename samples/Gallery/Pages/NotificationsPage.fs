@@ -44,12 +44,6 @@ module NotificationsPage =
         | NotificationShowed
         | PositionChanged of SelectionChangedEventArgs
 
-    type CmdMsg =
-        | StartTimer
-        | NotifyAsyncCompleted
-        | NotifyAsyncStatusUpdates of counter: string
-        | ShowNotification of notificationManager: INotificationManager * notification: INotification
-
     let timerCmd () =
         async {
             do! Async.Sleep 1000
@@ -71,13 +65,6 @@ module NotificationsPage =
         notificationManager.Show(notification)
         NotificationShowed
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NotifyAsyncCompleted -> Cmd.OfAsync.msg(notifyOneAsync())
-        | NotifyAsyncStatusUpdates message -> Cmd.OfAsync.msg(notifyAsyncStatusUpdates message)
-        | StartTimer -> Cmd.OfAsync.msg(timerCmd())
-        | ShowNotification(notificationManager, notification) -> Cmd.ofMsg(showNotification notificationManager notification)
-
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
     let init () =
@@ -92,36 +79,42 @@ module NotificationsPage =
             if model.Counter > 0 then
                 { model with
                     Counter = model.Counter - 1 },
-                [ StartTimer
-                  NotifyAsyncStatusUpdates($"async operation in progress {model.Counter}") ]
+                Cmd.batch
+                    [ Cmd.OfAsync.msg(timerCmd())
+                      Cmd.OfAsync.msg(notifyAsyncStatusUpdates $"async operation in progress {model.Counter}") ]
             else
-                model, [ NotifyAsyncStatusUpdates("async operation completed") ]
+                model, Cmd.OfAsync.msg(notifyAsyncStatusUpdates "async operation completed")
 
         | ShowManagedNotification ->
             model,
-            [ ShowNotification(model.NotificationManager, Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information)) ]
+            Cmd.ofMsg(
+                showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
+            )
         | ShowCustomManagedNotification ->
             model,
-            [ ShowNotification(
-                  model.NotificationManager,
-                  NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?")
-              ) ]
+            Cmd.ofMsg(
+                showNotification
+                    model.NotificationManager
+                    (NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+            )
         | ShowNativeNotification ->
             model,
-            [ ShowNotification(
-                  model.NotificationManager,
-                  Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error)
-              ) ]
-        | ShowAsyncCompletedNotification -> model, [ NotifyAsyncCompleted ]
-        | ShowAsyncStatusNotifications -> model, [ StartTimer ]
+            Cmd.ofMsg(
+                showNotification
+                    model.NotificationManager
+                    (Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
+            )
+        | ShowAsyncCompletedNotification -> model, Cmd.OfAsync.msg(notifyOneAsync())
+        | ShowAsyncStatusNotifications -> model, Cmd.OfAsync.msg(timerCmd())
 
-        | NotifyInfo message -> model, [ ShowNotification(model.NotificationManager, Notification(message, "", NotificationType.Information)) ]
+        | NotifyInfo message -> model, Cmd.ofMsg(showNotification model.NotificationManager (Notification(message, "", NotificationType.Information)))
         | YesCommand ->
-            model, [ ShowNotification(model.NotificationManager, Notification("Avalonia Notifications", "Start adding notifications to your app today.")) ]
+            model,
+            Cmd.ofMsg(showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today.")))
 
         | NoCommand ->
-            model, [ ShowNotification(model.NotificationManager, Notification("Avalonia Notifications", "Start adding notifications to your app today.")) ]
-
+            model,
+            Cmd.ofMsg(showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today.")))
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
             See https://github.com/AvaloniaUI/Avalonia/issues/5442 *)
@@ -132,7 +125,9 @@ module NotificationsPage =
 
         | ControlNotificationsShow ->
             model,
-            [ ShowNotification(controlNotificationsRef.Value, Notification("Control Notifications", "This notification is shown by the control itself.")) ]
+            Cmd.ofMsg(
+                showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
+            )
 
         | NotificationShowed -> model, []
 
@@ -146,7 +141,7 @@ module NotificationsPage =
             []
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

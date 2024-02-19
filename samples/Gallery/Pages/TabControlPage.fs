@@ -15,17 +15,11 @@ module TabControlPage =
 
     type Msg = SelectedIndexChanged of int
 
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
     let init () =
         { TabPlacement = Dock.Top
           Placements = [ "Top"; "Bottom"; "Left"; "Right" ]
           SelectedIndex = 0 },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -43,10 +37,10 @@ module TabControlPage =
             { model with
                 SelectedIndex = index
                 TabPlacement = dock },
-            []
+            Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

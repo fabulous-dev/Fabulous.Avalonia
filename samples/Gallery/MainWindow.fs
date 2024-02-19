@@ -26,8 +26,6 @@ module MainWindow =
         | TransparencyLevelsOnSelectionChanged of SelectionChangedEventArgs
         | DoNothing
 
-    type CmdMsg = | NoMsg
-
     let init () =
         { ThemeVariants = [ ThemeVariant.Default; ThemeVariant.Dark; ThemeVariant.Light ]
           FlowDirections = [ FlowDirection.LeftToRight; FlowDirection.RightToLeft ]
@@ -37,11 +35,7 @@ module MainWindow =
               WindowTransparencyLevel.Blur
               WindowTransparencyLevel.Mica
               WindowTransparencyLevel.Transparent ] },
-        []
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -50,22 +44,22 @@ module MainWindow =
             let content = args.SelectedItem :?> ComboBoxItem
             let decoration = SystemDecorations.Parse(content.Content.ToString())
             FabApplication.Current.MainWindow.SystemDecorations <- decoration
-            model, []
+            model, Cmd.none
         | ThemeVariantsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let content = model.ThemeVariants[args.SelectedIndex]
             FabApplication.Current.RequestedThemeVariant <- content
-            model, []
+            model, Cmd.none
         | FlowDirectionsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let content = model.FlowDirections[args.SelectedIndex]
             FabApplication.Current.TopLevel.FlowDirection <- content
-            model, []
+            model, Cmd.none
         | TransparencyLevelsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let _content = model.TransparencyLevels[args.SelectedIndex]
-            model, []
-        | DoNothing -> model, []
+            model, Cmd.none
+        | DoNothing -> model, Cmd.none
 
 
     let createMenu () =
@@ -258,7 +252,7 @@ module MainWindow =
             StyleInclude(baseUri = null, Source = Uri("avares://Gallery/App.xaml"))
 
         let program =
-            Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+            Program.statefulWithCmd init update
             |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
             |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
