@@ -57,6 +57,7 @@ module NotificationsPage =
     let notifyAsyncStatusUpdates () =
         Cmd.ofEffect(fun dispatch ->
             async {
+                // This will queue up msgs/notifications that will be dispatched by the Fabulous runner
                 dispatch(NotifyInfo "started")
                 do! Async.Sleep(1000)
                 dispatch(NotifyInfo "5")
