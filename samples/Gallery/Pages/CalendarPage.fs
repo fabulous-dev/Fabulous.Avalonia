@@ -24,8 +24,8 @@ module CalendarPage =
 
     let update msg model =
         match msg with
-        | SelectedDateChanged dateTime -> { model with Date1 = dateTime }, []
-        | SelectedDatesChanged2 dateTime -> { model with Date2 = dateTime }, []
+        | SelectedDateChanged dateTime -> { model with Date1 = dateTime }, Cmd.none
+        | SelectedDatesChanged2 dateTime -> { model with Date2 = dateTime }, Cmd.none
 
     let startFromYesterday = DateTime.Today.Subtract(TimeSpan.FromDays(1.0))
 

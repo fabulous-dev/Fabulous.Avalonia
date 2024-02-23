@@ -17,7 +17,7 @@ module UniformGridPage =
 
     let update msg model =
         match msg with
-        | DoNothing -> model, []
+        | DoNothing -> model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update

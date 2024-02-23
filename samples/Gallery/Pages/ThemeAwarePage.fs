@@ -57,7 +57,7 @@ module ThemeAwarePage =
 
         | DoNothing -> model, Cmd.none
 
-        | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }, []
+        | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
