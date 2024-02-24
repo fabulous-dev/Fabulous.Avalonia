@@ -2,15 +2,18 @@ namespace Gallery
 
 open System
 open System.Diagnostics
+open System.Threading
 open Avalonia
 open Avalonia.Controls.Notifications
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
+open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open Microsoft.FSharp.Control
 
 type NotificationViewModel(title, message) =
 
@@ -40,30 +43,42 @@ module NotificationsPage =
         | NoCommand
         | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs // event after which WindowNotificationManager is available
         | ControlNotificationsShow
-        | TimedTick
         | NotificationShowed
         | PositionChanged of SelectionChangedEventArgs
 
-    let timerCmd () =
-        async {
-            do! Async.Sleep 1000
-            return TimedTick
-        }
-
     let notifyOneAsync () =
-        async {
-            do! Async.Sleep 1000
-            return NotifyInfo "async operation completed"
-        }
-        |> Async.executeOnMainThread
+        Cmd.OfAsync.msg(
+            async {
+                do! Async.Sleep 1000
+                return NotifyInfo "async operation completed"
+            }
+        )
 
-    let notifyAsyncStatusUpdates message =
-        async { return NotifyInfo message } |> Async.executeOnMainThread
+    let notifyAsyncStatusUpdates () =
+        Cmd.ofEffect(fun dispatch ->
+            async {
+                // This will queue up msgs/notifications that will be dispatched by the Fabulous runner
+                dispatch(NotifyInfo "started")
+                do! Async.Sleep(1000)
+                dispatch(NotifyInfo "5")
+                do! Async.Sleep 1000
+                dispatch(NotifyInfo "4")
+                do! Async.Sleep 1000
+                dispatch(NotifyInfo "3")
+                do! Async.Sleep 1000
+                dispatch(NotifyInfo "2")
+                do! Async.Sleep 1000
+                dispatch(NotifyInfo "1")
+                do! Async.Sleep 1000
+                dispatch(NotifyInfo "completed")
+            }
+            |> Async.Start)
 
     let showNotification (notificationManager: INotificationManager) notification =
-        let notificationManager = notificationManager :?> WindowNotificationManager
-        notificationManager.Show(notification)
-        NotificationShowed
+        Cmd.ofEffect(fun dispatch ->
+            Dispatcher.UIThread.Post(fun () ->
+                notificationManager.Show(notification)
+                dispatch(NotificationShowed)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
@@ -75,61 +90,41 @@ module NotificationsPage =
 
     let update msg model =
         match msg with
-        | TimedTick ->
-            if model.Counter > 0 then
-                { model with
-                    Counter = model.Counter - 1 },
-                Cmd.batch
-                    [ Cmd.OfAsync.msg(timerCmd())
-                      Cmd.OfAsync.msg(notifyAsyncStatusUpdates $"async operation in progress {model.Counter}") ]
-            else
-                model, Cmd.OfAsync.msg(notifyAsyncStatusUpdates "async operation completed")
-
         | ShowManagedNotification ->
-            model,
-            Cmd.ofMsg(
-                showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
-            )
+            model, showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
+
         | ShowCustomManagedNotification ->
             model,
-            Cmd.ofMsg(
-                showNotification
-                    model.NotificationManager
-                    (NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
-            )
+            showNotification
+                model.NotificationManager
+                (NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+
         | ShowNativeNotification ->
             model,
-            Cmd.ofMsg(
-                showNotification
-                    model.NotificationManager
-                    (Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
-            )
-        | ShowAsyncCompletedNotification -> model, Cmd.OfAsync.msg(notifyOneAsync())
-        | ShowAsyncStatusNotifications -> model, Cmd.OfAsync.msg(timerCmd())
+            showNotification model.NotificationManager (Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
 
-        | NotifyInfo message -> model, Cmd.ofMsg(showNotification model.NotificationManager (Notification(message, "", NotificationType.Information)))
+        | ShowAsyncCompletedNotification -> model, notifyOneAsync()
+        | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
+
+        | NotifyInfo message -> model, showNotification model.NotificationManager (Notification(message, "", NotificationType.Information))
         | YesCommand ->
-            model,
-            Cmd.ofMsg(showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today.")))
+            model, showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today."))
 
         | NoCommand ->
-            model,
-            Cmd.ofMsg(showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today.")))
+            model, showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today."))
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
             See https://github.com/AvaloniaUI/Avalonia/issues/5442 *)
         | AttachedToVisualTreeChanged args ->
             { model with
                 NotificationManager = FabApplication.Current.WindowNotificationManager },
-            []
+            Cmd.none
 
         | ControlNotificationsShow ->
-            model,
-            Cmd.ofMsg(
-                showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
-            )
+            model, showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
 
-        | NotificationShowed -> model, []
+
+        | NotificationShowed -> model, Cmd.none
 
         | PositionChanged args ->
             let control = args.Source :?> ComboBox
@@ -138,7 +133,7 @@ module NotificationsPage =
 
             { model with
                 NotificationPosition = position },
-            []
+            Cmd.none
 
     let program =
         Program.statefulWithCmd init update

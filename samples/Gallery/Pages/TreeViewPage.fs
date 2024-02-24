@@ -38,7 +38,7 @@ module TreeViewPage =
 
     let update msg model =
         match msg with
-        | SelectionItemChanged args -> model, []
+        | SelectionItemChanged args -> model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
