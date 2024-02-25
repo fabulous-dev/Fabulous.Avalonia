@@ -29,8 +29,7 @@ type NotificationViewModel(title, message) =
 module NotificationsPage =
     type Model =
         { NotificationManager: INotificationManager
-          NotificationPosition: NotificationPosition
-          Counter: int }
+          NotificationPosition: NotificationPosition }
 
     type Msg =
         | ShowManagedNotification
@@ -84,7 +83,6 @@ module NotificationsPage =
 
     let init () =
         { NotificationManager = null
-          Counter = 5
           NotificationPosition = NotificationPosition.TopRight },
         []
 
