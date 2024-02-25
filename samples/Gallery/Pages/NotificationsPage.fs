@@ -175,19 +175,22 @@ module NotificationsPage =
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
-                    Button("Show Widget only notification", ControlNotificationsShow)
-                        .dock(Dock.Top)
-                        .horizontalAlignment(HorizontalAlignment.Left)
+                    (HStack(5) {
+                        Button("Show Widget only notification", ControlNotificationsShow)
+                            .horizontalAlignment(HorizontalAlignment.Left)
 
-                    (ComboBox() {
-                        ComboBoxItem(nameof(NotificationPosition.TopRight))
-                        ComboBoxItem(nameof(NotificationPosition.TopLeft))
-                        ComboBoxItem(nameof(NotificationPosition.BottomRight))
-                        ComboBoxItem(nameof(NotificationPosition.BottomLeft))
+                        Label "on the"
+
+                        (ComboBox() {
+                            ComboBoxItem(nameof(NotificationPosition.TopRight))
+                            ComboBoxItem(nameof(NotificationPosition.TopLeft))
+                            ComboBoxItem(nameof(NotificationPosition.BottomRight))
+                            ComboBoxItem(nameof(NotificationPosition.BottomLeft))
+                        })
+                            .selectedIndex(0)
+                            .onSelectionChanged(PositionChanged)
                     })
-                        .selectedIndex(0)
                         .dock(Dock.Top)
-                        .onSelectionChanged(PositionChanged)
 
                     CustomNotification("Avalonia Notifications", "Start adding notifications to your app today.", YesCommand, NoCommand)
                         .dock(Dock.Top)
