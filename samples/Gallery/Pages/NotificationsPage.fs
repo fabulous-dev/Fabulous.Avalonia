@@ -169,14 +169,14 @@ module NotificationsPage =
                     Button("Notify status updates from async operation", ShowAsyncStatusNotifications)
                         .dock(Dock.Top)
 
-                    TextBlock("Widget only notification manager.")
+                    TextBlock("Widget-only notification manager.")
                         .dock(Dock.Top)
                         .margin(2.)
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
                     (HStack(5) {
-                        Button("Show Widget only notification", ControlNotificationsShow)
+                        Button("Show widget-only notification", ControlNotificationsShow)
                             .horizontalAlignment(HorizontalAlignment.Left)
 
                         Label "on the"
