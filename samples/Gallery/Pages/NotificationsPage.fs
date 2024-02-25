@@ -42,7 +42,7 @@ module NotificationsPage =
         | NoCommand
         | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs // event after which WindowNotificationManager is available
         | ControlNotificationsShow
-        | NotificationShowed
+        | NotificationShown
         | PositionChanged of SelectionChangedEventArgs
 
     let notifyOneAsync () =
@@ -77,7 +77,7 @@ module NotificationsPage =
         Cmd.ofEffect(fun dispatch ->
             Dispatcher.UIThread.Post(fun () ->
                 notificationManager.Show(notification)
-                dispatch(NotificationShowed)))
+                dispatch(NotificationShown)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
@@ -122,7 +122,7 @@ module NotificationsPage =
             model, showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
 
 
-        | NotificationShowed -> model, Cmd.none
+        | NotificationShown -> model, Cmd.none
 
         | PositionChanged args ->
             let control = args.Source :?> ComboBox
