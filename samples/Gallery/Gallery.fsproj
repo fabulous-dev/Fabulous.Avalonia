@@ -122,6 +122,7 @@
     <Compile Include="Pages\StackPanelPage.fs" />
     <Compile Include="Pages\ViewBoxPage.fs" />
     <Compile Include="App.fs" />
+    <Compile Include="DecoratedWindow.fs" />
     <Compile Include="MainWindow.fs" />
     <Compile Include="MainView.fs" />
   </ItemGroup>
