@@ -29,8 +29,7 @@ type NotificationViewModel(title, message) =
 module NotificationsPage =
     type Model =
         { NotificationManager: INotificationManager
-          NotificationPosition: NotificationPosition
-          Counter: int }
+          NotificationPosition: NotificationPosition }
 
     type Msg =
         | ShowManagedNotification
@@ -43,7 +42,7 @@ module NotificationsPage =
         | NoCommand
         | AttachedToVisualTreeChanged of VisualTreeAttachmentEventArgs // event after which WindowNotificationManager is available
         | ControlNotificationsShow
-        | NotificationShowed
+        | NotificationShown
         | PositionChanged of SelectionChangedEventArgs
 
     let notifyOneAsync () =
@@ -78,13 +77,12 @@ module NotificationsPage =
         Cmd.ofEffect(fun dispatch ->
             Dispatcher.UIThread.Post(fun () ->
                 notificationManager.Show(notification)
-                dispatch(NotificationShowed)))
+                dispatch(NotificationShown)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
     let init () =
         { NotificationManager = null
-          Counter = 5
           NotificationPosition = NotificationPosition.TopRight },
         []
 
@@ -124,7 +122,7 @@ module NotificationsPage =
             model, showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
 
 
-        | NotificationShowed -> model, Cmd.none
+        | NotificationShown -> model, Cmd.none
 
         | PositionChanged args ->
             let control = args.Source :?> ComboBox
@@ -171,25 +169,28 @@ module NotificationsPage =
                     Button("Notify status updates from async operation", ShowAsyncStatusNotifications)
                         .dock(Dock.Top)
 
-                    TextBlock("Widget only notification manager.")
+                    TextBlock("Widget-only notification manager.")
                         .dock(Dock.Top)
                         .margin(2.)
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
-                    Button("Show Widget only notification", ControlNotificationsShow)
-                        .dock(Dock.Top)
-                        .horizontalAlignment(HorizontalAlignment.Left)
+                    (HStack(5) {
+                        Button("Show widget-only notification", ControlNotificationsShow)
+                            .horizontalAlignment(HorizontalAlignment.Left)
 
-                    (ComboBox() {
-                        ComboBoxItem(nameof(NotificationPosition.TopRight))
-                        ComboBoxItem(nameof(NotificationPosition.TopLeft))
-                        ComboBoxItem(nameof(NotificationPosition.BottomRight))
-                        ComboBoxItem(nameof(NotificationPosition.BottomLeft))
+                        Label "on the"
+
+                        (ComboBox() {
+                            ComboBoxItem(nameof(NotificationPosition.TopRight))
+                            ComboBoxItem(nameof(NotificationPosition.TopLeft))
+                            ComboBoxItem(nameof(NotificationPosition.BottomRight))
+                            ComboBoxItem(nameof(NotificationPosition.BottomLeft))
+                        })
+                            .selectedIndex(0)
+                            .onSelectionChanged(PositionChanged)
                     })
-                        .selectedIndex(0)
                         .dock(Dock.Top)
-                        .onSelectionChanged(PositionChanged)
 
                     CustomNotification("Avalonia Notifications", "Start adding notifications to your app today.", YesCommand, NoCommand)
                         .dock(Dock.Top)
