@@ -2,7 +2,6 @@ namespace RenderDemo
 
 open System
 open Avalonia
-open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Controls
 open Avalonia.Threading
@@ -61,7 +60,6 @@ type LineBoundsControl() =
     inherit Control()
 
     let mutable _timer: DispatcherTimer = null
-    let mutable _angle = 0.
 
     override this.OnAttachedToVisualTree(_: VisualTreeAttachmentEventArgs) =
         _timer <- DispatcherTimer()
@@ -75,12 +73,7 @@ type LineBoundsControl() =
 
     override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) = _timer.Stop()
 
-    member this.Angle
-        with get () = _angle
-        and set value = _angle <- value
-
-    member this.AngleProperty: StyledProperty<float> =
-        AvaloniaProperty.Register<LineBoundsControl, float>("Angle", this.Angle)
+    member val Angle = 0. with get, set
 
     override this.Render(drawingContext: DrawingContext) =
         let lineLength = Math.Sqrt((100. * 100.) + (100. * 100.))
