@@ -57,7 +57,6 @@ module LineBoundsHelper =
 
             calculateBounds(p1, p2, p.Thickness, radians)
 
-
 type LineBoundsControl() =
     inherit Control()
 
@@ -129,28 +128,11 @@ open type Fabulous.Avalonia.View
 
 module LineBoundsPage =
     let view () =
-        Panel() {
+        UniformGrid() {
             LineBoundsDemoControl(15.)
-                .verticalAlignment(VerticalAlignment.Top)
-                .horizontalAlignment(HorizontalAlignment.Left)
-
             LineBoundsDemoControl(30.)
-                .verticalAlignment(VerticalAlignment.Top)
-                .horizontalAlignment(HorizontalAlignment.Center)
-
             LineBoundsDemoControl(45.)
-                .verticalAlignment(VerticalAlignment.Top)
-                .horizontalAlignment(HorizontalAlignment.Right)
-
             LineBoundsDemoControl(60.)
-                .verticalAlignment(VerticalAlignment.Center)
-                .horizontalAlignment(HorizontalAlignment.Left)
-
             LineBoundsDemoControl(75.)
-                .verticalAlignment(VerticalAlignment.Center)
-                .horizontalAlignment(HorizontalAlignment.Center)
-
             LineBoundsDemoControl(90.)
-                .verticalAlignment(VerticalAlignment.Center)
-                .horizontalAlignment(HorizontalAlignment.Right)
         }
