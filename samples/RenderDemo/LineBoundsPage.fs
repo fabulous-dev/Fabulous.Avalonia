@@ -62,8 +62,7 @@ type LineBoundsControl() =
     inherit Control()
 
     let mutable _timer: DispatcherTimer = null
-
-    do LineBoundsControl.AffectsRender<LineBoundsControl>(LineBoundsControl.AngleProperty)
+    let mutable _angle = 0.
 
     override this.OnAttachedToVisualTree(_: VisualTreeAttachmentEventArgs) =
         _timer <- DispatcherTimer()
@@ -77,10 +76,12 @@ type LineBoundsControl() =
 
     override this.OnDetachedFromVisualTree(_: VisualTreeAttachmentEventArgs) = _timer.Stop()
 
-    member val Angle = 0. with get, set
+    member this.Angle
+        with get () = _angle
+        and set value = _angle <- value
 
-    static member AngleProperty: StyledProperty<float> =
-        AvaloniaProperty.Register<LineBoundsControl, float>("Angle")
+    member this.AngleProperty: StyledProperty<float> =
+        AvaloniaProperty.Register<LineBoundsControl, float>("Angle", this.Angle)
 
     override this.Render(drawingContext: DrawingContext) =
         let lineLength = Math.Sqrt((100. * 100.) + (100. * 100.))
@@ -107,7 +108,14 @@ module LineBoundsControl =
     let WidgetKey = Widgets.register<LineBoundsControl>()
 
     let Angle =
-        Attributes.defineAvaloniaPropertyWithEquality LineBoundsControl.AngleProperty
+        Attributes.definePropertyWithGetSet
+            "LineBoundsControl_Angle"
+            (fun target ->
+                let target = target :?> LineBoundsControl
+                target.Angle)
+            (fun target value ->
+                let target = target :?> LineBoundsControl
+                target.Angle <- value)
 
 [<AutoOpen>]
 module LineBoundsDemoControlBuilders =
