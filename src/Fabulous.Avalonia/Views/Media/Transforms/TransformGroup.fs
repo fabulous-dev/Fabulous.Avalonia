@@ -23,7 +23,6 @@ module TransformGroupBuilders =
         static member TransformGroup() =
             CollectionBuilder<'msg, IFabTransformGroup, IFabTransform>(TransformGroup.WidgetKey, TransformGroup.Children)
 
-[<Extension>]
 type TransformGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTransform>
@@ -41,7 +40,6 @@ type TransformGroupCollectionBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type TransformGroupModifiers =
     /// <summary>Link a ViewRef to access the direct TransformGroup control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -24,7 +24,6 @@ module PolyLineSegmentBuilders =
         static member inline PolyLineSegment(points: Point list) =
             WidgetBuilder<'msg, IFabPolyLineSegment>(PolyLineSegment.WidgetKey, PolyLineSegment.Points.WithValue(points |> Array.ofList))
 
-[<Extension>]
 type PolyLineSegmentModifiers =
 
     /// <summary>Link a ViewRef to access the direct PolyLineSegment control instance.</summary>

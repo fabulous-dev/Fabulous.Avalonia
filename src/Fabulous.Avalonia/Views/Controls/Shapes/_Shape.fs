@@ -46,7 +46,6 @@ module Shape =
     let StrokeJoin =
         Attributes.defineAvaloniaPropertyWithEquality Shape.StrokeJoinProperty
 
-[<Extension>]
 type ShapeModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
@@ -118,7 +117,6 @@ type ShapeModifiers =
     static member inline strokeJoin(this: WidgetBuilder<'msg, #IFabShape>, value: PenLineJoin) =
         this.AddScalar(Shape.StrokeJoin.WithValue(value))
 
-[<Extension>]
 type ShapeExtraModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>

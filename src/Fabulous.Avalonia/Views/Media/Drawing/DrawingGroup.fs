@@ -46,7 +46,6 @@ module DrawingGroupBuilders =
         static member DrawingGroup<'msg>(opacity: float) =
             CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
 
-[<Extension>]
 type DrawingGroupModifiers =
 
     /// <summary>Sets the OpacityMask property.</summary>
@@ -91,7 +90,6 @@ type DrawingGroupModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabDrawingGroup>, value: ViewRef<DrawingGroup>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type DrawingGroupExtraModifiers =
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
@@ -107,7 +105,6 @@ type DrawingGroupExtraModifiers =
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
         DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
 
-[<Extension>]
 type DrawingGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>

@@ -90,7 +90,6 @@ module AutoCompleteBoxBuilders =
                 AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
-[<Extension>]
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>
     /// <param name="this">Current widget.</param>

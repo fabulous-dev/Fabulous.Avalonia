@@ -40,7 +40,6 @@ module CombinedGeometryBuilders =
                 )
             )
 
-[<Extension>]
 type CombinedGeometryModifiers =
     /// <summary>Sets the GeometryCombineMode property.</summary>
     /// <param name="this">Current widget.</param>

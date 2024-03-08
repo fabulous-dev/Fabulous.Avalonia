@@ -33,7 +33,6 @@ module PathFigureBuilders =
         static member PathFigure(startPoint: Point) =
             CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(PathFigure.WidgetKey, PathFigure.Segments, PathFigure.StartPoint.WithValue(startPoint))
 
-[<Extension>]
 type PathFigureModifiers =
 
     /// <summary>Sets the IsClosed property.</summary>
@@ -57,7 +56,6 @@ type PathFigureModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabPathFigure>, value: ViewRef<PathFigure>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type PathFigureBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>

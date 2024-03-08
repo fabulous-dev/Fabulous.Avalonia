@@ -113,7 +113,6 @@ module ColorViewBuilders =
         static member ColorView(color: Color, fn: Color -> 'msg) =
             WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
 
-[<Extension>]
 type ColorViewModifiers =
     /// <summary>Link a ViewRef to access the direct ColorView control instance</summary>
     /// <param name="this">Current widget</param>

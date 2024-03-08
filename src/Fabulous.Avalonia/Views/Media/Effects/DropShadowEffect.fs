@@ -35,7 +35,6 @@ module DropShadowEffectBuilders =
                 DropShadowEffect.OffsetY.WithValue(offsetY)
             )
 
-[<Extension>]
 type DropShadowEffectModifiers =
 
     /// <summary>Link a ViewRef to access the direct DropShadowEffect control instance.</summary>

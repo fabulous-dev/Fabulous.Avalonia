@@ -49,7 +49,6 @@ module TabItemBuilders =
                 )
             )
 
-[<Extension>]
 type TabItemModifiers =
     /// <summary>Sets the TabStripPlacement property.</summary>
     /// <param name="this">Current widget.</param>

@@ -37,7 +37,6 @@ module EllipseGeometryBuilders =
                 EllipseGeometry.RadiusY.WithValue(radiusY)
             )
 
-[<Extension>]
 type EllipseGeometryModifiers =
     /// <summary>Sets the Center property.</summary>
     /// <param name="this">Current widget.</param>

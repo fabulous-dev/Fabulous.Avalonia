@@ -30,7 +30,6 @@ module MenuFlyoutBuilders =
         static member inline MenuFlyout() =
             CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.Items)
 
-[<Extension>]
 type MenuFlyoutModifiers =
     /// <summary>Link a ViewRef to access the direct MenuFlyout control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -39,7 +38,6 @@ type MenuFlyoutModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabMenuFlyout>, value: ViewRef<MenuFlyout>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type MenuFlyoutCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>

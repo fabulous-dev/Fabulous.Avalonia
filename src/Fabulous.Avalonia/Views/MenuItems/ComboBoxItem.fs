@@ -52,7 +52,6 @@ module ComboBoxItemBuilders =
                 )
             )
 
-[<Extension>]
 type ComboBoxItemModifiers =
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>

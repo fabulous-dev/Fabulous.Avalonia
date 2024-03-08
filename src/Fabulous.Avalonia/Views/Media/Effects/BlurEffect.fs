@@ -27,7 +27,6 @@ module BlurEffectBuilders =
         static member BlurEffect(radius: float) =
             WidgetBuilder<'msg, IFabBlurEffect>(BlurEffect.WidgetKey, BlurEffect.Radius.WithValue(radius))
 
-[<Extension>]
 type BlurEffectModifiers =
 
     /// <summary>Link a ViewRef to access the direct BlurEffect control instance.</summary>

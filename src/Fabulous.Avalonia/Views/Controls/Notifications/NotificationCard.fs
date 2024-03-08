@@ -51,7 +51,6 @@ module NotificationCardBuilders =
                 ContentControl.ContentString.WithValue(content)
             )
 
-[<Extension>]
 type NotificationCardModifiers =
 
     /// <summary>Sets the NotificationType property.</summary>
@@ -75,7 +74,6 @@ type NotificationCardModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabNotificationCard>, value: ViewRef<NotificationCard>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type NotificationCardAttachedModifiers =
 
     /// <summary>Sets the CloseOnClick property.</summary>

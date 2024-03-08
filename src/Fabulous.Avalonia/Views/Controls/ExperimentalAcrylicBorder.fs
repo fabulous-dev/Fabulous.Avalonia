@@ -35,7 +35,6 @@ module ExperimentalAcrylicBorderBuilders =
         static member ExperimentalAcrylicBorder() =
             WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-[<Extension>]
 type ExperimentalAcrylicBorderModifiers =
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>

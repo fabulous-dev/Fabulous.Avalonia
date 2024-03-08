@@ -44,7 +44,6 @@ module PathGeometryBuilders =
                 PathGeometry.FillRule.WithValue(fillRule)
             )
 
-[<Extension>]
 type PathGeometryBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathFigure>
@@ -62,7 +61,6 @@ type PathGeometryBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type PathGeometryModifiers =
 
     /// <summary>Link a ViewRef to access the direct PathGeometry control instance.</summary>

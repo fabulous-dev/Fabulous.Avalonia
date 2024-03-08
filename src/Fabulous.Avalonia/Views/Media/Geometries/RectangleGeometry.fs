@@ -23,7 +23,6 @@ module RectangleGeometryBuilders =
         static member RectangleGeometry(rect: Rect) =
             WidgetBuilder<'msg, IFabRectangleGeometry>(RectangleGeometry.WidgetKey, RectangleGeometry.Rect.WithValue(rect))
 
-[<Extension>]
 type RectangleGeometryModifiers =
 
     /// <summary>Link a ViewRef to access the direct RectangleGeometry control instance.</summary>

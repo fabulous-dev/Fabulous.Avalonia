@@ -31,7 +31,6 @@ module PolylineGeometryBuilders =
                 PolylineGeometry.IsFilled.WithValue(isFilled)
             )
 
-[<Extension>]
 type PolylineGeometryModifiers =
 
     /// <summary>Link a ViewRef to access the direct PolylineGeometry control instance.</summary>

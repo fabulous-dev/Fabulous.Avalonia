@@ -59,7 +59,6 @@ module HeaderedContentControlBuilders =
                 ContentControl.ContentString.WithValue(content)
             )
 
-[<Extension>]
 type HeaderedContentControlModifiers =
 
     /// <summary>Link a ViewRef to access the direct HeaderedContentControl control instance.</summary>
