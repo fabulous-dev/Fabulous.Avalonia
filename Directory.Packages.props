@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Fabulous" Version="2.5.0-pre9" />
+    <PackageVersion Include="Fabulous" Version="3.0.0-pre1" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
     <PackageVersion Include="FSharp.Core" Version="8.0.100" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
@@ -11,16 +11,16 @@
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="FsUnit" Version="5.2.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageVersion Include="Avalonia" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Android" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.iOS" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Desktop" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Browser" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Skia" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.0.9" />
-    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.0.9" />
+    <PackageVersion Include="Avalonia" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Android" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.iOS" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Browser" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Skia" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.0.10" />
     <PackageVersion Include="Avalonia.Controls.TreeDataGrid" Version="11.0.2" />
   </ItemGroup>
 </Project>
