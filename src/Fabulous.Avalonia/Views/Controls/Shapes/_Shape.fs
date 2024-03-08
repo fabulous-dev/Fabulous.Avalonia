@@ -87,7 +87,7 @@ type ShapeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The StrokeDashArray value.</param>
     [<Extension>]
-    static member inline strokeDashCap(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
+    static member inline strokeDashArray(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
         this.AddScalar(Shape.StrokeDashArray.WithValue(value))
 
     /// <summary>Sets the StrokeDashOffset property.</summary>
