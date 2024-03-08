@@ -14,23 +14,17 @@ module SelectableTextBlockPage =
 
     type Msg = CopyingToClipboard of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Text = "" }, []
+    let init () = { Text = "" }, Cmd.none
 
     let update msg model =
         match msg with
         | CopyingToClipboard args ->
             let control = args.Source :?> SelectableTextBlock
             let s = control.SelectedText
-            { Text = s }, []
+            { Text = s }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

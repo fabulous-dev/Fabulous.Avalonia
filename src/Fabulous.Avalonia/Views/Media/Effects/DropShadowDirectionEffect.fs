@@ -35,7 +35,6 @@ module DropShadowDirectionEffectBuilders =
                 DropShadowDirectionEffect.Direction.WithValue(direction)
             )
 
-[<Extension>]
 type DropShadowDirectionEffectModifiers =
 
     /// <summary>Link a ViewRef to access the direct DropShadowDirectionEffect control instance.</summary>

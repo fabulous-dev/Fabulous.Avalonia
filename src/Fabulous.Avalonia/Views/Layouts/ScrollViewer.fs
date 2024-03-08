@@ -67,7 +67,6 @@ module ScrollViewerBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type ScrollViewerModifiers =
     /// <summary>Sets the Extent property.</summary>
     /// <param name="this">Current widget.</param>
@@ -167,7 +166,6 @@ type ScrollViewerModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabScrollViewer>, value: ViewRef<ScrollViewer>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type ScrollViewerAttachedModifiers =
     /// <summary>Sets the BringIntoViewOnFocusChange property.</summary>
     /// <param name="this">Current widget.</param>

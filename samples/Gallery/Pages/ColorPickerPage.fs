@@ -24,33 +24,27 @@ module ColorPickerPage =
         | ColorSlider1Changed of Color
         | ColorPreviewerChanged of ColorChangedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { ColorView = Colors.Green
           ColorPicker = Colors.Yellow
           ColorSpectrum = Colors.Blue
           ColorSlider1 = Colors.Red
           ColorPreviewer = Colors.Teal },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ColorViewChanged args -> { model with ColorView = args }, []
-        | ColorPickerChanged args -> { model with ColorPicker = args }, []
-        | ColorSpectrumChanged args -> { model with ColorSpectrum = args }, []
-        | ColorSlider1Changed args -> { model with ColorSlider1 = args }, []
+        | ColorViewChanged args -> { model with ColorView = args }, Cmd.none
+        | ColorPickerChanged args -> { model with ColorPicker = args }, Cmd.none
+        | ColorSpectrumChanged args -> { model with ColorSpectrum = args }, Cmd.none
+        | ColorSlider1Changed args -> { model with ColorSlider1 = args }, Cmd.none
         | ColorPreviewerChanged args ->
             { model with
                 ColorPreviewer = args.NewColor },
-            []
+            Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

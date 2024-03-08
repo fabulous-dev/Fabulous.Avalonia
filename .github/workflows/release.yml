@@ -54,28 +54,28 @@ jobs:
       with:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
-        path: src/Fabulous.Avalonia.ItemsRepeater/CHANGELOG.md
+        path: extensions/Fabulous.Avalonia.ItemsRepeater/CHANGELOG.md
     - name: Get Fabulous.Avalonia.ColorPicker Changelog Entry
       id: colorpicker_changelog
       uses: mindsers/changelog-reader-action@v2
       with:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
-        path: src/Fabulous.Avalonia.ColorPicker/CHANGELOG.md
+        path: extensions/Fabulous.Avalonia.ColorPicker/CHANGELOG.md
     - name: Get Fabulous.Avalonia.DataGrid Changelog Entry
       id: datagrid_changelog
       uses: mindsers/changelog-reader-action@v2
       with:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
-        path: src/Fabulous.Avalonia.DataGrid/CHANGELOG.md
+        path: extensions/Fabulous.Avalonia.DataGrid/CHANGELOG.md
     - name: Get Fabulous.Avalonia.TreeDataGrid Changelog Entry
       id: treedatagrid_changelog
       uses: mindsers/changelog-reader-action@v2
       with:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
-        path: src/Fabulous.Avalonia.TreeDataGrid/CHANGELOG.md
+        path: extensions/Fabulous.Avalonia.TreeDataGrid/CHANGELOG.md
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:

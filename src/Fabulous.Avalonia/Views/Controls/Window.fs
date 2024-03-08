@@ -74,7 +74,6 @@ module WindowBuilders =
         static member inline Window<'msg, 'childMarker>() =
             SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
-[<Extension>]
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>
     /// <param name="this">Current widget.</param>
@@ -180,7 +179,6 @@ type WindowModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabWindow>, value: ViewRef<Window>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type WindowExtraModifiers =
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>

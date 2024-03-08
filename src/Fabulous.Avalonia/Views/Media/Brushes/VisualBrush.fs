@@ -26,7 +26,6 @@ module VisualBrushBuilders =
             )
 
 
-[<Extension>]
 type VisualBrushModifiers =
     /// <summary>Link a ViewRef to access the direct VisualBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

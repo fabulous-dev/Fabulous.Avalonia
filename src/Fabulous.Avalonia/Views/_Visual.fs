@@ -52,7 +52,6 @@ module Visual =
     let DetachedFromVisualTree =
         Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
 
-[<Extension>]
 type VisualModifiers =
     /// <summary>Sets the ClipToBounds property.</summary>
     /// <param name="this">Current widget.</param>
@@ -145,7 +144,6 @@ type VisualModifiers =
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Visual.RenderTransformWidget.WithValue(value.Compile()))
 
-[<Extension>]
 type VisualExtraModifiers =
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>

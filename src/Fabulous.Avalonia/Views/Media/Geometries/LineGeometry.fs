@@ -31,7 +31,6 @@ module LineGeometryBuilders =
                 LineGeometry.EndPoint.WithValue(endPoint)
             )
 
-[<Extension>]
 type LineGeometryModifiers =
 
     /// <summary>Link a ViewRef to access the direct LineGeometry control instance.</summary>

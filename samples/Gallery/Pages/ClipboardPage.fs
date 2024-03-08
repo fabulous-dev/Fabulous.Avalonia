@@ -28,16 +28,6 @@ module ClipboardPage =
         | Cleared
         | ClipboardContentChanged of string
 
-    type CmdMsg =
-        | TextCopied of string
-        | TextDataObjectCopied of string
-        | FilesDataObjectCopied of string
-        | FilesDataObjectPasted
-        | TextDataObjectPasted
-        | TextPasted
-        | FormatsGet
-        | Clearing
-
     let copyText (clipboardText: string) =
         task {
             let clipboard = FabApplication.Current.Clipboard
@@ -153,36 +143,25 @@ module ClipboardPage =
             return Cleared
         }
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | TextCopied s -> Cmd.OfTask.msg(copyText(s))
-        | TextDataObjectCopied s -> Cmd.OfTask.msg(copyTextDataObject(s))
-        | TextDataObjectPasted -> Cmd.OfTask.msg(pasteTextDataObject())
-        | FilesDataObjectCopied s -> Cmd.OfTask.msg(copyFilesDataObject(s))
-        | FilesDataObjectPasted -> Cmd.OfTask.msg(pasteFilesDataObject())
-        | TextPasted -> Cmd.OfTask.msg(pasteText())
-        | FormatsGet -> Cmd.OfTask.msg(getFormats())
-        | Clearing -> Cmd.OfTask.msg(clear())
-
-    let init () = { ClipboardContentText = "" }, []
+    let init () = { ClipboardContentText = "" }, Cmd.none
 
     let update msg model =
         match msg with
-        | CopyText -> model, [ TextCopied(model.ClipboardContentText) ]
-        | CopiedText -> model, []
-        | PasteText -> model, [ TextPasted ]
-        | PastedText s -> { ClipboardContentText = s }, []
-        | CopyTextDataObject -> model, [ TextDataObjectCopied(model.ClipboardContentText) ]
-        | PasteTextDataObject -> model, [ TextDataObjectPasted ]
-        | CopyFilesDataObject -> model, []
-        | PasteFilesDataObject -> model, []
-        | GetFormats -> model, []
-        | Clear -> model, [ Clearing ]
-        | ClipboardContentChanged text -> { ClipboardContentText = text }, []
-        | Cleared -> model, []
+        | CopyText -> model, Cmd.OfTask.msg(copyText(model.ClipboardContentText))
+        | CopiedText -> model, Cmd.none
+        | PasteText -> model, Cmd.OfTask.msg(pasteText())
+        | PastedText s -> { ClipboardContentText = s }, Cmd.none
+        | CopyTextDataObject -> model, Cmd.OfTask.msg(pasteTextDataObject())
+        | PasteTextDataObject -> model, Cmd.OfTask.msg(pasteFilesDataObject())
+        | CopyFilesDataObject -> model, Cmd.none
+        | PasteFilesDataObject -> model, Cmd.none
+        | GetFormats -> model, Cmd.none
+        | Clear -> model, Cmd.OfTask.msg(clear())
+        | ClipboardContentChanged text -> { ClipboardContentText = text }, Cmd.none
+        | Cleared -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

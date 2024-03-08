@@ -46,7 +46,6 @@ module Shape =
     let StrokeJoin =
         Attributes.defineAvaloniaPropertyWithEquality Shape.StrokeJoinProperty
 
-[<Extension>]
 type ShapeModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
@@ -87,7 +86,7 @@ type ShapeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The StrokeDashArray value.</param>
     [<Extension>]
-    static member inline strokeDashCap(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
+    static member inline strokeDashArray(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
         this.AddScalar(Shape.StrokeDashArray.WithValue(value))
 
     /// <summary>Sets the StrokeDashOffset property.</summary>
@@ -118,7 +117,6 @@ type ShapeModifiers =
     static member inline strokeJoin(this: WidgetBuilder<'msg, #IFabShape>, value: PenLineJoin) =
         this.AddScalar(Shape.StrokeJoin.WithValue(value))
 
-[<Extension>]
 type ShapeExtraModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>

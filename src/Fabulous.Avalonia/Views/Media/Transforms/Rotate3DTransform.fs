@@ -65,7 +65,6 @@ module Rotate3DTransformBuilders =
                 Rotate3DTransform.Depth.WithValue(depth)
             )
 
-[<Extension>]
 type Rotate3DTransformModifiers =
     /// <summary>Link a ViewRef to access the direct Rotate3DTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

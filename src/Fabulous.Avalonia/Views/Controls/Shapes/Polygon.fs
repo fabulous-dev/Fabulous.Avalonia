@@ -32,7 +32,6 @@ module PolygonBuilders =
         static member Polygon(points: Point list) =
             WidgetBuilder<'msg, IFabPolygon>(Polygon.WidgetKey, Polygon.Points.WithValue(points))
 
-[<Extension>]
 type PolygonModifiers =
     /// <summary>Link a ViewRef to access the direct Polygon control instance.</summary>
     /// <param name="this">Current widget.</param>

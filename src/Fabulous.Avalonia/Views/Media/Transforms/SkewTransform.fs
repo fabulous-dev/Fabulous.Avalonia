@@ -37,7 +37,6 @@ module SkewTransformBuilders =
         static member SkewTransform() =
             WidgetBuilder<'msg, IFabSkewTransform>(SkewTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-[<Extension>]
 type SkewTransformTransformModifiers =
     /// <summary>Link a ViewRef to access the direct SkewTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

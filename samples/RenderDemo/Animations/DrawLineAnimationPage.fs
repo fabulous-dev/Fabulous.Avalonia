@@ -28,8 +28,6 @@ module DrawLineAnimationPage =
         | OnPointerMoved of PointerEventArgs
         | TimerTicked
 
-    type CmdMsg = | TickTimer
-
     let timer () =
         async {
             do! Async.Sleep 1000
@@ -37,17 +35,13 @@ module DrawLineAnimationPage =
         }
         |> Cmd.OfAsync.msg
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | TickTimer -> timer()
-
     let init () =
         { StartPosition = Point(0., 0.)
           EndPosition = Point(0., 0.)
           ShouldAnimate = false
           StrokeThickness = 10.
           Origin = RelativePoint.Center },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -62,8 +56,8 @@ module DrawLineAnimationPage =
                     StartPosition = point
                     EndPosition = point
                     ShouldAnimate = false },
-                []
-            | _ -> model, []
+                Cmd.none
+            | _ -> model, Cmd.none
         | OnPointerReleased args ->
             args.Handled <- true
 
@@ -74,25 +68,25 @@ module DrawLineAnimationPage =
                 { model with
                     EndPosition = point
                     ShouldAnimate = true },
-                [ TickTimer ]
-            | _ -> model, []
+                timer()
+            | _ -> model, Cmd.none
         | OnPointerMoved args ->
             args.Handled <- true
 
             match args.Source with
             | :? Canvas as canvas ->
                 let point = args.GetPosition(canvas)
-                { model with EndPosition = point }, []
-            | _ -> model, []
+                { model with EndPosition = point }, Cmd.none
+            | _ -> model, Cmd.none
         | TimerTicked ->
             let strokeThickness = model.StrokeThickness + 1.
 
             { model with
                 StrokeThickness = strokeThickness },
-            [ TickTimer ]
+            timer()
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

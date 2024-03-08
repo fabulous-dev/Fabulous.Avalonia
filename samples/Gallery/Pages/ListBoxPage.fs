@@ -37,12 +37,6 @@ module ListBoxPage =
         | RemoveItem
         | SelectRandomItem
 
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
     let init () =
         { Multiple = false
           Toggle = false
@@ -53,7 +47,7 @@ module ListBoxPage =
           Selection = SelectionModel<ItemModel>()
           SelectedIndex = 0
           SelectionMode = SelectionMode.Single },
-        []
+        Cmd.none
 
     let update (msg: Msg) model =
         match msg with
@@ -67,7 +61,7 @@ module ListBoxPage =
             { model with
                 SelectionMode = value
                 Multiple = m },
-            []
+            Cmd.none
         | ToggleChanged b ->
             let value =
                 if b then SelectionMode.Multiple
@@ -78,7 +72,7 @@ module ListBoxPage =
             { model with
                 SelectionMode = value
                 Toggle = b },
-            []
+            Cmd.none
         | AlwaysSelectedChanged b ->
             let value =
                 if b then SelectionMode.Multiple
@@ -89,15 +83,15 @@ module ListBoxPage =
             { model with
                 SelectionMode = value
                 AlwaysSelected = b },
-            []
+            Cmd.none
         | AutoScrollToSelectedItemChanged b ->
             { model with
                 AutoScrollToSelectedItem = b },
-            []
-        | WrappedSelectionChanged b -> { model with WrappedSelection = b }, []
+            Cmd.none
+        | WrappedSelectionChanged b -> { model with WrappedSelection = b }, Cmd.none
         | AddItem ->
             model.Items.Add({ ID = model.Items.Count + 1 })
-            { model with Items = model.Items }, []
+            { model with Items = model.Items }, Cmd.none
 
         | RemoveItem ->
             let items = model.Selection.SelectedItems
@@ -105,15 +99,15 @@ module ListBoxPage =
             for item in items do
                 model.Items.Remove(item) |> ignore
 
-            { model with Items = model.Items }, []
+            { model with Items = model.Items }, Cmd.none
 
         | SelectRandomItem ->
             let random = Random()
             let index = random.Next(0, model.Items.Count - 1)
-            { model with SelectedIndex = index }, []
+            { model with SelectedIndex = index }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

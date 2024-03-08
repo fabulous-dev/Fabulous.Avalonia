@@ -102,7 +102,6 @@ module HamburgerMenuExtBuilders =
         static member inline HamburgerMenu() =
             CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenuExt.WidgetKey, ItemsControl.Items)
 
-[<Extension>]
 type HamburgerMenuModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: ViewRef<HamburgerMenu>) =

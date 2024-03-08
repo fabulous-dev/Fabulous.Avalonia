@@ -19,24 +19,18 @@ module DropDownButtonPage =
         | Decrement
         | Reset
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Count = 0 }, []
+    let init () = { Count = 0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
-        | Clicked2 -> model, []
-        | Increment -> { Count = model.Count + 1 }, []
-        | Decrement -> { Count = model.Count - 1 }, []
-        | Reset -> { Count = 0 }, []
+        | Clicked -> model, Cmd.none
+        | Clicked2 -> model, Cmd.none
+        | Increment -> { Count = model.Count + 1 }, Cmd.none
+        | Decrement -> { Count = model.Count - 1 }, Cmd.none
+        | Reset -> { Count = 0 }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

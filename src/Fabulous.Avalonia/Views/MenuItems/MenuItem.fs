@@ -121,7 +121,6 @@ module MenuItemBuilders =
                 (StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)))
                 [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
 
-[<Extension>]
 type MenuItemModifiers =
     /// <summary>Sets the HotKey property.</summary>
     /// <param name="this">Current widget.</param>
@@ -193,7 +192,6 @@ type MenuItemModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabMenuItem>, value: ViewRef<MenuItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type MenuItemCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>

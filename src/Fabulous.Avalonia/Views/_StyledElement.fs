@@ -90,7 +90,6 @@ module StyledElement =
                     node.TreeContext.Logger.Warn("The resource '{0}' was not found. The theme has been unset", themeKey)
                     target.Theme <- null)
 
-[<Extension>]
 type StyledElementModifiers =
     /// <summary>Sets the Name property.</summary>
     /// <param name="this">Current widget.</param>

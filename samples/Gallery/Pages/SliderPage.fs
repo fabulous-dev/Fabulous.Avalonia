@@ -29,12 +29,6 @@ module SliderPage =
         | ValueChanged6 of float
         | ValueChanged7 of float
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { SliderValue1 = 0.0
           SliderValue2 = 0.0
@@ -43,17 +37,17 @@ module SliderPage =
           SliderValue5 = 0.0
           SliderValue6 = 0.0
           SliderValue7 = 0.0 },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged1 value -> { model with SliderValue1 = value }, []
-        | ValueChanged2 value -> { model with SliderValue2 = value }, []
-        | ValueChanged3 value -> { model with SliderValue3 = value }, []
-        | ValueChanged4 value -> { model with SliderValue4 = value }, []
-        | ValueChanged5 value -> { model with SliderValue5 = value }, []
-        | ValueChanged6 value -> { model with SliderValue6 = value }, []
-        | ValueChanged7 value -> { model with SliderValue7 = value }, []
+        | ValueChanged1 value -> { model with SliderValue1 = value }, Cmd.none
+        | ValueChanged2 value -> { model with SliderValue2 = value }, Cmd.none
+        | ValueChanged3 value -> { model with SliderValue3 = value }, Cmd.none
+        | ValueChanged4 value -> { model with SliderValue4 = value }, Cmd.none
+        | ValueChanged5 value -> { model with SliderValue5 = value }, Cmd.none
+        | ValueChanged6 value -> { model with SliderValue6 = value }, Cmd.none
+        | ValueChanged7 value -> { model with SliderValue7 = value }, Cmd.none
 
     let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
         this
@@ -63,7 +57,7 @@ module SliderPage =
             .smallChange(0.1)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

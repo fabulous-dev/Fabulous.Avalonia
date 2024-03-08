@@ -34,7 +34,6 @@ module PathBuilders =
         static member Path(data: string) =
             WidgetBuilder<'msg, IFabPath>(Path.WidgetKey, Path.DataString.WithValue(Geometry.Parse(data)))
 
-[<Extension>]
 type PathModifiers =
     /// <summary>Link a ViewRef to access the direct Path control instance.</summary>
     /// <param name="this">Current widget.</param>

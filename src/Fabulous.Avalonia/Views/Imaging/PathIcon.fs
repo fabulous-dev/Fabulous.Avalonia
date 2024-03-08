@@ -33,7 +33,6 @@ module PathIconBuilders =
         static member PathIcon(path: string) =
             WidgetBuilder<'msg, IFabPathIcon>(PathIcon.WidgetKey, PathIcon.DataString.WithValue(Geometry.Parse(path)))
 
-[<Extension>]
 type PathIconModifiers =
     /// <summary>Link a ViewRef to access the direct PathIcon control instance.</summary>
     /// <param name="this">Current widget.</param>

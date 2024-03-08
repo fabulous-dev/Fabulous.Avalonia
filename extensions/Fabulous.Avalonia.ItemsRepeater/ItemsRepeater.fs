@@ -50,7 +50,6 @@ module ItemsRepeaterBuilders =
             ) =
             WidgetHelpers.buildItems<'msg, IFabItemsRepeater, 'itemData, 'itemMarker> ItemsRepeater.WidgetKey ItemsRepeater.ItemsSource items template
 
-[<Extension>]
 type ItemsRepeaterModifiers =
     /// <summary>Link a ViewRef to access the direct ItemsRepeater control instance</summary>
     /// <param name="this">Current widget</param>

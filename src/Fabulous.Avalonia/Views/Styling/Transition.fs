@@ -24,7 +24,6 @@ module TransitionBase =
     let Property =
         Attributes.defineAvaloniaPropertyWithEquality TransitionBase.PropertyProperty
 
-[<Extension>]
 type TransitionBaseModifiers =
     /// <summary>Sets the Delay property.</summary>
     /// <param name="this">Current widget.</param>
@@ -328,7 +327,6 @@ module EffectTransitionBuilders =
                 TransitionBase.Duration.WithValue(duration)
             )
 
-[<Extension>]
 type TransitionBaseCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
@@ -346,7 +344,6 @@ type TransitionBaseCollectionBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type TransitionCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>
     /// <param name="this">Current widget.</param>

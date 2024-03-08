@@ -27,7 +27,6 @@ module TileBrush =
     let TileMode =
         Attributes.defineAvaloniaPropertyWithEquality TileBrush.TileModeProperty
 
-[<Extension>]
 type TileBrushModifiers =
 
     /// <summary>Sets the AlignmentX property.</summary>

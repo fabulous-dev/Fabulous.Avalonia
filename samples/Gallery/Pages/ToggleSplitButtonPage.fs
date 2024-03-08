@@ -22,26 +22,20 @@ module ToggleSplitButtonPage =
         | CheckedChanged of bool
         | CheckedChanged2 of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Count = 0
           IsChecked = false
           IsChecked2 = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
-        | Increment -> { model with Count = model.Count + 1 }, []
-        | Decrement -> { model with Count = model.Count - 1 }, []
-        | Reset -> { model with Count = 0 }, []
-        | CheckedChanged b -> { model with IsChecked = b }, []
-        | CheckedChanged2 b -> { model with IsChecked2 = b }, []
+        | Clicked -> model, Cmd.none
+        | Increment -> { model with Count = model.Count + 1 }, Cmd.none
+        | Decrement -> { model with Count = model.Count - 1 }, Cmd.none
+        | Reset -> { model with Count = 0 }, Cmd.none
+        | CheckedChanged b -> { model with IsChecked = b }, Cmd.none
+        | CheckedChanged2 b -> { model with IsChecked2 = b }, Cmd.none
 
     let menu () =
         Flyout(
@@ -55,7 +49,7 @@ module ToggleSplitButtonPage =
             .placement(PlacementMode.RightEdgeAlignedTop)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

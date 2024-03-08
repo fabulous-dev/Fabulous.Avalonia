@@ -54,17 +54,7 @@ module DialogsPage =
         | CurrentFolderBoxLoaded of RoutedEventArgs
         | GetIStorageFolder of IStorageFolder
         | GetStorageProviderStatus of string
-
         | OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
-
-    type CmdMsg =
-        | GettingIStorageFolder of storageProvider: IStorageProvider * text: string
-        | GettingIStorageAvailable of storageProvider: IStorageProvider
-        | OpeningFilePicker of storageProvider: IStorageProvider * lastSelectedDirectory: IStorageFolder * useFilters: bool * openMultiple: bool
-        | OpeningFolderPicker of storageProvider: IStorageProvider * lastSelectedDirectory: IStorageFolder * openMultiple: bool
-        | SavingFilePicker of storageProvider: IStorageProvider * lastSelectedDirectory: IStorageFolder * useFilters: bool * openedFileContent: string
-        | OpeningFileFromBookmark of storageProvider: IStorageProvider * bookmarkText: string
-        | OpeningFolderFromBookmark of storageProvider: IStorageProvider * bookmarkText: string
 
     let getStringFromStorageFile (storageProvider: IStorageProvider) (text: string) =
         task {
@@ -268,19 +258,6 @@ CanBookmark: {item.Value.CanBookmark}"
             return FolderFromBookmarkOpened pickerResult
         }
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | GettingIStorageFolder(storageProvider, text) -> Cmd.OfTask.msg(getStringFromStorageFile storageProvider text)
-        | OpeningFilePicker(storageProvider, lastSelectedDirectory, useFilters, openMultiple) ->
-            Cmd.OfTask.msg(openFilePicker storageProvider lastSelectedDirectory useFilters openMultiple)
-        | SavingFilePicker(storageProvider, lastSelectedDirectory, useFilters, openedFileContent) ->
-            Cmd.OfTask.msg(saveFilePicker storageProvider lastSelectedDirectory useFilters openedFileContent)
-        | GettingIStorageAvailable storageProvider -> Cmd.ofMsg(getStorageProviderAvailability storageProvider)
-        | OpeningFolderPicker(storageProvider, lastSelectedDirectory, openMultiple) ->
-            Cmd.OfTask.msg(openFolderPicker storageProvider lastSelectedDirectory openMultiple)
-        | OpeningFileFromBookmark(storageProvider, bookmarkText) -> Cmd.OfTask.msg(openFileFromBookmark storageProvider bookmarkText)
-        | OpeningFolderFromBookmark(storageProvider, bookmarkText) -> Cmd.OfTask.msg(openFolderFromBookmark storageProvider bookmarkText)
-
     let init () =
         { UseFilters = false
           OpenMultiple = false
@@ -292,28 +269,28 @@ CanBookmark: {item.Value.CanBookmark}"
           FileResults = Seq.empty
           PickerLastResultsVisible = false
           StorageProvider = null },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | UseFiltersChanged b -> { model with UseFilters = b }, []
-        | OpenMultipleChanged b -> { model with OpenMultiple = b }, []
-        | OpenFilePicker -> model, [ OpeningFilePicker(model.StorageProvider, model.LastSelectedDirectory, model.UseFilters, model.OpenMultiple) ]
-        | SaveFilePicker -> model, [ SavingFilePicker(model.StorageProvider, model.LastSelectedDirectory, model.UseFilters, model.OpenedFileContent) ]
-        | OpenFileFromBookmark -> model, [ OpeningFileFromBookmark(model.StorageProvider, model.BookmarkContainer) ]
-        | OpenFolderFromBookmark -> model, []
+        | UseFiltersChanged b -> { model with UseFilters = b }, Cmd.none
+        | OpenMultipleChanged b -> { model with OpenMultiple = b }, Cmd.none
+        | OpenFilePicker -> model, Cmd.OfTask.msg(openFilePicker model.StorageProvider model.LastSelectedDirectory model.UseFilters model.OpenMultiple)
+        | SaveFilePicker -> model, Cmd.OfTask.msg(saveFilePicker model.StorageProvider model.LastSelectedDirectory model.UseFilters model.OpenedFileContent)
+        | OpenFileFromBookmark -> model, Cmd.OfTask.msg(openFileFromBookmark model.StorageProvider model.BookmarkContainer)
+        | OpenFolderFromBookmark -> model, Cmd.none
         | CurrentFolderBoxTextChanged text ->
             if model.IgnoreTextChanged then
-                { model with CurrentFolderBox = text }, []
+                { model with CurrentFolderBox = text }, Cmd.none
             else
-                { model with CurrentFolderBox = text }, [ GettingIStorageFolder(model.StorageProvider, text) ]
-        | CurrentFolderBoxLoaded _ -> model, []
-        | BookmarkContainerTextChanged s -> { model with BookmarkContainer = s }, []
-        | OpenedFileContentTextChanged s -> { model with OpenedFileContent = s }, []
+                { model with CurrentFolderBox = text }, Cmd.OfTask.msg(getStringFromStorageFile model.StorageProvider text)
+        | CurrentFolderBoxLoaded _ -> model, Cmd.none
+        | BookmarkContainerTextChanged s -> { model with BookmarkContainer = s }, Cmd.none
+        | OpenedFileContentTextChanged s -> { model with OpenedFileContent = s }, Cmd.none
         | GetIStorageFolder storageFolder ->
             { model with
                 LastSelectedDirectory = storageFolder },
-            []
+            Cmd.none
         | FilePickerOpened res ->
             let results = res.Results
 
@@ -322,47 +299,47 @@ CanBookmark: {item.Value.CanBookmark}"
                 OpenedFileContent = res.FileContentText
                 BookmarkContainer = res.BookmarkText
                 PickerLastResultsVisible = not(results |> Seq.isEmpty) },
-            []
+            Cmd.none
         | FilePickerSaved result ->
             { model with
                 FileResults = result.Results
                 OpenedFileContent = result.FileContentText
                 BookmarkContainer = result.BookmarkText
                 PickerLastResultsVisible = true },
-            []
+            Cmd.none
 
-        | GetStorageProviderStatus s -> { model with OpenedFileContent = s }, []
+        | GetStorageProviderStatus s -> { model with OpenedFileContent = s }, Cmd.none
 
-        | OpenFolderPicker -> model, [ OpeningFolderPicker(model.StorageProvider, model.LastSelectedDirectory, model.OpenMultiple) ]
+        | OpenFolderPicker -> model, Cmd.OfTask.msg(openFolderPicker model.StorageProvider model.LastSelectedDirectory model.OpenMultiple)
         | FolderPickerOpened res ->
             let results = res.Results
 
             { model with
                 FileResults = results
                 PickerLastResultsVisible = not(results |> Seq.isEmpty) },
-            []
+            Cmd.none
         | FileFromBookmarkOpened pickerResult ->
             { model with
                 FileResults = pickerResult.Results
                 PickerLastResultsVisible = not(pickerResult.Results |> Seq.isEmpty)
                 BookmarkContainer = pickerResult.BookmarkText
                 OpenedFileContent = pickerResult.FileContentText },
-            []
+            Cmd.none
         | FolderFromBookmarkOpened pickerResult ->
             { model with
                 FileResults = pickerResult.Results
                 PickerLastResultsVisible = not(pickerResult.Results |> Seq.isEmpty)
                 BookmarkContainer = pickerResult.BookmarkText
                 OpenedFileContent = pickerResult.FileContentText },
-            []
+            Cmd.none
 
         | OnAttachedToVisualTree _ ->
             { model with
                 StorageProvider = FabApplication.Current.StorageProvider },
-            [ GettingIStorageAvailable FabApplication.Current.StorageProvider ]
+            Cmd.ofMsg(getStorageProviderAvailability FabApplication.Current.StorageProvider)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

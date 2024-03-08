@@ -90,10 +90,6 @@ module DragAndDropPage =
         | DraggedOver of DragEventArgs
         | Drop of DragEventArgs
 
-    type CmdMsg =
-        | DragBegin of args: PointerEventArgs * factory: System.Action<DataObject> * DragDropEffects * borderDragged: BorderPointerPressed
-        | DropBegin of args: DragEventArgs
-
     let customFormat = "application/xxx-avalonia-galleryapp-custom"
 
     let doDrop (e: DragEventArgs) =
@@ -191,18 +187,13 @@ module DragAndDropPage =
         then
             e.DragEffects <- DragDropEffects.None
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | DragBegin(args, factory, effects, borderDragged) -> Cmd.OfAsync.msg(doDrag args effects factory borderDragged)
-        | DropBegin(args) -> Cmd.OfAsync.msg(doDrop args)
-
     let init () =
         { DragStateTex = "Drag Me (text)"
           DragStateFilesText = "Drag Me (files)"
           DragStateCustomText = "Drag Me (custom)"
           DropStateText = ""
           DraggedCount = 0 },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -213,23 +204,22 @@ module DragAndDropPage =
             let factory =
                 System.Action<DataObject>(fun d -> d.Set(DataFormats.Text, $"Text was dragged {model.DraggedCount} times"))
 
-            model, [ DragBegin(args, factory, effects, BorderPointerPressed.First) ]
+            model, Cmd.OfAsync.msg(doDrag args effects factory BorderPointerPressed.First)
 
         | OnPointPressed2 args ->
             args.Handled <- true
             let effects = DragDropEffects.Move
             let factory = System.Action<DataObject>(fun d -> d.Set(customFormat, "Test123"))
-            model, [ DragBegin(args, factory, effects, BorderPointerPressed.Second) ]
+            model, Cmd.OfAsync.msg(doDrag args effects factory BorderPointerPressed.Second)
 
         | OnPointPressed3 args ->
             args.Handled <- true
             let effects = DragDropEffects.Copy
             let files = getFiles() |> Async.RunSynchronously
 
-            let factory =
-                System.Action<DataObject>(fun d -> d.Set(DataFormats.Files, value = files))
+            let factory = System.Action<DataObject>(_.Set(DataFormats.Files, value = files))
 
-            model, [ DragBegin(args, factory, effects, BorderPointerPressed.Third) ]
+            model, Cmd.OfAsync.msg(doDrag args effects factory BorderPointerPressed.Third)
 
         | Dragged1 s ->
             let dragCount = model.DraggedCount + 1
@@ -237,33 +227,33 @@ module DragAndDropPage =
             { model with
                 DragStateTex = s
                 DraggedCount = dragCount },
-            []
+            Cmd.none
         | Dragged2 s ->
             let dragCount = model.DraggedCount + 1
 
             { model with
                 DragStateFilesText = s
                 DraggedCount = dragCount },
-            []
+            Cmd.none
         | Dragged3 s ->
             let dragCount = model.DraggedCount + 1
 
             { model with
                 DragStateCustomText = s
                 DraggedCount = dragCount },
-            []
+            Cmd.none
 
-        | Dropped s -> { model with DropStateText = s }, []
+        | Dropped s -> { model with DropStateText = s }, Cmd.none
         | Drop args ->
             args.Handled <- true
-            model, [ DropBegin(args) ]
+            model, Cmd.OfAsync.msg(doDrop args)
 
         | DraggedOver args ->
             DragOver args
-            model, []
+            model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

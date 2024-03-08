@@ -15,21 +15,15 @@ module MenuFlyoutPage =
         | PressMe
         | Increment
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Counter = 0 }, []
+    let init () = { Counter = 0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | PressMe -> model, []
-        | Increment -> { Counter = model.Counter + 1 }, []
+        | PressMe -> model, Cmd.none
+        | Increment -> { Counter = model.Counter + 1 }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

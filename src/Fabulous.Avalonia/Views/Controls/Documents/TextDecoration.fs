@@ -60,7 +60,6 @@ module TextDecorationBuilders =
         static member inline TextDecoration(location: TextDecorationLocation) =
             WidgetBuilder<'msg, IFabTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
-[<Extension>]
 type TextDecorationModifiers =
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
@@ -132,7 +131,6 @@ type TextDecorationModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabTextDecoration>, value: ViewRef<TextDecoration>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type TextDecorationExtraModifiers =
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>

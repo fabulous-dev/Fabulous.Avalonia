@@ -18,24 +18,18 @@ module PopupPage =
         | OnOpened
         | OnClosed
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { IsOpen = false }, []
+    let init () = { IsOpen = false }, Cmd.none
 
     let update msg model =
         match msg with
-        | OpenPopup -> { IsOpen = not model.IsOpen }, []
-        | OnOpened -> model, []
-        | OnClosed -> model, []
+        | OpenPopup -> { IsOpen = not model.IsOpen }, Cmd.none
+        | OnOpened -> model, Cmd.none
+        | OnClosed -> model, Cmd.none
 
     let buttonRef = ViewRef<Button>()
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

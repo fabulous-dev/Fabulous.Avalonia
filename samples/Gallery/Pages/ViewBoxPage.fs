@@ -14,21 +14,16 @@ module ViewBoxPage =
         | HeightChanged of float
         | WidthChanged of float
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Width = 300.; Height = 300. }, []
+    let init () =
+        { Width = 300.; Height = 300. }, Cmd.none
 
     let update msg model =
         match msg with
-        | HeightChanged height -> { model with Height = height }, []
-        | WidthChanged width -> { model with Width = width }, []
+        | HeightChanged height -> { model with Height = height }, Cmd.none
+        | WidthChanged width -> { model with Width = width }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

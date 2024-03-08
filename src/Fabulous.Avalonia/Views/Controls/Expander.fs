@@ -86,7 +86,6 @@ module ExpanderBuilders =
                 )
             )
 
-[<Extension>]
 type ExpanderModifiers =
     /// <summary>Sets the ContentTransition property.</summary>
     /// <param name="this">Current widget.</param>

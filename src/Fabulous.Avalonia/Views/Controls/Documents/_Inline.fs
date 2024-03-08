@@ -23,7 +23,6 @@ module Inline =
     let BaselineAlignment =
         Attributes.defineAvaloniaPropertyWithEquality Inline.BaselineAlignmentProperty
 
-[<Extension>]
 type InlineModifiers =
     /// <summary>Sets the BaselineAlignment property.</summary>
     /// <param name="this">Current widget.</param>

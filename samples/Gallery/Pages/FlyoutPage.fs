@@ -26,13 +26,8 @@ module FlyoutPage =
         | Reset
         | OnTapped of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Counter = 0; IsChecked = false }, []
+    let init () =
+        { Counter = 0; IsChecked = false }, Cmd.none
 
     let update msg model =
         match msg with
@@ -40,24 +35,24 @@ module FlyoutPage =
             match args.Source with
             | :? Panel as control ->
                 FlyoutBase.ShowAttachedFlyout(control)
-                model, []
+                model, Cmd.none
             | :? Border as control ->
                 FlyoutBase.ShowAttachedFlyout(control)
-                model, []
-            | _ -> model, []
-        | MenuOpening -> model, []
-        | MenuClosing _ -> model, []
+                model, Cmd.none
+            | _ -> model, Cmd.none
+        | MenuOpening -> model, Cmd.none
+        | MenuClosing _ -> model, Cmd.none
         | Increment ->
             { model with
                 Counter = model.Counter + 1 },
-            []
+            Cmd.none
         | Decrement ->
             { model with
                 Counter = model.Counter - 1 },
-            []
-        | Reset -> { model with Counter = 0 }, []
-        | Opened -> model, []
-        | Closed -> model, []
+            Cmd.none
+        | Reset -> { model with Counter = 0 }, Cmd.none
+        | Opened -> model, Cmd.none
+        | Closed -> model, Cmd.none
 
     let sharedMenuFlyout openMsg closeMsg =
         (MenuFlyout() {
@@ -84,7 +79,7 @@ module FlyoutPage =
             .onClosing(closeMsg)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

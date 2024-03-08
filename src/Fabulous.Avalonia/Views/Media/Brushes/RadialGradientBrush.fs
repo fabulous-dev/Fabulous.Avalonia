@@ -77,7 +77,6 @@ module RadialGradientBrushBuilders =
                 RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
             )
 
-[<Extension>]
 type RadialGradientBrushModifiers =
 
     /// <summary>Sets the Radius property.</summary>

@@ -14,7 +14,6 @@ module Geometry =
     let Changed =
         Attributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
 
-[<Extension>]
 type GeometryModifiers =
     /// <summary>Sets the Transform property.</summary>
     /// <param name="this">Current widget.</param>
@@ -30,7 +29,6 @@ type GeometryModifiers =
     static member inline onChanged(this: WidgetBuilder<'msg, #IFabGeometry>, msg: 'msg) =
         this.AddScalar(Geometry.Changed.WithValue(MsgValue msg))
 
-[<Extension>]
 type GeometryAttachedModifiers =
     /// <summary>Sets the Clip property.</summary>
     /// <param name="this">Current widget.</param>

@@ -50,7 +50,6 @@ module TopLevel =
     let ThemeVariantChanged =
         Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
-[<Extension>]
 type TopLevelModifiers =
     /// <summary>Sets the PointerOverElement property.</summary>
     /// <param name="this">Current widget.</param>
@@ -129,7 +128,6 @@ type TopLevelModifiers =
     static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, msg: 'msg) =
         this.AddScalar(TopLevel.ScalingChanged.WithValue(MsgValue msg))
 
-[<Extension>]
 type TopLevelExtraModifiers =
     /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
     /// <param name="this">Current widget.</param>

@@ -87,7 +87,6 @@ module DataGridTextColumnBuilders =
                 )
             )
 
-[<Extension>]
 type DataGridTextColumnModifiers =
     /// <summary>Link a ViewRef to access the direct DataGridTextColumn control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -145,7 +144,6 @@ type DataGridTextColumnModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(DataGridTextColumn.ForegroundWidget.WithValue(value.Compile()))
 
-[<Extension>]
 type DataGridTextColumnExtraModifiers =
     /// <summary>Set the Foreground property.</summary>
     /// <param name="this">Current widget.</param>

@@ -58,7 +58,6 @@ module NativeMenuItemBuilders =
                 NativeMenuItem.Click.WithValue(MsgValue onClicked)
             )
 
-[<Extension>]
 type NativeMenuItemModifiers =
     /// <summary>Sets the Gesture property.</summary>
     /// <param name="this">Current widget.</param>
@@ -102,7 +101,6 @@ type NativeMenuItemModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabNativeMenuItem>, value: ViewRef<NativeMenuItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type NativeMenuItemExtraModifiers =
     /// <summary>Sets the Icon property.</summary>
     /// <param name="this">Current widget.</param>

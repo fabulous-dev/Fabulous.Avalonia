@@ -92,7 +92,6 @@ module LinearGradientBrushBuilders =
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint.BottomRight)
             )
 
-[<Extension>]
 type LinearGradientBrushModifiers =
     /// <summary>Link a ViewRef to access the direct LinearGradientBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

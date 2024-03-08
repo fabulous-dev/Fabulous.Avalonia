@@ -32,7 +32,6 @@ module QuadraticBezierSegmentBuilders =
                 QuadraticBezierSegment.Point2.WithValue(point2)
             )
 
-[<Extension>]
 type QuadraticBezierSegmentModifiers =
 
     /// <summary>Link a ViewRef to access the direct QuadraticBezierSegment control instance.</summary>

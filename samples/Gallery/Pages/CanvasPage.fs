@@ -15,8 +15,6 @@ module CanvasPage =
 
     type Msg = Update of DateTime
 
-    type CmdMsg = | StartTimer
-
     let timer () =
         Cmd.ofEffect(fun dispatch ->
             DispatcherTimer.Run(
@@ -27,11 +25,7 @@ module CanvasPage =
             )
             |> ignore)
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | StartTimer -> timer()
-
-    let init () = { Time = DateTime.Now }, [ StartTimer ]
+    let init () = { Time = DateTime.Now }, timer()
 
     type PointerType =
         | Hour
@@ -58,10 +52,10 @@ module CanvasPage =
 
     let update msg model =
         match msg with
-        | Update res -> { Time = res }, []
+        | Update res -> { Time = res }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

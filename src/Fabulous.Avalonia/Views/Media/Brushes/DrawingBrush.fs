@@ -25,7 +25,6 @@ module DrawingBrushBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| DrawingBrush.Drawing.WithValue(source.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type DrawingBrushModifiers =
     /// <summary>Link a ViewRef to access the direct DrawingBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -15,22 +15,16 @@ module GesturesPage =
 
     type Msg = | Reset
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { CurrentScale = 0 }, []
+    let init () = { CurrentScale = 0 }, Cmd.none
 
     let topBallBorderRef = ViewRef<Border>()
 
     let update msg model =
         match msg with
-        | Reset -> model, []
+        | Reset -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

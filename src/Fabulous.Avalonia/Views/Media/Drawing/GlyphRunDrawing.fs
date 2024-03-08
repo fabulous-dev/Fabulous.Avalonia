@@ -60,7 +60,6 @@ module GlyphRunDrawingBuilders =
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             View.GlyphRunDrawing(View.SolidColorBrush(brush), glyphRun)
 
-[<Extension>]
 type GlyphRunDrawingModifiers =
 
     /// <summary>Link a ViewRef to access the direct GlyphRunDrawing control instance.</summary>

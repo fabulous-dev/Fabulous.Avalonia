@@ -33,7 +33,6 @@ module LayoutTransformControlBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type LayoutTransformControlModifiers =
     /// <summary>Sets the LayoutTransform property.</summary>
     /// <param name="this">Current widget.</param>

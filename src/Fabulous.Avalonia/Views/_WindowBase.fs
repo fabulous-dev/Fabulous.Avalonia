@@ -24,7 +24,6 @@ module WindowBase =
     let Resized =
         Attributes.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
 
-[<Extension>]
 type WindowBaseModifiers =
     /// <summary>Sets the Topmost property.</summary>
     /// <param name="this">Current widget.</param>

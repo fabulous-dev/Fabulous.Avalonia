@@ -43,7 +43,6 @@ module SplitButtonBuilders =
                 )
             )
 
-[<Extension>]
 type SplitButtonModifiers =
     /// <summary>Sets the Flyout property.</summary>
     /// <param name="this">Current widget.</param>

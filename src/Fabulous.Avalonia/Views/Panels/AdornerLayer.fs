@@ -18,7 +18,6 @@ module AdornerLayer =
     let IsIsClipEnabled =
         Attributes.defineAvaloniaPropertyWithEquality AdornerLayer.IsClipEnabledProperty
 
-[<Extension>]
 type AdornerLayerAttachedModifiers =
     /// <summary>Sets the Adorner property.</summary>
     /// <param name="this">Current widget.</param>

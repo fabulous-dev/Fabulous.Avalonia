@@ -11,20 +11,14 @@ module RepeatButtonPage =
 
     type Msg = | Clicked
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
+    let init () = { Nothing = true }, Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
+        | Clicked -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

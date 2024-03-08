@@ -30,7 +30,6 @@ module WindowNotificationManagerBuilders =
             )
 
 
-[<Extension>]
 type WindowNotificationManagerModifiers =
     /// <summary>Sets the MaxItems property.</summary>
     /// <param name="this">Current widget.</param>

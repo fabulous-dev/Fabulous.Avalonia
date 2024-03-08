@@ -56,7 +56,6 @@ module ReversibleStackPanelBuilders =
 
             CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
 
-[<Extension>]
 type ReversibleStackPanelModifiers =
     /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance.</summary>
     /// <param name="this">Current widget.</param>

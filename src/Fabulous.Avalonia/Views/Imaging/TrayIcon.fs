@@ -74,7 +74,6 @@ module TrayIconBuilders =
                 TrayIcon.ToolTipText.WithValue(text)
             )
 
-[<Extension>]
 type TrayIconModifiers =
     /// <summary>Sets the Menu property.</summary>
     /// <param name="this">Current widget.</param>

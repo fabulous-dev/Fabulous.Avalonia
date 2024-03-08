@@ -58,7 +58,6 @@ module PenBuilders =
         static member Pen(brush: string, thickness: float) =
             View.Pen(View.SolidColorBrush(brush), thickness)
 
-[<Extension>]
 type PenModifiers =
     /// <summary>Sets the DashStyle property.</summary>
     /// <param name="this">Current widget.</param>

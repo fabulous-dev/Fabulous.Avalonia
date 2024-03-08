@@ -233,7 +233,6 @@ module ApplicationBuilders =
         static member inline SingleViewApplication<'msg, 'childMarker>() =
             SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
-[<Extension>]
 type ApplicationModifiers =
     /// <summary>Sets the application name.</summary>
     /// <param name="this">Current widget.</param>
@@ -320,7 +319,6 @@ type ApplicationModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type ApplicationYieldExtensions =
     [<Extension>]
     static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, #IFabTrayIcon>) : Content<'msg> =
@@ -334,7 +332,6 @@ type ApplicationYieldExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type TrayIconAttachedModifiers =
     /// <summary>Sets the tray icons for the application.</summary>
     /// <param name="this">Current widget.</param>

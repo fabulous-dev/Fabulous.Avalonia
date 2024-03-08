@@ -15,12 +15,6 @@ module SplitButtonPage =
 
     type Msg = | Clicked
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Colors =
             [ Colors.Red
@@ -42,11 +36,11 @@ module SplitButtonPage =
               Colors.Red
               Colors.Bisque
               Colors.White ] },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
+        | Clicked -> model, Cmd.none
 
     let menuFlyout () =
         (MenuFlyout() {
@@ -78,7 +72,7 @@ module SplitButtonPage =
             .placement(PlacementMode.Bottom)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

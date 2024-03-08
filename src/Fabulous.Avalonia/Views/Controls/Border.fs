@@ -48,7 +48,6 @@ module BorderBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-[<Extension>]
 type BorderModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -106,7 +105,6 @@ type BorderModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type BorderExtraModifiers =
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>

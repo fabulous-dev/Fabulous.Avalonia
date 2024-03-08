@@ -63,12 +63,6 @@ module RadioButtonPage =
         | OnThreeStateCheckedChanged13 of bool option
         | OnThreeStateCheckedChanged14 of bool option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { IsChecked1 = false
           IsChecked2 = false
@@ -97,39 +91,39 @@ module RadioButtonPage =
           ThreeStateChecked12 = Some false
           ThreeStateChecked13 = Some false
           ThreeStateChecked14 = Some false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | OnCheckedChanged1 v -> { model with IsChecked1 = v }, []
-        | OnCheckedChanged2 v -> { model with IsChecked2 = v }, []
-        | OnCheckedChanged3 v -> { model with IsChecked3 = v }, []
-        | OnCheckedChanged4 v -> { model with IsChecked4 = v }, []
-        | OnCheckedChanged5 v -> { model with IsChecked5 = v }, []
-        | OnCheckedChanged6 v -> { model with IsChecked6 = v }, []
-        | OnCheckedChanged7 v -> { model with IsChecked7 = v }, []
-        | OnCheckedChanged8 v -> { model with IsChecked8 = v }, []
-        | OnCheckedChanged9 v -> { model with IsChecked9 = v }, []
-        | OnCheckedChanged10 v -> { model with IsChecked10 = v }, []
-        | OnCheckedChanged11 v -> { model with IsChecked11 = v }, []
+        | OnCheckedChanged1 v -> { model with IsChecked1 = v }, Cmd.none
+        | OnCheckedChanged2 v -> { model with IsChecked2 = v }, Cmd.none
+        | OnCheckedChanged3 v -> { model with IsChecked3 = v }, Cmd.none
+        | OnCheckedChanged4 v -> { model with IsChecked4 = v }, Cmd.none
+        | OnCheckedChanged5 v -> { model with IsChecked5 = v }, Cmd.none
+        | OnCheckedChanged6 v -> { model with IsChecked6 = v }, Cmd.none
+        | OnCheckedChanged7 v -> { model with IsChecked7 = v }, Cmd.none
+        | OnCheckedChanged8 v -> { model with IsChecked8 = v }, Cmd.none
+        | OnCheckedChanged9 v -> { model with IsChecked9 = v }, Cmd.none
+        | OnCheckedChanged10 v -> { model with IsChecked10 = v }, Cmd.none
+        | OnCheckedChanged11 v -> { model with IsChecked11 = v }, Cmd.none
 
-        | OnThreeStateCheckedChanged1 v -> { model with ThreeStateChecked1 = v }, []
-        | OnThreeStateCheckedChanged2 v -> { model with ThreeStateChecked2 = v }, []
-        | OnThreeStateCheckedChanged3 v -> { model with ThreeStateChecked3 = v }, []
-        | OnThreeStateCheckedChanged4 v -> { model with ThreeStateChecked4 = v }, []
-        | OnThreeStateCheckedChanged5 v -> { model with ThreeStateChecked5 = v }, []
-        | OnThreeStateCheckedChanged6 v -> { model with ThreeStateChecked6 = v }, []
-        | OnThreeStateCheckedChanged7 v -> { model with ThreeStateChecked7 = v }, []
-        | OnThreeStateCheckedChanged8 v -> { model with ThreeStateChecked8 = v }, []
-        | OnThreeStateCheckedChanged9 v -> { model with ThreeStateChecked9 = v }, []
-        | OnThreeStateCheckedChanged10 v -> { model with ThreeStateChecked10 = v }, []
-        | OnThreeStateCheckedChanged11 v -> { model with ThreeStateChecked11 = v }, []
-        | OnThreeStateCheckedChanged12 v -> { model with ThreeStateChecked12 = v }, []
-        | OnThreeStateCheckedChanged13 v -> { model with ThreeStateChecked13 = v }, []
-        | OnThreeStateCheckedChanged14 v -> { model with ThreeStateChecked14 = v }, []
+        | OnThreeStateCheckedChanged1 v -> { model with ThreeStateChecked1 = v }, Cmd.none
+        | OnThreeStateCheckedChanged2 v -> { model with ThreeStateChecked2 = v }, Cmd.none
+        | OnThreeStateCheckedChanged3 v -> { model with ThreeStateChecked3 = v }, Cmd.none
+        | OnThreeStateCheckedChanged4 v -> { model with ThreeStateChecked4 = v }, Cmd.none
+        | OnThreeStateCheckedChanged5 v -> { model with ThreeStateChecked5 = v }, Cmd.none
+        | OnThreeStateCheckedChanged6 v -> { model with ThreeStateChecked6 = v }, Cmd.none
+        | OnThreeStateCheckedChanged7 v -> { model with ThreeStateChecked7 = v }, Cmd.none
+        | OnThreeStateCheckedChanged8 v -> { model with ThreeStateChecked8 = v }, Cmd.none
+        | OnThreeStateCheckedChanged9 v -> { model with ThreeStateChecked9 = v }, Cmd.none
+        | OnThreeStateCheckedChanged10 v -> { model with ThreeStateChecked10 = v }, Cmd.none
+        | OnThreeStateCheckedChanged11 v -> { model with ThreeStateChecked11 = v }, Cmd.none
+        | OnThreeStateCheckedChanged12 v -> { model with ThreeStateChecked12 = v }, Cmd.none
+        | OnThreeStateCheckedChanged13 v -> { model with ThreeStateChecked13 = v }, Cmd.none
+        | OnThreeStateCheckedChanged14 v -> { model with ThreeStateChecked14 = v }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

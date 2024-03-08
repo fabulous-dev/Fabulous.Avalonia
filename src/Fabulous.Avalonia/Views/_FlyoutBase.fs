@@ -17,7 +17,6 @@ module FlyoutBase =
     let Closed =
         Attributes.defineEventNoArg "FlyoutBase_Closed" (fun target -> (target :?> FlyoutBase).Closed)
 
-[<Extension>]
 type FlyoutBaseModifiers =
     /// <summary>Listens to the FlyoutBase Opened event.</summary>
     /// <param name="this">Current widget.</param>

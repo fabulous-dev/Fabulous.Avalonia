@@ -29,7 +29,6 @@ module PanelBuilders =
         static member Panel() =
             CollectionBuilder<'msg, IFabPanel, IFabControl>(Panel.WidgetKey, Panel.Children)
 
-[<Extension>]
 type PanelModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -66,7 +65,6 @@ type PanelModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabPanel>, value: ViewRef<Panel>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type PanelExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -96,7 +94,6 @@ type PanelExtraModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, #IFabPanel>, value: string) =
         PanelModifiers.foreground(this, View.SolidColorBrush(value))
 
-[<Extension>]
 type PanelCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabPanel and 'itemType :> IFabControl>

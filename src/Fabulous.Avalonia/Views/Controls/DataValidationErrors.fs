@@ -23,7 +23,6 @@ module DataValidationErrors =
     let HasErrors =
         Attributes.defineAvaloniaPropertyWithEquality DataValidationErrors.HasErrorsProperty
 
-[<Extension>]
 type DataValidationErrorsModifiers =
 
     /// <summary>Sets the HasErrors property.</summary>

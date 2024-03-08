@@ -16,12 +16,6 @@ module ComboBoxPage =
 
     type Msg = DropDownOpened of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let fontComboBox () =
         FontManager.Current.SystemFonts |> Seq.map(fun x -> FontFamily(x.Name))
 
@@ -29,14 +23,14 @@ module ComboBoxPage =
         { IsDropDownOpen = false
           Items = [ "Inline Items"; "Inline Item 2"; "Inline Item 3"; "Inline Item 4" ]
           Fonts = fontComboBox() },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }, []
+        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

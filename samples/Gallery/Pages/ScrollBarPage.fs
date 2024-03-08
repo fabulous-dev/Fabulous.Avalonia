@@ -16,21 +16,15 @@ module ScrollBarPage =
         | ValueChanged of float
         | ScrollBarChanged of ScrollEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { ScrollValue = 0.0 }, []
+    let init () = { ScrollValue = 0.0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { ScrollValue = value }, []
-        | ScrollBarChanged _ -> model, []
+        | ValueChanged value -> { ScrollValue = value }, Cmd.none
+        | ScrollBarChanged _ -> model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

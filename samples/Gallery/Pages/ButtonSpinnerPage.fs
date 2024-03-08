@@ -14,13 +14,7 @@ module ButtonSpinnerPage =
 
     type Msg = Increment of SpinEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Count = 0 }, []
+    let init () = { Count = 0 }, Cmd.none
 
     let update msg model =
         match msg with
@@ -41,10 +35,10 @@ module ButtonSpinnerPage =
 
             spinner.Content <- currentValue.ToString()
 
-            { Count = model.Count + 1 }, []
+            { Count = model.Count + 1 }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

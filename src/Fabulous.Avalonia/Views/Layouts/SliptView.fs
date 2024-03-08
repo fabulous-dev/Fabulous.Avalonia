@@ -81,7 +81,6 @@ module SplitViewBuilders =
                 )
             )
 
-[<Extension>]
 type SplitViewModifiers =
     /// <summary>Sets the CompactPaneLength property.</summary>
     /// <param name="this">Current widget.</param>
@@ -196,7 +195,6 @@ type SplitViewModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabSplitView>, value: ViewRef<SplitView>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type SplitViewExtraModifiers =
     /// <summary>Sets the PaneBackground property.</summary>
     /// <param name="this">Current widget.</param>

@@ -25,7 +25,6 @@ module StyleBuilders =
         static member Animations() =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
 
-[<Extension>]
 type StyleCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
@@ -55,7 +54,6 @@ type StyleCollectionBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type StyleModifiers =
     /// <summary>Sets the Animations property.</summary>
     /// <param name="this">Current widget.</param>

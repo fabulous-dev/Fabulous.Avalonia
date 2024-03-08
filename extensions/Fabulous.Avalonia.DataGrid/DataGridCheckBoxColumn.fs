@@ -67,7 +67,6 @@ module DataGridCheckBoxColumnBuilders =
                 )
             )
 
-[<Extension>]
 type DataGridCheckBoxColumnModifiers =
     /// <summary>Link a ViewRef to access the direct DataGridCheckBoxColumn control instance.</summary>
     /// <param name="this">Current widget.</param>

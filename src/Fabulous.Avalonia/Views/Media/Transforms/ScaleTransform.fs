@@ -37,7 +37,6 @@ module ScaleTransformBuilders =
         static member ScaleTransform() =
             WidgetBuilder<'msg, IFabScaleTransform>(ScaleTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-[<Extension>]
 type ScaleTransformModifiers =
     /// <summary>Link a ViewRef to access the direct ScaleTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

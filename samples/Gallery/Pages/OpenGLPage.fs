@@ -402,7 +402,6 @@ module OpenGLWidgetBuilders =
         static member inline OpenGlPageControl<'msg>(yaw: float, pitch: float, roll: float, disco: float) =
             WidgetBuilder<'msg, IFabOpenGlPageControl>(OpenGlPageControl.WidgetKey, OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
 
-[<Extension>]
 type OpenGLWidgetModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabOpenGlPageControl>, value: ViewRef<OpenGlPageControl>) =
@@ -423,12 +422,6 @@ module OpenGLPage =
         | DiscoChanged of float
         | Loaded of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let openGlRef = ViewRef<OpenGlPageControl>()
 
     let init () =
@@ -437,21 +430,21 @@ module OpenGLPage =
           Pitch = 0.
           Roll = 0.
           Disco = 0. },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | YawChanged v -> { model with Yaw = v }, []
-        | PitchChanged v -> { model with Pitch = v }, []
-        | RollChanged v -> { model with Roll = v }, []
-        | DiscoChanged v -> { model with Disco = v }, []
+        | YawChanged v -> { model with Yaw = v }, Cmd.none
+        | PitchChanged v -> { model with Pitch = v }, Cmd.none
+        | RollChanged v -> { model with Roll = v }, Cmd.none
+        | DiscoChanged v -> { model with Disco = v }, Cmd.none
         | Loaded _ ->
             { model with
                 GLInfo = openGlRef.Value.Info },
-            []
+            Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

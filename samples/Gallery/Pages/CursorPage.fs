@@ -27,12 +27,6 @@ module CursorPage =
         | Nothing
         | SelectionChanged of SelectionChangedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         let standardCursors =
             Enum
@@ -46,18 +40,18 @@ module CursorPage =
 
         { CustomCursor = new Cursor(bitmap, PixelPoint(16, 16))
           StandardCursors = standardCursors },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | Nothing -> model, []
+        | Nothing -> model, Cmd.none
         | SelectionChanged args ->
             let control = args.Source :?> ListBox
             let scm = control.SelectedItem :?> StandardCursorModel
-            { model with CustomCursor = scm.Cursor }, []
+            { model with CustomCursor = scm.Cursor }, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

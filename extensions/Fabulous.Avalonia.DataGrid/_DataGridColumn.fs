@@ -25,7 +25,6 @@ module DataGridColumn =
     let IsVisible =
         Attributes.defineAvaloniaPropertyWithEquality DataGridColumn.IsVisibleProperty
 
-[<Extension>]
 type DataGridColumnModifiers =
 
     /// <summary>Sets the CellTheme property.</summary>

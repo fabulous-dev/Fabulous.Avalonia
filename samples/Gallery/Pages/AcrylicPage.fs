@@ -22,17 +22,11 @@ module AcrylicPage =
         | MaterialOpacitySliderValueChanged of float
         | Previous
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { TintOpacitySlider = 0.9
           BorderWidth = 160.
           MaterialOpacitySlider = 0.8 },
-        []
+        Cmd.none
 
     let bordersGridRef = ViewRef<UniformGrid>()
 
@@ -47,7 +41,7 @@ module AcrylicPage =
             { model with
                 TintOpacitySlider = value
                 BorderWidth = borderWidth },
-            []
+            Cmd.none
         | MaterialOpacitySliderValueChanged value ->
             let borderWidth =
                 match bordersGridRef.TryValue with
@@ -57,9 +51,9 @@ module AcrylicPage =
             { model with
                 MaterialOpacitySlider = value
                 BorderWidth = borderWidth },
-            []
+            Cmd.none
 
-        | Previous -> model, []
+        | Previous -> model, Cmd.none
 
     let acrylicBorderStyle1 (this: WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>) =
         this.height(100.).margin(10.).maxWidth(200.)
@@ -76,7 +70,7 @@ module AcrylicPage =
         this.margin(8., 0.).largeChange(0.2).smallChange(0.1)
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

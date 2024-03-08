@@ -24,7 +24,6 @@ module MatrixTransformBuilders =
         static member MatrixTransform(matrix: Matrix) =
             WidgetBuilder<'msg, IFabMatrixTransform>(MatrixTransform.WidgetKey, MatrixTransform.Matrix.WithValue(matrix))
 
-[<Extension>]
 type MatrixTransformModifiers =
     /// <summary>Link a ViewRef to access the direct MatrixTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

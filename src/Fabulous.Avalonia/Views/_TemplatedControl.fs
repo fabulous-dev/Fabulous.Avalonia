@@ -52,7 +52,6 @@ module TemplatedControl =
     let Padding =
         Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.PaddingProperty
 
-[<Extension>]
 type TemplatedControlModifiers =
     /// <summary>Sets the BackgroundWidget property.</summary>
     /// <param name="this">Current widget.</param>
@@ -159,7 +158,6 @@ type TemplatedControlModifiers =
     static member inline padding(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: Thickness) =
         this.AddScalar(TemplatedControl.Padding.WithValue(value))
 
-[<Extension>]
 type TemplatedControlExtraModifiers =
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>

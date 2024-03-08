@@ -17,13 +17,7 @@ module MainView =
         | SelectControl of RoutedEventArgs
         | GoBack
 
-    type CmdMsg = | NoMsg
-
-    let init () = { Details = None }, []
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
+    let init () = { Details = None }, Cmd.none
 
     let update msg model =
         match msg with
@@ -36,8 +30,8 @@ module MainView =
                 | CurrentPage page -> Some page
                 | _ -> None
 
-            { Details = detailPage }, []
-        | GoBack -> { Details = None }, []
+            { Details = detailPage }, Cmd.none
+        | GoBack -> { Details = None }, Cmd.none
 
     let controlNames =
         [ "Acrylic"

@@ -52,7 +52,6 @@ module MaskedTextBoxBuilders =
                 MaskedTextBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
-[<Extension>]
 type MaskedTextBoxModifiers =
     /// <summary>Sets the AsciiOnly property.</summary>
     /// <param name="this">Current widget.</param>

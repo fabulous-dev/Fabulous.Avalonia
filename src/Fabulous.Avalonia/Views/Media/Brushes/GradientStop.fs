@@ -37,7 +37,6 @@ module GradientStopBuilders =
                 GradientStop.Offset.WithValue(offset)
             )
 
-[<Extension>]
 type GradientStopBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGradientStop>
@@ -55,7 +54,6 @@ type GradientStopBuilderExtensions =
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type GradientStopModifiers =
     /// <summary>Link a ViewRef to access the direct GradientStop control instance.</summary>
     /// <param name="this">Current widget.</param>

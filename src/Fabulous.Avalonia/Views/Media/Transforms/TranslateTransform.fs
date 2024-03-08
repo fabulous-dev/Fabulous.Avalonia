@@ -35,7 +35,6 @@ module TranslateTransformBuilders =
         static member TranslateTransform() =
             WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-[<Extension>]
 type TranslateTransformModifiers =
     /// <summary>Link a ViewRef to access the direct TranslateTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -282,12 +282,6 @@ module CountriesPage =
         | AddCountryClick
         | RemoveSelected
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let data = ObservableCollection<Country>(Countries.All)
 
     let init () =
@@ -315,7 +309,7 @@ module CountriesPage =
           AreaText = "0.004"
           GDPText = "600000"
           PopulationText = "2" },
-        []
+        Cmd.none
 
     let countryTextBox = ViewRef<TextBox>()
     let regionTextBox = ViewRef<TextBox>()
@@ -335,7 +329,7 @@ module CountriesPage =
                 { model with
                     CellSelection = v
                     Source = model.Source },
-                []
+                Cmd.none
             else
                 let source = TreeDataGridRowSelectionModel<Country>(model.Source)
                 source.SingleSelect <- false
@@ -344,12 +338,12 @@ module CountriesPage =
                 { model with
                     CellSelection = v
                     Source = model.Source },
-                []
-        | CountryTextChanged v -> { model with CountryText = v }, []
-        | RegionTextChanged v -> { model with RegionText = v }, []
-        | AreaTextChanged v -> { model with AreaText = v }, []
-        | GDPTextChanged v -> { model with GDPText = v }, []
-        | PopulationTextChanged v -> { model with PopulationText = v }, []
+                Cmd.none
+        | CountryTextChanged v -> { model with CountryText = v }, Cmd.none
+        | RegionTextChanged v -> { model with RegionText = v }, Cmd.none
+        | AreaTextChanged v -> { model with AreaText = v }, Cmd.none
+        | GDPTextChanged v -> { model with GDPText = v }, Cmd.none
+        | PopulationTextChanged v -> { model with PopulationText = v }, Cmd.none
         | AddCountryClick ->
             let _, population = Int32.TryParse(model.PopulationText)
             let _, area = Int32.TryParse(model.AreaText)
@@ -362,7 +356,7 @@ module CountriesPage =
             ignore(countries.Value.RowsPresenter.BringIntoView(index))
             ignore(countries.Value.TryGetRow(index).Focus())
             data.Add(country)
-            model, []
+            model, Cmd.none
         | RemoveSelected ->
             let selection =
                 (model.Source.Selection :?> ITreeSelectionModel)
@@ -372,10 +366,10 @@ module CountriesPage =
             for i in selection.Length - 1 .. -1 .. 0 do
                 data.RemoveAt(selection[i][0])
 
-            model, []
+            model, Cmd.none
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG

@@ -22,29 +22,23 @@ module LabelPage =
         | DoSave
         | DoCancel
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { FirstName = ""
           LastName = ""
           IsBanned = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | FirstNameChanged s -> { model with FirstName = s }, []
-        | LastNameChanged s -> { model with LastName = s }, []
-        | BannedChanged b -> { model with IsBanned = b }, []
-        | DoSave -> model, []
+        | FirstNameChanged s -> { model with FirstName = s }, Cmd.none
+        | LastNameChanged s -> { model with LastName = s }, Cmd.none
+        | BannedChanged b -> { model with IsBanned = b }, Cmd.none
+        | DoSave -> model, Cmd.none
         | DoCancel ->
             { FirstName = "John"
               LastName = "Doe"
               IsBanned = true },
-            []
+            Cmd.none
 
     let labelStyle (this: WidgetBuilder<'msg, IFabLabel>) =
         this
@@ -68,7 +62,7 @@ module LabelPage =
     let bannedCheck = ViewRef<CheckBox>()
 
     let program =
-        Program.statefulWithCmdMsg init update mapCmdMsgToCmd
+        Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
