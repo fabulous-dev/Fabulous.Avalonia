@@ -10,13 +10,19 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module TreeViewPage =
-    type Node = { Name: string; Children: Node list }
+    type Node =
+        { Name: string
+          Children: Node list
+          Clicked: int }
 
     type Model = { Nodes: Node list }
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
-    let branch name chidren = { Name = name; Children = chidren }
+    let branch name chidren =
+        { Name = name
+          Children = chidren
+          Clicked = 0 }
 
     let leaf name = branch name []
 
@@ -41,9 +47,25 @@ module TreeViewPage =
 
         { Nodes = nodes }, []
 
+    let rec updateNodeClicked name clicked nodes =
+        nodes
+        |> List.map(fun node ->
+            if node.Name = name then
+                { node with
+                    Clicked = node.Clicked + clicked }
+            else
+                { node with
+                    Children = updateNodeClicked name clicked node.Children })
+
     let update msg model =
         match msg with
-        | SelectionItemChanged args -> model, Cmd.none
+        | SelectionItemChanged args ->
+            if args.AddedItems.Count > 0 then
+                let node = args.AddedItems[0] :?> Node
+                let updatedNodes = updateNodeClicked node.Name 1 model.Nodes
+                { model with Nodes = updatedNodes }, Cmd.none
+            else
+                model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -66,7 +88,7 @@ module TreeViewPage =
                     model.Nodes,
                     (_.Children),
                     (fun x ->
-                        Border(TextBlock(x.Name))
+                        Border(TextBlock($"{x.Clicked} {x.Name}"))
                             .background(Brushes.Gray)
                             .horizontalAlignment(HorizontalAlignment.Left)
                             .borderThickness(1.0)
