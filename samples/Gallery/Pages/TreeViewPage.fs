@@ -16,25 +16,23 @@ module TreeViewPage =
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
-    let init () =
-        { Nodes =
-            [ { Name = "Animals"
-                Children =
-                  [ { Name = "Mammals"
-                      Children =
-                        [ { Name = "Lion"; Children = [] }
-                          { Name = "Cat"; Children = [] }
-                          { Name = "Zebra"; Children = [] } ] } ] }
+    let branch name chidren = { Name = name; Children = chidren }
 
-              { Name = "Birds"
-                Children =
-                  [ { Name = "Eagle"; Children = [] }
-                    { Name = "Sparrow"; Children = [] }
-                    { Name = "Dove"; Children = [] }
-                    { Name = "Owl"; Children = [] }
-                    { Name = "Parrot"; Children = [] }
-                    { Name = "Pigeon"; Children = [] } ] } ] },
-        []
+    let leaf name = branch name []
+
+    let init () =
+        let nodes =
+            [ branch "Animals" [ branch "Mammals" [ leaf "Lion"; leaf "Cat"; leaf "Zebra" ] ]
+              branch
+                  "Birds"
+                  [ leaf "Eagle"
+                    leaf "Sparrow"
+                    leaf "Dove"
+                    leaf "Owl"
+                    leaf "Parrot"
+                    leaf "Pigeon" ] ]
+
+        { Nodes = nodes }, []
 
     let update msg model =
         match msg with
