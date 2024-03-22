@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Collections.ObjectModel
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
@@ -10,19 +11,22 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module TreeViewPage =
-    type Node =
-        { Name: string
-          Children: Node list
-          Clicked: int }
+    type Node(name, children) =
+        let mutable _clicked = 0
 
-    type Model = { Nodes: Node list }
+        member this.Name = name
+        member this.Children = children
+
+        member this.Clicked
+            with get () = _clicked
+            and set value = _clicked <- value
+
+    type Model = { Nodes: ObservableCollection<Node> }
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
-    let branch name chidren =
-        { Name = name
-          Children = chidren
-          Clicked = 0 }
+    let branch name (children: Node list) =
+        Node(name, ObservableCollection<Node>(children))
 
     let leaf name = branch name []
 
@@ -45,27 +49,14 @@ module TreeViewPage =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        { Nodes = nodes }, []
-
-    let rec updateNodeClicked name clicked nodes =
-        nodes
-        |> List.map(fun node ->
-            if node.Name = name then
-                { node with
-                    Clicked = node.Clicked + clicked }
-            else
-                { node with
-                    Children = updateNodeClicked name clicked node.Children })
+        { Nodes = ObservableCollection<Node>(nodes) }, []
 
     let update msg model =
         match msg with
         | SelectionItemChanged args ->
-            if args.AddedItems.Count > 0 then
-                let node = args.AddedItems[0] :?> Node
-                let updatedNodes = updateNodeClicked node.Name 1 model.Nodes
-                { model with Nodes = updatedNodes }, Cmd.none
-            else
-                model, Cmd.none
+            let node = args.AddedItems[0] :?> Node
+            node.Clicked <- node.Clicked + 1
+            model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
