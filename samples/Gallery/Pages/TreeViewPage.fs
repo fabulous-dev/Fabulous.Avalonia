@@ -2,6 +2,7 @@ namespace Gallery
 
 open System.Collections.ObjectModel
 open System.Collections.Specialized
+open System.ComponentModel
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
@@ -15,12 +16,27 @@ module TreeViewPage =
     type Node(name, children) =
         let mutable _clicked = 0
 
+        // Define event for property changed notification
+        let propertyChanged =
+            new Event<PropertyChangedEventHandler, PropertyChangedEventArgs>()
+
         member this.Name = name
         member this.Children = children
 
         member this.Clicked
             with get () = _clicked
-            and set value = _clicked <- value
+            and set value =
+                _clicked <- value
+                this.NotifyPropertyChanged(nameof this.Clicked)
+
+        // Implement INotifyPropertyChanged
+        interface INotifyPropertyChanged with
+            [<CLIEvent>]
+            member this.PropertyChanged = propertyChanged.Publish
+
+        // Method to raise the PropertyChanged event
+        member private this.NotifyPropertyChanged(propertyName) =
+            propertyChanged.Trigger(this, new PropertyChangedEventArgs(propertyName))
 
     type Model = { Nodes: ObservableCollection<Node> }
 
@@ -82,7 +98,7 @@ module TreeViewPage =
         )
 
     let view () =
-        Component(program) {
+        View.Component(program) {
             let! model = Mvu.State
 
             VStack() {
