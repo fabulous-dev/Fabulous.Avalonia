@@ -7,6 +7,7 @@ open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
+open Avalonia.Threading
 open Fabulous.Avalonia
 open Fabulous
 
@@ -26,8 +27,9 @@ module TreeViewPage =
         member this.Clicked
             with get () = _clicked
             and set value =
-                _clicked <- value
-                this.NotifyPropertyChanged(nameof this.Clicked)
+                Dispatcher.UIThread.Post(fun _ ->
+                    _clicked <- value
+                    this.NotifyPropertyChanged(nameof this.Clicked))
 
         // Implement INotifyPropertyChanged
         interface INotifyPropertyChanged with
