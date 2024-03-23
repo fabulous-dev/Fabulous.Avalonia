@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System.Collections.ObjectModel
+open System.Collections.Specialized
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
@@ -49,7 +50,17 @@ module TreeViewPage =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        { Nodes = ObservableCollection<Node>(nodes) }, []
+        let observable = ObservableCollection<Node>(nodes)
+
+        let handle (sender: obj) (args: NotifyCollectionChangedEventArgs) =
+            Debugger.Break()
+            //args.NewItems
+            //observable.CollectionChanged
+            ()
+
+        observable.CollectionChanged.AddHandler(NotifyCollectionChangedEventHandler(handle))
+
+        { Nodes = observable }, []
 
     let update msg model =
         match msg with
