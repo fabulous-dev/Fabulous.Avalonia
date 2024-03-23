@@ -64,7 +64,17 @@ module TreeViewPage =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        { Nodes = BindingList<Node>(nodes |> Array.ofList) }, []
+        let observable = BindingList<Node>(nodes |> Array.ofList)
+
+        let handleListChanged (sender: obj) (args: ListChangedEventArgs) =
+            let property = args.PropertyDescriptor
+            // gets called alright for the Clicked change. just doesn't propagate?
+            //Debugger.Break()
+            ()
+
+        observable.ListChanged.AddHandler(ListChangedEventHandler(handleListChanged))
+
+        { Nodes = observable }, []
 
     let update msg model =
         match msg with
