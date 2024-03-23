@@ -22,15 +22,22 @@ module TreeViewPage =
 
     let init () =
         let nodes =
-            [ branch "Animals" [ branch "Mammals" [ leaf "Lion"; leaf "Cat"; leaf "Zebra" ] ]
+            [ branch
+                  "Animals"
+                  [ branch "Mammals" [ leaf "Lion"; leaf "Cat"; leaf "Zebra" ]
+                    branch
+                        "Birds"
+                        [ leaf "Eagle"
+                          leaf "Sparrow"
+                          leaf "Dove"
+                          leaf "Owl"
+                          leaf "Parrot"
+                          leaf "Pigeon" ]
+                    leaf "Platypus" ]
               branch
-                  "Birds"
-                  [ leaf "Eagle"
-                    leaf "Sparrow"
-                    leaf "Dove"
-                    leaf "Owl"
-                    leaf "Parrot"
-                    leaf "Pigeon" ] ]
+                  "Aliens"
+                  [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
+                    branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
         { Nodes = nodes }, []
 
