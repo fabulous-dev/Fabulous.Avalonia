@@ -88,7 +88,12 @@ module TreeViewPage =
                     model.Nodes,
                     (_.Children),
                     (fun x ->
-                        Border(TextBlock($"{x.Clicked} {x.Name}"))
+                        Border(
+                            HStack(5) {
+                                TextBlock(x.Clicked.ToString())
+                                TextBlock(x.Name)
+                            }
+                        )
                             .background(Brushes.Gray)
                             .horizontalAlignment(HorizontalAlignment.Left)
                             .borderThickness(1.0)
