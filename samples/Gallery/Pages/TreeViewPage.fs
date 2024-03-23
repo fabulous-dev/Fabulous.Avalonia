@@ -1,7 +1,5 @@
 namespace Gallery
 
-open System.Collections.ObjectModel
-open System.Collections.Specialized
 open System.ComponentModel
 open System.Diagnostics
 open Avalonia.Controls
@@ -38,12 +36,12 @@ module TreeViewPage =
         member private this.NotifyPropertyChanged(propertyName) =
             propertyChanged.Trigger(this, new PropertyChangedEventArgs(propertyName))
 
-    type Model = { Nodes: ObservableCollection<Node> }
+    type Model = { Nodes: BindingList<Node> }
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
     let branch name (children: Node list) =
-        Node(name, ObservableCollection<Node>(children))
+        Node(name, BindingList<Node>(children |> Array.ofList))
 
     let leaf name = branch name []
 
@@ -66,17 +64,7 @@ module TreeViewPage =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        let observable = ObservableCollection<Node>(nodes)
-
-        let handle (sender: obj) (args: NotifyCollectionChangedEventArgs) =
-            Debugger.Break()
-            //args.NewItems
-            //observable.CollectionChanged
-            ()
-
-        observable.CollectionChanged.AddHandler(NotifyCollectionChangedEventHandler(handle))
-
-        { Nodes = observable }, []
+        { Nodes = BindingList<Node>(nodes |> Array.ofList) }, []
 
     let update msg model =
         match msg with
