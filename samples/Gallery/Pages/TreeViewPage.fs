@@ -76,11 +76,27 @@ module TreeViewPage =
 
         { Nodes = observable }, []
 
+    let rec findNodes (predicate: Node -> bool) (nodes: BindingList<Node>) =
+        let rec matches (node: Node) =
+            if predicate node then
+                seq { node }
+            else
+                node.Children |> Seq.collect matches
+
+        nodes |> Seq.collect matches
+
     let update msg model =
         match msg with
         | SelectionItemChanged args ->
             let node = args.AddedItems[0] :?> Node
             node.Clicked <- node.Clicked + 1
+
+            // check if model node is found and has the same click count
+            let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
+
+            if modelNode.IsNone || modelNode.Value.Clicked <> node.Clicked then
+                Debugger.Break()
+
             model, Cmd.none
 
     let program =
@@ -99,7 +115,12 @@ module TreeViewPage =
         View.Component(program) {
             let! model = Mvu.State
 
+            let clicked = findNodes (fun n -> n.Clicked > 0) model.Nodes |> List.ofSeq
+
             VStack() {
+                if clicked.IsEmpty then
+                    Debugger.Break()
+
                 TreeView(
                     model.Nodes,
                     (_.Children),
