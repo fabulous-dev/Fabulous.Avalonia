@@ -8,6 +8,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre1] - 2024-03-23
+### Added
+- Add support for Component by @TimLariviere in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/206
+- Use Components on Gallery and RenderDemo by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/208
+- Improve some samples by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/211
+- Add examples for Notifications from async operations by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/222
+
+### Changed 
+- Avalonia 11.0.9 update by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/219
+- Update Sample Apps by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/224
+- Move packages to its own folder by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/216
+- Notification sample cleanup by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/226
+- Update `_Shape.fs` by @treat1 in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/228
+- Avalonia Update by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/229
+- Remove unnecessary [<Extension>] attributes by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/223
+
+### Fixed
+- Fix templates after Component API support by @TimLariviere in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/207
+- Fix AutoCompleteBox by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/210
+- Fix for page transition by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/218
+- Fix LineBoundsControl sample by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/227
+
 ## [2.4.0-pre1] - 2024-02-09
 ### Added
 - Add support for Components by @TimLariviere at https://github.com/fabulous-dev/Fabulous.Avalonia/pull/206
@@ -185,7 +207,9 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/2.3.0...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre1...HEAD
+[3.0.0-pre1]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre1
+[2.4.0-pre1]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.4.0-pre1
 [2.3.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.3.0
 [2.2.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.2.0
 [2.1.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.1.0
