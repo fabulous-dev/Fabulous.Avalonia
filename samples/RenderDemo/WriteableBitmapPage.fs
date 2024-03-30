@@ -89,7 +89,7 @@ module WriteableBitmapBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline WriteableBitmap<'msg>() =
+        static member WriteableBitmap<'msg>() =
             WidgetBuilder<'msg, IFabWriteableBitmap>(WriteableBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module WriteableBitmapPage =

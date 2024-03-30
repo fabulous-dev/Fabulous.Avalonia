@@ -90,7 +90,7 @@ module PathMeasurementBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline PathMeasurement<'msg>() =
+        static member PathMeasurement<'msg>() =
             WidgetBuilder<'msg, IFabPathMeasurement>(PathMeasurement.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module PathMeasurementPage =
