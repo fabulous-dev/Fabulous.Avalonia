@@ -57,7 +57,7 @@ module RenderTargetBitmapBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline RenderTargetBitmap<'msg>() =
+        static member RenderTargetBitmap<'msg>() =
             WidgetBuilder<'msg, IFabRenderTargetBitmap>(RenderTargetBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module RenderTargetBitmapPage =

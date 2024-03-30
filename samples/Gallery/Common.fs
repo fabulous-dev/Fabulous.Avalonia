@@ -99,7 +99,7 @@ module HamburgerMenuExtBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline HamburgerMenu() =
+        static member HamburgerMenu() =
             CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenuExt.WidgetKey, ItemsControl.Items)
 
 type HamburgerMenuModifiers =
@@ -130,7 +130,7 @@ module FabItemsControl =
 module FabItemsControlBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+        static member ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
@@ -145,7 +145,7 @@ open type Fabulous.Avalonia.View
 module CommonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
+        static member CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
             Border(
                 Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
                     (Panel() {

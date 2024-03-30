@@ -74,7 +74,7 @@ open type Fabulous.Avalonia.View
 module CommonBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
+        static member CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
             Border(
                 Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
                     (Panel() {

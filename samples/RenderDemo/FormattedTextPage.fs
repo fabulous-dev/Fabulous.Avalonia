@@ -70,7 +70,7 @@ module FormattedTextBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline FormattedText<'msg>() =
+        static member FormattedText<'msg>() =
             WidgetBuilder<'msg, IFabFormattedTextControl>(FormattedText.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module FormattedTextPage =

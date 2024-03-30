@@ -399,7 +399,7 @@ module OpenGlPageControl =
 module OpenGLWidgetBuilders =
     type Fabulous.Avalonia.View with
 
-        static member inline OpenGlPageControl<'msg>(yaw: float, pitch: float, roll: float, disco: float) =
+        static member OpenGlPageControl<'msg>(yaw: float, pitch: float, roll: float, disco: float) =
             WidgetBuilder<'msg, IFabOpenGlPageControl>(OpenGlPageControl.WidgetKey, OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
 
 type OpenGLWidgetModifiers =

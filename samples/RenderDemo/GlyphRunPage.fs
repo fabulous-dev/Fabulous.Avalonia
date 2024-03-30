@@ -121,7 +121,7 @@ module GlyphRunControlBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline GlyphRun<'msg>() =
+        static member GlyphRun<'msg>() =
             WidgetBuilder<'msg, IFabGlyphRunControl>(GlyphRun.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type IFabGlyphRunGeometryControl =
@@ -135,7 +135,7 @@ module GlyphRunGeometryControlBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member inline GlyphRunGeometry<'msg>() =
+        static member GlyphRunGeometry<'msg>() =
             WidgetBuilder<'msg, IFabGlyphRunGeometryControl>(GlyphRunGeometry.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 
