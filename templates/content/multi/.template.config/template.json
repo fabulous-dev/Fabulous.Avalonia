@@ -44,7 +44,7 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "FabulousPkgVersion",
-      "defaultValue": "3.0.0-pre1"
+      "defaultValue": "3.0.0-pre2"
     },
     "FabulousAvaloniaPkgVersion": {
       "type": "parameter",

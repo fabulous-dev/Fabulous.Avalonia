@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre2] - 2024-03-31
+### Changed
+- Remove unnecessary inlining by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/232
+- Update to Fabulous 3.0.0-pre2 by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/233
+
 ## [3.0.0-pre1] - 2024-03-23
 ### Added
 - Add support for Component by @TimLariviere in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/206
@@ -207,7 +212,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre1...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre2...HEAD
+[3.0.0-pre2]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre2
 [3.0.0-pre1]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre1
 [2.4.0-pre1]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.4.0-pre1
 [2.3.0]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/2.3.0

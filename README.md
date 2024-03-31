@@ -151,12 +151,20 @@ net8.0-ios is not supported on Linux, thus net8.0-ios is excluded from build on 
 ## Samples
 We have a range of samples to help you get started.
 
-You can find them in the [samples repo](https://github.com/fabulous-dev/Fabulous.Avalonia.Samples).
+You can find them in the [sample's repo](https://github.com/fabulous-dev/Fabulous.Avalonia.Samples).
 
 ## Controls Gallery
-To run the `Gallery` sample app from the command line, navigate to the sample folder and run `dotnet run -f net8.0`.
+To run the `Gallery` sample app from the command line:
 
-```sh
+- This will restore the required workloads for the samples
+
+```shell
+dotnet workload restore
+```
+
+- Then you can run the Gallery sample
+
+```shell
 cd samples/Gallery
 dotnet run -f net8.0
 ```
