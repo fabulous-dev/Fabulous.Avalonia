@@ -31,10 +31,6 @@ module AutoCompleteBoxPage =
 
     type Msg =
         | TextChanged of string
-        | SelectionChanged of SelectionChangedEventArgs
-        | OnPopulating of string
-        | OnPopulated of System.Collections.IEnumerable
-        | OnDropDownOpen of bool
         | MultiBindingLoaded of RoutedEventArgs
         | CustomAutoBoxLoaded of RoutedEventArgs
 
@@ -303,10 +299,6 @@ module AutoCompleteBoxPage =
     let update msg model =
         match msg with
         | TextChanged _ -> model, Cmd.none
-        | SelectionChanged _ -> model, Cmd.none
-        | OnPopulating _ -> model, Cmd.none
-        | OnPopulated _ -> model, Cmd.none
-        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, Cmd.none
         | MultiBindingLoaded _ ->
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
