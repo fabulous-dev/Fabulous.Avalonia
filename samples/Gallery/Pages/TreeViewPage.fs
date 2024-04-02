@@ -23,7 +23,9 @@ module NodeView =
 
     let update msg model =
         match msg with
-        | Increment args -> model
+        | Increment args ->
+            { model with
+                Counter = model.Counter + 1 }
 
     let program =
         Program.stateful init update
