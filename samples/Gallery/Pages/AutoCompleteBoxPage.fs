@@ -358,7 +358,8 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("MinimumPrefixLength: 1")
 
-                        AutoCompleteBox("", TextChanged, model.Capitals)
+                        //TODO the input text is not set to this. Do I misunderstand this parameter?
+                        AutoCompleteBox("some preset text", TextChanged, model.Capitals)
                             .minimumPrefixLength(1)
                             .watermark("Select an item")
                     }
