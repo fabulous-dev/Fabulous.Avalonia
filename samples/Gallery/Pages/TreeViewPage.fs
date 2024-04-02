@@ -10,10 +10,6 @@ open Fabulous
 
 open type Fabulous.Avalonia.View
 
-type Node(name, children) =
-    member this.Name = name
-    member this.Children = children
-
 module NodeView =
     type Model = { Name: string; Counter: int }
 
@@ -53,6 +49,10 @@ module NodeView =
         }
 
 module TreeViewPage =
+    type Node(name, children) =
+        member this.Name = name
+        member this.Children = children
+
     type Model = { Nodes: Node list }
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
