@@ -68,7 +68,7 @@ module AutoCompleteBox =
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a CalendarDatePicker widget.</summary>
+        /// <summary>Creates a AutoCompleteBox widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the text changes.</param>
         /// <param name="items">The items to display.</param>
@@ -79,7 +79,7 @@ module AutoCompleteBoxBuilders =
                 AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
             )
 
-        /// <summary>Creates a CalendarDatePicker widget.</summary>
+        /// <summary>Creates a AutoCompleteBox widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the text changes.</param>
         /// <param name="populator">The function to populate the items.</param>
@@ -147,16 +147,20 @@ type AutoCompleteBoxModifiers =
     static member inline textFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> bool) =
         this.AddScalar(AutoCompleteBox.TextFilter.WithValue(value))
 
-    /// <summary>Sets the ItemSelector property.</summary>
+    /// <summary>Sets the AutoCompleteBox.ItemSelector property to a custom method that combines the user-entered text
+    /// and the selected item to return the new text input value.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ItemSelector value.</param>
+    /// <param name="value">A custom method receiving the entered text as the first
+    /// and the selected item as the second argument and returns the updated text of the input after selection.</param>
     [<Extension>]
     static member inline itemSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> obj -> string) =
         this.AddScalar(AutoCompleteBox.ItemSelector.WithValue(value))
 
-    /// <summary>Sets the TextSelector property.</summary>
+    /// <summary>Sets the AutoCompleteBox.TextSelector property to a custom method that combines the user-entered text
+    /// and the selected item's text to return the new text input value.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextSelector value.</param>
+    /// <param name="value">A custom method receiving the entered text as the first
+    /// and the text of the selected item as the second argument and returns the updated text of the input after selection.</param>
     [<Extension>]
     static member inline textSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> string) =
         this.AddScalar(AutoCompleteBox.TextSelector.WithValue(value))
