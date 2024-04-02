@@ -1,8 +1,8 @@
 namespace Gallery
 
-open System.ComponentModel
 open System.Diagnostics
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
@@ -10,38 +10,52 @@ open Fabulous
 
 open type Fabulous.Avalonia.View
 
+type Node(name, children) =
+    member this.Name = name
+    member this.Children = children
+
+module NodeView =
+    type Model = { Name: string; Counter: int }
+
+    type Msg = Increment of RoutedEventArgs
+
+    let init (name: string) = { Name = name; Counter = 0 }
+
+    let update msg model =
+        match msg with
+        | Increment args -> model
+
+    let program =
+        Program.stateful init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view (name) =
+        Component(program, name) {
+            let! model = Mvu.State
+
+            Border(
+                HStack(5) {
+                    TextBlock(model.Counter.ToString())
+                    TextBlock(model.Name)
+                }
+            )
+                .onTapped(Increment)
+        }
+
 module TreeViewPage =
-    type Node(name, children) =
-        let mutable _clicked = 0
-
-        // Define event for property changed notification
-        let propertyChanged =
-            new Event<PropertyChangedEventHandler, PropertyChangedEventArgs>()
-
-        member this.Name = name
-        member this.Children = children
-
-        member this.Clicked
-            with get () = _clicked
-            and set value =
-                _clicked <- value
-                this.NotifyPropertyChanged(nameof this.Clicked)
-
-        // Implement INotifyPropertyChanged
-        interface INotifyPropertyChanged with
-            [<CLIEvent>]
-            member this.PropertyChanged = propertyChanged.Publish
-
-        // Method to raise the PropertyChanged event
-        member private this.NotifyPropertyChanged(propertyName) =
-            propertyChanged.Trigger(this, new PropertyChangedEventArgs(propertyName))
-
-    type Model = { Nodes: BindingList<Node> }
+    type Model = { Nodes: Node list }
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
-    let branch name (children: Node list) =
-        Node(name, BindingList<Node>(children |> Array.ofList))
+    let branch name (children: Node list) = Node(name, children)
 
     let leaf name = branch name []
 
@@ -64,19 +78,9 @@ module TreeViewPage =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        let observable = BindingList<Node>(nodes |> Array.ofList)
+        { Nodes = nodes }, []
 
-        let handleListChanged (sender: obj) (args: ListChangedEventArgs) =
-            let property = args.PropertyDescriptor
-            // gets called alright for the Clicked change. just doesn't propagate?
-            //Debugger.Break()
-            ()
-
-        observable.ListChanged.AddHandler(ListChangedEventHandler(handleListChanged))
-
-        { Nodes = observable }, []
-
-    let rec findNodes (predicate: Node -> bool) (nodes: BindingList<Node>) =
+    let rec findNodes (predicate: Node -> bool) (nodes: Node list) =
         let rec matches (node: Node) =
             if predicate node then
                 seq { node }
@@ -89,14 +93,7 @@ module TreeViewPage =
         match msg with
         | SelectionItemChanged args ->
             let node = args.AddedItems[0] :?> Node
-            node.Clicked <- node.Clicked + 1
-
-            // check if model node is found and has the same click count
             let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
-
-            if modelNode.IsNone || modelNode.Value.Clicked <> node.Clicked then
-                Debugger.Break()
-
             model, Cmd.none
 
     let program =
@@ -112,25 +109,16 @@ module TreeViewPage =
         )
 
     let view () =
-        View.Component(program) {
+        Component(program) {
             let! model = Mvu.State
 
-            let clicked = findNodes (fun n -> n.Clicked > 0) model.Nodes |> List.ofSeq
-
             VStack() {
-                if clicked.IsEmpty then
-                    Debugger.Break()
-
                 TreeView(
                     model.Nodes,
                     (_.Children),
                     (fun x ->
-                        Border(
-                            HStack(5) {
-                                TextBlock(x.Clicked.ToString())
-                                TextBlock(x.Name)
-                            }
-                        )
+                        NodeView
+                            .view(x.Name)
                             .background(Brushes.Gray)
                             .horizontalAlignment(HorizontalAlignment.Left)
                             .borderThickness(1.0)
