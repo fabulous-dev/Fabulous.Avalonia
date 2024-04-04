@@ -361,6 +361,8 @@ module AutoCompleteBoxPage =
                         //TODO the input text is not set to this. Do I misunderstand this parameter?
                         AutoCompleteBox("some preset text", TextChanged, model.Capitals)
                             .minimumPrefixLength(1)
+                            //TODO this works to preset the text but breaks the dropdown - the menu doesn't open
+                            .text("ark")
                             .watermark("Select an item")
                     }
 
@@ -411,6 +413,8 @@ module AutoCompleteBoxPage =
 
                         AutoCompleteBox("", TextChanged, getItemsAsync)
                             .watermark("Select an item")
+                            //TODO this works to preset the text but breaks the dropdown - the menu doesn't open
+                            .text("prod")
                             .filterMode(AutoCompleteFilterMode.Contains)
                     }
 

@@ -37,6 +37,9 @@ module AutoCompleteBox =
     let TextFilter =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextFilterProperty
 
+    let Text =
+        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
+
     let ItemSelector =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemSelectorProperty
 
@@ -146,6 +149,13 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline textFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> bool) =
         this.AddScalar(AutoCompleteBox.TextFilter.WithValue(value))
+
+    /// <summary>Sets the Text property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Text value.</param>
+    [<Extension>]
+    static member inline text(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string) =
+        this.AddScalar(AutoCompleteBox.Text.WithValue(value))
 
     /// <summary>Sets the AutoCompleteBox.ItemSelector property to a custom method that combines the user-entered text
     /// and the selected item to return the new text input value.</summary>
