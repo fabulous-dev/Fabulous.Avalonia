@@ -16,6 +16,9 @@ module AutoCompleteBox =
     let Watermark =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.WatermarkProperty
 
+    // let Text =
+    //     Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
+
     let MinimumPrefixLength =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.MinimumPrefixLengthProperty
 
@@ -37,9 +40,6 @@ module AutoCompleteBox =
     let TextFilter =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextFilterProperty
 
-    let Text =
-        Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
-
     let ItemSelector =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.ItemSelectorProperty
 
@@ -53,7 +53,7 @@ module AutoCompleteBox =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
     let TextChanged =
-        Attributes.defineAvaloniaPropertyWithValueEventData "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty id
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
     let Populating =
         Attributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
@@ -72,26 +72,14 @@ module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a AutoCompleteBox widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the text changes.</param>
         /// <param name="items">The items to display.</param>
-        static member inline AutoCompleteBox(text: string, fn: string -> 'msg, items: seq<_>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(
-                AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.ItemsSource.WithValue(items),
-                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
-            )
+        static member inline AutoCompleteBox(items: seq<_>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
 
         /// <summary>Creates a AutoCompleteBox widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the text changes.</param>
         /// <param name="populator">The function to populate the items.</param>
-        static member inline AutoCompleteBox(text: string, fn: string -> 'msg, populator: string -> CancellationToken -> Task<seq<_>>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(
-                AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.AsyncPopulator.WithValue(populator),
-                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
-            )
+        static member inline AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
 
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>
@@ -150,12 +138,9 @@ type AutoCompleteBoxModifiers =
     static member inline textFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> bool) =
         this.AddScalar(AutoCompleteBox.TextFilter.WithValue(value))
 
-    /// <summary>Sets the Text property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Text value.</param>
     [<Extension>]
-    static member inline text(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string) =
-        this.AddScalar(AutoCompleteBox.Text.WithValue(value))
+    static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, text: string, fn: string -> 'msg) =
+        this.AddScalar(AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn))
 
     /// <summary>Sets the AutoCompleteBox.ItemSelector property to a custom method that combines the user-entered text
     /// and the selected item to return the new text input value.</summary>

@@ -367,9 +367,10 @@ CanBookmark: {item.Value.CanBookmark}"
                     Button("SaveFilePicker", SaveFilePicker)
                 }
 
-                AutoCompleteBox(model.CurrentFolderBox, CurrentFolderBoxTextChanged, [])
+                AutoCompleteBox([])
                     .watermark("Write full path/uri or well known folder name")
                     .onLoaded(CurrentFolderBoxLoaded)
+                    .onTextChanged(model.CurrentFolderBox, CurrentFolderBoxTextChanged)
 
                 TextBlock("Last picker results:")
                     .isVisible(model.PickerLastResultsVisible)
