@@ -16,9 +16,6 @@ module AutoCompleteBox =
     let Watermark =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.WatermarkProperty
 
-    // let Text =
-    //     Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.TextProperty
-
     let MinimumPrefixLength =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.MinimumPrefixLengthProperty
 
