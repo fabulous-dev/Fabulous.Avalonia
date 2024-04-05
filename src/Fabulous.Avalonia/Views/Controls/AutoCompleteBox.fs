@@ -49,6 +49,7 @@ module AutoCompleteBox =
     let AsyncPopulator =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
+    //TODO rename to just "Text"? This isn't about the event, is it?
     let TextChanged =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
