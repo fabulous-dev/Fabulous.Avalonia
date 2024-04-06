@@ -49,8 +49,7 @@ module AutoCompleteBox =
     let AsyncPopulator =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
-    //TODO rename to just "Text"? This isn't about the event, is it?
-    let TextChanged =
+    let Text =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
     let Populating =
@@ -138,11 +137,11 @@ type AutoCompleteBoxModifiers =
 
     /// <summary>Binds the AutoCompleteBox.TextProperty.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="text">The value to bind.</param>
+    /// <param name="value">The value to bind.</param>
     /// <param name="fn">A function mapping the updated text to a 'msg to raise on user change.</param>
     [<Extension>]
-    static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, text: string, fn: string -> 'msg) =
-        this.AddScalar(AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn))
+    static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string, fn: string -> 'msg) =
+        this.AddScalar(AutoCompleteBox.Text.WithValue(ValueEventData.create value fn))
 
     /// <summary>Sets the AutoCompleteBox.ItemSelector property to a custom method that combines the user-entered text
     /// and the selected item to return the new text input value.</summary>
