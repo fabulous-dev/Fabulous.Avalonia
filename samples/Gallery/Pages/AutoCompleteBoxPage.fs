@@ -25,16 +25,13 @@ module AutoCompleteBoxPage =
     type Model =
         { IsOpen: bool
           SelectedItem: string
+          Text: string
           Items: string seq
           Capitals: StateData seq
           Custom: string seq }
 
     type Msg =
-        | TextChanged of string
-        | SelectionChanged of SelectionChangedEventArgs
-        | OnPopulating of string
-        | OnPopulated of System.Collections.IEnumerable
-        | OnDropDownOpen of bool
+        | SearchTextChanged of string
         | MultiBindingLoaded of RoutedEventArgs
         | CustomAutoBoxLoaded of RoutedEventArgs
 
@@ -44,6 +41,7 @@ module AutoCompleteBoxPage =
 
     let init () =
         { IsOpen = false
+          Text = "Arkan"
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
           Capitals =
@@ -302,11 +300,7 @@ module AutoCompleteBoxPage =
 
     let update msg model =
         match msg with
-        | TextChanged _ -> model, Cmd.none
-        | SelectionChanged _ -> model, Cmd.none
-        | OnPopulating _ -> model, Cmd.none
-        | OnPopulated _ -> model, Cmd.none
-        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, Cmd.none
+        | SearchTextChanged args -> { model with Text = args }, Cmd.none
         | MultiBindingLoaded _ ->
             let converter =
                 FuncMultiValueConverter<string, string>(fun parts ->
@@ -366,15 +360,16 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("MinimumPrefixLength: 1")
 
-                        AutoCompleteBox("", TextChanged, model.Capitals)
+                        AutoCompleteBox(model.Capitals)
                             .minimumPrefixLength(1)
                             .watermark("Select an item")
+                            .onTextChanged(model.Text, SearchTextChanged)
                     }
 
                     VStack() {
                         TextBlock("MinimumPrefixLength: 3")
 
-                        AutoCompleteBox("", TextChanged, model.Items)
+                        AutoCompleteBox(model.Items)
                             .watermark("Select an item")
                             .minimumPrefixLength(3)
                     }
@@ -382,7 +377,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("MinimumPopulateDelay: 1s")
 
-                        AutoCompleteBox("", TextChanged, model.Items)
+                        AutoCompleteBox(model.Items)
                             .watermark("Select an item")
                             .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
                     }
@@ -390,7 +385,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("MaxDropDownHeight: 60")
 
-                        AutoCompleteBox("", TextChanged, model.Items)
+                        AutoCompleteBox(model.Items)
                             .maxDropDownHeight(60.0)
                             .watermark("Select an item")
                     }
@@ -398,7 +393,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("Disabled")
 
-                        AutoCompleteBox("", TextChanged, model.Items)
+                        AutoCompleteBox(model.Items)
                             .isEnabled(false)
                             .watermark("Select an item")
                     }
@@ -406,7 +401,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("Multi-Binding")
 
-                        AutoCompleteBox("", TextChanged, model.Capitals)
+                        AutoCompleteBox(model.Capitals)
                             .watermark("Select an item")
                             .reference(multiBindingBoxRef)
                             .filterMode(AutoCompleteFilterMode.Contains)
@@ -416,7 +411,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("AsyncBox")
 
-                        AutoCompleteBox("", TextChanged, getItemsAsync)
+                        AutoCompleteBox(getItemsAsync)
                             .watermark("Select an item")
                             .filterMode(AutoCompleteFilterMode.Contains)
                     }
@@ -424,7 +419,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("Custom AutoComplete")
 
-                        AutoCompleteBox("", TextChanged, model.Custom)
+                        AutoCompleteBox(model.Custom)
                             .watermark("Select an item")
                             .reference(customAutoCompleteBoxRef)
                             .filterMode(AutoCompleteFilterMode.None)
@@ -435,7 +430,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("With Validation Errors")
 
-                        AutoCompleteBox("", TextChanged, model.Items)
+                        AutoCompleteBox(model.Items)
                             .name("ValidationErrors")
                             .filterMode(AutoCompleteFilterMode.None)
                             .dataValidationErrors([ Exception() ])
