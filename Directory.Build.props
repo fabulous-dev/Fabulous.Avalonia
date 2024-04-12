@@ -5,7 +5,6 @@
     <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
     <DisableImplicitSystemValueTupleReference>true</DisableImplicitSystemValueTupleReference>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <UseLocalProjectReference>false</UseLocalProjectReference>
   </PropertyGroup>
 
   <!-- Shared NuGet Package info -->
