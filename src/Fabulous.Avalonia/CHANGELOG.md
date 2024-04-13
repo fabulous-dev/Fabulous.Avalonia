@@ -11,6 +11,8 @@ _No unreleased changes_
 ## [3.0.0-pre3] - 2024-04-13
 ### Changed
 - Update to Fabulous 3.0.0-pre3 by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/236
+- Auto complete fixes by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/235
+- Update workflows by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/234
 
 ## [3.0.0-pre2] - 2024-03-31
 ### Changed
