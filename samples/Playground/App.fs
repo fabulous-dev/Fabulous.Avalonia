@@ -1,8 +1,6 @@
 namespace Playground
 
-open System.Diagnostics
 open Avalonia.Controls
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
@@ -42,6 +40,29 @@ module App =
                 .center()
         }
 
+    let firstNameView (value: StateValue<string>) =
+        Component() {
+            let! firstName = Context.Binding(value)
+            TextBox(firstName.Current, firstName.Set)
+        }
+
+    let lastNameView (value: StateValue<string>) =
+        Component() {
+            let! lastName = Context.Binding(value)
+            TextBox(lastName.Current, lastName.Set)
+        }
+
+    let component2 () =
+        Component() {
+            let! firstName = Context.State("")
+            let! lastName = Context.State("")
+
+            VStack() {
+                Label($"Full name is {firstName.Current} {lastName.Current}")
+                firstNameView firstName
+                lastNameView lastName
+            }
+        }
 
     let content () =
         Component() {
@@ -52,9 +73,10 @@ module App =
 
                 component1().dock(Dock.Bottom)
 
+                component2().dock(Dock.Bottom)
+
             })
                 .center()
-
         }
 
     let view () =
