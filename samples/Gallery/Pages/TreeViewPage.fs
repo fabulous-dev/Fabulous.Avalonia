@@ -53,7 +53,9 @@ module TreeViewPage =
         member this.Name = name
         member this.Children = children
 
-    type Model = { Nodes: Node list }
+    type Model =
+        { Nodes: Node list
+          Selected: Node option }
 
     type Msg = SelectionItemChanged of SelectionChangedEventArgs
 
@@ -80,7 +82,7 @@ module TreeViewPage =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        { Nodes = nodes }, []
+        { Nodes = nodes; Selected = None }, []
 
     let rec findNodes (predicate: Node -> bool) (nodes: Node list) =
         let rec matches (node: Node) =
@@ -96,7 +98,7 @@ module TreeViewPage =
         | SelectionItemChanged args ->
             let node = args.AddedItems[0] :?> Node
             let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
-            model, Cmd.none
+            { model with Selected = modelNode }, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -114,7 +116,7 @@ module TreeViewPage =
         Component(program) {
             let! model = Mvu.State
 
-            VStack() {
+            HStack() {
                 TreeView(
                     model.Nodes,
                     (_.Children),
@@ -128,5 +130,8 @@ module TreeViewPage =
                             .padding(15.0, 3.0))
                 )
                     .onSelectionChanged(SelectionItemChanged)
+
+                if model.Selected.IsSome then
+                    TextBlock(model.Selected.Value.Name + " selected")
             }
         }
