@@ -48,7 +48,7 @@ module NodeView =
                 .onTapped(Increment)
         }
 
-module TreeViewPage =
+module TreeViewWithNodeInteraction =
     type Node(name, children) =
         member this.Name = name
         member this.Children = children
