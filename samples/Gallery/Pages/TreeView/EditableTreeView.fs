@@ -14,7 +14,6 @@ module FocusAttributes =
     /// Allows setting the Focus on an Avalonia.Input.InputElement
     let Focus =
         Attributes.defineBool "Focus" (fun oldValueOpt newValueOpt node ->
-            Debugger.Break() // TODO never gets hit ?!
             let target = node.Target :?> InputElement
 
             let rec focusAndCleanUp x y =
@@ -69,7 +68,7 @@ module EditableNodeView =
         )
 
     let view node =
-        Component(program, node) { TextBox(node.Name, NameChanged) }
+        Component(program, node) { TextBox(node.Name, NameChanged).focus(node.Name = "") }
 
 module EditableTreeView =
 
@@ -203,13 +202,8 @@ module EditableTreeView =
                                 Button("+", AddNodeTo(AddLeaf.getParentNodeName node))
                                     .tip(ToolTip("Add a node"))
                             else
-                                if node.Name = "" then
-                                    Debugger.Break() // gets hit alright
-
                                 EditableNodeView
                                     .view(node)
-                                    // TODO this doesn't trigger the focus for some reason
-                                    .focus(node.Name = "")
                                     .horizontalAlignment(HorizontalAlignment.Left)
 
                                 Button("x", RemoveNode node).tip(ToolTip("Remove"))
