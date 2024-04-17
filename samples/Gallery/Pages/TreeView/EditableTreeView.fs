@@ -109,9 +109,15 @@ module EditableTreeView =
             updated, Cmd.none
 
         | SelectionItemChanged args ->
-            let node = args.AddedItems[0] :?> EditableNodeView.Node
-            let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
-            { model with Selected = modelNode }, Cmd.none
+            let updated =
+                if args.AddedItems.Count > 0 then
+                    let node = args.AddedItems[0] :?> EditableNodeView.Node
+                    let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
+                    { model with Selected = modelNode }
+                else
+                    model
+
+            updated, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
