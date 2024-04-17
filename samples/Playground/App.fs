@@ -66,17 +66,7 @@ module App =
 
     let content () =
         Component() {
-            (Dock() {
-                (HStack() { TextBlock("Counter").centerVertical() })
-                    .margin(20.)
-                    .centerHorizontal()
-
-                component1().dock(Dock.Bottom)
-
-                component2().dock(Dock.Bottom)
-
-            })
-                .center()
+            Gallery.EditableTreeView.view()
         }
 
     let view () =
