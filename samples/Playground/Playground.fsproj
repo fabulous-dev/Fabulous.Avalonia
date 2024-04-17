@@ -3,7 +3,9 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFrameworks>net8.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net8.0-android</TargetFrameworks>
+        <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
         <WarningsAsErrors>FS0025</WarningsAsErrors>
@@ -22,8 +24,6 @@
         <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
     </PropertyGroup>
     <ItemGroup>
-        <AvaloniaResource Include="..\Gallery\Styles\EditableTreeView.xaml" Link="Styles\EditableTreeView.xaml" />
-        <Compile Include="..\Gallery\Pages\TreeView\EditableTreeView.fs" Link="EditableTreeView.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <ItemGroup>
