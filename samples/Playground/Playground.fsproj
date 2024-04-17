@@ -24,6 +24,7 @@
         <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="AsyncImage.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <ItemGroup>
@@ -31,6 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AsyncImageLoader.Avalonia" />
         <PackageReference Include="Avalonia.Themes.Fluent" />
         <PackageReference Include="FSharp.Core" />
         <PackageReference Include="Fabulous" />

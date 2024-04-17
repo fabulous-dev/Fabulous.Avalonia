@@ -1,9 +1,10 @@
 namespace Playground
 
 open Avalonia.Controls
+open Avalonia.Media
+open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 
@@ -67,6 +68,11 @@ module App =
     let content () =
         Component() {
             (Dock() {
+                // from https://knowyourmeme.com/photos/295268-dont-worry-im-from-the-internet
+                AsyncImage("https://i.kym-cdn.com/photos/images/original/000/295/268/642.jpg")
+                    .height(420) // generic extensions work
+                    .stretchDirection(StretchDirection.Both) // image extensions work
+
                 (HStack() { TextBlock("Counter").centerVertical() })
                     .margin(20.)
                     .centerHorizontal()
