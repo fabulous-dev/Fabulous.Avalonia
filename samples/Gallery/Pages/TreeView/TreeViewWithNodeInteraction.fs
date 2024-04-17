@@ -27,11 +27,13 @@ module NodeView =
         Program.stateful init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
+            (*  TODO is this exception handling a good practice? What best practices are there in MVU?
+                Is e.g. bubbling exception up to some app-level error log recommended or is it better to log them locally to a facade? *)
 #if DEBUG
             printfn $"Exception: %s{ex.ToString()}"
-            false
+            false // unhandled
 #else
-            true
+            true // handled
 #endif
         )
 

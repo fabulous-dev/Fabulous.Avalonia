@@ -38,6 +38,7 @@ type EditableNode(name, children) =
     let mutable _children: EditableNode list = children
     let mutable _expanded: bool = false
 
+    //TODO Is a mutable model required or can an updated immutable model be passed to the parent component?
     member this.Name
         with get () = _name
         and set value = _name <- value
@@ -171,6 +172,16 @@ module EditableTreeView =
                     let node = args.AddedItems[0] :?> EditableNode
                     let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
                     { model with Selected = modelNode }
+                (*  TODO I feel the proper way to handle this event would include the following, but that breaks selection of nodes on the top level.
+                    For some reason a second event removing the selection is triggered for them immediately after selection.
+                    Why is that happening? *)
+                (*else if args.RemovedItems.Count > 0 then
+                    let node = args.RemovedItems[0] :?> EditableNode
+
+                    if model.Selected.IsSome && node = model.Selected.Value then
+                        { model with Selected = None }
+                    else
+                        model*)
                 else
                     model
 
@@ -214,6 +225,11 @@ module EditableTreeView =
                     || filter(node.Children) |> List.isEmpty |> not)
 
             Dock() {
+                (*  TODO feeding this builder with a transient source
+                    (like you'd want to do for filtering or sorting the input nodes here)
+                    will re-render the TreeView on every interaction. Can this be avoided?
+                    Is there a more elegant (maybe even declarative) way to preserve tree node expansion?
+                    Or is there a better way to filter or sort? *)
                 TreeView(
                     AddLeaf.appendTo (model.Nodes |> filter) None,
                     (fun node ->
@@ -236,6 +252,10 @@ module EditableTreeView =
                 )
                     .onSelectionChanged(SelectionItemChanged)
                     .dock(Dock.Left)
+                    (*  TODO This solution feels awkward because it requires XAML styles,
+                        uses a TwoWay Binding against a mutable node model
+                        and the name of the EditableNode.IsExpanded property is leaking out of this module.
+                        Can either problem be avoided? *)
                     (*  Include styles binding Avalonia.Controls.TreeViewItem.IsExpanded to EditableNode.IsExpanded
                         to preserve tree node expansion on re-render, which is triggered by building the TreeView
                         from a new transient collection returned by the filter method above.
@@ -251,6 +271,8 @@ module EditableTreeView =
                     }
 
                     if model.Selected.IsSome then
+                        (*  TODO How to update this while or after editing the Selected node in the tree?
+                            Updating this currently requires triggering SelectionItemChanged by clicking the node. *)
                         TextBlock(model.Selected.Value.Name + " selected").margin(5)
                 })
                     .dock(Dock.Right)
