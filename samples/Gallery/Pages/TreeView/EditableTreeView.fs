@@ -21,6 +21,10 @@ module FocusAttributes =
                 target.AttachedToVisualTree.RemoveHandler(focusAndCleanUp) // to clean up
 
             if newValueOpt.IsSome && newValueOpt.Value then
+                (* TODO setting the focus on an AutoCompleteBox is broken.
+                    It works for some (probably threading-related) reason if you hit a magic break point here
+                    or in the focusAndCleanUp handler above. *)
+                Debugger.Break()
                 target.AttachedToVisualTree.AddHandler(focusAndCleanUp))
 
 type FocusModifiers =
@@ -72,7 +76,11 @@ module EditableNodeView =
         )
 
     let view node =
-        Component(program, node) { TextBox(node.Name, NameChanged).focus(node.Name = "") }
+        Component(program, node) {
+            AutoCompleteBox([])
+                .onTextChanged(node.Name, NameChanged)
+                .focus(node.Name = "")
+        }
 
 module EditableTreeView =
 
