@@ -440,4 +440,3 @@ module Attributes =
                     | ImageSourceValue.Stream stream -> WindowIcon(ImageSource.fromStream(stream))
 
                 target.SetValue(property, value) |> ignore)
-

@@ -4,142 +4,79 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
-open Avalonia.Layout
-open Avalonia.Markup.Xaml.Converters
-open Avalonia.Media
 
 open type Fabulous.Avalonia.View
 
-open Fabulous.StackAllocatedCollections.StackList
-
-[<AutoOpen>]
-module EmptyBorderBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates an empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
-            WidgetBuilder<unit, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
-module ColorPicker =
-    let view (color: StateValue<Color>) =
-        Component() {
-            let brushes = [ Colors.Black; Colors.Red; Colors.Green; Colors.Blue; Colors.Yellow ]
-            let! color = Context.Binding(color)
-
-            HStack(5.) {
-                for item in brushes do
-                    View
-                        .EmptyBorder()
-                        .width(32.0)
-                        .height(32.0)
-                        .cornerRadius(16.0)
-                        .background(SolidColorBrush(item))
-                        .borderThickness(4.0)
-                        .borderBrush(
-                            if item = color.Current then
-                                SolidColorBrush(item)
-                            else
-                                SolidColorBrush(Colors.Transparent)
-                        )
-                        .onPointerPressed(fun _ -> color.Set(item))
-            }
-        }
-
-
-module SizePicker =
-    let view (size: StateValue<float>) =
-        Component() {
-            let sizes = [ 2.; 4.; 6.; 8.; 16.; 32. ]
-            let! size = Context.Binding(size)
-
-            HStack(5.) {
-                for item in sizes do
-                    View
-                        .EmptyBorder()
-                        .width(item)
-                        .height(item)
-                        .cornerRadius(item / 2.0)
-                        .background(
-                            if item = size.Current then
-                                SolidColorBrush(Colors.Black)
-                            else
-                                SolidColorBrush(Colors.Gray)
-                        )
-                        .onPointerPressed(fun _ -> size.Set item)
-            }
-        }
-
-module Setting =
-    let view (color, size) =
-        Component() {
-            View
-                .Border(
-                    Dock(false) {
-                        ColorPicker.view(color).dock(Dock.Left)
-                        SizePicker.view(size).dock(Dock.Right)
-                    }
-                )
-                .dock(Dock.Bottom)
-                .margin(5.0)
-                .padding(5.0)
-                .cornerRadius(8.0)
-                .background("#bdc3c7")
-        }
-
-module DrawingCanvas =
-    let canvasRef = ViewRef<Canvas>()
-
-    let view (color: StateValue<Color>) (size: StateValue<float>) =
-        Component() {
-            let! color = Context.Binding(color)
-            let! size = Context.Binding(size)
-            let! isPressed = Context.State(false)
-            let! lastPoint = Context.State(None)
-
-            Canvas(canvasRef)
-                .verticalAlignment(VerticalAlignment.Stretch)
-                .horizontalAlignment(HorizontalAlignment.Stretch)
-                .background(SolidColorBrush(Colors.White))
-                .onPointerPressed(fun _ -> isPressed.Set true)
-                .onPointerReleased(fun _ -> isPressed.Set false)
-                .onPointerMoved(fun args ->
-                    let point = args.GetPosition(canvasRef.Value)
-
-                    if isPressed.Current then
-                        lastPoint.Set(Some point)
-                    else
-                        match lastPoint.Current with
-                        | None -> lastPoint.Set(Some point)
-                        | Some value ->
-                            let brush = unbox(ColorToBrushConverter.Convert(box(color.Current), typeof<IBrush>))
-
-                            let line =
-                                Shapes.Line(
-                                    StartPoint = value,
-                                    EndPoint = point,
-                                    Stroke = brush,
-                                    StrokeThickness = size.Current,
-                                    StrokeLineCap = PenLineCap.Round
-                                )
-
-                            if canvasRef.Value <> null then
-                                canvasRef.Value.Children.Add(line)
-
-                            lastPoint.Set(Some point))
-        }
-
 module App =
-    let theme = FluentTheme()
+    type Model = { Count: int }
+
+    type Msg =
+        | Increment
+        | Decrement
+
+    let initModel = { Count = 0 }
+
+    let init () = initModel
+
+    let update msg model =
+        match msg with
+        | Increment -> { model with Count = model.Count + 1 }
+        | Decrement -> { model with Count = model.Count - 1 }
+
+    let program = Program.stateful init update
+
+    let component1 () =
+        Component(program) {
+            let! model = Mvu.State
+
+            (VStack() {
+                TextBlock($"%d{model.Count}").centerText()
+
+                Button("Increment", Increment).centerHorizontal()
+
+                Button("Decrement", Decrement).centerHorizontal()
+
+            })
+                .center()
+        }
+
+    let firstNameView (value: StateValue<string>) =
+        Component() {
+            let! firstName = Context.Binding(value)
+            TextBox(firstName.Current, firstName.Set)
+        }
+
+    let lastNameView (value: StateValue<string>) =
+        Component() {
+            let! lastName = Context.Binding(value)
+            TextBox(lastName.Current, lastName.Set)
+        }
+
+    let component2 () =
+        Component() {
+            let! firstName = Context.State("")
+            let! lastName = Context.State("")
+
+            VStack() {
+                Label($"Full name is {firstName.Current} {lastName.Current}")
+                firstNameView firstName
+                lastNameView lastName
+            }
+        }
 
     let content () =
         Component() {
-            let! color = Context.State(Colors.Black)
-            let! size = Context.State(2.)
+            (Dock() {
+                (HStack() { TextBlock("Counter").centerVertical() })
+                    .margin(20.)
+                    .centerHorizontal()
 
-            Dock() {
-                Setting.view(color, size).dock(Dock.Bottom)
-                (DrawingCanvas.view color size).dock(Dock.Top)
-            }
+                component1().dock(Dock.Bottom)
+
+                component2().dock(Dock.Bottom)
+
+            })
+                .center()
         }
 
     let view () =
