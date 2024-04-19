@@ -2,6 +2,9 @@ namespace Gallery
 
 open System
 open System.Diagnostics
+open System.Linq.Expressions
+open System.Reflection
+open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
@@ -34,8 +37,6 @@ module AutoCompleteBoxPage =
         | SearchTextChanged of string
         | MultiBindingLoaded of RoutedEventArgs
         | CustomAutoBoxLoaded of RoutedEventArgs
-
-    let multiBindingBoxRef = ViewRef<AutoCompleteBox>()
 
     let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
 
@@ -297,24 +298,31 @@ module AutoCompleteBoxPage =
         else
             String.Empty
 
+    type Extensions =
+        /// Allows multi-binding a bound property on a control of type T
+        /// to the properties identified by the propertyNames in the specified format.
+        [<Extension>]
+        static member multiBind<'T>(control: obj, boundProperty: Expression<Func<'T, IBinding>>, format: string, [<ParamArray>] propertyNames: string[]) =
+            let binding = MultiBinding()
+            binding.Converter <- FuncMultiValueConverter<obj, string>(fun parts -> String.Format(format, parts |> Seq.toArray))
+
+            for property in propertyNames do
+                binding.Bindings.Add(Binding(property))
+
+            // Get member information from the expression
+            let memberExpression = boundProperty.Body :?> MemberExpression
+            let propertyInfo = memberExpression.Member :?> PropertyInfo
+
+            // Set property value on control
+            propertyInfo.SetValue(control, binding, null)
 
     let update msg model =
         match msg with
         | SearchTextChanged args -> { model with Text = args }, Cmd.none
-        | MultiBindingLoaded _ ->
-            let converter =
-                FuncMultiValueConverter<string, string>(fun parts ->
-                    let parts = parts |> Seq.toArray
-                    let first = parts[0]
-                    let second = parts[1]
-                    String.Format("{0} ({1})", first, second))
 
-            let binding = MultiBinding()
-            binding.Converter <- converter
-            binding.Bindings.Add(Binding("Name"))
-            binding.Bindings.Add(Binding("Abbreviation"))
-
-            multiBindingBoxRef.Value.ValueMemberBinding <- binding
+        | MultiBindingLoaded args ->
+            let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
+            args.Source.multiBind<AutoCompleteBox>((_.ValueMemberBinding), "{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
             model, Cmd.none
 
         | CustomAutoBoxLoaded _ ->
@@ -403,7 +411,6 @@ module AutoCompleteBoxPage =
 
                         AutoCompleteBox(model.Capitals)
                             .watermark("Select an item")
-                            .reference(multiBindingBoxRef)
                             .filterMode(AutoCompleteFilterMode.Contains)
                             .onLoaded(MultiBindingLoaded)
                     }
