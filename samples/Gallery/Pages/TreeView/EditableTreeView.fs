@@ -29,25 +29,24 @@ type FocusModifiers =
     static member inline focus(this: WidgetBuilder<'msg, #IFabInputElement>, set: bool) =
         this.AddScalar(FocusAttributes.Focus.WithValue(set))
 
+type EditableNode(name, children) =
+    let mutable _name: string = name
+    let mutable _children: EditableNode list = children
+
+    member this.Name
+        with get () = _name
+        and set value = _name <- value
+
+    member this.Children
+        with get () = _children
+        and set value = _children <- value
+
 module EditableNodeView =
-    type Node(name, children) =
-
-        let mutable _name: string = name
-        let mutable _children: Node list = children
-
-        member this.Name
-            with get () = _name
-            and set value = _name <- value
-
-        member this.Children
-            with get () = _children
-            and set value = _children <- value
-
-    type Model = { Node: Node }
+    type Model = { Node: EditableNode }
 
     type Msg = NameChanged of string
 
-    let init (node: Node) = { Node = node }
+    let init node = { Node = node }
 
     let update msg (model: Model) =
         match msg with
@@ -73,17 +72,17 @@ module EditableNodeView =
 module EditableTreeView =
 
     type Model =
-        { Nodes: EditableNodeView.Node list
+        { Nodes: EditableNode list
           Filter: string
-          Selected: EditableNodeView.Node option }
+          Selected: EditableNode option }
 
     type Msg =
         | AddNodeTo of string
-        | RemoveNode of EditableNodeView.Node
+        | RemoveNode of EditableNode
         | FilterChanged of string
         | SelectionItemChanged of SelectionChangedEventArgs
 
-    let branch name (children: EditableNodeView.Node list) = EditableNodeView.Node(name, children)
+    let branch name (children: EditableNode list) = EditableNode(name, children)
     let leaf name = branch name []
 
     let init () =
@@ -110,8 +109,8 @@ module EditableTreeView =
           Selected = None },
         []
 
-    let rec findNodes (predicate: EditableNodeView.Node -> bool) (nodes: EditableNodeView.Node seq) =
-        let rec matches (node: EditableNodeView.Node) =
+    let rec findNodes (predicate: EditableNode -> bool) (nodes: EditableNode seq) =
+        let rec matches (node: EditableNode) =
             if predicate node then
                 seq { node }
             else
@@ -119,7 +118,7 @@ module EditableTreeView =
 
         nodes |> Seq.collect matches
 
-    let rec removeNode (removable: EditableNodeView.Node) (node: EditableNodeView.Node) : EditableNodeView.Node option =
+    let rec removeNode (removable: EditableNode) (node: EditableNode) : EditableNode option =
         if node = removable then
             None // Indicates that the node was found and removed
         else
@@ -156,7 +155,7 @@ module EditableTreeView =
         | SelectionItemChanged args ->
             let updated =
                 if args.AddedItems.Count > 0 then
-                    let node = args.AddedItems[0] :?> EditableNodeView.Node
+                    let node = args.AddedItems[0] :?> EditableNode
                     let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
                     { model with Selected = modelNode }
                 else
@@ -181,21 +180,21 @@ module EditableTreeView =
         let private prefix = "addTo!"
 
         /// Appends an Add leaf Node (referencing the parentNode or the model if None) to the Node list.
-        let appendTo list (parentNode: EditableNodeView.Node option) =
+        let appendTo list (parentNode: EditableNode option) =
             let parentName = parentNode |> Option.map(_.Name) |> Option.defaultValue ""
             list @ [ leaf(prefix + parentName) ]
 
         /// Identifies an Add leaf Node.
-        let is (node: EditableNodeView.Node) = node.Name.StartsWith(prefix)
+        let is (node: EditableNode) = node.Name.StartsWith(prefix)
 
         /// Retrieves the parent Node Name from the Node Name of an Add leaf Node.
-        let getParentNodeName (node: EditableNodeView.Node) = node.Name.Substring(prefix.Length)
+        let getParentNodeName (node: EditableNode) = node.Name.Substring(prefix.Length)
 
     let view () =
         Component(program) {
             let! model = Mvu.State
 
-            let rec filter (nodes: EditableNodeView.Node list) =
+            let rec filter (nodes: EditableNode list) =
                 nodes
                 |> List.filter(fun node ->
                     node.Name.Contains(model.Filter, System.StringComparison.InvariantCultureIgnoreCase)
