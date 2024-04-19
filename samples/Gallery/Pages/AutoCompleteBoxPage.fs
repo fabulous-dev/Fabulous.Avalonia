@@ -20,6 +20,195 @@ module AutoCompleteBoxPage =
 
         override this.ToString() = this.Name
 
+    let usFederalStates =
+        [ { Name = "Arkansas"
+            Abbreviation = "AR"
+            Capital = "Little Rock" }
+
+          { Name = "California"
+            Abbreviation = "CA"
+            Capital = "Sacramento" }
+
+          { Name = "Colorado"
+            Abbreviation = "CO"
+            Capital = "Denver" }
+
+          { Name = "Connecticut"
+            Abbreviation = "CT"
+            Capital = "Hartford" }
+
+          { Name = "Delaware"
+            Abbreviation = "DE"
+            Capital = "Dover" }
+
+          { Name = "Florida"
+            Abbreviation = "FL"
+            Capital = "Tallahassee" }
+
+          { Name = "Georgia"
+            Abbreviation = "GA"
+            Capital = "Atlanta" }
+
+          { Name = "Hawaii"
+            Abbreviation = "HI"
+            Capital = "Honolulu" }
+
+          { Name = "Idaho"
+            Abbreviation = "ID"
+            Capital = "Boise" }
+
+          { Name = "Illinois"
+            Abbreviation = "IL"
+            Capital = "Springfield" }
+
+          { Name = "Indiana"
+            Abbreviation = "IN"
+            Capital = "Indianapolis" }
+
+          { Name = "Iowa"
+            Abbreviation = "IA"
+            Capital = "Des Moines" }
+
+          { Name = "Kansas"
+            Abbreviation = "KS"
+            Capital = "Topeka" }
+
+          { Name = "Kentucky"
+            Abbreviation = "KY"
+            Capital = "Frankfort" }
+
+          { Name = "Louisiana"
+            Abbreviation = "LA"
+            Capital = "Baton Rouge" }
+
+          { Name = "Maine"
+            Abbreviation = "ME"
+            Capital = "Augusta" }
+
+          { Name = "Maryland"
+            Abbreviation = "MD"
+            Capital = "Annapolis" }
+
+          { Name = "Massachusetts"
+            Abbreviation = "MA"
+            Capital = "Boston" }
+
+          { Name = "Michigan"
+            Abbreviation = "MI"
+            Capital = "Lansing" }
+
+          { Name = "Minnesota"
+            Abbreviation = "MN"
+            Capital = "St. Paul" }
+
+          { Name = "Mississippi"
+            Abbreviation = "MS"
+            Capital = "Jackson" }
+
+          { Name = "Missouri"
+            Abbreviation = "MO"
+            Capital = "Jefferson City" }
+
+          { Name = "Montana"
+            Abbreviation = "MT"
+            Capital = "Helena" }
+
+          { Name = "Nebraska"
+            Abbreviation = "NE"
+            Capital = "Lincoln" }
+
+          { Name = "Nevada"
+            Abbreviation = "NV"
+            Capital = "Carson City" }
+
+          { Name = "New Hampshire"
+            Abbreviation = "NH"
+            Capital = "Concord" }
+
+          { Name = "New Jersey"
+            Abbreviation = "NJ"
+            Capital = "Trenton" }
+
+          { Name = "New Mexico"
+            Abbreviation = "NM"
+            Capital = "Santa Fe" }
+
+          { Name = "New York"
+            Abbreviation = "NY"
+            Capital = "Albany" }
+
+          { Name = "North Carolina"
+            Abbreviation = "NC"
+            Capital = "Raleigh" }
+
+          { Name = "North Dakota"
+            Abbreviation = "ND"
+            Capital = "Bismarck" }
+
+          { Name = "Ohio"
+            Abbreviation = "OH"
+            Capital = "Columbus" }
+
+          { Name = "Oklahoma"
+            Abbreviation = "OK"
+            Capital = "Oklahoma City" }
+
+          { Name = "Oregon"
+            Abbreviation = "OR"
+            Capital = "Salem" }
+
+          { Name = "Pennsylvania"
+            Abbreviation = "PA"
+            Capital = "Harrisburg" }
+
+          { Name = "Rhode Island"
+            Abbreviation = "RI"
+            Capital = "Providence" }
+
+          { Name = "South Carolina"
+            Abbreviation = "SC"
+            Capital = "Columbia" }
+
+          { Name = "South Dakota"
+            Abbreviation = "SD"
+            Capital = "Pierre" }
+
+          { Name = "Tennessee"
+            Abbreviation = "TN"
+            Capital = "Nashville" }
+
+          { Name = "Texas"
+            Abbreviation = "TX"
+            Capital = "Austin" }
+
+          { Name = "Utah"
+            Abbreviation = "UT"
+            Capital = "Salt Lake City" }
+
+          { Name = "Vermont"
+            Abbreviation = "VT"
+            Capital = "Montpelier" }
+
+          { Name = "Virginia"
+            Abbreviation = "VA"
+            Capital = "Richmond" }
+
+          { Name = "Washington"
+            Abbreviation = "WA"
+            Capital = "Olympia" }
+
+          { Name = "West Virginia"
+            Abbreviation = "WV"
+            Capital = "Charleston" }
+
+          { Name = "Wisconsin"
+            Abbreviation = "WI"
+            Capital = "Madison" }
+
+          { Name = "Wyoming"
+            Abbreviation = "WY"
+            Capital = "Cheyenne" } ]
+
     type Model =
         { IsOpen: bool
           SelectedItem: string
@@ -39,197 +228,7 @@ module AutoCompleteBoxPage =
           Text = "Arkan"
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
-          UsFederalStates =
-            [
-
-              { Name = "Arkansas"
-                Abbreviation = "AR"
-                Capital = "Little Rock" }
-
-              { Name = "California"
-                Abbreviation = "CA"
-                Capital = "Sacramento" }
-
-              { Name = "Colorado"
-                Abbreviation = "CO"
-                Capital = "Denver" }
-
-              { Name = "Connecticut"
-                Abbreviation = "CT"
-                Capital = "Hartford" }
-
-              { Name = "Delaware"
-                Abbreviation = "DE"
-                Capital = "Dover" }
-
-              { Name = "Florida"
-                Abbreviation = "FL"
-                Capital = "Tallahassee" }
-
-              { Name = "Georgia"
-                Abbreviation = "GA"
-                Capital = "Atlanta" }
-
-              { Name = "Hawaii"
-                Abbreviation = "HI"
-                Capital = "Honolulu" }
-
-              { Name = "Idaho"
-                Abbreviation = "ID"
-                Capital = "Boise" }
-
-              { Name = "Illinois"
-                Abbreviation = "IL"
-                Capital = "Springfield" }
-
-              { Name = "Indiana"
-                Abbreviation = "IN"
-                Capital = "Indianapolis" }
-
-              { Name = "Iowa"
-                Abbreviation = "IA"
-                Capital = "Des Moines" }
-
-              { Name = "Kansas"
-                Abbreviation = "KS"
-                Capital = "Topeka" }
-
-              { Name = "Kentucky"
-                Abbreviation = "KY"
-                Capital = "Frankfort" }
-
-              { Name = "Louisiana"
-                Abbreviation = "LA"
-                Capital = "Baton Rouge" }
-
-              { Name = "Maine"
-                Abbreviation = "ME"
-                Capital = "Augusta" }
-
-              { Name = "Maryland"
-                Abbreviation = "MD"
-                Capital = "Annapolis" }
-
-              { Name = "Massachusetts"
-                Abbreviation = "MA"
-                Capital = "Boston" }
-
-              { Name = "Michigan"
-                Abbreviation = "MI"
-                Capital = "Lansing" }
-
-              { Name = "Minnesota"
-                Abbreviation = "MN"
-                Capital = "St. Paul" }
-
-              { Name = "Mississippi"
-                Abbreviation = "MS"
-                Capital = "Jackson" }
-
-              { Name = "Missouri"
-                Abbreviation = "MO"
-                Capital = "Jefferson City" }
-
-              { Name = "Montana"
-                Abbreviation = "MT"
-                Capital = "Helena" }
-
-              { Name = "Nebraska"
-                Abbreviation = "NE"
-                Capital = "Lincoln" }
-
-              { Name = "Nevada"
-                Abbreviation = "NV"
-                Capital = "Carson City" }
-
-              { Name = "New Hampshire"
-                Abbreviation = "NH"
-                Capital = "Concord" }
-
-              { Name = "New Jersey"
-                Abbreviation = "NJ"
-                Capital = "Trenton" }
-
-              { Name = "New Mexico"
-                Abbreviation = "NM"
-                Capital = "Santa Fe" }
-
-              { Name = "New York"
-                Abbreviation = "NY"
-                Capital = "Albany" }
-
-              { Name = "North Carolina"
-                Abbreviation = "NC"
-                Capital = "Raleigh" }
-
-              { Name = "North Dakota"
-                Abbreviation = "ND"
-                Capital = "Bismarck" }
-
-              { Name = "Ohio"
-                Abbreviation = "OH"
-                Capital = "Columbus" }
-
-              { Name = "Oklahoma"
-                Abbreviation = "OK"
-                Capital = "Oklahoma City" }
-
-              { Name = "Oregon"
-                Abbreviation = "OR"
-                Capital = "Salem" }
-
-              { Name = "Pennsylvania"
-                Abbreviation = "PA"
-                Capital = "Harrisburg" }
-
-              { Name = "Rhode Island"
-                Abbreviation = "RI"
-                Capital = "Providence" }
-
-              { Name = "South Carolina"
-                Abbreviation = "SC"
-                Capital = "Columbia" }
-
-              { Name = "South Dakota"
-                Abbreviation = "SD"
-                Capital = "Pierre" }
-
-              { Name = "Tennessee"
-                Abbreviation = "TN"
-                Capital = "Nashville" }
-
-              { Name = "Texas"
-                Abbreviation = "TX"
-                Capital = "Austin" }
-
-              { Name = "Utah"
-                Abbreviation = "UT"
-                Capital = "Salt Lake City" }
-
-              { Name = "Vermont"
-                Abbreviation = "VT"
-                Capital = "Montpelier" }
-
-              { Name = "Virginia"
-                Abbreviation = "VA"
-                Capital = "Richmond" }
-
-              { Name = "Washington"
-                Abbreviation = "WA"
-                Capital = "Olympia" }
-
-              { Name = "West Virginia"
-                Abbreviation = "WV"
-                Capital = "Charleston" }
-
-              { Name = "Wisconsin"
-                Abbreviation = "WI"
-                Capital = "Madison" }
-
-              { Name = "Wyoming"
-                Abbreviation = "WY"
-                Capital = "Cheyenne" } ]
-
+          UsFederalStates = usFederalStates
           Custom = [] },
         Cmd.none
 
