@@ -4,9 +4,6 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
-
-open System.Runtime.CompilerServices
-open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Markup.Xaml.Converters
 open Avalonia.Media
@@ -15,11 +12,6 @@ open type Fabulous.Avalonia.View
 
 open Fabulous.StackAllocatedCollections.StackList
 
-module EmptyBorder =
-
-    let PointerPressed =
-        Attributes.defineEventNoDispatch "PointerPressed" (fun target -> (target :?> InputElement).PointerPressed)
-
 [<AutoOpen>]
 module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
@@ -27,23 +19,6 @@ module EmptyBorderBuilders =
         /// <summary>Creates an empty Border widget.</summary>
         static member EmptyBorder<'msg>() =
             WidgetBuilder<unit, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
-        /// <summary>Creates a Border widget.</summary>
-        /// <param name="content">The content of the Border.</param>
-        static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabBorder>(
-                Border.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-
-type EmptyBorderModifiers =
-    /// <summary>Listens to the InputElement PointerPressed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the pointer is pressed over the control.</param>
-    [<Extension>]
-    static member inline onPointerPressed2(this: WidgetBuilder<'msg, #IFabInputElement>, fn: PointerPressedEventArgs -> unit) =
-        this.AddScalar(EmptyBorder.PointerPressed.WithValue(fn))
 
 module ColorPicker =
     let view (color: StateValue<Color>) =
@@ -66,7 +41,7 @@ module ColorPicker =
                             else
                                 SolidColorBrush(Colors.Transparent)
                         )
-                        .onPointerPressed2(fun _ -> color.Set(item))
+                        .onPointerPressed(fun _ -> color.Set(item))
             }
         }
 
@@ -90,12 +65,12 @@ module SizePicker =
                             else
                                 SolidColorBrush(Colors.Gray)
                         )
-                        .onPointerPressed2(fun _ -> size.Set item)
+                        .onPointerPressed(fun _ -> size.Set item)
             }
         }
 
 module Setting =
-    let view (color: StateValue<Color>, size: StateValue<float>) =
+    let view (color, size) =
         Component() {
             View
                 .Border(
@@ -173,7 +148,6 @@ module App =
 #else
         DesktopApplication(Window(content()))
 #endif
-
 
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)
