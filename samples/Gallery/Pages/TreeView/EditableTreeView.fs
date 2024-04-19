@@ -57,6 +57,7 @@ module EditableTreeView =
 
     type Msg =
         | AddNodeTo of string
+        | RemoveNode of EditableNodeView.Node
         | SelectionItemChanged of SelectionChangedEventArgs
 
     let branch name (children: EditableNodeView.Node list) = EditableNodeView.Node(name, children)
@@ -92,6 +93,17 @@ module EditableTreeView =
 
         nodes |> Seq.collect matches
 
+    let rec removeNode (removable: EditableNodeView.Node) (node: EditableNodeView.Node) : EditableNodeView.Node option =
+        if node = removable then
+            None // Indicates that the node was found and removed
+        else
+            let remaining = node.Children |> List.choose(removeNode removable)
+
+            if remaining.Length < node.Children.Length then
+                node.Children <- remaining
+
+            Some node
+
     let update msg model =
         match msg with
         | AddNodeTo parentNodeName ->
@@ -107,6 +119,11 @@ module EditableTreeView =
                         Nodes = model.Nodes @ [ newNode ] }
 
             updated, Cmd.none
+
+        | RemoveNode node ->
+            { model with
+                Nodes = model.Nodes |> List.choose(removeNode node) },
+            Cmd.none
 
         | SelectionItemChanged args ->
             let updated =
@@ -167,6 +184,8 @@ module EditableTreeView =
                                 EditableNodeView
                                     .view(node)
                                     .horizontalAlignment(HorizontalAlignment.Left)
+
+                                Button("x", RemoveNode node).tip(ToolTip("Remove"))
                         })
                 )
                     .onSelectionChanged(SelectionItemChanged)
