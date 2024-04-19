@@ -213,12 +213,14 @@ module AutoCompleteBoxPage =
         { IsOpen: bool
           SelectedItem: string
           Text: string
+          AsyncSearchTerm: string
           Items: string seq
           UsFederalStates: StateData seq
           Custom: string seq }
 
     type Msg =
         | SearchTextChanged of string
+        | AsyncSearchTermChanged of string
         | CustomAutoBoxLoaded of RoutedEventArgs
 
     let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
@@ -226,6 +228,7 @@ module AutoCompleteBoxPage =
     let init () =
         { IsOpen = false
           Text = "Arkan"
+          AsyncSearchTerm = ""
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
           UsFederalStates = usFederalStates
@@ -293,6 +296,7 @@ module AutoCompleteBoxPage =
     let update msg model =
         match msg with
         | SearchTextChanged args -> { model with Text = args }, Cmd.none
+        | AsyncSearchTermChanged term -> { model with AsyncSearchTerm = term }, Cmd.none
 
         | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
@@ -312,6 +316,32 @@ module AutoCompleteBoxPage =
                     "Async Product 2"
                     "Async Product 3"
                 }
+        }
+
+    let searchUsFederalStatesAsync (term: string) (cancellation: CancellationToken) : Task<seq<obj>> =
+        task {
+            // simulate a really sporadic remote search
+            let randy = Random()
+            let getDelay () = randy.Next(300, 3000)
+            let mutable delay = getDelay()
+
+            // wait for every uneven delay until we generate an even one
+            while delay % 2 <> 0 do
+                do! Task.Delay(delay)
+                delay <- getDelay()
+
+            do! Task.Delay(delay) // guarantee to wait a little bit
+
+            if cancellation.IsCancellationRequested then
+                return Seq.empty
+            else
+                let contains (text: string) (term: string) =
+                    text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+
+                return
+                    usFederalStates
+                    |> Seq.filter(fun state -> contains state.Name term || contains state.Capital term)
+                    |> Seq.cast<obj>
         }
 
     let program =
@@ -391,6 +421,17 @@ module AutoCompleteBoxPage =
                         AutoCompleteBox(getItemsAsync)
                             .watermark("Select an item")
                             .filterMode(AutoCompleteFilterMode.Contains)
+                    }
+
+                    VStack() {
+                        TextBlock("Async remote-filtered search")
+
+                        AutoCompleteBox(searchUsFederalStatesAsync)
+                            .watermark("Search capitals of US federal states by name or state")
+                            .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
+                            .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
+                            .filterMode(AutoCompleteFilterMode.None) // remote filtered
+                            .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
                     }
 
                     VStack() {
