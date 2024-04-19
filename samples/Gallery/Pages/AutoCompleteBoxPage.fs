@@ -2,6 +2,7 @@ namespace Gallery
 
 open System
 open System.Diagnostics
+open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
@@ -30,7 +31,6 @@ module AutoCompleteBoxPage =
 
     type Msg =
         | SearchTextChanged of string
-        | MultiBindingLoaded of RoutedEventArgs
         | CustomAutoBoxLoaded of RoutedEventArgs
 
     let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
@@ -293,14 +293,32 @@ module AutoCompleteBoxPage =
         else
             String.Empty
 
+    module AutoCompleteBoxProperties =
+        /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
+        let MultiValueBinding =
+            Attributes.defineSimpleScalar<string * string[]>
+                "AutoCompleteBox_MultiValueBinding"
+                (fun a b -> ScalarAttributeComparers.equalityCompare a b)
+                (fun _ newValueOpt node ->
+                    if newValueOpt.IsSome then
+                        let (format, propertyNames) = newValueOpt.Value
+                        let target = node.Target :?> AutoCompleteBox
+
+                        let rec bindAndCleanUp source args =
+                            target.multiBind<AutoCompleteBox>((fun (box: AutoCompleteBox) -> box.ValueMemberBinding), format, propertyNames)
+                            target.Loaded.RemoveHandler(bindAndCleanUp) // to clean up
+
+                        target.Loaded.AddHandler(bindAndCleanUp))
+
+    type AutoCompleteBoxModifiers =
+        /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
+        [<Extension>]
+        static member inline multiBindValue(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, format: string, [<ParamArray>] propertyNames: string[]) =
+            this.AddScalar(AutoCompleteBoxProperties.MultiValueBinding.WithValue((format, propertyNames)))
+
     let update msg model =
         match msg with
         | SearchTextChanged args -> { model with Text = args }, Cmd.none
-
-        | MultiBindingLoaded args ->
-            let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
-            args.Source.multiBind<AutoCompleteBox>((_.ValueMemberBinding), "{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
-            model, Cmd.none
 
         | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
@@ -337,6 +355,7 @@ module AutoCompleteBoxPage =
     let view () =
         Component(program) {
             let! model = Mvu.State
+            let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 
             VStack() {
                 TextBlock("A control into which the user can input text")
@@ -389,7 +408,7 @@ module AutoCompleteBoxPage =
                         AutoCompleteBox(model.Capitals)
                             .watermark("Select an item")
                             .filterMode(AutoCompleteFilterMode.Contains)
-                            .onLoaded(MultiBindingLoaded)
+                            .multiBindValue("{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
                     }
 
                     VStack() {
