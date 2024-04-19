@@ -74,11 +74,13 @@ module EditableTreeView =
 
     type Model =
         { Nodes: EditableNodeView.Node list
+          Filter: string
           Selected: EditableNodeView.Node option }
 
     type Msg =
         | AddNodeTo of string
         | RemoveNode of EditableNodeView.Node
+        | FilterChanged of string
         | SelectionItemChanged of SelectionChangedEventArgs
 
     let branch name (children: EditableNodeView.Node list) = EditableNodeView.Node(name, children)
@@ -103,7 +105,10 @@ module EditableTreeView =
                   [ branch "pyramid-building terrestrial" [ leaf "Alpaca"; leaf "Camel"; leaf "Lama" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        { Nodes = nodes; Selected = None }, []
+        { Nodes = nodes
+          Filter = ""
+          Selected = None },
+        []
 
     let rec findNodes (predicate: EditableNodeView.Node -> bool) (nodes: EditableNodeView.Node seq) =
         let rec matches (node: EditableNodeView.Node) =
@@ -145,6 +150,8 @@ module EditableTreeView =
             { model with
                 Nodes = model.Nodes |> List.choose(removeNode node) },
             Cmd.none
+
+        | FilterChanged filter -> { model with Filter = filter }, Cmd.none
 
         | SelectionItemChanged args ->
             let updated =
@@ -188,14 +195,20 @@ module EditableTreeView =
         Component(program) {
             let! model = Mvu.State
 
-            HStack() {
+            let rec filter (nodes: EditableNodeView.Node list) =
+                nodes
+                |> List.filter(fun node ->
+                    node.Name.Contains(model.Filter, System.StringComparison.InvariantCultureIgnoreCase)
+                    || filter(node.Children) |> List.isEmpty |> not)
+
+            Dock() {
                 TreeView(
-                    AddLeaf.appendTo model.Nodes None,
+                    AddLeaf.appendTo (model.Nodes |> filter) None,
                     (fun node ->
                         if AddLeaf.is node then
                             null
                         else
-                            AddLeaf.appendTo node.Children (Some node)),
+                            AddLeaf.appendTo (node.Children |> filter) (Some node)),
                     (fun node ->
                         HStack(5) {
                             if AddLeaf.is node then
@@ -210,8 +223,17 @@ module EditableTreeView =
                         })
                 )
                     .onSelectionChanged(SelectionItemChanged)
+                    .dock(Dock.Left)
 
-                if model.Selected.IsSome then
-                    TextBlock(model.Selected.Value.Name + " selected")
+                (VStack() {
+                    HStack() {
+                        Label "Filter"
+                        TextBox(model.Filter, FilterChanged)
+                    }
+
+                    if model.Selected.IsSome then
+                        TextBlock(model.Selected.Value.Name + " selected").margin(5)
+                })
+                    .dock(Dock.Right)
             }
         }
