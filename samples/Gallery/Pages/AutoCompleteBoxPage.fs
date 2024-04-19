@@ -25,7 +25,7 @@ module AutoCompleteBoxPage =
           SelectedItem: string
           Text: string
           Items: string seq
-          Capitals: StateData seq
+          UsFederalStates: StateData seq
           Custom: string seq }
 
     type Msg =
@@ -39,7 +39,7 @@ module AutoCompleteBoxPage =
           Text = "Arkan"
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
-          Capitals =
+          UsFederalStates =
             [
 
               { Name = "Arkansas"
@@ -339,7 +339,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("MinimumPrefixLength: 1")
 
-                        AutoCompleteBox(model.Capitals)
+                        AutoCompleteBox(model.UsFederalStates)
                             .minimumPrefixLength(1)
                             .watermark("Select an item")
                             .onTextChanged(model.Text, SearchTextChanged)
@@ -380,7 +380,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("Multi-Binding")
 
-                        AutoCompleteBox(model.Capitals)
+                        AutoCompleteBox(model.UsFederalStates)
                             .watermark("Select an item")
                             .filterMode(AutoCompleteFilterMode.Contains)
                             .multiBindValue("{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
