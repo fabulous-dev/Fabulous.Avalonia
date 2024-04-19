@@ -32,6 +32,7 @@ type FocusModifiers =
 type EditableNode(name, children) =
     let mutable _name: string = name
     let mutable _children: EditableNode list = children
+    let mutable _expanded: bool = false
 
     member this.Name
         with get () = _name
@@ -40,6 +41,10 @@ type EditableNode(name, children) =
     member this.Children
         with get () = _children
         and set value = _children <- value
+
+    member this.IsExpanded
+        with get () = _expanded
+        and set value = _expanded <- value
 
 module EditableNodeView =
     type Model = { Node: EditableNode }
@@ -223,6 +228,13 @@ module EditableTreeView =
                 )
                     .onSelectionChanged(SelectionItemChanged)
                     .dock(Dock.Left)
+                    (*  Include styles binding Avalonia.Controls.TreeViewItem.IsExpanded to EditableNode.IsExpanded
+                        to preserve tree node expansion on re-render, which is triggered by building the TreeView
+                        from a new transient collection returned by the filter method above.
+
+                        See https://github.com/AvaloniaUI/Avalonia/discussions/13903
+                        and https://github.com/AvaloniaUI/Avalonia/discussions/12397 *)
+                    .styles([ "avares://Gallery/Styles/EditableTreeView.xaml" ])
 
                 (VStack() {
                     HStack() {

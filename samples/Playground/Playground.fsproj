@@ -22,6 +22,7 @@
         <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
     </PropertyGroup>
     <ItemGroup>
+        <AvaloniaResource Include="..\Gallery\Styles\EditableTreeView.xaml" Link="Styles\EditableTreeView.xaml" />
         <Compile Include="..\Gallery\Pages\TreeView\EditableTreeView.fs" Link="EditableTreeView.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
