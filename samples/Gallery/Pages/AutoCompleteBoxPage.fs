@@ -319,7 +319,21 @@ module AutoCompleteBoxPage =
         }
 
     let searchUsFederalStatesAsync (term: string) (cancellation: CancellationToken) : Task<seq<obj>> =
+        (*  TODO If you debug this while trying completely new search terms in quick succession,
+            you'll notice that the dropdown sometimes gets populated with results for your previous searches.
+
+            It looks to me like some searches don't get cancelled (maybe due to re-rendering caused by the SearchTextChanged event?)
+            although the user has already started a new one.
+
+            These debug messages should make it easier to follow what happens in the Debug Output by searching for the prefix.
+            Can this be avoided? Or worked around by using a separate shared CancellationTokenSource to stop uncanceled searches? *)
+        let debugLine text =
+            System.Diagnostics.Debug.WriteLine("############# " + term + " " + text)
+
         task {
+            debugLine "search started"
+            cancellation.Register(fun () -> debugLine "search canceled") |> ignore
+
             // simulate a really sporadic remote search
             let randy = Random()
             let getDelay () = randy.Next(300, 3000)
@@ -333,10 +347,13 @@ module AutoCompleteBoxPage =
             do! Task.Delay(delay) // guarantee to wait a little bit
 
             if cancellation.IsCancellationRequested then
+                debugLine "search was canceled and returns nothing"
                 return Seq.empty
             else
                 let contains (text: string) (term: string) =
                     text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+
+                debugLine "search returns results"
 
                 return
                     usFederalStates
