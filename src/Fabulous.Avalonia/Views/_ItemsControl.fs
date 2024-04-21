@@ -37,6 +37,16 @@ module ItemsControl =
                     listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
 
+    let ItemsPanel =
+        Attributes.defineSimpleScalar<Widget> "ItemsControl_ItemsPanel" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
+            let treeView = node.Target :?> TreeView
+
+            match newValueOpt with
+            | ValueNone -> treeView.ClearValue(ItemsControl.ItemsPanelProperty)
+            | ValueSome value ->
+                treeView.SetValue(ItemsControl.ItemsPanelProperty, WidgetItemsPanel(node, value))
+                |> ignore)
+
     let ContainerClearing =
         Attributes.defineEvent "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
 
@@ -67,3 +77,7 @@ type ItemsControlModifiers =
     [<Extension>]
     static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> 'msg) =
         this.AddScalar(ItemsControl.ContainerPrepared.WithValue(fn))
+
+    [<Extension>]
+    static member inline itemsPanel(this: WidgetBuilder<'msg, #IFabItemsControl>, value: WidgetBuilder<'msg, #IFabPanel>) =
+        this.AddScalar(ItemsControl.ItemsPanel.WithValue(value.Compile()))

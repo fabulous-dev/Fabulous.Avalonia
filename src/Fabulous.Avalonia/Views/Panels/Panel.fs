@@ -6,9 +6,6 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
-type IFabPanel =
-    inherit IFabControl
-
 module Panel =
     let WidgetKey = Widgets.register<Panel>()
 

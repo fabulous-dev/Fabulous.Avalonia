@@ -57,6 +57,7 @@
     <Compile Include="Views\_Spinner.fs" />
     <Compile Include="Views\_TopLevel.fs" />
     <Compile Include="Views\_TextElement.fs" />
+    <Compile Include="Views\_Panel.fs" />
     <Compile Include="Views\_ItemsControl.fs" />
     <Compile Include="Views\_HeaderedItemsControl.fs" />
     <Compile Include="Views\_SelectingItemsControl.fs" />
@@ -179,6 +180,7 @@
     <Compile Include="Views\Controls\Notifications\WindowNotificationManager.fs" />
     <Compile Include="Views\MenuItems\MenuItem.fs" />
     <Compile Include="Views\MenuItems\ListBoxItem.fs" />
+    <Compile Include="Views\MenuItems\TreeViewItem.fs" />
     <Compile Include="Views\MenuItems\ComboBoxItem.fs" />
     <Compile Include="Views\MenuItems\TabItem.fs" />
     <Compile Include="Views\Menu\_NativeMenuItemBase.fs" />
