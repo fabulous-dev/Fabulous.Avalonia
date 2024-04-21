@@ -76,3 +76,27 @@ module SimpleTreeView =
                     .onSelectionChanged(SelectionItemChanged)
             }
         }
+
+    let treeViewItem () =
+        Component(program) {
+            let! model = Mvu.State
+
+            VStack() {
+                TreeView(
+                    model.Nodes,
+                    _.Children,
+                    (fun x ->
+                        TreeViewItem(
+                            Border(TextBlock(x.Name))
+                                .background(Brushes.Gray)
+                                .horizontalAlignment(HorizontalAlignment.Left)
+                                .borderThickness(1.0)
+                                .cornerRadius(5.0)
+                                .padding(15.0, 3.0)
+                        )
+                            .isHitTestVisible(false)
+                            .focusable(false))
+                )
+                    .onSelectionChanged(SelectionItemChanged)
+            }
+        }
