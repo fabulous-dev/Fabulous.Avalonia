@@ -5,6 +5,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Input
 open Avalonia.Layout
+open Avalonia.VisualTree
 open Fabulous.Avalonia
 open Fabulous
 
@@ -167,6 +168,20 @@ module EditableTreeView =
         | FilterChanged filter -> { model with Filter = filter }, Cmd.none
 
         | SelectionItemChanged args ->
+            let treeview = args.Source :?> TreeView
+            let firstItem = treeview.FindDescendantOfType<TreeViewItem>()
+            let nestedTreeViewItem = firstItem.FindDescendantOfType<TreeViewItem>()
+
+            if
+                nestedTreeViewItem <> null
+                && nestedTreeViewItem <> firstItem // the items are not the same
+                && nestedTreeViewItem.Parent = firstItem // one is the parent of the other
+                && nestedTreeViewItem.DataContext = firstItem.DataContext // and they share the same node EditableNode as DataContext
+            then
+                (* Each TreeViewItem nests another! Is binding to the IsExpanded of the nested going to have any effect?
+                    This is about WPF, but I think it may explain the same issue: https://stackoverflow.com/a/21123850 *)
+                Debugger.Break()
+
             let updated =
                 if args.AddedItems.Count > 0 then
                     let node = args.AddedItems[0] :?> EditableNode
@@ -251,7 +266,10 @@ module EditableTreeView =
                                     Button("x", RemoveNode node).tip(ToolTip("Remove"))
                             }
                         ))
+                            // this prevents buttons from receiving clicks - but without it onSelectionChanged doesn't work
                             .isHitTestVisible(false)
+                            (*  this doesn't preserve tree node expansion (e.g. on filter)
+                                - and how could it, as there's no setting logic for a two-way binding. Am I missing something? *)
                             .isExpanded(node.IsExpanded))
                 )
                     .onSelectionChanged(SelectionItemChanged)
