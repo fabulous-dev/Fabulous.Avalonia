@@ -237,14 +237,17 @@ module MainWindow =
             )
 
     let view model =
-        DesktopApplication() {
+        (DesktopApplication() {
             (Window() { hamburgerMenu model })
                 .title("Fabulous Gallery")
                 .menu(createMenu())
                 .width(1024.)
                 .height(800.)
                 .icon("avares://Gallery/Assets/Icons/logo.ico")
-        }
+        })
+#if DEBUG
+            .attachDevTools()
+#endif
         |> _.trayIcon(trayIcon())
 
     let create () =
