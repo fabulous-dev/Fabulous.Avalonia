@@ -238,7 +238,7 @@ module EditableTreeView =
                         else
                             AddLeaf.appendTo (node.Children |> filter) (Some node)),
                     (fun node ->
-TreeViewItem(
+                        (TreeViewItem(
                             HStack(5) {
                                 if AddLeaf.is node then
                                     Button("+", AddNodeTo(AddLeaf.getParentNodeName node))
@@ -250,8 +250,12 @@ TreeViewItem(
 
                                     Button("x", RemoveNode node).tip(ToolTip("Remove"))
                             }
-                        ).isHitTestVisible(false)
-                         .isExpanded(node.IsExpanded)
+                        ))
+                            .isHitTestVisible(false)
+                            .isExpanded(node.IsExpanded))
+                )
+                    .onSelectionChanged(SelectionItemChanged)
+                    .dock(Dock.Left)
 
                 (VStack() {
                     HStack() {
