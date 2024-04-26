@@ -62,31 +62,31 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaAndroidPkgVersion",
-      "defaultValue": "11.0.10"
+      "defaultValue": "11.1.0-beta2"
     },
     "AvaloniaBrowserPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaBrowserPkgVersion",
-      "defaultValue": "11.0.10"
+      "defaultValue": "11.1.0-beta2"
     },
     "AvaloniaDesktopPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaDesktopPkgVersion",
-      "defaultValue": "11.0.10"
+      "defaultValue": "11.1.0-beta2"
     },
     "AvaloniaiOSPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaiOSPkgVersion",
-      "defaultValue": "11.0.10"
+      "defaultValue": "11.1.0-beta2"
     },
     "AvaloniaThemesFluentPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaThemesFluentPkgVersion",
-      "defaultValue": "11.0.10"
+      "defaultValue": "111.1.0-beta2"
     }
   }
 }
