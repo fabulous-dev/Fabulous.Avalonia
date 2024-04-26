@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System.Collections.ObjectModel
 open System.Diagnostics
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -110,13 +111,13 @@ module EditableTreeView =
     type Model =
         { Nodes: EditableNode list
           Filter: string
-          Selected: EditableNode option }
+          Selected: Collection<EditableNode> }
 
     type Msg =
         | AddNodeTo of string
         | RemoveNode of EditableNode
         | FilterChanged of string
-        | SelectionItemChanged of SelectionChangedEventArgs
+        | SelectionChanged of SelectionChangedEventArgs
 
     let branch name (children: EditableNode list) = EditableNode(name, children)
     let leaf name = branch name []
@@ -142,7 +143,7 @@ module EditableTreeView =
 
         { Nodes = nodes
           Filter = ""
-          Selected = None },
+          Selected = Collection<EditableNode>() },
         []
 
     let rec findNodes (predicate: EditableNode -> bool) (nodes: EditableNode seq) =
@@ -188,7 +189,7 @@ module EditableTreeView =
 
         | FilterChanged filter -> { model with Filter = filter }, Cmd.none
 
-        | SelectionItemChanged args ->
+        | SelectionChanged args ->
             let treeview = args.Source :?> TreeView
             let firstItem = treeview.FindDescendantOfType<TreeViewItem>()
             let nestedTreeViewItem = firstItem.FindDescendantOfType<TreeViewItem>()
@@ -203,25 +204,20 @@ module EditableTreeView =
                     This is about WPF, but I think it may explain the same issue: https://stackoverflow.com/a/21123850 *)
                 Debugger.Break()
 
-            let updated =
-                if args.AddedItems.Count > 0 then
-                    let node = args.AddedItems[0] :?> EditableNode
-                    let modelNode = findNodes (fun n -> n = node) model.Nodes |> Seq.tryExactlyOne
-                    { model with Selected = modelNode }
-                (*  TODO I feel the proper way to handle this event would include the following, but that breaks selection of nodes on the top level.
-                    For some reason a second event removing the selection is triggered for them immediately after selection.
-                    Why is that happening? *)
-                (*else if args.RemovedItems.Count > 0 then
-                    let node = args.RemovedItems[0] :?> EditableNode
+            (*  Uncomment the following manual changes to model.Selected
+                if you don't try to track node selection using TreeView.selectedItems(model.Selected) below.
+                It tries to reproduce what selectedItems() should do IMO. *)
+            (*for node in args.AddedItems |> Seq.cast<EditableNode> do
+                node.IsSelected <- true // just to keep that info during debugging
+                model.Selected.Add(node)
 
-                    if model.Selected.IsSome && node = model.Selected.Value then
-                        { model with Selected = None }
-                    else
-                        model*)
-                else
-                    model
+            for node in args.RemovedItems |> Seq.cast<EditableNode> do
+                node.IsSelected <- false // just to keep that info during debugging
 
-            updated, Cmd.none
+                if model.Selected.Remove(node) |> not then
+                    Debugger.Break() // just to check whether node removal ever fails*)
+
+            model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -293,7 +289,12 @@ module EditableTreeView =
                                 - and how could it, as there's no setting logic for a two-way binding. Am I missing something? *)
                             .isExpanded(node.IsExpanded))
                 )
-                    .onSelectionChanged(SelectionItemChanged)
+                    .selectionMode(SelectionMode.Multiple)
+                    (*  TODO For some reason for nodes on the top level,
+                        a second event removing the selection again is triggered immediately after selection.
+                        Why is that happening? *)
+                    .selectedItems(model.Selected)
+                    .onSelectionChanged(SelectionChanged)
                     .dock(Dock.Left)
 
                 (VStack() {
@@ -302,10 +303,11 @@ module EditableTreeView =
                         TextBox(model.Filter, FilterChanged)
                     }
 
-                    if model.Selected.IsSome then
+                    if model.Selected.Count > 0 then
                         (*  TODO How to update this while or after editing the Selected node in the tree?
-                            Updating this currently requires triggering SelectionItemChanged by clicking the node. *)
-                        TextBlock(model.Selected.Value.Name + " selected").margin(5)
+                            Updating this currently requires triggering SelectionChanged by clicking the node. *)
+                        let selected = model.Selected |> Seq.map(_.Name) |> String.concat ", "
+                        TextBlock(selected + " selected").margin(5)
                 })
                     .dock(Dock.Right)
             }
