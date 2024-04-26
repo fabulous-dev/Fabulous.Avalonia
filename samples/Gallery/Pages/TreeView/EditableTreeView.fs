@@ -38,6 +38,7 @@ type EditableNode(name, children) =
     let mutable _name: string = name
     let mutable _children: EditableNode list = children
     let mutable _expanded: bool = false
+    let mutable _selected: bool = false
 
     //TODO Is a mutable model required or can an updated immutable model be passed to the parent component?
     member this.Name
@@ -51,6 +52,10 @@ type EditableNode(name, children) =
     member this.IsExpanded
         with get () = _expanded
         and set value = _expanded <- value
+
+    member this.IsSelected
+        with get () = _selected
+        and set value = _selected <- value
 
 module EditableNodeView =
     type Model = { Node: EditableNode }

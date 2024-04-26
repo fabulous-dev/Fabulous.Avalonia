@@ -10,5 +10,8 @@
           https://github.com/AvaloniaUI/Avalonia/discussions/13903
           https://github.com/AvaloniaUI/Avalonia/discussions/12397  -->
     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+    <!--  Uncomment the following to similarly bind Avalonia.Controls.TreeViewItem.IsSelected to EditableNode.IsSelected
+          This may be useful to preserve tree node selection on re-render. -->
+    <!--<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />-->
   </Style>
 </Styles>
