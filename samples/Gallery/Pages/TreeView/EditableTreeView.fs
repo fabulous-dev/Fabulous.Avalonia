@@ -111,7 +111,8 @@ module EditableTreeView =
     type Model =
         { Nodes: EditableNode list
           Filter: string
-          Selected: Collection<EditableNode> }
+          JoinedSelection: string
+          Selected: ObservableCollection<EditableNode> }
 
     type Msg =
         | AddNodeTo of string
@@ -121,6 +122,12 @@ module EditableTreeView =
 
     let branch name (children: EditableNode list) = EditableNode(name, children)
     let leaf name = branch name []
+
+    let private concat (nodes: EditableNode seq) =
+        nodes |> Seq.map(_.Name) |> String.concat ", "
+
+    // updated when Model.Selected changes
+    let mutable joinedSelection = ""
 
     let init () =
         let nodes =
@@ -141,9 +148,13 @@ module EditableTreeView =
                   [ branch "pyramid-building terrestrial" [ leaf "Alpaca"; leaf "Camel"; leaf "Lama" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
+        let selected = ObservableCollection<EditableNode>()
+        selected.CollectionChanged.Add(fun args -> joinedSelection <- concat selected)
+
         { Nodes = nodes
           Filter = ""
-          Selected = Collection<EditableNode>() },
+          JoinedSelection = ""
+          Selected = selected },
         []
 
     let rec findNodes (predicate: EditableNode -> bool) (nodes: EditableNode seq) =
@@ -217,7 +228,9 @@ module EditableTreeView =
                 if model.Selected.Remove(node) |> not then
                     Debugger.Break() // just to check whether node removal ever fails*)
 
-            model, Cmd.none
+            { model with
+                JoinedSelection = concat model.Selected },
+            Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -303,11 +316,19 @@ module EditableTreeView =
                         TextBox(model.Filter, FilterChanged)
                     }
 
+                    (*  TODO How to update these while or after editing the Selected node in the tree?
+                        Updating currently requires triggering SelectionChanged by clicking the node. *)
                     if model.Selected.Count > 0 then
-                        (*  TODO How to update this while or after editing the Selected node in the tree?
-                            Updating this currently requires triggering SelectionChanged by clicking the node. *)
-                        let selected = model.Selected |> Seq.map(_.Name) |> String.concat ", "
-                        TextBlock(selected + " selected").margin(5)
+                        TextBlock(concat model.Selected + " selected (items)")
+                            .margin(5)
+
+                    if model.JoinedSelection.Length > 0 then
+                        TextBlock(model.JoinedSelection + " selected (joined)")
+                            .margin(5)
+
+                    if joinedSelection.Length > 0 then
+                        TextBlock(joinedSelection + " selected (mutable joined)")
+                            .margin(5)
                 })
                     .dock(Dock.Right)
             }
