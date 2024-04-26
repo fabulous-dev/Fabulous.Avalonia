@@ -40,6 +40,18 @@ type EditableNode(name, children) =
     let mutable _expanded: bool = false
     let mutable _selected: bool = false
 
+    // provides info for debugging node expansion and selection
+    let getFlags () =
+        [| let isBranch = _children.IsEmpty |> not
+
+           if isBranch && _expanded then
+               yield 'E'
+
+           if _selected then
+               yield 'S'
+
+           if isBranch then yield 'B' else yield 'L' |]
+
     //TODO Is a mutable model required or can an updated immutable model be passed to the parent component?
     member this.Name
         with get () = _name
@@ -56,6 +68,10 @@ type EditableNode(name, children) =
     member this.IsSelected
         with get () = _selected
         and set value = _selected <- value
+
+    // for debugging
+    override this.ToString() =
+        this.Name + " " + System.String(getFlags())
 
 module EditableNodeView =
     type Model = { Node: EditableNode }
