@@ -283,24 +283,17 @@ module EditableTreeView =
                         else
                             AddLeaf.appendTo (node.Children |> filter) (Some node)),
                     (fun node ->
-                        (TreeViewItem(
-                            HStack(5) {
-                                if AddLeaf.is node then
-                                    Button("+", AddNodeTo(AddLeaf.getParentNodeName node))
-                                        .tip(ToolTip("Add a node"))
-                                else
-                                    EditableNodeView
-                                        .view(node)
-                                        .horizontalAlignment(HorizontalAlignment.Left)
+                        HStack(5) {
+                            if AddLeaf.is node then
+                                Button("+", AddNodeTo(AddLeaf.getParentNodeName node))
+                                    .tip(ToolTip("Add a node"))
+                            else
+                                EditableNodeView
+                                    .view(node)
+                                    .horizontalAlignment(HorizontalAlignment.Left)
 
-                                    Button("x", RemoveNode node).tip(ToolTip("Remove"))
-                            }
-                        ))
-                            // this prevents buttons from receiving clicks - but without it onSelectionChanged doesn't work
-                            .isHitTestVisible(false)
-                            (*  this doesn't preserve tree node expansion (e.g. on filter)
-                                - and how could it, as there's no setting logic for a two-way binding. Am I missing something? *)
-                            .isExpanded(node.IsExpanded))
+                                Button("x", RemoveNode node).tip(ToolTip("Remove"))
+                        })
                 )
                     .selectionMode(SelectionMode.Multiple)
                     (*  TODO For some reason for nodes on the top level,
@@ -309,6 +302,17 @@ module EditableTreeView =
                     .selectedItems(model.Selected)
                     .onSelectionChanged(SelectionChanged)
                     .dock(Dock.Left)
+                    (*  TODO This solution feels awkward because it requires XAML styles,
+                        uses a TwoWay Binding against a mutable node model
+                        and the name of the EditableNode.IsExpanded property is leaking out of this module.
+                        Can either problem be avoided? *)
+                    (*  Include styles binding Avalonia.Controls.TreeViewItem.IsExpanded to EditableNode.IsExpanded
+                        to preserve tree node expansion on re-render, which is triggered by building the TreeView
+                        from a new transient collection returned by the filter method above.
+
+                        See https://github.com/AvaloniaUI/Avalonia/discussions/13903
+                        and https://github.com/AvaloniaUI/Avalonia/discussions/12397 *)
+                    .styles([ "avares://Gallery/Styles/EditableTreeView.xaml" ])
 
                 (VStack() {
                     HStack() {
