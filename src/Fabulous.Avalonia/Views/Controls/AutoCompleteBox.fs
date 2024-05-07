@@ -64,6 +64,22 @@ module AutoCompleteBox =
     let SelectionChanged =
         Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target -> (target :?> AutoCompleteBox).SelectionChanged)
 
+    /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
+    let MultiValueBinding =
+        Attributes.defineSimpleScalar<string * string[]>
+            "AutoCompleteBox_MultiValueBinding"
+            (fun a b -> ScalarAttributeComparers.equalityCompare a b)
+            (fun _ newValueOpt node ->
+                if newValueOpt.IsSome then
+                    let (format, propertyNames) = newValueOpt.Value
+                    let target = node.Target :?> AutoCompleteBox
+
+                    let rec bindAndCleanUp source args =
+                        target.multiBind<AutoCompleteBox>((fun (box: AutoCompleteBox) -> box.ValueMemberBinding), format, propertyNames)
+                        target.Loaded.RemoveHandler(bindAndCleanUp) // to clean up
+
+                    target.Loaded.AddHandler(bindAndCleanUp))
+
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
@@ -193,3 +209,8 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+    /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
+    [<Extension>]
+    static member inline multiBindValue(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, format: string, [<ParamArray>] propertyNames: string[]) =
+        this.AddScalar(AutoCompleteBox.MultiValueBinding.WithValue((format, propertyNames)))

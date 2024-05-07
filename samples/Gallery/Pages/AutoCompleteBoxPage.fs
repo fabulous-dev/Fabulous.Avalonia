@@ -2,7 +2,6 @@ namespace Gallery
 
 open System
 open System.Diagnostics
-open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
@@ -276,7 +275,6 @@ module AutoCompleteBoxPage =
 
         options |> Array.exists(fun x -> x <> null && x = item)
 
-
     let appendWord (text: string, item: string) =
         if item <> null then
             let parts =
@@ -292,29 +290,6 @@ module AutoCompleteBoxPage =
                 String.Join(" ", parts)
         else
             String.Empty
-
-    module AutoCompleteBoxProperties =
-        /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
-        let MultiValueBinding =
-            Attributes.defineSimpleScalar<string * string[]>
-                "AutoCompleteBox_MultiValueBinding"
-                (fun a b -> ScalarAttributeComparers.equalityCompare a b)
-                (fun _ newValueOpt node ->
-                    if newValueOpt.IsSome then
-                        let (format, propertyNames) = newValueOpt.Value
-                        let target = node.Target :?> AutoCompleteBox
-
-                        let rec bindAndCleanUp source args =
-                            target.multiBind<AutoCompleteBox>((fun (box: AutoCompleteBox) -> box.ValueMemberBinding), format, propertyNames)
-                            target.Loaded.RemoveHandler(bindAndCleanUp) // to clean up
-
-                        target.Loaded.AddHandler(bindAndCleanUp))
-
-    type AutoCompleteBoxModifiers =
-        /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
-        [<Extension>]
-        static member inline multiBindValue(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, format: string, [<ParamArray>] propertyNames: string[]) =
-            this.AddScalar(AutoCompleteBoxProperties.MultiValueBinding.WithValue((format, propertyNames)))
 
     let update msg model =
         match msg with
