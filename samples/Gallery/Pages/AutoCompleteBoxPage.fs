@@ -209,11 +209,58 @@ module AutoCompleteBoxPage =
             Abbreviation = "WY"
             Capital = "Cheyenne" } ]
 
+    /// allows searching US federal states asynchronously while cancelling running searches
+    /// to ensure we only populate with the response of the latest request
+    type UsFederalStateSearch() =
+        let mutable running: CancellationTokenSource = null // enables cancelling any running search
+
+        /// cancels any running search
+        let cancelRunning () =
+            if running <> null then
+                running.Cancel()
+                running.Dispose()
+
+        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+            task {
+                // register cancellation of running search when outer cancellation is requested
+                cancellation.Register(fun () ->
+                    cancelRunning()
+                    running <- null)
+                |> ignore
+
+                cancelRunning() // cancel any older running search
+                running <- new CancellationTokenSource() // and create a new source for this one
+
+                // simulate a really sporadic remote search
+                let randy = Random()
+                let getDelay () = randy.Next(300, 3000)
+                let mutable delay = getDelay()
+
+                // wait for every uneven delay until we generate an even one
+                while delay % 2 <> 0 do
+                    do! Task.Delay(delay)
+                    delay <- getDelay()
+
+                do! Task.Delay(delay) // guarantee to wait a little bit
+
+                if running.IsCancellationRequested then
+                    return Seq.empty
+                else
+                    let contains (text: string) (term: string) =
+                        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+
+                    return
+                        usFederalStates
+                        |> Seq.filter(fun state -> contains state.Name term || contains state.Capital term)
+                        |> Seq.cast<obj>
+            }
+
     type Model =
         { IsOpen: bool
           SelectedItem: string
           Text: string
           AsyncSearchTerm: string
+          UsStateSearch: UsFederalStateSearch
           Items: string seq
           UsFederalStates: StateData seq
           Custom: string seq }
@@ -229,6 +276,7 @@ module AutoCompleteBoxPage =
         { IsOpen = false
           Text = "Arkan"
           AsyncSearchTerm = ""
+          UsStateSearch = UsFederalStateSearch()
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
           UsFederalStates = usFederalStates
@@ -318,49 +366,6 @@ module AutoCompleteBoxPage =
                 }
         }
 
-    let searchUsFederalStatesAsync (term: string) (cancellation: CancellationToken) : Task<seq<obj>> =
-        (*  TODO If you debug this while trying completely new search terms in quick succession,
-            you'll notice that the dropdown sometimes gets populated with results for your previous searches.
-
-            It looks to me like some searches don't get cancelled (maybe due to re-rendering caused by the SearchTextChanged event?)
-            although the user has already started a new one.
-
-            These debug messages should make it easier to follow what happens in the Debug Output by searching for the prefix.
-            Can this be avoided? Or worked around by using a separate shared CancellationTokenSource to stop uncanceled searches? *)
-        let debugLine text =
-            System.Diagnostics.Debug.WriteLine("############# " + term + " " + text)
-
-        task {
-            debugLine "search started"
-            cancellation.Register(fun () -> debugLine "search canceled") |> ignore
-
-            // simulate a really sporadic remote search
-            let randy = Random()
-            let getDelay () = randy.Next(300, 3000)
-            let mutable delay = getDelay()
-
-            // wait for every uneven delay until we generate an even one
-            while delay % 2 <> 0 do
-                do! Task.Delay(delay)
-                delay <- getDelay()
-
-            do! Task.Delay(delay) // guarantee to wait a little bit
-
-            if cancellation.IsCancellationRequested then
-                debugLine "search was canceled and returns nothing"
-                return Seq.empty
-            else
-                let contains (text: string) (term: string) =
-                    text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
-
-                debugLine "search returns results"
-
-                return
-                    usFederalStates
-                    |> Seq.filter(fun state -> contains state.Name term || contains state.Capital term)
-                    |> Seq.cast<obj>
-        }
-
     let program =
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
@@ -443,7 +448,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("Async remote-filtered search")
 
-                        AutoCompleteBox(searchUsFederalStatesAsync)
+                        AutoCompleteBox(model.UsStateSearch.SearchAsync)
                             .watermark("Search capitals of US federal states by name or state")
                             .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
                             .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
