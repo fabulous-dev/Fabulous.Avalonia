@@ -5,8 +5,6 @@ open System.Diagnostics
 open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
-open Avalonia.Data
-open Avalonia.Data.Converters
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
@@ -22,219 +20,266 @@ module AutoCompleteBoxPage =
 
         override this.ToString() = this.Name
 
+    let usFederalStates =
+        [ { Name = "Arkansas"
+            Abbreviation = "AR"
+            Capital = "Little Rock" }
+
+          { Name = "California"
+            Abbreviation = "CA"
+            Capital = "Sacramento" }
+
+          { Name = "Colorado"
+            Abbreviation = "CO"
+            Capital = "Denver" }
+
+          { Name = "Connecticut"
+            Abbreviation = "CT"
+            Capital = "Hartford" }
+
+          { Name = "Delaware"
+            Abbreviation = "DE"
+            Capital = "Dover" }
+
+          { Name = "Florida"
+            Abbreviation = "FL"
+            Capital = "Tallahassee" }
+
+          { Name = "Georgia"
+            Abbreviation = "GA"
+            Capital = "Atlanta" }
+
+          { Name = "Hawaii"
+            Abbreviation = "HI"
+            Capital = "Honolulu" }
+
+          { Name = "Idaho"
+            Abbreviation = "ID"
+            Capital = "Boise" }
+
+          { Name = "Illinois"
+            Abbreviation = "IL"
+            Capital = "Springfield" }
+
+          { Name = "Indiana"
+            Abbreviation = "IN"
+            Capital = "Indianapolis" }
+
+          { Name = "Iowa"
+            Abbreviation = "IA"
+            Capital = "Des Moines" }
+
+          { Name = "Kansas"
+            Abbreviation = "KS"
+            Capital = "Topeka" }
+
+          { Name = "Kentucky"
+            Abbreviation = "KY"
+            Capital = "Frankfort" }
+
+          { Name = "Louisiana"
+            Abbreviation = "LA"
+            Capital = "Baton Rouge" }
+
+          { Name = "Maine"
+            Abbreviation = "ME"
+            Capital = "Augusta" }
+
+          { Name = "Maryland"
+            Abbreviation = "MD"
+            Capital = "Annapolis" }
+
+          { Name = "Massachusetts"
+            Abbreviation = "MA"
+            Capital = "Boston" }
+
+          { Name = "Michigan"
+            Abbreviation = "MI"
+            Capital = "Lansing" }
+
+          { Name = "Minnesota"
+            Abbreviation = "MN"
+            Capital = "St. Paul" }
+
+          { Name = "Mississippi"
+            Abbreviation = "MS"
+            Capital = "Jackson" }
+
+          { Name = "Missouri"
+            Abbreviation = "MO"
+            Capital = "Jefferson City" }
+
+          { Name = "Montana"
+            Abbreviation = "MT"
+            Capital = "Helena" }
+
+          { Name = "Nebraska"
+            Abbreviation = "NE"
+            Capital = "Lincoln" }
+
+          { Name = "Nevada"
+            Abbreviation = "NV"
+            Capital = "Carson City" }
+
+          { Name = "New Hampshire"
+            Abbreviation = "NH"
+            Capital = "Concord" }
+
+          { Name = "New Jersey"
+            Abbreviation = "NJ"
+            Capital = "Trenton" }
+
+          { Name = "New Mexico"
+            Abbreviation = "NM"
+            Capital = "Santa Fe" }
+
+          { Name = "New York"
+            Abbreviation = "NY"
+            Capital = "Albany" }
+
+          { Name = "North Carolina"
+            Abbreviation = "NC"
+            Capital = "Raleigh" }
+
+          { Name = "North Dakota"
+            Abbreviation = "ND"
+            Capital = "Bismarck" }
+
+          { Name = "Ohio"
+            Abbreviation = "OH"
+            Capital = "Columbus" }
+
+          { Name = "Oklahoma"
+            Abbreviation = "OK"
+            Capital = "Oklahoma City" }
+
+          { Name = "Oregon"
+            Abbreviation = "OR"
+            Capital = "Salem" }
+
+          { Name = "Pennsylvania"
+            Abbreviation = "PA"
+            Capital = "Harrisburg" }
+
+          { Name = "Rhode Island"
+            Abbreviation = "RI"
+            Capital = "Providence" }
+
+          { Name = "South Carolina"
+            Abbreviation = "SC"
+            Capital = "Columbia" }
+
+          { Name = "South Dakota"
+            Abbreviation = "SD"
+            Capital = "Pierre" }
+
+          { Name = "Tennessee"
+            Abbreviation = "TN"
+            Capital = "Nashville" }
+
+          { Name = "Texas"
+            Abbreviation = "TX"
+            Capital = "Austin" }
+
+          { Name = "Utah"
+            Abbreviation = "UT"
+            Capital = "Salt Lake City" }
+
+          { Name = "Vermont"
+            Abbreviation = "VT"
+            Capital = "Montpelier" }
+
+          { Name = "Virginia"
+            Abbreviation = "VA"
+            Capital = "Richmond" }
+
+          { Name = "Washington"
+            Abbreviation = "WA"
+            Capital = "Olympia" }
+
+          { Name = "West Virginia"
+            Abbreviation = "WV"
+            Capital = "Charleston" }
+
+          { Name = "Wisconsin"
+            Abbreviation = "WI"
+            Capital = "Madison" }
+
+          { Name = "Wyoming"
+            Abbreviation = "WY"
+            Capital = "Cheyenne" } ]
+
+    /// allows searching US federal states asynchronously while cancelling running searches
+    /// to ensure we only populate with the response of the latest request
+    type UsFederalStateSearch() =
+        let mutable running: CancellationTokenSource = null // enables cancelling any running search
+
+        /// cancels any running search
+        let cancelRunning () =
+            if running <> null then
+                running.Cancel()
+                running.Dispose()
+
+        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+            task {
+                // register cancellation of running search when outer cancellation is requested
+                cancellation.Register(fun () ->
+                    cancelRunning()
+                    running <- null)
+                |> ignore
+
+                cancelRunning() // cancel any older running search
+                running <- new CancellationTokenSource() // and create a new source for this one
+
+                // simulate a really sporadic remote search
+                let randy = Random()
+                let getDelay () = randy.Next(300, 3000)
+                let mutable delay = getDelay()
+
+                // wait for every uneven delay until we generate an even one
+                while delay % 2 <> 0 do
+                    do! Task.Delay(delay)
+                    delay <- getDelay()
+
+                do! Task.Delay(delay) // guarantee to wait a little bit
+
+                if running.IsCancellationRequested then
+                    return Seq.empty
+                else
+                    let contains (text: string) (term: string) =
+                        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+
+                    return
+                        usFederalStates
+                        |> Seq.filter(fun state -> contains state.Name term || contains state.Capital term)
+                        |> Seq.cast<obj>
+            }
+
     type Model =
         { IsOpen: bool
           SelectedItem: string
           Text: string
+          AsyncSearchTerm: string
+          UsStateSearch: UsFederalStateSearch
           Items: string seq
-          Capitals: StateData seq
+          UsFederalStates: StateData seq
           Custom: string seq }
 
     type Msg =
         | SearchTextChanged of string
-        | MultiBindingLoaded of RoutedEventArgs
+        | AsyncSearchTermChanged of string
         | CustomAutoBoxLoaded of RoutedEventArgs
-
-    let multiBindingBoxRef = ViewRef<AutoCompleteBox>()
 
     let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
 
     let init () =
         { IsOpen = false
           Text = "Arkan"
+          AsyncSearchTerm = ""
+          UsStateSearch = UsFederalStateSearch()
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
-          Capitals =
-            [
-
-              { Name = "Arkansas"
-                Abbreviation = "AR"
-                Capital = "Little Rock" }
-
-              { Name = "California"
-                Abbreviation = "CA"
-                Capital = "Sacramento" }
-
-              { Name = "Colorado"
-                Abbreviation = "CO"
-                Capital = "Denver" }
-
-              { Name = "Connecticut"
-                Abbreviation = "CT"
-                Capital = "Hartford" }
-
-              { Name = "Delaware"
-                Abbreviation = "DE"
-                Capital = "Dover" }
-
-              { Name = "Florida"
-                Abbreviation = "FL"
-                Capital = "Tallahassee" }
-
-              { Name = "Georgia"
-                Abbreviation = "GA"
-                Capital = "Atlanta" }
-
-              { Name = "Hawaii"
-                Abbreviation = "HI"
-                Capital = "Honolulu" }
-
-              { Name = "Idaho"
-                Abbreviation = "ID"
-                Capital = "Boise" }
-
-              { Name = "Illinois"
-                Abbreviation = "IL"
-                Capital = "Springfield" }
-
-              { Name = "Indiana"
-                Abbreviation = "IN"
-                Capital = "Indianapolis" }
-
-              { Name = "Iowa"
-                Abbreviation = "IA"
-                Capital = "Des Moines" }
-
-              { Name = "Kansas"
-                Abbreviation = "KS"
-                Capital = "Topeka" }
-
-              { Name = "Kentucky"
-                Abbreviation = "KY"
-                Capital = "Frankfort" }
-
-              { Name = "Louisiana"
-                Abbreviation = "LA"
-                Capital = "Baton Rouge" }
-
-              { Name = "Maine"
-                Abbreviation = "ME"
-                Capital = "Augusta" }
-
-              { Name = "Maryland"
-                Abbreviation = "MD"
-                Capital = "Annapolis" }
-
-              { Name = "Massachusetts"
-                Abbreviation = "MA"
-                Capital = "Boston" }
-
-              { Name = "Michigan"
-                Abbreviation = "MI"
-                Capital = "Lansing" }
-
-              { Name = "Minnesota"
-                Abbreviation = "MN"
-                Capital = "St. Paul" }
-
-              { Name = "Mississippi"
-                Abbreviation = "MS"
-                Capital = "Jackson" }
-
-              { Name = "Missouri"
-                Abbreviation = "MO"
-                Capital = "Jefferson City" }
-
-              { Name = "Montana"
-                Abbreviation = "MT"
-                Capital = "Helena" }
-
-              { Name = "Nebraska"
-                Abbreviation = "NE"
-                Capital = "Lincoln" }
-
-              { Name = "Nevada"
-                Abbreviation = "NV"
-                Capital = "Carson City" }
-
-              { Name = "New Hampshire"
-                Abbreviation = "NH"
-                Capital = "Concord" }
-
-              { Name = "New Jersey"
-                Abbreviation = "NJ"
-                Capital = "Trenton" }
-
-              { Name = "New Mexico"
-                Abbreviation = "NM"
-                Capital = "Santa Fe" }
-
-              { Name = "New York"
-                Abbreviation = "NY"
-                Capital = "Albany" }
-
-              { Name = "North Carolina"
-                Abbreviation = "NC"
-                Capital = "Raleigh" }
-
-              { Name = "North Dakota"
-                Abbreviation = "ND"
-                Capital = "Bismarck" }
-
-              { Name = "Ohio"
-                Abbreviation = "OH"
-                Capital = "Columbus" }
-
-              { Name = "Oklahoma"
-                Abbreviation = "OK"
-                Capital = "Oklahoma City" }
-
-              { Name = "Oregon"
-                Abbreviation = "OR"
-                Capital = "Salem" }
-
-              { Name = "Pennsylvania"
-                Abbreviation = "PA"
-                Capital = "Harrisburg" }
-
-              { Name = "Rhode Island"
-                Abbreviation = "RI"
-                Capital = "Providence" }
-
-              { Name = "South Carolina"
-                Abbreviation = "SC"
-                Capital = "Columbia" }
-
-              { Name = "South Dakota"
-                Abbreviation = "SD"
-                Capital = "Pierre" }
-
-              { Name = "Tennessee"
-                Abbreviation = "TN"
-                Capital = "Nashville" }
-
-              { Name = "Texas"
-                Abbreviation = "TX"
-                Capital = "Austin" }
-
-              { Name = "Utah"
-                Abbreviation = "UT"
-                Capital = "Salt Lake City" }
-
-              { Name = "Vermont"
-                Abbreviation = "VT"
-                Capital = "Montpelier" }
-
-              { Name = "Virginia"
-                Abbreviation = "VA"
-                Capital = "Richmond" }
-
-              { Name = "Washington"
-                Abbreviation = "WA"
-                Capital = "Olympia" }
-
-              { Name = "West Virginia"
-                Abbreviation = "WV"
-                Capital = "Charleston" }
-
-              { Name = "Wisconsin"
-                Abbreviation = "WI"
-                Capital = "Madison" }
-
-              { Name = "Wyoming"
-                Abbreviation = "WY"
-                Capital = "Cheyenne" } ]
-
+          UsFederalStates = usFederalStates
           Custom = [] },
         Cmd.none
 
@@ -280,7 +325,6 @@ module AutoCompleteBoxPage =
 
         options |> Array.exists(fun x -> x <> null && x = item)
 
-
     let appendWord (text: string, item: string) =
         if item <> null then
             let parts =
@@ -297,25 +341,10 @@ module AutoCompleteBoxPage =
         else
             String.Empty
 
-
     let update msg model =
         match msg with
         | SearchTextChanged args -> { model with Text = args }, Cmd.none
-        | MultiBindingLoaded _ ->
-            let converter =
-                FuncMultiValueConverter<string, string>(fun parts ->
-                    let parts = parts |> Seq.toArray
-                    let first = parts[0]
-                    let second = parts[1]
-                    String.Format("{0} ({1})", first, second))
-
-            let binding = MultiBinding()
-            binding.Converter <- converter
-            binding.Bindings.Add(Binding("Name"))
-            binding.Bindings.Add(Binding("Abbreviation"))
-
-            multiBindingBoxRef.Value.ValueMemberBinding <- binding
-            model, Cmd.none
+        | AsyncSearchTermChanged term -> { model with AsyncSearchTerm = term }, Cmd.none
 
         | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
@@ -352,6 +381,7 @@ module AutoCompleteBoxPage =
     let view () =
         Component(program) {
             let! model = Mvu.State
+            let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 
             VStack() {
                 TextBlock("A control into which the user can input text")
@@ -360,7 +390,7 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("MinimumPrefixLength: 1")
 
-                        AutoCompleteBox(model.Capitals)
+                        AutoCompleteBox(model.UsFederalStates)
                             .minimumPrefixLength(1)
                             .watermark("Select an item")
                             .onTextChanged(model.Text, SearchTextChanged)
@@ -401,11 +431,10 @@ module AutoCompleteBoxPage =
                     VStack() {
                         TextBlock("Multi-Binding")
 
-                        AutoCompleteBox(model.Capitals)
+                        AutoCompleteBox(model.UsFederalStates)
                             .watermark("Select an item")
-                            .reference(multiBindingBoxRef)
                             .filterMode(AutoCompleteFilterMode.Contains)
-                            .onLoaded(MultiBindingLoaded)
+                            .multiBindValue("{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
                     }
 
                     VStack() {
@@ -414,6 +443,17 @@ module AutoCompleteBoxPage =
                         AutoCompleteBox(getItemsAsync)
                             .watermark("Select an item")
                             .filterMode(AutoCompleteFilterMode.Contains)
+                    }
+
+                    VStack() {
+                        TextBlock("Async remote-filtered search")
+
+                        AutoCompleteBox(model.UsStateSearch.SearchAsync)
+                            .watermark("Search capitals of US federal states by name or state")
+                            .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
+                            .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
+                            .filterMode(AutoCompleteFilterMode.None) // remote filtered
+                            .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
                     }
 
                     VStack() {
