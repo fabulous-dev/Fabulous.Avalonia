@@ -66,15 +66,15 @@ module AutoCompleteBox =
 
     /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
     let MultiValueBinding =
-        Attributes.defineSimpleScalar<string * string[]>
+        Attributes.defineSimpleScalar<string * string array>
             "AutoCompleteBox_MultiValueBinding"
-            (fun a b -> ScalarAttributeComparers.equalityCompare a b)
+            ScalarAttributeComparers.equalityCompare
             (fun _ newValueOpt node ->
                 if newValueOpt.IsSome then
-                    let (format, propertyNames) = newValueOpt.Value
+                    let format, propertyNames = newValueOpt.Value
                     let target = node.Target :?> AutoCompleteBox
 
-                    let rec bindAndCleanUp source args =
+                    let rec bindAndCleanUp _ _ =
                         target.multiBind<AutoCompleteBox>((fun (box: AutoCompleteBox) -> box.ValueMemberBinding), format, propertyNames)
                         target.Loaded.RemoveHandler(bindAndCleanUp) // to clean up
 
@@ -210,7 +210,10 @@ type AutoCompleteBoxModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-    /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
+    /// <Summary>Allows multi-binding the ValueMemberBinding on an AutoCompleteBox.</Summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="format">The format string to use.</param>
+    /// <param name="propertyNames">The property names to bind.</param>
     [<Extension>]
-    static member inline multiBindValue(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, format: string, [<ParamArray>] propertyNames: string[]) =
+    static member inline multiBindValue(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, format: string, [<ParamArray>] propertyNames: string array) =
         this.AddScalar(AutoCompleteBox.MultiValueBinding.WithValue((format, propertyNames)))
