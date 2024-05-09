@@ -52,7 +52,7 @@ module App =
             else
                 model, Cmd.none
 
-    let view model =
+    let content model =
         (VStack() {
             TextBlock($"%d{model.Count}").centerText()
 
@@ -75,24 +75,23 @@ module App =
             Button("Reset", Reset).centerHorizontal()
         })
 
-    let app model =
+    let view model =
         if
             OperatingSystem.IsAndroid()
             || OperatingSystem.IsIOS()
             || OperatingSystem.IsBrowser()
         then
-            SingleViewApplication(view model)
+            SingleViewApplication(content model)
         else
-            DesktopApplication(Window(view model))
+            DesktopApplication(Window(content model))
+
+    //-:cnd:noEmit
+#if DEBUG
+                .attachDevTools()
+#endif
 
     let create () =
-        let program = Program.statefulWithCmd init update |> Program.withView app
+        let program = Program.statefulWithCmd init update |> Program.withView view
 
-        FabulousAppBuilder
-            .Configure(FluentTheme, program)
-            //-:cnd:noEmit
-
-#if DEBUG
-            .AfterSetup(fun builder -> builder.Instance.AttachDevTools())
-#endif
+        FabulousAppBuilder.Configure(FluentTheme, program)
 //+:cnd:noEmit
