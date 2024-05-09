@@ -86,5 +86,9 @@ module App =
         DesktopApplication(Window(content()))
 #endif
 
+#if DEBUG
+            .attachDevTools()
+#endif
+
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)

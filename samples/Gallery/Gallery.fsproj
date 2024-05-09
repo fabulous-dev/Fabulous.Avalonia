@@ -113,6 +113,7 @@
     <Compile Include="Pages\ToolTipPage.fs" />
     <Compile Include="Pages\TreeView\SimpleTreeView.fs" />
     <Compile Include="Pages\TreeView\TreeViewWithNodeInteraction.fs" />
+    <Compile Include="Pages\TreeView\EditableTreeView.fs" />
     <Compile Include="Pages\TreeViewPage.fs" />
     <Compile Include="Pages\TreeDataGrid\CountriesPage.fs" />
     <Compile Include="Pages\TreeDataGrid\FileTreeNodeModel.fs" />

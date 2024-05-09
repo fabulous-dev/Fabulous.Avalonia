@@ -10,4 +10,5 @@ module TreeViewPage =
             TabItem("Simple", SimpleTreeView.view())
             TabItem("With TreeViewItem", SimpleTreeView.treeViewItem())
             TabItem("With node interaction", TreeViewWithNodeInteraction.view())
+            TabItem("Editable", EditableTreeView.view())
         }
