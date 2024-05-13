@@ -393,25 +393,26 @@ module CountriesPage =
                     Label("_Country").target(countryTextBox)
 
                     TextBox(model.CountryText, CountryTextChanged)
-                        .name("countryTextBox")
+                        .reference(countryTextBox)
 
                     Label("_Region").target(regionTextBox)
 
                     TextBox(model.RegionText, RegionTextChanged)
-                        .name("regionTextBox")
+                        .reference(regionTextBox)
 
                     Label("_Population").target(populationTextBox)
 
                     TextBox(model.PopulationText, PopulationTextChanged)
-                        .name("populationTextBox")
+                        .reference(populationTextBox)
 
                     Label("_Area").target(areaTextBox)
 
-                    TextBox(model.AreaText, AreaTextChanged).name("areaTextBox")
+                    TextBox(model.AreaText, AreaTextChanged)
+                        .reference(areaTextBox)
 
                     Label("_GDP").target(gdpTextBox)
 
-                    TextBox(model.GDPText, GDPTextChanged).name("gdpTextBox")
+                    TextBox(model.GDPText, GDPTextChanged).reference(gdpTextBox)
 
                     Button("Add", AddCountryClick)
 
