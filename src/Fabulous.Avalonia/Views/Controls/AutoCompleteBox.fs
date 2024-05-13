@@ -80,6 +80,24 @@ module AutoCompleteBox =
 
                     target.Loaded.AddHandler(bindAndCleanUp))
 
+    /// Allows setting the ItemTemplate on an AutoCompleteBox
+    let ItemTemplate =
+        Attributes.defineSimpleScalar<obj -> Widget>
+            "AutoCompleteBox_ItemTemplate"
+            (fun a b ->
+                if LanguagePrimitives.PhysicalEquality a b then
+                    ScalarAttributeComparison.Identical
+                else
+                    ScalarAttributeComparison.Different)
+            (fun _ newValueOpt node ->
+                let autoComplete = node.Target :?> AutoCompleteBox
+
+                match newValueOpt with
+                | ValueNone -> autoComplete.ClearValue(AutoCompleteBox.ItemTemplateProperty)
+                | ValueSome template ->
+                    autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
+                    |> ignore)
+
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
@@ -90,9 +108,29 @@ module AutoCompleteBoxBuilders =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
 
         /// <summary>Creates an AutoCompleteBox widget.</summary>
+        /// <param name="items">The items to display.</param>
+        /// <param name="itemTemplate">The template to render the items with.</param>
+        static member inline AutoCompleteBox(items: 'item seq, itemTemplate: 'item -> WidgetBuilder<'msg, 'widget>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(
+                AutoCompleteBox.WidgetKey,
+                AutoCompleteBox.ItemsSource.WithValue(items),
+                AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate itemTemplate)
+            )
+
+        /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="populator">The function to populate the items.</param>
         static member inline AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
+
+        /// <summary>Creates an AutoCompleteBox widget.</summary>
+        /// <param name="populator">The function to populate the items.</param>
+        /// <param name="itemTemplate">The template to render the items with.</param>
+        static member inline AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>, itemTemplate: 'item -> WidgetBuilder<'msg, 'widget>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(
+                AutoCompleteBox.WidgetKey,
+                AutoCompleteBox.AsyncPopulator.WithValue(populator),
+                AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate itemTemplate)
+            )
 
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>

@@ -6,6 +6,7 @@ open System.Threading
 open System.Threading.Tasks
 open Avalonia.Controls
 open Avalonia.Interactivity
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -209,6 +210,9 @@ module AutoCompleteBoxPage =
             Abbreviation = "WY"
             Capital = "Cheyenne" } ]
 
+    let contains (text: string) (term: string) =
+        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+
     /// allows searching US federal states asynchronously while cancelling running searches
     /// to ensure we only populate with the response of the latest request
     type UsFederalStateSearch() =
@@ -246,8 +250,6 @@ module AutoCompleteBoxPage =
                 if running.IsCancellationRequested then
                     return Seq.empty
                 else
-                    let contains (text: string) (term: string) =
-                        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
 
                     return
                         usFederalStates
@@ -438,6 +440,26 @@ module AutoCompleteBoxPage =
                     }
 
                     VStack() {
+                        TextBlock("With an item template")
+                            .tip(ToolTip("Somewhere, in pride, an eagle sheds\nA single splendid tear."))
+
+                        AutoCompleteBox(
+                            model.UsFederalStates,
+                            fun state ->
+                                HStack(5) {
+                                    TextBlock(state.Capital).foreground(Colors.Blue)
+                                    TextBlock(state.Abbreviation + ",").foreground(Colors.White)
+                                    TextBlock(state.Name).foreground(Colors.Red)
+                                }
+                        )
+                            .watermark("Search a US state or capital")
+                            .tip(ToolTip("the custom item filter searches the state name as well as the capital"))
+                            .itemFilter(fun term item ->
+                                let state = item :?> StateData
+                                contains state.Name term || contains state.Capital term)
+                    }
+
+                    VStack() {
                         TextBlock("AsyncBox")
 
                         AutoCompleteBox(getItemsAsync)
@@ -454,6 +476,23 @@ module AutoCompleteBoxPage =
                             .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
                             .filterMode(AutoCompleteFilterMode.None) // remote filtered
                             .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
+                    }
+
+                    VStack() {
+                        TextBlock("Async remote-filtered w/ item template")
+
+                        AutoCompleteBox(
+                            model.UsStateSearch.SearchAsync,
+                            fun state ->
+                                HStack(5) {
+                                    TextBlock(state.Capital).foreground(Colors.Blue)
+                                    TextBlock(state.Abbreviation + ",").foreground(Colors.White)
+                                    TextBlock(state.Name).foreground(Colors.Red)
+                                }
+                        )
+                            .watermark("Search capitals of US federal states by name or state")
+                            .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
+                            .filterMode(AutoCompleteFilterMode.None) // remote filtered
                     }
 
                     VStack() {
