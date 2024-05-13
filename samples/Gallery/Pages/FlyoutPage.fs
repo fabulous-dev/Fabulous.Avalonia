@@ -66,7 +66,7 @@ module FlyoutPage =
                 .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
                 .isEnabled(false)
 
-            Separator()
+            MenuItem(Separator())
 
             MenuItems("Menu with _Submenu") {
                 MenuItem("Submenu _1")

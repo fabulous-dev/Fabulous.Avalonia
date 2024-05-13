@@ -49,13 +49,13 @@ module MenuItemBuilders =
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
-        static member inline MenuItem(header: string) =
+        static member MenuItem(header: string) =
             WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header))
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
-        static member inline MenuItem(header: string, onClick: 'msg) =
+        static member MenuItem(header: string, onClick: 'msg) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
@@ -83,43 +83,56 @@ module MenuItemBuilders =
                 )
             )
 
-        /// <summary>Creates a MenuItems widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
-        static member inline MenuItems(header: string) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
+[<AutoOpen>]
+module MenuItemsBuilders =
+    type Fabulous.Avalonia.View with
 
         /// <summary>Creates a MenuItems widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
-        static member inline MenuItems'(header: string) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabControl>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
+        static member MenuItems() =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items)
 
         /// <summary>Creates a MenuItems widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
-        /// <param name="onClick">Raised when the menu item is clicked.</param>
-        static member inline MenuItems(header: string, onClick: 'msg) =
+        static member MenuItems(header: WidgetBuilder<'msg, #IFabControl>) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
-                HeaderedContentControl.HeaderString.WithValue(header),
-                MenuItem.Clicked.WithValue(fun _ -> box onClick)
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
+            )
+
+        static member MenuItems(header: WidgetBuilder<'msg, #IFabControl>, onClick: 'msg) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
+                MenuItem.WidgetKey,
+                ItemsControl.Items,
+                AttributesBundle(
+                    StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)),
+                    ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone
+                )
             )
 
         /// <summary>Creates a MenuItems widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
-        static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>) =
-            WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
-                MenuItem.WidgetKey
-                (StackList.empty())
-                [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
+        static member MenuItems(header: string) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
+                MenuItem.WidgetKey,
+                ItemsControl.Items,
+                AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone)
+            )
+
+        static member MenuItems(header: string, onClick: 'msg) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
+                MenuItem.WidgetKey,
+                ItemsControl.Items,
+                AttributesBundle(
+                    StackList.two(MenuItem.Clicked.WithValue(fun _ -> box onClick), HeaderedContentControl.HeaderString.WithValue(header)),
+                    ValueNone,
+                    ValueNone
+                )
+            )
 
         /// <summary>Creates a MenuItems widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
-        static member inline MenuItems(header: WidgetBuilder<'msg, #IFabMenuItem>, onClick: 'msg) =
-            WidgetHelpers.buildWidgets<'msg, #IFabMenuItem>
-                MenuItem.WidgetKey
-                (StackList.one(MenuItem.Clicked.WithValue(fun _ -> box onClick)))
-                [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |]
+        static member inline MenuItems(onClick: 'msg) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items, MenuItem.Clicked.WithValue(fun _ -> box onClick))
 
 type MenuItemModifiers =
     /// <summary>Sets the HotKey property.</summary>
@@ -205,22 +218,6 @@ type MenuItemCollectionBuilderExtensions =
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
         (
             _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabDecorator>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabControl>,
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
