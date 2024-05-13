@@ -28,8 +28,6 @@ module FilesPage =
         | SelectedPathKeyDown of Avalonia.Input.KeyEventArgs
         | CellSelectionChanged of bool
 
-    let files = ViewRef<TreeDataGrid>()
-
     let init () =
         let drives = DriveInfo.GetDrives() |> Array.map(fun x -> x.Name) |> Array.toList
 
@@ -220,8 +218,6 @@ module FilesPage =
                     .dock(Dock.Top)
                     .margin(0, 4)
 
-                TreeDataGrid(model.Source)
-                    .reference(files)
-                    .autoDragDropRows(true)
+                TreeDataGrid(model.Source).autoDragDropRows(true)
             }
         }

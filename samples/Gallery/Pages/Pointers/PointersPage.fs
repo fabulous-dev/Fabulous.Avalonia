@@ -25,17 +25,11 @@ module PointersPage =
         | Border_PointerCaptureLost of PointerCaptureLostEventArgs
         | Border_PointerUpdated of PointerEventArgs
 
-    let pointerCanvasRef = ViewRef<PointerCanvas>()
-
     let init () =
         { ThreadSleep = 0
           Status = ""
           Status2 = "" },
         Cmd.none
-
-    let border1 = ViewRef<Border>()
-
-    let border2 = ViewRef<Border>()
 
     let update msg model =
         match msg with
