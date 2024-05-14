@@ -443,15 +443,13 @@ module AutoCompleteBoxPage =
                         TextBlock("With an item template")
                             .tip(ToolTip("Somewhere, in pride, an eagle sheds\nA single splendid tear."))
 
-                        AutoCompleteBox(
-                            model.UsFederalStates,
-                            fun state ->
+                        AutoCompleteBox(model.UsFederalStates)
+                            .itemTemplate(fun state ->
                                 HStack(5) {
                                     TextBlock(state.Capital).foreground(Colors.Blue)
                                     TextBlock(state.Abbreviation + ",").foreground(Colors.White)
                                     TextBlock(state.Name).foreground(Colors.Red)
-                                }
-                        )
+                                })
                             .watermark("Search a US state or capital")
                             .tip(ToolTip("the custom item filter searches the state name as well as the capital"))
                             .itemFilter(fun term item ->
@@ -476,23 +474,6 @@ module AutoCompleteBoxPage =
                             .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
                             .filterMode(AutoCompleteFilterMode.None) // remote filtered
                             .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
-                    }
-
-                    VStack() {
-                        TextBlock("Async remote-filtered w/ item template")
-
-                        AutoCompleteBox(
-                            model.UsStateSearch.SearchAsync,
-                            fun state ->
-                                HStack(5) {
-                                    TextBlock(state.Capital).foreground(Colors.Blue)
-                                    TextBlock(state.Abbreviation + ",").foreground(Colors.White)
-                                    TextBlock(state.Name).foreground(Colors.Red)
-                                }
-                        )
-                            .watermark("Search capitals of US federal states by name or state")
-                            .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
-                            .filterMode(AutoCompleteFilterMode.None) // remote filtered
                     }
 
                     VStack() {

@@ -108,29 +108,9 @@ module AutoCompleteBoxBuilders =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
 
         /// <summary>Creates an AutoCompleteBox widget.</summary>
-        /// <param name="items">The items to display.</param>
-        /// <param name="itemTemplate">The template to render the items with.</param>
-        static member inline AutoCompleteBox(items: 'item seq, itemTemplate: 'item -> WidgetBuilder<'msg, 'widget>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(
-                AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.ItemsSource.WithValue(items),
-                AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate itemTemplate)
-            )
-
-        /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="populator">The function to populate the items.</param>
         static member inline AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
-
-        /// <summary>Creates an AutoCompleteBox widget.</summary>
-        /// <param name="populator">The function to populate the items.</param>
-        /// <param name="itemTemplate">The template to render the items with.</param>
-        static member inline AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>, itemTemplate: 'item -> WidgetBuilder<'msg, 'widget>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(
-                AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.AsyncPopulator.WithValue(populator),
-                AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate itemTemplate)
-            )
 
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>
@@ -181,6 +161,13 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline itemFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: string -> obj -> bool) =
         this.AddScalar(AutoCompleteBox.ItemFilter.WithValue(fn))
+
+    /// <summary>Sets the ItemTemplate property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="template">The template to render the items with.</param>
+    [<Extension>]
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, template: 'item -> WidgetBuilder<'msg, 'widget>) =
+        this.AddScalar(AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
 
     /// <summary>Sets the TextFilter property.</summary>
     /// <param name="this">Current widget.</param>
