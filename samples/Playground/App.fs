@@ -1,8 +1,11 @@
 namespace Playground
 
+open System
+open System.IO
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Themes.Fluent
+open AsyncImageLoader
 open Fabulous
 open Fabulous.Avalonia
 
@@ -97,4 +100,9 @@ module App =
 #endif
 
     let create () =
+        // see https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia?tab=readme-ov-file#loaders
+        ImageLoader.AsyncImageLoader.Dispose()
+        let imageCacheFolder = Path.Combine(Environment.CurrentDirectory, "async images")
+        ImageLoader.AsyncImageLoader <- new Loaders.DiskCachedWebImageLoader(imageCacheFolder)
+
         FabulousAppBuilder.Configure(FluentTheme, view)
