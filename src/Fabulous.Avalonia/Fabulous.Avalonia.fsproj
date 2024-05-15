@@ -4,7 +4,7 @@
     <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
     <IsPackable>true</IsPackable>
-    <UseLocalProjectReference>false</UseLocalProjectReference>
+    <UseLocalProjectReference>true</UseLocalProjectReference>
   </PropertyGroup>
   <!-- NuGet Package -->
   <PropertyGroup>
