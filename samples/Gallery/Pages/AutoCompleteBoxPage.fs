@@ -491,14 +491,19 @@ module AutoCompleteBoxPage =
                             .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
                             .reference(RemoteSearch.input)
                             .animation(
+                                // pulses the scale like a heart beat to indicate activity
                                 (Animation(TimeSpan.FromSeconds(2.)) {
+                                    // extend slightly but quickly to get a pulse effect
                                     KeyFrame(ScaleTransform.ScaleXProperty, 1.05).cue(0.1)
                                     KeyFrame(ScaleTransform.ScaleYProperty, 1.05).cue(0.1)
+                                    // contract slightly to get a bounce-back effect
                                     KeyFrame(ScaleTransform.ScaleXProperty, 0.95).cue(0.15)
                                     KeyFrame(ScaleTransform.ScaleYProperty, 0.95).cue(0.15)
+                                    // return to original size rather quickly
                                     KeyFrame(ScaleTransform.ScaleXProperty, 1).cue(0.2)
                                     KeyFrame(ScaleTransform.ScaleYProperty, 1).cue(0.2)
                                 })
+                                    .delay(TimeSpan.FromSeconds 1.) // to avoid a "heart attack", i.e. restarting the animation by typing
                                     .reference(RemoteSearch.heartBeat)
                             )
                     }
