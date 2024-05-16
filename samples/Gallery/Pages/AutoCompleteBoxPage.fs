@@ -224,18 +224,8 @@ module AutoCompleteBoxPage =
                 running.Cancel()
                 running.Dispose()
 
-        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+        let simulateWork () =
             task {
-                // register cancellation of running search when outer cancellation is requested
-                cancellation.Register(fun () ->
-                    cancelRunning()
-                    running <- null)
-                |> ignore
-
-                cancelRunning() // cancel any older running search
-                running <- new CancellationTokenSource() // and create a new source for this one
-
-                // simulate a really sporadic remote search
                 let randy = Random()
                 let getDelay () = randy.Next(300, 3000)
                 let mutable delay = getDelay()
@@ -246,6 +236,19 @@ module AutoCompleteBoxPage =
                     delay <- getDelay()
 
                 do! Task.Delay(delay) // guarantee to wait a little bit
+            }
+
+        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+            task {
+                // register cancellation of running search when outer cancellation is requested
+                cancellation.Register(fun () ->
+                    cancelRunning()
+                    running <- null)
+                |> ignore
+
+                cancelRunning() // cancel any older running search
+                running <- new CancellationTokenSource() // and create a new source for this one
+                do! simulateWork() // simulate a really sporadic remote search
 
                 if running.IsCancellationRequested then
                     return Seq.empty
