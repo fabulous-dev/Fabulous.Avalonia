@@ -219,7 +219,7 @@ module AutoCompleteBoxPage =
         let mutable running: CancellationTokenSource = null // enables cancelling any running search
 
         /// cancels any running search
-        let cancelRunning () =
+        let cancel () =
             if running <> null then
                 running.Cancel()
                 running.Dispose()
@@ -242,11 +242,11 @@ module AutoCompleteBoxPage =
             task {
                 // register cancellation of running search when outer cancellation is requested
                 cancellation.Register(fun () ->
-                    cancelRunning()
+                    cancel()
                     running <- null)
                 |> ignore
 
-                cancelRunning() // cancel any older running search
+                cancel() // cancel any older running search
                 running <- new CancellationTokenSource() // and create a new source for this one
                 do! simulateWork() // simulate a really sporadic remote search
 
