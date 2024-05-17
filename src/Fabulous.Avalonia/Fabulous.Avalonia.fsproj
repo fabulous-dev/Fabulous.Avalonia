@@ -228,7 +228,7 @@
       This version will be used as the lower bound in the NuGet package
     -->
     <PackageReference Include="Avalonia.Diagnostics" />
-    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre4]" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre5]" />
     <PackageReference Include="Avalonia" VersionOverride="11.0.10" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
