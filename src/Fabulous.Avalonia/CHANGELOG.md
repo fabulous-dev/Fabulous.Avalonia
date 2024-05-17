@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+### Added
+- `ItemsControl` and `VirtualizingStackPanel` Widgets by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/247
+
 ## [3.0.0-pre5] - 2024-05-17
 ### Added
 - TreeViewItem widget by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/241
