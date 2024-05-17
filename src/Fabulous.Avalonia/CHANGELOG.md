@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre5] - 2024-05-17
+### Added
+- TreeViewItem widget by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/241
+- Remote-filtered async search sample by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/240
+* Editable TreeView sample by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/239
+* Avalonia.Diagnostics support by @nikoyak in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/214
+
+### Changed
+* Normalize MenuItems Widgets by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/243
+
 ## [3.0.0-pre4] - 2024-04-19
 ### Changed
 - Update to Fabulous 3.0.0-pre4 by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/238
@@ -222,7 +232,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre4...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre5...HEAD
+[3.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre5
 [3.0.0-pre4]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre4
 [3.0.0-pre3]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre3
 [3.0.0-pre2]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre2
