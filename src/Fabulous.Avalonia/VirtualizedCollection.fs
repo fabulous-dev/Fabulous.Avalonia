@@ -44,15 +44,10 @@ type WidgetTreeDataTemplate(node: IViewNode, childrenFn: obj -> IEnumerable, tem
 
             view :?> Control
 
-type WidgetItemsPanel(node: IViewNode, widget: Widget) =
+type WidgetItemsPanel(node: IViewNode, widget: Widget) as this =
+    inherit FuncTemplate<Panel>(fun _ -> this.BuildPanel())
 
-    interface ITemplate<Panel> with
-        member this.Build() =
-            let definition = WidgetDefinitionStore.get widget.Key
-            let struct (_, view) = definition.CreateView(widget, node.TreeContext, ValueNone)
-            view :?> Panel
-
-        member this.Build() =
-            let definition = WidgetDefinitionStore.get widget.Key
-            let struct (_, view) = definition.CreateView(widget, node.TreeContext, ValueNone)
-            view
+    member this.BuildPanel() =
+        let definition = WidgetDefinitionStore.get widget.Key
+        let struct (_, view) = definition.CreateView(widget, node.TreeContext, ValueNone)
+        view :?> Panel

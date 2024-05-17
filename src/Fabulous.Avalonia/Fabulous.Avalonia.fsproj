@@ -59,7 +59,8 @@
     <Compile Include="Views\_TopLevel.fs" />
     <Compile Include="Views\_TextElement.fs" />
     <Compile Include="Views\_Panel.fs" />
-    <Compile Include="Views\_ItemsControl.fs" />
+    <Compile Include="Views\_VirtualizingPanel.fs" />
+    <Compile Include="Views\ItemsControl.fs" />
     <Compile Include="Views\_HeaderedItemsControl.fs" />
     <Compile Include="Views\_SelectingItemsControl.fs" />
     <Compile Include="Views\_MenuBase.fs" />
@@ -211,6 +212,7 @@
     <Compile Include="Views\Panels\AdornerLayer.fs" />
     <Compile Include="Views\Panels\Grid.fs" />
     <Compile Include="Views\Panels\StackPanel.fs" />
+    <Compile Include="Views\Panels\VirtualizingStackPanel.fs" />
     <Compile Include="Views\Panels\ReversibleStackPanel.fs" />
     <Compile Include="Views\Panels\DockPanel.fs" />
     <Compile Include="Views\Panels\WrapPanel.fs" />
