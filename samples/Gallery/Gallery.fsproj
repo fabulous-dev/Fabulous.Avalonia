@@ -132,7 +132,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="FSharp.Core" />
-<!--    <PackageReference Include="Fabulous" />-->
+    <PackageReference Include="Fabulous" />
   </ItemGroup>
 
   <ItemGroup>
