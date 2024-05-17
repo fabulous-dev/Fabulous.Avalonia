@@ -11,16 +11,13 @@ open type Fabulous.Avalonia.View
 module MenuPage =
     type Model = { IsChecked: bool }
 
-    type Msg =
-        | ValueChanged of bool
-        | Press
+    type Msg = ValueChanged of bool
 
     let init () = { IsChecked = false }, Cmd.none
 
     let update msg model =
         match msg with
         | ValueChanged value -> { IsChecked = value }, Cmd.none
-        | Press -> model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
