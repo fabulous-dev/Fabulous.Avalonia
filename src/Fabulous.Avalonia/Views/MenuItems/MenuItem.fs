@@ -99,6 +99,9 @@ module MenuItemsBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
             )
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItems(header: WidgetBuilder<'msg, #IFabControl>, onClick: 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
@@ -111,6 +114,7 @@ module MenuItemsBuilders =
             )
 
         /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
         static member MenuItems(header: string) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
@@ -118,6 +122,9 @@ module MenuItemsBuilders =
                 AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone)
             )
 
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItems(header: string, onClick: 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
