@@ -144,6 +144,7 @@ module MainWindow =
             TabItem("GridSplitterPage", GridSplitterPage.view())
             TabItem("ImagePage", ImagePage.view())
             TabItem("ItemsRepeaterPage", ItemsRepeaterPage.view())
+            TabItem("ItemsControlPage", ItemsControlPage.view())
             TabItem("LabelPage", LabelPage.view())
             TabItem("LayoutTransformControlPage", LayoutTransformControlPage.view())
             TabItem("ListBoxPage", ListBoxPage.view())

@@ -8,6 +8,8 @@ type IFabItemsControl =
     inherit IFabTemplatedControl
 
 module ItemsControl =
+    let WidgetKey = Widgets.register<ItemsControl>()
+
     let Items =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
@@ -39,12 +41,12 @@ module ItemsControl =
 
     let ItemsPanel =
         Attributes.defineSimpleScalar<Widget> "ItemsControl_ItemsPanel" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
-            let treeView = node.Target :?> TreeView
+            let itemsControl = node.Target :?> ItemsControl
 
             match newValueOpt with
-            | ValueNone -> treeView.ClearValue(ItemsControl.ItemsPanelProperty)
+            | ValueNone -> itemsControl.ClearValue(ItemsControl.ItemsPanelProperty)
             | ValueSome value ->
-                treeView.SetValue(ItemsControl.ItemsPanelProperty, WidgetItemsPanel(node, value))
+                itemsControl.SetValue(ItemsControl.ItemsPanelProperty, WidgetItemsPanel(node, value))
                 |> ignore)
 
     let ContainerClearing =
@@ -55,6 +57,18 @@ module ItemsControl =
 
     let ContainerPrepared =
         Attributes.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
+
+
+[<AutoOpen>]
+module ItemsControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+            (
+                items: seq<'itemData>,
+                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
+            ) =
+            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSource items template
 
 type ItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>

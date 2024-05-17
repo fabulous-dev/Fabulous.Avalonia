@@ -40,6 +40,7 @@ module App =
         | GridSplitterPage
         | ImagePage
         | ItemsRepeaterPage
+        | ItemsControlPage
         | LabelPage
         | LayoutTransformControlPage
         | ListBoxPage
@@ -117,6 +118,7 @@ module App =
         | "GridSplitter" -> ValueSome GridSplitterPage
         | "Image" -> ValueSome ImagePage
         | "ItemsRepeater" -> ValueSome ItemsRepeaterPage
+        | "ItemsControl" -> ValueSome ItemsControlPage
         | "Label" -> ValueSome LabelPage
         | "LayoutTransformControl" -> ValueSome LayoutTransformControlPage
         | "ListBox" -> ValueSome ListBoxPage
@@ -195,6 +197,7 @@ module App =
         | GridSplitterPage -> ValueSome(AnyView(GridSplitterPage.view()))
         | ImagePage -> ValueSome(AnyView(ImagePage.view()))
         | ItemsRepeaterPage -> ValueSome(AnyView(ItemsRepeaterPage.view()))
+        | ItemsControlPage -> ValueSome(AnyView(ItemsControlPage.view()))
         | LabelPage -> ValueSome(AnyView(LabelPage.view()))
         | ListBoxPage -> ValueSome(AnyView(ListBoxPage.view()))
         | LayoutTransformControlPage -> ValueSome(AnyView(LayoutTransformControlPage.view()))

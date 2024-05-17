@@ -119,25 +119,6 @@ type HamburgerMenuModifiers =
     static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: int) =
         this.AddScalar(HamburgerMenuExt.ExpandedModeThresholdWidth.WithValue(value))
 
-type IFabItemsControl =
-    inherit IFabTemplatedControl
-
-module FabItemsControl =
-
-    let WidgetKey = Widgets.register<ItemsControl>()
-
-[<AutoOpen>]
-module FabItemsControlBuilders =
-    type Fabulous.Avalonia.View with
-
-        static member ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
-            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> FabItemsControl.WidgetKey ItemsControl.ItemsSource items template
-
-
 open Avalonia.Layout
 open type Fabulous.Avalonia.View
 
