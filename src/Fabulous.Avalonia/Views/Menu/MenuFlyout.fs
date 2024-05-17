@@ -28,7 +28,7 @@ module MenuFlyoutBuilders =
 
         /// <summary>Creates a MenuFlyout widget.</summary>
         static member inline MenuFlyout() =
-            CollectionBuilder<'msg, IFabMenuFlyout, IFabControl>(MenuFlyout.WidgetKey, MenuFlyout.Items)
+            CollectionBuilder<'msg, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, MenuFlyout.Items)
 
 type MenuFlyoutModifiers =
     /// <summary>Link a ViewRef to access the direct MenuFlyout control instance.</summary>
@@ -40,17 +40,17 @@ type MenuFlyoutModifiers =
 
 type MenuFlyoutCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
         (
-            _: CollectionBuilder<'msg, 'marker, IFabControl>,
+            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
             x: WidgetBuilder<'msg, 'itemType>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
         (
-            _: CollectionBuilder<'msg, 'marker, IFabControl>,
+            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
             x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
         ) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

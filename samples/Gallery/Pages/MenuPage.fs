@@ -42,7 +42,7 @@ module MenuPage =
 
                 Dock() {
                     (Menu() {
-                        MenuItems'("_First") {
+                        MenuItems(header = Image("avares://Gallery/Assets/Icons/fabulous-icon.png")) {
                             MenuItem("Standard _Menu Item")
                                 .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
                                 .enableMenuItemClickForwarding(true)
@@ -51,13 +51,15 @@ module MenuPage =
                                 .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
                                 .isEnabled(false)
 
-                            Separator()
+                            MenuItem(Separator())
 
-                            MenuItems'("Menu with _Submenu") {
+                            MenuItems("Menu with _Submenu") {
                                 MenuItem("Submenu _1")
-                                MenuItems'("Submenu _2 with Submenu") { MenuItem("Submenu Level 2") }
 
-                                (MenuItems'("Submenu _3 with Submenu Disabled") { MenuItem("Submenu Level 2") })
+                                MenuItems("Submenu _2 with Submenu") { MenuItem("Submenu Level 2") }
+
+
+                                (MenuItems("Submenu _3 with Submenu Disabled") { MenuItem("Submenu Level 2") })
                                     .isEnabled(false)
                             }
 
@@ -71,7 +73,7 @@ module MenuPage =
                                 .isHitTestVisible(false)
                         }
 
-                        MenuItems'("_Second") { MenuItem("Second _Menu Item") }
+                        MenuItems("_Second") { MenuItem("Second _Menu Item") }
                     })
                         .dock(Dock.Top)
                 }
