@@ -12,11 +12,11 @@ _No unreleased changes_
 ### Added
 - TreeViewItem widget by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/241
 - Remote-filtered async search sample by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/240
-* Editable TreeView sample by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/239
-* Avalonia.Diagnostics support by @nikoyak in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/214
+- Editable TreeView sample by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/239
+- Avalonia.Diagnostics support by @nikoyak in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/214
 
 ### Changed
-* Normalize MenuItems Widgets by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/243
+- Normalize MenuItems Widgets by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/243
 
 ## [3.0.0-pre4] - 2024-04-19
 ### Changed
