@@ -159,7 +159,7 @@ type AutoCompleteBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="template">The template to render the items with.</param>
     [<Extension>]
-    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, template: 'item -> WidgetBuilder<'msg, 'widget>) =
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, template: 'item -> WidgetBuilder<'msg, #IFabControl>) =
         this.AddScalar(AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
 
     /// <summary>Sets the TextFilter property.</summary>
