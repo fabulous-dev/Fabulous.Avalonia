@@ -166,21 +166,6 @@ module Application =
                 (target :?> FabApplication)
                     .TopLevel.RendererDiagnostics.DebugOverlays <- value)
 
-    let AttachDevTools =
-        Attributes.defineProperty
-            "Application_AttachDevTools"
-            (ValueNone, ValueNone)
-            (fun target (value: Diagnostics.DevToolsOptions voption * Input.KeyGesture voption) ->
-                let app = target :?> FabApplication
-                let options, gesture = value
-
-                if options.IsSome then
-                    app.MainWindow.AttachDevTools(options.Value)
-                else if gesture.IsSome then
-                    app.MainWindow.AttachDevTools(gesture.Value)
-                else
-                    app.MainWindow.AttachDevTools())
-
     let IsSystemBarVisible =
         Attributes.definePropertyWithGetSet
             "Application_IsSystemBarVisible"
@@ -262,29 +247,6 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline debugOverlays(this: WidgetBuilder<'msg, #IFabApplication>, value: RendererDebugOverlays) =
         this.AddScalar(Application.DebugOverlays.WithValue(value))
-
-    /// <summary>Attaches the Avalonia Developer Tools with the specified options.
-    /// See https://docs.avaloniaui.net/docs/guides/implementation-guides/developer-tools</summary>
-    /// <param name="this">The Current widget.</param>
-    /// <param name="value">The Developer Tools options.</param>
-    [<Extension>]
-    static member inline attachDevTools(this: WidgetBuilder<'msg, #IFabApplication>, value: Diagnostics.DevToolsOptions) =
-        this.AddScalar(Application.AttachDevTools.WithValue((ValueSome value, ValueNone)))
-
-    /// <summary>Attaches the Avalonia Developer Tools with the specified gesture.
-    /// See https://docs.avaloniaui.net/docs/guides/implementation-guides/developer-tools</summary>
-    /// <param name="this">The Current widget.</param>
-    /// <param name="value">The key gesture.</param>
-    [<Extension>]
-    static member inline attachDevTools(this: WidgetBuilder<'msg, #IFabApplication>, value: Input.KeyGesture) =
-        this.AddScalar(Application.AttachDevTools.WithValue((ValueNone, ValueSome value)))
-
-    /// <summary>Attaches the Avalonia Developer Tools opened using F12.
-    /// See https://docs.avaloniaui.net/docs/guides/implementation-guides/developer-tools</summary>
-    /// <param name="this">The Current widget.</param>
-    [<Extension>]
-    static member inline attachDevTools(this: WidgetBuilder<'msg, #IFabApplication>) =
-        this.AddScalar(Application.AttachDevTools.WithValue((ValueNone, ValueNone)))
 
     /// <summary>Sets the application system bar visibility.</summary>
     /// <param name="this">Current widget.</param>

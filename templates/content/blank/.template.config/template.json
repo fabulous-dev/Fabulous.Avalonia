@@ -52,6 +52,12 @@
       "replaces": "FabulousAvaloniaPkgVersion",
       "defaultValue": "PKG_VERSION"
     },
+    "FabulousAvaloniaDiagnosticsPkgVersion": {
+      "type": "parameter",
+      "dataType": "string",
+      "replaces": "FabulousAvaloniaDiagnosticsPkgVersion",
+      "defaultValue": "3.0.0-pre6"
+    },
     "FSharpCorePkgVersion": {
       "type": "parameter",
       "dataType": "string",
@@ -80,12 +86,6 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaThemesFluentPkgVersion",
-      "defaultValue": "11.0.10"
-    },
-    "AvaloniaDiagnosticsPkgVersion": {
-      "type": "parameter",
-      "dataType": "string",
-      "replaces": "AvaloniaDiagnosticsPkgVersion",
       "defaultValue": "11.0.10"
     }
   }

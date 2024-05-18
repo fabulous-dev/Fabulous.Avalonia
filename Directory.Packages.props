@@ -3,7 +3,6 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Avalonia.Diagnostics" Version="11.0.10" />
     <PackageVersion Include="Fabulous" Version="3.0.0-pre5" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
     <PackageVersion Include="FSharp.Core" Version="8.0.200" />
@@ -19,6 +18,7 @@
     <PackageVersion Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageVersion Include="Avalonia.Browser" Version="11.0.10" />
     <PackageVersion Include="Avalonia.Skia" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.0.10" />
     <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.0.10" />
     <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.0.10" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.0.10" />
