@@ -84,9 +84,9 @@ module App =
         DesktopApplication(Window(content model))
 #endif
 
-#if DEBUG
-            .attachDevTools()
-#endif
+// #if DEBUG
+//             .attachDevTools()
+// #endif
 
     let create () =
         let program = Program.statefulWithCmd init update |> Program.withView view
