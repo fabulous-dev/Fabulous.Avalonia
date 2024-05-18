@@ -28,7 +28,9 @@
         <Compile Include="DevTools.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Diagnostics" VersionOverride="11.0.10" />
+        <PackageReference Include="Avalonia.Diagnostics" VersionOverride="11.0.10">
+            <PrivateAssets>runtime; build; native; contentfiles; analyzers</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
