@@ -10,8 +10,7 @@ _No unreleased changes_
 
 ## [3.0.0-pre6] - 2024-05-18
 ### Added
-- No changes
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/compare/3.0.0-pre5...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/compare/3.0.0-pre6...HEAD
 [3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/releases/tag/3.0.0-pre6
