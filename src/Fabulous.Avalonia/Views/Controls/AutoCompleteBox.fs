@@ -82,21 +82,14 @@ module AutoCompleteBox =
 
     /// Allows setting the ItemTemplate on an AutoCompleteBox
     let ItemTemplate =
-        Attributes.defineSimpleScalar<obj -> Widget>
-            "AutoCompleteBox_ItemTemplate"
-            (fun a b ->
-                if LanguagePrimitives.PhysicalEquality a b then
-                    ScalarAttributeComparison.Identical
-                else
-                    ScalarAttributeComparison.Different)
-            (fun _ newValueOpt node ->
-                let autoComplete = node.Target :?> AutoCompleteBox
+        Attributes.defineSimpleScalar<obj -> Widget> "AutoCompleteBox_ItemTemplate" ScalarAttributeComparers.physicalEqualityCompare (fun _ newValueOpt node ->
+            let autoComplete = node.Target :?> AutoCompleteBox
 
-                match newValueOpt with
-                | ValueNone -> autoComplete.ClearValue(AutoCompleteBox.ItemTemplateProperty)
-                | ValueSome template ->
-                    autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
-                    |> ignore)
+            match newValueOpt with
+            | ValueNone -> autoComplete.ClearValue(AutoCompleteBox.ItemTemplateProperty)
+            | ValueSome template ->
+                autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
+                |> ignore)
 
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =

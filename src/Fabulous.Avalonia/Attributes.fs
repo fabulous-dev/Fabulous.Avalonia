@@ -33,6 +33,14 @@ module ValueEventData =
         { Value = value
           Event = event >> box >> MsgValue }
 
+[<RequireQualifiedAccess>]
+module ScalarAttributeComparers =
+    let inline physicalEqualityCompare a b =
+        if LanguagePrimitives.PhysicalEquality a b then
+            ScalarAttributeComparison.Identical
+        else
+            ScalarAttributeComparison.Different
+
 module Attributes =
     /// Define an attribute for EventHandler<'T>
     let inline defineAvaloniaObservableEvent<'args>
