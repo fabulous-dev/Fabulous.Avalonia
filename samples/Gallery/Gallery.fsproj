@@ -139,6 +139,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.ColorPicker\Fabulous.Avalonia.ColorPicker.fsproj" />
     <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.DataGrid\Fabulous.Avalonia.DataGrid.fsproj" />
+    <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.Diagnostics\Fabulous.Avalonia.Diagnostics.fsproj" />
     <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.ItemsRepeater\Fabulous.Avalonia.ItemsRepeater.fsproj" />
     <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.TreeDataGrid\Fabulous.Avalonia.TreeDataGrid.fsproj" />
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
