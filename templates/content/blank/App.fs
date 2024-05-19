@@ -76,8 +76,8 @@ module App =
         })
             .center()
 
-    //-:cnd:noEmit
     let view model =
+        //-:cnd:noEmit
 #if MOBILE
         SingleViewApplication(content model)
 #else
