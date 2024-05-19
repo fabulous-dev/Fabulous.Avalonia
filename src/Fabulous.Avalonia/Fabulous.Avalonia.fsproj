@@ -41,6 +41,7 @@
     <Compile Include="Views\_RenderOptions.fs" />
     <Compile Include="Views\_Animatable.fs" />
     <Compile Include="Views\_StyledElement.fs" />
+    <Compile Include="Views\_AutomationProperties.fs" />
     <Compile Include="Views\_ITransform.fs" />
     <Compile Include="Views\_Brush.fs" />
     <Compile Include="Views\SolidColorBrush.fs" />
