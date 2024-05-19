@@ -26,9 +26,9 @@ module ViewHelpers =
             | None -> ValueNone
             | Some attr -> ValueSome attr.Value
 
-    /// Extend the canReuseView function to check Xamarin.Forms specific constraints
+    /// Extend the canReuseView function to check AvaloniaUI specific constraints
     let rec canReuseView (prev: Widget) (curr: Widget) =
-        if ViewHelpers.canReuseView prev curr then
+        if ViewHelpers.canReuseView prev curr && canReuseAutomationId prev curr then
             let def = WidgetDefinitionStore.get curr.Key
 
             // TargetType can be null for MemoWidget
@@ -43,9 +43,20 @@ module ViewHelpers =
         else
             false
 
+    /// Check whether widgets have compatible automation ids.
+    /// Avalonia only allows setting the automation id once so we can't reuse a control if the id is not the same.
+    and private canReuseAutomationId (prev: Widget) (curr: Widget) =
+        let prevIdOpt = tryGetScalarValue prev AutomationProperties.AutomationId
+
+        let currIdOpt = tryGetScalarValue curr AutomationProperties.AutomationId
+
+        match prevIdOpt with
+        | ValueSome _ when prevIdOpt <> currIdOpt -> false
+        | _ -> true
+
     /// TextBlock's text can be defined by both the Text and Inlines property
     /// Except when switching between the two, Avalonia will automatically clear out the other property
-    /// Depending on the order of execution, this can lead to a desync between Avalonia and Fabulous
+    /// Depending on the order of execution, this can lead to a de-sync between Avalonia and Fabulous
     /// So, it's better to not reuse a TextBlock when we are about to switch between Text and Inlines
     and canReuseTextBlock (prev: Widget) (curr: Widget) =
         let switchingFromTextToInlines =
