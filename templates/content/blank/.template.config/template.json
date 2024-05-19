@@ -52,12 +52,6 @@
       "replaces": "FabulousAvaloniaPkgVersion",
       "defaultValue": "PKG_VERSION"
     },
-    "FabulousAvaloniaDiagnosticsPkgVersion": {
-      "type": "parameter",
-      "dataType": "string",
-      "replaces": "FabulousAvaloniaDiagnosticsPkgVersion",
-      "defaultValue": "3.0.0-pre6"
-    },
     "FSharpCorePkgVersion": {
       "type": "parameter",
       "dataType": "string",

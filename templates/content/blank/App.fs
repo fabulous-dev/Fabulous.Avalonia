@@ -76,20 +76,16 @@ module App =
         })
             .center()
 
+    //-:cnd:noEmit
     let view model =
-        //-:cnd:noEmit
 #if MOBILE
         SingleViewApplication(content model)
 #else
         DesktopApplication(Window(content model))
 #endif
-
-    // #if DEBUG
-    //             .attachDevTools()
-    // #endif
+    //+:cnd:noEmit
 
     let create () =
         let program = Program.statefulWithCmd init update |> Program.withView view
 
         FabulousAppBuilder.Configure(FluentTheme, program)
-//+:cnd:noEmit

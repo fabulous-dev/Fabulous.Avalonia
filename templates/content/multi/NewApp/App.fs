@@ -85,13 +85,7 @@ module App =
         else
             DesktopApplication(Window(content model))
 
-    //-:cnd:noEmit
-    // #if DEBUG
-    //                 .attachDevTools()
-    // #endif
-
     let create () =
         let program = Program.statefulWithCmd init update |> Program.withView view
 
         FabulousAppBuilder.Configure(FluentTheme, program)
-//+:cnd:noEmit
