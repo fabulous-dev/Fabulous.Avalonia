@@ -42,7 +42,7 @@ module ViewHelpers =
                 true
         else
             false
-            
+
     /// Check whether widgets have compatible automation ids.
     /// Avalonia only allows setting the automation id once so we can't reuse a control if the id is not the same.
     and private canReuseAutomationId (prev: Widget) (curr: Widget) =
