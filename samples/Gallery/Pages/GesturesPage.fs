@@ -17,8 +17,6 @@ module GesturesPage =
 
     let init () = { CurrentScale = 0 }, Cmd.none
 
-    let topBallBorderRef = ViewRef<Border>()
-
     let update msg model =
         match msg with
         | Reset -> model, Cmd.none
@@ -61,7 +59,6 @@ module GesturesPage =
                             .dock(Dock.Top)
                             .margin(2.)
                             .name("TopPullZone")
-                            .reference(topBallBorderRef)
                             .background(SolidColorBrush(Colors.Transparent))
                             .borderBrush(SolidColorBrush(Colors.Red))
                             .horizontalAlignment(HorizontalAlignment.Stretch)

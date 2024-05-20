@@ -26,17 +26,17 @@ module ItemsControl =
             "ItemsControl_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
-                let listBox = node.Target :?> ItemsControl
+                let itmsCtrl = node.Target :?> ItemsControl
 
                 match newValueOpt with
                 | ValueNone ->
-                    listBox.ClearValue(ItemsControl.ItemTemplateProperty)
-                    listBox.ClearValue(ItemsControl.ItemsSourceProperty)
+                    itmsCtrl.ClearValue(ItemsControl.ItemTemplateProperty)
+                    itmsCtrl.ClearValue(ItemsControl.ItemsSourceProperty)
                 | ValueSome value ->
-                    listBox.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    itmsCtrl.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
 
-                    listBox.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
+                    itmsCtrl.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
 
     let ItemsPanel =

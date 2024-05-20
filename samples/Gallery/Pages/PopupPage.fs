@@ -26,8 +26,6 @@ module PopupPage =
         | OnOpened -> model, Cmd.none
         | OnClosed -> model, Cmd.none
 
-    let buttonRef = ViewRef<Button>()
-
     let program =
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))

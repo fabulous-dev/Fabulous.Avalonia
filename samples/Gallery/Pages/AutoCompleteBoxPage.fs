@@ -4,8 +4,10 @@ open System
 open System.Diagnostics
 open System.Threading
 open System.Threading.Tasks
+open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.Interactivity
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -209,29 +211,25 @@ module AutoCompleteBoxPage =
             Abbreviation = "WY"
             Capital = "Cheyenne" } ]
 
+    let contains (text: string) (term: string) =
+        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+
     /// allows searching US federal states asynchronously while cancelling running searches
     /// to ensure we only populate with the response of the latest request
-    type UsFederalStateSearch() =
+    type UsFederalStateSearch(animateActiveInput) =
         let mutable running: CancellationTokenSource = null // enables cancelling any running search
 
+        let isRunning () = running <> null
+
         /// cancels any running search
-        let cancelRunning () =
-            if running <> null then
+        let cancel () =
+            if isRunning() then
                 running.Cancel()
                 running.Dispose()
+                running <- null
 
-        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+        let simulateWork () =
             task {
-                // register cancellation of running search when outer cancellation is requested
-                cancellation.Register(fun () ->
-                    cancelRunning()
-                    running <- null)
-                |> ignore
-
-                cancelRunning() // cancel any older running search
-                running <- new CancellationTokenSource() // and create a new source for this one
-
-                // simulate a really sporadic remote search
                 let randy = Random()
                 let getDelay () = randy.Next(300, 3000)
                 let mutable delay = getDelay()
@@ -242,18 +240,37 @@ module AutoCompleteBoxPage =
                     delay <- getDelay()
 
                 do! Task.Delay(delay) // guarantee to wait a little bit
+            }
 
-                if running.IsCancellationRequested then
+        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+            task {
+                cancellation.Register(cancel) |> ignore // register cancellation of running search when outer cancellation is requested
+                cancel() // cancel any older running search
+                running <- new CancellationTokenSource() // and create a new source for this one
+                animateActiveInput(running.Token) // pass running search token to stop it when the search completes or is canceled
+                do! simulateWork() // simulate a really sporadic remote search
+
+                if isRunning() |> not || running.IsCancellationRequested then
+                    cancel() // to stop animation
                     return Seq.empty
                 else
-                    let contains (text: string) (term: string) =
-                        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
+                    cancel() // to stop animation
 
                     return
                         usFederalStates
                         |> Seq.filter(fun state -> contains state.Name term || contains state.Capital term)
                         |> Seq.cast<obj>
             }
+
+    /// helps animating an active remote search AutoCompleteBox
+    module RemoteSearch =
+        let input = ViewRef<AutoCompleteBox>()
+        let heartBeat = ViewRef<Animation>()
+
+        /// animates the input with the heartBeat until searchToken is cancelled
+        let animate searchToken =
+            heartBeat.Value.IterationCount <- IterationCount.Infinite
+            heartBeat.Value.RunAsync(input.Value, searchToken) |> ignore
 
     type Model =
         { IsOpen: bool
@@ -276,7 +293,7 @@ module AutoCompleteBoxPage =
         { IsOpen = false
           Text = "Arkan"
           AsyncSearchTerm = ""
-          UsStateSearch = UsFederalStateSearch()
+          UsStateSearch = UsFederalStateSearch(RemoteSearch.animate)
           SelectedItem = "Item 2"
           Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
           UsFederalStates = usFederalStates
@@ -438,6 +455,24 @@ module AutoCompleteBoxPage =
                     }
 
                     VStack() {
+                        TextBlock("With an item template")
+                            .tip(ToolTip("Somewhere, in pride, an eagle sheds\nA single splendid tear."))
+
+                        AutoCompleteBox(model.UsFederalStates)
+                            .itemTemplate(fun state ->
+                                HStack(5) {
+                                    TextBlock(state.Capital).foreground(Colors.Blue)
+                                    TextBlock(state.Abbreviation + ",").foreground(Colors.White)
+                                    TextBlock(state.Name).foreground(Colors.Red)
+                                })
+                            .watermark("Search a US state or capital")
+                            .tip(ToolTip("the custom item filter searches the state name as well as the capital"))
+                            .itemFilter(fun term item ->
+                                let state = item :?> StateData
+                                contains state.Name term || contains state.Capital term)
+                    }
+
+                    VStack() {
                         TextBlock("AsyncBox")
 
                         AutoCompleteBox(getItemsAsync)
@@ -454,6 +489,23 @@ module AutoCompleteBoxPage =
                             .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
                             .filterMode(AutoCompleteFilterMode.None) // remote filtered
                             .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
+                            .reference(RemoteSearch.input)
+                            .animation(
+                                // pulses the scale like a heart beat to indicate activity
+                                (Animation(TimeSpan.FromSeconds(2.)) {
+                                    // extend slightly but quickly to get a pulse effect
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 1.05).cue(0.1)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 1.05).cue(0.1)
+                                    // contract slightly to get a bounce-back effect
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 0.95).cue(0.15)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 0.95).cue(0.15)
+                                    // return to original size rather quickly
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 1).cue(0.2)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 1).cue(0.2)
+                                })
+                                    .delay(TimeSpan.FromSeconds 1.) // to avoid a "heart attack", i.e. restarting the animation by typing
+                                    .reference(RemoteSearch.heartBeat)
+                            )
                     }
 
                     VStack() {

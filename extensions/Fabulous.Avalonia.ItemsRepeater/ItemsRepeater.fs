@@ -17,17 +17,17 @@ module ItemsRepeater =
             "ItemsRepeater_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
-                let dataGrid = node.Target :?> ItemsRepeater
+                let repeater = node.Target :?> ItemsRepeater
 
                 match newValueOpt with
                 | ValueNone ->
-                    dataGrid.ClearValue(ItemsRepeater.ItemTemplateProperty)
-                    dataGrid.ClearValue(ItemsRepeater.ItemsSourceProperty)
+                    repeater.ClearValue(ItemsRepeater.ItemTemplateProperty)
+                    repeater.ClearValue(ItemsRepeater.ItemsSourceProperty)
                 | ValueSome value ->
-                    dataGrid.SetValue(ItemsRepeater.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    repeater.SetValue(ItemsRepeater.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
 
-                    dataGrid.SetValue(ItemsRepeater.ItemsSourceProperty, value.OriginalItems))
+                    repeater.SetValue(ItemsRepeater.ItemsSourceProperty, value.OriginalItems))
 
     let HorizontalCacheLength =
         Attributes.defineAvaloniaPropertyWithEquality ItemsRepeater.HorizontalCacheLengthProperty

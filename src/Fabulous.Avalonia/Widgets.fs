@@ -77,6 +77,11 @@ module Widgets =
     let register<'T when WidgetOps<'T>> () = registerWithFactory(fun () -> new 'T())
 
 module WidgetHelpers =
+    /// Compiles the templateBuilder into a template.
+    let compileTemplate (templateBuilder: 'item -> WidgetBuilder<'msg, 'widget>) item =
+        let itm = unbox<'item> item
+        (templateBuilder itm).Compile()
+
     /// Creates a widget with the given key and attributes.
     let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
         key
@@ -84,13 +89,9 @@ module WidgetHelpers =
         (items: seq<'itemData>)
         (itemTemplate: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
         =
-        let template (item: obj) =
-            let item = unbox<'itemData> item
-            (itemTemplate item).Compile()
-
         let data: WidgetItems =
             { OriginalItems = items
-              Template = template }
+              Template = compileTemplate itemTemplate }
 
         WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
 

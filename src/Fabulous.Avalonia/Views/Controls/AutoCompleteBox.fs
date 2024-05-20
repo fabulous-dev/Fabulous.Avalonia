@@ -80,6 +80,17 @@ module AutoCompleteBox =
 
                     target.Loaded.AddHandler(bindAndCleanUp))
 
+    /// Allows setting the ItemTemplate on an AutoCompleteBox
+    let ItemTemplate =
+        Attributes.defineSimpleScalar<obj -> Widget> "AutoCompleteBox_ItemTemplate" ScalarAttributeComparers.physicalEqualityCompare (fun _ newValueOpt node ->
+            let autoComplete = node.Target :?> AutoCompleteBox
+
+            match newValueOpt with
+            | ValueNone -> autoComplete.ClearValue(AutoCompleteBox.ItemTemplateProperty)
+            | ValueSome template ->
+                autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
+                |> ignore)
+
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
@@ -143,6 +154,13 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline itemFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: string -> obj -> bool) =
         this.AddScalar(AutoCompleteBox.ItemFilter.WithValue(fn))
+
+    /// <summary>Sets the ItemTemplate property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="template">The template to render the items with.</param>
+    [<Extension>]
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, template: 'item -> WidgetBuilder<'msg, #IFabControl>) =
+        this.AddScalar(AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
 
     /// <summary>Sets the TextFilter property.</summary>
     /// <param name="this">Current widget.</param>
