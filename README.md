@@ -123,11 +123,13 @@ Single project takes the platform-specific development experiences and abstracts
 dotnet new fabulous-avalonia -n MyApp
 ```
 
-- MyApp
-    - Platform
-        - Android
-        - iOS
-        - Desktop
+```tree
+MyApp
+├── Platform
+    ├── Android
+    ├── iOS
+    └── Desktop
+```
 
 Note: Browser is not supported in single project template.
 
@@ -139,12 +141,14 @@ Multi project takes the platform-specific development and abstracts them into a 
 dotnet new fabulous-avalonia-multi -n MyApp
 ```
 
-- MyApp
-    - MyApp
-    - MyApp.Android
-    - MyApp.iOS
-    - MyApp.Desktop
-    - MyApp.Browser
+```tree
+MyApp
+├── MyApp
+├── MyApp.Android
+├── MyApp.iOS
+├── MyApp.Desktop
+└── MyApp.Browser
+```
 
 net8.0-ios is not supported on Linux, thus net8.0-ios is excluded from build on a Linux host.
 
