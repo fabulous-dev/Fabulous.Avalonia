@@ -18,7 +18,7 @@
     <PackageVersion Include="Avalonia.Desktop" Version="11.1.0-beta2" />
     <PackageVersion Include="Avalonia.Browser" Version="11.1.0-beta2" />
     <PackageVersion Include="Avalonia.Skia" Version="11.1.0-beta2" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="11.0.10" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.1.0-beta2" />
     <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.1.0-beta2" />
     <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.1.0-beta2" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.1.0-beta2" />
