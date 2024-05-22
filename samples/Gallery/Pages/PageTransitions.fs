@@ -151,7 +151,7 @@ module PageTransitionsPage =
                     TextBlock("Transition")
                         .verticalAlignment(VerticalAlignment.Center)
 
-                    ComboBox(model.Transitions, (fun x -> TextBlock(x)))
+                    ComboBox(model.Transitions)
                         .selectedIndex(0)
                         .onSelectionChanged(TransitionChanged)
                         .verticalAlignment(VerticalAlignment.Center)

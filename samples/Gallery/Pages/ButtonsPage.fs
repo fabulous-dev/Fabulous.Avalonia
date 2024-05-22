@@ -3,6 +3,7 @@ namespace Gallery
 open System.Diagnostics
 open Avalonia.Layout
 open Avalonia.Media
+open Avalonia.Styling
 open Fabulous.Avalonia
 open Fabulous
 
@@ -70,6 +71,10 @@ module ButtonsPage =
                 Button("IsTabStop=False", Clicked)
                     .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
                     .isTabStop(false)
+
+                ThemeVariantScope(ThemeVariant.Light, Button("Light Button", Clicked))
+
+                ThemeVariantScope(ThemeVariant.Dark, Button("Dark Button", Clicked))
             })
                 .horizontalAlignment(HorizontalAlignment.Center)
         }

@@ -21,7 +21,7 @@ module ItemsControl =
             else
                 target.Items)
 
-    let ItemsSource =
+    let ItemsSourceTemplate =
         Attributes.defineSimpleScalar<WidgetItems>
             "ItemsControl_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
@@ -38,6 +38,9 @@ module ItemsControl =
 
                     itmsCtrl.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
+
+    let ItemsSource =
+        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.ItemsSourceProperty
 
     let ItemsPanel =
         Attributes.defineSimpleScalar<Widget> "ItemsControl_ItemsPanel" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
@@ -68,7 +71,7 @@ module ItemsControlBuilders =
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSource items template
+            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type ItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>

@@ -153,7 +153,7 @@ module ScrollViewerPage =
                         VStack(4.) {
                             TextBlock("Horizontal scroll")
 
-                            ComboBox(model.AvailableVisibility, (fun c -> TextBlock(c)))
+                            ComboBox(model.AvailableVisibility)
                                 .selectedIndex(0)
                                 .onSelectionChanged(HorizontalSelectionChanged)
                         }
@@ -161,7 +161,7 @@ module ScrollViewerPage =
                         VStack(4.) {
                             TextBlock("Vertical scroll")
 
-                            ComboBox(model.AvailableVisibility, (fun c -> TextBlock(c)))
+                            ComboBox(model.AvailableVisibility)
                                 .selectedIndex(0)
                                 .onSelectionChanged(VerticalSelectionChanged)
                         }
@@ -255,7 +255,7 @@ module ScrollViewerPage =
                         VStack(4.) {
                             TextBlock("Snap Point Type")
 
-                            ComboBox(model.AvailableSnapPointsType, (fun c -> TextBlock(c)))
+                            ComboBox(model.AvailableSnapPointsType)
                                 .selectedIndex(0)
                                 .onSelectionChanged(SnapPointsTypeSelectionChanged)
                         }
@@ -263,7 +263,7 @@ module ScrollViewerPage =
                         VStack(4.) {
                             TextBlock("Snap Point Alignment")
 
-                            ComboBox(model.AvailableSnapPointsAlignment, (fun c -> TextBlock(c)))
+                            ComboBox(model.AvailableSnapPointsAlignment)
                                 .selectedIndex(0)
                                 .onSelectionChanged(SnapPointsAlignmentSelectionChanged)
                         }

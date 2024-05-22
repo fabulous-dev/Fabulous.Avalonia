@@ -12,42 +12,32 @@ open type Fabulous.Avalonia.View
 
 module ThemeAwarePage =
     type Model =
-        { CurrentTheme: ThemeVariant
-          ScopeTheme: ThemeVariant
+        { ScopeTheme: ThemeVariant
           Items: ThemeVariant list
           Text: string
           Text2: string }
 
     type Msg =
-        | SetTheme of ThemeVariant
-        | OnSelectionChanged of SelectionChangedEventArgs
+        | OnScopeThemeSelectionChanged of SelectionChangedEventArgs
         | TextChanged of string
         | Text2Changed of string
         | DoNothing
-        | ThemeVariantChanged of ThemeVariant
+        | ThemeVariantChanged
 
     let init () =
-        { CurrentTheme = Avalonia.Application.Current.ActualThemeVariant
-          ScopeTheme = ThemeVariant.Default
-          Items =
-            [ ThemeVariant.Default
-              ThemeVariant.Dark
-              ThemeVariant.Light
-              ThemeVariant("Pink", ThemeVariant.Light) ]
+
+        { ScopeTheme = ThemeVariant.Default
+          Items = [ ThemeVariant.Default; ThemeVariant.Dark; ThemeVariant.Light ]
           Text = ""
           Text2 = "" },
         Cmd.none
 
     let update msg model =
         match msg with
-        | SetTheme variant ->
-            Avalonia.Application.Current.RequestedThemeVariant <- variant
-            { model with CurrentTheme = variant }, Cmd.none
-
-        | OnSelectionChanged args ->
+        | OnScopeThemeSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let index = control.SelectedIndex
-            let variant = model.Items.[index]
+            let variant = model.Items[index]
 
             { model with ScopeTheme = variant }, Cmd.none
 
@@ -57,7 +47,7 @@ module ThemeAwarePage =
 
         | DoNothing -> model, Cmd.none
 
-        | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }, Cmd.none
+        | ThemeVariantChanged -> model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -76,41 +66,37 @@ module ThemeAwarePage =
             let! model = Mvu.State
 
             VStack(spacing = 15.) {
-                TextBlock($"Current theme is: {model.CurrentTheme.ToString()}")
-                TextBlock($"Actual theme is: {Avalonia.Application.Current.ActualThemeVariant.ToString()}")
+                let requestedThemeVariant =
+                    FabApplication.Current.RequestedThemeVariant
+                    |> Option.ofObj
+                    |> Option.defaultValue ThemeVariant.Default
+
+                let actualThemeVariant =
+                    FabApplication.Current.ActualThemeVariant
+                    |> Option.ofObj
+                    |> Option.defaultValue ThemeVariant.Default
+
+                TextBlock($"Requested theme variant is: {requestedThemeVariant.ToString()}")
+                TextBlock($"Actual theme variant is: {actualThemeVariant.ToString()}")
                 TextBlock($"ScopedTheme is: {model.ScopeTheme.ToString()}")
 
-                HStack() {
-                    Button("Set default theme", SetTheme ThemeVariant.Default)
-                    Button("Set light theme", SetTheme ThemeVariant.Light)
-                    Button("Set dark theme", SetTheme ThemeVariant.Dark)
-                }
-
-                TextBlock("I'm a text that is theme aware")
+                TextBlock("I'm a text that is theme aware.")
                     .foreground(SolidColorBrush(ThemeAware.With(Colors.Red, Colors.Green)))
+
+                ThemeVariantScope(ThemeVariant.Light, TextBlock("Im a text only visible in light mode"))
+
+                ThemeVariantScope(ThemeVariant.Dark, TextBlock("Im a text only visible in dark mode"))
 
                 ThemeVariantScope(
                     model.ScopeTheme,
                     Border(
                         Grid(coldefs = [ Pixel(150.); Pixel(150.) ], rowdefs = [ Auto; Pixel(4.); Auto; Pixel(4.); Auto; Pixel(4.); Auto ]) {
-                            ComboBox(
-                                model.Items,
-                                fun item ->
-                                    TextBlock(item.ToString())
-                                        .foreground(
-                                            SolidColorBrush(
-                                                if model.ScopeTheme = ThemeVariant.Light then
-                                                    Colors.Red
-                                                else
-                                                    Colors.Green
-                                            )
-                                        )
-                            )
+                            ComboBox(model.Items)
                                 .gridColumn(0)
                                 .gridRow(0)
                                 .horizontalAlignment(HorizontalAlignment.Stretch)
                                 .selectedIndex(0)
-                                .onSelectionChanged(OnSelectionChanged)
+                                .onSelectionChanged(OnScopeThemeSelectionChanged)
 
                             TextBlock("Username:")
                                 .gridColumn(0)
@@ -144,7 +130,7 @@ module ThemeAwarePage =
                         .horizontalAlignment(HorizontalAlignment.Left)
                         .padding(4.)
                         .cornerRadius(4.)
-                        .background(SolidColorBrush(Colors.Black))
                 )
+                    .onActualThemeVariantChanged(ThemeVariantChanged)
             }
         }

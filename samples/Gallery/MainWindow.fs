@@ -16,6 +16,7 @@ open type Fabulous.Avalonia.View
 module MainWindow =
     type Model =
         { ThemeVariants: ThemeVariant list
+          CurrentTheme: ThemeVariant
           FlowDirections: FlowDirection list
           TransparencyLevels: WindowTransparencyLevel list }
 
@@ -24,11 +25,13 @@ module MainWindow =
         | ThemeVariantsOnSelectionChanged of SelectionChangedEventArgs
         | FlowDirectionsOnSelectionChanged of SelectionChangedEventArgs
         | TransparencyLevelsOnSelectionChanged of SelectionChangedEventArgs
+        | OnThemeVariantChanged
         | DoNothing
 
     let init () =
         { ThemeVariants = [ ThemeVariant.Default; ThemeVariant.Dark; ThemeVariant.Light ]
           FlowDirections = [ FlowDirection.LeftToRight; FlowDirection.RightToLeft ]
+          CurrentTheme = ThemeVariant.Default
           TransparencyLevels =
             [ WindowTransparencyLevel.None
               WindowTransparencyLevel.AcrylicBlur
@@ -48,8 +51,7 @@ module MainWindow =
         | ThemeVariantsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let content = model.ThemeVariants[args.SelectedIndex]
-            FabApplication.Current.RequestedThemeVariant <- content
-            model, Cmd.none
+            { model with CurrentTheme = content }, Cmd.none
         | FlowDirectionsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let content = model.FlowDirections[args.SelectedIndex]
@@ -60,6 +62,7 @@ module MainWindow =
             let _content = model.TransparencyLevels[args.SelectedIndex]
             model, Cmd.none
         | DoNothing -> model, Cmd.none
+        | OnThemeVariantChanged -> model, Cmd.none
 
 
     let createMenu () =
@@ -201,12 +204,12 @@ module MainWindow =
                             .placeholderText("Decorations")
                             .onSelectionChanged(DecorationsOnSelectionChanged)
 
-                        ComboBox(model.ThemeVariants, (fun i -> TextBlock(i.ToString())))
+                        ComboBox(model.ThemeVariants)
                             .horizontalAlignment(HorizontalAlignment.Stretch)
                             .placeholderText("Themes")
                             .onSelectionChanged(ThemeVariantsOnSelectionChanged)
 
-                        ComboBox(model.FlowDirections, (fun x -> TextBlock(x.ToString())))
+                        ComboBox(model.FlowDirections)
                             .horizontalAlignment(HorizontalAlignment.Stretch)
                             .placeholderText("FlowDirections")
                             .onSelectionChanged(FlowDirectionsOnSelectionChanged)
@@ -218,7 +221,7 @@ module MainWindow =
                             .horizontalAlignment(HorizontalAlignment.Stretch)
                             .selectedIndex(0)
 
-                        ComboBox(model.TransparencyLevels, (fun x -> TextBlock(x.ToString())))
+                        ComboBox(model.TransparencyLevels)
                             .horizontalAlignment(HorizontalAlignment.Stretch)
                             .placeholderText("TransparencyLevels")
                             .onSelectionChanged(TransparencyLevelsOnSelectionChanged)
@@ -250,6 +253,8 @@ module MainWindow =
             .attachDevTools()
 #endif
         |> _.trayIcon(trayIcon())
+        |> _.requestedThemeVariant(model.CurrentTheme)
+        |> _.onActualThemeVariantChanged(OnThemeVariantChanged)
 
     let create () =
         let theme () =

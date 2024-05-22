@@ -94,7 +94,7 @@ module TabControlPage =
                     (HStack(8.) {
                         TextBlock("Tab Placement:").centerVertical()
 
-                        ComboBox(model.Placements, (fun x -> TextBlock(x)))
+                        ComboBox(model.Placements)
                             .onSelectedIndexChanged(model.SelectedIndex, SelectedIndexChanged)
 
                     })

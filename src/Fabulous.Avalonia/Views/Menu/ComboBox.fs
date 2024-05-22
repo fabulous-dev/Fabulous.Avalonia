@@ -6,6 +6,7 @@ open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComboBox =
     inherit IFabSelectingItemsControl
@@ -37,15 +38,33 @@ module ComboBox =
     let DropDownOpened =
         Attributes.defineAvaloniaPropertyWithChangedEvent' "Opened" ComboBox.IsDropDownOpenProperty
 
+    let ItemTemplate =
+        Attributes.defineSimpleScalar<obj -> Widget> "ComboBox_ItemTemplate" ScalarAttributeComparers.physicalEqualityCompare (fun _ newValueOpt node ->
+            let comboBox = node.Target :?> ComboBox
+
+            match newValueOpt with
+            | ValueNone -> comboBox.ClearValue(ComboBox.ItemTemplateProperty)
+            | ValueSome template ->
+                comboBox.SetValue(ComboBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
+                |> ignore)
+
 [<AutoOpen>]
 module ComboBoxBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
+        static member ComboBox(items: seq<_>) =
+            WidgetBuilder<'msg, IFabComboBox>(
+                ComboBox.WidgetKey,
+                AttributesBundle(StackList.one(ItemsControl.ItemsSource.WithValue(items)), ValueNone, ValueNone)
+            )
+
+        /// <summary>Creates a ComboBox widget.</summary>
+        /// <param name="items">The items to display in the ComboBox.</param>
         /// <param name="template">The template to use to render each item.</param>
         static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
-            WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSource items template
+            WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
         /// <summary>Creates a ComboBox widget.</summary>
         static member ComboBox() =

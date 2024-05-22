@@ -21,7 +21,7 @@ module ComboBoxPage =
 
     let init () =
         { IsDropDownOpen = false
-          Items = [ "Inline Items"; "Inline Item 2"; "Inline Item 3"; "Inline Item 4" ]
+          Items = [ "Inline Items 1"; "Inline Item 2"; "Inline Item 3"; "Inline Item 4" ]
           Fonts = fontComboBox() },
         Cmd.none
 
@@ -46,8 +46,16 @@ module ComboBoxPage =
             let! model = Mvu.State
 
             HStack(16) {
-                ComboBox(model.Items, (fun x -> TextBlock(x)))
-                    .selectedIndex(0)
+                ComboBox(model.Items).selectedIndex(0)
+
+                ComboBox(
+                    model.Items,
+                    fun item ->
+                        if item = "Inline Items 1" then
+                            TextBlock(item).foreground(Colors.Red)
+                        else
+                            TextBlock(item)
+                )
 
                 (ComboBox() {
                     ComboBoxItem(Rectangle().size(10., 50.).fill(SolidColorBrush(Colors.Red)))

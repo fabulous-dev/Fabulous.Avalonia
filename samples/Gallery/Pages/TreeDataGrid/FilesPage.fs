@@ -202,7 +202,7 @@ module FilesPage =
 
             Dock() {
                 (Dock() {
-                    ComboBox(model.Drives, (fun x -> TextBlock(x)))
+                    ComboBox(model.Drives)
                         .selectedItem(model.SelectedDrive)
                         .dock(Dock.Left)
 
