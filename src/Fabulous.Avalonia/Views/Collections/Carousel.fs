@@ -73,7 +73,7 @@ module CarouselBuilders =
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSource items template
+            WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type CarouselModifiers =
 

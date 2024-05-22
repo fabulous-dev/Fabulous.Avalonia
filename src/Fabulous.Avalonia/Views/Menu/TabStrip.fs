@@ -22,7 +22,7 @@ module TabStripBuilders =
                 items: seq<'itemData>,
                 template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
             ) =
-            WidgetHelpers.buildItems<'msg, IFabTabStrip, 'itemData, 'itemMarker> TabStrip.WidgetKey ItemsControl.ItemsSource items template
+            WidgetHelpers.buildItems<'msg, IFabTabStrip, 'itemData, 'itemMarker> TabStrip.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type TabStripModifiers =
     /// <summary>Link a ViewRef to access the direct TabStrip control instance.</summary>

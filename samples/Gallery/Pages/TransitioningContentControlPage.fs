@@ -122,7 +122,7 @@ module TransitioningContentControlPage =
                     (HStack(5.) {
                         HeaderedContentControl(
                             "Select a transition",
-                            ComboBox(model.Transitions, (fun x -> TextBlock(x)))
+                            ComboBox(model.Transitions)
                                 .selectedIndex(0)
                                 .onSelectionChanged(TransitionChanged)
                                 .verticalAlignment(VerticalAlignment.Center)

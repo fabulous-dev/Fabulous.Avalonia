@@ -246,7 +246,7 @@ module NumericUpDownPage =
                             .gridRow(1)
                             .gridColumn(0)
 
-                        ComboBox(model.SpinnerLocations, (fun format -> TextBlock(format)))
+                        ComboBox(model.SpinnerLocations)
                             .gridRow(1)
                             .gridColumn(1)
                             .selectedIndex(0)
@@ -259,8 +259,7 @@ module NumericUpDownPage =
                             .gridRow(2)
                             .gridColumn(0)
 
-
-                        ComboBox(model.Cultures, (fun culture -> TextBlock(culture.Name)))
+                        ComboBox(model.Cultures)
                             .gridRow(2)
                             .gridColumn(1)
                             .selectedIndex(0)

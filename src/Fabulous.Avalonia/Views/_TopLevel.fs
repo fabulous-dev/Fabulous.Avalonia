@@ -17,9 +17,6 @@ module TopLevel =
     let PointerOverElement =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.PointerOverElementProperty
 
-    let ThemeVariant =
-        Attributes.defineAvaloniaPropertyWithEquality TopLevel.RequestedThemeVariantProperty
-
     let TransparencyLevelHint =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyLevelHintProperty
 
@@ -47,7 +44,17 @@ module TopLevel =
     let BackRequested =
         Attributes.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
 
-    let ThemeVariantChanged =
+    let RequestedThemeVariant =
+        Attributes.definePropertyWithGetSet
+            "TopLevel_RequestedThemeVariant"
+            (fun target ->
+                let target = target :?> TopLevel
+                target.ActualThemeVariant)
+            (fun target value ->
+                let target = target :?> TopLevel
+                target.RequestedThemeVariant <- value)
+
+    let ActualThemeVariantChanged =
         Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
 type TopLevelModifiers =
@@ -62,15 +69,15 @@ type TopLevelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ThemeVariant value.</param>
     [<Extension>]
-    static member inline themeVariant(this: WidgetBuilder<'msg, #IFabTopLevel>, value: ThemeVariant) =
-        this.AddScalar(TopLevel.ThemeVariant.WithValue(value))
+    static member inline requestedThemeVariant(this: WidgetBuilder<'msg, #IFabTopLevel>, value: ThemeVariant) =
+        this.AddScalar(TopLevel.RequestedThemeVariant.WithValue(value))
 
     /// <summary>Listens to the TopLevel ThemeVariantChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
-    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(TopLevel.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: 'msg) =
+        this.AddScalar(TopLevel.ActualThemeVariantChanged.WithValue(MsgValue(fn)))
 
     /// <summary>Sets the TransparencyLevelHint property.</summary>
     /// <param name="this">Current widget.</param>

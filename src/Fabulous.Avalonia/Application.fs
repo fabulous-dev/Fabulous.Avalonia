@@ -138,7 +138,7 @@ module Application =
 
     let TrayIcons =
         Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
-            let target = target :?> Application
+            let target = target :?> FabApplication
             let trayIcons = TrayIcon.GetIcons(target)
 
             if trayIcons = null then
@@ -184,18 +184,18 @@ module Application =
             (fun target -> (target :?> FabApplication).InsetsManager.SystemBarColor)
             (fun target value -> (target :?> FabApplication).InsetsManager.SystemBarColor <- value)
 
+    let RequestedThemeVariant =
+        Attributes.definePropertyWithGetSet "Application_RequestedThemeVariant" (fun _ -> FabApplication.Current.ActualThemeVariant) (fun _ value ->
+            FabApplication.Current.RequestedThemeVariant <- value)
 
-    let ThemeVariant =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Application_ThemeVariant" Application.RequestedThemeVariantProperty
-
-    let ThemeVariantChanged =
-        Attributes.defineEventNoArg "Application_ThemeVariantChanged" (fun target -> (target :?> Application).ActualThemeVariantChanged)
+    let ActualThemeVariantChanged =
+        Attributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
     let ResourcesChanged =
-        Attributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> Application).ResourcesChanged)
+        Attributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
 
     let UrlsOpened =
-        Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> Application).UrlsOpened)
+        Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
 
     let ColorValuesChanged =
         Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
@@ -269,20 +269,19 @@ type ApplicationModifiers =
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabApplication>, value: Color) =
         this.AddScalar(Application.SystemBarColor.WithValue(value))
 
-    /// <summary>Sets the application theme variant.</summary>
+    /// <summary>Sets the application RequestedThemeVariant.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">Theme variant to be used for the application.</param>
-    /// <param name="fn">Raised when the theme variant changes.</param>
+    /// <param name="value">System bar color to be used for the application.</param>
     [<Extension>]
-    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(Application.ThemeVariant.WithValue(ValueEventData.create value fn))
+    static member inline requestedThemeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant) =
+        this.AddScalar(Application.RequestedThemeVariant.WithValue(value))
 
-    /// <summary>Listens to the application theme variant changed event.</summary>
+    /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the theme variant changes.</param>
     [<Extension>]
-    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(Application.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: 'msg) =
+        this.AddScalar(Application.ActualThemeVariantChanged.WithValue(MsgValue fn))
 
     /// <summary>Listens to the application resources changed event.</summary>
     /// <param name="this">Current widget.</param>
