@@ -20,7 +20,7 @@ module NativeMenuBarBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a NativeMenuBar widget.</summary>
-        static member inline NativeMenuBar() =
+        static member NativeMenuBar() =
             WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type NativeMenuBarAttachedModifiers =

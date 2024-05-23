@@ -34,7 +34,7 @@ module NativeMenuBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a NativeMenu widget</summary>
-        static member inline NativeMenu() =
+        static member NativeMenu() =
             CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, NativeMenu.Items)
 
 type NativeMenuModifiers =

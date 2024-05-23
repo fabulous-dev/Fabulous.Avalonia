@@ -27,7 +27,7 @@ module MenuFlyoutBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a MenuFlyout widget.</summary>
-        static member inline MenuFlyout() =
+        static member MenuFlyout() =
             CollectionBuilder<'msg, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, MenuFlyout.Items)
 
 type MenuFlyoutModifiers =

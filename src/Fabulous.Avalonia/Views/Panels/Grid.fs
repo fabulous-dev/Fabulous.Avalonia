@@ -85,7 +85,7 @@ module GridBuilders =
         /// <summary>Creates a Grid widget.</summary>
         /// <param name="coldefs">Column definitions.</param>
         /// <param name="rowdefs">Row definitions.</param>
-        static member inline Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
+        static member Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
             CollectionBuilder<'msg, IFabGrid, IFabControl>(
                 Grid.WidgetKey,
                 Panel.Children,
@@ -94,7 +94,7 @@ module GridBuilders =
             )
 
         /// <summary>Creates a Grid widget with a single column and row.</summary>
-        static member inline Grid<'msg>() = View.Grid<'msg>([ Star ], [ Star ])
+        static member Grid() = View.Grid([ Star ], [ Star ])
 
 type GridModifiers =
     /// <summary>Sets the ShowGridLines property.</summary>

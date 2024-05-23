@@ -22,7 +22,7 @@ module ListBoxItemBuilders =
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
-        static member inline ListBoxItem(content: string, isSelected: bool) =
+        static member ListBoxItem(content: string, isSelected: bool) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
                 ContentControl.ContentString.WithValue(content),
@@ -31,13 +31,13 @@ module ListBoxItemBuilders =
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
-        static member inline ListBoxItem(content: string) =
+        static member ListBoxItem(content: string) =
             WidgetBuilder<'msg, IFabListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
         /// <param name="content">The content of the ListBoxItem.</param>
-        static member inline ListBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ListBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
                 AttributesBundle(
@@ -49,7 +49,7 @@ module ListBoxItemBuilders =
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
-        static member inline ListBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ListBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)

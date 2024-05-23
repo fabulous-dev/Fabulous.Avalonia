@@ -21,7 +21,7 @@ module PolyLineSegmentBuilders =
 
         /// <summary>Creates a PolyLineSegment widget.</summary>
         /// <param name="points">The points of the polyline.</param>
-        static member inline PolyLineSegment(points: Point list) =
+        static member PolyLineSegment(points: Point list) =
             WidgetBuilder<'msg, IFabPolyLineSegment>(PolyLineSegment.WidgetKey, PolyLineSegment.Points.WithValue(points |> Array.ofList))
 
 type PolyLineSegmentModifiers =

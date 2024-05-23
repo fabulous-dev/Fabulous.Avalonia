@@ -53,11 +53,11 @@ module ContextMenuBuilders =
 
         /// <summary>Creates a ContextMenu widget.</summary>
         /// <param name="placement">The placement mode of the ContextMenu.</param>
-        static member inline ContextMenu(placement: PlacementMode) =
+        static member ContextMenu(placement: PlacementMode) =
             CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, ItemsControl.Items, ContextMenu.Placement.WithValue(placement))
 
         /// <summary>Creates a ContextMenu widget.</summary>
-        static member inline ContextMenu() =
+        static member ContextMenu() =
             CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
                 ContextMenu.WidgetKey,
                 ItemsControl.Items,

@@ -8,8 +8,6 @@ type IFabAdornerLayer =
     inherit IFabCanvas
 
 module AdornerLayer =
-    let WidgetKey = Widgets.register<AdornerLayer>()
-
     let AdornedElement =
         Attributes.defineAvaloniaPropertyWidget AdornerLayer.AdornedElementProperty
 

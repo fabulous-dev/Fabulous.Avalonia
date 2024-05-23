@@ -25,7 +25,7 @@ module QuadraticBezierSegmentBuilders =
         /// <summary>Creates a QuadraticBezierSegment widget.</summary>
         /// <param name="point1">The first control point of the curve.</param>
         /// <param name="point2">The second control point of the curve.</param>
-        static member inline QuadraticBezierSegment(point1: Point, point2: Point) =
+        static member QuadraticBezierSegment(point1: Point, point2: Point) =
             WidgetBuilder<'msg, IFabQuadraticBezierSegment>(
                 QuadraticBezierSegment.WidgetKey,
                 QuadraticBezierSegment.Point1.WithValue(point1),

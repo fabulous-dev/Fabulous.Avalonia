@@ -22,7 +22,7 @@ module ReversibleStackPanelBuilders =
         /// <summary>Creates a VStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
         /// <param name="reverseOrder">If true, the children will be reversed.</param>
-        static member VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
+        static member VStack(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalars =
                 StackList.one(StackPanel.Orientation.WithValue(Orientation.Vertical))
@@ -40,7 +40,7 @@ module ReversibleStackPanelBuilders =
         /// <summary>Creates a HStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
         /// <param name="reverseOrder">If true, the children will be reversed.</param>
-        static member HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
+        static member HStack(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalars =
                 StackList.one(StackPanel.Orientation.WithValue(Orientation.Horizontal))

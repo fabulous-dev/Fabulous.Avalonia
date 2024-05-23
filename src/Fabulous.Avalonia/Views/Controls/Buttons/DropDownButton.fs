@@ -19,7 +19,7 @@ module DropDownButtonBuilders =
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>
-        static member inline DropDownButton(text: string, msg: 'msg) =
+        static member DropDownButton(text: string, msg: 'msg) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -29,7 +29,7 @@ module DropDownButtonBuilders =
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>
         /// <param name="content">The content of the DropDownButton.</param>
-        static member inline DropDownButton(msg: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member DropDownButton(msg: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(

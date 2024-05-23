@@ -36,7 +36,7 @@ module ProgressBarBuilders =
         /// <param name="max">Maximum value.</param>
         /// <param name="value">Current value.</param>
         /// <param name="fn">Raised when the value changes.</param>
-        static member inline ProgressBar(min: float, max: float, value: float, fn: float -> 'msg) =
+        static member ProgressBar(min: float, max: float, value: float, fn: float -> 'msg) =
             WidgetBuilder<'msg, IFabProgressBar>(
                 ProgressBar.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),

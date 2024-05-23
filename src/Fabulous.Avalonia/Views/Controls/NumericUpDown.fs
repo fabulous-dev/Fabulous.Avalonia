@@ -95,7 +95,7 @@ module NumericUpDownBuilders =
         /// <summary>Creates a NumericUpDown widget.</summary>
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
-        static member inline NumericUpDown(value: float option, fn: float option -> 'msg) =
+        static member NumericUpDown(value: float option, fn: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.ValueChanged.WithValue(
@@ -113,7 +113,7 @@ module NumericUpDownBuilders =
         /// <param name="max">The maximum value of the NumericUpDown.</param>
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
-        static member inline NumericUpDown(min: float, max: float, value: float option, fn: float option -> 'msg) =
+        static member NumericUpDown(min: float, max: float, value: float option, fn: float option -> 'msg) =
             WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.MinimumMaximum.WithValue(struct (decimal min, decimal max)),

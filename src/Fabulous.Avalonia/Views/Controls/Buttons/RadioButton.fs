@@ -22,7 +22,7 @@ module RadioButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
-        static member inline RadioButton(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member RadioButton(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -33,7 +33,7 @@ module RadioButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
-        static member inline ThreeStateRadioButton(text: string, isChecked: bool option, fn: bool option -> 'msg) =
+        static member ThreeStateRadioButton(text: string, isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
@@ -45,7 +45,7 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
         /// <param name="content">The content of the RadioButton.</param>
-        static member inline RadioButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member RadioButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
@@ -59,7 +59,7 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateRadioButton.</param>
-        static member inline ThreeStateRadioButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ThreeStateRadioButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(

@@ -20,14 +20,14 @@ module CheckBoxBuilders =
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
-        static member inline CheckBox(isChecked: bool, fn: bool -> 'msg) =
+        static member CheckBox(isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(CheckBox.WidgetKey, ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
-        static member inline CheckBox(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member CheckBox(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -38,7 +38,7 @@ module CheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         /// <param name="content">The CheckBox content.</param>
-        static member inline CheckBox(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member CheckBox(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(

@@ -57,7 +57,7 @@ module TreeViewBuilders =
         /// <param name="nodes">The root nodes used to populate the TreeView.</param>
         /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
         /// <param name="template">The template used to render each node.</param>
-        static member inline TreeView<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+        static member TreeView<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (
                 nodes: seq<'itemData>,
                 subNodes: 'itemData -> seq<'itemData>,

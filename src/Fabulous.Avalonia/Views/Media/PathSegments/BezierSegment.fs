@@ -28,7 +28,7 @@ module BezierSegmentBuilders =
         /// <param name="point1">The first control point of the curve.</param>
         /// <param name="point2">The second control point of the curve.</param>
         /// <param name="point3">The third control point of the curve.</param>
-        static member inline BezierSegment(point1: Point, point2: Point, point3: Point) =
+        static member BezierSegment(point1: Point, point2: Point, point3: Point) =
             WidgetBuilder<'msg, IFabBezierSegment>(
                 BezierSegment.WidgetKey,
                 BezierSegment.Point1.WithValue(point1),
