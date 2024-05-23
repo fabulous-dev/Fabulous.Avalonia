@@ -34,13 +34,13 @@ module ButtonBuilders =
         /// <summary>Creates a Button widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the button is clicked.</param>
-        static member inline Button(text: string, fn: 'msg) =
+        static member Button(text: string, fn: 'msg) =
             WidgetBuilder<'msg, IFabButton>(Button.WidgetKey, ContentControl.ContentString.WithValue(text), Button.Clicked.WithValue(fun _ -> box fn))
 
         /// <summary>Creates a Button widget.</summary>
         /// <param name="fn">Raised when the button is clicked.</param>
         /// <param name="content">The content to display.</param>
-        static member inline Button(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member Button(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabButton>(
                 Button.WidgetKey,
                 AttributesBundle(

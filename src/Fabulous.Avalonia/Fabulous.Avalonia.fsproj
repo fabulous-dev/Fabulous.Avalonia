@@ -210,9 +210,9 @@
     <Compile Include="Views\Layouts\ScrollViewer.fs" />
     <Compile Include="Views\Panels\Panel.fs" />
     <Compile Include="Views\Panels\Canvas.fs" />
-    <Compile Include="Views\Panels\AdornerLayer.fs" />
+    <Compile Include="Views\Panels\_AdornerLayer.fs" />
     <Compile Include="Views\Panels\Grid.fs" />
-    <Compile Include="Views\Panels\StackPanel.fs" />
+    <Compile Include="Views\Panels\_StackPanel.fs" />
     <Compile Include="Views\Panels\VirtualizingStackPanel.fs" />
     <Compile Include="Views\Panels\ReversibleStackPanel.fs" />
     <Compile Include="Views\Panels\DockPanel.fs" />

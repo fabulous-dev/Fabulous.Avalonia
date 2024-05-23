@@ -22,7 +22,7 @@ module ToggleSplitButtonBuilders =
         /// <param name="text">The text of the ToggleSplitButton.</param>
         /// <param name="isChecked">Whether the ToggleSplitButton is checked.</param>
         /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked.</param>
-        static member inline ToggleSplitButton(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member ToggleSplitButton(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -33,7 +33,7 @@ module ToggleSplitButtonBuilders =
         /// <param name="isChecked">Whether the ToggleSplitButton is checked.</param>
         /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked.</param>
         /// <param name="content">The content of the ToggleSplitButton.</param>
-        static member inline ToggleSplitButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ToggleSplitButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(

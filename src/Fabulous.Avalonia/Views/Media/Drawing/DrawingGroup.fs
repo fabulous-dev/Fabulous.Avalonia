@@ -38,12 +38,12 @@ module DrawingGroupBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a DrawingGroup widget.</summary>
-        static member DrawingGroup<'msg>() =
+        static member DrawingGroup() =
             CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         /// <param name="opacity">The opacity of the drawing group.</param>
-        static member DrawingGroup<'msg>(opacity: float) =
+        static member DrawingGroup(opacity: float) =
             CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
 
 type DrawingGroupModifiers =

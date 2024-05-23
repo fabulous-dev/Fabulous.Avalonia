@@ -32,7 +32,7 @@ module ArcSegmentBuilders =
         /// <summary>Creates a ArcSegment widget.</summary>
         /// <param name="point">The point at which the arc ends.</param>
         /// <param name="size">The size of the arc.</param>
-        static member inline ArcSegment(point: Point, size: Size) =
+        static member ArcSegment(point: Point, size: Size) =
             WidgetBuilder<'msg, IFabArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
 
 type ArcSegmentModifiers =

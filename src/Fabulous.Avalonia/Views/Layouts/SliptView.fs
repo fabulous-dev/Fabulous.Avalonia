@@ -69,7 +69,7 @@ module SplitViewBuilders =
         /// <summary>Creates a SplitView widget.</summary>
         /// <param name="pane">The content of the pane.</param>
         /// <param name="content">The content to display.</param>
-        static member inline SplitView(pane: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member SplitView(pane: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabSplitView>(
                 SplitView.WidgetKey,
                 AttributesBundle(

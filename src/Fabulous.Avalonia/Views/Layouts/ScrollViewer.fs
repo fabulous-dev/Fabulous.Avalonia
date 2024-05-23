@@ -61,7 +61,7 @@ module ScrollViewerBuilders =
 
         /// <summary>Creates a ScrollViewer widget</summary>
         /// <param name="content">The content to display</param>
-        static member inline ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabScrollViewer>(
                 ScrollViewer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)

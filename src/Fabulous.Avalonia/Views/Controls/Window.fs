@@ -71,7 +71,7 @@ module WindowBuilders =
             )
 
         /// <summary>Creates a Window widget.</summary>
-        static member inline Window<'msg, 'childMarker>() =
+        static member Window<'msg, 'childMarker>() =
             SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
 type WindowModifiers =

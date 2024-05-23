@@ -97,12 +97,12 @@ module AutoCompleteBoxBuilders =
 
         /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="items">The items to display.</param>
-        static member inline AutoCompleteBox(items: seq<_>) =
+        static member AutoCompleteBox(items: seq<_>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
 
         /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="populator">The function to populate the items.</param>
-        static member inline AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
+        static member AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
             WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
 
 type AutoCompleteBoxModifiers =

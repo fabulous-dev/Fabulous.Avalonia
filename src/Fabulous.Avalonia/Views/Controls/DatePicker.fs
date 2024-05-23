@@ -45,7 +45,7 @@ module DatePickerBuilders =
         /// <summary>Creates a DatePicker widget.</summary>
         /// <param name="date">The initial date.</param>
         /// <param name="fn">Raised when the selected date changes.</param>
-        static member inline DatePicker(date: DateTimeOffset, fn: DateTimeOffset -> 'msg) =
+        static member DatePicker(date: DateTimeOffset, fn: DateTimeOffset -> 'msg) =
             WidgetBuilder<'msg, IFabDatePicker>(DatePicker.WidgetKey, DatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn))
 
 type DatePickerModifiers =

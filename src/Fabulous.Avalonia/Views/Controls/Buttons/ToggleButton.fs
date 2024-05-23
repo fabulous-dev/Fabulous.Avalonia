@@ -44,7 +44,7 @@ module ToggleButtonBuilders =
         /// <param name="text">The text of the ToggleButton.</param>
         /// <param name="isChecked">Whether the ToggleButton is checked.</param>
         /// <param name="fn">Raised when the ToggleButton is clicked.</param>
-        static member inline ToggleButton(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member ToggleButton(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -55,7 +55,7 @@ module ToggleButtonBuilders =
         /// <param name="text">The text of the ThreeStateToggleButton.</param>
         /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
-        static member inline ThreeStateToggleButton(text: string, isChecked: bool option, fn: bool option -> 'msg) =
+        static member ThreeStateToggleButton(text: string, isChecked: bool option, fn: bool option -> 'msg) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -67,7 +67,7 @@ module ToggleButtonBuilders =
         /// <param name="isChecked">Whether the ToggleButton is checked.</param>
         /// <param name="fn">Raised when the ToggleButton is clicked.</param>
         /// <param name="content">The content of the ToggleButton.</param>
-        static member inline ToggleButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ToggleButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
@@ -81,7 +81,7 @@ module ToggleButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateToggleButton.</param>
-        static member inline ThreeStateToggleButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ThreeStateToggleButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(

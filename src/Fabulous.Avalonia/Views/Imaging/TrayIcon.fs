@@ -31,13 +31,13 @@ module TrayIconBuilders =
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
-        static member inline TrayIcon(icon: Bitmap) =
+        static member TrayIcon(icon: Bitmap) =
             WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.IconSource.WithValue(ImageSourceValue.Bitmap(icon)))
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
         /// <param name="text">The tooltip text to display.</param>
-        static member inline TrayIcon(icon: Bitmap, text: string) =
+        static member TrayIcon(icon: Bitmap, text: string) =
             WidgetBuilder<'msg, IFabTrayIcon>(
                 TrayIcon.WidgetKey,
                 TrayIcon.IconSource.WithValue(ImageSourceValue.Bitmap(icon)),
@@ -46,13 +46,13 @@ module TrayIconBuilders =
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
-        static member inline TrayIcon(icon: string) =
+        static member TrayIcon(icon: string) =
             WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.IconSource.WithValue(ImageSourceValue.File(icon)))
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
         /// <param name="text">The tooltip text to display.</param>
-        static member inline TrayIcon(icon: string, text: string) =
+        static member TrayIcon(icon: string, text: string) =
             WidgetBuilder<'msg, IFabTrayIcon>(
                 TrayIcon.WidgetKey,
                 TrayIcon.IconSource.WithValue(ImageSourceValue.File(icon)),
@@ -61,13 +61,13 @@ module TrayIconBuilders =
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
-        static member inline TrayIcon(icon: Stream) =
+        static member TrayIcon(icon: Stream) =
             WidgetBuilder<'msg, IFabTrayIcon>(TrayIcon.WidgetKey, TrayIcon.IconSource.WithValue(ImageSourceValue.Stream(icon)))
 
         /// <summary>Creates a TrayIcon widget.</summary>
         /// <param name="icon">The icon to display.</param>
         /// <param name="text">The tooltip text to display.</param>
-        static member inline TrayIcon(icon: Stream, text: string) =
+        static member TrayIcon(icon: Stream, text: string) =
             WidgetBuilder<'msg, IFabTrayIcon>(
                 TrayIcon.WidgetKey,
                 TrayIcon.IconSource.WithValue(ImageSourceValue.Stream(icon)),
