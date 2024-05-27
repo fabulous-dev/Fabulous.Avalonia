@@ -52,6 +52,20 @@ module TemplatedControl =
     let Padding =
         Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.PaddingProperty
 
+    let TemplateApplied =
+        Attributes.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
+
+    let Template =
+        Attributes.defineSimpleScalar<Widget> "TemplatedControl_Template" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
+            let templatedControl = node.Target :?> TemplatedControl
+
+            match newValueOpt with
+            | ValueNone -> templatedControl.ClearValue(TemplatedControl.TemplateProperty)
+            | ValueSome value ->
+                templatedControl.SetValue(TemplatedControl.TemplateProperty, WidgetControlTemplate(node, value))
+                |> ignore)
+
+
 type TemplatedControlModifiers =
     /// <summary>Sets the BackgroundWidget property.</summary>
     /// <param name="this">Current widget.</param>
@@ -143,6 +157,13 @@ type TemplatedControlModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.ForegroundWidget.WithValue(value.Compile()))
+
+    /// <summary>Listens to the TemplateApplied event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the template is applied.</param>
+    [<Extension>]
+    static member inline onTemplateApplied(this: WidgetBuilder<'msg, #IFabTemplatedControl>, fn: TemplateAppliedEventArgs -> 'msg) =
+        this.AddScalar(TemplatedControl.TemplateApplied.WithValue(fn))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>

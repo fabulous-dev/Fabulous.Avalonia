@@ -178,6 +178,7 @@ module MainWindow =
             TabItem("ToggleSplitButtonPage", ToggleSplitButtonPage.view())
             TabItem("TextBlockPage", TextBlockPage.view())
             TabItem("TextBoxPage", TextBoxPage.view())
+            TabItem("ThumbPage", ThumbPage.view())
             TabItem("TickBarPage", TickBarPage.view())
             TabItem("ToggleSwitchPage", ToggleSwitchPage.view())
             TabItem("ToggleButtonPage", ToggleButtonPage.view())

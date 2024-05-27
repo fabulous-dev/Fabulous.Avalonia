@@ -3,9 +3,27 @@ namespace Fabulous.Avalonia
 open System
 open System.Collections
 open Avalonia.Controls
+open Avalonia.Controls.Primitives
 open Avalonia.Controls.Templates
 open Avalonia.Data
+open Avalonia.Markup.Xaml.Templates
 open Fabulous
+
+type WidgetControlTemplate(node: IViewNode, templateFn: Widget) as this =
+    inherit FuncControlTemplate(System.Func<TemplatedControl, INameScope, Control>(fun tc n -> this.Build(tc, n)))
+
+    member this.Build(_: TemplatedControl, _: INameScope) =
+        let widget = templateFn
+        let definition = WidgetDefinitionStore.get widget.Key
+
+        let struct (_, view) =
+            definition.CreateView(widget, node.TreeContext, ValueSome node)
+
+        let item = ContentControl()
+        item.Content <- (view :?> Control)
+
+        item
+
 
 type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
     inherit FuncDataTemplate(typeof<obj>, System.Func<obj, INameScope, Control>(fun data n -> this.Build(data, n)), supportsRecycling = false)

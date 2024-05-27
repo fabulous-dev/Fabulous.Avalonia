@@ -71,6 +71,7 @@ module App =
         | ToggleSplitButtonPage
         | TextBlockPage
         | TextBoxPage
+        | ThumbPage
         | TickBarPage
         | ToggleSwitchPage
         | ToggleButtonPage
@@ -149,6 +150,7 @@ module App =
         | "ToggleSplitButton" -> ValueSome ToggleSplitButtonPage
         | "TextBlock" -> ValueSome TextBlockPage
         | "TextBox" -> ValueSome TextBoxPage
+        | "Thumb" -> ValueSome ThumbPage
         | "TickBar" -> ValueSome TickBarPage
         | "ToggleSwitch" -> ValueSome ToggleSwitchPage
         | "ToggleButton" -> ValueSome ToggleButtonPage
@@ -228,6 +230,7 @@ module App =
         | ToggleSplitButtonPage -> ValueSome(AnyView(ToggleSplitButtonPage.view()))
         | TextBlockPage -> ValueSome(AnyView(TextBlockPage.view()))
         | TextBoxPage -> ValueSome(AnyView(TextBoxPage.view()))
+        | ThumbPage -> ValueSome(AnyView(ThumbPage.view()))
         | TickBarPage -> ValueSome(AnyView(TickBarPage.view()))
         | ToggleSwitchPage -> ValueSome(AnyView(ToggleSwitchPage.view()))
         | ToggleButtonPage -> ValueSome(AnyView(ToggleButtonPage.view()))
