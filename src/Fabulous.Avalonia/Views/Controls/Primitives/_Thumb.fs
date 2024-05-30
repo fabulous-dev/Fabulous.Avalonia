@@ -29,7 +29,8 @@ module ThumbBuilders =
         static member Thumb() =
             WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
-        /// <summary>Creates a Separator widget.</summary>
+        /// <summary>Creates a Thumb widget.</summary>
+        /// <param name="template">The template to use for the Thumb.</param>
         static member Thumb(template: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabThumb>(
                 Thumb.WidgetKey,
