@@ -99,11 +99,10 @@ module ThumbPage =
         Canvas.SetTop(partBottomRightRef.Value, rect.Bottom)
 
     let updateDrag (rect: Rect) =
-        if partDragRef.TryValue.IsSome then
-            Canvas.SetLeft(partDragRef.Value, rect.Left)
-            Canvas.SetTop(partDragRef.Value, rect.Top)
-            partDragRef.Value.Width <- rect.Width
-            partDragRef.Value.Height <- rect.Height
+        Canvas.SetLeft(partDragRef.Value, rect.Left)
+        Canvas.SetTop(partDragRef.Value, rect.Top)
+        partDragRef.Value.Width <- rect.Width
+        partDragRef.Value.Height <- rect.Height
 
     let updateControl (control: Control, rect: Rect) =
         Canvas.SetLeft(control, rect.Left)
@@ -114,21 +113,17 @@ module ThumbPage =
     let update msg model =
         match msg with
         | OnLoaded args ->
-            if controlRef.TryValue.IsSome then
-                let rect = Rect(0, 0, controlRef.Value.Width, controlRef.Value.Height)
-                updateThumbs(rect)
-                updateDrag(rect)
+            let rect = Rect(0, 0, controlRef.Value.Width, controlRef.Value.Height)
+            updateThumbs(rect)
+            updateDrag(rect)
 
-                if canvas.TryValue.IsSome then
-                    Canvas.SetLeft(canvas.Value, rect.Left)
-                    Canvas.SetTop(canvas.Value, rect.Top)
-                    canvas.Value.Width <- rect.Width
-                    canvas.Value.Height <- rect.Height
+            Canvas.SetLeft(canvas.Value, rect.Left)
+            Canvas.SetTop(canvas.Value, rect.Top)
+            canvas.Value.Width <- rect.Width
+            canvas.Value.Height <- rect.Height
 
-                { LeftOffset = Canvas.GetLeft(controlRef.Value)
-                  TopOffset = Canvas.GetTop(controlRef.Value) }
-            else
-                model
+            { LeftOffset = Canvas.GetLeft(controlRef.Value)
+              TopOffset = Canvas.GetTop(controlRef.Value) }
 
         | OnDragDeltaTop e ->
             Canvas.SetTop(partTopRef.Value, Canvas.GetTop(partTopRef.Value) + e.Vector.Y)
@@ -332,7 +327,6 @@ module ThumbPage =
                         .height(240.)
                         .reference(controlRef)
 
-                    //Canvas() {
                     Thumb()
                         .reference(partDragRef)
                         .classes([ "drag"; "sizeAll" ])
@@ -368,7 +362,10 @@ module ThumbPage =
                         .classes([ "resize"; "topRightCorner" ])
                         .onDragDelta(OnDragDeltaTopRight)
 
-                    Thumb()
+                    Thumb(
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png")
+                            .size(20., 20.)
+                    )
                         .reference(partBottomLeftRef)
                         .classes([ "resize"; "bottomLeftCorner" ])
                         .onDragDelta(OnDragDeltaBottomLeft)
@@ -377,7 +374,6 @@ module ThumbPage =
                         .reference(partBottomRightRef)
                         .classes([ "resize"; "bottomRightCorner" ])
                         .onDragDelta(OnDragDeltaBottomRight)
-                //}
                 })
                     .width(300.)
                     .height(300.)

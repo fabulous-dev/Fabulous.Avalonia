@@ -140,7 +140,7 @@
     <Compile Include="Views\Controls\SelectableTextBlock.fs" />
     <Compile Include="Views\Controls\TextBox.fs" />
     <Compile Include="Views\Controls\MaskedTextBox.fs" />
-    <Compile Include="Views\Controls\Primitives\_Thumb.fs" />
+    <Compile Include="Views\Controls\Primitives\Thumb.fs" />
     <Compile Include="Views\Controls\Primitives\_RangeBase.fs" />
     <Compile Include="Views\Controls\Primitives\AccessText.fs" />
     <Compile Include="Views\Controls\Primitives\ScrollBar.fs" />
