@@ -106,6 +106,7 @@
     <Compile Include="Pages\TabControlPage.fs" />
     <Compile Include="Pages\TextBoxPage.fs" />
     <Compile Include="Pages\TextBlockPage.fs" />
+    <Compile Include="Pages\ThumbPage.fs" />
     <Compile Include="Pages\TickBarPage.fs" />
     <Compile Include="Pages\ToggleButtonPage.fs" />
     <Compile Include="Pages\ToggleSplitButtonPage.fs" />
