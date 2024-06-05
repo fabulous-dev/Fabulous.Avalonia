@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Input
 open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
@@ -16,6 +17,9 @@ module Control =
 
     let ContextMenu =
         Attributes.defineAvaloniaPropertyWidget Control.ContextMenuProperty
+
+    let HotKey =
+        Attributes.defineAvaloniaPropertyWithEquality HotKeyManager.HotKeyProperty
 
     let ContextFlyout =
         Attributes.defineAvaloniaPropertyWidget Control.ContextFlyoutProperty
@@ -52,6 +56,20 @@ type ControlModifiers =
     [<Extension>]
     static member inline tag(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
         this.AddScalar(Control.Tag.WithValue(value))
+
+    /// <summary>Sets the HotKey property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HotKey value.</param>
+    [<Extension>]
+    static member inline hotKey(this: WidgetBuilder<'msg, #IFabControl>, value: KeyGesture) =
+        this.AddScalar(Control.HotKey.WithValue(value))
+
+    /// <summary>Sets the HotKey property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HotKey value.</param>
+    [<Extension>]
+    static member inline hotKey(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
+        this.AddScalar(Control.HotKey.WithValue(KeyGesture.Parse(value)))
 
     /// <summary>Sets the FlowDirection property.</summary>
     /// <param name="this">Current widget.</param>
