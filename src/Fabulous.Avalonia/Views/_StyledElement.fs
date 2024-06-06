@@ -61,6 +61,11 @@ module StyledElement =
                 style.Source <- Uri(value)
                 styles.Add(style))
 
+    /// Allows adding inline styles to a StyledElement.
+    let InlineStyles =
+        Attributes.defineProperty "StyledElement_InlineStyles" Unchecked.defaultof<IStyle seq> (fun target values ->
+            (target :?> StyledElement).Styles.AddRange values)
+
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
             (target :?> StyledElement).AttachedToLogicalTree)
@@ -130,7 +135,6 @@ type StyledElementModifiers =
     static member inline contentType(this: WidgetBuilder<'msg, #IFabStyledElement>, value: TextInputContentType) =
         this.AddScalar(StyledElement.ContentType.WithValue(value))
 
-
     /// <summary>Sets the ReturnKeyType property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ReturnKeyType value.</param>
@@ -179,6 +183,13 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
         this.AddScalar(StyledElement.Styles.WithValue(value))
+
+    /// <summary>Adds inline styles used by the widget and its descendants.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="styles">Inline styles to be used for the widget and its descendants.</param>
+    [<Extension>]
+    static member inline inlineStyles(this: WidgetBuilder<'msg, #IFabStyledElement>, [<ParamArray>] styles: IStyle[]) =
+        this.AddScalar(StyledElement.InlineStyles.WithValue(styles))
 
     /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
     /// application styles that is applied to the control.</summary>
