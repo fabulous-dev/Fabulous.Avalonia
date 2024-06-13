@@ -20,16 +20,21 @@ module StyledElement =
     let StylesWidget =
         Attributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
 
-    let Classes =
-        Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
-            let target = node.Target :?> StyledElement
+    let Styles =
+        Attributes.definePropertyWithGetSet<IStyle seq> "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles) (fun target value ->
+            let target = (target :?> StyledElement)
+            target.Styles.Clear()
 
-            match newValueOpt with
-            | ValueNone -> target.Classes.Clear()
-            | ValueSome classes ->
-                let coll = AvaloniaList<string>()
-                classes |> List.iter coll.Add
-                target.Classes.AddRange coll)
+            for an in value do
+                target.Styles.Add(an))
+
+    let Classes =
+        Attributes.definePropertyWithGetSet<string seq> "StyledElement_Classes" (fun target -> (target :?> StyledElement).Classes) (fun target value ->
+            let target = (target :?> StyledElement)
+            target.Classes.Clear()
+
+            for an in value do
+                target.Classes.Add(an))
 
     let ContentType =
         Attributes.defineAvaloniaPropertyWithEquality<TextInputContentType> TextInputOptions.ContentTypeProperty
