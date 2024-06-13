@@ -314,7 +314,7 @@ module EditableTreeView =
 
                         See https://github.com/AvaloniaUI/Avalonia/discussions/13903
                         and https://github.com/AvaloniaUI/Avalonia/discussions/12397 *)
-                    .styles([ "avares://Gallery/Styles/EditableTreeView.xaml" ])
+                    .styleInclude([ "avares://Gallery/Styles/EditableTreeView.xaml" ])
 
                 (VStack() {
                     HStack() {

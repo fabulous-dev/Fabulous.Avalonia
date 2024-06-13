@@ -74,7 +74,10 @@ module StylesPage =
 
                 AutoCompleteBox([])
                     .watermark("I'm an AutoCompleteBox styled to have a crimson watermark and accept Return/Enter")
-                    .inlineStyles(coloredTextBoxWatermark(Brushes.Crimson), acceptReturnOnAutoCompleteTextBox())
+                    .styles(
+                        [ coloredTextBoxWatermark(Brushes.Crimson)
+                          acceptReturnOnAutoCompleteTextBox() ]
+                    )
             })
         )
-            .styles([ "avares://Gallery/Styles/TextStyles.xaml" ])
+            .styleInclude("avares://Gallery/Styles/TextStyles.xaml")
