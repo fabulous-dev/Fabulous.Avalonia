@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System
 open System.Runtime.CompilerServices
 open Avalonia
-open Avalonia.Collections
 open Avalonia.Input.TextInput
 open Avalonia.LogicalTree
 open Avalonia.Markup.Xaml.Styling
@@ -57,19 +56,15 @@ module StyledElement =
     let IsSensitive =
         Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.IsSensitiveProperty
 
-    let Styles =
-        Attributes.defineProperty "StyledElement_Styles" Unchecked.defaultof<string list> (fun target values ->
-            let styles = (target :?> StyledElement).Styles
+    let StyleInclude =
+        Attributes.defineProperty "StyledElement_StyleInclude" Unchecked.defaultof<string list> (fun target values ->
+            let target = (target :?> StyledElement)
+            target.Styles.Clear()
 
             for value in values do
                 let style = StyleInclude(baseUri = null)
                 style.Source <- Uri(value)
-                styles.Add(style))
-
-    /// Allows adding inline styles to a StyledElement.
-    let InlineStyles =
-        Attributes.defineProperty "StyledElement_InlineStyles" Unchecked.defaultof<IStyle seq> (fun target values ->
-            (target :?> StyledElement).Styles.AddRange values)
+                target.Styles.Add(style))
 
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
@@ -186,15 +181,30 @@ type StyledElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">Application styles to be used for the control.</param>
     [<Extension>]
-    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
-        this.AddScalar(StyledElement.Styles.WithValue(value))
+    static member inline styleInclude(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
+        this.AddScalar(StyledElement.StyleInclude.WithValue(value))
+
+    /// <summary>Sets the application styles.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Application styles to be used for the control.</param>
+    [<Extension>]
+    static member inline styleInclude(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        StyledElementModifiers.styleInclude(this, [ value ])
 
     /// <summary>Adds inline styles used by the widget and its descendants.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="styles">Inline styles to be used for the widget and its descendants.</param>
+    /// <param name="value">Inline styles to be used for the widget and its descendants.</param>
+    /// <remarks>Note: Fabulous will recreate the Style/Styles during the view diffing as opposed to a single styled element property.</remarks>
     [<Extension>]
-    static member inline inlineStyles(this: WidgetBuilder<'msg, #IFabStyledElement>, [<ParamArray>] styles: IStyle[]) =
-        this.AddScalar(StyledElement.InlineStyles.WithValue(styles))
+    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: IStyle list) =
+        this.AddScalar(StyledElement.Styles.WithValue(value))
+
+    /// <summary>Add inline style used by the widget and its descendants.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Inline style to be used for the widget and its descendants.</param>
+    /// <remarks>Note: Fabulous will recreate the Style/Styles during the view diffing as opposed to a single styled element property.</remarks>
+    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: IStyle) =
+        StyledElementModifiers.styles(this, [ value ])
 
     /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
     /// application styles that is applied to the control.</summary>
