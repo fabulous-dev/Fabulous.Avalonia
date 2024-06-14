@@ -138,7 +138,7 @@ module TransitionsPage =
                     })
                         .clipToBounds(false)
                 )
-                    .styles([ "avares://RenderDemo/Styles/Transitions.xaml" ])
+                    .styleInclude([ "avares://RenderDemo/Styles/Transitions.xaml" ])
 
             })
                 .horizontalAlignment(HorizontalAlignment.Center)

@@ -116,7 +116,7 @@ module AnimationsPage =
                                     )
                             }
                         )
-                            .styles([ "avares://RenderDemo/Styles/Animations.xaml" ])
+                            .styleInclude([ "avares://RenderDemo/Styles/Animations.xaml" ])
                     })
                         .horizontalAlignment(HorizontalAlignment.Center)
                         .verticalAlignment(VerticalAlignment.Center)
