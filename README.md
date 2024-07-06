@@ -205,6 +205,10 @@ Do you want to contribute with a PR? PRs are always welcome, just make sure to c
 
 For bigger changes, or if in doubt, make sure to talk about your contribution to the team. Either via an issue, GitHub discussion, or reach out to the team either using the [Discord server](https://discord.gg/bpTJMbSSYK).
 
+## Old Version
+
+This repository is about Fabulous v2. You can find Version 1 [here.](https://github.com/fabulous-dev/Fabulous/tree/release/1.0)
+
 ## Commercial support
 
 If you would like us to provide you with:
