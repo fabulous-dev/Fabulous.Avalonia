@@ -5,7 +5,7 @@ open Avalonia.Controls.Primitives
 open Fabulous
 
 type IFabFlyoutBase =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module FlyoutBase =
     let AttachedFlyout =

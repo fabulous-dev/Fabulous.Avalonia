@@ -5,7 +5,7 @@ open Avalonia.Media
 open Fabulous
 
 type IFabGeometry =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Geometry =
 

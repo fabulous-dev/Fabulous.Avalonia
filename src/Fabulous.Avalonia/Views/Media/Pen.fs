@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabPen =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Pen =
     let WidgetKey = Widgets.register<Pen>()

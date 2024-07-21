@@ -8,7 +8,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabAnimation =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Animation =
 

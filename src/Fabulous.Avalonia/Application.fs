@@ -16,7 +16,7 @@ open Fabulous.StackAllocatedCollections.StackList
 #nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
 
 type IFabApplication =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 type FabApplication() =
     inherit Application()

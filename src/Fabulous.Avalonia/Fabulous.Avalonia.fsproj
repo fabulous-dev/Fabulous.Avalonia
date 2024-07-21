@@ -4,7 +4,7 @@
     <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
     <IsPackable>true</IsPackable>
-    <UseLocalProjectReference>false</UseLocalProjectReference>
+    <UseLocalProjectReference>true</UseLocalProjectReference>
   </PropertyGroup>
   <!-- NuGet Package -->
   <PropertyGroup>
@@ -34,10 +34,12 @@
     <Compile Include="BindingExtensions.fs" />
     <Compile Include="ViewNode.fs" />
     <Compile Include="_ImageSource.fs" />
+    <Compile Include="_Element.fs" />
     <Compile Include="Attributes.fs" />
+    <Compile Include="Attributes.Components.fs" />
+    <Compile Include="Attributes.Mvu.fs" />
     <Compile Include="VirtualizedCollection.fs" />
     <Compile Include="Widgets.fs" />
-    <Compile Include="Component.fs" />
     <Compile Include="Views\_RenderOptions.fs" />
     <Compile Include="Views\_Animatable.fs" />
     <Compile Include="Views\_StyledElement.fs" />
@@ -225,6 +227,11 @@
     <Compile Include="Program.fs" />
     <Compile Include="AppBuilderExtensions.fs" />
     <Compile Include="Async.fs" />
+    <Folder Include="ComponentViews\Controls\" />
+    <Compile Include="ComponentViews\_Element.fs" />
+    <Folder Include="MvuViews\Controls\" />
+    <Compile Include="MvuViews\_Element.fs" />
+    <Compile Include="Component.fs" />
   </ItemGroup>
   <ItemGroup>
     <!--

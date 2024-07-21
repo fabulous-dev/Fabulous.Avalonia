@@ -6,7 +6,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabExperimentalAcrylicMaterial =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module ExperimentalAcrylicMaterial =
     let WidgetKey = Widgets.register<ExperimentalAcrylicMaterial>()

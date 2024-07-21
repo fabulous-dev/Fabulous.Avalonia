@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabStyle =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Style =
 
