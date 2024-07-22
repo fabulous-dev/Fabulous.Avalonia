@@ -26,10 +26,8 @@ module ListBoxBuilders =
         /// <param name="items">The items to display.</param>
         /// <param name="template">The template to use to render each item.</param>
         static member ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
         /// <summary>Creates a ListBox widget.</summary>
@@ -61,16 +59,12 @@ type ListBoxModifiers =
 type ListBoxCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabListBoxItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabListBoxItem>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabListBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabListBoxItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabListBoxItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

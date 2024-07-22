@@ -325,10 +325,8 @@ type ApplicationYieldExtensions =
 
     [<Extension>]
     static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 type TrayIconAttachedModifiers =

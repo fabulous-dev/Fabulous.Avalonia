@@ -304,34 +304,26 @@ type TextBlockCollectionBuilderExtensions =
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTextDecoration>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTextDecoration>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabInline>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 type InlineCollectionModifiers =

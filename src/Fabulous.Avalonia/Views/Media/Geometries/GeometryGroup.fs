@@ -33,18 +33,14 @@ module GeometryGroupBuilders =
 type GeometryGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGeometry>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabGeometry>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabGeometry>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGeometry>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabGeometry>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabGeometry>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 type GeometryGroupModifiers =

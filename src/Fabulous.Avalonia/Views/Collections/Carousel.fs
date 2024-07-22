@@ -69,10 +69,8 @@ module CarouselBuilders =
         /// <param name="items">The items to display.</param>
         /// <param name="template">The template to use to render each item.</param>
         static member Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
             WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type CarouselModifiers =

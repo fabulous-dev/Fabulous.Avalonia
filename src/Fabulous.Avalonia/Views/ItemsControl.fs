@@ -67,10 +67,8 @@ module ItemsControlBuilders =
     type Fabulous.Avalonia.View with
 
         static member ItemsControl<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
             WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type ItemsControlModifiers =

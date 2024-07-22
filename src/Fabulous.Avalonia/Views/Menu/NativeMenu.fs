@@ -96,8 +96,6 @@ type NativeViewYieldExtensions =
 
     [<Extension>]
     static member inline Yield
-        (
-            _: CollectionBuilder<'msg, #IFabNativeMenu, IFabNativeMenuItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabNativeMenuItem>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, #IFabNativeMenu, IFabNativeMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabNativeMenuItem>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

@@ -28,18 +28,14 @@ module StyleBuilders =
 type StyleCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabAnimation>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabAnimation>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
@@ -48,10 +44,8 @@ type StyleCollectionBuilderExtensions =
 
     [<Extension>]
     static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 type StyleModifiers =
