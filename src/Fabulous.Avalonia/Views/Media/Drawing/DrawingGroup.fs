@@ -108,16 +108,12 @@ type DrawingGroupExtraModifiers =
 type DrawingGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabDrawing>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabDrawing>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabDrawing>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabDrawing>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

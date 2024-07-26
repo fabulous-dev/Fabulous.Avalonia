@@ -162,6 +162,7 @@
     <Compile Include="Views\Controls\Buttons\RadioButton.fs" />
     <Compile Include="Views\Controls\Buttons\ButtonSpinner.fs" />
     <Compile Include="Views\Controls\Buttons\DropDownButton.fs" />
+    <Compile Include="Views\Controls\Buttons\HyperlinkButton.fs" />
     <Compile Include="Views\Controls\CheckBox.fs" />
     <Compile Include="Views\Controls\NumericUpDown.fs" />
     <Compile Include="Views\Controls\DatePicker.fs" />
@@ -231,11 +232,11 @@
       This version will be used as the lower bound in the NuGet package
     -->
     <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre5]" />
-    <PackageReference Include="Avalonia" VersionOverride="11.0.10" />
+    <PackageReference Include="Avalonia" VersionOverride="11.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.0.10" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(UseLocalProjectReference)' == 'true'" Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />

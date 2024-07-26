@@ -44,10 +44,8 @@ module ItemsRepeaterBuilders =
     type Fabulous.Avalonia.View with
 
         static member ItemsRepeater<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
             WidgetHelpers.buildItems<'msg, IFabItemsRepeater, 'itemData, 'itemMarker> ItemsRepeater.WidgetKey ItemsRepeater.ItemsSource items template
 
 type ItemsRepeaterModifiers =

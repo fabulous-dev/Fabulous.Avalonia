@@ -7,13 +7,7 @@ open Fabulous
 [<AbstractClass; Sealed>]
 type FabulousAppBuilder private () =
     static member inline private Configure
-        (
-            canReuseView,
-            logger,
-            syncAction: (unit -> unit) -> unit,
-            [<InlineIfLambda>] themeFn: unit -> #IStyle,
-            [<InlineIfLambda>] viewFn: unit -> Widget
-        ) =
+        (canReuseView, logger, syncAction: (unit -> unit) -> unit, [<InlineIfLambda>] themeFn: unit -> #IStyle, [<InlineIfLambda>] viewFn: unit -> Widget) =
         AppBuilder.Configure(fun () ->
             let app =
                 FabApplication(

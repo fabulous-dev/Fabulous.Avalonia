@@ -1,6 +1,7 @@
 namespace Gallery
 
 open System.Diagnostics
+open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
@@ -10,18 +11,25 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module ButtonsPage =
-    type Model = { Nothing: bool }
+    type Model = { IsVisited: bool }
 
-    type Msg = | Clicked
+    type Msg =
+        | Clicked
+        | IsVisitedChanged of bool
+        | Checked of bool
 
-    let init () = { Nothing = true }, Cmd.none
+    let init () = { IsVisited = false }
 
     let update msg model =
         match msg with
-        | Clicked -> model, Cmd.none
+        | Clicked -> model
+        | IsVisitedChanged value ->
+            printfn $"IsVisitedChanged: {value}"
+            model
+        | Checked value -> { model with IsVisited = value }
 
     let program =
-        Program.statefulWithCmd init update
+        Program.stateful init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
@@ -34,6 +42,8 @@ module ButtonsPage =
 
     let view () =
         Component(program) {
+            let! model = Mvu.State
+
             (VStack(spacing = 15.) {
                 Button("Regular button", Clicked)
 
@@ -75,6 +85,16 @@ module ButtonsPage =
                 ThemeVariantScope(ThemeVariant.Light, Button("Light Button", Clicked))
 
                 ThemeVariantScope(ThemeVariant.Dark, Button("Dark Button", Clicked))
+
+                HyperlinkButton("Google", "https://www.google.com", model.IsVisited, IsVisitedChanged)
+
+                HStack() {
+                    HyperlinkButton("Google", "https://www.google.com")
+                        .isVisited(model.IsVisited)
+
+                    CheckBox("IsVisited", model.IsVisited, Checked)
+                }
+
             })
                 .horizontalAlignment(HorizontalAlignment.Center)
         }

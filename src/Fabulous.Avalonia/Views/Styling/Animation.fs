@@ -119,50 +119,38 @@ type AnimationModifiers =
 type AnimationCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabKeyFrame>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabKeyFrame>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabKeyFrame>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabKeyFrame>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabKeyFrame>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabKeyFrame>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabAnimation>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabAnimation>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabAnimation>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabAnimation>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 [<AutoOpen>]

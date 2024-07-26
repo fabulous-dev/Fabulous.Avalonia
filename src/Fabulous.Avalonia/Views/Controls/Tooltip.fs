@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -26,6 +27,15 @@ module ToolTip =
 
     let ShowDelay =
         Attributes.defineAvaloniaPropertyWithEquality ToolTip.ShowDelayProperty
+
+    let BetweenShowDelay =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.BetweenShowDelayProperty
+
+    let ShowOnDisabled =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.ShowOnDisabledProperty
+
+    let ServiceEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.ServiceEnabledProperty
 
 [<AutoOpen>]
 module ToolTipBuilders =
@@ -84,6 +94,27 @@ type ToolTipModifiers =
     [<Extension>]
     static member inline tooltipShowDelay(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(ToolTip.ShowDelay.WithValue(value))
+
+    /// <summary>Sets the BetweenShowDelay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BetweenShowDelay value.</param>
+    [<Extension>]
+    static member inline tooltipBetweenShowDelay(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
+        this.AddScalar(ToolTip.BetweenShowDelay.WithValue(value))
+
+    /// <summary>Sets the ShowOnDisabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowOnDisabled value.</param>
+    [<Extension>]
+    static member inline tooltipShowOnDisabled(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+        this.AddScalar(ToolTip.ShowOnDisabled.WithValue(value))
+
+    /// <summary>Sets the ServiceEnabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ServiceEnabled value.</param>
+    [<Extension>]
+    static member inline tooltipServiceEnabled(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+        this.AddScalar(ToolTip.ServiceEnabled.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct ToolTip control instance.</summary>
     /// <param name="this">Current widget.</param>

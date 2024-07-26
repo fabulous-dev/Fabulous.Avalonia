@@ -58,11 +58,8 @@ module TreeViewBuilders =
         /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
         /// <param name="template">The template used to render each node.</param>
         static member TreeView<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                nodes: seq<'itemData>,
-                subNodes: 'itemData -> seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
+            (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
             let template (item: obj) =
                 let item = unbox<'itemData> item
                 (template item).Compile()

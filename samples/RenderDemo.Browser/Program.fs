@@ -1,10 +1,12 @@
 namespace RenderDemo.Browser
 
+open System.Diagnostics
 open System.Runtime.Versioning
 open Avalonia
 open Avalonia.Browser
-open Avalonia.Themes.Fluent
-open Fabulous.Avalonia
+open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Logging
+open Avalonia.Threading
 open RenderDemo
 
 
@@ -17,5 +19,11 @@ module Program =
 
     [<EntryPoint>]
     let main argv =
-        buildAvaloniaApp().StartBrowserAppAsync("out") |> ignore
+        Trace.Listeners.Add(new ConsoleTraceListener()) |> ignore
+
+        buildAvaloniaApp()
+            .LogToTrace(LogEventLevel.Warning)
+            .StartBrowserAppAsync("out", BrowserPlatformOptions())
+        |> ignore
+
         0

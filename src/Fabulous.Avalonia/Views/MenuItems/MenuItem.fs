@@ -215,16 +215,12 @@ type MenuItemModifiers =
 type MenuItemCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
