@@ -162,6 +162,7 @@
     <Compile Include="Views\Controls\Buttons\RadioButton.fs" />
     <Compile Include="Views\Controls\Buttons\ButtonSpinner.fs" />
     <Compile Include="Views\Controls\Buttons\DropDownButton.fs" />
+    <Compile Include="Views\Controls\Buttons\HyperlinkButton.fs" />
     <Compile Include="Views\Controls\CheckBox.fs" />
     <Compile Include="Views\Controls\NumericUpDown.fs" />
     <Compile Include="Views\Controls\DatePicker.fs" />
