@@ -32,6 +32,9 @@ module TopLevel =
     let TransparencyBackgroundFallback =
         Attributes.defineAvaloniaPropertyWithEquality TopLevel.TransparencyBackgroundFallbackProperty
 
+    let AutoSafeAreaPadding =
+        Attributes.defineAvaloniaPropertyWithEquality TopLevel.AutoSafeAreaPaddingProperty
+
     let Opened =
         Attributes.defineEventNoArg "TopLevel_OpenedEvent" (fun target -> (target :?> TopLevel).Opened)
 
@@ -106,6 +109,13 @@ type TopLevelModifiers =
     [<Extension>]
     static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TopLevel.SystemBarColorWidget.WithValue(value.Compile()))
+
+    /// <summary>Sets the AutoSafeAreaPadding property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The AutoSafeAreaPadding value.</param>
+    [<Extension>]
+    static member inline autoSafeAreaPadding(this: WidgetBuilder<'msg, #IFabTopLevel>, value: bool) =
+        this.AddScalar(TopLevel.AutoSafeAreaPadding.WithValue(value))
 
     /// <summary>Listens the TopLevel Opened event.</summary>
     /// <param name="this">Current widget.</param>
