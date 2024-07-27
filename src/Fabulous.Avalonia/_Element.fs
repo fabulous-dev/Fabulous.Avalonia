@@ -1,5 +1,3 @@
 namespace Fabulous.Avalonia
 
-type IFabElement =
-    interface
-    end
+type IFabElement = interface end

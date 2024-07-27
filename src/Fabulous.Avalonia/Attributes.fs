@@ -1,8 +1,10 @@
 namespace Fabulous.Avalonia
 
 open System
+open System.Collections
 open System.IO
 open Avalonia
+open Avalonia.Collections
 open Avalonia.Controls
 open Avalonia.Media.Imaging
 open Fabulous

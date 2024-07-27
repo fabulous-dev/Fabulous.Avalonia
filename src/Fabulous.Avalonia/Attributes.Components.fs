@@ -27,7 +27,7 @@ module ComponentAttributes =
         name
         (property: AvaloniaProperty<'valueType>)
         ([<InlineIfLambda>] convertToValue: 'modelType -> 'valueType)
-        ([<InlineIfLambda>] convertToModel: 'valueType -> 'modelType)
+        ([<InlineIfLambda>] convertToModel: 'valueType -> 'modelType) // FIXME: This is not used
         : SimpleScalarAttributeDefinition<ComponentValueEventData<'modelType, 'modelType>> =
 
         let key =
@@ -130,9 +130,8 @@ module ComponentAttributes =
                 | WidgetCollectionItemChange.Remove(index, widget) ->
                     let itemNode = node.TreeContext.GetViewNode(targetColl[index])
 
-                    // FIXME ? Trigger the unmounted event
                     // // Trigger the unmounted event
-                    // Dispatcher.dispatchEventForAllChildren itemNode widget ComponentLifecycle.Unmounted
+                    Dispatcher.dispatchEventForAllChildren' itemNode widget ComponentLifecycle.Unmounted
                     itemNode.Dispose()
 
                     // Remove the child from the UI tree
@@ -148,9 +147,8 @@ module ComponentAttributes =
                     // Insert the new child into the UI tree
                     targetColl.Insert(index, unbox view)
 
-                // FIXME ? Trigger the unmounted event
-                // Trigger the mounted event
-                // Dispatcher.dispatchEventForAllChildren itemNode widget ComponentLifecycle.Mounted
+                    // Trigger the mounted event
+                    Dispatcher.dispatchEventForAllChildren' itemNode widget ComponentLifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
                     let childNode = node.TreeContext.GetViewNode(targetColl[index])
@@ -162,17 +160,15 @@ module ComponentAttributes =
 
                     let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
-                    // FIXME ? Trigger the unmounted event
                     // Trigger the unmounted event for the old child
-                    // Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget ComponentLifecycle.Unmounted
+                    Dispatcher.dispatchEventForAllChildren' prevItemNode oldWidget ComponentLifecycle.Unmounted
                     prevItemNode.Dispose()
 
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- view
 
-                // Trigger the mounted event for the new child
-                // FIXME ? Trigger the unmounted event
-                // Dispatcher.dispatchEventForAllChildren nextItemNode newWidget ComponentLifecycle.Mounted
+                    // Trigger the mounted event for the new child
+                    Dispatcher.dispatchEventForAllChildren' nextItemNode newWidget ComponentLifecycle.Mounted
 
                 | _ -> ()
 
@@ -201,8 +197,7 @@ module ComponentAttributes =
                     let itemNode = node.TreeContext.GetViewNode(box targetColl[index])
 
                     // Trigger the unmounted event
-                    // FIXME ? Trigger the unmounted event
-                    // Dispatcher.dispatchEventForAllChildren itemNode widget ComponentLifecycle.Unmounted
+                    Dispatcher.dispatchEventForAllChildren' itemNode widget ComponentLifecycle.Unmounted
                     itemNode.Dispose()
 
                     // Remove the child from the UI tree
@@ -218,9 +213,8 @@ module ComponentAttributes =
                     // Insert the new child into the UI tree
                     targetColl.Insert(index, unbox view)
 
-                // Trigger the mounted event
-                // FIXME ? Trigger the unmounted event
-                // Dispatcher.dispatchEventForAllChildren itemNode widget ComponentLifecycle.Mounted
+                    // Trigger the mounted event
+                    Dispatcher.dispatchEventForAllChildren' itemNode widget ComponentLifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
                     let childNode = node.TreeContext.GetViewNode(box targetColl[index])
@@ -232,17 +226,15 @@ module ComponentAttributes =
 
                     let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
-                    // FIXME ? Trigger the unmounted event
                     // Trigger the unmounted event for the old child
-                    // Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget ComponentLifecycle.Unmounted
+                    Dispatcher.dispatchEventForAllChildren' prevItemNode oldWidget ComponentLifecycle.Unmounted
                     prevItemNode.Dispose()
 
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- unbox view
 
-                // Trigger the mounted event for the new child
-                // FIXME ? Trigger the unmounted event
-                // Dispatcher.dispatchEventForAllChildren nextItemNode newWidget ComponentLifecycle.Mounted
+                    // Trigger the mounted event for the new child
+                    Dispatcher.dispatchEventForAllChildren' nextItemNode newWidget ComponentLifecycle.Mounted
 
                 | _ -> ()
 

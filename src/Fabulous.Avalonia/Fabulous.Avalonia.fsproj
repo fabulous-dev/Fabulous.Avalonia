@@ -32,9 +32,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingExtensions.fs" />
-    <Compile Include="ViewNode.fs" />
     <Compile Include="_ImageSource.fs" />
     <Compile Include="_Element.fs" />
+    <Compile Include="ViewNode.fs" />
     <Compile Include="Attributes.fs" />
     <Compile Include="Attributes.Components.fs" />
     <Compile Include="Attributes.Mvu.fs" />
@@ -221,17 +221,22 @@
     <Compile Include="Views\Panels\DockPanel.fs" />
     <Compile Include="Views\Panels\WrapPanel.fs" />
     <Compile Include="Views\Panels\UniformGrid.fs" />
-    <Compile Include="Application.fs" />
-    <Compile Include="ThemeAware.fs" />
-    <Compile Include="Any.fs" />
-    <Compile Include="Program.fs" />
-    <Compile Include="AppBuilderExtensions.fs" />
-    <Compile Include="Async.fs" />
+    <Compile Include="Views\Application.fs" />
+    <Compile Include="Views\Any.fs" />
     <Folder Include="ComponentViews\Controls\" />
     <Compile Include="ComponentViews\_Element.fs" />
+    <Compile Include="ComponentViews\_Animatable.fs" />
+    <Compile Include="ComponentViews\_StyledElement.fs" />
     <Folder Include="MvuViews\Controls\" />
     <Compile Include="MvuViews\_Element.fs" />
+    <Compile Include="MvuViews\_Animatable.fs" />
+    <Compile Include="MvuViews\_StyledElement.fs" />
+    <Compile Include="ThemeAware.fs" />
     <Compile Include="Component.fs" />
+    <Compile Include="Program.fs" />
+    <Compile Include="Async.fs" />
+    <Compile Include="AppBuilderExtensions.fs" />
+    <Compile Include="Style.fs" />
   </ItemGroup>
   <ItemGroup>
     <!--

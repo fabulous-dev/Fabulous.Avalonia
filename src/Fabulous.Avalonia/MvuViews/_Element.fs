@@ -5,9 +5,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 [<AbstractClass; Sealed>]
-type View =
-    class
-    end
+type View = class end
 
 type IFabMvuElement =
     inherit IFabElement
