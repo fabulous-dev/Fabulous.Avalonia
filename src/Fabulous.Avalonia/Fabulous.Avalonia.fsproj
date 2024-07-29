@@ -26,11 +26,6 @@
     <AvaloniaPlatform Condition="'$(AvaloniaPlatform)' == 'ios'">iOS</AvaloniaPlatform>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="README.md" PackagePath="\" Pack="true" />
-    <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-    <None Include="..\Fabulous.Avalonia.props" PackagePath="build/Fabulous.Avalonia.props" Pack="true" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="BindingExtensions.fs" />
     <Compile Include="_ImageSource.fs" />
     <Compile Include="_Element.fs" />
@@ -227,15 +222,55 @@
     <Compile Include="ComponentViews\_Element.fs" />
     <Compile Include="ComponentViews\_Animatable.fs" />
     <Compile Include="ComponentViews\_StyledElement.fs" />
+    <Compile Include="ComponentViews\_ITransform.fs" />
+    <Compile Include="ComponentViews\_Brush.fs" />
+    <Compile Include="ComponentViews\SolidColorBrush.fs" />
+    <Compile Include="ComponentViews\_Visual.fs" />
+    <Compile Include="ComponentViews\_Layoutable.fs" />
+    <Compile Include="ComponentViews\_Interactive.fs" />
+    <Compile Include="ComponentViews\_InputElement.fs" />
+    <Compile Include="ComponentViews\_DragDrop.fs" />
+    <Compile Include="ComponentViews\_FlyoutBase.fs" />
+    <Compile Include="ComponentViews\_PopupFlyoutBase.fs" />
+    <Compile Include="ComponentViews\_Control.fs" />
+    <Compile Include="ComponentViews\_Decorator.fs" />
+    <Compile Include="ComponentViews\_TemplatedControl.fs" />
+    <Compile Include="ComponentViews\_ContentControl.fs" />
+    <Compile Include="ComponentViews\_Spinner.fs" />
+    <Compile Include="ComponentViews\_TopLevel.fs" />
+    <Compile Include="ComponentViews\_TextElement.fs" />
+    <Compile Include="ComponentViews\_Panel.fs" />
+    <Compile Include="ComponentViews\_VirtualizingPanel.fs" />
+    <Compile Include="ComponentViews\ItemsControl.fs" />
+    <Compile Include="ComponentViews\_HeaderedItemsControl.fs" />
+    <Compile Include="ComponentViews\_SelectingItemsControl.fs" />
+    <Compile Include="ComponentViews\_MenuBase.fs" />
+    <Compile Include="ComponentViews\_HeaderedSelectingItemsControl.fs" />
+    <Compile Include="ComponentViews\_WindowBase.fs" />
     <Folder Include="MvuViews\Controls\" />
     <Compile Include="MvuViews\_Element.fs" />
     <Compile Include="MvuViews\_Animatable.fs" />
     <Compile Include="MvuViews\_StyledElement.fs" />
-    <Compile Include="ThemeAware.fs" />
+    <Compile Include="MvuViews\_ITransform.fs" />
     <Compile Include="Component.fs" />
-    <Compile Include="Program.fs" />
     <Compile Include="Async.fs" />
     <Compile Include="AppBuilderExtensions.fs" />
+    <None Include="..\Fabulous.Avalonia.props">
+      <PackagePath>build/Fabulous.Avalonia.props</PackagePath>
+      <Pack>true</Pack>
+      <Link>Fabulous.Avalonia.props</Link>
+    </None>
+    <None Include="..\..\logo\nuget-icon.png">
+      <PackagePath>/</PackagePath>
+      <Pack>true</Pack>
+      <Link>nuget-icon.png</Link>
+    </None>
+    <Compile Include="Program.fs" />
+    <None Include="README.md">
+      <PackagePath>/</PackagePath>
+      <Pack>true</Pack>
+    </None>
+    <Compile Include="ThemeAware.fs" />
     <Compile Include="Style.fs" />
   </ItemGroup>
   <ItemGroup>

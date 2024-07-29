@@ -6,16 +6,3 @@ open Fabulous
 
 type IFabTransform =
     inherit IFabAnimatable
-
-module Transform =
-
-    let Changed =
-        Attributes.defineEventNoArg "Transform_Changed" (fun target -> (target :?> Transform).Changed)
-
-type TransformModifiers =
-    /// <summary>Listens to the Transform changed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Transform changes.</param>
-    [<Extension>]
-    static member inline onChanged(this: WidgetBuilder<'msg, #IFabTransform>, fn: 'msg) =
-        this.AddScalar(Transform.Changed.WithValue(MsgValue fn))

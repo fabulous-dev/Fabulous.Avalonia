@@ -46,12 +46,6 @@ module Visual =
 
     let Effect = Attributes.defineAvaloniaPropertyWithEquality Visual.EffectProperty
 
-    let AttachedToVisualTree =
-        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)
-
-    let DetachedFromVisualTree =
-        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
-
 type VisualModifiers =
     /// <summary>Sets the ClipToBounds property.</summary>
     /// <param name="this">Current widget.</param>
@@ -109,20 +103,6 @@ type VisualModifiers =
     static member inline flowDirection(this: WidgetBuilder<'msg, #IFabVisual>, value: FlowDirection) =
         this.AddScalar(Visual.FlowDirection.WithValue(value))
 
-    /// <summary>Listens to the Visual AttachedToVisualTree event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the control is attached to a rooted visual tree.</param>
-    [<Extension>]
-    static member inline onAttachedToVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(Visual.AttachedToVisualTree.WithValue(fn))
-
-    /// <summary>Listens to the Visual DetachedFromVisualTree event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the control is detached from a rooted visual tree.</param>
-    [<Extension>]
-    static member inline onDetachedFromVisualTree(this: WidgetBuilder<'msg, #IFabVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(Visual.DetachedFromVisualTree.WithValue(fn))
-
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The OpacityMask value.</param>
@@ -143,18 +123,3 @@ type VisualModifiers =
     [<Extension>]
     static member inline renderTransform(this: WidgetBuilder<'msg, #IFabVisual>, value: WidgetBuilder<'msg, #IFabTransform>) =
         this.AddWidget(Visual.RenderTransformWidget.WithValue(value.Compile()))
-
-type VisualExtraModifiers =
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: Color) =
-        VisualModifiers.opacityMask(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabVisual>, value: string) =
-        VisualModifiers.opacityMask(this, View.SolidColorBrush(value))

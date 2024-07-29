@@ -4,7 +4,6 @@ open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Input.TextInput
-open Avalonia.LogicalTree
 open Avalonia.Markup.Xaml.Styling
 open Avalonia.Styling
 open Fabulous
@@ -15,9 +14,6 @@ type IFabStyledElement =
 module StyledElement =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality StyledElement.NameProperty
-
-    let StylesWidget =
-        Attributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
 
     let Styles =
         Attributes.definePropertyWithGetSet<IStyle seq> "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles) (fun target value ->

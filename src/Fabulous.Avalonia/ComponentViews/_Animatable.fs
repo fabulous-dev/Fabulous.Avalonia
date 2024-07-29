@@ -5,9 +5,9 @@ open Fabulous.Avalonia
 
 type IFabComponentAnimatable =
     inherit IFabComponentElement
-    inherit IFabElement
+    inherit IFabAnimatable
 
-module AnimatableComponent =
+module ComponentAnimatable =
     let Transitions =
         ComponentAttributes.defineAvaloniaListWidgetCollection "Animatable_Transitions" (fun target ->
             let target = (target :?> Animatable)
