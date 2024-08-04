@@ -9,7 +9,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabTransition =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module TransitionBase =
     let Duration =

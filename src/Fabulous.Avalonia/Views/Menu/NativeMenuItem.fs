@@ -9,7 +9,7 @@ open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabNativeMenuItem =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module NativeMenuItem =
     let WidgetKey = Widgets.register<NativeMenuItem>()

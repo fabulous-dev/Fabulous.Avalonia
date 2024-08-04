@@ -6,10 +6,6 @@ open Avalonia
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
-[<AbstractClass; Sealed>]
-type View = class end
-
-type IFabAvaloniaObject = interface end
 
 type WidgetItems =
     { OriginalItems: IEnumerable

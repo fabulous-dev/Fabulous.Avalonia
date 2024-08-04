@@ -17,7 +17,7 @@ module Component =
 
 [<AutoOpen>]
 module ComponentBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Components.View with
 
         static member Component<'msg, 'marker>() = ComponentBuilder<'msg>()
 
