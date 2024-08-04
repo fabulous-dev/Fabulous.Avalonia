@@ -63,7 +63,7 @@ type PenModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The DashStyle value.</param>
     [<Extension>]
-    static member inline dashStyle(this: WidgetBuilder<'msg, #IFabPen>, value: WidgetBuilder<'msg, IFaDashStyle>) =
+    static member inline dashStyle(this: WidgetBuilder<'msg, #IFabPen>, value: WidgetBuilder<'msg, IFabDashStyle>) =
         this.AddWidget(Pen.DashStyle.WithValue(value.Compile()))
 
     /// <summary>Sets the LineCap property.</summary>

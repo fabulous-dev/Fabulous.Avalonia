@@ -6,7 +6,7 @@ open Avalonia.Collections
 open Avalonia.Media
 open Fabulous
 
-type IFaDashStyle =
+type IFabDashStyle =
     inherit IFabAnimatable
 
 module DashStyle =
@@ -41,5 +41,5 @@ type DashStyleModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFaDashStyle>, value: ViewRef<DashStyle>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabDashStyle>, value: ViewRef<DashStyle>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
