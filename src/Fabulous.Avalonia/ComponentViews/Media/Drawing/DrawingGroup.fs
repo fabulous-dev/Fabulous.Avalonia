@@ -22,12 +22,20 @@ module ComponentDrawingGroupBuilders =
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         static member DrawingGroup() =
-            CollectionBuilder<'msg, IFabComponentDrawingGroup, IFabComponentDrawing>(DrawingGroup.WidgetKey, ComponentDrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
+            CollectionBuilder<'msg, IFabComponentDrawingGroup, IFabComponentDrawing>(
+                DrawingGroup.WidgetKey,
+                ComponentDrawingGroup.Children,
+                DrawingGroup.Opacity.WithValue(1.0)
+            )
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         /// <param name="opacity">The opacity of the drawing group.</param>
         static member DrawingGroup(opacity: float) =
-            CollectionBuilder<'msg, IFabComponentDrawingGroup, IFabComponentDrawing>(DrawingGroup.WidgetKey, ComponentDrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
+            CollectionBuilder<'msg, IFabComponentDrawingGroup, IFabComponentDrawing>(
+                DrawingGroup.WidgetKey,
+                ComponentDrawingGroup.Children,
+                DrawingGroup.Opacity.WithValue(opacity)
+            )
 
 type ComponentDrawingGroupModifiers =
     /// <summary>Link a ViewRef to access the direct DrawingGroup control instance.</summary>

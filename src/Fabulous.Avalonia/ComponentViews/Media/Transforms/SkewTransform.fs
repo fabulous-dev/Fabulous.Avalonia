@@ -18,7 +18,11 @@ module ComponentSkewTransformBuilders =
         /// <param name="angleX">The AngleX to apply.</param>
         /// <param name="angleY">The AngleY to apply.</param>
         static member SkewTransform(angleX: float, angleY: float) =
-            WidgetBuilder<unit, IFabComponentSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX), SkewTransform.AngleY.WithValue(angleY))
+            WidgetBuilder<unit, IFabComponentSkewTransform>(
+                SkewTransform.WidgetKey,
+                SkewTransform.AngleX.WithValue(angleX),
+                SkewTransform.AngleY.WithValue(angleY)
+            )
 
         /// <summary>Creates a SkewTransform widget.</summary>
         /// <param name="angleX">The AngleX to apply.</param>

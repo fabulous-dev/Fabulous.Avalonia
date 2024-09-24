@@ -27,7 +27,11 @@ module ComponentContextMenuBuilders =
         /// <summary>Creates a ContextMenu widget.</summary>
         /// <param name="placement">The placement mode of the ContextMenu.</param>
         static member ContextMenu(placement: PlacementMode) =
-            CollectionBuilder<unit, IFabComponentContextMenu, IFabComponentControl>(ContextMenu.WidgetKey, ComponentItemsControl.Items, ContextMenu.Placement.WithValue(placement))
+            CollectionBuilder<unit, IFabComponentContextMenu, IFabComponentControl>(
+                ContextMenu.WidgetKey,
+                ComponentItemsControl.Items,
+                ContextMenu.Placement.WithValue(placement)
+            )
 
         /// <summary>Creates a ContextMenu widget.</summary>
         static member ContextMenu() =

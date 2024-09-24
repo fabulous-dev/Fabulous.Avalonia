@@ -22,7 +22,7 @@ module ComponentSplitView =
         ComponentAttributes.defineEvent "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
 
     let PanOpened =
-       ComponentAttributes.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
+        ComponentAttributes.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
 
     let PanOpening =
         ComponentAttributes.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
@@ -85,4 +85,3 @@ type ComponentSplitViewModifiers =
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> unit) =
         this.AddScalar(ComponentSplitView.IsPresented.WithValue(ComponentValueEventData.create value fn))
-

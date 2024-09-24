@@ -258,15 +258,15 @@
     <Compile Include="ComponentViews\Controls\TickBar.fs" />
     <Compile Include="ComponentViews\Controls\DataValidationErrors.fs" />
     <Compile Include="ComponentViews\Controls\AutoCompleteBox.fs" />
+    <Compile Include="ComponentViews\Controls\Buttons\Button.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\DropDownButton.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\HyperlinkButton.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\ButtonSpinner.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\RepeatButton.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\SplitButton.fs" />
-    <Compile Include="ComponentViews\Controls\Buttons\RadioButton.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\ToggleSplitButton.fs" />
     <Compile Include="ComponentViews\Controls\Buttons\ToggleButton.fs" />
-    <Compile Include="ComponentViews\Controls\Buttons\Button.fs" />
+    <Compile Include="ComponentViews\Controls\Buttons\RadioButton.fs" />
     <Compile Include="ComponentViews\Controls\Calendar.fs" />
     <Compile Include="ComponentViews\Controls\CalendarDatePicker.fs" />
     <Compile Include="ComponentViews\Controls\CheckBox.fs" />

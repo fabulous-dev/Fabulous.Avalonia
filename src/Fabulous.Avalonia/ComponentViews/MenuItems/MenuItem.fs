@@ -123,7 +123,11 @@ module ComponentMenuItemsBuilders =
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItems(onClick: RoutedEventArgs -> unit) =
-            CollectionBuilder<unit, IFabComponentMenuItem, IFabComponentMenuItem>(MenuItem.WidgetKey, ComponentItemsControl.Items, ComponentMenuItem.Clicked.WithValue(onClick))
+            CollectionBuilder<unit, IFabComponentMenuItem, IFabComponentMenuItem>(
+                MenuItem.WidgetKey,
+                ComponentItemsControl.Items,
+                ComponentMenuItem.Clicked.WithValue(onClick)
+            )
 
 type ComponentMenuItemModifiers =
     /// <summary>Listens to the MenuItem PointerEnteredItem event.</summary>

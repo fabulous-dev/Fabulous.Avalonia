@@ -18,7 +18,11 @@ module ComponentScaleTransformBuilders =
         /// <param name="scaleX">The X scale factor.</param>
         /// <param name="scaleY">The Y scale factor.</param>
         static member ScaleTransform(scaleX: float, scaleY: float) =
-            WidgetBuilder<unit, IFabComponentScaleTransform>(ScaleTransform.WidgetKey, ScaleTransform.ScaleX.WithValue(scaleX), ScaleTransform.ScaleY.WithValue(scaleY))
+            WidgetBuilder<unit, IFabComponentScaleTransform>(
+                ScaleTransform.WidgetKey,
+                ScaleTransform.ScaleX.WithValue(scaleX),
+                ScaleTransform.ScaleY.WithValue(scaleY)
+            )
 
         /// <summary>Creates a ScaleTransform widget.</summary>
         /// <param name="scaleX">The X scale factor.</param>

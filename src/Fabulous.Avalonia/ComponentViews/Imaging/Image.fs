@@ -21,7 +21,11 @@ module ComponentImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Bitmap) =
-            WidgetBuilder<unit, IFabComponentImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Bitmap(source)), Image.Stretch.WithValue(Stretch.Uniform))
+            WidgetBuilder<unit, IFabComponentImage>(
+                Image.WidgetKey,
+                Image.Source.WithValue(ImageSourceValue.Bitmap(source)),
+                Image.Stretch.WithValue(Stretch.Uniform)
+            )
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
@@ -32,7 +36,11 @@ module ComponentImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: string) =
-            WidgetBuilder<unit, IFabComponentImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.File(source)), Image.Stretch.WithValue(Stretch.Uniform))
+            WidgetBuilder<unit, IFabComponentImage>(
+                Image.WidgetKey,
+                Image.Source.WithValue(ImageSourceValue.File(source)),
+                Image.Stretch.WithValue(Stretch.Uniform)
+            )
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
@@ -43,7 +51,11 @@ module ComponentImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Uri) =
-            WidgetBuilder<unit, IFabComponentImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Uri(source)), Image.Stretch.WithValue(Stretch.Uniform))
+            WidgetBuilder<unit, IFabComponentImage>(
+                Image.WidgetKey,
+                Image.Source.WithValue(ImageSourceValue.Uri(source)),
+                Image.Stretch.WithValue(Stretch.Uniform)
+            )
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
@@ -54,7 +66,11 @@ module ComponentImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Stream) =
-            WidgetBuilder<unit, IFabComponentImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Stream(source)), Image.Stretch.WithValue(Stretch.Uniform))
+            WidgetBuilder<unit, IFabComponentImage>(
+                Image.WidgetKey,
+                Image.Source.WithValue(ImageSourceValue.Stream(source)),
+                Image.Stretch.WithValue(Stretch.Uniform)
+            )
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>

@@ -2,55 +2,47 @@ namespace Fabulous.Avalonia.Components
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Fabulous
+open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabSplitButton =
-    inherit IFabContentControl
+type IFabComponentSplitButton =
+    inherit IFabComponentContentControl
+    inherit IFabSplitButton
 
-module SplitButton =
-    let WidgetKey = Widgets.register<SplitButton>()
-
+module ComponentSplitButton =
     let Clicked =
-        Attributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
-
-    let Flyout = Attributes.defineAvaloniaPropertyWidget SplitButton.FlyoutProperty
+        ComponentAttributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
 
 [<AutoOpen>]
-module SplitButtonBuilders =
-    type Fabulous.Avalonia.View with
+module ComponentSplitButtonBuilders =
+    type Fabulous.Avalonia.Components.View with
 
         /// <summary>Creates a SplitButton widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the SplitButton is clicked.</param>
-        static member SplitButton(text: string, fn: 'msg) =
+        static member SplitButton(text: string, fn: RoutedEventArgs -> unit) =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                SplitButton.Clicked.WithValue(fun _ -> box fn)
+                ComponentSplitButton.Clicked.WithValue(fn)
             )
 
         /// <summary>Creates a SplitButton widget.</summary>
         /// <param name="fn">Raised when the SplitButton is clicked.</param>
         /// <param name="content">The content to display in the flyout.</param>
-        static member SplitButton(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member SplitButton(fn: RoutedEventArgs -> unit, content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<'msg, IFabSplitButton>(
                 SplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(SplitButton.Clicked.WithValue(fun _ -> box fn)),
+                    StackList.one(ComponentSplitButton.Clicked.WithValue(fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
             )
 
-type SplitButtonModifiers =
-    /// <summary>Sets the Flyout property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Flyout value.</param>
-    [<Extension>]
-    static member inline flyout(this: WidgetBuilder<'msg, #IFabSplitButton>, value: WidgetBuilder<'msg, #IFabFlyoutBase>) =
-        this.AddWidget(SplitButton.Flyout.WithValue(value.Compile()))
-
+type ComponentSplitButtonModifiers =
     /// <summary>Link a ViewRef to access the direct SplitButton control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
