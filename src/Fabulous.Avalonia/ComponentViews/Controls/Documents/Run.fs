@@ -3,28 +3,26 @@ namespace Fabulous.Avalonia.Components
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Fabulous
+open Fabulous.Avalonia
 
-type IFabRun =
-    inherit IFabInline
+type IFabComponentRun =
+    inherit IFabComponentInline
+    inherit IFabRun
 
-module Run =
-    let WidgetKey = Widgets.register<Run>()
-
-    let Text = Attributes.defineAvaloniaPropertyWithEquality Run.TextProperty
 
 [<AutoOpen>]
-module RunBuilders =
-    type Fabulous.Avalonia.View with
+module ComponentRunBuilders =
+    type Fabulous.Avalonia.Components.View with
 
         /// <summary>Creates a Run widget.</summary>
         /// <param name="text">The text to display.</param>
         static member Run(text: string) =
-            WidgetBuilder<'msg, IFabRun>(Run.WidgetKey, Run.Text.WithValue(text))
+            WidgetBuilder<unit, IFabComponentRun>(Run.WidgetKey, Run.Text.WithValue(text))
 
-type RunModifiers =
+type ComponentRunModifiers =
     /// <summary>Link a ViewRef to access the direct Run control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabRun>, value: ViewRef<Run>) =
+    static member inline reference(this: WidgetBuilder<unit, IFabComponentRun>, value: ViewRef<Run>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

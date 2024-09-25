@@ -4,13 +4,15 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Avalonia.Media
 open Fabulous
+open Fabulous.Avalonia
 
-type IFabInline =
-    inherit IFabTextElement
+type IFabComponentInline =
+    inherit IFabComponentTextElement
+    inherit IFabInline
 
-module Inline =
+module ComponentInline =
     let TextDecorations =
-        Attributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
+        ComponentAttributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
             let target = target :?> Inline
 
             if target.TextDecorations = null then
@@ -19,14 +21,3 @@ module Inline =
                 newColl
             else
                 target.TextDecorations)
-
-    let BaselineAlignment =
-        Attributes.defineAvaloniaPropertyWithEquality Inline.BaselineAlignmentProperty
-
-type InlineModifiers =
-    /// <summary>Sets the BaselineAlignment property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BaselineAlignment value.</param>
-    [<Extension>]
-    static member inline baselineAlignment(this: WidgetBuilder<'msg, #IFabInline>, value: BaselineAlignment) =
-        this.AddScalar(Inline.BaselineAlignment.WithValue(value))
