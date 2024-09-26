@@ -4,59 +4,30 @@ open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.Avalonia
 
-type IFabTimePicker =
-    inherit IFabTemplatedControl
+type IFabComponentTimePicker =
+    inherit IFabComponentTemplatedControl
+    inherit IFabTimePicker
 
-module TimePicker =
-    let WidgetKey = Widgets.register<TimePicker>()
-
-    let ClockIdentifier =
-        Attributes.defineAvaloniaPropertyWithEquality TimePicker.ClockIdentifierProperty
-
-    let MinuteIncrement =
-        Attributes.defineAvaloniaPropertyWithEquality TimePicker.MinuteIncrementProperty
-
+module ComponentTimePicker =
     let SelectedTimeChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
+        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
-module TimePickerBuilders =
-    type Fabulous.Avalonia.View with
+module ComponentTimePickerBuilders =
+    type Fabulous.Avalonia.Components.View with
 
         /// <summary>Creates a TimePicker widget.</summary>
         /// <param name="time">The initial time.</param>
         /// <param name="fn">Raised when the selected time changes.</param>
-        static member TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
-            WidgetBuilder<'msg, IFabTimePicker>(TimePicker.WidgetKey, TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time fn))
+        static member TimePicker(time: TimeSpan, fn: TimeSpan -> unit) =
+            WidgetBuilder<unit, IFabComponentTimePicker>(TimePicker.WidgetKey, ComponentTimePicker.SelectedTimeChanged.WithValue(ComponentValueEventData.create time fn))
 
-type TimePickerModifiers =
-
-    /// <summary>Sets the ClockIdentifier property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ClockIdentifier value.</param>
-    [<Extension>]
-    static member inline clockIdentifier(this: WidgetBuilder<'msg, #IFabTimePicker>, value: string) =
-        this.AddScalar(TimePicker.ClockIdentifier.WithValue(value))
-
-    /// <summary>Sets the MinuteIncrement property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The MinuteIncrement value.</param>
-    [<Extension>]
-    static member inline minuteIncrement(this: WidgetBuilder<'msg, #IFabTimePicker>, value: int) =
-        this.AddScalar(TimePicker.MinuteIncrement.WithValue(value))
-
+type ComponentTimePickerModifiers =
     /// <summary>Link a ViewRef to access the direct TimePicker control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabTimePicker>, value: ViewRef<TimePicker>) =
+    static member inline reference(this: WidgetBuilder<unit, IFabComponentTimePicker>, value: ViewRef<TimePicker>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-type TimePickerExtraModifiers =
-    /// <summary>Sets the ClockIdentifier property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ClockIdentifier value.</param>
-    [<Extension>]
-    static member inline use24HourClock(this: WidgetBuilder<'msg, #IFabTimePicker>, value: bool) =
-        this.AddScalar(TimePicker.ClockIdentifier.WithValue(if value then "24HourClock" else "12HourClock"))

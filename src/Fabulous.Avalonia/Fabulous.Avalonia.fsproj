@@ -297,13 +297,14 @@
     <Compile Include="ComponentViews\Controls\ProgressBar.fs" />
     <Compile Include="ComponentViews\Controls\SelectableTextBlock.fs" />
     <Compile Include="ComponentViews\Controls\Separator.fs" />
+    <Compile Include="ComponentViews\Controls\_IGeometry.fs" />
+    <Compile Include="ComponentViews\Controls\Shapes\_Shape.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Polygon.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Line.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Rectangle.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Polyline.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Path.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Sector.fs" />
-    <Compile Include="ComponentViews\Controls\Shapes\_Shape.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Arc.fs" />
     <Compile Include="ComponentViews\Controls\Shapes\Ellipse.fs" />
     <Compile Include="ComponentViews\Controls\Slider.fs" />
@@ -319,7 +320,6 @@
     <Compile Include="ComponentViews\Styling\Style.fs" />
     <Compile Include="ComponentViews\Media\_IDrawing.fs" />
     <Compile Include="ComponentViews\Media\_IPathSegment.fs" />
-    <Compile Include="ComponentViews\Media\_IGeometry.fs" />
     <Compile Include="ComponentViews\Media\_TileBrush.fs" />
     <Compile Include="ComponentViews\Media\_Effect.fs" />
     <Compile Include="ComponentViews\Media\_DropShadowEffectBase.fs" />
