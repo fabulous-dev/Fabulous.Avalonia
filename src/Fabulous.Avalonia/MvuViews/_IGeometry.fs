@@ -1,0 +1,30 @@
+namespace Fabulous.Avalonia.Mvu
+
+open System.Runtime.CompilerServices
+open Avalonia.Media
+open Fabulous
+open Fabulous.Avalonia
+
+type IFabMvuGeometry =
+    inherit IFabMvuElement
+    inherit IFabGeometry
+
+module MvuGeometry =
+    let Changed =
+        MvuAttributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
+
+type MvuGeometryModifiers =
+    /// <summary>Listens to the Geometry Changed event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="msg">Raised when the geometry changes.</param>
+    [<Extension>]
+    static member inline onChanged(this: WidgetBuilder<unit, #IFabMvuGeometry>, msg: unit -> unit) =
+        this.AddScalar(MvuGeometry.Changed.WithValue(msg))
+
+type GeometryAttachedModifiers =
+    /// <summary>Sets the Clip property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Clip value.</param>
+    [<Extension>]
+    static member inline clip(this: WidgetBuilder<unit, #IFabMvuVisual>, value: WidgetBuilder<unit, #IFabMvuGeometry>) =
+        this.AddWidget(Visual.ClipWidget.WithValue(value.Compile()))
