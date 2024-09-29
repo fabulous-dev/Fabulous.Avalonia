@@ -21,24 +21,6 @@ module VirtualizingStackPanel =
     let AreVerticalSnapPointsRegular =
         Attributes.defineAvaloniaPropertyWithEquality VirtualizingStackPanel.AreVerticalSnapPointsRegularProperty
 
-    let HorizontalSnapPointsChanged =
-        Attributes.defineEvent "VirtualizingStackPanel_HorizontalSnapPointsChanged" (fun target ->
-            (target :?> VirtualizingStackPanel)
-                .HorizontalSnapPointsChanged)
-
-    let VerticalSnapPointsChanged =
-        Attributes.defineEvent "VirtualizingStackPanel_VerticalSnapPointsChanged" (fun target ->
-            (target :?> VirtualizingStackPanel)
-                .VerticalSnapPointsChanged)
-
-[<AutoOpen>]
-module VirtualizingStackPanelBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a VirtualizingStackPanel widget.</summary>
-        static member VirtualizingStackPanel() =
-            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(VirtualizingStackPanel.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 type VirtualizingStackPanelModifiers =
     /// <summary>Sets the AreHorizontalSnapPointsRegular property.</summary>
     /// <param name="this">Current widget.</param>
@@ -53,20 +35,6 @@ type VirtualizingStackPanelModifiers =
     [<Extension>]
     static member inline areVerticalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabVirtualizingStackPanel>, value: bool) =
         this.AddScalar(VirtualizingStackPanel.AreVerticalSnapPointsRegular.WithValue(value))
-
-    /// <summary>Listens to the StackPanel HorizontalSnapPointsChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the HorizontalSnapPointsChanged event fires.</param>
-    [<Extension>]
-    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(VirtualizingStackPanel.HorizontalSnapPointsChanged.WithValue(fn))
-
-    /// <summary>Listens to the StackPanel VerticalSnapPointsChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the VerticalSnapPointsChanged event fires.</param>
-    [<Extension>]
-    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(VirtualizingStackPanel.VerticalSnapPointsChanged.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct VirtualizingStackPanel control instance.</summary>
     /// <param name="this">Current widget.</param>

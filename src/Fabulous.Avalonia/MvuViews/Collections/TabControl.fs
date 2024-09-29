@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -7,27 +7,27 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
 
-type IFabComponentTabControl =
-    inherit IFabComponentSelectingItemsControl
+type IFabMvuTabControl =
+    inherit IFabMvuSelectingItemsControl
     inherit IFabTabControl
 
 [<AutoOpen>]
-module ComponentTabControlBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuTabControlBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a TabControl widget.</summary>
         /// <param name="placement">The placement of the tab strip.</param>
         static member TabControl(placement: Dock) =
-            CollectionBuilder<unit, IFabComponentTabControl, IFabComponentTabItem>(
+            CollectionBuilder<unit, IFabMvuTabControl, IFabMvuTabItem>(
                 TabControl.WidgetKey,
-                ComponentItemsControl.Items,
+                MvuItemsControl.Items,
                 TabControl.TabStripPlacement.WithValue(placement)
             )
 
         /// <summary>Creates a TabControl widget.</summary>
         static member TabControl() =
-            CollectionBuilder<unit, IFabComponentTabControl, IFabComponentTabItem>(
+            CollectionBuilder<unit, IFabMvuTabControl, IFabMvuTabItem>(
                 TabControl.WidgetKey,
-                ComponentItemsControl.Items,
+                MvuItemsControl.Items,
                 TabControl.TabStripPlacement.WithValue(Dock.Top)
             )

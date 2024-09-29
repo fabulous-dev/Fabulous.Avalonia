@@ -37,12 +37,12 @@ type MvuVisualExtraModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<unit, #IFabMvuVisual>, value: Color) =
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabMvuVisual>, value: Color) =
         VisualModifiers.opacityMask(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The OpacityMask value.</param>
     [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<unit, #IFabMvuVisual>, value: string) =
+    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabMvuVisual>, value: string) =
         VisualModifiers.opacityMask(this, View.SolidColorBrush(value))

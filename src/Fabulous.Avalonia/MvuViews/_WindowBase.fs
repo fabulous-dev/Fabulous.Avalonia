@@ -25,28 +25,28 @@ module MvuWindowBase =
 type MvuWindowBaseModifiers =
     /// <summary>Listens to the WindowBase Activated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the window is activated.</param>
+    /// <param name="fn">Raised when the window is activated.</param>
     [<Extension>]
-    static member inline onActivated(this: WidgetBuilder<unit, #IFabMvuWindowBase>, msg: unit -> unit) =
-        this.AddScalar(MvuWindowBase.Activated.WithValue(msg))
+    static member inline onActivated(this: WidgetBuilder<unit, #IFabMvuWindowBase>, fn: 'msg) =
+        this.AddScalar(MvuWindowBase.Activated.WithValue(MsgValue fn))
 
     /// <summary>Listens to the WindowBase Deactivated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the window is deactivated.</param>
+    /// <param name="fn">Raised when the window is deactivated.</param>
     [<Extension>]
-    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabMvuWindowBase>, msg: unit -> unit) =
-        this.AddScalar(MvuWindowBase.Deactivated.WithValue(msg))
+    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabMvuWindowBase>, fn: 'msg) =
+        this.AddScalar(MvuWindowBase.Deactivated.WithValue(MsgValue fn))
 
     /// <summary>Listens to the WindowBase PositionChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window position is changed.</param>
     [<Extension>]
-    static member inline onPositionChanged(this: WidgetBuilder<unit, #IFabMvuWindowBase>, fn: PixelPointEventArgs -> unit) =
+    static member inline onPositionChanged(this: WidgetBuilder<unit, #IFabMvuWindowBase>, fn: PixelPointEventArgs -> 'msg) =
         this.AddScalar(MvuWindowBase.PositionChanged.WithValue(fn))
 
     /// <summary>Listens to the WindowBase Resized event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is resized.</param>
     [<Extension>]
-    static member inline onResized(this: WidgetBuilder<unit, #IFabMvuWindowBase>, fn: WindowResizedEventArgs -> unit) =
+    static member inline onResized(this: WidgetBuilder<unit, #IFabMvuWindowBase>, fn: WindowResizedEventArgs -> 'msg) =
         this.AddScalar(MvuWindowBase.Resized.WithValue(fn))

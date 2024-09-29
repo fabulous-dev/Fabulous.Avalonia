@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System
 open System.IO
@@ -9,35 +9,35 @@ open Avalonia.Media.Imaging
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentNativeMenuItem =
-    inherit IFabComponentElement
+type IFabMvuNativeMenuItem =
+    inherit IFabMvuElement
     inherit IFabNativeMenuItem
 
-module ComponentNativeMenuItem =
+module MvuNativeMenuItem =
 
     let Click =
-        ComponentAttributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
+        MvuAttributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
 
 [<AutoOpen>]
-module NativeMenuItemBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuNativeMenuItemBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a NativeMenuItem widget.</summary>
         /// <param name="header">The header of the Flyout.</param>
         static member NativeMenuItem(header: string) =
-            WidgetBuilder<unit, IFabComponentNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
+            WidgetBuilder<unit, IFabMvuNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
 
         /// <summary>Creates a NativeMenuItem widget.</summary>
         /// <param name="header">The header of the Flyout.</param>
         /// <param name="onClicked">Raised when the menu item is clicked.</param>
-        static member NativeMenuItem(header: string, onClicked: unit -> unit) =
-            WidgetBuilder<unit, IFabComponentNativeMenuItem>(
+        static member NativeMenuItem(header: string, onClicked: 'msg) =
+            WidgetBuilder<unit, IFabMvuNativeMenuItem>(
                 NativeMenuItem.WidgetKey,
                 NativeMenuItem.Header.WithValue(header),
-                ComponentNativeMenuItem.Click.WithValue(onClicked)
+                MvuNativeMenuItem.Click.WithValue(MsgValue onClicked)
             )
 
-type ComponentNativeMenuItemModifiers =
+type MvuNativeMenuItemModifiers =
     /// <summary>Link a ViewRef to access the direct NativeMenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>

@@ -9,20 +9,6 @@ type IFabItalic =
 
 module Italic =
     let WidgetKey = Widgets.register<Italic>()
-
-[<AutoOpen>]
-module ItalicBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Italic widget.</summary>
-        static member private Italic() =
-            CollectionBuilder<'msg, IFabItalic, IFabInline>(Italic.WidgetKey, Span.Inlines)
-
-        /// <summary>Creates a Italic widget.</summary>
-        /// <param name="text">Text to display.</param>
-        static member Italic(text: string) =
-            View.Italic<'msg>() { View.Run<'msg>(text) }
-
 type ItalicModifiers =
     /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>
     /// <param name="this">Current widget.</param>

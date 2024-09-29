@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
@@ -6,22 +6,23 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentDropShadowDirectionEffect =
-    inherit IFabComponentDropShadowEffectBase
+type IFabMvuDropShadowDirectionEffect =
+    inherit IFabMvuDropShadowEffectBase
+    inherit IFabDropShadowDirectionEffect
 
 [<AutoOpen>]
-module ComponentDropShadowDirectionEffectBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuDropShadowDirectionEffectBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a DropShadowDirectionEffect widget.</summary>
         static member DropShadowDirectionEffect() =
-            WidgetBuilder<unit, IFabDropShadowDirectionEffect>(DropShadowDirectionEffect.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<unit, IFabMvuDropShadowDirectionEffect>(DropShadowDirectionEffect.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
         /// <summary>Creates a DropShadowDirectionEffect widget.</summary>
         /// <param name="shadowDepth">The depth of the shadow.</param>
         /// <param name="direction">The direction of the shadow.</param>
         static member DropShadowDirectionEffect(shadowDepth: float, direction: float) =
-            WidgetBuilder<unit, IFabDropShadowDirectionEffect>(
+            WidgetBuilder<unit, IFabMvuDropShadowDirectionEffect>(
                 DropShadowDirectionEffect.WidgetKey,
                 DropShadowDirectionEffect.ShadowDepth.WithValue(shadowDepth),
                 DropShadowDirectionEffect.Direction.WithValue(direction)

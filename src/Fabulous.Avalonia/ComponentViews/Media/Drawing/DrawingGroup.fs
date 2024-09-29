@@ -44,6 +44,23 @@ type ComponentDrawingGroupModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabComponentDrawingGroup>, value: ViewRef<DrawingGroup>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+        
+        
+type ComponentDrawingGroupExtraModifiers =
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<unit, #IFabDrawingGroup>, value: Color) =
+        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the OpacityMask property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The OpacityMask value.</param>
+    [<Extension>]
+    static member inline opacityMask(this: WidgetBuilder<unit, #IFabDrawingGroup>, value: string) =
+        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
+
 
 type ComponentDrawingGroupCollectionBuilderExtensions =
     [<Extension>]

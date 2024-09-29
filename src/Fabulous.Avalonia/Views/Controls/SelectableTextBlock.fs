@@ -26,32 +26,6 @@ module SelectableTextBlock =
     let SelectionBrush =
         Attributes.defineAvaloniaPropertyWithEquality SelectableTextBlock.SelectionBrushProperty
 
-    let CopyingToClipboard =
-        Attributes.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
-
-[<AutoOpen>]
-module SelectableTextBlockBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a SelectableTextBlock widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
-        static member inline SelectableTextBlock(text: string, fn: RoutedEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabSelectableTextBlock>(
-                SelectableTextBlock.WidgetKey,
-                TextBlock.Text.WithValue(text),
-                SelectableTextBlock.CopyingToClipboard.WithValue(fn)
-            )
-
-        /// <summary>Creates a SelectableTextBlock widget.</summary>
-        /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
-        static member inline SelectableTextBlock(fn: RoutedEventArgs -> 'msg) =
-            CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
-                SelectableTextBlock.WidgetKey,
-                TextBlock.Inlines,
-                SelectableTextBlock.CopyingToClipboard.WithValue(fn)
-            )
-
 type SelectableTextBlockModifiers =
 
     /// <summary>Sets the SelectionStart property.</summary>
@@ -88,21 +62,6 @@ type SelectableTextBlockModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-type SelectableTextBlockExtraModifiers =
-    /// <summary>Sets the SelectionBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The SelectionBrush value.</param>
-    [<Extension>]
-    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: Color) =
-        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the SelectionBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The SelectionBrush value.</param>
-    [<Extension>]
-    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: string) =
-        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
 
 type SelectableTextBlockCollectionBuilderExtensions =
     [<Extension>]

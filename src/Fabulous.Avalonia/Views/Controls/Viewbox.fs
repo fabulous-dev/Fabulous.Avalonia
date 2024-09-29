@@ -19,18 +19,6 @@ module ViewBox =
 
     let Child = Attributes.defineAvaloniaPropertyWidget Viewbox.ChildProperty
 
-[<AutoOpen>]
-module ViewBoxBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ViewBox widget.</summary>
-        /// <param name="content">The content of the ViewBox.</param>
-        static member ViewBox(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabViewBox>(
-                ViewBox.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone)
-            )
-
 type ViewBoxModifiers =
     /// <summary>Sets the Stretch property.</summary>
     /// <param name="this">Current widget.</param>

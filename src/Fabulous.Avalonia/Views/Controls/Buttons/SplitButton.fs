@@ -10,38 +10,8 @@ type IFabSplitButton =
 
 module SplitButton =
     let WidgetKey = Widgets.register<SplitButton>()
-
-    let Clicked =
-        Attributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
-
     let Flyout = Attributes.defineAvaloniaPropertyWidget SplitButton.FlyoutProperty
 
-[<AutoOpen>]
-module SplitButtonBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a SplitButton widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the SplitButton is clicked.</param>
-        static member SplitButton(text: string, fn: 'msg) =
-            WidgetBuilder<'msg, IFabSplitButton>(
-                SplitButton.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                SplitButton.Clicked.WithValue(fun _ -> box fn)
-            )
-
-        /// <summary>Creates a SplitButton widget.</summary>
-        /// <param name="fn">Raised when the SplitButton is clicked.</param>
-        /// <param name="content">The content to display in the flyout.</param>
-        static member SplitButton(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabSplitButton>(
-                SplitButton.WidgetKey,
-                AttributesBundle(
-                    StackList.one(SplitButton.Clicked.WithValue(fun _ -> box fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
 
 type SplitButtonModifiers =
     /// <summary>Sets the Flyout property.</summary>

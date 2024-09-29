@@ -15,23 +15,6 @@ module Label =
 
     let Target = Attributes.defineAvaloniaPropertyWithEquality Label.TargetProperty
 
-[<AutoOpen>]
-module LabelBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Label widget.</summary>
-        /// <param name="text">The text to display.</param>
-        static member inline Label(text: string) =
-            WidgetBuilder<'msg, IFabLabel>(Label.WidgetKey, ContentControl.ContentString.WithValue(text))
-
-        /// <summary>Creates a Label widget.</summary>
-        /// <param name="content">The content to display.</param>
-        static member inline Label(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabLabel>(
-                Label.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
 type LabelModifiers =
     /// <summary>Sets the Target property.</summary>
     /// <param name="this">Current widget.</param>

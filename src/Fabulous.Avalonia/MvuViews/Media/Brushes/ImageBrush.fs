@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System
 open System.IO
@@ -8,38 +8,38 @@ open Avalonia.Media.Imaging
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentImageBrush =
-    inherit IFabComponentTileBrush
+type IFabMvuImageBrush =
+    inherit IFabMvuTileBrush
     inherit IFabImageBrush
 
 [<AutoOpen>]
-module ComponentImageBrushBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuImageBrushBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Bitmap) =
-            WidgetBuilder<unit, IFabComponentImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Bitmap(source)))
+            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Bitmap(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: string) =
-            WidgetBuilder<unit, IFabComponentImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.File(source)))
+            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.File(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Uri) =
-            WidgetBuilder<unit, IFabComponentImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Uri(source)))
+            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Uri(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Stream) =
-            WidgetBuilder<unit, IFabComponentImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))
+            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))
 
-type ComponentImageBrushModifiers =
+type MvuImageBrushModifiers =
     /// <summary>Link a ViewRef to access the direct ImageBrush control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentImageBrush>, value: ViewRef<ImageBrush>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabMvuImageBrush>, value: ViewRef<ImageBrush>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
@@ -6,19 +6,19 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentGeometryDrawing =
-    inherit IFabComponentDrawing
+type IFabMvuGeometryDrawing =
+    inherit IFabMvuDrawing
     inherit IFabGeometryDrawing
 
 [<AutoOpen>]
-module ComponentGeometryDrawingBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuGeometryDrawingBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
-        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabComponentGeometry>, brush: WidgetBuilder<'msg, #IFabComponentBrush>) =
-            WidgetBuilder<'msg, IFabComponentGeometryDrawing>(
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabMvuGeometry>, brush: WidgetBuilder<'msg, #IFabMvuBrush>) =
+            WidgetBuilder<'msg, IFabMvuGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
@@ -32,8 +32,8 @@ module ComponentGeometryDrawingBuilders =
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
-        static member GeometryDrawing(geometry: string, brush: WidgetBuilder<'msg, #IFabComponentBrush>) =
-            WidgetBuilder<'msg, IFabComponentGeometryDrawing>(
+        static member GeometryDrawing(geometry: string, brush: WidgetBuilder<'msg, #IFabMvuBrush>) =
+            WidgetBuilder<'msg, IFabMvuGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.one(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
@@ -57,20 +57,20 @@ module ComponentGeometryDrawingBuilders =
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
-        static member GeometryDrawing(geometry: WidgetBuilder<unit, #IFabComponentGeometry>, brush: Color) =
+        static member GeometryDrawing(geometry: WidgetBuilder<unit, #IFabMvuGeometry>, brush: Color) =
             View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
 
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
-        static member GeometryDrawing(geometry: WidgetBuilder<unit, #IFabComponentGeometry>, brush: string) =
+        static member GeometryDrawing(geometry: WidgetBuilder<unit, #IFabMvuGeometry>, brush: string) =
             View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
 
         /// <summary>Creates a GeometryDrawing widget.</summary>
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
-        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabComponentGeometry>, brush: IBrush) =
-            WidgetBuilder<'msg, IFabComponentGeometryDrawing>(
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabMvuGeometry>, brush: IBrush) =
+            WidgetBuilder<'msg, IFabMvuGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.one(GeometryDrawing.Brush.WithValue(brush)),
@@ -83,7 +83,7 @@ module ComponentGeometryDrawingBuilders =
         /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
         /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
         static member GeometryDrawing(geometry: string, brush: IBrush) =
-            WidgetBuilder<'msg, IFabComponentGeometryDrawing>(
+            WidgetBuilder<'msg, IFabMvuGeometryDrawing>(
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.two(GeometryDrawing.Brush.WithValue(brush), GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
@@ -92,18 +92,18 @@ module ComponentGeometryDrawingBuilders =
                 )
             )
 
-type ComponentGeometryDrawingModifiers =
+type MvuGeometryDrawingModifiers =
 
     /// <summary>Sets the Pen property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Pen value.</param>
     [<Extension>]
-    static member inline pen(this: WidgetBuilder<'msg, #IFabComponentGeometryDrawing>, value: WidgetBuilder<'msg, #IFabPen>) =
+    static member inline pen(this: WidgetBuilder<'msg, #IFabMvuGeometryDrawing>, value: WidgetBuilder<'msg, #IFabPen>) =
         this.AddWidget(GeometryDrawing.Pen.WithValue(value.Compile()))
 
     /// <summary>Link a ViewRef to access the direct GeometryDrawing control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentGeometryDrawing>, value: ViewRef<GeometryDrawing>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabMvuGeometryDrawing>, value: ViewRef<GeometryDrawing>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

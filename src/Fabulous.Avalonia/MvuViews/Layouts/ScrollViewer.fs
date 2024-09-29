@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia
@@ -8,17 +8,17 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentScrollViewer =
-    inherit IFabComponentContentControl
+type IFabMvuScrollViewer =
+    inherit IFabMvuContentControl
     inherit IFabScrollViewer
 
-module ComponentScrollViewer =
+module MvuScrollViewer =
     let ScrollChanged =
-        ComponentAttributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
+        MvuAttributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
 
 [<AutoOpen>]
-module ComponentScrollViewerBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuScrollViewerBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ScrollViewer widget</summary>
         /// <param name="content">The content to display</param>
@@ -28,10 +28,10 @@ module ComponentScrollViewerBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
-type ComponentScrollViewerModifiers =
+type MvuScrollViewerModifiers =
     /// <summary>Listens to the ScrollViewer ScrollChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ScrollChanged event fires.</param>
     [<Extension>]
-    static member inline onScrollChanged(this: WidgetBuilder<unit, #IFabComponentScrollViewer>, fn: ScrollChangedEventArgs -> unit) =
-        this.AddScalar(ComponentScrollViewer.ScrollChanged.WithValue(fn))
+    static member inline onScrollChanged(this: WidgetBuilder<unit, #IFabMvuScrollViewer>, fn: ScrollChangedEventArgs -> unit) =
+        this.AddScalar(MvuScrollViewer.ScrollChanged.WithValue(fn))

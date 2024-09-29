@@ -45,8 +45,23 @@ type ComponentSelectableTextBlockModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
+    static member inline reference(this: WidgetBuilder<unit, IFabComponentSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+        
+type SelectableTextBlockExtraModifiers =
+    /// <summary>Sets the SelectionBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionBrush value.</param>
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<unit, IFabComponentSelectableTextBlock>, value: Color) =
+        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the SelectionBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionBrush value.</param>
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<unit, IFabComponentSelectableTextBlock>, value: string) =
+        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
 
 type ComponentSelectableTextBlockCollectionBuilderExtensions =
     [<Extension>]

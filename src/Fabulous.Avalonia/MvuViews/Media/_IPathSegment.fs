@@ -1,7 +1,7 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open Fabulous.Avalonia
 
-type IFabComponentPathSegment =
-    inherit IFabComponentElement
+type IFabMvuPathSegment =
+    inherit IFabMvuElement
     inherit IFabPathSegment

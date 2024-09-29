@@ -19,16 +19,6 @@ module ButtonSpinner =
     let ShowButtonSpinner =
         Attributes.defineAvaloniaPropertyWithEquality ButtonSpinner.ShowButtonSpinnerProperty
 
-[<AutoOpen>]
-module ButtonSpinnerBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ButtonSpinner widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the ButtonSpinner is clicked.</param>
-        static member ButtonSpinner(text: string, fn: SpinEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabButtonSpinner>(ButtonSpinner.WidgetKey, ContentControl.ContentString.WithValue(text), Spinner.Spin.WithValue(fn))
-
 type ButtonSpinnerModifiers =
 
     /// <summary>Sets the AllowSpin property.</summary>

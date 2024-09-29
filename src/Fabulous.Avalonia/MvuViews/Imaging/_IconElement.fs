@@ -1,7 +1,7 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open Fabulous.Avalonia
 
-type IFabComponentIconElement =
-    inherit IFabComponentTemplatedControl
+type IFabMvuIconElement =
+    inherit IFabMvuTemplatedControl
     inherit IFabIconElement

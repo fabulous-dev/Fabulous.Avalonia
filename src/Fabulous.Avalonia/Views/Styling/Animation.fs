@@ -36,23 +36,6 @@ module Animation =
     let SpeedRatio =
         Attributes.defineAvaloniaPropertyWithEquality Animation.SpeedRatioProperty
 
-    let Children =
-        Attributes.defineAvaloniaListWidgetCollection "Animation_KeyFramesProperty" (fun target -> (target :?> Animation).Children)
-
-[<AutoOpen>]
-module AnimationBuilders =
-
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Animation widget with the specified duration and keyframes.</summary>
-        /// <param name="duration">The main Window of the Application.</param>
-        static member Animation<'msg>(duration: TimeSpan) =
-            CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children, Animation.Duration.WithValue(duration))
-
-        /// <summary>Creates a Animation widget with keyframes.</summary>
-        static member Animation<'msg>() =
-            CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children)
-
 type AnimationModifiers =
     /// <summary>Sets the IterationCount property to Infinite.</summary>
     /// <param name="this">Current widget.</param>
@@ -152,13 +135,3 @@ type AnimationCollectionBuilderExtensions =
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-
-[<AutoOpen>]
-module AnimationAttachedBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary> Creates a Animation widget with the specified duration and keyframes.</summary>
-        /// <param name="keyFrame">The keyframe to add to the animation.</param>
-        /// <param name="duration">The duration of the animation.</param>
-        static member inline Animation(keyFrame: WidgetBuilder<'msg, IFabKeyFrame>, duration: TimeSpan) =
-            CollectionBuilder<'msg, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, Animation.Children, Animation.Duration.WithValue(duration)) { keyFrame }

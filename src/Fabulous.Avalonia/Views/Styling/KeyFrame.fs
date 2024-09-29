@@ -3,9 +3,7 @@ namespace Fabulous.Avalonia
 open System
 open System.Globalization
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Animation
-open Avalonia.Styling
 open Fabulous
 
 type IFabKeyFrame =
@@ -39,22 +37,6 @@ module KeyFrame =
 
     let KeyTime =
         Attributes.defineProperty "KeyFrame_KeyTime" TimeSpan.Zero (fun target value -> (target :?> KeyFrame).KeyTime <- value)
-
-[<AutoOpen>]
-module KeyFrameBuilders =
-
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a KeyFrame widget.</summary>
-        /// <param name="setters">The animation setters to apply.</param>
-        static member KeyFrames(setters: IAnimationSetter seq) =
-            WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setters.WithValue(setters))
-
-        /// <summary>Creates a KeyFrame widget.</summary>
-        /// <param name="property">The property to animate.</param>
-        /// <param name="value">The value to animate to.</param>
-        static member KeyFrame(property: AvaloniaProperty, value: obj) =
-            WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setter.WithValue(Setter(property, value)))
 
 type KeyFrameModifiers =
     /// <summary>Sets the Cue property.</summary>

@@ -1,10 +1,10 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentDropShadowEffectBase =
-    inherit IFabComponentEffect
+type IFabMvuDropShadowEffectBase =
+    inherit IFabMvuEffect
     inherit IFabDropShadowEffectBase

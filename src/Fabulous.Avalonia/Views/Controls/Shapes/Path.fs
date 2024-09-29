@@ -17,22 +17,6 @@ module Path =
 
     let DataString = Attributes.defineAvaloniaPropertyWithEquality Path.DataProperty
 
-[<AutoOpen>]
-module PathBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Path widget.</summary>
-        /// <param name="content">The content of the Path.</param>
-        static member Path(content: WidgetBuilder<'msg, #IFabGeometry>) =
-            WidgetBuilder<'msg, IFabPath>(
-                Path.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Path.DataWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a Path widget.</summary>
-        /// <param name="data">The content of the Path.</param>
-        static member Path(data: string) =
-            WidgetBuilder<'msg, IFabPath>(Path.WidgetKey, Path.DataString.WithValue(Geometry.Parse(data)))
 
 type PathModifiers =
     /// <summary>Link a ViewRef to access the direct Path control instance.</summary>

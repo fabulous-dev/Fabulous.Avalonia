@@ -30,5 +30,5 @@ type MvuExperimentalAcrylicMaterialModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ExperimentalAcrylicMaterial is invalidated.</param>
     [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<unit, #IFabMvuExperimentalAcrylicMaterial>, fn: unit -> unit) =
-        this.AddScalar(MvuExperimentalAcrylicMaterial.Invalidated.WithValue(fn))
+    static member inline onInvalidated(this: WidgetBuilder<unit, #IFabMvuExperimentalAcrylicMaterial>, fn: 'msg) =
+        this.AddScalar(MvuExperimentalAcrylicMaterial.Invalidated.WithValue(MsgValue fn))

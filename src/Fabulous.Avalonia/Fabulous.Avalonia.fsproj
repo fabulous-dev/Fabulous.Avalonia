@@ -217,7 +217,23 @@
     <Compile Include="Views\Panels\WrapPanel.fs" />
     <Compile Include="Views\Panels\UniformGrid.fs" />
     <Compile Include="Views\Application.fs" />
-    <Compile Include="Views\Any.fs" />
+    <Compile Include="Async.fs" />
+    <None Include="..\Fabulous.Avalonia.props">
+      <PackagePath>build/Fabulous.Avalonia.props</PackagePath>
+      <Pack>true</Pack>
+      <Link>Fabulous.Avalonia.props</Link>
+    </None>
+    <None Include="..\..\logo\nuget-icon.png">
+      <PackagePath>/</PackagePath>
+      <Pack>true</Pack>
+      <Link>nuget-icon.png</Link>
+    </None>
+    <None Include="README.md">
+      <PackagePath>/</PackagePath>
+      <Pack>true</Pack>
+    </None>
+    <Compile Include="Style.fs" />
+    <Compile Include="Component.fs" />
     <Compile Include="ComponentViews\_Element.fs" />
     <Compile Include="ComponentViews\_Animatable.fs" />
     <Compile Include="ComponentViews\_StyledElement.fs" />
@@ -398,16 +414,20 @@
     <Compile Include="ComponentViews\Panels\WrapPanel.fs" />
     <Compile Include="ComponentViews\Panels\_AdornerLayer.fs" />
     <Compile Include="ComponentViews\Panels\Panel.fs" />
+    <Compile Include="ComponentViews\Application.fs" />
+    <Compile Include="ComponentViews\Any.fs" />
+    <Compile Include="ComponentViews\Component.fs" />
     <Compile Include="MvuViews\_Element.fs" />
     <Compile Include="MvuViews\_Animatable.fs" />
     <Compile Include="MvuViews\_StyledElement.fs" />
     <Compile Include="MvuViews\_ITransform.fs" />
+    <Compile Include="MvuViews\_Brush.fs" />
+    <Compile Include="MvuViews\SolidColorBrush.fs" />
     <Compile Include="MvuViews\_Visual.fs" />
     <Compile Include="MvuViews\_Layoutable.fs" />
     <Compile Include="MvuViews\_Interactive.fs" />
     <Compile Include="MvuViews\_InputElement.fs" />
     <Compile Include="MvuViews\_Control.fs" />
-    <Compile Include="MvuViews\_Brush.fs" />
     <Compile Include="MvuViews\_Panel.fs" />
     <Compile Include="MvuViews\_TemplatedControl.fs" />
     <Compile Include="MvuViews\_ContentControl.fs" />
@@ -425,26 +445,19 @@
     <Compile Include="MvuViews\_HeaderedItemsControl.fs" />
     <Compile Include="MvuViews\_DragDrop.fs" />
     <Compile Include="MvuViews\_Decorator.fs" />
-    <Compile Include="MvuViews\SolidColorBrush.fs" />
-    <Compile Include="MvuViews\TextDecoration.fs" />
     <Compile Include="MvuViews\_Inline.fs" />
-    <Compile Include="MvuViews\TextBlock.fs" />
     <Compile Include="MvuViews\_IGeometry.fs" />
     <Compile Include="MvuViews\AutoCompleteBox.fs" />
     <Compile Include="MvuViews\Controls\Notifications\NotificationCard.fs" />
     <Compile Include="MvuViews\Controls\Notifications\WindowNotificationManager.fs" />
     <Compile Include="MvuViews\Controls\Documents\Span.fs" />
     <Compile Include="MvuViews\Controls\Documents\Run.fs" />
+    <Compile Include="MvuViews\Controls\Documents\TextDecoration.fs" />
     <Compile Include="MvuViews\Controls\Documents\Italic.fs" />
     <Compile Include="MvuViews\Controls\Documents\Underline.fs" />
     <Compile Include="MvuViews\Controls\Documents\InlineUIContainer.fs" />
     <Compile Include="MvuViews\Controls\Documents\LineBreak.fs" />
     <Compile Include="MvuViews\Controls\Documents\Bold.fs" />
-    <Compile Include="MvuViews\Controls\Primitives\AccessText.fs" />
-    <Compile Include="MvuViews\Controls\Primitives\Popup.fs" />
-    <Compile Include="MvuViews\Controls\Primitives\Thumb.fs" />
-    <Compile Include="MvuViews\Controls\Primitives\_RangeBase.fs" />
-    <Compile Include="MvuViews\Controls\Primitives\ScrollBar.fs" />
     <Compile Include="MvuViews\Controls\Shapes\_Shape.fs" />
     <Compile Include="MvuViews\Controls\Shapes\Polygon.fs" />
     <Compile Include="MvuViews\Controls\Shapes\Line.fs" />
@@ -464,6 +477,7 @@
     <Compile Include="MvuViews\Controls\Buttons\RadioButton.fs" />
     <Compile Include="MvuViews\Controls\Buttons\ToggleSplitButton.fs" />
     <Compile Include="MvuViews\Controls\Window.fs" />
+    <Compile Include="MvuViews\Controls\TextBlock.fs" />
     <Compile Include="MvuViews\Controls\DataValidationErrors.fs" />
     <Compile Include="MvuViews\Controls\RefreshContainer.fs" />
     <Compile Include="MvuViews\Controls\TransitioningContentControl.fs" />
@@ -483,6 +497,7 @@
     <Compile Include="MvuViews\Controls\DatePicker.fs" />
     <Compile Include="MvuViews\Controls\TextBox.fs" />
     <Compile Include="MvuViews\Controls\MaskedTextBox.fs" />
+    <Compile Include="MvuViews\Controls\_RangeBase.fs" />
     <Compile Include="MvuViews\Controls\ProgressBar.fs" />
     <Compile Include="MvuViews\Controls\Calendar.fs" />
     <Compile Include="MvuViews\Controls\Slider.fs" />
@@ -495,13 +510,28 @@
     <Compile Include="MvuViews\Controls\LayoutTransformControl.fs" />
     <Compile Include="MvuViews\Controls\RefreshVisualizer.fs" />
     <Compile Include="MvuViews\Controls\SelectableTextBlock.fs" />
+    <Compile Include="MvuViews\Controls\Primitives\AccessText.fs" />
+    <Compile Include="MvuViews\Controls\Primitives\Popup.fs" />
+    <Compile Include="MvuViews\Controls\Primitives\Thumb.fs" />
+    <Compile Include="MvuViews\Controls\Primitives\ScrollBar.fs" />
     <Compile Include="MvuViews\Styling\KeyFrame.fs" />
     <Compile Include="MvuViews\Styling\Animation.fs" />
     <Compile Include="MvuViews\Styling\Style.fs" />
     <Compile Include="MvuViews\Styling\Transition.fs" />
-    <Compile Include="MvuViews\Media\Effects\DropShadowDirectionEffect.fs" />
-    <Compile Include="MvuViews\Media\Effects\DropShadowEffect.fs" />
+    <Compile Include="MvuViews\Media\_TileBrush.fs" />
+    <Compile Include="MvuViews\Media\_IDrawing.fs" />
+    <Compile Include="MvuViews\Media\_IPathSegment.fs" />
+    <Compile Include="MvuViews\Media\_Effect.fs" />
+    <Compile Include="MvuViews\Media\_DropShadowEffectBase.fs" />
     <Compile Include="MvuViews\Media\Effects\BlurEffect.fs" />
+    <Compile Include="MvuViews\Media\Effects\DropShadowEffect.fs" />
+    <Compile Include="MvuViews\Media\Effects\DropShadowDirectionEffect.fs" />
+    <Compile Include="MvuViews\Media\PathSegments\QuadraticBezierSegment.fs" />
+    <Compile Include="MvuViews\Media\PathSegments\PathFigure.fs" />
+    <Compile Include="MvuViews\Media\PathSegments\BezierSegment.fs" />
+    <Compile Include="MvuViews\Media\PathSegments\PolyLineSegment.fs" />
+    <Compile Include="MvuViews\Media\PathSegments\ArcSegment.fs" />
+    <Compile Include="MvuViews\Media\PathSegments\LineSegment.fs" />
     <Compile Include="MvuViews\Media\Geometries\LineGeometry.fs" />
     <Compile Include="MvuViews\Media\Geometries\CombinedGeometry.fs" />
     <Compile Include="MvuViews\Media\Geometries\EllipseGeometry.fs" />
@@ -516,31 +546,20 @@
     <Compile Include="MvuViews\Media\Transforms\ScaleTransform.fs" />
     <Compile Include="MvuViews\Media\Transforms\MatrixTransform.fs" />
     <Compile Include="MvuViews\Media\Transforms\TranslateTransform.fs" />
-    <Compile Include="MvuViews\Media\PathSegments\QuadraticBezierSegment.fs" />
-    <Compile Include="MvuViews\Media\PathSegments\PathFigure.fs" />
-    <Compile Include="MvuViews\Media\PathSegments\BezierSegment.fs" />
-    <Compile Include="MvuViews\Media\PathSegments\PolyLineSegment.fs" />
-    <Compile Include="MvuViews\Media\PathSegments\ArcSegment.fs" />
-    <Compile Include="MvuViews\Media\PathSegments\LineSegment.fs" />
     <Compile Include="MvuViews\Media\Drawing\GlyphRunDrawing.fs" />
     <Compile Include="MvuViews\Media\Drawing\ImageDrawing.fs" />
     <Compile Include="MvuViews\Media\Drawing\DrawingGroup.fs" />
     <Compile Include="MvuViews\Media\Drawing\DrawingImage.fs" />
     <Compile Include="MvuViews\Media\Drawing\GeometryDrawing.fs" />
-    <Compile Include="MvuViews\Media\Brushes\ConicGradientBrush.fs" />
+    <Compile Include="MvuViews\Media\Brushes\_GradientBrush.fs" />
     <Compile Include="MvuViews\Media\Brushes\GradientStop.fs" />
+    <Compile Include="MvuViews\Media\Brushes\ConicGradientBrush.fs" />
     <Compile Include="MvuViews\Media\Brushes\RadialGradientBrush.fs" />
     <Compile Include="MvuViews\Media\Brushes\DrawingBrush.fs" />
-    <Compile Include="MvuViews\Media\Brushes\_GradientBrush.fs" />
     <Compile Include="MvuViews\Media\Brushes\ImageBrush.fs" />
     <Compile Include="MvuViews\Media\Brushes\LinearGradientBrush.fs" />
     <Compile Include="MvuViews\Media\Brushes\VisualBrush.fs" />
-    <Compile Include="MvuViews\Media\_DropShadowEffectBase.fs" />
-    <Compile Include="MvuViews\Media\_Effect.fs" />
-    <Compile Include="MvuViews\Media\_IDrawing.fs" />
-    <Compile Include="MvuViews\Media\_IPathSegment.fs" />
     <Compile Include="MvuViews\Media\DashStyle.fs" />
-    <Compile Include="MvuViews\Media\_TileBrush.fs" />
     <Compile Include="MvuViews\Media\Pen.fs" />
     <Compile Include="MvuViews\MenuItems\ListBoxItem.fs" />
     <Compile Include="MvuViews\MenuItems\MenuItem.fs" />
@@ -551,54 +570,40 @@
     <Compile Include="MvuViews\Collections\TabControl.fs" />
     <Compile Include="MvuViews\Collections\Carousel.fs" />
     <Compile Include="MvuViews\Collections\ListBox.fs" />
+    <Compile Include="MvuViews\Imaging\_IconElement.fs" />
     <Compile Include="MvuViews\Imaging\TrayIcon.fs" />
     <Compile Include="MvuViews\Imaging\PathIcon.fs" />
-    <Compile Include="MvuViews\Imaging\_IconElement.fs" />
     <Compile Include="MvuViews\Imaging\CroppedBitmap.fs" />
     <Compile Include="MvuViews\Imaging\Image.fs" />
     <Compile Include="MvuViews\Layouts\ScrollViewer.fs" />
     <Compile Include="MvuViews\Layouts\SliptView.fs" />
+    <Compile Include="MvuViews\Menu\NativeMenuItem.fs" />
     <Compile Include="MvuViews\Menu\NativeMenuSeparator.fs" />
     <Compile Include="MvuViews\Menu\ComboBox.fs" />
     <Compile Include="MvuViews\Menu\TabStrip.fs" />
-    <Compile Include="MvuViews\Menu\NativeMenu.fs" />
     <Compile Include="MvuViews\Menu\_NativeMenuItemBase.fs" />
+    <Compile Include="MvuViews\Menu\NativeMenu.fs" />
     <Compile Include="MvuViews\Menu\Flyout.fs" />
     <Compile Include="MvuViews\Menu\Menu.fs" />
     <Compile Include="MvuViews\Menu\ContextMenu.fs" />
-    <Compile Include="MvuViews\Menu\NativeMenuItem.fs" />
     <Compile Include="MvuViews\Menu\NativeMenuBar.fs" />
     <Compile Include="MvuViews\Menu\MenuFlyout.fs" />
     <Compile Include="MvuViews\Panels\Panel.fs" />
     <Compile Include="MvuViews\Panels\DockPanel.fs" />
     <Compile Include="MvuViews\Panels\Grid.fs" />
-    <Compile Include="MvuViews\Panels\ReversibleStackPanel.fs" />
     <Compile Include="MvuViews\Panels\_StackPanel.fs" />
+    <Compile Include="MvuViews\Panels\ReversibleStackPanel.fs" />
     <Compile Include="MvuViews\Panels\UniformGrid.fs" />
     <Compile Include="MvuViews\Panels\VirtualizingStackPanel.fs" />
     <Compile Include="MvuViews\Panels\Canvas.fs" />
     <Compile Include="MvuViews\Panels\WrapPanel.fs" />
     <Compile Include="MvuViews\Panels\_AdornerLayer.fs" />
-    <Compile Include="Component.fs" />
-    <Compile Include="Async.fs" />
-    <Compile Include="AppBuilderExtensions.fs" />
-    <None Include="..\Fabulous.Avalonia.props">
-      <PackagePath>build/Fabulous.Avalonia.props</PackagePath>
-      <Pack>true</Pack>
-      <Link>Fabulous.Avalonia.props</Link>
-    </None>
-    <None Include="..\..\logo\nuget-icon.png">
-      <PackagePath>/</PackagePath>
-      <Pack>true</Pack>
-      <Link>nuget-icon.png</Link>
-    </None>
-    <Compile Include="Program.fs" />
-    <None Include="README.md">
-      <PackagePath>/</PackagePath>
-      <Pack>true</Pack>
-    </None>
+    <Compile Include="MvuViews\Application.fs" />
+    <Compile Include="MvuViews\Any.fs" />
+    <Compile Include="MvuViews\Component.fs" />
     <Compile Include="ThemeAware.fs" />
-    <Compile Include="Style.fs" />
+    <Compile Include="Program.fs" />
+    <Compile Include="AppBuilderExtensions.fs" />
   </ItemGroup>
   <ItemGroup>
     <!--

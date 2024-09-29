@@ -24,3 +24,31 @@ module ComponentBorderBuilders =
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
+type ComponentBorderExtraModifiers =
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<unit, #IFabBorder>, value: Color) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<unit, #IFabBorder>, value: string) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<unit, #IFabBorder>, value: Color) =
+        BorderModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<unit, #IFabBorder>, value: string) =
+        BorderModifiers.background(this, View.SolidColorBrush(value))

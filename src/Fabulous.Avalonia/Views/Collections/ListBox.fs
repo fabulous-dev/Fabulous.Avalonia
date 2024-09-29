@@ -18,22 +18,6 @@ module ListBox =
     let SelectionModel =
         Attributes.defineAvaloniaPropertyWithEquality ListBox.SelectionProperty
 
-[<AutoOpen>]
-module ListBoxBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ListBox widget.</summary>
-        /// <param name="items">The items to display.</param>
-        /// <param name="template">The template to use to render each item.</param>
-        static member ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
-            =
-            WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
-
-        /// <summary>Creates a ListBox widget.</summary>
-        static member ListBox() =
-            CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
-
 type ListBoxModifiers =
     /// <summary>Sets the SelectionMode property.</summary>
     /// <param name="this">Current widget.</param>

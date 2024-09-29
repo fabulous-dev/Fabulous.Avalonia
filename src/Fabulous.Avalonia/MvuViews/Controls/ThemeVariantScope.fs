@@ -38,5 +38,5 @@ type MvuThemeVariantScopeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ThemeVariantChanged event is raised.</param>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<unit, #IFabMvuThemeVariantScope>, fn: unit -> unit) =
-        this.AddScalar(MvuThemeVariantScope.ActualThemeVariantChanged.WithValue(fn))
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<unit, #IFabMvuThemeVariantScope>, fn: 'msg) =
+        this.AddScalar(MvuThemeVariantScope.ActualThemeVariantChanged.WithValue(MsgValue fn))

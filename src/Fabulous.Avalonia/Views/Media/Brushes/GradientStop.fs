@@ -17,26 +17,6 @@ module GradientStop =
     let Offset =
         Attributes.defineAvaloniaPropertyWithEquality GradientStop.OffsetProperty
 
-[<AutoOpen>]
-module GradientStopBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a GradientStop widget.</summary>
-        /// <param name="color">The color of the gradient stop.</param>
-        /// <param name="offset">The offset of the gradient stop.</param>
-        static member GradientStop(color: Color, offset: float) =
-            WidgetBuilder<'msg, IFabGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(color), GradientStop.Offset.WithValue(offset))
-
-        /// <summary>Creates a GradientStop widget.</summary>
-        /// <param name="color">The color of the gradient stop.</param>
-        /// <param name="offset">The offset of the gradient stop.</param>
-        static member GradientStop(color: string, offset: float) =
-            WidgetBuilder<'msg, IFabGradientStop>(
-                GradientStop.WidgetKey,
-                GradientStop.Color.WithValue(Color.Parse(color)),
-                GradientStop.Offset.WithValue(offset)
-            )
-
 type GradientStopBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGradientStop>
@@ -55,5 +35,5 @@ type GradientStopModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabGradientStop>, value: ViewRef<GradientStop>) =
+    static member inline reference(this: WidgetBuilder<'msg, #IFabGradientStop>, value: ViewRef<GradientStop>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

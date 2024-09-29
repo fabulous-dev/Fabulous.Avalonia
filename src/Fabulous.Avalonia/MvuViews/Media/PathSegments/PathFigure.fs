@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia
@@ -7,25 +7,25 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
 
-type IFabComponentPathFigure =
-    inherit IFabComponentElement
+type IFabMvuPathFigure =
+    inherit IFabMvuElement
     inherit IFabPathFigure
 
-module ComponentPathFigure =
+module MvuPathFigure =
     let Segments =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
+        MvuAttributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
 
 [<AutoOpen>]
 module PathFigureBuilders =
-    type Fabulous.Avalonia.Components.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a PathFigure widget.</summary>
         /// <param name="startPoint">The start point of the path.</param>
         static member PathFigure(startPoint: Point) =
-            CollectionBuilder<unit, IFabComponentPathFigure, IFabPathSegment>(
+            CollectionBuilder<unit, IFabMvuPathFigure, IFabPathSegment>(
                 PathFigure.WidgetKey,
-                ComponentPathFigure.Segments,
+                MvuPathFigure.Segments,
                 PathFigure.StartPoint.WithValue(startPoint)
             )
 

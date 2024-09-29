@@ -22,21 +22,21 @@ module MvuButtonBuilders =
         /// <summary>Creates a Button widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the button is clicked.</param>
-        static member Button(text: string, fn: RoutedEventArgs -> unit) =
-            WidgetBuilder<unit, IFabMvuAutoCompleteBox>(
+        static member Button(text: string, fn: 'msg) =
+            WidgetBuilder<'msg, IFabMvuButton>(
                 Button.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                MvuButton.Clicked.WithValue(fn)
+                MvuButton.Clicked.WithValue(fun _ -> fn)
             )
 
         /// <summary>Creates a Button widget.</summary>
         /// <param name="fn">Raised when the button is clicked.</param>
         /// <param name="content">The content to display.</param>
-        static member Button(fn: RoutedEventArgs -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuAutoCompleteBox>(
+        static member Button(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuButton>(
                 Button.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MvuButton.Clicked.WithValue(fn)),
+                    StackList.one(MvuButton.Clicked.WithValue(fun _ -> fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -47,5 +47,5 @@ type MvuButtonModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuAutoCompleteBox>, value: ViewRef<Button>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabMvuButton>, value: ViewRef<Button>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

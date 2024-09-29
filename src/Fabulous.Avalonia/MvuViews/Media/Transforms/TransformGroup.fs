@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
@@ -6,24 +6,24 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
 
-type IFabComponentTransformGroup =
-    inherit IFabComponentTransform
+type IFabMvuTransformGroup =
+    inherit IFabMvuTransform
     inherit IFabTransformGroup
 
-module ComponentTransformGroup =
+module MvuTransformGroup =
 
     let Children =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
+        MvuAttributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
 
 [<AutoOpen>]
-module ComponentTransformGroupBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuTransformGroupBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a TransformGroup widget.</summary>
         static member TransformGroup() =
-            CollectionBuilder<unit, IFabComponentTransformGroup, IFabComponentTransform>(TransformGroup.WidgetKey, ComponentTransformGroup.Children)
+            CollectionBuilder<unit, IFabMvuTransformGroup, IFabMvuTransform>(TransformGroup.WidgetKey, MvuTransformGroup.Children)
 
-type ComponentTransformGroupCollectionBuilderExtensions =
+type MvuTransformGroupCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTransform>
         (_: CollectionBuilder<'msg, 'marker, IFabTransform>, x: WidgetBuilder<'msg, 'itemType>)

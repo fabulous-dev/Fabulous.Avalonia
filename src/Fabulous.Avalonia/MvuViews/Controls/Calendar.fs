@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia.Mvu
 open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -70,3 +71,18 @@ type MvuCalendarModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+type MvuCalendarExtraModifiers =
+    /// <summary>Sets the HeaderBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HeaderBackground value.</param>
+    [<Extension>]
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: Color) =
+        CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the HeaderBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HeaderBackground value.</param>
+    [<Extension>]
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: string) =
+        CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))

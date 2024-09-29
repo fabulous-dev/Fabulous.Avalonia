@@ -11,14 +11,6 @@ type IFabLineBreak =
 module LineBreak =
     let WidgetKey = Widgets.register<LineBreak>()
 
-[<AutoOpen>]
-module LineBreakBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a LineBreak widget.</summary>
-        static member LineBreak() =
-            WidgetBuilder<'msg, IFabLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 type LineBreakModifiers =
     /// <summary>Link a ViewRef to access the direct LineBreak control instance.</summary>
     /// <param name="this">Current widget.</param>

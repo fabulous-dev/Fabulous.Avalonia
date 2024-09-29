@@ -15,14 +15,6 @@ module NativeMenuBar =
     let EnableMenuItemClickForwarding =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuBar.EnableMenuItemClickForwardingProperty
 
-[<AutoOpen>]
-module NativeMenuBarBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a NativeMenuBar widget.</summary>
-        static member NativeMenuBar() =
-            WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 type NativeMenuBarAttachedModifiers =
 
     /// <summary>Sets the EnableMenuItemClickForwarding property.</summary>

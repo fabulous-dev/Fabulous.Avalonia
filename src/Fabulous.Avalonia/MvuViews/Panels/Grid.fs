@@ -1,25 +1,25 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentGrid =
-    inherit IFabComponentPanel
+type IFabMvuGrid =
+    inherit IFabMvuPanel
     inherit IFabGrid
 
 [<AutoOpen>]
-module ComponentGridBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuGridBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a Grid widget.</summary>
         /// <param name="coldefs">Column definitions.</param>
         /// <param name="rowdefs">Row definitions.</param>
         static member Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
-            CollectionBuilder<unit, IFabComponentGrid, IFabComponentControl>(
+            CollectionBuilder<unit, IFabMvuGrid, IFabMvuControl>(
                 Grid.WidgetKey,
-                ComponentPanel.Children,
+                MvuPanel.Children,
                 Grid.ColumnDefinitions.WithValue(Array.ofSeq coldefs),
                 Grid.RowDefinitions.WithValue(Array.ofSeq rowdefs)
             )

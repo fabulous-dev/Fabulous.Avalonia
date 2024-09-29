@@ -136,18 +136,6 @@ module ApplicationUpdaters =
 module Application =
     let WidgetKey = Widgets.register<FabApplication>()
 
-    let TrayIcons =
-        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
-            let target = target :?> FabApplication
-            let trayIcons = TrayIcon.GetIcons(target)
-
-            if trayIcons = null then
-                let trayIcons = TrayIcons()
-                TrayIcon.SetIcons(target, trayIcons)
-                trayIcons
-            else
-                trayIcons)
-
     let MainWindow =
         Attributes.defineWidget "MainWindow" ApplicationUpdaters.mainWindowApplyDiff ApplicationUpdaters.mainWindowUpdateNode
 
@@ -187,51 +175,6 @@ module Application =
     let RequestedThemeVariant =
         Attributes.definePropertyWithGetSet "Application_RequestedThemeVariant" (fun _ -> FabApplication.Current.ActualThemeVariant) (fun _ value ->
             FabApplication.Current.RequestedThemeVariant <- value)
-
-    let ActualThemeVariantChanged =
-        Attributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
-
-    let ResourcesChanged =
-        Attributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
-
-    let UrlsOpened =
-        Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
-
-    let ColorValuesChanged =
-        Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
-            (target :?> FabApplication)
-                .PlatformSettings.ColorValuesChanged)
-
-    let SafeAreaChanged =
-        Attributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
-
-[<AutoOpen>]
-module ApplicationBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        /// <param name="window">The main Window of the Application.</param>
-        static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
-            WidgetBuilder<'msg, IFabApplication>(
-                Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline DesktopApplication<'msg, 'childMarker>() =
-            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainWindow)
-
-        /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
-        /// <param name="view">The main View of the Application.</param>
-        static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabApplication>(
-                Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline SingleViewApplication<'msg, 'childMarker>() =
-            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
 type ApplicationModifiers =
     /// <summary>Sets the application name.</summary>
@@ -276,41 +219,6 @@ type ApplicationModifiers =
     static member inline requestedThemeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant) =
         this.AddScalar(Application.RequestedThemeVariant.WithValue(value))
 
-    /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the theme variant changes.</param>
-    [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: 'msg) =
-        this.AddScalar(Application.ActualThemeVariantChanged.WithValue(MsgValue fn))
-
-    /// <summary>Listens to the application resources changed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the resources change.</param>
-    [<Extension>]
-    static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ResourcesChangedEventArgs -> 'msg) =
-        this.AddScalar(Application.ResourcesChanged.WithValue(fn))
-
-    /// <summary>Listens to the application urls opened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the application receives urls to open.</param>
-    [<Extension>]
-    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
-        this.AddScalar(Application.UrlsOpened.WithValue(fn))
-
-    /// <summary>Listens to the PlatformSettings color values changed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when current system color values are changed. Including changing of a dark mode and accent colors.</param>
-    [<Extension>]
-    static member inline onColorValuesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.PlatformColorValues -> 'msg) =
-        this.AddScalar(Application.ColorValuesChanged.WithValue(fn))
-
-    /// <summary>Listens to the PlatformSettings safe area changed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the safe area is changed.</param>
-    [<Extension>]
-    static member inline onSafeAreaChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.SafeAreaChangedArgs -> 'msg) =
-        this.AddScalar(Application.SafeAreaChanged.WithValue(fn))
-
     /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
@@ -328,17 +236,3 @@ type ApplicationYieldExtensions =
         (_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-
-type TrayIconAttachedModifiers =
-    /// <summary>Sets the tray icons for the application.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, Application.TrayIcons)
-
-    /// <summary>Sets the tray icon for the application.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="trayIcon">The TrayIcon value</param>
-    [<Extension>]
-    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
-        AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>(this, Application.TrayIcons) { trayIcon }

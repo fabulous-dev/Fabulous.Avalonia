@@ -56,6 +56,36 @@ type ComponentTextBlockModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTextBlock>, value: ViewRef<TextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+        
+        
+type ComponentTextBlockExtraModifiers =
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<unit, #IFabTextBlock>, value: Color) =
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<unit, #IFabTextBlock>, value: string) =
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<unit, #IFabTextBlock>, value: Color) =
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<unit, #IFabTextBlock>, value: string) =
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
 
 
 type ComponentTextBlockCollectionBuilderExtensions =
@@ -103,7 +133,7 @@ type ComponentTextBlockCollectionModifiers =
     /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<unit, 'marker>) =
-        AttributeCollectionBuilder<unit, 'marker, IFabComponentTextDecoration>(this, TextBlock.TextDecorations)
+        AttributeCollectionBuilder<unit, 'marker, IFabComponentTextDecoration>(this, ComponentTextBlock.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>

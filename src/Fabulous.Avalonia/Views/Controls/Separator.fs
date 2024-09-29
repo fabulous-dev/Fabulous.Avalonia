@@ -11,14 +11,6 @@ type IFabSeparator =
 module Separator =
     let WidgetKey = Widgets.register<Separator>()
 
-[<AutoOpen>]
-module SeparatorBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Separator widget.</summary>
-        static member Separator() =
-            WidgetBuilder<'msg, IFabSeparator>(Separator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 type SeparatorModifiers =
     /// <summary>Link a ViewRef to access the direct Separator control instance.</summary>
     /// <param name="this">Current widget.</param>

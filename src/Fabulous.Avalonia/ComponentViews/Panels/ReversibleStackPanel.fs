@@ -5,19 +5,16 @@ open Avalonia.Layout
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
+open Fabulous.Avalonia
 
 type IFabComponentReversibleStackPanel =
     inherit IFabComponentStackPanel
+    inherit IFabReversibleStackPanel
 
-module ReversibleStackPanel =
-    let WidgetKey = Widgets.register<ReversibleStackPanel>()
-
-    let ReverseOrder =
-        Attributes.defineAvaloniaPropertyWithEquality ReversibleStackPanel.ReverseOrderProperty
 
 [<AutoOpen>]
-module ReversibleStackPanelBuilders =
-    type Fabulous.Avalonia.View with
+module ComponentReversibleStackPanelBuilders =
+    type Fabulous.Avalonia.Components.View with
 
         /// <summary>Creates a VStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
@@ -35,7 +32,7 @@ module ReversibleStackPanelBuilders =
             | None -> ()
             | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
+            CollectionBuilder<'msg, IFabComponentReversibleStackPanel, IFabComponentControl>(ReversibleStackPanel.WidgetKey, scalars, ComponentPanel.Children)
 
         /// <summary>Creates a HStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
@@ -53,9 +50,9 @@ module ReversibleStackPanelBuilders =
             | None -> ()
             | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
+            CollectionBuilder<'msg, IFabComponentReversibleStackPanel, IFabComponentControl>(ReversibleStackPanel.WidgetKey, scalars, ComponentPanel.Children)
 
-type ReversibleStackPanelModifiers =
+type ComponentReversibleStackPanelModifiers =
     /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>

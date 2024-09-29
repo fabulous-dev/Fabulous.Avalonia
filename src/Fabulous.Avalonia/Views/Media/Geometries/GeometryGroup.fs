@@ -11,24 +11,8 @@ type IFabGeometryGroup =
 module GeometryGroup =
     let WidgetKey = Widgets.register<GeometryGroup>()
 
-    let Children =
-        Attributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
-
     let FillRule =
         Attributes.defineAvaloniaPropertyWithEquality GeometryGroup.FillRuleProperty
-
-[<AutoOpen>]
-module GeometryGroupBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a GeometryGroup widget.</summary>
-        /// <param name="fillRule">The fill rule to apply to the geometry group.</param>
-        static member GeometryGroup(fillRule: FillRule) =
-            CollectionBuilder<'msg, IFabGeometryGroup, IFabGeometry>(
-                GeometryGroup.WidgetKey,
-                GeometryGroup.Children,
-                GeometryGroup.FillRule.WithValue(fillRule)
-            )
 
 type GeometryGroupCollectionBuilderExtensions =
     [<Extension>]

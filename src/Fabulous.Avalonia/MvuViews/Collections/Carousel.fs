@@ -1,20 +1,21 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
+
 
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentCarousel =
-    inherit IFabComponentSelectingItemsControl
+type IFabMvuCarousel =
+    inherit IFabMvuSelectingItemsControl
     inherit IFabCarousel
 
 [<AutoOpen>]
 module CarouselBuilders =
-    type Fabulous.Avalonia.Components.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a Carousel widget.</summary>
         /// <param name="items">The items to display.</param>
         /// <param name="template">The template to use to render each item.</param>
-        static member Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabComponentControl>
+        static member Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabMvuControl>
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
-            WidgetHelpers.buildItems<'msg, IFabComponentCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template
+            WidgetHelpers.buildItems<'msg, IFabMvuCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template

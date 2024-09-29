@@ -12,9 +12,6 @@ module Spinner =
     let ValidSpinDirection =
         Attributes.defineAvaloniaPropertyWithEquality Spinner.ValidSpinDirectionProperty
 
-    let Spin =
-        Attributes.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)
-
 type SpinnerModifiers =
 
     /// <summary>Sets the ValidSpinDirection property.</summary>

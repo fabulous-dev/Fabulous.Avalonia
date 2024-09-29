@@ -36,18 +36,6 @@ module Border =
     let BoxShadow =
         Attributes.defineAvaloniaPropertyWithEquality Border.BoxShadowProperty
 
-[<AutoOpen>]
-module BorderBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Border widget.</summary>
-        /// <param name="content">The content of the Border.</param>
-        static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabBorder>(
-                Border.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
 type BorderModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -186,31 +174,3 @@ type BorderExtraModifiers =
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
         BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))
-
-    /// <summary>Sets the BorderBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
-        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the BorderBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
-        BorderModifiers.background(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        BorderModifiers.background(this, View.SolidColorBrush(value))

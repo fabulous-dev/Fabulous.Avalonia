@@ -15,7 +15,7 @@ module NativeMenuItemSeparator =
 
 [<AutoOpen>]
 module NativeMenuItemSeparatorBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Components.View with
 
         /// <summary>Creates a NativeMenuItemSeparator widget.</summary>
         static member NativeMenuItemSeparator() =

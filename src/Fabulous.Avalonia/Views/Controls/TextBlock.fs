@@ -70,41 +70,6 @@ module TextBlock =
     let LineSpacing =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.LineSpacingProperty
 
-    let TextDecorations =
-        Attributes.defineAvaloniaListWidgetCollection "TextBlock_TextDecorations" (fun target ->
-            let target = target :?> TextBlock
-
-            if target.TextDecorations = null then
-                let newColl = TextDecorationCollection()
-                target.TextDecorations <- newColl
-                newColl
-            else
-                target.TextDecorations)
-
-    let Inlines =
-        Attributes.defineAvaloniaListWidgetCollection "TextBlock_Inlines" (fun target ->
-            let target = target :?> TextBlock
-
-            if target.Inlines = null then
-                let newColl = InlineCollection()
-                target.Inlines <- newColl
-                newColl
-            else
-                target.Inlines)
-
-[<AutoOpen>]
-module TextBlockBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a TextBlock widget.</summary>
-        /// <param name="text">The text to display.</param>
-        static member inline TextBlock(text: string) =
-            WidgetBuilder<'msg, IFabTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
-
-        /// <summary>Creates a TextBlock widget.</summary>
-        static member inline TextBlock() =
-            CollectionBuilder<'msg, IFabTextBlock, IFabInline>(TextBlock.WidgetKey, TextBlock.Inlines)
-
 type TextBlockModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -272,34 +237,6 @@ type TextBlockExtraModifiers =
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
         TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
 
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
-        TextBlockModifiers.background(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
-        TextBlockModifiers.background(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Foreground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value.</param>
-    [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
-        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Foreground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value.</param>
-    [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
-        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
-
 type TextBlockCollectionBuilderExtensions =
 
     [<Extension>]
@@ -325,31 +262,3 @@ type TextBlockCollectionBuilderExtensions =
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-
-type InlineCollectionModifiers =
-    /// <summary>Sets the TextDecorations property.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabInline>(this: WidgetBuilder<'msg, 'marker>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations)
-
-    /// <summary>Sets the TextDecorations property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextDecoration value.</param>
-    [<Extension>]
-    static member inline textDecoration(this: WidgetBuilder<'msg, #IFabInline>, value: WidgetBuilder<'msg, IFabTextDecoration>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations) { value }
-
-type TextBlockCollectionModifiers =
-    /// <summary>Sets the TextDecorations property.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, TextBlock.TextDecorations)
-
-    /// <summary>Sets the TextDecorations property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextDecoration value.</param>
-    [<Extension>]
-    static member inline textDecoration(this: WidgetBuilder<'msg, #IFabTextBlock>, value: WidgetBuilder<'msg, IFabTextDecoration>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, TextBlock.TextDecorations) { value }

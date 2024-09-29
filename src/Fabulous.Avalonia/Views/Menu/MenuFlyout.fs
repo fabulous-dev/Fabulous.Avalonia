@@ -11,25 +11,6 @@ type IFabMenuFlyout =
 module MenuFlyout =
     let WidgetKey = Widgets.register<MenuFlyout>()
 
-    let Items =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "MenuFlyout_Items" (fun target ->
-            let target = target :?> MenuFlyout
-
-            if target.Items = null then
-                let newColl = ItemCollection.Empty
-                target.Items.Add newColl |> ignore
-                newColl
-            else
-                target.Items)
-
-[<AutoOpen>]
-module MenuFlyoutBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a MenuFlyout widget.</summary>
-        static member MenuFlyout() =
-            CollectionBuilder<'msg, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, MenuFlyout.Items)
-
 type MenuFlyoutModifiers =
     /// <summary>Link a ViewRef to access the direct MenuFlyout control instance.</summary>
     /// <param name="this">Current widget.</param>

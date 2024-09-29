@@ -31,9 +31,6 @@ module Calendar =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.SelectionModeProperty
 
-    let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "Calendar_SelectedDateChanged" Calendar.SelectedDateProperty Option.toNullable Option.ofNullable
-
     let DisplayDate =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.DisplayDateProperty
 
@@ -42,38 +39,6 @@ module Calendar =
 
     let DisplayDateEnd =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.DisplayDateEndProperty
-
-    let DisplayDateChanged =
-        Attributes.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
-
-    let DisplayModeChanged =
-        Attributes.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
-
-[<AutoOpen>]
-module CalendarBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Calendar widget.</summary>
-        /// <param name="date">The date to display.</param>
-        /// <param name="fn">Raised when the date changes.</param>
-        static member Calendar(date: DateTime option, fn: DateTime option -> 'msg) =
-            WidgetBuilder<'msg, IFabCalendar>(
-                Calendar.WidgetKey,
-                Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
-                Calendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
-            )
-
-        /// <summary>Creates a Calendar widget.</summary>
-        /// <param name="date">The date to display.</param>
-        /// <param name="fn">Raised when the date changes.</param>
-        /// <param name="mode">The selection mode.</param>
-        static member Calendar(date: DateTime option, fn: DateTime option -> 'msg, mode: CalendarSelectionMode) =
-            WidgetBuilder<'msg, IFabCalendar>(
-                Calendar.WidgetKey,
-                Calendar.SelectionMode.WithValue(mode),
-                Calendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
-            )
-
 type CalendarModifiers =
     /// <summary>Sets the FirstDayOfWeek property.</summary>
     /// <param name="this">Current widget.</param>
@@ -131,20 +96,6 @@ type CalendarModifiers =
     static member inline displayDateEnd(this: WidgetBuilder<'msg, #IFabCalendar>, value: DateTime) =
         this.AddScalar(Calendar.DisplayDateEnd.WithValue(value))
 
-    /// <summary>Listens to the Calendar DisplayDateChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the DisplayDateChanged event is fired.</param>
-    [<Extension>]
-    static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabCalendar>, fn: CalendarDateChangedEventArgs -> 'msg) =
-        this.AddScalar(Calendar.DisplayDateChanged.WithValue(fn))
-
-    /// <summary>Listens to the Calendar DisplayModeChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the DisplayModeChanged event is fired.</param>
-    [<Extension>]
-    static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabCalendar>, fn: CalendarModeChangedEventArgs -> 'msg) =
-        this.AddScalar(Calendar.DisplayModeChanged.WithValue(fn))
-
     /// <summary>Link a ViewRef to access the direct Calendar control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
@@ -152,17 +103,3 @@ type CalendarModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-type CalendarExtraModifiers =
-    /// <summary>Sets the HeaderBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The HeaderBackground value.</param>
-    [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: Color) =
-        CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the HeaderBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The HeaderBackground value.</param>
-    [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: string) =
-        CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))

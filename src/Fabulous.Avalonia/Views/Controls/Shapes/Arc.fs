@@ -16,16 +16,6 @@ module Arc =
     let SweepAngle =
         Attributes.defineAvaloniaPropertyWithEquality Arc.SweepAngleProperty
 
-[<AutoOpen>]
-module ArcBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Arc widget/</summary>
-        /// <param name="startAngle">The starting angle/</param>
-        /// <param name="sweepAngle">The sweep angle.</param>
-        static member Arc(startAngle: float, sweepAngle: float) =
-            WidgetBuilder<'msg, IFabArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))
-
 type ArcModifiers =
     /// <summary>Link a ViewRef to access the direct Arc control instance.</summary>
     /// <param name="this">Current widget.</param>

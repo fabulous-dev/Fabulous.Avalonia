@@ -1,5 +1,7 @@
 namespace Fabulous.Avalonia.Components
 
+open System.Runtime.CompilerServices
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -16,3 +18,18 @@ module ComponentTickBarBuilders =
         /// <param name="max">The maximum value.</param>
         static member TickBar(min: float, max: float) =
             WidgetBuilder<unit, IFabComponentTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
+
+type ComponentTickBarExtraModifiers =
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
+    static member inline fill(this: WidgetBuilder<unit, #IFabTickBar>, value: Color) =
+        TickBarModifiers.fill(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
+    static member inline fill(this: WidgetBuilder<unit, #IFabTickBar>, value: string) =
+        TickBarModifiers.fill(this, View.SolidColorBrush(value))

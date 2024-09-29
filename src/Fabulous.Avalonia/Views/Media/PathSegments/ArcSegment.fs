@@ -24,17 +24,6 @@ module ArcSegment =
     let SweepDirection =
         Attributes.defineAvaloniaPropertyWithEquality ArcSegment.SweepDirectionProperty
 
-[<AutoOpen>]
-module ArcSegmentBuilders =
-
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ArcSegment widget.</summary>
-        /// <param name="point">The point at which the arc ends.</param>
-        /// <param name="size">The size of the arc.</param>
-        static member ArcSegment(point: Point, size: Size) =
-            WidgetBuilder<'msg, IFabArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
-
 type ArcSegmentModifiers =
 
     /// <summary>Sets the RotationAngle property.</summary>
@@ -62,5 +51,5 @@ type ArcSegmentModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabArcSegment>, value: ViewRef<ArcSegment>) =
+    static member inline reference(this: WidgetBuilder<'msg, #IFabArcSegment>, value: ViewRef<ArcSegment>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

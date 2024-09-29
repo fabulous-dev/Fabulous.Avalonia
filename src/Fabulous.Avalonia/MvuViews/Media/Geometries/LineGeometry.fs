@@ -1,16 +1,16 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open Avalonia
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentLineGeometry =
-    inherit IFabComponentGeometry
+type IFabMvuLineGeometry =
+    inherit IFabMvuGeometry
     inherit IFabLineGeometry
 
 [<AutoOpen>]
-module ComponentLineGeometryBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuLineGeometryBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a LineGeometry widget.</summary>
         /// <param name="startPoint">The start point of the line.</param>

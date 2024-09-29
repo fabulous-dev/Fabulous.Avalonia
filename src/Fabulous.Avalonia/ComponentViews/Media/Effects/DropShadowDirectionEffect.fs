@@ -8,6 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComponentDropShadowDirectionEffect =
     inherit IFabComponentDropShadowEffectBase
+    inherit IFabDropShadowDirectionEffect
 
 [<AutoOpen>]
 module ComponentDropShadowDirectionEffectBuilders =

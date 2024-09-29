@@ -1,15 +1,15 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentListBox =
-    inherit IFabComponentSelectingItemsControl
+type IFabMvuListBox =
+    inherit IFabMvuSelectingItemsControl
     inherit IFabListBox
 
 [<AutoOpen>]
 module ListBoxBuilders =
-    type Fabulous.Avalonia.Components.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ListBox widget.</summary>
         /// <param name="items">The items to display.</param>
@@ -17,8 +17,8 @@ module ListBoxBuilders =
         static member ListBox<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
-            WidgetHelpers.buildItems<'msg, IFabComponentListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
+            WidgetHelpers.buildItems<'msg, IFabMvuListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
         /// <summary>Creates a ListBox widget.</summary>
         static member ListBox() =
-            CollectionBuilder<'msg, IFabComponentListBox, IFabComponentListBoxItem>(ListBox.WidgetKey, ComponentItemsControl.Items)
+            CollectionBuilder<'msg, IFabMvuListBox, IFabMvuListBoxItem>(ListBox.WidgetKey, MvuItemsControl.Items)

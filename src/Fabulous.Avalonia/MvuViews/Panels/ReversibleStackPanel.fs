@@ -1,23 +1,19 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
+open Fabulous.Avalonia
 
-type IFabComponentReversibleStackPanel =
-    inherit IFabComponentStackPanel
-
-module ReversibleStackPanel =
-    let WidgetKey = Widgets.register<ReversibleStackPanel>()
-
-    let ReverseOrder =
-        Attributes.defineAvaloniaPropertyWithEquality ReversibleStackPanel.ReverseOrderProperty
+type IFabMvuReversibleStackPanel =
+    inherit IFabMvuStackPanel
+    inherit IFabReversibleStackPanel
 
 [<AutoOpen>]
-module ReversibleStackPanelBuilders =
-    type Fabulous.Avalonia.View with
+module MvuReversibleStackPanelBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a VStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
@@ -35,7 +31,7 @@ module ReversibleStackPanelBuilders =
             | None -> ()
             | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
+            CollectionBuilder<'msg, IFabMvuReversibleStackPanel, IFabMvuControl>(ReversibleStackPanel.WidgetKey, scalars, MvuPanel.Children)
 
         /// <summary>Creates a HStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
@@ -53,9 +49,9 @@ module ReversibleStackPanelBuilders =
             | None -> ()
             | Some v -> scalars <- StackList.add(&scalars, ReversibleStackPanel.ReverseOrder.WithValue(v))
 
-            CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
+            CollectionBuilder<'msg, IFabMvuReversibleStackPanel, IFabMvuControl>(ReversibleStackPanel.WidgetKey, scalars, MvuPanel.Children)
 
-type ReversibleStackPanelModifiers =
+type MvuReversibleStackPanelModifiers =
     /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>

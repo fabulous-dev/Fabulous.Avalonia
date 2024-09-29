@@ -15,19 +15,6 @@ module DockPanel =
     let LastChildFill =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.LastChildFillProperty
 
-[<AutoOpen>]
-module DockPanelBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a DockPanel widget.</summary>
-        static member Dock() =
-            CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(true))
-
-        /// <summary>Creates a DockPanel widget.</summary>
-        /// <param name="lastChildFill">Whether the last child element within a DockPanel stretches to fill the remaining available space.</param>
-        static member Dock(lastChildFill: bool) =
-            CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(lastChildFill))
-
 type DockPanelModifiers =
     /// <summary>Sets the Dock property.</summary>
     /// <param name="this">Current widget.</param>

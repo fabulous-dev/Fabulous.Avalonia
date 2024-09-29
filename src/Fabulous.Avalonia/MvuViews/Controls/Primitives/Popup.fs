@@ -40,15 +40,15 @@ type MvuPopupModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Popup is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: unit -> unit) =
-        this.AddScalar(MvuPopup.Closed.WithValue(fun _ -> msg()))
+    static member inline onClosed(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: 'msg) =
+        this.AddScalar(MvuPopup.Closed.WithValue(fun _ -> msg))
 
     /// <summary>Listens to the Popup Opened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Popup is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: unit -> unit) =
-        this.AddScalar(MvuPopup.Opened.WithValue(msg))
+    static member inline onOpened(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: 'msg) =
+        this.AddScalar(MvuPopup.Opened.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
     /// <param name="this">Current widget.</param>

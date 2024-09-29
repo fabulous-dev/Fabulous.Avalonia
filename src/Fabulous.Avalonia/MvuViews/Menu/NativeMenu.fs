@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System
 open System.Runtime.CompilerServices
@@ -7,24 +7,24 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
 
-type IFabComponentNativeMenu =
-    inherit IFabComponentNativeMenuItemBase
+type IFabMvuNativeMenu =
+    inherit IFabMvuNativeMenuItemBase
     inherit IFabNativeMenu
 
-module ComponentNativeMenu =
+module MvuNativeMenu =
     let WidgetKey = Widgets.register<NativeMenu>()
 
     let Items =
-        ComponentAttributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
+        MvuAttributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
 
     let Opening =
-        ComponentAttributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
+        MvuAttributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
 
     let Closed =
-        ComponentAttributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
+        MvuAttributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
 
     let NeedsUpdate =
-        ComponentAttributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
+        MvuAttributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
 
 module NativeMenuAttached =
     let NativeMenu = Attributes.defineAvaloniaPropertyWidget NativeMenu.MenuProperty
@@ -33,12 +33,12 @@ module NativeMenuAttached =
         Attributes.defineAvaloniaPropertyWithEquality Avalonia.Controls.NativeMenu.IsNativeMenuExportedProperty
 
 [<AutoOpen>]
-module ComponentNativeMenuBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuNativeMenuBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a NativeMenu widget</summary>
         static member NativeMenu() =
-            CollectionBuilder<'msg, IFabComponentNativeMenu, IFabComponentNativeMenuItem>(NativeMenu.WidgetKey, ComponentNativeMenu.Items)
+            CollectionBuilder<'msg, IFabMvuNativeMenu, IFabMvuNativeMenuItem>(NativeMenu.WidgetKey, MvuNativeMenu.Items)
 
 type NativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>
@@ -46,27 +46,27 @@ type NativeMenuModifiers =
     /// <param name="msg">Raised when the Opening event fires.</param>
     [<Extension>]
     static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
-        this.AddScalar(ComponentNativeMenu.Opening.WithValue(msg))
+        this.AddScalar(MvuNativeMenu.Opening.WithValue(msg))
 
     /// <summary>Listens to the NativeMenu Closed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Closed event fires.</param>
     [<Extension>]
     static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
-        this.AddScalar(ComponentNativeMenu.Closed.WithValue(msg))
+        this.AddScalar(MvuNativeMenu.Closed.WithValue(msg))
 
     /// <summary>Listens to the NativeMenu NeedsUpdate event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the NeedsUpdate event fires.</param>
     [<Extension>]
     static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
-        this.AddScalar(ComponentNativeMenu.NeedsUpdate.WithValue(msg))
+        this.AddScalar(MvuNativeMenu.NeedsUpdate.WithValue(msg))
 
     /// <summary>Link a ViewRef to access the direct NativeMenu control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentNativeMenu>, value: ViewRef<NativeMenu>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabMvuNativeMenu>, value: ViewRef<NativeMenu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type NativeMenuAttachedModifiers =
@@ -84,7 +84,7 @@ type NativeMenuAttachedModifiers =
     static member inline menu(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
         this.AddWidget(NativeMenuItem.Menu.WithValue(value.Compile()))
 
-type ComponentWindowMenuAttachedModifiers =
+type MvuWindowMenuAttachedModifiers =
     /// <summary>Sets the NativeMenu property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The NativeMenu value.</param>

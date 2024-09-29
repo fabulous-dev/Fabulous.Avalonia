@@ -36,13 +36,6 @@ module Layoutable =
     let UseLayoutRounding =
         Attributes.defineAvaloniaPropertyWithEquality Layoutable.UseLayoutRoundingProperty
 
-    let EffectiveViewportChanged =
-        Attributes.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
-            (target :?> Layoutable).EffectiveViewportChanged)
-
-    let LayoutUpdated =
-        Attributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
-
 type LayoutableModifiers =
     /// <summary>Sets the Width property.</summary>
     /// <param name="this">Current widget.</param>
@@ -113,20 +106,6 @@ type LayoutableModifiers =
     [<Extension>]
     static member inline useLayoutRounding(this: WidgetBuilder<'msg, #IFabLayoutable>, value: bool) =
         this.AddScalar(Layoutable.UseLayoutRounding.WithValue(value))
-
-    /// <summary>Listens to the Layoutable EffectiveViewportChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the element's effective viewport changes.</param>
-    [<Extension>]
-    static member inline onEffectiveViewportChanged(this: WidgetBuilder<'msg, #IFabLayoutable>, fn: EffectiveViewportChangedEventArgs -> 'msg) =
-        this.AddScalar(Layoutable.EffectiveViewportChanged.WithValue(fn))
-
-    /// <summary>Listens to the Layoutable LayoutUpdated event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the element's layout is updated.</param>
-    [<Extension>]
-    static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabLayoutable>, msg: 'msg) =
-        this.AddScalar(Layoutable.LayoutUpdated.WithValue(MsgValue msg))
 
 type LayoutableExtraModifiers =
     /// <summary>Sets the HorizontalAlignment property to Center.</summary>

@@ -4,8 +4,9 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
+open Fabulous.Avalonia.Mvu
 
-open type Fabulous.Avalonia.View
+open type Fabulous.Avalonia.Mvu.View
 
 module App =
     type Model = { Count: int }
@@ -29,61 +30,61 @@ module App =
         Component(program) {
             let! model = Mvu.State
 
-            (VStack() {
-                TextBlock($"%d{model.Count}").centerText()
+            //(VStack() {
+            TextBlock($"%d{model.Count}")//.centerText()
 
-                Button("Increment", Increment).centerHorizontal()
+                //Button("Increment", Increment).centerHorizontal()
 
-                Button("Decrement", Decrement).centerHorizontal()
+                //Button("Decrement", Decrement).centerHorizontal()
 
-            })
-                .center()
+            //})
+                //.center()
         }
 
-    let firstNameView (value: StateValue<string>) =
-        Component() {
-            let! firstName = Context.Binding(value)
-            TextBox(firstName.Current, firstName.Set)
-        }
+    // let firstNameView (value: StateValue<string>) =
+    //     Component() {
+    //         let! firstName = Context.Binding(value)
+    //         TextBox(firstName.Current, firstName.Set)
+    //     }
 
-    let lastNameView (value: StateValue<string>) =
-        Component() {
-            let! lastName = Context.Binding(value)
-            TextBox(lastName.Current, lastName.Set)
-        }
+    // let lastNameView (value: StateValue<string>) =
+    //     Component() {
+    //         let! lastName = Context.Binding(value)
+    //         TextBox(lastName.Current, lastName.Set)
+    //     }
 
-    let component2 () =
-        Component() {
-            let! firstName = Context.State("")
-            let! lastName = Context.State("")
+    // let component2 () =
+    //     Component() {
+    //         //let! firstName = Context.State("")
+    //         //let! lastName = Context.State("")
+    //
+    //         VStack() {
+    //             Label($"Full name is {firstName.Current} {lastName.Current}")
+    //             // firstNameView firstName
+    //             // lastNameView lastName
+    //         }
+    //     }
 
-            VStack() {
-                Label($"Full name is {firstName.Current} {lastName.Current}")
-                firstNameView firstName
-                lastNameView lastName
-            }
-        }
-
-    let content () =
-        Component() {
-            (Dock() {
-                (HStack() { TextBlock("Counter").centerVertical() })
-                    .margin(20.)
-                    .centerHorizontal()
-
-                component1().dock(Dock.Bottom)
-
-                component2().dock(Dock.Bottom)
-
-            })
-                .center()
-        }
+    // let content () =
+    //     Component() {
+    //         (Dock() {
+    //             // (HStack() { TextBlock("Counter").centerVertical() })
+    //             //     .margin(20.)
+    //             //     .centerHorizontal()
+    //
+    //             //component1().dock(Dock.Bottom)
+    //
+    //             //component2().dock(Dock.Bottom)
+    //
+    //         })
+    //             .center()
+    //     }
 
     let view () =
 #if MOBILE
-        SingleViewApplication(content())
+        SingleViewApplication(component1())
 #else
-        DesktopApplication(Window(content()))
+        DesktopApplication(Window(component1()))
 #endif
 
 #if DEBUG

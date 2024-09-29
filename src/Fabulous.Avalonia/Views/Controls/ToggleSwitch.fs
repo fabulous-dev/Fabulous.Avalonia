@@ -24,40 +24,6 @@ module ToggleSwitch =
     let OnContentWidget =
         Attributes.defineAvaloniaPropertyWidget ToggleSwitch.OnContentProperty
 
-    let KnobTransitions =
-        Attributes.defineAvaloniaListWidgetCollection "ToggleSwitch_KnobTransitions" (fun target ->
-            let target = (target :?> ToggleSwitch)
-
-            if target.Transitions = null then
-                let newColl = Transitions()
-                target.Transitions <- newColl
-                newColl
-            else
-                target.Transitions)
-
-[<AutoOpen>]
-module ToggleSwitchBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ToggleSwitch widget.</summary>
-        /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
-        /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
-        static member ToggleSwitch(isChecked: bool, fn: bool -> 'msg) =
-            WidgetBuilder<'msg, IFabToggleSwitch>(
-                ToggleSwitch.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(false),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
-            )
-
-        /// <summary>Creates a ThreeStateToggleSwitch widget.</summary>
-        /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
-        /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
-        static member ThreeStateToggleSwitch(isChecked: bool option, fn: bool option -> 'msg) =
-            WidgetBuilder<'msg, IFabToggleSwitch>(
-                ToggleSwitch.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(true),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
-            )
 
 type ToggleSwitchModifiers =
     /// <summary>Sets the OffContent property.</summary>
@@ -101,19 +67,6 @@ type ToggleSwitchModifiers =
     [<Extension>]
     static member inline content(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(ContentControl.ContentWidget.WithValue(value.Compile()))
-
-    /// <summary>Sets the KnobTransitions property.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline knobTransitions(this: WidgetBuilder<'msg, #IFabToggleSwitch>) =
-        AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions)
-
-    /// <summary>Sets the KnobTransitions property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The KnobTransitions value.</param>
-    [<Extension>]
-    static member inline knobTransition(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabTransition>) =
-        AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions) { value }
 
     /// <summary>Link a ViewRef to access the direct ToggleSwitch control instance.</summary>
     /// <param name="this">Current widget.</param>

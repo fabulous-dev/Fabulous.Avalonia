@@ -53,15 +53,15 @@ type MvuCalendarDatePickerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DatePicker closes its calendar.</param>
     [<Extension>]
-    static member inline onCalendarClosed(this: WidgetBuilder<unit, #IFabCalendarDatePicker>, fn: unit -> unit) =
-        this.AddScalar(MvuCalendarDatePicker.CalendarClosed.WithValue(fn))
+    static member inline onCalendarClosed(this: WidgetBuilder<unit, #IFabCalendarDatePicker>, fn: 'msg) =
+        this.AddScalar(MvuCalendarDatePicker.CalendarClosed.WithValue(MsgValue fn))
 
     /// <summary>Listens to the CalendarDatePicker CalendarOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DatePicker opens its calendar.</param>
     [<Extension>]
-    static member inline onCalendarOpened(this: WidgetBuilder<unit, #IFabCalendarDatePicker>, fn: unit -> unit) =
-        this.AddScalar(MvuCalendarDatePicker.CalendarOpened.WithValue(fn))
+    static member inline onCalendarOpened(this: WidgetBuilder<unit, #IFabCalendarDatePicker>, fn: 'msg) =
+        this.AddScalar(MvuCalendarDatePicker.CalendarOpened.WithValue(MsgValue fn))
 
     /// <summary>Link a ViewRef to access the direct CalendarDatePicker control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -52,9 +52,6 @@ module TemplatedControl =
     let Padding =
         Attributes.defineAvaloniaPropertyWithEquality TemplatedControl.PaddingProperty
 
-    let TemplateApplied =
-        Attributes.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
-
     let Template =
         Attributes.defineSimpleScalar<Widget> "TemplatedControl_Template" ScalarAttributeComparers.equalityCompare (fun _ newValueOpt node ->
             let templatedControl = node.Target :?> TemplatedControl
@@ -158,13 +155,6 @@ type TemplatedControlModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(TemplatedControl.ForegroundWidget.WithValue(value.Compile()))
 
-    /// <summary>Listens to the TemplateApplied event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the template is applied.</param>
-    [<Extension>]
-    static member inline onTemplateApplied(this: WidgetBuilder<'msg, #IFabTemplatedControl>, fn: TemplateAppliedEventArgs -> 'msg) =
-        this.AddScalar(TemplatedControl.TemplateApplied.WithValue(fn))
-
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
@@ -229,45 +219,3 @@ type TemplatedControlExtraModifiers =
     [<Extension>]
     static member inline borderThickness(this: WidgetBuilder<'msg, #IFabTemplatedControl>, left: float, top: float, right: float, bottom: float) =
         TemplatedControlModifiers.borderThickness(this, Thickness(left, top, right, bottom))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: Color) =
-        TemplatedControlModifiers.background(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Background property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Background value.</param>
-    [<Extension>]
-    static member inline background(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: string) =
-        TemplatedControlModifiers.background(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the BorderBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: Color) =
-        TemplatedControlModifiers.borderBrush(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the BorderBrush property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The BorderBrush value.</param>
-    [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: string) =
-        TemplatedControlModifiers.borderBrush(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Foreground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value.</param>
-    [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: Color) =
-        TemplatedControlModifiers.foreground(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Foreground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Foreground value.</param>
-    [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabTemplatedControl>, value: string) =
-        TemplatedControlModifiers.foreground(this, View.SolidColorBrush(value))

@@ -85,3 +85,18 @@ type ComponentSplitViewModifiers =
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> unit) =
         this.AddScalar(ComponentSplitView.IsPresented.WithValue(ComponentValueEventData.create value fn))
+
+type ComponentSplitViewExtraModifiers =
+    /// <summary>Sets the PaneBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PaneBackground value.</param>
+    [<Extension>]
+    static member inline paneBackground(this: WidgetBuilder<unit, #IFabSplitView>, value: Color) =
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the PaneBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PaneBackground value.</param>
+    [<Extension>]
+    static member inline paneBackground(this: WidgetBuilder<unit, #IFabSplitView>, value: string) =
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))

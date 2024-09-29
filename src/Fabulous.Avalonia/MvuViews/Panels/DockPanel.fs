@@ -11,7 +11,7 @@ type IFabMvuDockPanel =
 
 [<AutoOpen>]
 module MvuDockPanelBuilders =
-    type Fabulous.Avalonia.Mvus.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a DockPanel widget.</summary>
         static member Dock() =

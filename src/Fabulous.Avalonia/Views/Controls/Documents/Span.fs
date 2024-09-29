@@ -11,17 +11,6 @@ type IFabSpan =
 module Span =
     let WidgetKey = Widgets.register<Span>()
 
-    let Inlines =
-        Attributes.defineAvaloniaListWidgetCollection "Span_Inlines" (fun target -> (target :?> Span).Inlines)
-
-[<AutoOpen>]
-module SpanBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Span widget.</summary>
-        static member Span() =
-            CollectionBuilder<'msg, IFabSpan, IFabInline>(Span.WidgetKey, Span.Inlines)
-
 type SpanModifiers =
     /// <summary>Link a ViewRef to access the direct Span control instance.</summary>
     /// <param name="this">Current widget.</param>

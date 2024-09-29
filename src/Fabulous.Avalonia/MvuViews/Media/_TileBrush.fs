@@ -1,7 +1,7 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open Fabulous.Avalonia
 
-type IFabComponentTileBrush =
-    inherit IFabComponentBrush
+type IFabMvuTileBrush =
+    inherit IFabMvuBrush
     inherit IFabTileBrush

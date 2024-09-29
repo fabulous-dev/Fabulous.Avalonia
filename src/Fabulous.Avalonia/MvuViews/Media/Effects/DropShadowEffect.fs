@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
@@ -6,13 +6,13 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentDropShadowEffect =
-    inherit IFabComponentDropShadowEffectBase
+type IFabMvuDropShadowEffect =
+    inherit IFabMvuDropShadowEffectBase
     inherit IFabDropShadowEffect
 
 [<AutoOpen>]
-module ComponentDropShadowEffectBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuDropShadowEffectBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a DropShadowEffect widget.</summary>
         static member DropShadowEffect() =

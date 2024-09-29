@@ -1,19 +1,19 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-type IFabComponentGradientBrush =
-    inherit IFabComponentBrush
+type IFabMvuGradientBrush =
+    inherit IFabMvuBrush
     inherit IFabGradientBrush
 
-module ComponentGradientBrush =
+module MvuGradientBrush =
     let GradientStops =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "GradientBrush_GradientStops" (fun target -> (target :?> GradientBrush).GradientStops)
+        MvuAttributes.defineAvaloniaListWidgetCollection "GradientBrush_GradientStops" (fun target -> (target :?> GradientBrush).GradientStops)
 
-type ComponentGradientBrushModifiers =
+type MvuGradientBrushModifiers =
 
     /// <summary>Sets the SpreadMethod property.</summary>
     /// <param name="this">Current widget.</param>

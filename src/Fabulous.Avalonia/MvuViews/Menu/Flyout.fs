@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -6,23 +6,23 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentFlyout =
-    inherit IFabComponentPopupFlyoutBase
+type IFabMvuFlyout =
+    inherit IFabMvuPopupFlyoutBase
     inherit IFabFlyout
 
 [<AutoOpen>]
-module ComponentFlyoutBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuFlyoutBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a Flyout widget.</summary>
         /// <param name="content">The content of the Flyout.</param>
-        static member Flyout(content: WidgetBuilder<'msg, #IFabComponentControl>) =
-            WidgetBuilder<unit, IFabComponentFlyout>(
+        static member Flyout(content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<unit, IFabMvuFlyout>(
                 Flyout.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
             )
 
-type ComponentFlyoutModifiers =
+type MvuFlyoutModifiers =
     /// <summary>Link a ViewRef to access the direct Flyout control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
@@ -30,10 +30,10 @@ type ComponentFlyoutModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabFlyout>, value: ViewRef<Flyout>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-type ComponentFlyoutAttachedModifiers =
+type MvuFlyoutAttachedModifiers =
     /// <summary>Sets the AttachedFlyout property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The AttachedFlyout value.</param>
     [<Extension>]
-    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabComponentControl>, value: WidgetBuilder<'msg, #IFabComponentFlyoutBase>) =
+    static member inline attachedFlyout(this: WidgetBuilder<'msg, #IFabMvuControl>, value: WidgetBuilder<'msg, #IFabMvuFlyoutBase>) =
         this.AddWidget(FlyoutBase.AttachedFlyout.WithValue(value.Compile()))

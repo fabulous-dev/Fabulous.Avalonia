@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -7,19 +7,19 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentListBoxItem =
-    inherit IFabComponentContentControl
+type IFabMvuListBoxItem =
+    inherit IFabMvuContentControl
     inherit IFabListBoxItem
 
 [<AutoOpen>]
-module ComponentListBoxItemBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuListBoxItemBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
         static member ListBoxItem(content: string, isSelected: bool) =
-            WidgetBuilder<unit, IFabComponentListBoxItem>(
+            WidgetBuilder<unit, IFabMvuListBoxItem>(
                 ListBoxItem.WidgetKey,
                 ContentControl.ContentString.WithValue(content),
                 ListBoxItem.IsSelected.WithValue(isSelected)
@@ -28,7 +28,7 @@ module ComponentListBoxItemBuilders =
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
         static member ListBoxItem(content: string) =
-            WidgetBuilder<unit, IFabComponentListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
+            WidgetBuilder<unit, IFabMvuListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>

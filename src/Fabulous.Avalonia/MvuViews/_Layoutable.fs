@@ -27,7 +27,7 @@ type MvuLayoutableModifiers =
 
     /// <summary>Listens to the Layoutable LayoutUpdated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the element's layout is updated.</param>
+    /// <param name="fn">Raised when the element's layout is updated.</param>
     [<Extension>]
-    static member inline onLayoutUpdated(this: WidgetBuilder<unit, #IFabMvuLayoutable>, msg: unit -> unit) =
-        this.AddScalar(MvuLayoutable.LayoutUpdated.WithValue(msg))
+    static member inline onLayoutUpdated(this: WidgetBuilder<'msg, #IFabMvuLayoutable>, fn: 'msg) =
+        this.AddScalar(MvuLayoutable.LayoutUpdated.WithValue(MsgValue fn))

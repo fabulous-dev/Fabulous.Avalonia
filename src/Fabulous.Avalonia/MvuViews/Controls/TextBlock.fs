@@ -43,20 +43,40 @@ module MvuTextBlockBuilders =
         /// <summary>Creates a TextBlock widget.</summary>
         /// <param name="text">The text to display.</param>
         static member inline TextBlock(text: string) =
-            WidgetBuilder<unit, IFabMvuTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
+            WidgetBuilder<'msg, IFabMvuTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
 
         /// <summary>Creates a TextBlock widget.</summary>
         static member inline TextBlock() =
-            CollectionBuilder<unit, IFabMvuTextBlock, IFabMvuInline>(TextBlock.WidgetKey, MvuTextBlock.Inlines)
+            CollectionBuilder<'msg, IFabMvuTextBlock, IFabMvuInline>(TextBlock.WidgetKey, MvuTextBlock.Inlines)
 
 type MvuTextBlockModifiers =
-    /// <summary>Link a ViewRef to access the direct TextBlock control instance.</summary>
+    /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    /// <param name="value">The Background value.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabTextBlock>, value: ViewRef<TextBlock>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
 
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
 
 type MvuTextBlockCollectionBuilderExtensions =
 
@@ -88,8 +108,8 @@ type MvuInlineCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabMvuInline>(this: WidgetBuilder<unit, 'marker>) =
-        AttributeCollectionBuilder<unit, 'marker, IFabMvuTextDecoration>(this, MvuInline.TextDecorations)
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabMvuInline>(this: WidgetBuilder<'msg, 'marker>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>(this, MvuInline.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
@@ -102,12 +122,12 @@ type MvuTextBlockCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<unit, 'marker>) =
-        AttributeCollectionBuilder<unit, 'marker, IFabMvuTextDecoration>(this, TextBlock.TextDecorations)
+    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>(this, MvuTextBlock.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TextDecoration value.</param>
     [<Extension>]
-    static member inline textDecoration(this: WidgetBuilder<unit, #IFabTextBlock>, value: WidgetBuilder<unit, IFabMvuTextDecoration>) =
-        AttributeCollectionBuilder<unit, 'marker, IFabMvuTextDecoration>(this, MvuTextBlock.TextDecorations) { value }
+    static member inline textDecoration(this: WidgetBuilder<'msg, #IFabTextBlock>, value: WidgetBuilder<'msg, IFabMvuTextDecoration>) =
+        AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>(this, MvuTextBlock.TextDecorations) { value }

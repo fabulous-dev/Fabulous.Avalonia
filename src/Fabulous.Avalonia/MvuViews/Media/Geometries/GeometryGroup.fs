@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
@@ -6,36 +6,36 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
 
-type IFabComponentGeometryGroup =
-    inherit IFabComponentGeometry
+type IFabMvuGeometryGroup =
+    inherit IFabMvuGeometry
     inherit IFabGeometryGroup
 
-module ComponentGeometryGroup =
+module MvuGeometryGroup =
     let Children =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
+        MvuAttributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
 
 [<AutoOpen>]
-module ComponentGeometryGroupBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuGeometryGroupBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a GeometryGroup widget.</summary>
         /// <param name="fillRule">The fill rule to apply to the geometry group.</param>
         static member GeometryGroup(fillRule: FillRule) =
-            CollectionBuilder<unit, IFabComponentGeometryGroup, IFabComponentGeometry>(
+            CollectionBuilder<unit, IFabMvuGeometryGroup, IFabMvuGeometry>(
                 GeometryGroup.WidgetKey,
-                ComponentGeometryGroup.Children,
+                MvuGeometryGroup.Children,
                 GeometryGroup.FillRule.WithValue(fillRule)
             )
 
-type ComponentGeometryGroupCollectionBuilderExtensions =
+type MvuGeometryGroupCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentGeometry>
-        (_: CollectionBuilder<'msg, 'marker, IFabComponentGeometry>, x: WidgetBuilder<'msg, 'itemType>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuGeometry>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuGeometry>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentGeometry>
-        (_: CollectionBuilder<'msg, 'marker, IFabComponentGeometry>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuGeometry>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuGeometry>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

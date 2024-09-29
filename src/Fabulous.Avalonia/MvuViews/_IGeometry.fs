@@ -18,8 +18,8 @@ type MvuGeometryModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the geometry changes.</param>
     [<Extension>]
-    static member inline onChanged(this: WidgetBuilder<unit, #IFabMvuGeometry>, msg: unit -> unit) =
-        this.AddScalar(MvuGeometry.Changed.WithValue(msg))
+    static member inline onChanged(this: WidgetBuilder<unit, #IFabMvuGeometry>, msg: 'msg) =
+        this.AddScalar(MvuGeometry.Changed.WithValue(MsgValue msg))
 
 type GeometryAttachedModifiers =
     /// <summary>Sets the Clip property.</summary>

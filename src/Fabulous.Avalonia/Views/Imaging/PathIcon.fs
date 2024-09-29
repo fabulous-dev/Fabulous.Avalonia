@@ -16,23 +16,6 @@ module PathIcon =
 
     let DataString = Attributes.defineAvaloniaPropertyWithEquality PathIcon.DataProperty
 
-[<AutoOpen>]
-module PathIconBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a PathIcon widget.</summary>
-        /// <param name="content">The content of the PathIcon.</param>
-        static member PathIcon(content: WidgetBuilder<'msg, #IFabGeometry>) =
-            WidgetBuilder<'msg, IFabPathIcon>(
-                PathIcon.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| PathIcon.DataWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a PathIcon widget.</summary>
-        /// <param name="path">The path of the PathIcon.</param>
-        static member PathIcon(path: string) =
-            WidgetBuilder<'msg, IFabPathIcon>(PathIcon.WidgetKey, PathIcon.DataString.WithValue(Geometry.Parse(path)))
-
 type PathIconModifiers =
     /// <summary>Link a ViewRef to access the direct PathIcon control instance.</summary>
     /// <param name="this">Current widget.</param>

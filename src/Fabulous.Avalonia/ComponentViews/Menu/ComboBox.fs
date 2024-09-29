@@ -55,6 +55,21 @@ type ComponentComboBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabComponentComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+        
+type ComponentComboBoxExtraModifier =
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<unit, #IFabComboBox>, value: Color) =
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<unit, #IFabComboBox>, value: string) =
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
 
 type ComponentComboBoxCollectionBuilderExtensions =
     [<Extension>]

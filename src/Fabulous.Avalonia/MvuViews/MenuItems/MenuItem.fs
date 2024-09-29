@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -10,26 +10,26 @@ open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabComponentMenuItem =
-    inherit IFabComponentHeaderedSelectingItemsControl
+type IFabMvuMenuItem =
+    inherit IFabMvuHeaderedSelectingItemsControl
     inherit IFabMenuItem
 
-module ComponentMenuItem =
+module MvuMenuItem =
     let Clicked =
-        ComponentAttributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
+        MvuAttributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
 
     let PointerEnteredItem =
-        ComponentAttributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
+        MvuAttributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
 
     let PointerExitedItem =
-        ComponentAttributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
+        MvuAttributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
 
     let SubmenuOpened =
-        ComponentAttributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
+        MvuAttributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
 
 [<AutoOpen>]
-module ComponentMenuItemBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuMenuItemBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
@@ -43,7 +43,7 @@ module ComponentMenuItemBuilders =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
-                ComponentMenuItem.Clicked.WithValue(onClick)
+                MvuMenuItem.Clicked.WithValue(onClick)
             )
 
         /// <summary>Creates a MenuItem widget.</summary>
@@ -61,37 +61,37 @@ module ComponentMenuItemBuilders =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ComponentMenuItem.Clicked.WithValue(onClick)),
+                    StackList.one(MvuMenuItem.Clicked.WithValue(onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
             )
 
 [<AutoOpen>]
-module ComponentMenuItemsBuilders =
-    type Fabulous.Avalonia.Components.View with
+module MvuMenuItemsBuilders =
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a MenuItems widget.</summary>
         static member MenuItems() =
-            CollectionBuilder<'msg, IFabComponentMenuItem, IFabComponentMenuItem>(MenuItem.WidgetKey, ComponentItemsControl.Items)
+            CollectionBuilder<'msg, IFabMvuMenuItem, IFabMvuMenuItem>(MenuItem.WidgetKey, MvuItemsControl.Items)
 
         /// <summary>Creates a MenuItems widget.</summary>
-        static member MenuItems(header: WidgetBuilder<'msg, #IFabComponentControl>) =
-            CollectionBuilder<'msg, IFabComponentMenuItem, IFabComponentMenuItem>(
+        static member MenuItems(header: WidgetBuilder<'msg, #IFabMvuControl>) =
+            CollectionBuilder<'msg, IFabMvuMenuItem, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
-                ComponentItemsControl.Items,
+                MvuItemsControl.Items,
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
             )
 
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
-        static member MenuItems(header: WidgetBuilder<'msg, #IFabComponentControl>, onClick: RoutedEventArgs -> unit) =
-            CollectionBuilder<'msg, IFabComponentMenuItem, IFabComponentMenuItem>(
+        static member MenuItems(header: WidgetBuilder<'msg, #IFabMvuControl>, onClick: RoutedEventArgs -> unit) =
+            CollectionBuilder<'msg, IFabMvuMenuItem, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
-                ComponentItemsControl.Items,
+                MvuItemsControl.Items,
                 AttributesBundle(
-                    StackList.one(ComponentMenuItem.Clicked.WithValue(onClick)),
+                    StackList.one(MvuMenuItem.Clicked.WithValue(onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
                     ValueNone
                 )
@@ -100,9 +100,9 @@ module ComponentMenuItemsBuilders =
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         static member MenuItems(header: string) =
-            CollectionBuilder<'msg, IFabComponentMenuItem, IFabComponentMenuItem>(
+            CollectionBuilder<'msg, IFabMvuMenuItem, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
-                ComponentItemsControl.Items,
+                MvuItemsControl.Items,
                 AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone)
             )
 
@@ -110,11 +110,11 @@ module ComponentMenuItemsBuilders =
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItems(header: string, onClick: RoutedEventArgs -> unit) =
-            CollectionBuilder<unit, IFabComponentMenuItem, IFabComponentMenuItem>(
+            CollectionBuilder<unit, IFabMvuMenuItem, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
-                ComponentItemsControl.Items,
+                MvuItemsControl.Items,
                 AttributesBundle(
-                    StackList.two(ComponentMenuItem.Clicked.WithValue(onClick), HeaderedContentControl.HeaderString.WithValue(header)),
+                    StackList.two(MvuMenuItem.Clicked.WithValue(onClick), HeaderedContentControl.HeaderString.WithValue(header)),
                     ValueNone,
                     ValueNone
                 )
@@ -123,33 +123,33 @@ module ComponentMenuItemsBuilders =
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItems(onClick: RoutedEventArgs -> unit) =
-            CollectionBuilder<unit, IFabComponentMenuItem, IFabComponentMenuItem>(
+            CollectionBuilder<unit, IFabMvuMenuItem, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
-                ComponentItemsControl.Items,
-                ComponentMenuItem.Clicked.WithValue(onClick)
+                MvuItemsControl.Items,
+                MvuMenuItem.Clicked.WithValue(onClick)
             )
 
-type ComponentMenuItemModifiers =
+type MvuMenuItemModifiers =
     /// <summary>Listens to the MenuItem PointerEnteredItem event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PointerEnteredItem event is fired.</param>
     [<Extension>]
     static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> unit) =
-        this.AddScalar(ComponentMenuItem.PointerEnteredItem.WithValue(fn))
+        this.AddScalar(MvuMenuItem.PointerEnteredItem.WithValue(fn))
 
     /// <summary>Listens to the MenuItem PointerExitedItem event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PointerExitedItem event is fired.</param>
     [<Extension>]
     static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> unit) =
-        this.AddScalar(ComponentMenuItem.PointerExitedItem.WithValue(fn))
+        this.AddScalar(MvuMenuItem.PointerExitedItem.WithValue(fn))
 
     /// <summary>Listens to the MenuItem SubmenuClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the SubmenuClosed event is fired.</param>
     [<Extension>]
     static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> unit) =
-        this.AddScalar(ComponentMenuItem.SubmenuOpened.WithValue(fn))
+        this.AddScalar(MvuMenuItem.SubmenuOpened.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>
