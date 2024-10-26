@@ -34,11 +34,3 @@ module MvuDropDownButtonBuilders =
                     ValueNone
                 )
             )
-
-type MvuDropDownButtonModifiers =
-    /// <summary>Link a ViewRef to access the direct DropDownButton control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuDropDownButton>, value: ViewRef<DropDownButton>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

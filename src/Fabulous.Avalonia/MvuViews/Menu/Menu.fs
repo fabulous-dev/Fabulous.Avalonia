@@ -18,14 +18,6 @@ module MvuMenuBuilders =
         static member Menu() =
             CollectionBuilder<unit, IFabMvuMenu, IFabMvuMenuItem>(Menu.WidgetKey, MvuItemsControl.Items)
 
-type MvuMenuModifiers =
-    /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuMenu>, value: ViewRef<Menu>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type MenuCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>

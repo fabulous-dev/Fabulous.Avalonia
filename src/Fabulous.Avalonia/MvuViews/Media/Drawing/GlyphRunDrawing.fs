@@ -49,12 +49,3 @@ module MvuGlyphRunDrawingBuilders =
         /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             View.GlyphRunDrawing(View.SolidColorBrush(brush), glyphRun)
-
-type MvuGlyphRunDrawingModifiers =
-
-    /// <summary>Link a ViewRef to access the direct GlyphRunDrawing control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuGlyphRunDrawing>, value: ViewRef<GlyphRunDrawing>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

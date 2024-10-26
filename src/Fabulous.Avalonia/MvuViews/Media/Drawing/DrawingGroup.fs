@@ -33,14 +33,6 @@ module MvuDrawingGroupBuilders =
                 DrawingGroup.Opacity.WithValue(opacity)
             )
 
-type MvuDrawingGroupModifiers =
-    /// <summary>Link a ViewRef to access the direct DrawingGroup control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuDrawingGroup>, value: ViewRef<DrawingGroup>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type MvuDrawingGroupExtraModifiers =
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>

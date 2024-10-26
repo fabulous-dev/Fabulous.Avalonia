@@ -21,11 +21,3 @@ module MvuTabStripBuilders =
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
             WidgetHelpers.buildItems<'msg, IFabMvuTabStrip, 'itemData, 'itemMarker> TabStrip.WidgetKey ItemsControl.ItemsSourceTemplate items template
-
-type MvuTabStripModifiers =
-    /// <summary>Link a ViewRef to access the direct TabStrip control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuTabStrip>, value: ViewRef<TabStrip>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

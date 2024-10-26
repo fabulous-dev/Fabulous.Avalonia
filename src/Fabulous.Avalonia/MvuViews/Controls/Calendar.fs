@@ -61,13 +61,6 @@ type MvuCalendarModifiers =
     static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabMvuCalendar>, fn: CalendarModeChangedEventArgs -> unit) =
         this.AddScalar(MvuCalendar.DisplayModeChanged.WithValue(fn))
 
-    /// <summary>Link a ViewRef to access the direct Calendar control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type MvuCalendarExtraModifiers =
     /// <summary>Sets the HeaderBackground property.</summary>
     /// <param name="this">Current widget.</param>

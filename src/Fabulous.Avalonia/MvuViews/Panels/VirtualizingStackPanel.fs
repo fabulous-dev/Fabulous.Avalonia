@@ -45,10 +45,3 @@ type MvuVirtualizingStackPanelModifiers =
     [<Extension>]
     static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<unit, #IFabMvuVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(MvuVirtualizingStackPanel.VerticalSnapPointsChanged.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct VirtualizingStackPanel control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuVirtualizingStackPanel>, value: ViewRef<VirtualizingStackPanel>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

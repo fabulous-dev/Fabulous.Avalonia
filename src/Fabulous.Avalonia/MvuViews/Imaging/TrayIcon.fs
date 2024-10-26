@@ -71,10 +71,3 @@ type MvuTrayIconModifiers =
     [<Extension>]
     static member inline onClicked(this: WidgetBuilder<'msg, #IFabMvuTrayIcon>, msg: 'msg) =
         this.AddScalar(MvuTrayIcon.Clicked.WithValue(MsgValue msg))
-
-    /// <summary>Link a ViewRef to access the direct TrayIcon control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuTrayIcon>, value: ViewRef<TrayIcon>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

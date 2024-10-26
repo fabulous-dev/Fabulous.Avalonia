@@ -15,6 +15,8 @@ module App =
         | Increment
         | Decrement
 
+    let labelRef = ViewRef<TextBlock>()
+
     let initModel = { Count = 0 }
 
     let init () = initModel
@@ -30,15 +32,17 @@ module App =
         Component("", program) {
             let! model = Mvu.State
 
-            //(VStack() {
-            TextBlock($"%d{model.Count}") //.centerText()
+            (VStack() {
+                TextBlock($"%d{model.Count}")
+                    .centerText()
+                    .reference(labelRef)
 
-        //Button("Increment", Increment).centerHorizontal()
+                Button("Increment", Increment).centerHorizontal()
 
-        //Button("Decrement", Decrement).centerHorizontal()
+                Button("Decrement", Decrement).centerHorizontal()
 
-        //})
-        //.center()
+            })
+                .center()
         }
 
     // let firstNameView (value: StateValue<string>) =

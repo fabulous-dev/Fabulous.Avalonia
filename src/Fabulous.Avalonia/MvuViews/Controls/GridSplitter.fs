@@ -22,11 +22,3 @@ module MvuGridSplitterBuilders =
         /// <param name="resizeDirection">The direction in which the GridSplitter can be resized.</param>
         static member GridSplitter(resizeDirection: GridResizeDirection) =
             WidgetBuilder<unit, IFabMvuGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
-
-type MvuGridSplitterModifiers =
-    /// <summary>Link a ViewRef to access the direct GridSplitter control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuGridSplitter>, value: ViewRef<GridSplitter>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

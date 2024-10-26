@@ -62,13 +62,6 @@ type NativeMenuModifiers =
     static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
         this.AddScalar(MvuNativeMenu.NeedsUpdate.WithValue(msg))
 
-    /// <summary>Link a ViewRef to access the direct NativeMenu control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuNativeMenu>, value: ViewRef<NativeMenu>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type NativeMenuAttachedModifiers =
     /// <summary>Sets the IsNativeMenuExported property.</summary>
     /// <param name="this">Current widget.</param>

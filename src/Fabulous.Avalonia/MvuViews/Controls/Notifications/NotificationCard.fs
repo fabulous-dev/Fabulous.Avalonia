@@ -49,10 +49,3 @@ type MvuNotificationCardModifiers =
     [<Extension>]
     static member inline onNotificationClosed(this: WidgetBuilder<unit, #IFabNotificationCard>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(MvuNotificationCard.NotificationClosed.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct NotificationCard control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuNotificationCard>, value: ViewRef<NotificationCard>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

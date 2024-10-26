@@ -57,14 +57,6 @@ type MvuTextBoxModifiers =
     static member inline onPastingFromClipboard(this: WidgetBuilder<unit, #IFabTextBox>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(MvuTextBox.PastingFromClipboard.WithValue(fn))
 
-    /// <summary>Link a ViewRef to access the direct TextBox control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuTextBox>, value: ViewRef<TextBox>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-
 type MvuTextBoxExtraModifiers =
     /// <summary>Sets the TextAlignment to center.</summary>
     /// <param name="this">Current widget.</param>

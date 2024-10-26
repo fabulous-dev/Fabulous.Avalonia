@@ -34,11 +34,3 @@ module MvuRotateTransformBuilders =
         /// <summary>Creates a RotateTransform widget.</summary>
         static member RotateTransform() =
             WidgetBuilder<unit, IFabMvuRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
-type MvuRotateTransformTransformModifiers =
-    /// <summary>Link a ViewRef to access the direct RotateTransform control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuRotateTransform>, value: ViewRef<RotateTransform>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

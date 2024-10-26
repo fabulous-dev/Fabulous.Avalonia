@@ -51,11 +51,3 @@ module MvuNumericUpDownBuilders =
                     MvuValueEventData.create value (Option.map float >> fn)
                 )
             )
-
-type MvuNumericUpDownModifiers =
-    /// <summary>Link a ViewRef to access the direct NumericUpDown control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuNumericUpDown>, value: ViewRef<NumericUpDown>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

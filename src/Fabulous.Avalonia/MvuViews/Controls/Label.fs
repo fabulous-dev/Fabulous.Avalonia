@@ -28,11 +28,3 @@ module MvuLabelBuilders =
                 Label.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
-
-type MvuLabelModifiers =
-    /// <summary>Link a ViewRef to access the direct Label control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuLabel>, value: ViewRef<Label>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

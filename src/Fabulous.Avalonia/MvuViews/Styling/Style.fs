@@ -66,10 +66,3 @@ type MvuStyleModifiers =
     [<Extension>]
     static member inline animation(this: WidgetBuilder<'msg, #IFabMvuStyledElement>, value: WidgetBuilder<'msg, IFabMvuStyle>) =
         AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabStyle>(this, MvuStyledElement.StylesWidget) { value }
-
-    /// <summary>Link a ViewRef to access the direct Style control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuStyle>, value: ViewRef<Style>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

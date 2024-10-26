@@ -21,11 +21,3 @@ module MvuDockPanelBuilders =
         /// <param name="lastChildFill">Whether the last child element within a DockPanel stretches to fill the remaining available space.</param>
         static member Dock(lastChildFill: bool) =
             CollectionBuilder<unit, IFabMvuDockPanel, IFabMvuControl>(DockPanel.WidgetKey, MvuPanel.Children, DockPanel.LastChildFill.WithValue(lastChildFill))
-
-type MvuDockPanelModifiers =
-    /// <summary>Link a ViewRef to access the direct DockPanel control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuDockPanel>, value: ViewRef<DockPanel>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

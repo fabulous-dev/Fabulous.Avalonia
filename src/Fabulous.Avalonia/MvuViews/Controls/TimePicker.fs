@@ -23,11 +23,3 @@ module MvuTimePickerBuilders =
         /// <param name="fn">Raised when the selected time changes.</param>
         static member TimePicker(time: TimeSpan, fn: TimeSpan -> unit) =
             WidgetBuilder<unit, IFabMvuTimePicker>(TimePicker.WidgetKey, MvuTimePicker.SelectedTimeChanged.WithValue(MvuValueEventData.create time fn))
-
-type MvuTimePickerModifiers =
-    /// <summary>Link a ViewRef to access the direct TimePicker control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuTimePicker>, value: ViewRef<TimePicker>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

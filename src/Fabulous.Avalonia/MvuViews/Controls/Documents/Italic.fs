@@ -20,11 +20,3 @@ module MvuItalicBuilders =
         /// <summary>Creates a Italic widget.</summary>
         /// <param name="text">Text to display.</param>
         static member Italic(text: string) = Mvu.View.Italic() { View.Run(text) }
-
-type MvuItalicModifiers =
-    /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuItalic>, value: ViewRef<Italic>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

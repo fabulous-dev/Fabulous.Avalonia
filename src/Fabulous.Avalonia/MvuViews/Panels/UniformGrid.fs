@@ -48,12 +48,3 @@ module MvuUniformGridBuilders =
                     UniformGrid.Columns.WithValue(0),
                     UniformGrid.Rows.WithValue(0)
                 )
-
-type MvuUniformGridModifiers =
-
-    /// <summary>Link a ViewRef to access the direct UniformGrid control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuUniformGrid>, value: ViewRef<UniformGrid>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

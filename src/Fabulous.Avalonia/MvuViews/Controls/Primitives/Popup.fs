@@ -49,10 +49,3 @@ type MvuPopupModifiers =
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: 'msg) =
         this.AddScalar(MvuPopup.Opened.WithValue(MsgValue msg))
-
-    /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuPopup>, value: ViewRef<Popup>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

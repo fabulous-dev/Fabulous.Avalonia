@@ -59,10 +59,3 @@ type MvuThumbModifiers =
     [<Extension>]
     static member inline onDragCompleted(this: WidgetBuilder<unit, #IFabMvuThumb>, fn: VectorEventArgs -> unit) =
         this.AddScalar(MvuThumb.DragCompleted.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct Thumb control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuThumb>, value: ViewRef<Thumb>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

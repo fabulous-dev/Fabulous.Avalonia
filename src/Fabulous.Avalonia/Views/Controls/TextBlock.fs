@@ -237,6 +237,13 @@ type TextBlockExtraModifiers =
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
         TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
 
+    /// <summary>Link a ViewRef to access the direct AutoCompleteBox control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, #IFabTextBlock>, value: ViewRef<TextBlock>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type TextBlockCollectionBuilderExtensions =
 
     [<Extension>]

@@ -18,11 +18,3 @@ module MvuRunBuilders =
         /// <param name="text">The text to display.</param>
         static member Run(text: string) =
             WidgetBuilder<unit, IFabMvuRun>(Run.WidgetKey, Run.Text.WithValue(text))
-
-type MvuRunModifiers =
-    /// <summary>Link a ViewRef to access the direct Run control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuRun>, value: ViewRef<Run>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

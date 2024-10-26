@@ -111,11 +111,3 @@ module MvuImageBuilders =
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
-
-type MvuImageModifiers =
-    /// <summary>Link a ViewRef to access the direct Image control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuImage>, value: ViewRef<Image>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

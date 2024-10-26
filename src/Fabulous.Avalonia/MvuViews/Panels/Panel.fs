@@ -44,13 +44,6 @@ type MvuPanelModifiers =
     static member inline foreground(this: WidgetBuilder<unit, #IFabMvuPanel>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct Panel control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuPanel>, value: ViewRef<Panel>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type MvuPanelExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -83,7 +76,7 @@ type MvuPanelExtraModifiers =
 type MvuPanelCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabMvuPanel and 'itemType :> IFabMvuControl>
-        (_: CollectionBuilder<'msg, 'marker, IFabControl>, x: WidgetBuilder<'msg, 'itemType>)
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuControl>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 

@@ -21,15 +21,6 @@ module MvuTextDecorationBuilders =
         static member inline TextDecoration(location: TextDecorationLocation) =
             WidgetBuilder<unit, IFabMvuTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
-type MvuTextDecorationModifiers =
-
-    /// <summary>Link a ViewRef to access the direct TextDecoration control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabTextDecoration>, value: ViewRef<TextDecoration>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type MvuTextDecorationExtraModifiers =
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>

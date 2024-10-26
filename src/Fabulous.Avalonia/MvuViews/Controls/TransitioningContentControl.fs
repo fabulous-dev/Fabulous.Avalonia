@@ -21,11 +21,3 @@ module MvuTransitioningContentControlBuilders =
                 TransitioningContentControl.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
-
-type MvuTransitioningContentControlModifiers =
-    /// <summary>Link a ViewRef to access the direct TransitioningContentControl control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuTransitioningContentControl>, value: ViewRef<TransitioningContentControl>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

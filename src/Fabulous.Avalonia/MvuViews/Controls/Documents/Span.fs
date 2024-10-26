@@ -22,14 +22,6 @@ module MvuSpanBuilders =
         static member Span() =
             CollectionBuilder<'msg, IFabMvuSpan, IFabMvuInline>(Span.WidgetKey, MvuSpan.Inlines)
 
-type MvuSpanMvuModifiers =
-    /// <summary>Link a ViewRef to access the direct Span control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuSpan>, value: ViewRef<Span>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type MvuSpanCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuInline>

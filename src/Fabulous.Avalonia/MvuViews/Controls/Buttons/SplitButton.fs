@@ -37,11 +37,3 @@ module MvuSplitButtonBuilders =
                     ValueNone
                 )
             )
-
-type MvuSplitButtonModifiers =
-    /// <summary>Link a ViewRef to access the direct SplitButton control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabSplitButton>, value: ViewRef<SplitButton>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

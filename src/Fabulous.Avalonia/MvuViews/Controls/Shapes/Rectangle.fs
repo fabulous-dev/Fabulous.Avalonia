@@ -23,11 +23,3 @@ module MvuRectangleBuilders =
         /// <summary>Creates a Rectangle widget.</summary>
         static member Rectangle() =
             WidgetBuilder<unit, IFabMvuRectangle>(Rectangle.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
-type MvuRectangleModifiers =
-    /// <summary>Link a ViewRef to access the direct Rectangle control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuRectangle>, value: ViewRef<Rectangle>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

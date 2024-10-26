@@ -28,11 +28,3 @@ module MvuPathBuilders =
         /// <param name="data">The content of the Path.</param>
         static member Path(data: string) =
             WidgetBuilder<'msg, IFabMvuPath>(Path.WidgetKey, Path.DataString.WithValue(Geometry.Parse(data)))
-
-type MvuPathModifiers =
-    /// <summary>Link a ViewRef to access the direct Path control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabMvuPath>, value: ViewRef<Path>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

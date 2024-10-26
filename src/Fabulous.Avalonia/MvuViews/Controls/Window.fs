@@ -61,10 +61,3 @@ type MvuWindowModifiers =
     [<Extension>]
     static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabMvuWindow>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(MvuWindow.WindowOpened.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabMvuWindow>, value: ViewRef<Window>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
