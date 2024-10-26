@@ -30,13 +30,6 @@ module CalendarDatePicker =
     let IsTodayHighlighted =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.IsTodayHighlightedProperty
 
-    let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent
-            "CalendarDatePicker_SelectedDateChanged"
-            CalendarDatePicker.SelectedDateProperty
-            Option.toNullable
-            Option.ofNullable
-
     let SelectedDateFormat =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.SelectedDateFormatProperty
 
@@ -58,27 +51,6 @@ module CalendarDatePicker =
     let VerticalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality CalendarDatePicker.VerticalContentAlignmentProperty
 
-    let DateValidationError =
-        Attributes.defineEvent "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
-
-    let CalendarClosed =
-        Attributes.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
-
-    let CalendarOpened =
-        Attributes.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
-
-[<AutoOpen>]
-module CalendarDatePickerBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a CalendarDatePicker widget.</summary>
-        /// <param name="date">The selected date.</param>
-        /// <param name="fn">Raised when the selected date changes.</param>
-        static member CalendarDatePicker(date: DateTime option, fn: DateTime option -> 'msg) =
-            WidgetBuilder<'msg, IFabCalendarDatePicker>(
-                CalendarDatePicker.WidgetKey,
-                CalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn)
-            )
 
 type CalendarDatePickerModifiers =
     /// <summary>Sets the DisplayDate property.</summary>
@@ -171,27 +143,6 @@ type CalendarDatePickerModifiers =
     [<Extension>]
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, value: VerticalAlignment) =
         this.AddScalar(CalendarDatePicker.VerticalContentAlignment.WithValue(value))
-
-    /// <summary>Listens to the CalendarDatePicker DateValidationError event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the DatePicker detects a format error.</param>
-    [<Extension>]
-    static member inline onDateValidationError(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: CalendarDatePickerDateValidationErrorEventArgs -> 'msg) =
-        this.AddScalar(CalendarDatePicker.DateValidationError.WithValue(fn))
-
-    /// <summary>Listens to the CalendarDatePicker CalendarClosed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the DatePicker closes its calendar.</param>
-    [<Extension>]
-    static member inline onCalendarClosed(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, msg: 'msg) =
-        this.AddScalar(CalendarDatePicker.CalendarClosed.WithValue(MsgValue msg))
-
-    /// <summary>Listens to the CalendarDatePicker CalendarOpened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the DatePicker opens its calendar.</param>
-    [<Extension>]
-    static member inline onCalendarOpened(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, msg: 'msg) =
-        this.AddScalar(CalendarDatePicker.CalendarOpened.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct CalendarDatePicker control instance.</summary>
     /// <param name="this">Current widget.</param>

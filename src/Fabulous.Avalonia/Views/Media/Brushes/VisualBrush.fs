@@ -13,23 +13,10 @@ module VisualBrush =
 
     let Visual = Attributes.defineAvaloniaPropertyWidget VisualBrush.VisualProperty
 
-[<AutoOpen>]
-module VisualBrushBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a VisualBrush widget.</summary>
-        /// <param name="content">The content of the VisualBrush.</param>
-        static member VisualBrush(content: WidgetBuilder<'msg, #IFabVisual>) =
-            WidgetBuilder<'msg, IFabVisualBrush>(
-                VisualBrush.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| VisualBrush.Visual.WithValue(content.Compile()) |], ValueNone)
-            )
-
-
 type VisualBrushModifiers =
     /// <summary>Link a ViewRef to access the direct VisualBrush control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabVisualBrush>, value: ViewRef<VisualBrush>) =
+    static member inline reference(this: WidgetBuilder<'msg, #IFabVisualBrush>, value: ViewRef<VisualBrush>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

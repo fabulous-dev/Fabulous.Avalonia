@@ -21,24 +21,6 @@ module CombinedGeometry =
     let GeometryCombineMode =
         Attributes.defineAvaloniaPropertyWithEquality CombinedGeometry.GeometryCombineModeProperty
 
-[<AutoOpen>]
-module CombinedGeometryBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a CombinedGeometry widget.</summary>
-        /// <param name="geometry1">The first geometry.</param>
-        /// <param name="geometry2">The second geometry.</param>
-        static member CombinedGeometry(geometry1: WidgetBuilder<'msg, #IFabGeometry>, geometry2: WidgetBuilder<'msg, #IFabGeometry>) =
-            WidgetBuilder<'msg, IFabCombinedGeometry>(
-                CombinedGeometry.WidgetKey,
-                AttributesBundle(
-                    StackList.empty(),
-                    ValueSome
-                        [| CombinedGeometry.Geometry1.WithValue(geometry1.Compile())
-                           CombinedGeometry.Geometry2.WithValue(geometry2.Compile()) |],
-                    ValueNone
-                )
-            )
 
 type CombinedGeometryModifiers =
     /// <summary>Sets the GeometryCombineMode property.</summary>

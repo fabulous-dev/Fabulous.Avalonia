@@ -30,22 +30,6 @@ module DrawingGroup =
     let OpacityMask =
         Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityMaskProperty
 
-    let Children =
-        Attributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
-
-[<AutoOpen>]
-module DrawingGroupBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a DrawingGroup widget.</summary>
-        static member DrawingGroup() =
-            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
-
-        /// <summary>Creates a DrawingGroup widget.</summary>
-        /// <param name="opacity">The opacity of the drawing group.</param>
-        static member DrawingGroup(opacity: float) =
-            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
-
 type DrawingGroupModifiers =
 
     /// <summary>Sets the OpacityMask property.</summary>
@@ -90,30 +74,15 @@ type DrawingGroupModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabDrawingGroup>, value: ViewRef<DrawingGroup>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-type DrawingGroupExtraModifiers =
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: Color) =
-        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the OpacityMask property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The OpacityMask value.</param>
-    [<Extension>]
-    static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: string) =
-        DrawingGroupModifiers.opacityMask(this, View.SolidColorBrush(value))
-
 type DrawingGroupCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabDrawing>
         (_: CollectionBuilder<'msg, 'marker, IFabDrawing>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDrawing>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabDrawing>
         (_: CollectionBuilder<'msg, 'marker, IFabDrawing>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

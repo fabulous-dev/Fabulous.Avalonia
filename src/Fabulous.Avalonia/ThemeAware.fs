@@ -3,7 +3,7 @@ namespace Fabulous.Avalonia
 open Avalonia
 open Avalonia.Styling
 open Fabulous
-open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 
 [<AbstractClass; Sealed>]
 type ThemeAware =
@@ -37,6 +37,6 @@ module ThemeAwareProgram =
             let subModel, cmd = update(msg, model.Model)
             { model with Model = subModel }, Cmd.map ModelMsg cmd
 
-    let view (subView: 'model -> WidgetBuilder<'msg, #IFabApplication>) (model: Model<'model>) =
+    let view (subView: 'model -> WidgetBuilder<'msg, #IFabMvuApplication>) (model: Model<'model>) =
         (View.map ModelMsg (subView model.Model))
             .onActualThemeVariantChanged(ThemeChanged)

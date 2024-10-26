@@ -18,23 +18,6 @@ module ExperimentalAcrylicBorder =
     let Material =
         Attributes.defineAvaloniaPropertyWidget ExperimentalAcrylicBorder.MaterialProperty
 
-
-[<AutoOpen>]
-module ExperimentalAcrylicBorderBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
-        /// <param name="content">The content of the ExperimentalAcrylicBorder.</param>
-        static member ExperimentalAcrylicBorder(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(
-                ExperimentalAcrylicBorder.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
-        static member ExperimentalAcrylicBorder() =
-            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 type ExperimentalAcrylicBorderModifiers =
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>

@@ -16,16 +16,6 @@ module Sector =
     let SweepAngle =
         Attributes.defineAvaloniaPropertyWithEquality Sector.SweepAngleProperty
 
-[<AutoOpen>]
-module SectorBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Sector widget.</summary>
-        /// <param name="startAngle">The starting angle.</param>
-        /// <param name="sweepAngle">The sweep angle.</param>
-        static member Sector(startAngle: float, sweepAngle: float) =
-            WidgetBuilder<'msg, IFabSector>(Sector.WidgetKey, Sector.StartAngle.WithValue(startAngle), Sector.SweepAngle.WithValue(sweepAngle))
-
 type SectorModifiers =
     /// <summary>Link a ViewRef to access the direct Sector control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -23,12 +23,6 @@ module StackPanel =
     let AreVerticalSnapPointsRegular =
         Attributes.defineAvaloniaPropertyWithEquality StackPanel.AreVerticalSnapPointsRegularProperty
 
-    let HorizontalSnapPointsChanged =
-        Attributes.defineEvent "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
-
-    let VerticalSnapPointsChanged =
-        Attributes.defineEvent "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
-
 type StackPanelModifiers =
     /// <summary>Sets the AreHorizontalSnapPointsRegular property.</summary>
     /// <param name="this">Current widget.</param>
@@ -43,20 +37,6 @@ type StackPanelModifiers =
     [<Extension>]
     static member inline areVerticalSnapPointsRegular(this: WidgetBuilder<'msg, #IFabStackPanel>, value: bool) =
         this.AddScalar(StackPanel.AreVerticalSnapPointsRegular.WithValue(value))
-
-    /// <summary>Listens to the StackPanel HorizontalSnapPointsChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the HorizontalSnapPointsChanged event fires.</param>
-    [<Extension>]
-    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabStackPanel>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(StackPanel.HorizontalSnapPointsChanged.WithValue(fn))
-
-    /// <summary>Listens to the StackPanel VerticalSnapPointsChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the VerticalSnapPointsChanged event fires.</param>
-    [<Extension>]
-    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabStackPanel>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(StackPanel.VerticalSnapPointsChanged.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct StackPanel control instance.</summary>
     /// <param name="this">Current widget.</param>

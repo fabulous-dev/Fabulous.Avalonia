@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabPathFigure =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module PathFigure =
     let WidgetKey = Widgets.register<PathFigure>()
@@ -18,20 +18,8 @@ module PathFigure =
     let IsFilled =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsFilledProperty
 
-    let Segments =
-        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
-
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.StartPointProperty
-
-[<AutoOpen>]
-module PathFigureBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a PathFigure widget.</summary>
-        /// <param name="startPoint">The start point of the path.</param>
-        static member PathFigure(startPoint: Point) =
-            CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(PathFigure.WidgetKey, PathFigure.Segments, PathFigure.StartPoint.WithValue(startPoint))
 
 type PathFigureModifiers =
 
@@ -58,13 +46,13 @@ type PathFigureModifiers =
 
 type PathFigureBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathSegment>
         (_: CollectionBuilder<'msg, 'marker, IFabPathSegment>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathSegment>
         (_: CollectionBuilder<'msg, 'marker, IFabPathSegment>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

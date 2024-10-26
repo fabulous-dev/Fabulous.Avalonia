@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open Avalonia
 open Avalonia.Styling
+open Fabulous.Avalonia.Mvu
 open Fabulous
 
 [<AbstractClass; Sealed>]
@@ -38,7 +39,7 @@ type FabulousAppBuilder private () =
             program.SyncAction,
             themeFn,
             (fun () ->
-                (View.Component(program.State, arg) {
+                (View.Component("", program.State, arg) {
                     let! model = Mvu.State
                     program.View model
                 })
@@ -64,7 +65,7 @@ type FabulousAppBuilder private () =
             | Some syncAction -> syncAction
             | None -> ViewHelpers.defaultSyncAction
 
-        FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component() { view() }).Compile()))
+        FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component("") { view() }).Compile()))
 
 #if IOS
 open UIKit

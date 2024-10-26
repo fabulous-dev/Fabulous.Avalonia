@@ -15,15 +15,6 @@ module MatrixTransform =
     let Matrix =
         Attributes.defineAvaloniaPropertyWithEquality MatrixTransform.MatrixProperty
 
-[<AutoOpen>]
-module MatrixTransformBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a MatrixTransform widget.</summary>
-        /// <param name="matrix">The Matrix to apply.</param>
-        static member MatrixTransform(matrix: Matrix) =
-            WidgetBuilder<'msg, IFabMatrixTransform>(MatrixTransform.WidgetKey, MatrixTransform.Matrix.WithValue(matrix))
-
 type MatrixTransformModifiers =
     /// <summary>Link a ViewRef to access the direct MatrixTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

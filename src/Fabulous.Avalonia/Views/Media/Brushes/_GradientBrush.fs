@@ -12,9 +12,6 @@ module GradientBrush =
     let SpreadMethod =
         Attributes.defineAvaloniaPropertyWithEquality GradientBrush.SpreadMethodProperty
 
-    let GradientStops =
-        Attributes.defineAvaloniaListWidgetCollection "GradientBrush_GradientStops" (fun target -> (target :?> GradientBrush).GradientStops)
-
 type GradientBrushModifiers =
 
     /// <summary>Sets the SpreadMethod property.</summary>

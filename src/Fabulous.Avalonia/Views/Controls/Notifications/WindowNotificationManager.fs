@@ -18,17 +18,6 @@ module WindowNotificationManager =
     let MaxItems =
         Attributes.defineAvaloniaPropertyWithEquality WindowNotificationManager.MaxItemsProperty
 
-[<AutoOpen>]
-module WindowNotificationManagerBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a WindowNotificationManager widget.</summary>
-        static member WindowNotificationManager(viewRef: ViewRef<WindowNotificationManager>) =
-            WidgetBuilder<'msg, IFabWindowNotificationManager>(
-                WindowNotificationManager.WidgetKey,
-                AttributesBundle(StackList.one(ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox)), ValueNone, ValueNone)
-            )
-
 
 type WindowNotificationManagerModifiers =
     /// <summary>Sets the MaxItems property.</summary>

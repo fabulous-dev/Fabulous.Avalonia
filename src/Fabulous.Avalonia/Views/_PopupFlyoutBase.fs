@@ -36,12 +36,6 @@ module PopupFlyoutBase =
     let PlacementConstraintAdjustment =
         Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.PlacementConstraintAdjustmentProperty
 
-    let Opening =
-        Attributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
-
-    let Closing =
-        Attributes.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
-
 type PopupFlyoutBaseModifiers =
     /// <summary>Sets the Placement property.</summary>
     /// <param name="this">Current widget.</param>
@@ -98,17 +92,3 @@ type PopupFlyoutBaseModifiers =
     [<Extension>]
     static member inline placementConstraintAdjustment(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: PopupPositionerConstraintAdjustment) =
         this.AddScalar(PopupFlyoutBase.PlacementConstraintAdjustment.WithValue(value))
-
-    /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PopupFlyoutBase is opening.</param>
-    [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, fn: 'msg) =
-        this.AddScalar(PopupFlyoutBase.Opening.WithValue(MsgValue fn))
-
-    /// <summary>Listens to the PopupFlyoutBase Closing event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PopupFlyoutBase is closing.</param>
-    [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, fn: CancelEventArgs -> 'msg) =
-        this.AddScalar(PopupFlyoutBase.Closing.WithValue(fn))

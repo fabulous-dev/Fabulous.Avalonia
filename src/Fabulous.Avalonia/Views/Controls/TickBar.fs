@@ -48,16 +48,6 @@ module TickBar =
     let ReservedSpace =
         Attributes.defineAvaloniaPropertyWithEquality TickBar.ReservedSpaceProperty
 
-[<AutoOpen>]
-module TickBarBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a TickBar widget.</summary>
-        /// <param name="min">The minimum value.</param>
-        /// <param name="max">The maximum value.</param>
-        static member TickBar(min: float, max: float) =
-            WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
-
 type TickBarModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
@@ -121,18 +111,3 @@ type TickBarModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTickBar>, value: ViewRef<TickBar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-type TickBarExtraModifiers =
-    /// <summary>Sets the Fill property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value.</param>
-    [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: Color) =
-        TickBarModifiers.fill(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the Fill property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Fill value.</param>
-    [<Extension>]
-    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
-        TickBarModifiers.fill(this, View.SolidColorBrush(value))

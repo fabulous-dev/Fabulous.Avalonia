@@ -19,19 +19,6 @@ module Canvas =
 
     let Bottom = Attributes.defineAvaloniaPropertyWithEquality Canvas.BottomProperty
 
-[<AutoOpen>]
-module CanvasBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Canvas widget.</summary>
-        static member Canvas() =
-            CollectionBuilder<'msg, IFabCanvas, IFabControl>(Canvas.WidgetKey, Panel.Children)
-
-        /// <summary>Creates a Canvas widget.</summary>
-        /// <param name="viewRef">The ViewRef instance that will receive access to the underlying control.</param>
-        static member Canvas(viewRef: ViewRef<Canvas>) =
-            WidgetBuilder<'msg, IFabCanvas>(Canvas.WidgetKey, ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox))
-
 type CanvasModifiers =
     /// <summary>Sets the Left property.</summary>
     /// <param name="this">Current widget.</param>

@@ -37,21 +37,6 @@ module ToolTip =
     let ServiceEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ToolTip.ServiceEnabledProperty
 
-[<AutoOpen>]
-module ToolTipBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ToolTip widget.</summary>
-        static member ToolTip(content: string) =
-            WidgetBuilder<'msg, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
-
-        /// <summary>Creates a ToolTip widget.</summary>
-        static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabToolTip>(
-                ToolTip.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>
