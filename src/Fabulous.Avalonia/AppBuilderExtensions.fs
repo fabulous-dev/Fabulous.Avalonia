@@ -77,7 +77,7 @@ type SingleViewLifetime() =
         member this.MainView
             with get () = this.View.Content
             and set value =
-                if not (isNull this.View) then
+                if not(isNull this.View) then
                     this.View.Content <- value
 
 [<AutoOpen>]
