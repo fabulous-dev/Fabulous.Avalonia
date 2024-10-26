@@ -9,6 +9,7 @@ type IFabItalic =
 
 module Italic =
     let WidgetKey = Widgets.register<Italic>()
+
 type ItalicModifiers =
     /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>
     /// <param name="this">Current widget.</param>

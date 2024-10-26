@@ -62,7 +62,7 @@ type ComponentTopLevelModifiers =
     [<Extension>]
     static member inline onScalingChanged(this: WidgetBuilder<unit, #IFabComponentTopLevel>, fn: unit -> unit) =
         this.AddScalar(ComponentTopLevel.ScalingChanged.WithValue(fn))
-        
+
 type ComponentTopLevelExtraModifiers =
     /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
     /// <param name="this">Current widget.</param>
@@ -91,4 +91,3 @@ type ComponentTopLevelExtraModifiers =
     [<Extension>]
     static member inline systemBarColor(this: WidgetBuilder<unit, #IFabTopLevel>, value: string) =
         TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(value))
-

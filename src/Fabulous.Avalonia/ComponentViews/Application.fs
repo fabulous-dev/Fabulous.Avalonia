@@ -33,11 +33,12 @@ module ComponentApplication =
                 trayIcons
             else
                 trayIcons)
+
     let ActualThemeVariantChanged =
         Attributes.defineEventNoArgNoDispatch "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
     let ResourcesChanged =
-       Attributes.defineEventNoDispatch "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
+        Attributes.defineEventNoDispatch "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
 
     let UrlsOpened =
         Attributes.defineEventNoDispatch "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)

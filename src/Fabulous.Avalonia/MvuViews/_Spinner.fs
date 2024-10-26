@@ -10,4 +10,4 @@ type IFabMvuSpinner =
 
 module MvuSpinner =
     let Spin =
-       Attributes.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)
+        Attributes.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)

@@ -24,6 +24,7 @@ module ComponentBorderBuilders =
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
+
 type ComponentBorderExtraModifiers =
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>

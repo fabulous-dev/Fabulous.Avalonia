@@ -26,7 +26,7 @@ module ThreeState =
 
 module ToggleButton =
     let WidgetKey = Widgets.register<ToggleButton>()
-    
+
     let IsThreeState =
         Attributes.defineAvaloniaPropertyWithEquality ToggleButton.IsThreeStateProperty
 

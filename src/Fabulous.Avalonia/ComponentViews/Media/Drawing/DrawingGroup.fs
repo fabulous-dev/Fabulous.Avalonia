@@ -44,8 +44,8 @@ type ComponentDrawingGroupModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabComponentDrawingGroup>, value: ViewRef<DrawingGroup>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
-        
+
+
 type ComponentDrawingGroupExtraModifiers =
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>

@@ -36,11 +36,7 @@ module MvuImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: string) =
-            WidgetBuilder<unit, IFabMvuImage>(
-                Image.WidgetKey,
-                Image.Source.WithValue(ImageSourceValue.File(source)),
-                Image.Stretch.WithValue(Stretch.Uniform)
-            )
+            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.File(source)), Image.Stretch.WithValue(Stretch.Uniform))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
@@ -51,11 +47,7 @@ module MvuImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Uri) =
-            WidgetBuilder<unit, IFabMvuImage>(
-                Image.WidgetKey,
-                Image.Source.WithValue(ImageSourceValue.Uri(source)),
-                Image.Stretch.WithValue(Stretch.Uniform)
-            )
+            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Uri(source)), Image.Stretch.WithValue(Stretch.Uniform))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>

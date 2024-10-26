@@ -19,8 +19,7 @@ module MvuItalicBuilders =
 
         /// <summary>Creates a Italic widget.</summary>
         /// <param name="text">Text to display.</param>
-        static member Italic(text: string) =
-            Mvu.View.Italic() { View.Run(text) }
+        static member Italic(text: string) = Mvu.View.Italic() { View.Run(text) }
 
 type MvuItalicModifiers =
     /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>

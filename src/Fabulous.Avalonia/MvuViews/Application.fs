@@ -31,6 +31,7 @@ module MvuApplication =
                 trayIcons
             else
                 trayIcons)
+
     let ActualThemeVariantChanged =
         Attributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 

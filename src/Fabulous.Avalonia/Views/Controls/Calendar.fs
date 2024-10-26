@@ -39,6 +39,7 @@ module Calendar =
 
     let DisplayDateEnd =
         Attributes.defineAvaloniaPropertyWithEquality Calendar.DisplayDateEndProperty
+
 type CalendarModifiers =
     /// <summary>Sets the FirstDayOfWeek property.</summary>
     /// <param name="this">Current widget.</param>
@@ -102,4 +103,3 @@ type CalendarModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-

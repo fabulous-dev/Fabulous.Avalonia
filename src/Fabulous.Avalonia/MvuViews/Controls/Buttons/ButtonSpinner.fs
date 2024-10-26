@@ -17,11 +17,7 @@ module ButtonSpinnerBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the ButtonSpinner is clicked.</param>
         static member ButtonSpinner(text: string, fn: SpinEventArgs -> unit) =
-            WidgetBuilder<unit, IFabMvuButtonSpinner>(
-                ButtonSpinner.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                MvuSpinner.Spin.WithValue(fn)
-            )
+            WidgetBuilder<unit, IFabMvuButtonSpinner>(ButtonSpinner.WidgetKey, ContentControl.ContentString.WithValue(text), MvuSpinner.Spin.WithValue(fn))
 
 type MvuButtonSpinnerModifiers =
     /// <summary>Link a ViewRef to access the direct ButtonSpinner control instance.</summary>

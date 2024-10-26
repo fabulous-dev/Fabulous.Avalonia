@@ -20,11 +20,7 @@ module MvuRepeatButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the button is clicked.</param>
         static member RepeatButton(text: string, msg: RoutedEventArgs -> unit) =
-            WidgetBuilder<unit, IFabMvuRepeatButton>(
-                RepeatButton.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                MvuButton.Clicked.WithValue(msg)
-            )
+            WidgetBuilder<unit, IFabMvuRepeatButton>(RepeatButton.WidgetKey, ContentControl.ContentString.WithValue(text), MvuButton.Clicked.WithValue(msg))
 
         /// <summary>Creates a RepeatButton widget.</summary>
         /// <param name="content">The content to display.</param>

@@ -22,6 +22,7 @@ module Polyline =
                 let coll = List<Point>()
                 points |> List.iter coll.Add
                 target.SetValue(Polyline.PointsProperty, coll) |> ignore)
+
 type PolylineModifiers =
     /// <summary>Link a ViewRef to access the direct Polyline control instance.</summary>
     /// <param name="this">Current widget.</param>

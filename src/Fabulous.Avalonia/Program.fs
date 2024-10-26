@@ -62,10 +62,12 @@ module ViewHelpers =
     and canReuseMvuTextBlock (prev: Widget) (curr: Widget) =
         let switchingFromTextToInlines =
             (tryGetScalarValue prev TextBlock.Text).IsSome
-            && (tryGetWidgetCollectionValue curr MvuTextBlock.Inlines).IsSome
+            && (tryGetWidgetCollectionValue curr MvuTextBlock.Inlines)
+                .IsSome
 
         let switchingFromInlinesToText =
-            (tryGetWidgetCollectionValue prev MvuTextBlock.Inlines).IsSome
+            (tryGetWidgetCollectionValue prev MvuTextBlock.Inlines)
+                .IsSome
             && (tryGetScalarValue curr TextBlock.Text).IsSome
 
         not switchingFromTextToInlines && not switchingFromInlinesToText

@@ -23,11 +23,7 @@ module MvuSplitButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the SplitButton is clicked.</param>
         static member SplitButton(text: string, fn: RoutedEventArgs -> unit) =
-            WidgetBuilder<'msg, IFabSplitButton>(
-                SplitButton.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                MvuSplitButton.Clicked.WithValue(fn)
-            )
+            WidgetBuilder<'msg, IFabSplitButton>(SplitButton.WidgetKey, ContentControl.ContentString.WithValue(text), MvuSplitButton.Clicked.WithValue(fn))
 
         /// <summary>Creates a SplitButton widget.</summary>
         /// <param name="fn">Raised when the SplitButton is clicked.</param>

@@ -44,7 +44,9 @@ module ComponentToggleSwitchBuilders =
             WidgetBuilder<unit, IFabComponentToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
-                ComponentToggleButton.ThreeStateCheckedChanged.WithValue(ComponentValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
+                ComponentToggleButton.ThreeStateCheckedChanged.WithValue(
+                    ComponentValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
+                )
             )
 
 type ComponentToggleSwitchModifiers =

@@ -44,7 +44,9 @@ module MvuToggleSwitchBuilders =
             WidgetBuilder<unit, IFabMvuToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
-                MvuToggleButton.ThreeStateCheckedChanged.WithValue(MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
+                MvuToggleButton.ThreeStateCheckedChanged.WithValue(
+                    MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
+                )
             )
 
 type MvuToggleSwitchModifiers =

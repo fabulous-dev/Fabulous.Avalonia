@@ -19,5 +19,5 @@ type ComponentTransformModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Transform changes.</param>
     [<Extension>]
-    static member inline onChanged(this: WidgetBuilder<'msg, #IFabComponentTransform >, fn: unit -> unit) =
+    static member inline onChanged(this: WidgetBuilder<'msg, #IFabComponentTransform>, fn: unit -> unit) =
         this.AddScalar(ComponentTransform.Changed.WithValue(fn))

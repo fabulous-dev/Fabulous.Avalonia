@@ -47,7 +47,7 @@ type MvuSelectableTextBlockModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMvuSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
+
 type SelectableTextBlockExtraModifiers =
     /// <summary>Sets the SelectionBrush property.</summary>
     /// <param name="this">Current widget.</param>

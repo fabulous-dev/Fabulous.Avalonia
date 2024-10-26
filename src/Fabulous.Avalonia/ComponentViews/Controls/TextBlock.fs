@@ -56,8 +56,8 @@ type ComponentTextBlockModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabTextBlock>, value: ViewRef<TextBlock>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
-        
+
+
 type ComponentTextBlockExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>

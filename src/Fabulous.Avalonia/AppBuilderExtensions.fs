@@ -54,17 +54,17 @@ type FabulousAppBuilder private () =
             match canReuseView with
             | Some fn -> fn
             | None -> ViewHelpers.canReuseView
-    
+
         let logger =
             match logger with
             | Some logger -> logger
             | None -> ProgramDefaults.defaultLogger()
-    
+
         let syncAction =
             match syncAction with
             | Some syncAction -> syncAction
             | None -> ViewHelpers.defaultSyncAction
-    
+
         FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component("") { view() }).Compile()))
 
 #if IOS

@@ -22,11 +22,7 @@ module MvuDrawingGroupBuilders =
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         static member DrawingGroup() =
-            CollectionBuilder<'msg, IFabMvuDrawingGroup, IFabMvuDrawing>(
-                DrawingGroup.WidgetKey,
-                MvuDrawingGroup.Children,
-                DrawingGroup.Opacity.WithValue(1.0)
-            )
+            CollectionBuilder<'msg, IFabMvuDrawingGroup, IFabMvuDrawing>(DrawingGroup.WidgetKey, MvuDrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         /// <param name="opacity">The opacity of the drawing group.</param>
@@ -44,7 +40,7 @@ type MvuDrawingGroupModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMvuDrawingGroup>, value: ViewRef<DrawingGroup>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
+
 type MvuDrawingGroupExtraModifiers =
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>

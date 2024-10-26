@@ -13,7 +13,7 @@ type IFabComponentSplitButton =
 
 module ComponentSplitButton =
     let Clicked =
-       Attributes.defineEventNoDispatch "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
+        Attributes.defineEventNoDispatch "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
 
 [<AutoOpen>]
 module ComponentSplitButtonBuilders =

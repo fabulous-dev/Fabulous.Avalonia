@@ -14,7 +14,7 @@ module ImageBrush =
     let WidgetKey = Widgets.register<ImageBrush>()
 
     let Source = Attributes.defineBindableImageSource ImageBrush.SourceProperty
-    
+
 type ImageBrushModifiers =
     /// <summary>Link a ViewRef to access the direct ImageBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

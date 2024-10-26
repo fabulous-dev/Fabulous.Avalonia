@@ -12,11 +12,7 @@ type IFabMvuDatePicker =
 
 module MvuDatePicker =
     let SelectedDateChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent
-            "DatePicker_SelectedDateChanged"
-            DatePicker.SelectedDateProperty
-            Nullable
-            Nullable.op_Explicit
+        MvuAttributes.defineAvaloniaPropertyWithChangedEvent "DatePicker_SelectedDateChanged" DatePicker.SelectedDateProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
 module MvuDatePickerBuilders =
@@ -26,10 +22,7 @@ module MvuDatePickerBuilders =
         /// <param name="date">The initial date.</param>
         /// <param name="fn">Raised when the selected date changes.</param>
         static member DatePicker(date: DateTimeOffset, fn: DateTimeOffset -> unit) =
-            WidgetBuilder<unit, IFabMvuDatePicker>(
-                DatePicker.WidgetKey,
-                MvuDatePicker.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
-            )
+            WidgetBuilder<unit, IFabMvuDatePicker>(DatePicker.WidgetKey, MvuDatePicker.SelectedDateChanged.WithValue(MvuValueEventData.create date fn))
 
 type MvuDatePickerModifiers =
 

@@ -161,8 +161,8 @@ module MvuAttributes =
                     // Insert the new child into the UI tree
                     targetColl.Insert(index, unbox view)
 
-                    // Trigger the mounted event
-                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
+                // Trigger the mounted event
+                // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
                     let childNode = node.TreeContext.GetViewNode(targetColl[index])
@@ -181,8 +181,8 @@ module MvuAttributes =
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- view
 
-                    // Trigger the mounted event for the new child
-                    // FIXME Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
+                // Trigger the mounted event for the new child
+                // FIXME Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
 
                 | _ -> ()
 
@@ -227,8 +227,8 @@ module MvuAttributes =
                     // Insert the new child into the UI tree
                     targetColl.Insert(index, unbox view)
 
-                    // Trigger the mounted event
-                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
+                // Trigger the mounted event
+                // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
                     let childNode = node.TreeContext.GetViewNode(box targetColl[index])
@@ -247,8 +247,8 @@ module MvuAttributes =
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- unbox view
 
-                    // Trigger the mounted event for the new child
-                    // FIXME Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
+                // Trigger the mounted event for the new child
+                // FIXME Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
 
                 | _ -> ()
 

@@ -12,7 +12,7 @@ type IFabMvuTemplatedControl =
 
 module MvuTemplatedControl =
     let TemplateApplied =
-       Attributes.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
+        Attributes.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
 
 type MvuTemplatedControlModifiers =
     /// <summary>Sets the Background property.</summary>

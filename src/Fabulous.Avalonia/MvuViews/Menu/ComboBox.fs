@@ -55,7 +55,7 @@ type MvuComboBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabMvuComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
+
 type MvuComboBoxExtraModifier =
     /// <summary>Sets the PlaceholderForeground property.</summary>
     /// <param name="this">Current widget.</param>

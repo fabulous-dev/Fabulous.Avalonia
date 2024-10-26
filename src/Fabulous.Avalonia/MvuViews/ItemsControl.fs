@@ -38,11 +38,7 @@ module MvuItemsControlBuilders =
         static member ItemsControl<'itemData, 'itemMarker when 'itemMarker :> IFabControl>
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>)
             =
-            WidgetHelpers.buildItems<unit, IFabMvuItemsControl, 'itemData, 'itemMarker>
-                ItemsControl.WidgetKey
-                ItemsControl.ItemsSourceTemplate
-                items
-                template
+            WidgetHelpers.buildItems<unit, IFabMvuItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type MvuItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>

@@ -75,7 +75,7 @@ module WidgetHelpers =
         (templateBuilder itm).Compile()
 
     /// Creates a widget with the given key and attributes.
-    let inline buildItems<'msg , 'marker, 'itemData, 'itemMarker when 'msg: equality>
+    let inline buildItems<'msg, 'marker, 'itemData, 'itemMarker when 'msg: equality>
         key
         (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
         (items: seq<'itemData>)

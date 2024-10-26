@@ -31,14 +31,14 @@ module App =
             let! model = Mvu.State
 
             //(VStack() {
-            TextBlock($"%d{model.Count}")//.centerText()
+            TextBlock($"%d{model.Count}") //.centerText()
 
-                //Button("Increment", Increment).centerHorizontal()
+        //Button("Increment", Increment).centerHorizontal()
 
-                //Button("Decrement", Decrement).centerHorizontal()
+        //Button("Decrement", Decrement).centerHorizontal()
 
-            //})
-                //.center()
+        //})
+        //.center()
         }
 
     // let firstNameView (value: StateValue<string>) =

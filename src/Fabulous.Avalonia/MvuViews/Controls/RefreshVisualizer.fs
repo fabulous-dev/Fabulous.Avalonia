@@ -13,8 +13,7 @@ type IFaMvuRefreshVisualizer =
 
 module MvuRefreshVisualizer =
     let RefreshRequested =
-        Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target ->
-            (target :?> RefreshVisualizer).RefreshRequested)
+        Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target -> (target :?> RefreshVisualizer).RefreshRequested)
 
 [<AutoOpen>]
 module MvuRefreshVisualizerBuilders =

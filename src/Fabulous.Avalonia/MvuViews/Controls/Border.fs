@@ -24,6 +24,7 @@ module MvuBorderBuilders =
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
+
 type MvuBorderExtraModifiers =
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>

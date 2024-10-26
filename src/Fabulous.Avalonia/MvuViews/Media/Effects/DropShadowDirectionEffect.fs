@@ -16,7 +16,10 @@ module MvuDropShadowDirectionEffectBuilders =
 
         /// <summary>Creates a DropShadowDirectionEffect widget.</summary>
         static member DropShadowDirectionEffect() =
-            WidgetBuilder<unit, IFabMvuDropShadowDirectionEffect>(DropShadowDirectionEffect.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<unit, IFabMvuDropShadowDirectionEffect>(
+                DropShadowDirectionEffect.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueNone, ValueNone)
+            )
 
         /// <summary>Creates a DropShadowDirectionEffect widget.</summary>
         /// <param name="shadowDepth">The depth of the shadow.</param>

@@ -16,13 +16,13 @@ type IFabMvuMenuItem =
 
 module MvuMenuItem =
     let Clicked =
-       Attributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
+        Attributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
 
     let PointerEnteredItem =
-       Attributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
+        Attributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
 
     let PointerExitedItem =
-       Attributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
+        Attributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
 
     let SubmenuOpened =
         Attributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
@@ -40,11 +40,7 @@ module MvuMenuItemBuilders =
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItem(header: string, onClick: RoutedEventArgs -> unit) =
-            WidgetBuilder<'msg, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                HeaderedContentControl.HeaderString.WithValue(header),
-                MvuMenuItem.Clicked.WithValue(onClick)
-            )
+            WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header), MvuMenuItem.Clicked.WithValue(onClick))
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
@@ -123,11 +119,7 @@ module MvuMenuItemsBuilders =
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItems(onClick: RoutedEventArgs -> unit) =
-            CollectionBuilder<unit, IFabMvuMenuItem, IFabMvuMenuItem>(
-                MenuItem.WidgetKey,
-                MvuItemsControl.Items,
-                MvuMenuItem.Clicked.WithValue(onClick)
-            )
+            CollectionBuilder<unit, IFabMvuMenuItem, IFabMvuMenuItem>(MenuItem.WidgetKey, MvuItemsControl.Items, MvuMenuItem.Clicked.WithValue(onClick))
 
 type MvuMenuItemModifiers =
     /// <summary>Listens to the MenuItem PointerEnteredItem event.</summary>

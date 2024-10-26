@@ -21,7 +21,7 @@ module MvuNativeMenu =
         Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
 
     let Closed =
-       Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
+        Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
 
     let NeedsUpdate =
         Attributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)

@@ -23,11 +23,7 @@ module MvuButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the button is clicked.</param>
         static member Button(text: string, fn: 'msg) =
-            WidgetBuilder<'msg, IFabMvuButton>(
-                Button.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                MvuButton.Clicked.WithValue(fun _ -> fn)
-            )
+            WidgetBuilder<'msg, IFabMvuButton>(Button.WidgetKey, ContentControl.ContentString.WithValue(text), MvuButton.Clicked.WithValue(fun _ -> fn))
 
         /// <summary>Creates a Button widget.</summary>
         /// <param name="fn">Raised when the button is clicked.</param>

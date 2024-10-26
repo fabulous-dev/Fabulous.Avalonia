@@ -20,11 +20,7 @@ module MvuDropDownButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>
         static member DropDownButton(text: string, msg: RoutedEventArgs -> unit) =
-            WidgetBuilder<unit, IFabMvuDropDownButton>(
-                DropDownButton.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                MvuButton.Clicked.WithValue(msg)
-            )
+            WidgetBuilder<unit, IFabMvuDropDownButton>(DropDownButton.WidgetKey, ContentControl.ContentString.WithValue(text), MvuButton.Clicked.WithValue(msg))
 
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>

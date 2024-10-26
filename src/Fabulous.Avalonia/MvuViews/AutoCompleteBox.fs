@@ -26,8 +26,7 @@ module MvuAutoCompleteBox =
         MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
 
     let SelectionChanged =
-        Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
-            (target :?> AutoCompleteBox).SelectionChanged)
+        Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target -> (target :?> AutoCompleteBox).SelectionChanged)
 
 [<AutoOpen>]
 module MvuAutoCompleteBoxBuilders =
