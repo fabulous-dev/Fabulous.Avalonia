@@ -35,11 +35,10 @@ module ViewHelpers =
             // but it has already been checked by Fabulous.ViewHelpers.canReuseView
             if isNull def.TargetType then
                 true
+            else if def.TargetType.IsAssignableTo(typeof<TextBlock>) then
+                canReuseTextBlock prev curr
             else
-                if def.TargetType.IsAssignableTo(typeof<TextBlock>) then
-                    canReuseTextBlock prev curr
-                else
-                    true
+                true
         else
             false
 
