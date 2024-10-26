@@ -12,7 +12,7 @@ type IFabMvuExperimentalAcrylicMaterial =
 
 module MvuExperimentalAcrylicMaterial =
     let Invalidated =
-        MvuAttributes.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
+        Attributes.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
 
 [<AutoOpen>]
 module MvuExperimentalAcrylicMaterialBuilders =

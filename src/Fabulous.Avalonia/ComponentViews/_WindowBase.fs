@@ -11,16 +11,16 @@ type IFabComponentWindowBase =
 
 module ComponentWindowBase =
     let Activated =
-        ComponentAttributes.defineEventNoArg "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
+        Attributes.defineEventNoArgNoDispatch "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
 
     let Deactivated =
-        ComponentAttributes.defineEventNoArg "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
+        Attributes.defineEventNoArgNoDispatch "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
 
     let PositionChanged =
-        ComponentAttributes.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
+        Attributes.defineEventNoDispatch "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
 
     let Resized =
-        ComponentAttributes.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
+        Attributes.defineEventNoDispatch "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
 
 type ComponentWindowBaseModifiers =
     /// <summary>Listens to the WindowBase Activated event.</summary>

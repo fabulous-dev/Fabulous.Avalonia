@@ -14,7 +14,7 @@ type IFabComponentStyle =
 module ComponentStyle =
 
     let Animations =
-        ComponentAttributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
+        Attributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
 
 [<AutoOpen>]
 module ComponentStyleBuilders =
@@ -27,13 +27,13 @@ module ComponentStyleBuilders =
 
 type ComponentStyleCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentAnimation>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentAnimation>
         (_: CollectionBuilder<'msg, 'marker, IFabComponentAnimation>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentAnimation>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentAnimation>
         (_: CollectionBuilder<'msg, 'marker, IFabComponentAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

@@ -13,7 +13,7 @@ type IFabMvuThemeVariantScope =
 
 module MvuThemeVariantScope =
     let ActualThemeVariantChanged =
-        MvuAttributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
+        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
 
 [<AutoOpen>]
 module MvuThemeVariantScopeBuilders =

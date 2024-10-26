@@ -4,7 +4,7 @@
     <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
     <IsPackable>true</IsPackable>
-    <UseLocalProjectReference>true</UseLocalProjectReference>
+    <UseLocalProjectReference>false</UseLocalProjectReference>
   </PropertyGroup>
   <!-- NuGet Package -->
   <PropertyGroup>
@@ -506,7 +506,6 @@
     <Compile Include="MvuViews\Controls\CheckBox.fs" />
     <Compile Include="MvuViews\Controls\Border.fs" />
     <Compile Include="MvuViews\Controls\GridSplitter.fs" />
-    <Content Include="MvuViews\Controls\.DS_Store" />
     <Compile Include="MvuViews\Controls\LayoutTransformControl.fs" />
     <Compile Include="MvuViews\Controls\RefreshVisualizer.fs" />
     <Compile Include="MvuViews\Controls\SelectableTextBlock.fs" />
@@ -610,7 +609,7 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre5]" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre6]" />
     <PackageReference Include="Avalonia" VersionOverride="11.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>

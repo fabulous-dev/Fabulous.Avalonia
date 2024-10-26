@@ -11,7 +11,7 @@ type IFabComponentGeometry =
 
 module ComponentGeometry =
     let Changed =
-        ComponentAttributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
+        Attributes.defineEventNoArgNoDispatch "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
 
 type ComponentGeometryModifiers =
     /// <summary>Listens to the Geometry Changed event.</summary>

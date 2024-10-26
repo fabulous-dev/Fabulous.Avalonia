@@ -13,7 +13,7 @@ type IFaComponentRefreshVisualizer =
 
 module ComponentRefreshVisualizer =
     let RefreshRequested =
-        ComponentAttributes.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target ->
+        Attributes.defineEventNoDispatch<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target ->
             (target :?> RefreshVisualizer).RefreshRequested)
 
 [<AutoOpen>]

@@ -12,7 +12,7 @@ type IFabComponentTemplatedControl =
 
 module ComponentTemplatedControl =
     let TemplateApplied =
-        ComponentAttributes.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
+        Attributes.defineEventNoDispatch "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
 
 type ComponentTemplatedControlModifiers =
     /// <summary>Sets the Background property.</summary>

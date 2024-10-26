@@ -14,7 +14,7 @@ type IFabComponentScrollViewer =
 
 module ComponentScrollViewer =
     let ScrollChanged =
-        ComponentAttributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
+        Attributes.defineEventNoDispatch "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
 
 [<AutoOpen>]
 module ComponentScrollViewerBuilders =

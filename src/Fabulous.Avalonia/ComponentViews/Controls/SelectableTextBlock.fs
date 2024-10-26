@@ -15,7 +15,7 @@ type IFabComponentSelectableTextBlock =
 
 module ComponentSelectableTextBlock =
     let CopyingToClipboard =
-        ComponentAttributes.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
+        Attributes.defineEventNoDispatch "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
 
 [<AutoOpen>]
 module SelectableTextBlockBuilders =
@@ -65,13 +65,13 @@ type SelectableTextBlockExtraModifiers =
 
 type ComponentSelectableTextBlockCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentInline>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentInline>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentInline>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentInline>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentInline>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

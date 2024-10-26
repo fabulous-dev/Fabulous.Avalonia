@@ -11,7 +11,7 @@ type IFabComponentEffect =
 
 module ComponentEffect =
     let Invalidated =
-        ComponentAttributes.defineEventNoArg "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)
+        Attributes.defineEventNoArgNoDispatch "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)
 
 type ComponentEffectModifiers =
     /// <summary>Listens the Effect Invalidated event.</summary>

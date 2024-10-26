@@ -13,7 +13,7 @@ type IFabComponentNotificationCard =
 
 module ComponentNotificationCard =
     let NotificationClosed =
-        ComponentAttributes.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
+        Attributes.defineEventNoDispatch "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
 
 [<AutoOpen>]
 module ComponentNotificationCardBuilders =

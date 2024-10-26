@@ -16,16 +16,16 @@ type IFabComponentMenuItem =
 
 module ComponentMenuItem =
     let Clicked =
-        ComponentAttributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
+        Attributes.defineEventNoDispatch "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
 
     let PointerEnteredItem =
-        ComponentAttributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
+        Attributes.defineEventNoDispatch "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
 
     let PointerExitedItem =
-        ComponentAttributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
+        Attributes.defineEventNoDispatch "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
 
     let SubmenuOpened =
-        ComponentAttributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
+        Attributes.defineEventNoDispatch "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
 
 [<AutoOpen>]
 module ComponentMenuItemBuilders =
@@ -160,13 +160,13 @@ type ComponentMenuItemModifiers =
 
 type MenuItemCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

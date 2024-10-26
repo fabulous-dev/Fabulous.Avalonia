@@ -13,7 +13,7 @@ type IFabMvuSplitButton =
 
 module MvuSplitButton =
     let Clicked =
-        MvuAttributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
+        Attributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
 
 [<AutoOpen>]
 module MvuSplitButtonBuilders =

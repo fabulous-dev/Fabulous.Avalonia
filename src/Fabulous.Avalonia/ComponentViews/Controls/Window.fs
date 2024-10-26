@@ -16,7 +16,7 @@ type IFabComponentWindow =
 
 module ComponentWindow =
     let WindowClosing =
-        ComponentAttributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
+        Attributes.defineEventNoDispatch "Window_Closing" (fun target -> (target :?> Window).Closing)
 
     let WindowClosed =
         ComponentAttributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
@@ -37,7 +37,7 @@ module ComponentWindowBuilders =
             )
 
         /// <summary>Creates a Window widget.</summary>
-        static member Window<'msg, 'childMarker>() =
+        static member Window<'msg, 'childMarker when 'msg: equality>() =
             SingleChildBuilder<'msg, IFabComponentWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
 type ComponentWindowModifiers =

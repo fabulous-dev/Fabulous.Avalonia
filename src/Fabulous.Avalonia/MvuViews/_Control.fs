@@ -16,16 +16,16 @@ module MvuControl =
         MvuAttributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
 
     let ContextRequested =
-        MvuAttributes.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
+        Attributes.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
 
     let Loaded =
-        MvuAttributes.defineEvent "Control_Loaded" (fun target -> (target :?> Control).Loaded)
+        Attributes.defineEvent "Control_Loaded" (fun target -> (target :?> Control).Loaded)
 
     let UnLoaded =
-        MvuAttributes.defineEvent "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
+        Attributes.defineEvent "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
 
     let SizeChanged =
-        MvuAttributes.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
+        Attributes.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
 
 type MvuControlModifiers =
     /// <summary>Listens to the Control ContextRequested event.</summary>

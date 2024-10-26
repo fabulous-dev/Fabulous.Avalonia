@@ -12,10 +12,10 @@ type IFabMvuVisual =
 
 module MvuVisual =
     let AttachedToVisualTree =
-        MvuAttributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)
+        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)
 
     let DetachedFromVisualTree =
-        MvuAttributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
+        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
 
 type MvuVisualModifiers =
     /// <summary>Listens to the Visual AttachedToVisualTree event.</summary>

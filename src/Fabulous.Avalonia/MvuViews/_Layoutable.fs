@@ -11,11 +11,11 @@ type IFabMvuLayoutable =
 
 module MvuLayoutable =
     let EffectiveViewportChanged =
-        MvuAttributes.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
+        Attributes.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
             (target :?> Layoutable).EffectiveViewportChanged)
 
     let LayoutUpdated =
-        MvuAttributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
+        Attributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
 
 type MvuLayoutableModifiers =
     /// <summary>Listens to the Layoutable EffectiveViewportChanged event.</summary>

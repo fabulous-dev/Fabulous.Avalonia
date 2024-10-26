@@ -22,13 +22,13 @@ module ComponentItemsControl =
                 target.Items)
 
     let ContainerClearing =
-        ComponentAttributes.defineEvent "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
+        Attributes.defineEventNoDispatch "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
 
     let ContainerIndexChanged =
-        ComponentAttributes.defineEvent "ItemsControl_ContainerIndexChanged" (fun target -> (target :?> ItemsControl).ContainerIndexChanged)
+        Attributes.defineEventNoDispatch "ItemsControl_ContainerIndexChanged" (fun target -> (target :?> ItemsControl).ContainerIndexChanged)
 
     let ContainerPrepared =
-        ComponentAttributes.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
+        Attributes.defineEventNoDispatch "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
 
 
 [<AutoOpen>]

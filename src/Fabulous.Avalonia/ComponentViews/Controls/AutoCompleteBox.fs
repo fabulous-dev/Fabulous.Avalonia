@@ -17,16 +17,16 @@ module ComponentAutoCompleteBox =
         ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
     let Populating =
-        ComponentAttributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
+        Attributes.defineEventNoDispatch<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
 
     let Populated =
-        ComponentAttributes.defineEvent<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
+        Attributes.defineEventNoDispatch<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
 
     let DropDownOpened =
         ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
 
     let SelectionChanged =
-        ComponentAttributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
+        Attributes.defineEventNoDispatch<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
             (target :?> AutoCompleteBox).SelectionChanged)
 
 [<AutoOpen>]

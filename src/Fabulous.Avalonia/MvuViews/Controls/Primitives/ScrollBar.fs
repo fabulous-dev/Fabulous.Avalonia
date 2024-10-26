@@ -13,7 +13,7 @@ type IFabMvuScrollBar =
 
 module MvuScrollBar =
     let Scroll =
-        MvuAttributes.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
+        Attributes.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
 
 [<AutoOpen>]
 module MvuScrollBarBuilders =

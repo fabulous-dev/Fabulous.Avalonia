@@ -13,7 +13,7 @@ type IFabMvuRefreshContainer =
 
 module MvuRefreshContainer =
     let RefreshRequested =
-        MvuAttributes.defineEvent<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
+        Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
             (target :?> RefreshContainer).RefreshRequested)
 
 [<AutoOpen>]

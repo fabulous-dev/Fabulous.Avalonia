@@ -27,7 +27,7 @@ module App =
     let program = Program.stateful init update
 
     let component1 () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             //(VStack() {

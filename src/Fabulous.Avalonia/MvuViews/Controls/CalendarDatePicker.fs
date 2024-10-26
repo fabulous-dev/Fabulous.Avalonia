@@ -20,13 +20,13 @@ module MvuCalendarDatePicker =
             Option.ofNullable
 
     let DateValidationError =
-        MvuAttributes.defineEvent "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
+       Attributes.defineEvent "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
 
     let CalendarClosed =
-        MvuAttributes.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
+        Attributes.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
 
     let CalendarOpened =
-        MvuAttributes.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
+        Attributes.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
 
 [<AutoOpen>]
 module MvuCalendarDatePickerBuilders =

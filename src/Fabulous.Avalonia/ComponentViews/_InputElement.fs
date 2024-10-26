@@ -14,54 +14,54 @@ type IFabComponentInputElement =
 module ComponentInputElement =
 
     let GotFocus =
-        ComponentAttributes.defineEvent<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
+        Attributes.defineEventNoDispatch<GotFocusEventArgs> "InputElement_GotFocus" (fun target -> (target :?> InputElement).GotFocus)
 
     let LostFocus =
-        ComponentAttributes.defineEvent<RoutedEventArgs> "InputElement_LostFocus" (fun target -> (target :?> InputElement).LostFocus)
+        Attributes.defineEventNoDispatch<RoutedEventArgs> "InputElement_LostFocus" (fun target -> (target :?> InputElement).LostFocus)
 
     let KeyDown =
-        ComponentAttributes.defineEvent<KeyEventArgs> "InputElement_KeyDown" (fun target -> (target :?> InputElement).KeyDown)
+        Attributes.defineEventNoDispatch<KeyEventArgs> "InputElement_KeyDown" (fun target -> (target :?> InputElement).KeyDown)
 
     let KeyUp =
-        ComponentAttributes.defineEvent<KeyEventArgs> "InputElement_KeyUp" (fun target -> (target :?> InputElement).KeyUp)
+        Attributes.defineEventNoDispatch<KeyEventArgs> "InputElement_KeyUp" (fun target -> (target :?> InputElement).KeyUp)
 
     let TextInput =
-        ComponentAttributes.defineEvent<TextInputEventArgs> "InputElement_TextInput" (fun target -> (target :?> InputElement).TextInput)
+        Attributes.defineEventNoDispatch<TextInputEventArgs> "InputElement_TextInput" (fun target -> (target :?> InputElement).TextInput)
 
     let TextInputMethodClientRequested =
-        ComponentAttributes.defineEvent<TextInputMethodClientRequestedEventArgs> "InputElement_TextInputMethodClientRequested" (fun target ->
+        Attributes.defineEventNoDispatch<TextInputMethodClientRequestedEventArgs> "InputElement_TextInputMethodClientRequested" (fun target ->
             (target :?> InputElement).TextInputMethodClientRequested)
 
     let PointerEntered =
-        ComponentAttributes.defineEvent<PointerEventArgs> "InputElement_PointerEntered" (fun target -> (target :?> InputElement).PointerEntered)
+        Attributes.defineEventNoDispatch<PointerEventArgs> "InputElement_PointerEntered" (fun target -> (target :?> InputElement).PointerEntered)
 
     let PointerExited =
-        ComponentAttributes.defineEvent<PointerEventArgs> "InputElement_PointerExited" (fun target -> (target :?> InputElement).PointerExited)
+        Attributes.defineEventNoDispatch<PointerEventArgs> "InputElement_PointerExited" (fun target -> (target :?> InputElement).PointerExited)
 
     let PointerMoved =
-        ComponentAttributes.defineEvent<PointerEventArgs> "InputElement_PointerMoved" (fun target -> (target :?> InputElement).PointerMoved)
+        Attributes.defineEventNoDispatch<PointerEventArgs> "InputElement_PointerMoved" (fun target -> (target :?> InputElement).PointerMoved)
 
     let PointerPressed =
-        ComponentAttributes.defineEvent<PointerPressedEventArgs> "InputElement_PointerPressed" (fun target -> (target :?> InputElement).PointerPressed)
+        Attributes.defineEventNoDispatch<PointerPressedEventArgs> "InputElement_PointerPressed" (fun target -> (target :?> InputElement).PointerPressed)
 
     let PointerReleased =
-        ComponentAttributes.defineEvent<PointerReleasedEventArgs> "InputElement_PointerReleased" (fun target -> (target :?> InputElement).PointerReleased)
+        Attributes.defineEventNoDispatch<PointerReleasedEventArgs> "InputElement_PointerReleased" (fun target -> (target :?> InputElement).PointerReleased)
 
     let PointerCaptureLost =
-        ComponentAttributes.defineEvent<PointerCaptureLostEventArgs> "InputElement_PointerCaptureLost" (fun target ->
+        Attributes.defineEventNoDispatch<PointerCaptureLostEventArgs> "InputElement_PointerCaptureLost" (fun target ->
             (target :?> InputElement).PointerCaptureLost)
 
     let PointerWheelChanged =
-        ComponentAttributes.defineEvent<PointerWheelEventArgs> "InputElement_PointerWheelChanged" (fun target -> (target :?> InputElement).PointerWheelChanged)
+        Attributes.defineEventNoDispatch<PointerWheelEventArgs> "InputElement_PointerWheelChanged" (fun target -> (target :?> InputElement).PointerWheelChanged)
 
     let Tapped =
-        ComponentAttributes.defineEvent<TappedEventArgs> "InputElement_Tapped" (fun target -> (target :?> InputElement).Tapped)
+        Attributes.defineEventNoDispatch<TappedEventArgs> "InputElement_Tapped" (fun target -> (target :?> InputElement).Tapped)
 
     let Holding =
-        ComponentAttributes.defineEvent<HoldingRoutedEventArgs> "InputElement_Holding" (fun target -> (target :?> InputElement).Holding)
+        Attributes.defineEventNoDispatch<HoldingRoutedEventArgs> "InputElement_Holding" (fun target -> (target :?> InputElement).Holding)
 
     let DoubleTapped =
-        ComponentAttributes.defineEvent<TappedEventArgs> "InputElement_DoubleTapped" (fun target -> (target :?> InputElement).DoubleTapped)
+        Attributes.defineEventNoDispatch<TappedEventArgs> "InputElement_DoubleTapped" (fun target -> (target :?> InputElement).DoubleTapped)
 
 type ComponentInputElementModifiers =
     /// <summary>Listens to the InputElement GotFocus event.</summary>

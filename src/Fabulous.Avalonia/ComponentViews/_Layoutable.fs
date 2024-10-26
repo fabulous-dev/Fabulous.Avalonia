@@ -11,11 +11,11 @@ type IFabComponentLayoutable =
 
 module ComponentLayoutable =
     let EffectiveViewportChanged =
-        ComponentAttributes.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
+        Attributes.defineEventNoDispatch<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
             (target :?> Layoutable).EffectiveViewportChanged)
 
     let LayoutUpdated =
-        ComponentAttributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
+        Attributes.defineEventNoArgNoDispatch "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
 
 type ComponentLayoutableModifiers =
     /// <summary>Listens to the Layoutable EffectiveViewportChanged event.</summary>

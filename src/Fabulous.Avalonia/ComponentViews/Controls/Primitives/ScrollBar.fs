@@ -13,7 +13,7 @@ type IFabComponentScrollBar =
 
 module ComponentScrollBar =
     let Scroll =
-        ComponentAttributes.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
+        Attributes.defineEventNoDispatch "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
 
 [<AutoOpen>]
 module ComponentScrollBarBuilders =

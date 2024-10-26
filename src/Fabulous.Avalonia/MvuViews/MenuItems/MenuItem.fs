@@ -16,16 +16,16 @@ type IFabMvuMenuItem =
 
 module MvuMenuItem =
     let Clicked =
-        MvuAttributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
+       Attributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
 
     let PointerEnteredItem =
-        MvuAttributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
+       Attributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
 
     let PointerExitedItem =
-        MvuAttributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
+       Attributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
 
     let SubmenuOpened =
-        MvuAttributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
+        Attributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
 
 [<AutoOpen>]
 module MvuMenuItemBuilders =
@@ -160,13 +160,13 @@ type MvuMenuItemModifiers =
 
 type MenuItemCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

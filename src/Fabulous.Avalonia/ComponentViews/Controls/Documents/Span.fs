@@ -32,7 +32,7 @@ type ComponentSpanComponentModifiers =
 
 type ComponentSpanCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComponentInline>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentInline>
         (_: CollectionBuilder<'msg, 'marker, IFabComponentInline>, x: WidgetBuilder<unit, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

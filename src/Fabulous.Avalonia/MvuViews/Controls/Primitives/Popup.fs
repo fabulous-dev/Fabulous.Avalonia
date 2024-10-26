@@ -17,10 +17,10 @@ type IFabMvuPopup =
 
 module MvuPopup =
     let Closed =
-        MvuAttributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
+        Attributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
 
     let Opened =
-        MvuAttributes.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
+       Attributes.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
 
 [<AutoOpen>]
 module MvuPopupBuilders =

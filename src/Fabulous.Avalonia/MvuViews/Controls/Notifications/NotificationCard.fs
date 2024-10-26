@@ -13,7 +13,7 @@ type IFabMvuNotificationCard =
 
 module MvuNotificationCard =
     let NotificationClosed =
-        MvuAttributes.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
+        Attributes.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
 
 [<AutoOpen>]
 module MvuNotificationCardBuilders =

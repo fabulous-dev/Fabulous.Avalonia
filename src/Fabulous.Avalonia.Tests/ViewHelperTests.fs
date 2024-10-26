@@ -49,9 +49,9 @@ type ViewHelpers() =
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
                   WidgetCollectionAttributes =
-                    ValueSome
-                        [| { Key = TextBlock.Inlines.Key
-                             Value = ArraySlice.emptyWithNull() } |] }
+                    ValueNone }
+                        // [| { Key = TextBlock.Inlines.Key
+                        //      Value = ArraySlice.emptyWithNull() } |] }
 
             let actual = ViewHelpers.canReuseView prev curr
 
@@ -67,9 +67,10 @@ type ViewHelpers() =
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
                   WidgetCollectionAttributes =
-                    ValueSome
-                        [| { Key = TextBlock.Inlines.Key
-                             Value = ArraySlice.emptyWithNull() } |] }
+                    ValueNone }
+                    // ValueSome
+                    //     [| { Key = TextBlock.Inlines.Key
+                    //          Value = ArraySlice.emptyWithNull() } |] }
 
             let curr =
                 { Key = TextBlock.WidgetKey

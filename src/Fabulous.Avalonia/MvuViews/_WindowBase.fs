@@ -11,16 +11,16 @@ type IFabMvuWindowBase =
 
 module MvuWindowBase =
     let Activated =
-        MvuAttributes.defineEventNoArg "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
+        Attributes.defineEventNoArg "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
 
     let Deactivated =
-        MvuAttributes.defineEventNoArg "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
+        Attributes.defineEventNoArg "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
 
     let PositionChanged =
-        MvuAttributes.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
+        Attributes.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
 
     let Resized =
-        MvuAttributes.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
+        Attributes.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
 
 type MvuWindowBaseModifiers =
     /// <summary>Listens to the WindowBase Activated event.</summary>

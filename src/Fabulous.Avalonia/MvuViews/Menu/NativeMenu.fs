@@ -15,16 +15,16 @@ module MvuNativeMenu =
     let WidgetKey = Widgets.register<NativeMenu>()
 
     let Items =
-        MvuAttributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
+        Attributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
 
     let Opening =
-        MvuAttributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
+        Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
 
     let Closed =
-        MvuAttributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
+       Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
 
     let NeedsUpdate =
-        MvuAttributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
+        Attributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
 
 module NativeMenuAttached =
     let NativeMenu = Attributes.defineAvaloniaPropertyWidget NativeMenu.MenuProperty

@@ -20,13 +20,13 @@ module ComponentCalendarDatePicker =
             Option.ofNullable
 
     let DateValidationError =
-        ComponentAttributes.defineEvent "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
+        Attributes.defineEventNoDispatch "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
 
     let CalendarClosed =
-        ComponentAttributes.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
+        Attributes.defineEventNoArgNoDispatch "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
 
     let CalendarOpened =
-        ComponentAttributes.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
+        Attributes.defineEventNoArgNoDispatch "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
 
 [<AutoOpen>]
 module ComponentCalendarDatePickerBuilders =

@@ -145,7 +145,7 @@ module MvuAttributes =
                     let itemNode = node.TreeContext.GetViewNode(targetColl[index])
 
                     // Trigger the unmounted event
-                    Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Unmounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Unmounted
                     itemNode.Dispose()
 
                     // Remove the child from the UI tree
@@ -162,7 +162,7 @@ module MvuAttributes =
                     targetColl.Insert(index, unbox view)
 
                     // Trigger the mounted event
-                    Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
                     let childNode = node.TreeContext.GetViewNode(targetColl[index])
@@ -175,14 +175,14 @@ module MvuAttributes =
                     let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
                     // Trigger the unmounted event for the old child
-                    Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget MvuLifecycle.Unmounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget MvuLifecycle.Unmounted
                     prevItemNode.Dispose()
 
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- view
 
                     // Trigger the mounted event for the new child
-                    Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
 
                 | _ -> ()
 
@@ -211,7 +211,7 @@ module MvuAttributes =
                     let itemNode = node.TreeContext.GetViewNode(box targetColl[index])
 
                     // Trigger the unmounted event
-                    Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Unmounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Unmounted
                     itemNode.Dispose()
 
                     // Remove the child from the UI tree
@@ -228,7 +228,7 @@ module MvuAttributes =
                     targetColl.Insert(index, unbox view)
 
                     // Trigger the mounted event
-                    Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget MvuLifecycle.Mounted
 
                 | WidgetCollectionItemChange.Update(index, widgetDiff) ->
                     let childNode = node.TreeContext.GetViewNode(box targetColl[index])
@@ -241,14 +241,14 @@ module MvuAttributes =
                     let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
 
                     // Trigger the unmounted event for the old child
-                    Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget MvuLifecycle.Unmounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget MvuLifecycle.Unmounted
                     prevItemNode.Dispose()
 
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- unbox view
 
                     // Trigger the mounted event for the new child
-                    Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
+                    // FIXME Dispatcher.dispatchEventForAllChildren nextItemNode newWidget MvuLifecycle.Mounted
 
                 | _ -> ()
 

@@ -75,7 +75,7 @@ module WidgetHelpers =
         (templateBuilder itm).Compile()
 
     /// Creates a widget with the given key and attributes.
-    let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
+    let inline buildItems<'msg , 'marker, 'itemData, 'itemMarker when 'msg: equality>
         key
         (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
         (items: seq<'itemData>)
@@ -88,5 +88,5 @@ module WidgetHelpers =
         WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
 
     /// Creates a widget with the given key and attributes.
-    let inline buildWidgets<'msg, 'marker> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
+    let inline buildWidgets<'msg, 'marker when 'msg: equality> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
         WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone))

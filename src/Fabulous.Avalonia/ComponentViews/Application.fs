@@ -34,21 +34,21 @@ module ComponentApplication =
             else
                 trayIcons)
     let ActualThemeVariantChanged =
-        ComponentAttributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
+        Attributes.defineEventNoArgNoDispatch "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
     let ResourcesChanged =
-        ComponentAttributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
+       Attributes.defineEventNoDispatch "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
 
     let UrlsOpened =
-        ComponentAttributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
+        Attributes.defineEventNoDispatch "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
 
     let ColorValuesChanged =
-        ComponentAttributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
+        Attributes.defineEventNoDispatch "PlatformSettings_ColorValuesChanged" (fun target ->
             (target :?> FabApplication)
                 .PlatformSettings.ColorValuesChanged)
 
     let SafeAreaChanged =
-        ComponentAttributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
+        Attributes.defineEventNoDispatch "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
 
 [<AutoOpen>]
 module ComponentApplicationBuilders =
@@ -63,7 +63,7 @@ module ComponentApplicationBuilders =
             )
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline DesktopApplication<'msg, 'childMarker>() =
+        static member inline DesktopApplication<'msg, 'childMarker when 'msg: equality>() =
             SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainWindow)
 
         /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
@@ -75,7 +75,7 @@ module ComponentApplicationBuilders =
             )
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline SingleViewApplication<'msg, 'childMarker>() =
+        static member inline SingleViewApplication<'msg, 'childMarker when 'msg: equality>() =
             SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
 type ComponentApplicationModifiers =
@@ -136,7 +136,7 @@ type ComponentTrayIconAttachedModifiers =
     /// <summary>Sets the tray icons for the application.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
+    static member inline trayIcons<'msg, 'marker when 'msg: equality and 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, ComponentApplication.TrayIcons)
 
     /// <summary>Sets the tray icon for the application.</summary>

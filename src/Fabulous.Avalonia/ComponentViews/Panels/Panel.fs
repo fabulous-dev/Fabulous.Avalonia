@@ -82,13 +82,13 @@ type ComponentPanelExtraModifiers =
 
 type ComponentPanelCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabComponentPanel and 'itemType :> IFabComponentControl>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabComponentPanel and 'itemType :> IFabComponentControl>
         (_: CollectionBuilder<'msg, 'marker, IFabControl>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabComponentPanel and 'itemType :> IFabComponentControl>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabComponentPanel and 'itemType :> IFabComponentControl>
         (_: CollectionBuilder<'msg, 'marker, IFabComponentControl>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

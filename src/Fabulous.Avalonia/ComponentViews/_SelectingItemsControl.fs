@@ -12,7 +12,7 @@ type IFabComponentSelectingItemsControl =
 
 module ComponentSelectingItemsControl =
     let SelectionChanged =
-        ComponentAttributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
+        Attributes.defineEventNoDispatch<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
             (target :?> SelectingItemsControl).SelectionChanged)
 
     let SelectedIndexChanged =

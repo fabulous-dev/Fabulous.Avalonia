@@ -17,10 +17,10 @@ module MvuExpander =
         MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
     let Collapsing =
-        MvuAttributes.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
+        Attributes.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
 
     let Expanding =
-        MvuAttributes.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
+        Attributes.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
 
 [<AutoOpen>]
 module MvuExpanderBuilders =

@@ -12,7 +12,7 @@ type IFabMvuDrawingImage =
 
 module MvuDrawingImage =
     let Invalidated =
-        MvuAttributes.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
+       Attributes.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
 
 [<AutoOpen>]
 module MvuDrawingImageBuilders =

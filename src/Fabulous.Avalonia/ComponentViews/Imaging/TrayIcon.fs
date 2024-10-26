@@ -13,7 +13,7 @@ type IFabComponentTrayIcon =
 
 module ComponentTrayIcon =
     let Clicked =
-        ComponentAttributes.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
+        Attributes.defineEventNoArgNoDispatch "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
 
 [<AutoOpen>]
 module ComponentTrayIconBuilders =

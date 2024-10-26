@@ -12,10 +12,10 @@ type IFabMvuPopupFlyoutBase =
 
 module MvuPopupFlyoutBase =
     let Opening =
-        MvuAttributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
+        Attributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
 
     let Closing =
-        MvuAttributes.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
+        Attributes.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
 
 type MvuPopupFlyoutBaseModifiers =
     /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>

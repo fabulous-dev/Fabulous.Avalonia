@@ -13,12 +13,12 @@ type IFabMvuVirtualizingStackPanel =
 
 module MvuVirtualizingStackPanel =
     let HorizontalSnapPointsChanged =
-        MvuAttributes.defineEvent "VirtualizingStackPanel_HorizontalSnapPointsChanged" (fun target ->
+        Attributes.defineEvent "VirtualizingStackPanel_HorizontalSnapPointsChanged" (fun target ->
             (target :?> VirtualizingStackPanel)
                 .HorizontalSnapPointsChanged)
 
     let VerticalSnapPointsChanged =
-        MvuAttributes.defineEvent "VirtualizingStackPanel_VerticalSnapPointsChanged" (fun target ->
+        Attributes.defineEvent "VirtualizingStackPanel_VerticalSnapPointsChanged" (fun target ->
             (target :?> VirtualizingStackPanel)
                 .VerticalSnapPointsChanged)
 

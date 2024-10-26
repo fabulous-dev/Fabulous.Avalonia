@@ -12,10 +12,10 @@ type IFabComponentStackPanel =
 
 module ComponentStackPanel =
     let HorizontalSnapPointsChanged =
-        ComponentAttributes.defineEvent "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
+        Attributes.defineEventNoDispatch "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
 
     let VerticalSnapPointsChanged =
-        ComponentAttributes.defineEvent "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
+        Attributes.defineEventNoDispatch "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
 
 type ComponentStackPanelModifiers =
 

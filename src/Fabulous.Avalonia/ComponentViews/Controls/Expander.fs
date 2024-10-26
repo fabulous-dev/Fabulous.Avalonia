@@ -17,10 +17,10 @@ module ComponentExpander =
         ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
     let Collapsing =
-        ComponentAttributes.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
+        Attributes.defineEventNoDispatch "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
 
     let Expanding =
-        ComponentAttributes.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
+        Attributes.defineEventNoDispatch "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
 
 [<AutoOpen>]
 module ComponentExpanderBuilders =

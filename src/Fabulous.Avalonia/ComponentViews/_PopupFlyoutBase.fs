@@ -12,10 +12,10 @@ type IFabComponentPopupFlyoutBase =
 
 module ComponentPopupFlyoutBase =
     let Opening =
-        ComponentAttributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
+        Attributes.defineEventNoArgNoDispatch "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
 
     let Closing =
-        ComponentAttributes.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
+        Attributes.defineEventNoDispatch "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
 
 type ComponentPopupFlyoutBaseModifiers =
     /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>

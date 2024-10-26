@@ -81,25 +81,25 @@ type MvuTextBlockModifiers =
 type MvuTextBlockCollectionBuilderExtensions =
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuTextDecoration>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuTextDecoration>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuTextDecoration>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuTextDecoration>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuInline>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuInline>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabMvuInline>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuInline>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuInline>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabMvuInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
@@ -108,7 +108,7 @@ type MvuInlineCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabMvuInline>(this: WidgetBuilder<'msg, 'marker>) =
+    static member inline textDecorations<'msg, 'marker when 'msg: equality and 'marker :> IFabMvuInline>(this: WidgetBuilder<'msg, 'marker>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>(this, MvuInline.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>
@@ -122,7 +122,7 @@ type MvuTextBlockCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
+    static member inline textDecorations<'msg, 'marker when 'msg: equality and 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabMvuTextDecoration>(this, MvuTextBlock.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>

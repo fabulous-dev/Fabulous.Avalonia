@@ -13,7 +13,7 @@ type IFabComponentRefreshContainer =
 
 module ComponentRefreshContainer =
     let RefreshRequested =
-        ComponentAttributes.defineEvent<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
+        Attributes.defineEventNoDispatch<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
             (target :?> RefreshContainer).RefreshRequested)
 
 [<AutoOpen>]

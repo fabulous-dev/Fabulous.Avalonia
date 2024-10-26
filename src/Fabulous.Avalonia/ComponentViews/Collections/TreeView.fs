@@ -17,7 +17,7 @@ type ComponentTreeWidgetItems =
 
 module ComponentTreeView =
     let SelectionChanged =
-        ComponentAttributes.defineEvent "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
+        Attributes.defineEventNoDispatch "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
 
 [<AutoOpen>]
 module ComponentTreeViewBuilders =
@@ -27,7 +27,7 @@ module ComponentTreeViewBuilders =
         /// <param name="nodes">The root nodes used to populate the TreeView.</param>
         /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
         /// <param name="template">The template used to render each node.</param>
-        static member TreeView<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabComponentControl>
+        static member TreeView<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabComponentControl>
             (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>)
             =
             let template (item: obj) =

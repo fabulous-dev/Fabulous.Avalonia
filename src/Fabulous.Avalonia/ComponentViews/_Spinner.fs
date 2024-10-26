@@ -10,4 +10,4 @@ type IFabComponentSpinner =
 
 module ComponentSpinner =
     let Spin =
-        ComponentAttributes.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)
+        Attributes.defineEventNoDispatch<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)

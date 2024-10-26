@@ -13,7 +13,7 @@ type IFabMvuTrayIcon =
 
 module MvuTrayIcon =
     let Clicked =
-        MvuAttributes.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
+        Attributes.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
 
 [<AutoOpen>]
 module MvuTrayIconBuilders =

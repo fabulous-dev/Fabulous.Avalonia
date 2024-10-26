@@ -13,7 +13,7 @@ type IFabMvuButton =
 
 module MvuButton =
     let Clicked =
-        MvuAttributes.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
+        Attributes.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
 
 [<AutoOpen>]
 module MvuButtonBuilders =

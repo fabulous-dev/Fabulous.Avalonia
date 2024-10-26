@@ -20,10 +20,10 @@ module ComponentCalendar =
             Option.ofNullable
 
     let DisplayDateChanged =
-        ComponentAttributes.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
+        Attributes.defineEventNoDispatch "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
 
     let DisplayModeChanged =
-        ComponentAttributes.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
+        Attributes.defineEventNoDispatch "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
 
 [<AutoOpen>]
 module ComponentCalendarBuilders =

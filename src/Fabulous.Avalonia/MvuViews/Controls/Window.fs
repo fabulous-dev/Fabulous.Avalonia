@@ -16,7 +16,7 @@ type IFabMvuWindow =
 
 module MvuWindow =
     let WindowClosing =
-        MvuAttributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
+        Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
 
     let WindowClosed =
         MvuAttributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
@@ -37,7 +37,7 @@ module MvuWindowBuilders =
             )
 
         /// <summary>Creates a Window widget.</summary>
-        static member Window<'msg, 'childMarker>() =
+        static member Window<'msg, 'childMarker when 'msg: equality>() =
             SingleChildBuilder<'msg, IFabMvuWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
 type MvuWindowModifiers =

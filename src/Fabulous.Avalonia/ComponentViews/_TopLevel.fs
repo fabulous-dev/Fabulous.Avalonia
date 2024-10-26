@@ -13,19 +13,19 @@ type IFabComponentTopLevel =
 
 module ComponentTopLevel =
     let Opened =
-        ComponentAttributes.defineEventNoArg "TopLevel_OpenedEvent" (fun target -> (target :?> TopLevel).Opened)
+        Attributes.defineEventNoArgNoDispatch "TopLevel_OpenedEvent" (fun target -> (target :?> TopLevel).Opened)
 
     let Closed =
-        ComponentAttributes.defineEventNoArg "TopLevel_ClosedEvent" (fun target -> (target :?> TopLevel).Closed)
+        Attributes.defineEventNoArgNoDispatch "TopLevel_ClosedEvent" (fun target -> (target :?> TopLevel).Closed)
 
     let ScalingChanged =
-        ComponentAttributes.defineEventNoArg "TopLevel_ScalingChangedEvent" (fun target -> (target :?> TopLevel).ScalingChanged)
+        Attributes.defineEventNoArgNoDispatch "TopLevel_ScalingChangedEvent" (fun target -> (target :?> TopLevel).ScalingChanged)
 
     let BackRequested =
-        ComponentAttributes.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
+        Attributes.defineEventNoDispatch "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
 
     let ActualThemeVariantChanged =
-        ComponentAttributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
+        Attributes.defineEventNoArgNoDispatch "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
 type ComponentTopLevelModifiers =
     /// <summary>Listens to the TopLevel ThemeVariantChanged event.</summary>

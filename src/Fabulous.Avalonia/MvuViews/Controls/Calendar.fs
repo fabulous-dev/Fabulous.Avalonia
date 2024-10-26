@@ -20,10 +20,10 @@ module MvuCalendar =
             Option.ofNullable
 
     let DisplayDateChanged =
-        MvuAttributes.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
+        Attributes.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
 
     let DisplayModeChanged =
-        MvuAttributes.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
+        Attributes.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
 
 [<AutoOpen>]
 module MvuCalendarBuilders =

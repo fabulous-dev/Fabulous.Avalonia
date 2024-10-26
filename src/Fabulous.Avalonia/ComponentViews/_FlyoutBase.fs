@@ -11,10 +11,10 @@ type IFabComponentFlyoutBase =
 
 module ComponentFlyoutBase =
     let Opened =
-        ComponentAttributes.defineEventNoArg "FlyoutBase_Opened" (fun target -> (target :?> FlyoutBase).Opened)
+        Attributes.defineEventNoArgNoDispatch "FlyoutBase_Opened" (fun target -> (target :?> FlyoutBase).Opened)
 
     let Closed =
-        ComponentAttributes.defineEventNoArg "FlyoutBase_Closed" (fun target -> (target :?> FlyoutBase).Closed)
+        Attributes.defineEventNoArgNoDispatch "FlyoutBase_Closed" (fun target -> (target :?> FlyoutBase).Closed)
 
 type FlyoutBaseModifiers =
     /// <summary>Listens to the FlyoutBase Opened event.</summary>

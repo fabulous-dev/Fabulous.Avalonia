@@ -13,7 +13,7 @@ type IFabComponentThemeVariantScope =
 
 module ComponentThemeVariantScope =
     let ActualThemeVariantChanged =
-        ComponentAttributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
+        Attributes.defineEventNoArgNoDispatch "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
 
 [<AutoOpen>]
 module ComponentThemeVariantScopeBuilders =

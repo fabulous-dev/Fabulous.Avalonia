@@ -12,10 +12,10 @@ type IFabComponentMenuBase =
 
 module ComponentMenuBase =
     let Opened =
-        ComponentAttributes.defineEvent "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
+        Attributes.defineEventNoDispatch "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
 
     let Closed =
-        ComponentAttributes.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
+        Attributes.defineEventNoDispatch "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
 
 type ComponentMenuBaseModifiers =
     /// <summary>Listens to the MenuOpened event.</summary>

@@ -13,13 +13,13 @@ type IFabComponentThumb =
 
 module ComponentThumb =
     let DragStarted =
-        ComponentAttributes.defineEvent<VectorEventArgs> "Thumb_DragStarted" (fun target -> (target :?> Thumb).DragStarted)
+        Attributes.defineEventNoDispatch<VectorEventArgs> "Thumb_DragStarted" (fun target -> (target :?> Thumb).DragStarted)
 
     let DragDelta =
-        ComponentAttributes.defineEvent<VectorEventArgs> "Thumb_DragDelta" (fun target -> (target :?> Thumb).DragDelta)
+        Attributes.defineEventNoDispatch<VectorEventArgs> "Thumb_DragDelta" (fun target -> (target :?> Thumb).DragDelta)
 
     let DragCompleted =
-        ComponentAttributes.defineEvent<VectorEventArgs> "Thumb_DragCompleted" (fun target -> (target :?> Thumb).DragCompleted)
+        Attributes.defineEventNoDispatch<VectorEventArgs> "Thumb_DragCompleted" (fun target -> (target :?> Thumb).DragCompleted)
 
 [<AutoOpen>]
 module ComponentThumbBuilders =

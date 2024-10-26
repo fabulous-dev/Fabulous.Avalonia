@@ -14,7 +14,7 @@ module CarouselBuilders =
         /// <summary>Creates a Carousel widget.</summary>
         /// <param name="items">The items to display.</param>
         /// <param name="template">The template to use to render each item.</param>
-        static member Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabComponentControl>
+        static member Carousel<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabComponentControl>
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
             WidgetHelpers.buildItems<'msg, IFabComponentCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template

@@ -14,7 +14,7 @@ type IFabMvuStyle =
 module MvuStyle =
 
     let Animations =
-        MvuAttributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
+        Attributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
 
 [<AutoOpen>]
 module MvuStyleBuilders =
@@ -27,13 +27,13 @@ module MvuStyleBuilders =
 
 type MvuStyleCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuAnimation>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuAnimation>
         (_: CollectionBuilder<'msg, 'marker, IFabMvuAnimation>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuAnimation>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuAnimation>
         (_: CollectionBuilder<'msg, 'marker, IFabMvuAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

@@ -11,7 +11,7 @@ type IFabMvuGeometry =
 
 module MvuGeometry =
     let Changed =
-        MvuAttributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
+        Attributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
 
 type MvuGeometryModifiers =
     /// <summary>Listens to the Geometry Changed event.</summary>

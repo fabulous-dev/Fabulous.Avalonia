@@ -17,10 +17,10 @@ type IFabComponentPopup =
 
 module ComponentPopup =
     let Closed =
-        ComponentAttributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
+        Attributes.defineEventNoDispatch "Popup_Closed" (fun target -> (target :?> Popup).Closed)
 
     let Opened =
-        ComponentAttributes.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
+        Attributes.defineEventNoArgNoDispatch "Popup_Opened" (fun target -> (target :?> Popup).Opened)
 
 [<AutoOpen>]
 module ComponentPopupBuilders =

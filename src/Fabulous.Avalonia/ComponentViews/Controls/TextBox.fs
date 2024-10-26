@@ -17,13 +17,13 @@ module ComponentTextBox =
         ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_TextChanged" TextBox.TextProperty
 
     let CopyingToClipboard =
-        ComponentAttributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target -> (target :?> TextBox).CopyingToClipboard)
+        Attributes.defineEventNoDispatch<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target -> (target :?> TextBox).CopyingToClipboard)
 
     let CuttingToClipboard =
-        ComponentAttributes.defineEvent<RoutedEventArgs> "TextBox_CuttingToClipboard" (fun target -> (target :?> TextBox).CuttingToClipboard)
+        Attributes.defineEventNoDispatch<RoutedEventArgs> "TextBox_CuttingToClipboard" (fun target -> (target :?> TextBox).CuttingToClipboard)
 
     let PastingFromClipboard =
-        ComponentAttributes.defineEvent<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target -> (target :?> TextBox).PastingFromClipboard)
+        Attributes.defineEventNoDispatch<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target -> (target :?> TextBox).PastingFromClipboard)
 
 [<AutoOpen>]
 module ComponentTextBoxBuilders =

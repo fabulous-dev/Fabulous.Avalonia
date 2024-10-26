@@ -248,13 +248,13 @@ module ComponentEffectTransitionBuilders =
 
 type ComponentTransitionBaseCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabComponentAnimatable and 'itemType :> IFabComponentTransition>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabComponentAnimatable and 'itemType :> IFabComponentTransition>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentTransition>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabComponentAnimatable and 'itemType :> IFabComponentTransition>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabComponentAnimatable and 'itemType :> IFabComponentTransition>
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentTransition>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

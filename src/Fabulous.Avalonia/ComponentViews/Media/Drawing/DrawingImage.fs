@@ -12,7 +12,7 @@ type IFabComponentDrawingImage =
 
 module ComponentDrawingImage =
     let Invalidated =
-        ComponentAttributes.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
+        Attributes.defineEventNoArgNoDispatch "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
 
 [<AutoOpen>]
 module ComponentDrawingImageBuilders =

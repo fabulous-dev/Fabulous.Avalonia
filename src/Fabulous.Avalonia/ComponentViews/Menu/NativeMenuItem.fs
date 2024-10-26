@@ -16,7 +16,7 @@ type IFabComponentNativeMenuItem =
 module ComponentNativeMenuItem =
 
     let Click =
-        ComponentAttributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
+        Attributes.defineEventNoArgNoDispatch "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
 
 [<AutoOpen>]
 module NativeMenuItemBuilders =

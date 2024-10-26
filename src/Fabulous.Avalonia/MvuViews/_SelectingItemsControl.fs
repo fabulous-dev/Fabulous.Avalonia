@@ -12,7 +12,7 @@ type IFabMvuSelectingItemsControl =
 
 module MvuSelectingItemsControl =
     let SelectionChanged =
-        MvuAttributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
+        Attributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
             (target :?> SelectingItemsControl).SelectionChanged)
 
     let SelectedIndexChanged =

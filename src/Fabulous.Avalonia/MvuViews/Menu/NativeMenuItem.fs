@@ -16,7 +16,7 @@ type IFabMvuNativeMenuItem =
 module MvuNativeMenuItem =
 
     let Click =
-        MvuAttributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
+        Attributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
 
 [<AutoOpen>]
 module MvuNativeMenuItemBuilders =

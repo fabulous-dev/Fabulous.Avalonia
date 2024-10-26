@@ -32,21 +32,21 @@ module MvuApplication =
             else
                 trayIcons)
     let ActualThemeVariantChanged =
-        MvuAttributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
+        Attributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
     let ResourcesChanged =
-        MvuAttributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
+        Attributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
 
     let UrlsOpened =
-        MvuAttributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
+        Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
 
     let ColorValuesChanged =
-        MvuAttributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
+        Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
             (target :?> FabApplication)
                 .PlatformSettings.ColorValuesChanged)
 
     let SafeAreaChanged =
-        MvuAttributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
+        Attributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
 
 [<AutoOpen>]
 module MvuApplicationBuilders =
@@ -61,7 +61,7 @@ module MvuApplicationBuilders =
             )
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline DesktopApplication<'msg, 'childMarker>() =
+        static member inline DesktopApplication<'msg, 'childMarker when 'msg: equality>() =
             SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainWindow)
 
         /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
@@ -73,7 +73,7 @@ module MvuApplicationBuilders =
             )
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline SingleViewApplication<'msg, 'childMarker>() =
+        static member inline SingleViewApplication<'msg, 'childMarker when 'msg: equality>() =
             SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
 type MvuApplicationModifiers =
@@ -134,7 +134,7 @@ type MvuTrayIconAttachedModifiers =
     /// <summary>Sets the tray icons for the application.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
+    static member inline trayIcons<'msg, 'marker when 'msg: equality and 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, MvuApplication.TrayIcons)
 
     /// <summary>Sets the tray icon for the application.</summary>

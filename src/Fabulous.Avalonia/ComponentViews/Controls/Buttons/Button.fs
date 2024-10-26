@@ -13,7 +13,7 @@ type IFabComponentButton =
 
 module ComponentButton =
     let Clicked =
-        ComponentAttributes.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
+        Attributes.defineEventNoDispatch "Button_Clicked" (fun target -> (target :?> Button).Click)
 
 [<AutoOpen>]
 module ComponentButtonBuilders =

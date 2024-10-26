@@ -11,7 +11,7 @@ type IFabMvuTransform =
 module MvuTransform =
 
     let Changed =
-        MvuAttributes.defineEventNoArg "Transform_Changed" (fun target -> (target :?> Transform).Changed)
+        Attributes.defineEventNoArg "Transform_Changed" (fun target -> (target :?> Transform).Changed)
 
 type MvuTransformModifiers =
     /// <summary>Listens to the Transform changed event.</summary>

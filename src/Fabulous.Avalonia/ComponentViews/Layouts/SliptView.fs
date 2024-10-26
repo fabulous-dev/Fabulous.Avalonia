@@ -16,16 +16,16 @@ type IFabComponentSplitView =
 
 module ComponentSplitView =
     let PanClosed =
-        ComponentAttributes.defineEvent "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
+        Attributes.defineEventNoDispatch "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
 
     let PanClosing =
-        ComponentAttributes.defineEvent "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
+        Attributes.defineEventNoDispatch "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
 
     let PanOpened =
-        ComponentAttributes.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
+        Attributes.defineEventNoDispatch "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
 
     let PanOpening =
-        ComponentAttributes.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
+        Attributes.defineEventNoDispatch "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
 
     let IsPresented =
         ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty

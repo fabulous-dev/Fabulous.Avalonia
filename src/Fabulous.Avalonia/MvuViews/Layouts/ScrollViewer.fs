@@ -14,7 +14,7 @@ type IFabMvuScrollViewer =
 
 module MvuScrollViewer =
     let ScrollChanged =
-        MvuAttributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
+        Attributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
 
 [<AutoOpen>]
 module MvuScrollViewerBuilders =

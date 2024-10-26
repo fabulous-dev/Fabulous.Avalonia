@@ -12,10 +12,10 @@ type IFabMvuStackPanel =
 
 module MvuStackPanel =
     let HorizontalSnapPointsChanged =
-        MvuAttributes.defineEvent "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
+        Attributes.defineEvent "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
 
     let VerticalSnapPointsChanged =
-        MvuAttributes.defineEvent "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
+        Attributes.defineEvent "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
 
 type MvuStackPanelModifiers =
 

@@ -16,16 +16,16 @@ module ComponentControl =
         ComponentAttributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
 
     let ContextRequested =
-        ComponentAttributes.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
+        Attributes.defineEventNoDispatch "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
 
     let Loaded =
-        ComponentAttributes.defineEvent "Control_Loaded" (fun target -> (target :?> Control).Loaded)
+        Attributes.defineEventNoDispatch "Control_Loaded" (fun target -> (target :?> Control).Loaded)
 
     let UnLoaded =
-        ComponentAttributes.defineEvent "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
+        Attributes.defineEventNoDispatch "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
 
     let SizeChanged =
-        ComponentAttributes.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
+        Attributes.defineEventNoDispatch "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
 
 type ComponentControlModifiers =
     /// <summary>Listens to the Control ContextRequested event.</summary>

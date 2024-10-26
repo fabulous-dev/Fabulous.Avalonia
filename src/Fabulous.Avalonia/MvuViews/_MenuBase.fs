@@ -12,10 +12,10 @@ type IFabMvuMenuBase =
 
 module MvuMenuBase =
     let Opened =
-        MvuAttributes.defineEvent "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
+        Attributes.defineEvent "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
 
     let Closed =
-        MvuAttributes.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
+        Attributes.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
 
 type MvuMenuBaseModifiers =
     /// <summary>Listens to the MenuOpened event.</summary>
