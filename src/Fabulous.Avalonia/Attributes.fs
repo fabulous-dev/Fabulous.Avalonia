@@ -261,7 +261,7 @@ module Attributes =
         Attributes.definePropertyWidget property.Name (fun target -> (target :?> AvaloniaObject).GetValue(property)) (fun target value ->
             let avaloniaObject = target :?> AvaloniaObject
 
-            if value = null then
+            if isNull value then
                 avaloniaObject.ClearValue(property)
             else
                 avaloniaObject.SetValue(property, value) |> ignore)

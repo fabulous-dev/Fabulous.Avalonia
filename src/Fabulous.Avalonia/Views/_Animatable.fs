@@ -10,7 +10,7 @@ module Animatable =
         Attributes.defineAvaloniaListWidgetCollection "Animatable_Transitions" (fun target ->
             let target = (target :?> Animatable)
 
-            if target.Transitions = null then
+            if isNull target.Transitions then
                 let newColl = Transitions()
                 target.Transitions <- newColl
                 newColl

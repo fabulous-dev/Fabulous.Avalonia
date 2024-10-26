@@ -43,50 +43,50 @@ type FabApplication() =
     /// <summary>Gets the top-level window or view for the application.</summary>
     member this.TopLevel =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow)
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView)
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow)
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> TopLevel.GetTopLevel(_mainView)
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary> Initializes a new instance of the WindowNotificationManager class.</summary>
     member this.WindowNotificationManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform's clipboard implementation</summary>
     member this.Clipboard =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).Clipboard
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).Clipboard
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).Clipboard
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> TopLevel.GetTopLevel(_mainView).Clipboard
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>File System storage service used for file pickers and bookmarks.</summary>
     member this.StorageProvider =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).StorageProvider
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> TopLevel.GetTopLevel(_mainView).StorageProvider
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Manages focus for the application.</summary>
     member this.FocusManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).FocusManager
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).FocusManager
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).FocusManager
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> TopLevel.GetTopLevel(_mainView).FocusManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform-specific settings for the application.</summary>
     member this.PlatformSettings =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).PlatformSettings
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> TopLevel.GetTopLevel(_mainView).PlatformSettings
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform-specific insets manager for the application.</summary>
     member this.InsetsManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when _mainWindow <> null -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
-        | :? ISingleViewApplicationLifetime when _mainView <> null -> TopLevel.GetTopLevel(_mainView).InsetsManager
+        | :? IClassicDesktopStyleApplicationLifetime when not (isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
+        | :? ISingleViewApplicationLifetime when not (isNull _mainView) -> TopLevel.GetTopLevel(_mainView).InsetsManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
     member this.MainWindow
@@ -141,7 +141,7 @@ module Application =
             let target = target :?> FabApplication
             let trayIcons = TrayIcon.GetIcons(target)
 
-            if trayIcons = null then
+            if isNull trayIcons then
                 let trayIcons = TrayIcons()
                 TrayIcon.SetIcons(target, trayIcons)
                 trayIcons

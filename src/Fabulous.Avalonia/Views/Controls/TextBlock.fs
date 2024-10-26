@@ -74,7 +74,7 @@ module TextBlock =
         Attributes.defineAvaloniaListWidgetCollection "TextBlock_TextDecorations" (fun target ->
             let target = target :?> TextBlock
 
-            if target.TextDecorations = null then
+            if isNull target.TextDecorations then
                 let newColl = TextDecorationCollection()
                 target.TextDecorations <- newColl
                 newColl
@@ -85,7 +85,7 @@ module TextBlock =
         Attributes.defineAvaloniaListWidgetCollection "TextBlock_Inlines" (fun target ->
             let target = target :?> TextBlock
 
-            if target.Inlines = null then
+            if isNull target.Inlines then
                 let newColl = InlineCollection()
                 target.Inlines <- newColl
                 newColl

@@ -13,7 +13,7 @@ module Inline =
         Attributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
             let target = target :?> Inline
 
-            if target.TextDecorations = null then
+            if isNull target.TextDecorations then
                 let newColl = TextDecorationCollection()
                 target.TextDecorations <- newColl
                 newColl

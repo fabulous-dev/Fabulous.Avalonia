@@ -28,7 +28,7 @@ module ToggleSwitch =
         Attributes.defineAvaloniaListWidgetCollection "ToggleSwitch_KnobTransitions" (fun target ->
             let target = (target :?> ToggleSwitch)
 
-            if target.Transitions = null then
+            if isNull target.Transitions then
                 let newColl = Transitions()
                 target.Transitions <- newColl
                 newColl

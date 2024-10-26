@@ -14,7 +14,7 @@ module ItemsControl =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
 
-            if target.Items = null then
+            if isNull target.Items then
                 let newColl = ItemCollection.Empty
                 target.Items.Add newColl |> ignore
                 newColl
