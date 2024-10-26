@@ -17,7 +17,7 @@ module MvuGridBuilders =
         /// <param name="coldefs">Column definitions.</param>
         /// <param name="rowdefs">Row definitions.</param>
         static member Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
-            CollectionBuilder<unit, IFabMvuGrid, IFabMvuControl>(
+            CollectionBuilder<'msg, IFabMvuGrid, IFabMvuControl>(
                 Grid.WidgetKey,
                 MvuPanel.Children,
                 Grid.ColumnDefinitions.WithValue(Array.ofSeq coldefs),

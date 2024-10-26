@@ -16,8 +16,8 @@ module MvuInlineUIContainerBuilders =
 
         /// <summary>Creates a InlineUIContainer widget.</summary>
         /// <param name="content">The content of the InlineUIContainer.</param>
-        static member InlineUIContainer(content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuInlineUIContainer>(
+        static member InlineUIContainer(content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuInlineUIContainer>(
                 InlineUIContainer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| InlineUIContainer.Children.WithValue(content.Compile()) |], ValueNone)
             )

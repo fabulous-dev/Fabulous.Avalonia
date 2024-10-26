@@ -23,7 +23,7 @@ module MvuStyleBuilders =
 
         /// <summary>Creates an Animations widget.</summary>
         static member Animations() =
-            CollectionBuilder<unit, IFabMvuStyle, IFabMvuAnimation>(Style.WidgetKey, MvuStyle.Animations)
+            CollectionBuilder<'msg, IFabMvuStyle, IFabMvuAnimation>(Style.WidgetKey, MvuStyle.Animations)
 
 type MvuStyleCollectionBuilderExtensions =
     [<Extension>]

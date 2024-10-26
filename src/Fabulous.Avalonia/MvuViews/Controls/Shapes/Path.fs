@@ -18,8 +18,8 @@ module MvuPathBuilders =
 
         /// <summary>Creates a Path widget.</summary>
         /// <param name="content">The content of the Path.</param>
-        static member Path(content: WidgetBuilder<unit, #IFabMvuGeometry>) =
-            WidgetBuilder<unit, IFabMvuPath>(
+        static member Path(content: WidgetBuilder<'msg, #IFabMvuGeometry>) =
+            WidgetBuilder<'msg, IFabMvuPath>(
                 Path.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Path.DataWidget.WithValue(content.Compile()) |], ValueNone)
             )

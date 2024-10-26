@@ -18,13 +18,13 @@ module MvuSkewTransformBuilders =
         /// <param name="angleX">The AngleX to apply.</param>
         /// <param name="angleY">The AngleY to apply.</param>
         static member SkewTransform(angleX: float, angleY: float) =
-            WidgetBuilder<unit, IFabMvuSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX), SkewTransform.AngleY.WithValue(angleY))
+            WidgetBuilder<'msg, IFabMvuSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX), SkewTransform.AngleY.WithValue(angleY))
 
         /// <summary>Creates a SkewTransform widget.</summary>
         /// <param name="angleX">The AngleX to apply.</param>
         static member SkewTransform(angleX: float) =
-            WidgetBuilder<unit, IFabMvuSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX))
+            WidgetBuilder<'msg, IFabMvuSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX))
 
         /// <summary>Creates a SkewTransform widget.</summary>
         static member SkewTransform() =
-            WidgetBuilder<unit, IFabMvuSkewTransform>(SkewTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuSkewTransform>(SkewTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

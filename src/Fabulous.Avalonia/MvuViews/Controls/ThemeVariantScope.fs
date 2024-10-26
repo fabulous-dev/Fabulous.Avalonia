@@ -22,8 +22,8 @@ module MvuThemeVariantScopeBuilders =
         /// <summary>Creates a ThemeVariantScope widget.</summary>
         /// <param name="theme">The theme variant to use.</param>
         /// <param name="content">The content of the ThemeVariantScope.</param>
-        static member ThemeVariantScope(theme: ThemeVariant, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuThemeVariantScope>(
+        static member ThemeVariantScope(theme: ThemeVariant, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuThemeVariantScope>(
                 ThemeVariantScope.WidgetKey,
                 AttributesBundle(
                     StackList.one(ThemeVariantScope.RequestedThemeVariant.WithValue(theme)),
@@ -38,5 +38,5 @@ type MvuThemeVariantScopeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ThemeVariantChanged event is raised.</param>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<unit, #IFabMvuThemeVariantScope>, fn: 'msg) =
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabMvuThemeVariantScope>, fn: 'msg) =
         this.AddScalar(MvuThemeVariantScope.ActualThemeVariantChanged.WithValue(MsgValue fn))

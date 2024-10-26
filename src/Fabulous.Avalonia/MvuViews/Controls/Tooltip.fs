@@ -14,11 +14,11 @@ module MvuToolTipBuilders =
 
         /// <summary>Creates a ToolTip widget.</summary>
         static member ToolTip(content: string) =
-            WidgetBuilder<unit, IFabMvuToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
+            WidgetBuilder<'msg, IFabMvuToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ToolTip widget.</summary>
         static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuToolTip>(
+            WidgetBuilder<'msg, IFabMvuToolTip>(
                 ToolTip.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

@@ -22,8 +22,8 @@ module MvuMaskedTextBoxBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="mask">The mask to apply.</param>
         /// <param name="fn">Raised when the text changes.</param>
-        static member inline MaskedTextBox(text: string, mask: string, fn: string -> unit) =
-            WidgetBuilder<unit, IFabMvuMaskedTextBox>(
+        static member inline MaskedTextBox(text: string, mask: string, fn: string -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 MaskedTextBox.Mask.WithValue(mask),
                 MvuMaskedTextBox.TextChanged.WithValue(MvuValueEventData.create text fn)

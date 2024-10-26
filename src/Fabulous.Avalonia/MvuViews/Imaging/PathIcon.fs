@@ -17,8 +17,8 @@ module MvuPathIconBuilders =
 
         /// <summary>Creates a PathIcon widget.</summary>
         /// <param name="content">The content of the PathIcon.</param>
-        static member PathIcon(content: WidgetBuilder<unit, #IFabMvuGeometry>) =
-            WidgetBuilder<unit, IFabMvuPathIcon>(
+        static member PathIcon(content: WidgetBuilder<'msg, #IFabMvuGeometry>) =
+            WidgetBuilder<'msg, IFabMvuPathIcon>(
                 PathIcon.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| PathIcon.DataWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -26,4 +26,4 @@ module MvuPathIconBuilders =
         /// <summary>Creates a PathIcon widget.</summary>
         /// <param name="path">The path of the PathIcon.</param>
         static member PathIcon(path: string) =
-            WidgetBuilder<unit, IFabMvuPathIcon>(PathIcon.WidgetKey, PathIcon.DataString.WithValue(Geometry.Parse(path)))
+            WidgetBuilder<'msg, IFabMvuPathIcon>(PathIcon.WidgetKey, PathIcon.DataString.WithValue(Geometry.Parse(path)))

@@ -16,8 +16,8 @@ module MvuUserControlBuilders =
 
         /// <summary>Creates a UserControl widget.</summary>
         /// <param name="content">The content of the UserControl.</param>
-        static member UserControl(content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuUserControl>(
+        static member UserControl(content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuUserControl>(
                 UserControl.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

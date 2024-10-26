@@ -21,8 +21,8 @@ module MvuRefreshContainerBuilders =
 
         /// <summary>Creates a RefreshContainer widget.</summary>
         /// <param name="content">The content of the RefreshContainer.</param>
-        static member RefreshContainer(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuRefreshContainer>(
+        static member RefreshContainer(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuRefreshContainer>(
                 RefreshContainer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -32,5 +32,5 @@ type MvuRefreshContainerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the RefreshRequested event is fired.</param>
     [<Extension>]
-    static member inline onRefreshRequested(this: WidgetBuilder<unit, #IFabMvuRefreshContainer>, fn: RefreshRequestedEventArgs -> unit) =
+    static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFabMvuRefreshContainer>, fn: RefreshRequestedEventArgs -> 'msg) =
         this.AddScalar(MvuRefreshContainer.RefreshRequested.WithValue(fn))

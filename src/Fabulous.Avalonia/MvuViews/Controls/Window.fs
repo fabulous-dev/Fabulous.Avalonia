@@ -31,7 +31,7 @@ module MvuWindowBuilders =
         /// <summary>Creates a Window widget.</summary>
         /// <param name="content">The content of the window.</param>
         static member Window(content: WidgetBuilder<'msg, #IFabMvuElement>) =
-            WidgetBuilder<unit, IFabMvuWindow>(
+            WidgetBuilder<'msg, IFabMvuWindow>(
                 Window.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -45,19 +45,19 @@ type MvuWindowModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closing.</param>
     [<Extension>]
-    static member inline onWindowClosing(this: WidgetBuilder<unit, #IFabMvuWindow>, fn: WindowClosingEventArgs -> unit) =
+    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabMvuWindow>, fn: WindowClosingEventArgs -> 'msg) =
         this.AddScalar(MvuWindow.WindowClosing.WithValue(fn))
 
     /// <summary>Listens to the Window WindowClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closed.</param>
     [<Extension>]
-    static member inline onWindowClosed(this: WidgetBuilder<unit, #IFabMvuWindow>, fn: RoutedEventArgs -> unit) =
+    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabMvuWindow>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuWindow.WindowClosed.WithValue(fn))
 
     /// <summary>Listens to the Window WindowOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
-    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabMvuWindow>, fn: RoutedEventArgs -> unit) =
+    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabMvuWindow>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuWindow.WindowOpened.WithValue(fn))

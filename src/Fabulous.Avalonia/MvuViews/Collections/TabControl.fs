@@ -18,7 +18,7 @@ module MvuTabControlBuilders =
         /// <summary>Creates a TabControl widget.</summary>
         /// <param name="placement">The placement of the tab strip.</param>
         static member TabControl(placement: Dock) =
-            CollectionBuilder<unit, IFabMvuTabControl, IFabMvuTabItem>(
+            CollectionBuilder<'msg, IFabMvuTabControl, IFabMvuTabItem>(
                 TabControl.WidgetKey,
                 MvuItemsControl.Items,
                 TabControl.TabStripPlacement.WithValue(placement)
@@ -26,7 +26,7 @@ module MvuTabControlBuilders =
 
         /// <summary>Creates a TabControl widget.</summary>
         static member TabControl() =
-            CollectionBuilder<unit, IFabMvuTabControl, IFabMvuTabItem>(
+            CollectionBuilder<'msg, IFabMvuTabControl, IFabMvuTabItem>(
                 TabControl.WidgetKey,
                 MvuItemsControl.Items,
                 TabControl.TabStripPlacement.WithValue(Dock.Top)

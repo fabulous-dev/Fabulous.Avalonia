@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 module MvuComponentBuilders =
     type Fabulous.Avalonia.Mvu.View with
 
-        static member Component<'msg, 'marker when 'msg: equality>(key) = ComponentBuilder<unit>(key)
+        static member Component<'msg, 'marker when 'msg: equality>(key) = ComponentBuilder<'msg>(key)
 
         static member Component<'msg, 'model, 'marker, 'parentMsg when 'msg: equality and 'parentMsg: equality>
             (key: string, program: Program<unit, 'model, 'msg>)

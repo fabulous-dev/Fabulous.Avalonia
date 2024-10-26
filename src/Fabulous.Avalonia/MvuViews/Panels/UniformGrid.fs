@@ -19,14 +19,14 @@ module MvuUniformGridBuilders =
         static member UniformGrid(?cols: int, ?rows: int) =
             match cols, rows with
             | Some cols, Some rows ->
-                CollectionBuilder<unit, IFabMvuUniformGrid, IFabMvuControl>(
+                CollectionBuilder<'msg, IFabMvuUniformGrid, IFabMvuControl>(
                     UniformGrid.WidgetKey,
                     MvuPanel.Children,
                     UniformGrid.Columns.WithValue(cols),
                     UniformGrid.Rows.WithValue(rows)
                 )
             | Some cols, None ->
-                CollectionBuilder<unit, IFabMvuUniformGrid, IFabMvuControl>(
+                CollectionBuilder<'msg, IFabMvuUniformGrid, IFabMvuControl>(
                     UniformGrid.WidgetKey,
                     MvuPanel.Children,
                     UniformGrid.Columns.WithValue(cols),
@@ -34,7 +34,7 @@ module MvuUniformGridBuilders =
                 )
 
             | None, Some rows ->
-                CollectionBuilder<unit, IFabMvuUniformGrid, IFabMvuControl>(
+                CollectionBuilder<'msg, IFabMvuUniformGrid, IFabMvuControl>(
                     UniformGrid.WidgetKey,
                     MvuPanel.Children,
                     UniformGrid.Columns.WithValue(0),
@@ -42,7 +42,7 @@ module MvuUniformGridBuilders =
                 )
 
             | None, None ->
-                CollectionBuilder<unit, IFabMvuUniformGrid, IFabMvuControl>(
+                CollectionBuilder<'msg, IFabMvuUniformGrid, IFabMvuControl>(
                     UniformGrid.WidgetKey,
                     MvuPanel.Children,
                     UniformGrid.Columns.WithValue(0),

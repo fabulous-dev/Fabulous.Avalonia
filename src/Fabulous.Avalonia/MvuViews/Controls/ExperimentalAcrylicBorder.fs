@@ -18,14 +18,14 @@ module MvuExperimentalAcrylicBorderBuilders =
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         /// <param name="content">The content of the ExperimentalAcrylicBorder.</param>
         static member ExperimentalAcrylicBorder(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuExperimentalAcrylicBorder>(
+            WidgetBuilder<'msg, IFabMvuExperimentalAcrylicBorder>(
                 ExperimentalAcrylicBorder.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         static member ExperimentalAcrylicBorder() =
-            WidgetBuilder<unit, IFabMvuExperimentalAcrylicBorder>(
+            WidgetBuilder<'msg, IFabMvuExperimentalAcrylicBorder>(
                 ExperimentalAcrylicBorder.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueNone, ValueNone)
             )

@@ -19,4 +19,4 @@ module MvuArcSegmentBuilders =
         /// <param name="point">The point at which the arc ends.</param>
         /// <param name="size">The size of the arc.</param>
         static member ArcSegment(point: Point, size: Size) =
-            WidgetBuilder<unit, IFabMvuArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))
+            WidgetBuilder<'msg, IFabMvuArcSegment>(ArcSegment.WidgetKey, ArcSegment.Point.WithValue(point), ArcSegment.Size.WithValue(size))

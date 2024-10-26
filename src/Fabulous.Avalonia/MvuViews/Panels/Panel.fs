@@ -13,7 +13,7 @@ module MvuPanelBuilders =
 
         /// <summary>Creates a Panel widget.</summary>
         static member Panel() =
-            CollectionBuilder<unit, IFabMvuPanel, IFabMvuControl>(Panel.WidgetKey, MvuPanel.Children)
+            CollectionBuilder<'msg, IFabMvuPanel, IFabMvuControl>(Panel.WidgetKey, MvuPanel.Children)
 
 type MvuPanelModifiers =
     /// <summary>Sets the Background property.</summary>
@@ -34,14 +34,14 @@ type MvuPanelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: WidgetBuilder<unit, #IFabMvuBrush>) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: WidgetBuilder<'msg, #IFabMvuBrush>) =
         this.AddWidget(TextElement.ForegroundWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
-    static member inline foreground(this: WidgetBuilder<unit, #IFabMvuPanel>, value: IBrush) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
 
 type MvuPanelExtraModifiers =
@@ -49,28 +49,28 @@ type MvuPanelExtraModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<unit, #IFabMvuPanel>, value: Color) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: Color) =
         PanelModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<unit, #IFabMvuPanel>, value: string) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: string) =
         PanelModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
-    static member inline foreground(this: WidgetBuilder<unit, #IFabMvuPanel>, value: Color) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: Color) =
         PanelModifiers.foreground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
-    static member inline foreground(this: WidgetBuilder<unit, #IFabMvuPanel>, value: string) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabMvuPanel>, value: string) =
         PanelModifiers.foreground(this, View.SolidColorBrush(value))
 
 type MvuPanelCollectionBuilderExtensions =

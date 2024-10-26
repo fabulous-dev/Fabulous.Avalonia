@@ -21,7 +21,7 @@ module MvuTransformGroupBuilders =
 
         /// <summary>Creates a TransformGroup widget.</summary>
         static member TransformGroup() =
-            CollectionBuilder<unit, IFabMvuTransformGroup, IFabMvuTransform>(TransformGroup.WidgetKey, MvuTransformGroup.Children)
+            CollectionBuilder<'msg, IFabMvuTransformGroup, IFabMvuTransform>(TransformGroup.WidgetKey, MvuTransformGroup.Children)
 
 type MvuTransformGroupCollectionBuilderExtensions =
     [<Extension>]

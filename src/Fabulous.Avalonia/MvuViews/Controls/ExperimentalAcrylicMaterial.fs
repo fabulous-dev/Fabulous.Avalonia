@@ -20,7 +20,7 @@ module MvuExperimentalAcrylicMaterialBuilders =
 
         /// <summary>Creates a ExperimentalAcrylicMaterial widget.</summary>
         static member ExperimentalAcrylicMaterial() =
-            WidgetBuilder<unit, IFabExperimentalAcrylicMaterial>(
+            WidgetBuilder<'msg, IFabExperimentalAcrylicMaterial>(
                 ExperimentalAcrylicMaterial.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueNone, ValueNone)
             )
@@ -30,5 +30,5 @@ type MvuExperimentalAcrylicMaterialModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ExperimentalAcrylicMaterial is invalidated.</param>
     [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<unit, #IFabMvuExperimentalAcrylicMaterial>, fn: 'msg) =
+    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabMvuExperimentalAcrylicMaterial>, fn: 'msg) =
         this.AddScalar(MvuExperimentalAcrylicMaterial.Invalidated.WithValue(MsgValue fn))

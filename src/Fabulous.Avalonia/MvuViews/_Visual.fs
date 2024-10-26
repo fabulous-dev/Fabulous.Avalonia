@@ -22,14 +22,14 @@ type MvuVisualModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control is attached to a rooted visual tree.</param>
     [<Extension>]
-    static member inline onAttachedToVisualTree(this: WidgetBuilder<unit, #IFabMvuVisual>, fn: VisualTreeAttachmentEventArgs -> unit) =
+    static member inline onAttachedToVisualTree(this: WidgetBuilder<'msg, #IFabMvuVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
         this.AddScalar(MvuVisual.AttachedToVisualTree.WithValue(fn))
 
     /// <summary>Listens to the Visual DetachedFromVisualTree event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control is detached from a rooted visual tree.</param>
     [<Extension>]
-    static member inline onDetachedFromVisualTree(this: WidgetBuilder<unit, #IFabMvuVisual>, fn: VisualTreeAttachmentEventArgs -> unit) =
+    static member inline onDetachedFromVisualTree(this: WidgetBuilder<'msg, #IFabMvuVisual>, fn: VisualTreeAttachmentEventArgs -> 'msg) =
         this.AddScalar(MvuVisual.DetachedFromVisualTree.WithValue(fn))
 
 type MvuVisualExtraModifiers =

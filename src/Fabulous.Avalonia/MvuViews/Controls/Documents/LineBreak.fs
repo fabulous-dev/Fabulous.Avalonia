@@ -16,4 +16,4 @@ module MvuLineBreakBuilders =
 
         /// <summary>Creates a LineBreak widget.</summary>
         static member LineBreak() =
-            WidgetBuilder<unit, IFabMvuLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

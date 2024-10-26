@@ -15,7 +15,7 @@ module MvuItalicBuilders =
 
         /// <summary>Creates a Italic widget.</summary>
         static member private Italic() =
-            CollectionBuilder<unit, IFabMvuItalic, IFabMvuInline>(Italic.WidgetKey, MvuSpan.Inlines)
+            CollectionBuilder<'msg, IFabMvuItalic, IFabMvuInline>(Italic.WidgetKey, MvuSpan.Inlines)
 
         /// <summary>Creates a Italic widget.</summary>
         /// <param name="text">Text to display.</param>

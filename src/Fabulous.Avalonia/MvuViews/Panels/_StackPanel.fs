@@ -23,12 +23,12 @@ type MvuStackPanelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the HorizontalSnapPointsChanged event fires.</param>
     [<Extension>]
-    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<unit, #IFabMvuStackPanel>, fn: RoutedEventArgs -> unit) =
+    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabMvuStackPanel>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuStackPanel.HorizontalSnapPointsChanged.WithValue(fn))
 
     /// <summary>Listens to the StackPanel VerticalSnapPointsChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the VerticalSnapPointsChanged event fires.</param>
     [<Extension>]
-    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<unit, #IFabMvuStackPanel>, fn: RoutedEventArgs -> unit) =
+    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabMvuStackPanel>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuStackPanel.VerticalSnapPointsChanged.WithValue(fn))

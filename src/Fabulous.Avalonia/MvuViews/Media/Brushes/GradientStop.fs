@@ -18,13 +18,13 @@ module MvuGradientStopBuilders =
         /// <param name="color">The color of the gradient stop.</param>
         /// <param name="offset">The offset of the gradient stop.</param>
         static member GradientStop(color: Color, offset: float) =
-            WidgetBuilder<unit, IFabMvuGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(color), GradientStop.Offset.WithValue(offset))
+            WidgetBuilder<'msg, IFabMvuGradientStop>(GradientStop.WidgetKey, GradientStop.Color.WithValue(color), GradientStop.Offset.WithValue(offset))
 
         /// <summary>Creates a GradientStop widget.</summary>
         /// <param name="color">The color of the gradient stop.</param>
         /// <param name="offset">The offset of the gradient stop.</param>
         static member GradientStop(color: string, offset: float) =
-            WidgetBuilder<unit, IFabMvuGradientStop>(
+            WidgetBuilder<'msg, IFabMvuGradientStop>(
                 GradientStop.WidgetKey,
                 GradientStop.Color.WithValue(Color.Parse(color)),
                 GradientStop.Offset.WithValue(offset)

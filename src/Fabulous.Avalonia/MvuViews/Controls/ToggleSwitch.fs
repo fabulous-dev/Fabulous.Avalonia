@@ -30,8 +30,8 @@ module MvuToggleSwitchBuilders =
         /// <summary>Creates a ToggleSwitch widget.</summary>
         /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
         /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
-        static member ToggleSwitch(isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabMvuToggleSwitch>(
+        static member ToggleSwitch(isChecked: bool, fn: bool -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
                 MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
@@ -40,8 +40,8 @@ module MvuToggleSwitchBuilders =
         /// <summary>Creates a ThreeStateToggleSwitch widget.</summary>
         /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
         /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
-        static member ThreeStateToggleSwitch(isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabMvuToggleSwitch>(
+        static member ThreeStateToggleSwitch(isChecked: bool option, fn: bool option -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 MvuToggleButton.ThreeStateCheckedChanged.WithValue(

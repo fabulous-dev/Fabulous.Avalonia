@@ -61,5 +61,5 @@ type MvuTemplatedControlModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the template is applied.</param>
     [<Extension>]
-    static member inline onTemplateApplied(this: WidgetBuilder<unit, #IFabMvuTemplatedControl>, fn: TemplateAppliedEventArgs -> unit) =
+    static member inline onTemplateApplied(this: WidgetBuilder<'msg, #IFabMvuTemplatedControl>, fn: TemplateAppliedEventArgs -> 'msg) =
         this.AddScalar(MvuTemplatedControl.TemplateApplied.WithValue(fn))

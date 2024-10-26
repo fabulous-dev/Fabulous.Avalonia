@@ -32,29 +32,29 @@ module MvuTextBoxBuilders =
         /// <summary>Creates a TextBox widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the text changes.</param>
-        static member inline TextBox(text: string, fn: string -> unit) =
-            WidgetBuilder<unit, IFabMvuTextBox>(TextBox.WidgetKey, MvuTextBox.TextChanged.WithValue(MvuValueEventData.create text fn))
+        static member inline TextBox(text: string, fn: string -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuTextBox>(TextBox.WidgetKey, MvuTextBox.TextChanged.WithValue(MvuValueEventData.create text fn))
 
 type MvuTextBoxModifiers =
     /// /// <summary>Listens to the TexBox CopyingToClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the CopyingToClipboard changes.</param>
     [<Extension>]
-    static member inline onCopyingToClipboard(this: WidgetBuilder<unit, #IFabMvuTextBox>, fn: RoutedEventArgs -> unit) =
+    static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabMvuTextBox>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuTextBox.CopyingToClipboard.WithValue(fn))
 
     /// <summary>Listens to the TexBox CuttingToClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the CuttingToClipboard changes.</param>
     [<Extension>]
-    static member inline onCuttingToClipboard(this: WidgetBuilder<unit, #IFabMvuTextBox>, fn: RoutedEventArgs -> unit) =
+    static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabMvuTextBox>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuTextBox.CuttingToClipboard.WithValue(fn))
 
     /// <summary>Listens to the TexBox PastingFromClipboard event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PastingFromClipboard changes.</param>
     [<Extension>]
-    static member inline onPastingFromClipboard(this: WidgetBuilder<unit, #IFabTextBox>, fn: RoutedEventArgs -> unit) =
+    static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuTextBox.PastingFromClipboard.WithValue(fn))
 
 type MvuTextBoxExtraModifiers =

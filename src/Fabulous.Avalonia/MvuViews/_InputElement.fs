@@ -67,35 +67,35 @@ type MvuInputElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when control receives focus.</param>
     [<Extension>]
-    static member inline onGotFocus(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: GotFocusEventArgs -> unit) =
+    static member inline onGotFocus(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: GotFocusEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.GotFocus.WithValue(fn))
 
     /// <summary>Listens to the InputElement LostFocus event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when control loses focus.</param>
     [<Extension>]
-    static member inline onLostFocus(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: RoutedEventArgs -> unit) =
+    static member inline onLostFocus(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.LostFocus.WithValue(fn))
 
     /// <summary>Listens to the InputElement KeyDown event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a key is pressed while the control has focus.</param>
     [<Extension>]
-    static member inline onKeyDown(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: KeyEventArgs -> unit) =
+    static member inline onKeyDown(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: KeyEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.KeyDown.WithValue(fn))
 
     /// <summary>Listens to the InputElement KeyUp event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a key is released while the control has focus.</param>
     [<Extension>]
-    static member inline onKeyUp(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: KeyEventArgs -> unit) =
+    static member inline onKeyUp(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: KeyEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.KeyUp.WithValue(fn))
 
     /// <summary>Listens to the InputElement TextInput event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a user typed some text while the control has focus.</param>
     [<Extension>]
-    static member inline onTextInput(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: TextInputEventArgs -> unit) =
+    static member inline onTextInput(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: TextInputEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.TextInput.WithValue(fn))
 
     /// <summary>Listens to the InputElement TextInputMethodClientRequested event.</summary>
@@ -103,7 +103,7 @@ type MvuInputElementModifiers =
     /// <param name="fn">Raised when an input element gains input focus and input method is looking for the corresponding client.</param>
     [<Extension>]
     static member inline onTextInputMethodClientRequested
-        (this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: TextInputMethodClientRequestedEventArgs -> unit)
+        (this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: TextInputMethodClientRequestedEventArgs -> 'msg)
         =
         this.AddScalar(MvuInputElement.TextInputMethodClientRequested.WithValue(fn))
 
@@ -111,68 +111,68 @@ type MvuInputElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when pointer enters the control.</param>
     [<Extension>]
-    static member inline onPointerEntered(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerEventArgs -> unit) =
+    static member inline onPointerEntered(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerEntered.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerExited event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when pointer leaves the control.</param>
     [<Extension>]
-    static member inline onPointerExited(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerEventArgs -> unit) =
+    static member inline onPointerExited(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerExited.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerMoved event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when pointer moves over the control.</param>
     [<Extension>]
-    static member inline onPointerMoved(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerEventArgs -> unit) =
+    static member inline onPointerMoved(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerMoved.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerPressed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the pointer is pressed over the control.</param>
     [<Extension>]
-    static member inline onPointerPressed(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerPressedEventArgs -> unit) =
+    static member inline onPointerPressed(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerPressedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerPressed.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerReleased event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the pointer is released over the control.</param>
     [<Extension>]
-    static member inline onPointerReleased(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerReleasedEventArgs -> unit) =
+    static member inline onPointerReleased(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerReleasedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerReleased.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerCaptureLost event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control or its child control loses the pointer capture for any reason event will not be triggered for a parent control if capture was transferred to another child of that parent control.</param>
     [<Extension>]
-    static member inline onPointerCaptureLost(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerCaptureLostEventArgs -> unit) =
+    static member inline onPointerCaptureLost(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerCaptureLostEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerCaptureLost.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerWheelChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the pointer wheel changes.</param>
     [<Extension>]
-    static member inline onPointerWheelChanged(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: PointerWheelEventArgs -> unit) =
+    static member inline onPointerWheelChanged(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: PointerWheelEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.PointerWheelChanged.WithValue(fn))
 
     /// <summary>Listens to the InputElement Tapped event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a tap gesture occurs on the control.</param>
     [<Extension>]
-    static member inline onTapped(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: RoutedEventArgs -> unit) =
+    static member inline onTapped(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.Tapped.WithValue(fn))
 
     /// <summary>Listens to the InputElement Holding event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a holding gesture occurs on the control.</param>
     [<Extension>]
-    static member inline onHolding(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: HoldingRoutedEventArgs -> unit) =
+    static member inline onHolding(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: HoldingRoutedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.Holding.WithValue(fn))
 
     /// <summary>Listens to the InputElement RightTapped event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a double-tap gesture occurs on the control.</param>
     [<Extension>]
-    static member inline onDoubleTapped(this: WidgetBuilder<unit, #IFabMvuInputElement>, fn: RoutedEventArgs -> unit) =
+    static member inline onDoubleTapped(this: WidgetBuilder<'msg, #IFabMvuInputElement>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.DoubleTapped.WithValue(fn))

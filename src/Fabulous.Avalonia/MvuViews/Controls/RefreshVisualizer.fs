@@ -21,8 +21,8 @@ module MvuRefreshVisualizerBuilders =
 
         /// <summary>Creates a RefreshVisualizer widget.</summary>
         /// <param name="content">The content of the RefreshVisualizer.</param>
-        static member RefreshVisualizer(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFaMvuRefreshVisualizer>(
+        static member RefreshVisualizer(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFaMvuRefreshVisualizer>(
                 RefreshVisualizer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -32,5 +32,5 @@ type MvuRefreshVisualizerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the RefreshRequested event is fired.</param>
     [<Extension>]
-    static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFaMvuRefreshVisualizer>, fn: RefreshRequestedEventArgs -> unit) =
+    static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFaMvuRefreshVisualizer>, fn: RefreshRequestedEventArgs -> 'msg) =
         this.AddScalar(MvuRefreshVisualizer.RefreshRequested.WithValue(fn))

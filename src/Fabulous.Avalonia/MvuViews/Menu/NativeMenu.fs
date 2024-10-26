@@ -45,21 +45,21 @@ type NativeMenuModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Opening event fires.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> 'msg) =
         this.AddScalar(MvuNativeMenu.Opening.WithValue(msg))
 
     /// <summary>Listens to the NativeMenu Closed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Closed event fires.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> 'msg) =
         this.AddScalar(MvuNativeMenu.Closed.WithValue(msg))
 
     /// <summary>Listens to the NativeMenu NeedsUpdate event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the NeedsUpdate event fires.</param>
     [<Extension>]
-    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> unit) =
+    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: EventArgs -> 'msg) =
         this.AddScalar(MvuNativeMenu.NeedsUpdate.WithValue(msg))
 
 type NativeMenuAttachedModifiers =

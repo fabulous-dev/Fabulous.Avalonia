@@ -29,8 +29,8 @@ module MvuPopupBuilders =
         /// <summary>Creates a Popup widget.</summary>
         /// <param name="isOpen">Whether the popup is open or not.</param>
         /// <param name="content">The content of the popup.</param>
-        static member Popup(isOpen: bool, content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuPopup>(
+        static member Popup(isOpen: bool, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuPopup>(
                 Popup.WidgetKey,
                 AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
             )
@@ -40,12 +40,12 @@ type MvuPopupModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Popup is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: 'msg) =
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabMvuPopup>, msg: 'msg) =
         this.AddScalar(MvuPopup.Closed.WithValue(fun _ -> msg))
 
     /// <summary>Listens to the Popup Opened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Popup is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<unit, #IFabMvuPopup>, msg: 'msg) =
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabMvuPopup>, msg: 'msg) =
         this.AddScalar(MvuPopup.Opened.WithValue(MsgValue msg))

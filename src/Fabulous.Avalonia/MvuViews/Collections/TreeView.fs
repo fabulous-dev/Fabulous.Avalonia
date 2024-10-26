@@ -28,7 +28,7 @@ module MvuTreeViewBuilders =
         /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
         /// <param name="template">The template used to render each node.</param>
         static member TreeView<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabMvuControl>
-            (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>)
+            (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
             let template (item: obj) =
                 let item = unbox<'itemData> item
@@ -46,5 +46,5 @@ type MvuTreeViewModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the TreeView SelectionChanged event is fired.</param>
     [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<unit, #IFabMvuTreeView>, fn: SelectionChangedEventArgs -> unit) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabMvuTreeView>, fn: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(MvuTreeView.SelectionChanged.WithValue(fn))

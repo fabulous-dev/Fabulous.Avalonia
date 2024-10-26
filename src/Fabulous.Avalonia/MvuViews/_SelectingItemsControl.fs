@@ -23,7 +23,7 @@ type MvuSelectingItemsControlModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control's selection changes.</param>
     [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<unit, #IFabMvuSelectingItemsControl>, fn: SelectionChangedEventArgs -> unit) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabMvuSelectingItemsControl>, fn: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(MvuSelectingItemsControl.SelectionChanged.WithValue(fn))
 
     /// <summary>Listens to the SelectingItemsControl SelectedIndexChanged event.</summary>
@@ -31,5 +31,5 @@ type MvuSelectingItemsControlModifiers =
     /// <param name="index">Selected index</param>
     /// <param name="fn">Raised when the control's selected index changes.</param>
     [<Extension>]
-    static member inline onSelectedIndexChanged(this: WidgetBuilder<unit, #IFabMvuSelectingItemsControl>, index: int, fn: int -> unit) =
+    static member inline onSelectedIndexChanged(this: WidgetBuilder<'msg, #IFabMvuSelectingItemsControl>, index: int, fn: int -> 'msg) =
         this.AddScalar(MvuSelectingItemsControl.SelectedIndexChanged.WithValue(MvuValueEventData.create index fn))

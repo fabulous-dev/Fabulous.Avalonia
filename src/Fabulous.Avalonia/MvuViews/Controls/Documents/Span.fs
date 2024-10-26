@@ -25,12 +25,12 @@ module MvuSpanBuilders =
 type MvuSpanCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuInline>
-        (_: CollectionBuilder<'msg, 'marker, IFabMvuInline>, x: WidgetBuilder<unit, 'itemType>)
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuInline>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMvuInline>
-        (_: CollectionBuilder<unit, 'marker, IFabMvuInline>, x: WidgetBuilder<unit, Memo.Memoized<'itemType>>)
-        : Content<unit> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuInline>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

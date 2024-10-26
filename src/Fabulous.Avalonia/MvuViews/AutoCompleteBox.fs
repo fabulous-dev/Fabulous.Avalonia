@@ -35,12 +35,12 @@ module MvuAutoCompleteBoxBuilders =
         /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="items">The items to display.</param>
         static member AutoCompleteBox(items: seq<_>) =
-            WidgetBuilder<unit, IFabMvuAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
+            WidgetBuilder<'msg, IFabMvuAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
 
         /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="populator">The function to populate the items.</param>
         static member AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
-            WidgetBuilder<unit, IFabMvuAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
+            WidgetBuilder<'msg, IFabMvuAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
 
 type MvuAutoCompleteBoxModifiers =
     /// <summary>Binds the AutoCompleteBox.TextProperty.</summary>
@@ -48,18 +48,18 @@ type MvuAutoCompleteBoxModifiers =
     /// <param name="value">The value to bind.</param>
     /// <param name="fn">A function mapping the updated text to a 'msg to raise on user change.</param>
     [<Extension>]
-    static member inline onTextChanged(this: WidgetBuilder<unit, #IFabMvuAutoCompleteBox>, value: string, fn: string -> unit) =
+    static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabMvuAutoCompleteBox>, value: string, fn: string -> 'msg) =
         this.AddScalar(MvuAutoCompleteBox.Text.WithValue(MvuValueEventData.create value fn))
 
     [<Extension>]
-    static member inline onPopulating(this: WidgetBuilder<unit, #IFabMvuAutoCompleteBox>, fn: PopulatingEventArgs -> unit) =
+    static member inline onPopulating(this: WidgetBuilder<'msg, #IFabMvuAutoCompleteBox>, fn: PopulatingEventArgs -> 'msg) =
         this.AddScalar(MvuAutoCompleteBox.Populating.WithValue(fn))
 
     /// <summary>Listens to the AutoCompleteBox Populated event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the AutoCompleteBox Populated event is fired.</param>
     [<Extension>]
-    static member inline onPopulated(this: WidgetBuilder<unit, #IFabMvuAutoCompleteBox>, fn: PopulatedEventArgs -> unit) =
+    static member inline onPopulated(this: WidgetBuilder<'msg, #IFabMvuAutoCompleteBox>, fn: PopulatedEventArgs -> 'msg) =
         this.AddScalar(MvuAutoCompleteBox.Populated.WithValue(fn))
 
     /// <summary>Listens to the AutoCompleteBox DropDownOpened event.</summary>
@@ -67,12 +67,12 @@ type MvuAutoCompleteBoxModifiers =
     /// <param name="isOpen">The IsOpen value.</param>
     /// <param name="fn">Raised when the AutoCompleteBox DropDownOpened event is fired.</param>
     [<Extension>]
-    static member inline onDropDownOpened(this: WidgetBuilder<unit, #IFabMvuAutoCompleteBox>, isOpen: bool, fn: bool -> unit) =
+    static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabMvuAutoCompleteBox>, isOpen: bool, fn: bool -> 'msg) =
         this.AddScalar(MvuAutoCompleteBox.DropDownOpened.WithValue(MvuValueEventData.create isOpen fn))
 
     /// <summary>Listens to the AutoCompleteBox SelectionChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the AutoCompleteBox SelectionChanged event is fired.</param>
     [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<unit, #IFabMvuAutoCompleteBox>, fn: SelectionChangedEventArgs -> unit) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabMvuAutoCompleteBox>, fn: SelectionChangedEventArgs -> 'msg) =
         this.AddScalar(MvuAutoCompleteBox.SelectionChanged.WithValue(fn))

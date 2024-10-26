@@ -19,4 +19,4 @@ module MvuPolygonBuilders =
         /// <summary>Creates a Polygon widget.</summary>
         /// <param name="points">The points of the polygon.</param>
         static member Polygon(points: Point list) =
-            WidgetBuilder<unit, IFabMvuPolygon>(Polygon.WidgetKey, Polygon.Points.WithValue(points))
+            WidgetBuilder<'msg, IFabMvuPolygon>(Polygon.WidgetKey, Polygon.Points.WithValue(points))

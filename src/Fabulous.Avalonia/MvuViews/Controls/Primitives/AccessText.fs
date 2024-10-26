@@ -17,4 +17,4 @@ module MvuAccessTextBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="showAccessKey">Whether to underline the access key in the text.</param>
         static member inline AccessText(text: string, showAccessKey: bool) =
-            WidgetBuilder<unit, IFabMvuAccessText>(AccessText.WidgetKey, TextBlock.Text.WithValue(text), AccessText.ShowAccessKey.WithValue(showAccessKey))
+            WidgetBuilder<'msg, IFabMvuAccessText>(AccessText.WidgetKey, TextBlock.Text.WithValue(text), AccessText.ShowAccessKey.WithValue(showAccessKey))

@@ -21,7 +21,7 @@ module MvuGeometryGroupBuilders =
         /// <summary>Creates a GeometryGroup widget.</summary>
         /// <param name="fillRule">The fill rule to apply to the geometry group.</param>
         static member GeometryGroup(fillRule: FillRule) =
-            CollectionBuilder<unit, IFabMvuGeometryGroup, IFabMvuGeometry>(
+            CollectionBuilder<'msg, IFabMvuGeometryGroup, IFabMvuGeometry>(
                 GeometryGroup.WidgetKey,
                 MvuGeometryGroup.Children,
                 GeometryGroup.FillRule.WithValue(fillRule)

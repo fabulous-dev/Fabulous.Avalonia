@@ -22,12 +22,12 @@ type MvuPopupFlyoutBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PopupFlyoutBase is opening.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<unit, #IFabMvuPopupFlyoutBase>, fn: 'msg) =
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabMvuPopupFlyoutBase>, fn: 'msg) =
         this.AddScalar(MvuPopupFlyoutBase.Opening.WithValue(MsgValue fn))
 
     /// <summary>Listens to the PopupFlyoutBase Closing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PopupFlyoutBase is closing.</param>
     [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<unit, #IFabMvuPopupFlyoutBase>, fn: CancelEventArgs -> unit) =
+    static member inline onClosing(this: WidgetBuilder<'msg, #IFabMvuPopupFlyoutBase>, fn: CancelEventArgs -> 'msg) =
         this.AddScalar(MvuPopupFlyoutBase.Closing.WithValue(fn))

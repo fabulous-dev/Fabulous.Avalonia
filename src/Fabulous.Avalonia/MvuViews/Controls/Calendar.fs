@@ -28,8 +28,8 @@ module MvuCalendarBuilders =
         /// <summary>Creates a Calendar widget.</summary>
         /// <param name="date">The date to display.</param>
         /// <param name="fn">Raised when the date changes.</param>
-        static member Calendar(date: DateTime option, fn: DateTime option -> unit) =
-            WidgetBuilder<unit, IFabMvuCalendar>(
+        static member Calendar(date: DateTime option, fn: DateTime option -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
                 MvuCalendar.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
@@ -39,8 +39,8 @@ module MvuCalendarBuilders =
         /// <param name="date">The date to display.</param>
         /// <param name="fn">Raised when the date changes.</param>
         /// <param name="mode">The selection mode.</param>
-        static member Calendar(date: DateTime option, fn: DateTime option -> unit, mode: CalendarSelectionMode) =
-            WidgetBuilder<unit, IFabMvuCalendar>(
+        static member Calendar(date: DateTime option, fn: DateTime option -> 'msg, mode: CalendarSelectionMode) =
+            WidgetBuilder<'msg, IFabMvuCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(mode),
                 MvuCalendar.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
@@ -51,14 +51,14 @@ type MvuCalendarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayDateChanged event is fired.</param>
     [<Extension>]
-    static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabMvuCalendar>, fn: CalendarDateChangedEventArgs -> unit) =
+    static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabMvuCalendar>, fn: CalendarDateChangedEventArgs -> 'msg) =
         this.AddScalar(MvuCalendar.DisplayDateChanged.WithValue(fn))
 
     /// <summary>Listens to the Calendar DisplayModeChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayModeChanged event is fired.</param>
     [<Extension>]
-    static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabMvuCalendar>, fn: CalendarModeChangedEventArgs -> unit) =
+    static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabMvuCalendar>, fn: CalendarModeChangedEventArgs -> 'msg) =
         this.AddScalar(MvuCalendar.DisplayModeChanged.WithValue(fn))
 
 type MvuCalendarExtraModifiers =

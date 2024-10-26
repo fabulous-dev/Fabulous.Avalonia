@@ -15,7 +15,7 @@ module MvuUnderlineBuilders =
 
         /// <summary>Creates a Underline widget.</summary>
         static member private Underline() =
-            CollectionBuilder<unit, IFabMvuUnderline, IFabMvuInline>(Underline.WidgetKey, MvuSpan.Inlines)
+            CollectionBuilder<'msg, IFabMvuUnderline, IFabMvuInline>(Underline.WidgetKey, MvuSpan.Inlines)
 
         /// <summary>Creates a Underline widget.</summary>
         /// <param name="text">The text to display.</param>

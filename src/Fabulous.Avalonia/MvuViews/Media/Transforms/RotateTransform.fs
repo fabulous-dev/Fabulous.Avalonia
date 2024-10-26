@@ -19,7 +19,7 @@ module MvuRotateTransformBuilders =
         /// <param name="centerX">The X coordinate of the center of rotation.</param>
         /// <param name="centerY">The Y coordinate of the center of rotation.</param>
         static member RotateTransform(angle: float, centerX: float, centerY: float) =
-            WidgetBuilder<unit, IFabMvuRotateTransform>(
+            WidgetBuilder<'msg, IFabMvuRotateTransform>(
                 RotateTransform.WidgetKey,
                 RotateTransform.Angle.WithValue(angle),
                 RotateTransform.CenterX.WithValue(centerX),
@@ -29,8 +29,8 @@ module MvuRotateTransformBuilders =
         /// <summary>Creates a RotateTransform widget.</summary>
         /// <param name="angle">The Angle to apply.</param>
         static member RotateTransform(angle: float) =
-            WidgetBuilder<unit, IFabMvuRotateTransform>(RotateTransform.WidgetKey, RotateTransform.Angle.WithValue(angle))
+            WidgetBuilder<'msg, IFabMvuRotateTransform>(RotateTransform.WidgetKey, RotateTransform.Angle.WithValue(angle))
 
         /// <summary>Creates a RotateTransform widget.</summary>
         static member RotateTransform() =
-            WidgetBuilder<unit, IFabMvuRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

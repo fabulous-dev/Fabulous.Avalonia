@@ -21,5 +21,5 @@ module MvuTimePickerBuilders =
         /// <summary>Creates a TimePicker widget.</summary>
         /// <param name="time">The initial time.</param>
         /// <param name="fn">Raised when the selected time changes.</param>
-        static member TimePicker(time: TimeSpan, fn: TimeSpan -> unit) =
-            WidgetBuilder<unit, IFabMvuTimePicker>(TimePicker.WidgetKey, MvuTimePicker.SelectedTimeChanged.WithValue(MvuValueEventData.create time fn))
+        static member TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuTimePicker>(TimePicker.WidgetKey, MvuTimePicker.SelectedTimeChanged.WithValue(MvuValueEventData.create time fn))

@@ -18,7 +18,7 @@ module MvuTabItemBuilders =
         /// <param name="header">The header of the TabItem.</param>
         /// <param name="content">The content of the TabItem.</param>
         static member TabItem(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuTabItem>(
+            WidgetBuilder<'msg, IFabMvuTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
@@ -31,7 +31,7 @@ module MvuTabItemBuilders =
         /// <param name="header">The header of the TabItem.</param>
         /// <param name="content">The content of the TabItem.</param>
         static member TabItem(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuTabItem>(
+            WidgetBuilder<'msg, IFabMvuTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),

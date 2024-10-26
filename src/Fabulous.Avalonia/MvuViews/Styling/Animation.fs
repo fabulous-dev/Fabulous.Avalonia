@@ -23,11 +23,11 @@ module MvuAnimationBuilders =
         /// <summary>Creates an Animation widget with the specified duration and keyframes.</summary>
         /// <param name="duration">The main Window of the Application.</param>
         static member Animation(duration: TimeSpan) =
-            CollectionBuilder<unit, IFabMvuAnimation, IFabKeyFrame>(Animation.WidgetKey, MvuAnimation.Children, Animation.Duration.WithValue(duration))
+            CollectionBuilder<'msg, IFabMvuAnimation, IFabKeyFrame>(Animation.WidgetKey, MvuAnimation.Children, Animation.Duration.WithValue(duration))
 
         /// <summary>Creates an Animation widget with keyframes.</summary>
         static member Animation() =
-            CollectionBuilder<unit, IFabMvuAnimation, IFabKeyFrame>(Animation.WidgetKey, MvuAnimation.Children)
+            CollectionBuilder<'msg, IFabMvuAnimation, IFabKeyFrame>(Animation.WidgetKey, MvuAnimation.Children)
 
 type MvuAnimationCollectionBuilderExtensions =
     [<Extension>]

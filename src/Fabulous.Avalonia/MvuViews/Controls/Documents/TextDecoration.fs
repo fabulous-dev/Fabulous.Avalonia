@@ -19,7 +19,7 @@ module MvuTextDecorationBuilders =
         /// <summary>Creates a TextDecoration widget.</summary>
         /// <param name="location">The location of the TextDecoration.</param>
         static member inline TextDecoration(location: TextDecorationLocation) =
-            WidgetBuilder<unit, IFabMvuTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
+            WidgetBuilder<'msg, IFabMvuTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
 type MvuTextDecorationExtraModifiers =
     /// <summary>Sets the Stroke property.</summary>

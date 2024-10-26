@@ -43,19 +43,19 @@ type MvuThumbModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged started.</param>
     [<Extension>]
-    static member inline onDragStarted(this: WidgetBuilder<unit, #IFabMvuThumb>, fn: VectorEventArgs -> unit) =
+    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabMvuThumb>, fn: VectorEventArgs -> 'msg) =
         this.AddScalar(MvuThumb.DragStarted.WithValue(fn))
 
     /// <summary>Listens to the Thumb DragDelta event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged.</param>
     [<Extension>]
-    static member inline onDragDelta(this: WidgetBuilder<unit, #IFabMvuThumb>, fn: VectorEventArgs -> unit) =
+    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabMvuThumb>, fn: VectorEventArgs -> 'msg) =
         this.AddScalar(MvuThumb.DragDelta.WithValue(fn))
 
     /// <summary>Listens to the Thumb DragCompleted event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged is completed.</param>
     [<Extension>]
-    static member inline onDragCompleted(this: WidgetBuilder<unit, #IFabMvuThumb>, fn: VectorEventArgs -> unit) =
+    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabMvuThumb>, fn: VectorEventArgs -> 'msg) =
         this.AddScalar(MvuThumb.DragCompleted.WithValue(fn))

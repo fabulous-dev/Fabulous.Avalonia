@@ -17,4 +17,4 @@ module MvuRunBuilders =
         /// <summary>Creates a Run widget.</summary>
         /// <param name="text">The text to display.</param>
         static member Run(text: string) =
-            WidgetBuilder<unit, IFabMvuRun>(Run.WidgetKey, Run.Text.WithValue(text))
+            WidgetBuilder<'msg, IFabMvuRun>(Run.WidgetKey, Run.Text.WithValue(text))

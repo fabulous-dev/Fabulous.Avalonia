@@ -17,4 +17,4 @@ module MvuDashStyleBuilders =
         /// <param name="dashes">The length of alternating dashes and gaps.</param>
         /// <param name="offset">How far in the dash sequence the stroke will start.</param>
         static member DashStyle(dashes: float list, offset: float) =
-            WidgetBuilder<unit, IFabMvuDashStyle>(DashStyle.WidgetKey, DashStyle.Dashes.WithValue(dashes), DashStyle.Offset.WithValue(offset))
+            WidgetBuilder<'msg, IFabMvuDashStyle>(DashStyle.WidgetKey, DashStyle.Dashes.WithValue(dashes), DashStyle.Offset.WithValue(offset))

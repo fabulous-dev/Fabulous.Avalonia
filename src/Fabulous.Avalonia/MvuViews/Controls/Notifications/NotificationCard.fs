@@ -23,7 +23,7 @@ module MvuNotificationCardBuilders =
         /// <param name="isClosed">Whether the NotificationCard is closed.</param>
         /// <param name="content">The content of the NotificationCard.</param>
         static member NotificationCard(isClosed: bool, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuNotificationCard>(
+            WidgetBuilder<'msg, IFabMvuNotificationCard>(
                 NotificationCard.WidgetKey,
                 AttributesBundle(
                     StackList.one(NotificationCard.IsClosed.WithValue(isClosed)),
@@ -36,7 +36,7 @@ module MvuNotificationCardBuilders =
         /// <param name="isClosed">Whether the NotificationCard is closed.</param>
         /// <param name="content">The content of the NotificationCard.</param>
         static member NotificationCard(isClosed: bool, content: string) =
-            WidgetBuilder<unit, IFabMvuNotificationCard>(
+            WidgetBuilder<'msg, IFabMvuNotificationCard>(
                 NotificationCard.WidgetKey,
                 NotificationCard.IsClosed.WithValue(isClosed),
                 ContentControl.ContentString.WithValue(content)
@@ -47,5 +47,5 @@ type MvuNotificationCardModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the NotificationCard is closed.</param>
     [<Extension>]
-    static member inline onNotificationClosed(this: WidgetBuilder<unit, #IFabNotificationCard>, fn: RoutedEventArgs -> unit) =
+    static member inline onNotificationClosed(this: WidgetBuilder<'msg, #IFabNotificationCard>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuNotificationCard.NotificationClosed.WithValue(fn))

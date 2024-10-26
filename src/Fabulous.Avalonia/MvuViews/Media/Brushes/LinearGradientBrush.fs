@@ -38,7 +38,7 @@ module MvuLinearGradientBrushBuilders =
         /// <summary>Creates a LinearGradientBrush widget.</summary>
         /// <param name="startPoint">The start point of the gradient.</param>
         /// <param name="endPoint">The end point of the gradient.</param>
-        /// <param name="unit">The relative unit of the start and end points.</param>
+        /// <param name="unit">The relative 'msg of the start and end points.</param>
         static member LinearGradientBrush(startPoint: Point, endPoint: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabMvuLinearGradientBrush, IFabMvuGradientStop>(
                 LinearGradientBrush.WidgetKey,
@@ -58,8 +58,8 @@ module MvuLinearGradientBrushBuilders =
         /// <summary>Creates a LinearGradientBrush widget.</summary>
         /// <param name="startPoint">The start point of the gradient.</param>
         /// <param name="endPoint">The end point of the gradient.</param>
-        /// <param name="startUnit">The relative unit of the start point.</param>
-        /// <param name="endUnit">The relative unit of the end point.</param>
+        /// <param name="startUnit">The relative 'msg of the start point.</param>
+        /// <param name="endUnit">The relative 'msg of the end point.</param>
         static member LinearGradientBrush(startPoint: Point, endPoint: Point, startUnit: RelativeUnit, endUnit: RelativeUnit) =
             CollectionBuilder<'msg, IFabMvuLinearGradientBrush, IFabMvuGradientStop>(
                 LinearGradientBrush.WidgetKey,

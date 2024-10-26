@@ -19,14 +19,14 @@ module MvuCheckBoxBuilders =
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
-        static member CheckBox(isChecked: bool, fn: bool -> unit) =
+        static member CheckBox(isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabMvuCheckBox>(CheckBox.WidgetKey, MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
-        static member CheckBox(text: string, isChecked: bool, fn: bool -> unit) =
+        static member CheckBox(text: string, isChecked: bool, fn: bool -> 'msg) =
             WidgetBuilder<'msg, IFabMvuCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -37,8 +37,8 @@ module MvuCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         /// <param name="content">The CheckBox content.</param>
-        static member CheckBox(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabCheckBox>(
+        static member CheckBox(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
                     StackList.one(MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),
@@ -50,8 +50,8 @@ module MvuCheckBoxBuilders =
         /// <summary>Creates a ThreeStateCheckBox widget.</summary>
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
-        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabMvuCheckBox>(
+        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 MvuToggleButton.ThreeStateCheckedChanged.WithValue(
@@ -63,8 +63,8 @@ module MvuCheckBoxBuilders =
         /// <param name="text">The ThreeStateCheckBox text.</param>
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
-        static member inline ThreeStateCheckBox(text: string, isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabMvuCheckBox>(
+        static member inline ThreeStateCheckBox(text: string, isChecked: bool option, fn: bool option -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
@@ -77,8 +77,8 @@ module MvuCheckBoxBuilders =
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
         /// <param name="content">The ThreeStateCheckBox content.</param>
-        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuCheckBox>(
+        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
                     StackList.two(

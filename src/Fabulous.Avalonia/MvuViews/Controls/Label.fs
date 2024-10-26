@@ -23,8 +23,8 @@ module MvuLabelBuilders =
 
         /// <summary>Creates a Label widget.</summary>
         /// <param name="content">The content to display.</param>
-        static member inline Label(content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuLabel>(
+        static member inline Label(content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuLabel>(
                 Label.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

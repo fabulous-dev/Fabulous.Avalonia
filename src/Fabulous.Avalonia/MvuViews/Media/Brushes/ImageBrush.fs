@@ -19,19 +19,19 @@ module MvuImageBrushBuilders =
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Bitmap) =
-            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Bitmap(source)))
+            WidgetBuilder<'msg, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Bitmap(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: string) =
-            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.File(source)))
+            WidgetBuilder<'msg, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.File(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Uri) =
-            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Uri(source)))
+            WidgetBuilder<'msg, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Uri(source)))
 
         /// <summary>Creates a ImageBrush widget.</summary>
         /// <param name="source">The image source.</param>
         static member ImageBrush(source: Stream) =
-            WidgetBuilder<unit, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))
+            WidgetBuilder<'msg, IFabMvuImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))

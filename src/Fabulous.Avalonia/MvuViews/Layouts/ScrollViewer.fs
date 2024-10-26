@@ -22,8 +22,8 @@ module MvuScrollViewerBuilders =
 
         /// <summary>Creates a ScrollViewer widget</summary>
         /// <param name="content">The content to display</param>
-        static member ScrollViewer(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabScrollViewer>(
+        static member ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabScrollViewer>(
                 ScrollViewer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -33,5 +33,5 @@ type MvuScrollViewerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ScrollChanged event fires.</param>
     [<Extension>]
-    static member inline onScrollChanged(this: WidgetBuilder<unit, #IFabMvuScrollViewer>, fn: ScrollChangedEventArgs -> unit) =
+    static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabMvuScrollViewer>, fn: ScrollChangedEventArgs -> 'msg) =
         this.AddScalar(MvuScrollViewer.ScrollChanged.WithValue(fn))

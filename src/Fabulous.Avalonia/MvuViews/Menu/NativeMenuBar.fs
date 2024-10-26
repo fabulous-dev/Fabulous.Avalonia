@@ -16,4 +16,4 @@ module MvuNativeMenuBarBuilders =
 
         /// <summary>Creates a NativeMenuBar widget.</summary>
         static member NativeMenuBar() =
-            WidgetBuilder<unit, IFabMvuNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

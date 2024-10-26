@@ -16,7 +16,7 @@ module MvuMenuBuilders =
 
         /// <summary>Creates a Menu widget.</summary>
         static member Menu() =
-            CollectionBuilder<unit, IFabMvuMenu, IFabMvuMenuItem>(Menu.WidgetKey, MvuItemsControl.Items)
+            CollectionBuilder<'msg, IFabMvuMenu, IFabMvuMenuItem>(Menu.WidgetKey, MvuItemsControl.Items)
 
 type MenuCollectionBuilderExtensions =
     [<Extension>]

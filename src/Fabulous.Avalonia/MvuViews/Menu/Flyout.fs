@@ -17,7 +17,7 @@ module MvuFlyoutBuilders =
         /// <summary>Creates a Flyout widget.</summary>
         /// <param name="content">The content of the Flyout.</param>
         static member Flyout(content: WidgetBuilder<'msg, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuFlyout>(
+            WidgetBuilder<'msg, IFabMvuFlyout>(
                 Flyout.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
             )

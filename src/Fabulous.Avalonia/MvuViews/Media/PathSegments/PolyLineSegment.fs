@@ -18,4 +18,4 @@ module MvuPolyLineSegmentBuilders =
         /// <summary>Creates a PolyLineSegment widget.</summary>
         /// <param name="points">The points of the polyline.</param>
         static member PolyLineSegment(points: Point list) =
-            WidgetBuilder<unit, IFabMvuPolyLineSegment>(PolyLineSegment.WidgetKey, PolyLineSegment.Points.WithValue(points |> Array.ofList))
+            WidgetBuilder<'msg, IFabMvuPolyLineSegment>(PolyLineSegment.WidgetKey, PolyLineSegment.Points.WithValue(points |> Array.ofList))

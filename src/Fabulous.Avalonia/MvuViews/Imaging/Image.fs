@@ -21,7 +21,7 @@ module MvuImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Bitmap) =
-            WidgetBuilder<unit, IFabMvuImage>(
+            WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 Image.Source.WithValue(ImageSourceValue.Bitmap(source)),
                 Image.Stretch.WithValue(Stretch.Uniform)
@@ -31,34 +31,34 @@ module MvuImageBuilders =
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
         static member Image(source: Bitmap, stretch: Stretch) =
-            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Bitmap(source)), Image.Stretch.WithValue(stretch))
+            WidgetBuilder<'msg, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Bitmap(source)), Image.Stretch.WithValue(stretch))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: string) =
-            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.File(source)), Image.Stretch.WithValue(Stretch.Uniform))
+            WidgetBuilder<'msg, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.File(source)), Image.Stretch.WithValue(Stretch.Uniform))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
         static member Image(source: string, stretch: Stretch) =
-            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.File(source)), Image.Stretch.WithValue(stretch))
+            WidgetBuilder<'msg, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.File(source)), Image.Stretch.WithValue(stretch))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Uri) =
-            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Uri(source)), Image.Stretch.WithValue(Stretch.Uniform))
+            WidgetBuilder<'msg, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Uri(source)), Image.Stretch.WithValue(Stretch.Uniform))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
         static member Image(source: Uri, stretch: Stretch) =
-            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Uri(source)), Image.Stretch.WithValue(stretch))
+            WidgetBuilder<'msg, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Uri(source)), Image.Stretch.WithValue(stretch))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Stream) =
-            WidgetBuilder<unit, IFabMvuImage>(
+            WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 Image.Source.WithValue(ImageSourceValue.Stream(source)),
                 Image.Stretch.WithValue(Stretch.Uniform)
@@ -68,12 +68,12 @@ module MvuImageBuilders =
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
         static member Image(source: Stream, stretch: Stretch) =
-            WidgetBuilder<unit, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Stream(source)), Image.Stretch.WithValue(stretch))
+            WidgetBuilder<'msg, IFabMvuImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Stream(source)), Image.Stretch.WithValue(stretch))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
-        static member Image(source: WidgetBuilder<unit, IFabDrawingImage>) =
-            WidgetBuilder<unit, IFabMvuImage>(
+        static member Image(source: WidgetBuilder<'msg, IFabDrawingImage>) =
+            WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
@@ -85,16 +85,16 @@ module MvuImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
-        static member Image(stretch: Stretch, source: WidgetBuilder<unit, IFabDrawingImage>) =
-            WidgetBuilder<unit, IFabMvuImage>(
+        static member Image(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
+            WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
-        static member Image(source: WidgetBuilder<unit, IFabMvuCroppedBitmap>) =
-            WidgetBuilder<unit, IFabMvuImage>(
+        static member Image(source: WidgetBuilder<'msg, IFabMvuCroppedBitmap>) =
+            WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
@@ -106,8 +106,8 @@ module MvuImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
-        static member Image(stretch: Stretch, source: WidgetBuilder<unit, IFabMvuCroppedBitmap>) =
-            WidgetBuilder<unit, IFabMvuImage>(
+        static member Image(stretch: Stretch, source: WidgetBuilder<'msg, IFabMvuCroppedBitmap>) =
+            WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )

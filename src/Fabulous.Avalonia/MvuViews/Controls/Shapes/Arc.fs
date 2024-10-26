@@ -17,4 +17,4 @@ module MvuArcBuilders =
         /// <param name="startAngle">The starting angle/</param>
         /// <param name="sweepAngle">The sweep angle.</param>
         static member Arc(startAngle: float, sweepAngle: float) =
-            WidgetBuilder<unit, IFabMvuArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))
+            WidgetBuilder<'msg, IFabMvuArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))

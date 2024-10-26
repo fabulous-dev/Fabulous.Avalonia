@@ -18,7 +18,7 @@ module MvuScaleTransformBuilders =
         /// <param name="scaleX">The X scale factor.</param>
         /// <param name="scaleY">The Y scale factor.</param>
         static member ScaleTransform(scaleX: float, scaleY: float) =
-            WidgetBuilder<unit, IFabMvuScaleTransform>(
+            WidgetBuilder<'msg, IFabMvuScaleTransform>(
                 ScaleTransform.WidgetKey,
                 ScaleTransform.ScaleX.WithValue(scaleX),
                 ScaleTransform.ScaleY.WithValue(scaleY)
@@ -27,8 +27,8 @@ module MvuScaleTransformBuilders =
         /// <summary>Creates a ScaleTransform widget.</summary>
         /// <param name="scaleX">The X scale factor.</param>
         static member ScaleTransform(scaleX: float) =
-            WidgetBuilder<unit, IFabMvuScaleTransform>(ScaleTransform.WidgetKey, ScaleTransform.ScaleX.WithValue(scaleX))
+            WidgetBuilder<'msg, IFabMvuScaleTransform>(ScaleTransform.WidgetKey, ScaleTransform.ScaleX.WithValue(scaleX))
 
         /// <summary>Creates a ScaleTransform widget.</summary>
         static member ScaleTransform() =
-            WidgetBuilder<unit, IFabMvuScaleTransform>(ScaleTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuScaleTransform>(ScaleTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

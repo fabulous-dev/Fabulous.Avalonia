@@ -15,7 +15,7 @@ module MvuBoldBuilders =
 
         /// <summary>Creates a Bold widget.</summary>
         static member private Bold() =
-            CollectionBuilder<unit, IFabMvuBold, IFabMvuInline>(Bold.WidgetKey, MvuSpan.Inlines)
+            CollectionBuilder<'msg, IFabMvuBold, IFabMvuInline>(Bold.WidgetKey, MvuSpan.Inlines)
 
         /// <summary>Creates a Bold widget.</summary>
         /// <param name="text">The text to display.</param>

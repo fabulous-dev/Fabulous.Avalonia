@@ -20,8 +20,8 @@ module MvuNumericUpDownBuilders =
         /// <summary>Creates a NumericUpDown widget.</summary>
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
-        static member NumericUpDown(value: float option, fn: float option -> unit) =
-            WidgetBuilder<unit, IFabMvuNumericUpDown>(
+        static member NumericUpDown(value: float option, fn: float option -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 MvuNumericUpDown.ValueChanged.WithValue(
                     let value =
@@ -38,8 +38,8 @@ module MvuNumericUpDownBuilders =
         /// <param name="max">The maximum value of the NumericUpDown.</param>
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
-        static member NumericUpDown(min: float, max: float, value: float option, fn: float option -> unit) =
-            WidgetBuilder<unit, IFabNumericUpDown>(
+        static member NumericUpDown(min: float, max: float, value: float option, fn: float option -> 'msg) =
+            WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.MinimumMaximum.WithValue(struct (decimal min, decimal max)),
                 MvuNumericUpDown.ValueChanged.WithValue(

@@ -19,7 +19,7 @@ module MvuListBoxItemBuilders =
         /// <param name="content">The content of the ListBoxItem.</param>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
         static member ListBoxItem(content: string, isSelected: bool) =
-            WidgetBuilder<unit, IFabMvuListBoxItem>(
+            WidgetBuilder<'msg, IFabMvuListBoxItem>(
                 ListBoxItem.WidgetKey,
                 ContentControl.ContentString.WithValue(content),
                 ListBoxItem.IsSelected.WithValue(isSelected)
@@ -28,7 +28,7 @@ module MvuListBoxItemBuilders =
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
         static member ListBoxItem(content: string) =
-            WidgetBuilder<unit, IFabMvuListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
+            WidgetBuilder<'msg, IFabMvuListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>

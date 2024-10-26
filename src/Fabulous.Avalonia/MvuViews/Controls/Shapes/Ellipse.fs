@@ -16,4 +16,4 @@ module MvuEllipseBuilders =
 
         /// <summary>Creates a Ellipse widget.</summary>
         static member Ellipse() =
-            WidgetBuilder<unit, IFabMvuEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

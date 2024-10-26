@@ -17,8 +17,8 @@ module MvuViewBoxBuilders =
 
         /// <summary>Creates a ViewBox widget.</summary>
         /// <param name="content">The content of the ViewBox.</param>
-        static member ViewBox(content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuViewBox>(
+        static member ViewBox(content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuViewBox>(
                 ViewBox.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone)
             )

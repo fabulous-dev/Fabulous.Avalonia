@@ -30,7 +30,7 @@ module MvuExpanderBuilders =
         /// <param name="header">The header of the expander.</param>
         /// <param name="content">The content of the expander.</param>
         static member Expander(header: string, content: string) =
-            WidgetBuilder<unit, IFabMvuExpander>(
+            WidgetBuilder<'msg, IFabMvuExpander>(
                 Expander.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
                 ContentControl.ContentString.WithValue(content)
@@ -39,8 +39,8 @@ module MvuExpanderBuilders =
         /// <summary>Creates a Expander widget.</summary>
         /// <param name="header">The header of the expander.</param>
         /// <param name="content">The content of the expander.</param>
-        static member Expander(header: WidgetBuilder<unit, #IFabMvuControl>, content: string) =
-            WidgetBuilder<unit, IFabMvuExpander>(
+        static member Expander(header: WidgetBuilder<'msg, #IFabMvuControl>, content: string) =
+            WidgetBuilder<'msg, IFabMvuExpander>(
                 Expander.WidgetKey,
                 AttributesBundle(
                     StackList.one(ContentControl.ContentString.WithValue(content)),
@@ -52,8 +52,8 @@ module MvuExpanderBuilders =
         /// <summary>Creates a Expander widget.</summary>
         /// <param name="header">The header of the expander.</param>
         /// <param name="content">The content of the expander.</param>
-        static member Expander(header: string, content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuExpander>(
+        static member Expander(header: string, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuExpander>(
                 Expander.WidgetKey,
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
@@ -65,8 +65,8 @@ module MvuExpanderBuilders =
         /// <summary>Creates a Expander widget.</summary>
         /// <param name="header">The header of the expander.</param>
         /// <param name="content">The content of the expander.</param>
-        static member Expander(header: WidgetBuilder<unit, #IFabMvuControl>, content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuExpander>(
+        static member Expander(header: WidgetBuilder<'msg, #IFabMvuControl>, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuExpander>(
                 Expander.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
@@ -83,19 +83,19 @@ type ExpanderModifiers =
     /// <param name="isExpanded">The IsExpanded value.</param>
     /// <param name="fn">Raised when the ExpandedChanged event fires.</param>
     [<Extension>]
-    static member inline onExpandedChanged(this: WidgetBuilder<unit, #IFabMvuExpander>, isExpanded: bool, fn: bool -> unit) =
+    static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabMvuExpander>, isExpanded: bool, fn: bool -> 'msg) =
         this.AddScalar(MvuExpander.ExpandedChanged.WithValue(MvuValueEventData.create isExpanded fn))
 
     /// <summary>Listens to the Expander Collapsing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Collapsing event fires.</param>
     [<Extension>]
-    static member inline onCollapsing(this: WidgetBuilder<unit, #IFabMvuExpander>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onCollapsing(this: WidgetBuilder<'msg, #IFabMvuExpander>, fn: CancelRoutedEventArgs -> 'msg) =
         this.AddScalar(MvuExpander.Collapsing.WithValue(fn))
 
     /// <summary>Listens to the Expander Expanding event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Expanding event fires.</param>
     [<Extension>]
-    static member inline onExpanding(this: WidgetBuilder<unit, #IFabExpander>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onExpanding(this: WidgetBuilder<'msg, #IFabExpander>, fn: CancelRoutedEventArgs -> 'msg) =
         this.AddScalar(MvuExpander.Expanding.WithValue(fn))

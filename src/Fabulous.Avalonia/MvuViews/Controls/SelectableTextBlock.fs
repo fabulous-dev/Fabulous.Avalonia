@@ -24,7 +24,7 @@ module SelectableTextBlockBuilders =
         /// <summary>Creates a SelectableTextBlock widget.</summary>
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
-        static member inline SelectableTextBlock(text: string, fn: RoutedEventArgs -> unit) =
+        static member inline SelectableTextBlock(text: string, fn: RoutedEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabSelectableTextBlock>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Text.WithValue(text),
@@ -33,8 +33,8 @@ module SelectableTextBlockBuilders =
 
         /// <summary>Creates a SelectableTextBlock widget.</summary>
         /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
-        static member inline SelectableTextBlock(fn: RoutedEventArgs -> unit) =
-            CollectionBuilder<unit, IFabSelectableTextBlock, IFabInline>(
+        static member inline SelectableTextBlock(fn: RoutedEventArgs -> 'msg) =
+            CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
                 SelectableTextBlock.WidgetKey,
                 MvuTextBlock.Inlines,
                 MvuSelectableTextBlock.CopyingToClipboard.WithValue(fn)

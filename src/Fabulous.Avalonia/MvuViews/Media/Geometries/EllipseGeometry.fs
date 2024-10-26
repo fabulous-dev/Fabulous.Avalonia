@@ -15,7 +15,7 @@ module EllipseGeometryBuilders =
         /// <param name="radiusX">The X radius of the ellipse.</param>
         /// <param name="radiusY">The Y radius of the ellipse.</param>
         static member EllipseGeometry(radiusX: float, radiusY: float) =
-            WidgetBuilder<unit, IFabMvuEllipseGeometry>(
+            WidgetBuilder<'msg, IFabMvuEllipseGeometry>(
                 EllipseGeometry.WidgetKey,
                 EllipseGeometry.RadiusX.WithValue(radiusX),
                 EllipseGeometry.RadiusY.WithValue(radiusY)

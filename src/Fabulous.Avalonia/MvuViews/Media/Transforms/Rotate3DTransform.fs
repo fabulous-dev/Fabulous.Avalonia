@@ -23,7 +23,7 @@ module Rotate3DTransformBuilders =
         /// <param name="centerZ">The z-coordinate of the rotation center point.</param>
         /// <param name="depth">The distance between the plane of the screen and the rotated object.</param>
         static member Rotate3DTransform(angleX: float, angleY: float, angleZ: float, centerX: float, centerY: float, centerZ: float, depth: float) =
-            WidgetBuilder<unit, IFabMvuRotate3DTransform>(
+            WidgetBuilder<'msg, IFabMvuRotate3DTransform>(
                 Rotate3DTransform.WidgetKey,
                 Rotate3DTransform.Angle.WithValue(struct (angleX, angleY, angleZ)),
                 Rotate3DTransform.Center.WithValue(struct (centerX, centerY, centerZ)),

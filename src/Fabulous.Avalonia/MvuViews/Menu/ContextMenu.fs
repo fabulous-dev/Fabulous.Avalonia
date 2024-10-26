@@ -27,7 +27,7 @@ module MvuContextMenuBuilders =
         /// <summary>Creates a ContextMenu widget.</summary>
         /// <param name="placement">The placement mode of the ContextMenu.</param>
         static member ContextMenu(placement: PlacementMode) =
-            CollectionBuilder<unit, IFabMvuContextMenu, IFabMvuControl>(
+            CollectionBuilder<'msg, IFabMvuContextMenu, IFabMvuControl>(
                 ContextMenu.WidgetKey,
                 MvuItemsControl.Items,
                 ContextMenu.Placement.WithValue(placement)
@@ -35,7 +35,7 @@ module MvuContextMenuBuilders =
 
         /// <summary>Creates a ContextMenu widget.</summary>
         static member ContextMenu() =
-            CollectionBuilder<unit, IFabMvuContextMenu, IFabMvuControl>(
+            CollectionBuilder<'msg, IFabMvuContextMenu, IFabMvuControl>(
                 ContextMenu.WidgetKey,
                 MvuItemsControl.Items,
                 ContextMenu.Placement.WithValue(PlacementMode.Bottom)
@@ -46,14 +46,14 @@ type MvuContextMenuModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Opening event fires.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> unit) =
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
         this.AddScalar(MvuContextMenu.Opening.WithValue(fn))
 
     /// <summary>Listens to the ContextMenu Closing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Closing event fires.</param>
     [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> unit) =
+    static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
         this.AddScalar(MvuContextMenu.Closing.WithValue(fn))
 
 type MvuContextMenuAttachedModifiers =

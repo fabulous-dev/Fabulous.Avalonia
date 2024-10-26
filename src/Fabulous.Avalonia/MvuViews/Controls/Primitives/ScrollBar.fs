@@ -24,8 +24,8 @@ module MvuScrollBarBuilders =
         /// <param name="max">Maximum value.</param>
         /// <param name="value">Current value.</param>
         /// <param name="fn">Raised when the value changes.</param>
-        static member inline ScrollBar(min: float, max: float, value: float, fn: float -> unit) =
-            WidgetBuilder<unit, IFabMvuScrollBar>(
+        static member inline ScrollBar(min: float, max: float, value: float, fn: float -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuScrollBar>(
                 ScrollBar.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),
                 MvuRangeBase.ValueChanged.WithValue(MvuValueEventData.create value fn)
@@ -36,5 +36,5 @@ type MvuScrollBarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Scroll value changes.</param>
     [<Extension>]
-    static member inline onScroll(this: WidgetBuilder<unit, #IFabMvuScrollBar>, fn: ScrollEventArgs -> unit) =
+    static member inline onScroll(this: WidgetBuilder<'msg, #IFabMvuScrollBar>, fn: ScrollEventArgs -> 'msg) =
         this.AddScalar(MvuScrollBar.Scroll.WithValue(fn))

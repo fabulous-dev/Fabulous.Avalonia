@@ -42,8 +42,8 @@ module MvuToggleButtonBuilders =
         /// <param name="text">The text of the ToggleButton.</param>
         /// <param name="isChecked">Whether the ToggleButton is checked.</param>
         /// <param name="fn">Raised when the ToggleButton is clicked.</param>
-        static member ToggleButton(text: string, isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabMvuToggleButton>(
+        static member ToggleButton(text: string, isChecked: bool, fn: bool -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
@@ -53,8 +53,8 @@ module MvuToggleButtonBuilders =
         /// <param name="text">The text of the ThreeStateToggleButton.</param>
         /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
-        static member ThreeStateToggleButton(text: string, isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabMvuToggleButton>(
+        static member ThreeStateToggleButton(text: string, isChecked: bool option, fn: bool option -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ToggleButton.IsThreeState.WithValue(true),
@@ -67,8 +67,8 @@ module MvuToggleButtonBuilders =
         /// <param name="isChecked">Whether the ToggleButton is checked.</param>
         /// <param name="fn">Raised when the ToggleButton is clicked.</param>
         /// <param name="content">The content of the ToggleButton.</param>
-        static member ToggleButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabMvuControl>) =
-            WidgetBuilder<unit, IFabMvuToggleButton>(
+        static member ToggleButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),
@@ -82,7 +82,7 @@ module MvuToggleButtonBuilders =
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateToggleButton.</param>
         static member ThreeStateToggleButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuToggleButton>(
+            WidgetBuilder<'msg, IFabMvuToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
                     StackList.two(

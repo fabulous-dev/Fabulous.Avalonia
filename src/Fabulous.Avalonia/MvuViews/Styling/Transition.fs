@@ -23,7 +23,7 @@ module MvuDoubleTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member DoubleTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabDoubleTransition>(
+            WidgetBuilder<'msg, IFabDoubleTransition>(
                 DoubleTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -41,7 +41,7 @@ module MvuBoxShadowsTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member BoxShadowsTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuBoxShadowsTransition>(
+            WidgetBuilder<'msg, IFabMvuBoxShadowsTransition>(
                 BoxShadowsTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -60,7 +60,7 @@ module MvuBrushTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member BrushTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuBrushTransition>(
+            WidgetBuilder<'msg, IFabMvuBrushTransition>(
                 BrushTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -78,7 +78,7 @@ module MvuColorTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member ColorTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuColorTransition>(
+            WidgetBuilder<'msg, IFabMvuColorTransition>(
                 ColorTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -96,7 +96,7 @@ module CornerRadiusTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member CornerRadiusTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuCornerRadiusTransition>(
+            WidgetBuilder<'msg, IFabMvuCornerRadiusTransition>(
                 CornerRadiusTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -114,7 +114,7 @@ module MvuFloatTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member FloatTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuFloatTransition>(
+            WidgetBuilder<'msg, IFabMvuFloatTransition>(
                 FloatTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -132,7 +132,7 @@ module MvuIntegerTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member IntegerTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuIntegerTransition>(
+            WidgetBuilder<'msg, IFabMvuIntegerTransition>(
                 IntegerTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -150,7 +150,7 @@ module MvuPointTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member PointTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuPointTransition>(
+            WidgetBuilder<'msg, IFabMvuPointTransition>(
                 PointTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -168,7 +168,7 @@ module MvuSizeTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member SizeTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuSizeTransition>(
+            WidgetBuilder<'msg, IFabMvuSizeTransition>(
                 SizeTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -186,7 +186,7 @@ module MvuThicknessTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member ThicknessTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuThicknessTransition>(
+            WidgetBuilder<'msg, IFabMvuThicknessTransition>(
                 ThicknessTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -204,7 +204,7 @@ module MvuTransformOperationsTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member TransformOperationsTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuTransformOperationsTransition>(
+            WidgetBuilder<'msg, IFabMvuTransformOperationsTransition>(
                 TransformOperationsTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -222,7 +222,7 @@ module MvuVectorTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member VectorTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuVectorTransition>(
+            WidgetBuilder<'msg, IFabMvuVectorTransition>(
                 VectorTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -240,7 +240,7 @@ module MvuEffectTransitionBuilders =
         /// <param name="property">The property to animate.</param>
         /// <param name="duration">The duration of the animation.</param>
         static member EffectTransition(property: AvaloniaProperty, duration: TimeSpan) =
-            WidgetBuilder<unit, IFabMvuEffectTransition>(
+            WidgetBuilder<'msg, IFabMvuEffectTransition>(
                 EffectTransition.WidgetKey,
                 TransitionBase.Property.WithValue(property),
                 TransitionBase.Duration.WithValue(duration)
@@ -263,12 +263,12 @@ type MvuTransitionCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<unit, #IFabMvuAnimatable>) =
-        AttributeCollectionBuilder<unit, #IFabMvuAnimatable, IFabMvuTransition>(this, MvuAnimatable.Transitions)
+    static member inline transition(this: WidgetBuilder<'msg, #IFabMvuAnimatable>) =
+        AttributeCollectionBuilder<'msg, #IFabMvuAnimatable, IFabMvuTransition>(this, MvuAnimatable.Transitions)
 
     /// <summary>Sets the Transition property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Transition value.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<unit, #IFabAnimatable>, value: WidgetBuilder<unit, #IFabMvuTransition>) =
-        AttributeCollectionBuilder<unit, #IFabMvuAnimatable, IFabMvuTransition>(this, MvuAnimatable.Transitions) { value }
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabMvuTransition>) =
+        AttributeCollectionBuilder<'msg, #IFabMvuAnimatable, IFabMvuTransition>(this, MvuAnimatable.Transitions) { value }

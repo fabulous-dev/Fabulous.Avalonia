@@ -19,7 +19,7 @@ module MvuTreeViewItemBuilders =
         /// <param name="content">The content of the TreeViewItem.</param>
         /// <param name="isSelected">Whether the TreeViewItem is selected.</param>
         static member TreeViewItem(content: string, isSelected: bool) =
-            WidgetBuilder<unit, IFabMvuTreeViewItem>(
+            WidgetBuilder<'msg, IFabMvuTreeViewItem>(
                 TreeViewItem.WidgetKey,
                 HeaderedItemsControl.HeaderString.WithValue(content),
                 TreeViewItem.IsSelected.WithValue(isSelected)
@@ -28,13 +28,13 @@ module MvuTreeViewItemBuilders =
         /// <summary>Creates a TreeViewItem widget.</summary>
         /// <param name="content">The content of the TreeViewItem.</param>
         static member TreeViewItem(content: string) =
-            WidgetBuilder<unit, IFabMvuTreeViewItem>(TreeViewItem.WidgetKey, HeaderedItemsControl.HeaderString.WithValue(content))
+            WidgetBuilder<'msg, IFabMvuTreeViewItem>(TreeViewItem.WidgetKey, HeaderedItemsControl.HeaderString.WithValue(content))
 
         /// <summary>Creates a TreeViewItem widget.</summary>
         /// <param name="isSelected">Whether the TreeViewItem is selected.</param>
         /// <param name="content">The content of the TreeViewItem.</param>
-        static member TreeViewItem(isSelected: bool, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuTreeViewItem>(
+        static member TreeViewItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuTreeViewItem>(
                 TreeViewItem.WidgetKey,
                 AttributesBundle(
                     StackList.one(TreeViewItem.IsSelected.WithValue(isSelected)),
@@ -45,8 +45,8 @@ module MvuTreeViewItemBuilders =
 
         /// <summary>Creates a TreeViewItem widget.</summary>
         /// <param name="content">The content of the TreeViewItem.</param>
-        static member TreeViewItem(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuTreeViewItem>(
+        static member TreeViewItem(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuTreeViewItem>(
                 TreeViewItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()) |], ValueNone)
             )

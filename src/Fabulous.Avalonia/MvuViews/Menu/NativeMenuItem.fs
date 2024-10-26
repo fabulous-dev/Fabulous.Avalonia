@@ -25,13 +25,13 @@ module MvuNativeMenuItemBuilders =
         /// <summary>Creates a NativeMenuItem widget.</summary>
         /// <param name="header">The header of the Flyout.</param>
         static member NativeMenuItem(header: string) =
-            WidgetBuilder<unit, IFabMvuNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
+            WidgetBuilder<'msg, IFabMvuNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
 
         /// <summary>Creates a NativeMenuItem widget.</summary>
         /// <param name="header">The header of the Flyout.</param>
         /// <param name="onClicked">Raised when the menu item is clicked.</param>
         static member NativeMenuItem(header: string, onClicked: 'msg) =
-            WidgetBuilder<unit, IFabMvuNativeMenuItem>(
+            WidgetBuilder<'msg, IFabMvuNativeMenuItem>(
                 NativeMenuItem.WidgetKey,
                 NativeMenuItem.Header.WithValue(header),
                 MvuNativeMenuItem.Click.WithValue(MsgValue onClicked)

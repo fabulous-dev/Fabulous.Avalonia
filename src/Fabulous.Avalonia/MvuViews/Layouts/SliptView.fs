@@ -38,7 +38,7 @@ module MvuSplitViewBuilders =
         /// <param name="pane">The content of the pane.</param>
         /// <param name="content">The content to display.</param>
         static member SplitView(pane: WidgetBuilder<'msg, #IFabMvuControl>, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuSplitView>(
+            WidgetBuilder<'msg, IFabMvuSplitView>(
                 SplitView.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
@@ -54,28 +54,28 @@ type MvuSplitViewModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosed event fires.</param>
     [<Extension>]
-    static member inline onPanClosed(this: WidgetBuilder<unit, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
+    static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuSplitView.PanClosed.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanClosing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosing event fires.</param>
     [<Extension>]
-    static member inline onPanClosing(this: WidgetBuilder<unit, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onPanClosing(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> 'msg) =
         this.AddScalar(MvuSplitView.PanClosing.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpened event fires.</param>
     [<Extension>]
-    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
+    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuSplitView.PanOpened.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpening event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpening event fires.</param>
     [<Extension>]
-    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> 'msg) =
         this.AddScalar(MvuSplitView.PanOpening.WithValue(fn))
 
     /// <summary>Listens to the SplitView IsPresented event.</summary>
@@ -83,7 +83,7 @@ type MvuSplitViewModifiers =
     /// <param name="value">The IsPresented value.</param>
     /// <param name="fn">Raised when the IsPresented event fires.</param>
     [<Extension>]
-    static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> unit) =
+    static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> 'msg) =
         this.AddScalar(MvuSplitView.IsPresented.WithValue(MvuValueEventData.create value fn))
 
 type MvuSplitViewExtraModifiers =

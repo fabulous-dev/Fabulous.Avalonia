@@ -19,8 +19,8 @@ module MvuBorderBuilders =
 
         /// <summary>Creates a Border widget.</summary>
         /// <param name="content">The content of the Border.</param>
-        static member Border(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuBorder>(
+        static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuBorder>(
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )

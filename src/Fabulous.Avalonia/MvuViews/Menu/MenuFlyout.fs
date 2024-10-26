@@ -28,7 +28,7 @@ module MvuMenuFlyoutBuilders =
 
         /// <summary>Creates a MenuFlyout widget.</summary>
         static member MenuFlyout() =
-            CollectionBuilder<unit, IFabMvuMenuFlyout, IFabMvuMenuItem>(MenuFlyout.WidgetKey, MvuMenuFlyout.Items)
+            CollectionBuilder<'msg, IFabMvuMenuFlyout, IFabMvuMenuItem>(MenuFlyout.WidgetKey, MvuMenuFlyout.Items)
 
 type MvuMenuFlyoutCollectionBuilderExtensions =
     [<Extension>]

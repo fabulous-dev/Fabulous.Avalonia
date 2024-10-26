@@ -22,7 +22,7 @@ type MvuLayoutableModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the element's effective viewport changes.</param>
     [<Extension>]
-    static member inline onEffectiveViewportChanged(this: WidgetBuilder<unit, #IFabMvuLayoutable>, fn: EffectiveViewportChangedEventArgs -> unit) =
+    static member inline onEffectiveViewportChanged(this: WidgetBuilder<'msg, #IFabMvuLayoutable>, fn: EffectiveViewportChangedEventArgs -> 'msg) =
         this.AddScalar(MvuLayoutable.EffectiveViewportChanged.WithValue(fn))
 
     /// <summary>Listens to the Layoutable LayoutUpdated event.</summary>

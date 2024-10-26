@@ -15,8 +15,8 @@ module MvuHeaderedContentControlBuilders =
         /// <summary>Creates a HeaderedContentControl widget.</summary>
         /// <param name="header">The header string.</param>
         /// <param name="content">The content widget.</param>
-        static member HeaderedContentControl(header: string, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuHeaderedContentControl>(
+        static member HeaderedContentControl(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuHeaderedContentControl>(
                 HeaderedContentControl.WidgetKey,
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
@@ -28,8 +28,8 @@ module MvuHeaderedContentControlBuilders =
         /// <summary>Creates a HeaderedContentControl widget.</summary>
         /// <param name="header">The header widget.</param>
         /// <param name="content">The content widget.</param>
-        static member HeaderedContentControl(header: WidgetBuilder<unit, #IFabControl>, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabMvuHeaderedContentControl>(
+        static member HeaderedContentControl(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMvuHeaderedContentControl>(
                 HeaderedContentControl.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
@@ -44,7 +44,7 @@ module MvuHeaderedContentControlBuilders =
         /// <param name="header">The header string.</param>
         /// <param name="content">The content string.</param>
         static member HeaderedContentControl(header: string, content: string) =
-            WidgetBuilder<unit, IFabMvuHeaderedContentControl>(
+            WidgetBuilder<'msg, IFabMvuHeaderedContentControl>(
                 HeaderedContentControl.WidgetKey,
                 HeaderedContentControl.HeaderString.WithValue(header),
                 ContentControl.ContentString.WithValue(content)

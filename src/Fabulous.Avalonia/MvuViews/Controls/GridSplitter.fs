@@ -16,9 +16,9 @@ module MvuGridSplitterBuilders =
 
         /// <summary>Creates a GridSplitter widget.</summary>
         static member GridSplitter() =
-            WidgetBuilder<unit, IFabMvuGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(GridResizeDirection.Auto))
+            WidgetBuilder<'msg, IFabMvuGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(GridResizeDirection.Auto))
 
         /// <summary>Creates a GridSplitter widget.</summary>
         /// <param name="resizeDirection">The direction in which the GridSplitter can be resized.</param>
         static member GridSplitter(resizeDirection: GridResizeDirection) =
-            WidgetBuilder<unit, IFabMvuGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
+            WidgetBuilder<'msg, IFabMvuGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
