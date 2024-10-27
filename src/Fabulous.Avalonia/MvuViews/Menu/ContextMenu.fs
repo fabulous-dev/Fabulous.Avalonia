@@ -46,14 +46,14 @@ type MvuContextMenuModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Opening event fires.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
+    static member inline onOpening(this: WidgetBuilder<'msg, #IFabMvuContextMenu>, fn: CancelEventArgs -> 'msg) =
         this.AddScalar(MvuContextMenu.Opening.WithValue(fn))
 
     /// <summary>Listens to the ContextMenu Closing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Closing event fires.</param>
     [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
+    static member inline onClosing(this: WidgetBuilder<'msg, #IFabMvuContextMenu>, fn: CancelEventArgs -> 'msg) =
         this.AddScalar(MvuContextMenu.Closing.WithValue(fn))
 
 type MvuContextMenuAttachedModifiers =
@@ -61,18 +61,18 @@ type MvuContextMenuAttachedModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ContextMenu value.</param>
     [<Extension>]
-    static member inline contextMenu(this: WidgetBuilder<'msg, #IFabMvuControl>, value: WidgetBuilder<'msg, IFabMvuContextMenu>) =
+    static member inline contextMenu(this: WidgetBuilder<'msg, #IFabMvuControl>, value: WidgetBuilder<'msg, #IFabMvuContextMenu>) =
         this.AddWidget(Control.ContextMenu.WithValue(value.Compile()))
 
 type MvuContextMenuCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabControl>
-        (_: CollectionBuilder<'msg, 'marker, IFabControl>, x: WidgetBuilder<'msg, 'itemType>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuControl>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuControl>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabControl>
-        (_: CollectionBuilder<'msg, 'marker, IFabControl>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuControl>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuControl>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

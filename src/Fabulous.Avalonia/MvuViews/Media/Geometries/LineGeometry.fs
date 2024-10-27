@@ -16,7 +16,7 @@ module MvuLineGeometryBuilders =
         /// <param name="startPoint">The start point of the line.</param>
         /// <param name="endPoint">The end point of the line.</param>
         static member LineGeometry(startPoint: Point, endPoint: Point) =
-            WidgetBuilder<'msg, IFabLineGeometry>(
+            WidgetBuilder<'msg, IFabMvuLineGeometry>(
                 LineGeometry.WidgetKey,
                 LineGeometry.StartPoint.WithValue(startPoint),
                 LineGeometry.EndPoint.WithValue(endPoint)

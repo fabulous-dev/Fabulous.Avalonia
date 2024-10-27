@@ -4,8 +4,9 @@ open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
-
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 module ToggleSwitchPage =
     type Model =
         { Value1: bool
@@ -52,7 +53,7 @@ module ToggleSwitchPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

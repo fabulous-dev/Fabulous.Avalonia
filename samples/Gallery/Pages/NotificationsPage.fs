@@ -12,8 +12,9 @@ open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
-open Microsoft.FSharp.Control
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 type NotificationViewModel(title, message) =
 
@@ -146,7 +147,7 @@ module NotificationsPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             (Grid() {

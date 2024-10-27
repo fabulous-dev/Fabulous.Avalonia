@@ -5,11 +5,12 @@ open Controls
 
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 open Fabulous.StackAllocatedCollections.StackList
 
-type IFabCompositionPage =
-    inherit IFabControl
+type IFabMvuCompositionPage =
+    inherit IFabMvuControl
 
 module CompositionPageControl =
     let WidgetKey = Widgets.register<CompositionPage>()
@@ -17,10 +18,10 @@ module CompositionPageControl =
 [<AutoOpen>]
 module CompositionPageControlBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
-        static member CompositionPageControl<'msg>() =
-            WidgetBuilder<'msg, IFabCompositionPage>(CompositionPageControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member CompositionPageControl() =
+            WidgetBuilder<'msg, IFabMvuCompositionPage>(CompositionPageControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module CompositionPage =
     let view () = View.CompositionPageControl()

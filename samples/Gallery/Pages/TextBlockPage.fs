@@ -4,7 +4,9 @@ open Avalonia
 open Avalonia.Media
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module TextBlockPage =
     let view () =

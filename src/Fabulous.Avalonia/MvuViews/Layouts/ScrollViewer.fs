@@ -23,7 +23,7 @@ module MvuScrollViewerBuilders =
         /// <summary>Creates a ScrollViewer widget</summary>
         /// <param name="content">The content to display</param>
         static member ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabScrollViewer>(
+            WidgetBuilder<'msg, IFabMvuScrollViewer>(
                 ScrollViewer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

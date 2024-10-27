@@ -7,7 +7,9 @@ open Avalonia.Layout
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module LabelPage =
     type Model =
@@ -40,17 +42,17 @@ module LabelPage =
               IsBanned = true },
             Cmd.none
 
-    let labelStyle (this: WidgetBuilder<'msg, IFabLabel>) =
+    let labelStyle (this: WidgetBuilder<'msg, IFabMvuLabel>) =
         this
             .verticalAlignment(VerticalAlignment.Center)
             .margin(6., 3., 0., 3.)
 
-    let textBoxStyle (this: WidgetBuilder<'msg, IFabTextBox>) =
+    let textBoxStyle (this: WidgetBuilder<'msg, IFabMvuTextBox>) =
         this
             .verticalAlignment(VerticalAlignment.Center)
             .margin(0., 3., 6., 3.)
 
-    let checkBoxStyle (this: WidgetBuilder<'msg, IFabCheckBox>) =
+    let checkBoxStyle (this: WidgetBuilder<'msg, IFabMvuCheckBox>) =
         this
             .verticalAlignment(VerticalAlignment.Center)
             .margin(0., 3., 6., 3.)
@@ -74,7 +76,7 @@ module LabelPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             ScrollViewer(

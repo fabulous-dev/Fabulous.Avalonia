@@ -61,25 +61,25 @@ type MvuComboBoxExtraModifier =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PlaceholderForeground value.</param>
     [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: Color) =
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabMvuComboBoxItem>, value: Color) =
         ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the PlaceholderForeground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PlaceholderForeground value.</param>
     [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabMvuComboBoxItem>, value: string) =
         ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
 
 type MvuComboBoxCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComboBoxItem>
-        (_: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>, x: WidgetBuilder<'msg, 'itemType>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuComboBoxItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuComboBoxItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComboBoxItem>
-        (_: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuComboBoxItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuComboBoxItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

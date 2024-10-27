@@ -31,3 +31,16 @@ module MvuTabControlBuilders =
                 MvuItemsControl.Items,
                 TabControl.TabStripPlacement.WithValue(Dock.Top)
             )
+
+type MvuTabControlCollectionBuilderExtensions =
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuTabItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuTabItem>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuTabItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuTabItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }

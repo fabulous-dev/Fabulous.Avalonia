@@ -36,7 +36,7 @@ module MvuCalendarDatePickerBuilders =
         /// <param name="date">The selected date.</param>
         /// <param name="fn">Raised when the selected date changes.</param>
         static member CalendarDatePicker(date: DateTime option, fn: DateTime option -> 'msg) =
-            WidgetBuilder<'msg, IFabCalendarDatePicker>(
+            WidgetBuilder<'msg, IFabMvuCalendarDatePicker>(
                 CalendarDatePicker.WidgetKey,
                 MvuCalendarDatePicker.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
             )
@@ -46,19 +46,19 @@ type MvuCalendarDatePickerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DatePicker detects a format error.</param>
     [<Extension>]
-    static member inline onDateValidationError(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: CalendarDatePickerDateValidationErrorEventArgs -> 'msg) =
+    static member inline onDateValidationError(this: WidgetBuilder<'msg, #IFabMvuCalendarDatePicker>, fn: CalendarDatePickerDateValidationErrorEventArgs -> 'msg) =
         this.AddScalar(MvuCalendarDatePicker.DateValidationError.WithValue(fn))
 
     /// <summary>Listens to the CalendarDatePicker CalendarClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DatePicker closes its calendar.</param>
     [<Extension>]
-    static member inline onCalendarClosed(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: 'msg) =
+    static member inline onCalendarClosed(this: WidgetBuilder<'msg, #IFabMvuCalendarDatePicker>, fn: 'msg) =
         this.AddScalar(MvuCalendarDatePicker.CalendarClosed.WithValue(MsgValue fn))
 
     /// <summary>Listens to the CalendarDatePicker CalendarOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DatePicker opens its calendar.</param>
     [<Extension>]
-    static member inline onCalendarOpened(this: WidgetBuilder<'msg, #IFabCalendarDatePicker>, fn: 'msg) =
+    static member inline onCalendarOpened(this: WidgetBuilder<'msg, #IFabMvuCalendarDatePicker>, fn: 'msg) =
         this.AddScalar(MvuCalendarDatePicker.CalendarOpened.WithValue(MsgValue fn))

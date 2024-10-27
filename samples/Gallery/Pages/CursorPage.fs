@@ -12,7 +12,9 @@ open Avalonia.Platform
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module CursorPage =
     type StandardCursorModel(type': StandardCursorType) =
@@ -63,7 +65,7 @@ module CursorPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Grid(coldefs = [ Star; Star ], rowdefs = [ Auto; Star ]) {

@@ -55,7 +55,7 @@ type MvuStyleModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Animation value.</param>
     [<Extension>]
-    static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabMvuAnimation>) =
+    static member inline animation(this: WidgetBuilder<'msg, #IFabMvuStyledElement>, value: WidgetBuilder<'msg, IFabMvuAnimation>) =
         AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabMvuStyle>(this, MvuStyledElement.StylesWidget) {
             CollectionBuilder<'msg, IFabMvuStyle, IFabMvuAnimation>(Style.WidgetKey, MvuStyle.Animations) { value }
         }
@@ -65,4 +65,4 @@ type MvuStyleModifiers =
     /// <param name="value">The Animation value.</param>
     [<Extension>]
     static member inline animation(this: WidgetBuilder<'msg, #IFabMvuStyledElement>, value: WidgetBuilder<'msg, IFabMvuStyle>) =
-        AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabStyle>(this, MvuStyledElement.StylesWidget) { value }
+        AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabMvuStyle>(this, MvuStyledElement.StylesWidget) { value }

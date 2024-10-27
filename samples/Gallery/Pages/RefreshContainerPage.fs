@@ -9,7 +9,9 @@ open Fabulous.Avalonia
 open Fabulous
 open Avalonia.Input
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module RefreshContainerPage =
     type Model = { Items: ObservableCollection<string> }
@@ -50,7 +52,7 @@ module RefreshContainerPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             (Dock() {

@@ -32,13 +32,13 @@ module MvuMenuFlyoutBuilders =
 
 type MvuMenuFlyoutCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
-        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuMenuItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
-        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuMenuItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

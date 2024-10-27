@@ -232,7 +232,6 @@
       <PackagePath>/</PackagePath>
       <Pack>true</Pack>
     </None>
-    <Compile Include="Style.fs" />
     <Compile Include="Component.fs" />
     <Compile Include="ComponentViews\_Element.fs" />
     <Compile Include="ComponentViews\_Animatable.fs" />
@@ -601,6 +600,7 @@
     <Compile Include="MvuViews\Any.fs" />
     <Compile Include="MvuViews\Component.fs" />
     <Compile Include="ThemeAware.fs" />
+    <Compile Include="Style.fs" />
     <Compile Include="Program.fs" />
     <Compile Include="AppBuilderExtensions.fs" />
   </ItemGroup>

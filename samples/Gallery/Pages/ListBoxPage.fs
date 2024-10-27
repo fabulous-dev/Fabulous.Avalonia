@@ -8,7 +8,9 @@ open Avalonia.Controls.Selection
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ListBoxPage =
     type ItemModel =
@@ -119,7 +121,7 @@ module ListBoxPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             (Dock() {

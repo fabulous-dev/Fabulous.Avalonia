@@ -113,12 +113,12 @@ type MvuApplicationModifiers =
     static member inline onSafeAreaChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.SafeAreaChangedArgs -> 'msg) =
         this.AddScalar(MvuApplication.SafeAreaChanged.WithValue(fn))
 
-    /// <summary>Links a ViewRef to access the direct Application control instance</summary>
-    /// <param name="this">Current widget</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+    // /// <summary>Links a ViewRef to access the direct Application control instance</summary>
+    // /// <param name="this">Current widget</param>
+    // /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
+    // [<Extension>]
+    // static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
+    //     this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type MvuApplicationYieldExtensions =
     [<Extension>]
@@ -142,5 +142,5 @@ type MvuTrayIconAttachedModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="trayIcon">The TrayIcon value</param>
     [<Extension>]
-    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
+    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, #IFabTrayIcon>) =
         AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>(this, MvuApplication.TrayIcons) { trayIcon }

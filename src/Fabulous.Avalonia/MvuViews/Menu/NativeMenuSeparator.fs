@@ -10,13 +10,10 @@ type IFabMvuNativeMenuItemSeparator =
     inherit IFabMvuNativeMenuItem
     inherit IFabNativeMenuItemSeparator
 
-module NativeMenuItemSeparator =
-    let WidgetKey = Widgets.register<NativeMenuItemSeparator>()
-
 [<AutoOpen>]
-module NativeMenuItemSeparatorBuilders =
+module MvuNativeMenuItemSeparatorBuilders =
     type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a NativeMenuItemSeparator widget.</summary>
         static member NativeMenuItemSeparator() =
-            WidgetBuilder<'msg, IFabNativeMenuItemSeparator>(NativeMenuItemSeparator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuNativeMenuItemSeparator>(NativeMenuItemSeparator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

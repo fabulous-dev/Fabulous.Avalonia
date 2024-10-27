@@ -12,7 +12,9 @@ open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 [<AllowNullLiteral>]
 type CanvasPoint(brush, point, radius, pressure) =
@@ -209,7 +211,7 @@ Twist: {_lastProperties.Twist}"
         base.OnPointerCaptureLost(e)
 
 type IFabPointerCanvas =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module PointerCanvas =
     let WidgetKey = Widgets.register<PointerCanvas>()
@@ -225,7 +227,7 @@ module PointerCanvas =
 
 [<AutoOpen>]
 module PointerCanvasTabBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         static member PointerCanvas(drawingPoint: bool, threadSleep: int, fn: string -> 'msg) =
             WidgetBuilder<'msg, IFabPointerCanvas>(

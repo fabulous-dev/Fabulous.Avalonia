@@ -10,8 +10,9 @@ open Avalonia.VisualTree
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
-
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 module FocusAttributes =
     /// Allows setting the Focus on a AutoCompleteBox
     let Focus =
@@ -102,7 +103,7 @@ module EditableNodeView =
         )
 
     let view node =
-        Component(program, node) {
+        Component("", program, node) {
             AutoCompleteBox([])
                 .onTextChanged(node.Name, NameChanged)
                 .focus(node.Name = "")
@@ -262,7 +263,7 @@ module EditableTreeView =
         let getParentNodeName (node: EditableNode) = node.Name.Substring(prefix.Length)
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             let rec filter (nodes: EditableNode list) =

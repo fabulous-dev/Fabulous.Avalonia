@@ -5,7 +5,9 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ViewBoxPage =
     type Model = { Width: float; Height: float }
@@ -35,7 +37,7 @@ module ViewBoxPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Grid(coldefs = [ Pixel(300.); Star ], rowdefs = [ Pixel(300.) ]) {

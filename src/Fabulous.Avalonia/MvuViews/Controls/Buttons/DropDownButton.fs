@@ -18,18 +18,18 @@ module MvuDropDownButtonBuilders =
 
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="text">The text to display.</param>
-        /// <param name="msg">Raised when the DropDownButton is clicked.</param>
-        static member DropDownButton(text: string, msg: RoutedEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabMvuDropDownButton>(DropDownButton.WidgetKey, ContentControl.ContentString.WithValue(text), MvuButton.Clicked.WithValue(msg))
+        /// <param name="fn">Raised when the DropDownButton is clicked.</param>
+        static member DropDownButton(text: string, fn: RoutedEventArgs -> 'msg) =
+            WidgetBuilder<'msg, IFabMvuDropDownButton>(DropDownButton.WidgetKey, ContentControl.ContentString.WithValue(text), MvuButton.Clicked.WithValue(fn))
 
         /// <summary>Creates a DropDownButton widget.</summary>
-        /// <param name="msg">Raised when the DropDownButton is clicked.</param>
+        /// <param name="fn">Raised when the DropDownButton is clicked.</param>
         /// <param name="content">The content of the DropDownButton.</param>
-        static member DropDownButton(msg: RoutedEventArgs -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+        static member DropDownButton(fn: RoutedEventArgs -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
             WidgetBuilder<'msg, IFabMvuDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MvuButton.Clicked.WithValue(msg)),
+                    StackList.one(MvuButton.Clicked.WithValue(fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

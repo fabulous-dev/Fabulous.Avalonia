@@ -72,7 +72,7 @@ module MvuImageBuilders =
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
-        static member Image(source: WidgetBuilder<'msg, IFabDrawingImage>) =
+        static member Image(source: WidgetBuilder<'msg, #IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 AttributesBundle(
@@ -85,7 +85,7 @@ module MvuImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
-        static member Image(stretch: Stretch, source: WidgetBuilder<'msg, IFabDrawingImage>) =
+        static member Image(stretch: Stretch, source: WidgetBuilder<'msg, #IFabDrawingImage>) =
             WidgetBuilder<'msg, IFabMvuImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)

@@ -8,7 +8,9 @@ open Avalonia.Layout
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module SliderPage =
     type Model =
@@ -49,7 +51,7 @@ module SliderPage =
         | ValueChanged6 value -> { model with SliderValue6 = value }, Cmd.none
         | ValueChanged7 value -> { model with SliderValue7 = value }, Cmd.none
 
-    let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
+    let sliderStyle (this: WidgetBuilder<'msg, IFabMvuSlider>) =
         this
             .tickFrequency(10.)
             .width(300.)
@@ -69,7 +71,7 @@ module SliderPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

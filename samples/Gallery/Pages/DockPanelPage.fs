@@ -4,7 +4,9 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Avalonia.Controls
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module DockPanelPage =
     let view () =

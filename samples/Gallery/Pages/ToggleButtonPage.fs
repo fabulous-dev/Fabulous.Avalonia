@@ -5,8 +5,9 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
-
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 module ToggleButtonPage =
     type Model =
         { Text1: string
@@ -85,7 +86,7 @@ module ToggleButtonPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

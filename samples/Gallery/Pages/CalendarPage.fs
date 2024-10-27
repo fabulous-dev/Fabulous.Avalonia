@@ -6,7 +6,9 @@ open Avalonia.Controls
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module CalendarPage =
     type Model =
@@ -44,7 +46,7 @@ module CalendarPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

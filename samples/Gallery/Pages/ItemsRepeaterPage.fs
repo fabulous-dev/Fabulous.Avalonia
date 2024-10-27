@@ -9,7 +9,9 @@ open Fabulous.Avalonia
 open Fabulous
 open System.Collections.ObjectModel
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ItemsRepeaterPage =
     type Crockery = { Title: string; Number: int }

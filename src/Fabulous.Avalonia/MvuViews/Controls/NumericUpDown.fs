@@ -39,7 +39,7 @@ module MvuNumericUpDownBuilders =
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
         static member NumericUpDown(min: float, max: float, value: float option, fn: float option -> 'msg) =
-            WidgetBuilder<'msg, IFabNumericUpDown>(
+            WidgetBuilder<'msg, IFabMvuNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.MinimumMaximum.WithValue(struct (decimal min, decimal max)),
                 MvuNumericUpDown.ValueChanged.WithValue(

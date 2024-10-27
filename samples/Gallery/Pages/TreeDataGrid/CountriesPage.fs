@@ -8,7 +8,9 @@ open Avalonia.Controls.Selection
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 type Country(name, region, population, area, density: float, coast: float, migration, infantMorality, gdp, literacy: float, phones, birth, death) =
     member val Name = name with get, set
@@ -381,7 +383,7 @@ module CountriesPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Dock() {

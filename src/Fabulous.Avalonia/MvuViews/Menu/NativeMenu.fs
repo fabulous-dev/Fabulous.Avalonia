@@ -85,13 +85,13 @@ type MvuWindowMenuAttachedModifiers =
     static member inline menu(this: WidgetBuilder<'msg, #IFabWindow>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
         this.AddWidget(NativeMenuAttached.NativeMenu.WithValue(value.Compile()))
 
-type NativeViewYieldExtensions =
+type MvuNativeViewYieldExtensions =
     [<Extension>]
-    static member inline Yield(_: CollectionBuilder<'msg, #IFabNativeMenu, IFabNativeMenuItem>, x: WidgetBuilder<'msg, #IFabNativeMenuItem>) : Content<'msg> =
+    static member inline Yield(_: CollectionBuilder<'msg, #IFabMvuNativeMenu, IFabMvuNativeMenuItem>, x: WidgetBuilder<'msg, #IFabMvuNativeMenuItem>) : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield
-        (_: CollectionBuilder<'msg, #IFabNativeMenu, IFabNativeMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabNativeMenuItem>>)
+        (_: CollectionBuilder<'msg, #IFabMvuNativeMenu, IFabMvuNativeMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabMvuNativeMenuItem>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

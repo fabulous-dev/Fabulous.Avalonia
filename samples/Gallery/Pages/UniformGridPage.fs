@@ -6,7 +6,9 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module UniformGridPage =
     type Model = { Nothing: bool }
@@ -32,7 +34,7 @@ module UniformGridPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack() {

@@ -11,7 +11,9 @@ open Fabulous
 open Avalonia.Animation.Easings
 
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module TransitioningContentControlPage =
     type Model =
@@ -110,7 +112,7 @@ module TransitioningContentControlPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Dock(true) {

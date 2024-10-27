@@ -6,7 +6,10 @@ open Avalonia.Controls
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
+
 open Gallery
 
 module ButtonSpinnerPage =
@@ -50,7 +53,7 @@ module ButtonSpinnerPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             VStack(spacing = 15.) {
                 TextBlock("Button spinner")
 

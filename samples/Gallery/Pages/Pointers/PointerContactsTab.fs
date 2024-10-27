@@ -10,7 +10,9 @@ open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 open Fabulous.StackAllocatedCollections.StackList
 
 type PointerInfo() =
@@ -103,7 +105,7 @@ module PointerContacts =
 
 [<AutoOpen>]
 module PointerContactsTabBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         static member PointerContactsTab() =
             WidgetBuilder<'msg, IFabPointerContacts>(PointerContacts.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

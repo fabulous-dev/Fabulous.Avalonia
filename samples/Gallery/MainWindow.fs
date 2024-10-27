@@ -5,13 +5,15 @@ open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Markup.Xaml.Styling
 open Fabulous.Avalonia
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+
 
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
 open Fabulous
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module MainWindow =
     type Model =

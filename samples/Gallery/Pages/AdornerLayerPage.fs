@@ -9,8 +9,10 @@ open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Controls.Primitives
 
-open type Fabulous.Avalonia.View
-open Gallery
+open Fabulous
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module AdornerLayerPage =
     type Model = { Angle: float }
@@ -63,7 +65,7 @@ module AdornerLayerPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Dock() {

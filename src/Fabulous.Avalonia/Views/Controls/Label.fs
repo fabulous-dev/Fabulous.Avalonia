@@ -20,7 +20,7 @@ type LabelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Target value.</param>
     [<Extension>]
-    static member inline target(this: WidgetBuilder<'msg, IFabLabel>, value: ViewRef<#IInputElement>) =
+    static member inline target(this: WidgetBuilder<'msg, #IFabLabel>, value: ViewRef<#IInputElement>) =
         match value.TryValue with
         | None -> this
         | Some value -> this.AddScalar(Label.Target.WithValue(value))
@@ -29,5 +29,5 @@ type LabelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabLabel>, value: ViewRef<Label>) =
+    static member inline reference(this: WidgetBuilder<'msg, #IFabLabel>, value: ViewRef<Label>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

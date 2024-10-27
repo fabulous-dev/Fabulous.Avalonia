@@ -6,7 +6,9 @@ open Avalonia.Data
 open Avalonia.Media
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module DataGridPage =
     type Person(name, age, male) =

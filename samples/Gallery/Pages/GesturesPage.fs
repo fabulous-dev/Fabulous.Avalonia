@@ -7,7 +7,9 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 // https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ControlCatalog/Pages/GesturePage.cs
 module GesturesPage =
@@ -34,7 +36,7 @@ module GesturesPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 4.) {

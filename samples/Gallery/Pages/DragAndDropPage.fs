@@ -13,7 +13,9 @@ open Avalonia.Controls
 open Fabulous
 open Avalonia.Threading
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module Validation =
     type System.Collections.Generic.IAsyncEnumerable<'T> with
@@ -265,7 +267,7 @@ module DragAndDropPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(4.) {

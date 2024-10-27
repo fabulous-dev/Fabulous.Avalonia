@@ -13,7 +13,9 @@ open Fabulous.Avalonia
 
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ThumbPage =
     type Model = { LeftOffset: float; TopOffset: float }
@@ -314,7 +316,7 @@ module ThumbPage =
     let program = Program.stateful init update
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Panel() {

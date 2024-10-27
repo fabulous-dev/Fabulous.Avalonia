@@ -8,7 +8,9 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module NodeView =
     type Model = { Name: string; Counter: int }
@@ -38,7 +40,7 @@ module NodeView =
         )
 
     let view (name) =
-        Component(program, name) {
+        Component("", program, name) {
             let! model = Mvu.State
 
             Border(
@@ -115,7 +117,7 @@ module TreeViewWithNodeInteraction =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             HStack() {

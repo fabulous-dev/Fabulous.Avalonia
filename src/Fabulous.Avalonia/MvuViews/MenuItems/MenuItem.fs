@@ -34,18 +34,18 @@ module MvuMenuItemBuilders =
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         static member MenuItem(header: string) =
-            WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header))
+            WidgetBuilder<'msg, IFabMvuMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header))
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItem(header: string, onClick: RoutedEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header), MvuMenuItem.Clicked.WithValue(onClick))
+            WidgetBuilder<'msg, IFabMvuMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header), MvuMenuItem.Clicked.WithValue(onClick))
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabMenuItem>(
+            WidgetBuilder<'msg, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
             )
@@ -54,7 +54,7 @@ module MvuMenuItemBuilders =
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>, onClick: RoutedEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabMenuItem>(
+            WidgetBuilder<'msg, IFabMvuMenuItem>(
                 MenuItem.WidgetKey,
                 AttributesBundle(
                     StackList.one(MvuMenuItem.Clicked.WithValue(onClick)),
@@ -126,32 +126,32 @@ type MvuMenuItemModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PointerEnteredItem event is fired.</param>
     [<Extension>]
-    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
+    static member inline onPointerEnteredItem(this: WidgetBuilder<'msg, #IFabMvuMenuItem>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuMenuItem.PointerEnteredItem.WithValue(fn))
 
     /// <summary>Listens to the MenuItem PointerExitedItem event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PointerExitedItem event is fired.</param>
     [<Extension>]
-    static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
+    static member inline onPointerExitedItem(this: WidgetBuilder<'msg, #IFabMvuMenuItem>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuMenuItem.PointerExitedItem.WithValue(fn))
 
     /// <summary>Listens to the MenuItem SubmenuClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the SubmenuClosed event is fired.</param>
     [<Extension>]
-    static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMenuItem>, fn: RoutedEventArgs -> 'msg) =
+    static member inline onSubmenuOpened(this: WidgetBuilder<'msg, #IFabMvuMenuItem>, fn: RoutedEventArgs -> 'msg) =
         this.AddScalar(MvuMenuItem.SubmenuOpened.WithValue(fn))
 
-type MenuItemCollectionBuilderExtensions =
+type MvuMenuItemCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
-        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuMenuItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
-        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMvuMenuItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMvuMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

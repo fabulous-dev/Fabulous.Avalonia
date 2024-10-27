@@ -8,7 +8,9 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ScrollViewerPage =
     type Model =
@@ -344,7 +346,7 @@ module ScrollViewerPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             TabControl() {

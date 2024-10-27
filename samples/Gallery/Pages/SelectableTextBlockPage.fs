@@ -7,8 +7,9 @@ open Fabulous.Avalonia
 open Fabulous
 open Avalonia.Controls
 
-open type Fabulous.Avalonia.View
-
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 module SelectableTextBlockPage =
     type Model = { Text: string }
 
@@ -36,7 +37,7 @@ module SelectableTextBlockPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

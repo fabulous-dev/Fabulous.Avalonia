@@ -8,7 +8,9 @@ open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ExpanderPage =
     type Model = { IsExpanded: bool }
@@ -39,7 +41,7 @@ module ExpanderPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

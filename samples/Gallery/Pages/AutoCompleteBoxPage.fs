@@ -10,8 +10,10 @@ open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-
-open type Fabulous.Avalonia.View
+open Fabulous
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module AutoCompleteBoxPage =
 
@@ -396,7 +398,7 @@ module AutoCompleteBoxPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
             let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 

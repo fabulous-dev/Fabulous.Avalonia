@@ -23,7 +23,7 @@ module MvuToggleSplitButtonBuilders =
         /// <param name="isChecked">Whether the ToggleSplitButton is checked.</param>
         /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked.</param>
         static member ToggleSplitButton(text: string, isChecked: bool, fn: bool -> 'msg) =
-            WidgetBuilder<'msg, IFabToggleSplitButton>(
+            WidgetBuilder<'msg, IFabMvuToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 MvuToggleSplitButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
@@ -33,8 +33,8 @@ module MvuToggleSplitButtonBuilders =
         /// <param name="isChecked">Whether the ToggleSplitButton is checked.</param>
         /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked.</param>
         /// <param name="content">The content of the ToggleSplitButton.</param>
-        static member ToggleSplitButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabToggleSplitButton>(
+        static member ToggleSplitButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(MvuToggleSplitButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),

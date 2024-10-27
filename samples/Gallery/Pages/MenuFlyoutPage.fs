@@ -3,24 +3,27 @@ namespace Gallery
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module MenuFlyoutPage =
     type Model = { Counter: int }
 
     type Msg =
         | PressMe
-        | Increment
+        | Increment of RoutedEventArgs
 
     let init () = { Counter = 0 }, Cmd.none
 
     let update msg model =
         match msg with
         | PressMe -> model, Cmd.none
-        | Increment -> { Counter = model.Counter + 1 }, Cmd.none
+        | Increment _ -> { Counter = model.Counter + 1 }, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -35,7 +38,7 @@ module MenuFlyoutPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

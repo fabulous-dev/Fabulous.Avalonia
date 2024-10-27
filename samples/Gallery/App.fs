@@ -1,9 +1,10 @@
 namespace Gallery
 
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Gallery
 
-open type Fabulous.Avalonia.View
+open type Fabulous.Avalonia.Mvu.View
 
 [<AutoOpen>]
 module App =
@@ -168,7 +169,7 @@ module App =
     [<return: Struct>]
     let (|CurrentWidget|_|) page =
         match page with
-        | AcrylicPage -> ValueSome(AnyView(AcrylicPage.view()))
+        | AcrylicPage -> ValueSome(View.AnyView(AcrylicPage.view()))
         | AdornerLayerPage -> ValueSome(AnyView(AdornerLayerPage.view()))
         | AutoCompleteBoxPage -> ValueSome(AnyView(AutoCompleteBoxPage.view()))
         | ButtonsPage -> ValueSome(AnyView(ButtonsPage.view()))

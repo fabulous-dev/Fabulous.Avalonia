@@ -154,7 +154,7 @@ type AutoCompleteBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
+    static member inline reference(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
     /// <Summary>Allows multi-binding the ValueMemberBinding on an AutoCompleteBox.</Summary>

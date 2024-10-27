@@ -17,4 +17,4 @@ module MvuRectangleGeometryBuilders =
         /// <summary>Creates a RectangleGeometry widget.</summary>
         /// <param name="rect">The rectangle to use for the geometry.</param>
         static member RectangleGeometry(rect: Rect) =
-            WidgetBuilder<'msg, IFabRectangleGeometry>(RectangleGeometry.WidgetKey, RectangleGeometry.Rect.WithValue(rect))
+            WidgetBuilder<'msg, IFabMvuRectangleGeometry>(RectangleGeometry.WidgetKey, RectangleGeometry.Rect.WithValue(rect))

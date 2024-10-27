@@ -1,21 +1,24 @@
 namespace Gallery
 
 open System.Diagnostics
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module RepeatButtonPage =
     type Model = { Nothing: bool }
 
-    type Msg = | Clicked
+    type Msg = | Clicked of RoutedEventArgs
 
     let init () = { Nothing = true }, Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, Cmd.none
+        | Clicked _ -> model, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -30,7 +33,7 @@ module RepeatButtonPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(spacing = 15.) {

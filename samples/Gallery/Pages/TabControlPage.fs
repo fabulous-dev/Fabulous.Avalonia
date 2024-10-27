@@ -5,7 +5,9 @@ open Avalonia.Controls
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module TabControlPage =
     type Model =
@@ -52,7 +54,7 @@ module TabControlPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Dock() {

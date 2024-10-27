@@ -6,7 +6,9 @@ open Avalonia.Layout
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module StackPanelPage =
     type Model =
@@ -38,7 +40,7 @@ module StackPanelPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             VStack(15.) {

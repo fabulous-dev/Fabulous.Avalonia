@@ -12,7 +12,9 @@ open Avalonia.Platform.Storage
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
+
 open Gallery
 
 module DialogsPage =
@@ -351,7 +353,7 @@ CanBookmark: {item.Value.CanBookmark}"
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             (VStack(4.) {

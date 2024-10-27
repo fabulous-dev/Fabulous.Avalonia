@@ -8,7 +8,9 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module PointersPage =
     type Model =
@@ -98,7 +100,7 @@ Position: {position.X} {position.Y}"
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             TabControl(Dock.Top) {
