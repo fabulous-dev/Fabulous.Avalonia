@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia.Components
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 
-open Avalonia.Input
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia

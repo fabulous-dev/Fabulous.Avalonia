@@ -6,10 +6,11 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorSlider =
-    inherit IFabSlider
+    inherit IFabMvuSlider
 
 module ColorSlider =
     let WidgetKey = Widgets.register<ColorSlider>()
@@ -35,11 +36,11 @@ module ColorSlider =
         Attributes.defineAvaloniaPropertyWithEquality ColorSlider.IsRoundingEnabledProperty
 
     let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
+        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
 
 [<AutoOpen>]
 module ColorSliderBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ColorSlider widget.</summary>
         static member ColorSlider() =
@@ -57,7 +58,7 @@ module ColorSliderBuilders =
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
         static member ColorSlider(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.ColorChanged.WithValue(ValueEventData.create color fn))
+            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.ColorChanged.WithValue(MvuValueEventData.create color fn))
 
 type ColorSliderModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>

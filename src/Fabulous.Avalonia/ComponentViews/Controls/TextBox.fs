@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
-open Avalonia.Layout
 open Avalonia.Interactivity
 open Fabulous.Avalonia
 

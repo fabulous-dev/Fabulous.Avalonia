@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComboBoxItem =
     inherit IFabListBoxItem

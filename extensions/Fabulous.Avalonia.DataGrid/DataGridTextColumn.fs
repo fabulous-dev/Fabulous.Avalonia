@@ -4,11 +4,11 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Data
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 type IFabDataGridTextColumn =
     inherit IFabDataGridColumn
@@ -39,7 +39,7 @@ module DataGridTextColumn =
 
 [<AutoOpen>]
 module DataGridTextColumnBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a DataGridTextColumn widget.</summary>
         /// <param name="header">The column header.</param>

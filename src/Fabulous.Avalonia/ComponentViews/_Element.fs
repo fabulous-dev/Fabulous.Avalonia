@@ -1,7 +1,5 @@
 namespace Fabulous.Avalonia.Components
 
-open System.Runtime.CompilerServices
-open Fabulous
 open Fabulous.Avalonia
 
 [<AbstractClass; Sealed>]

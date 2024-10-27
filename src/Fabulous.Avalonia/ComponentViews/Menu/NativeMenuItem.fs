@@ -1,11 +1,7 @@
 namespace Fabulous.Avalonia.Components
 
-open System
-open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Input
-open Avalonia.Media.Imaging
 open Fabulous
 open Fabulous.Avalonia
 

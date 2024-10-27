@@ -5,7 +5,6 @@ open Avalonia.Controls.Shapes
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComponentPath =

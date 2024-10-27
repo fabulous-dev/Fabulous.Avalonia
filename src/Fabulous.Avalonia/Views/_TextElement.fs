@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTextElement =

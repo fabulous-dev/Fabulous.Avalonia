@@ -2,9 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabToolTip =
     inherit IFabContentControl

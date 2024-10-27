@@ -2,9 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Notifications
-open Avalonia.Interactivity
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabNotificationCard =
     inherit IFabContentControl

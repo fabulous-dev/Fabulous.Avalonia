@@ -403,6 +403,7 @@
     <Compile Include="ComponentViews\Menu\ContextMenu.fs" />
     <Compile Include="ComponentViews\Menu\NativeMenuBar.fs" />
     <Compile Include="ComponentViews\Menu\MenuFlyout.fs" />
+    <Compile Include="ComponentViews\Panels\Panel.fs" />
     <Compile Include="ComponentViews\Panels\DockPanel.fs" />
     <Compile Include="ComponentViews\Panels\_StackPanel.fs" />
     <Compile Include="ComponentViews\Panels\Grid.fs" />
@@ -412,7 +413,6 @@
     <Compile Include="ComponentViews\Panels\Canvas.fs" />
     <Compile Include="ComponentViews\Panels\WrapPanel.fs" />
     <Compile Include="ComponentViews\Panels\_AdornerLayer.fs" />
-    <Compile Include="ComponentViews\Panels\Panel.fs" />
     <Compile Include="ComponentViews\Application.fs" />
     <Compile Include="ComponentViews\Any.fs" />
     <Compile Include="ComponentViews\Component.fs" />

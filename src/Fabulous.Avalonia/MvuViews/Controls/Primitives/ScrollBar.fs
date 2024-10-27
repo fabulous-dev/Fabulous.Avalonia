@@ -1,9 +1,7 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
-open Avalonia.Layout
 open Fabulous
 open Fabulous.Avalonia
 

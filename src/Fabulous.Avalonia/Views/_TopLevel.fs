@@ -1,12 +1,9 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Input
-open Avalonia.Interactivity
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Avalonia.Styling
 open Fabulous
 

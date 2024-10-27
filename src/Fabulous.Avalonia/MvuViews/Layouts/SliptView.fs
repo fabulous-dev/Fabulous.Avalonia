@@ -1,10 +1,8 @@
 ﻿namespace Fabulous.Avalonia.Mvu
 
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Avalonia.Interactivity
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList

@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System
 open System.Runtime.CompilerServices
 open System.Threading
 open System.Threading.Tasks

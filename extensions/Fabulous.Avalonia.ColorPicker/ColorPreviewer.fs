@@ -6,10 +6,11 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorPreviewer =
-    inherit IFabTemplatedControl
+    inherit IFabMvuTemplatedControl
 
 module ColorPreviewer =
     let WidgetKey = Widgets.register<ColorPreviewer>()
@@ -25,7 +26,7 @@ module ColorPreviewer =
 
 [<AutoOpen>]
 module ColorPreviewerBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ColorPreviewer widget.</summary>
         static member ColorPreviewer() =

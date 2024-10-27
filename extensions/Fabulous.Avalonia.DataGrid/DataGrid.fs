@@ -6,14 +6,14 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections
 
 type IFabDataGrid =
-    inherit IFabTemplatedControl
+    inherit IFabMvuTemplatedControl
 
 module DataGrid =
     let WidgetKey = Widgets.register<DataGrid>()
@@ -128,7 +128,7 @@ module DataGrid =
                 target.ItemsSource <- value)
 
     let Columns =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "DataGrid_Columns" (fun target -> (target :?> DataGrid).Columns :> IList)
+        MvuAttributes.defineAvaloniaNonGenericListWidgetCollection "DataGrid_Columns" (fun target -> (target :?> DataGrid).Columns :> IList)
 
     let HorizontalScroll =
         Attributes.defineEvent "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)
@@ -193,9 +193,10 @@ module DataGrid =
     let UnloadingRowDetails =
         Attributes.defineEvent "DataGrid_UnloadingRowDetails" (fun target -> (target :?> DataGrid).UnloadingRowDetails)
 
+
 [<AutoOpen>]
 module DataGridBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a DataGrid widget.</summary>
         /// <param name="items">The items to display.</param>
@@ -645,13 +646,13 @@ type DataGridExtraModifiers =
 
 type DataGridCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDataGridColumn>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabDataGridColumn>
         (_: CollectionBuilder<'msg, 'marker, IFabDataGridColumn>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabDataGridColumn>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabDataGridColumn>
         (_: CollectionBuilder<'msg, 'marker, IFabDataGridColumn>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

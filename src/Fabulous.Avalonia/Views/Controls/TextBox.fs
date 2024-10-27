@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Avalonia.Layout
-open Avalonia.Interactivity
 
 type IFabTextBox =
     inherit IFabTemplatedControl

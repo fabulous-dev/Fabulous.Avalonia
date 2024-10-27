@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTextDecoration =

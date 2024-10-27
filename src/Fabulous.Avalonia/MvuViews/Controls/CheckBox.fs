@@ -1,11 +1,7 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System
-open System.Runtime.CompilerServices
-open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabMvuCheckBox =

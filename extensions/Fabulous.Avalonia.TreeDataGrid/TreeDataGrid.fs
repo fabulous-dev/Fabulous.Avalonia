@@ -6,9 +6,10 @@ open Avalonia.Controls.Models.TreeDataGrid
 open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 
 type IFabTreeDataGrid =
-    inherit IFabTemplatedControl
+    inherit IFabMvuTemplatedControl
 
 module TreeDataGrid =
     let WidgetKey = Widgets.register<TreeDataGrid>()
@@ -47,7 +48,7 @@ module TreeDataGrid =
 
 [<AutoOpen>]
 module TreeDataGridBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a TreeDataGrid widget.</summary>
         /// <param name="source">The items to display.</param>

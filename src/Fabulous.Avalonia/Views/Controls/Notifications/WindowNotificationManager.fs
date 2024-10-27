@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Notifications
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabWindowNotificationManager =
     inherit IFabTemplatedControl

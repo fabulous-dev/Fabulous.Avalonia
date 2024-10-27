@@ -6,7 +6,6 @@ open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Templates
 open Avalonia.Data
-open Avalonia.Markup.Xaml.Templates
 open Fabulous
 
 type WidgetControlTemplate(node: IViewNode, templateFn: Widget) as this =

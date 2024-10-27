@@ -15,7 +15,7 @@ module ColorPicker =
 
 [<AutoOpen>]
 module ColorPickerBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ColorPicker widget.</summary>
         static member ColorPicker() =
@@ -23,14 +23,14 @@ module ColorPickerBuilders =
 
         /// <summary>Creates a ColorPicker widget.</summary>
         /// <param name="color">The Color value.</param>
-        static member ColorPicker<'msg>(color: Color) =
+        static member ColorPicker(color: Color) =
             WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
 
         /// <summary>Creates a ColorPicker widget.</summary>
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
         static member ColorPicker(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
+            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, ColorView.ColorChanged.WithValue(MvuValueEventData.create color fn))
 
 type ColorPickerModifiers =
     /// <summary>Link a ViewRef to access the direct ColorPicker control instance</summary>

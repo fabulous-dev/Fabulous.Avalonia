@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia.Mvu
 
 open Fabulous
-open Fabulous.Avalonia
 
 [<AutoOpen>]
 module MvuComponentBuilders =

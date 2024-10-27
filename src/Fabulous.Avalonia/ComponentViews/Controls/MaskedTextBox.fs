@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia.Components
 
-open System.Globalization
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous

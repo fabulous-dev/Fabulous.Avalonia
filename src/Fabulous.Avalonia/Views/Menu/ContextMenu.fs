@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.ComponentModel
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls

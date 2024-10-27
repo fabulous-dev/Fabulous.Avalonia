@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Collections
 open System.ComponentModel
 open Avalonia

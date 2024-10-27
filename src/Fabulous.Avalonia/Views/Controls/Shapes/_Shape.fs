@@ -5,7 +5,6 @@ open Avalonia.Controls.Shapes
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabShape =

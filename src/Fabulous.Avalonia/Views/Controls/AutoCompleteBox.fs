@@ -2,8 +2,6 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Runtime.CompilerServices
-open System.Threading
-open System.Threading.Tasks
 open Avalonia.Controls
 open Fabulous
 

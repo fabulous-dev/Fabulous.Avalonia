@@ -1,9 +1,6 @@
 namespace Fabulous.Avalonia.Components
 
-open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
-open Avalonia.Input
-open Fabulous
 open Fabulous.Avalonia
 
 type IFabComponentRangeBase =

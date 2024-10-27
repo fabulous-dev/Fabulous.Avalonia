@@ -3,8 +3,6 @@
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabDropDownButton =
     inherit IFabButton

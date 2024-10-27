@@ -3,11 +3,6 @@ namespace Fabulous.Avalonia.Mvu
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
-open Avalonia.Controls.ApplicationLifetimes
-open Avalonia.Controls.Notifications
-open Avalonia.Media
-open Avalonia.Rendering
-open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections

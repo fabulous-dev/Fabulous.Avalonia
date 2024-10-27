@@ -5,10 +5,11 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorView =
-    inherit IFabTemplatedControl
+    inherit IFabMvuTemplatedControl
 
 module ColorView =
     let WidgetKey = Widgets.register<ColorView>()
@@ -89,14 +90,14 @@ module ColorView =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.SelectedIndexProperty
 
     let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
+        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
 
     let PaletteColors =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.PaletteColorsProperty
 
 [<AutoOpen>]
 module ColorViewBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a ColorView widget.</summary>
         static member ColorView() =
@@ -111,7 +112,7 @@ module ColorViewBuilders =
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
         static member ColorView(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(MvuValueEventData.create color fn))
 
 type ColorViewModifiers =
     /// <summary>Link a ViewRef to access the direct ColorView control instance</summary>

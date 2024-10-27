@@ -6,7 +6,6 @@ open Avalonia.Layout
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComboBox =
     inherit IFabSelectingItemsControl

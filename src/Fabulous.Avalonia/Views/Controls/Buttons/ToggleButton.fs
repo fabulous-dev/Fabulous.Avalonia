@@ -4,7 +4,6 @@ open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabToggleButton =
     inherit IFabButton

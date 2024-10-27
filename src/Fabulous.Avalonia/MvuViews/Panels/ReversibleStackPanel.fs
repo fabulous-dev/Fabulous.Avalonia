@@ -1,10 +1,8 @@
 namespace Fabulous.Avalonia.Mvu
 
-open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
-open System.Runtime.CompilerServices
 open Fabulous.Avalonia
 
 type IFabMvuReversibleStackPanel =

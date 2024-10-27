@@ -2,11 +2,8 @@
 
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
-open Avalonia.Interactivity
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
 
 type IFabSplitView =

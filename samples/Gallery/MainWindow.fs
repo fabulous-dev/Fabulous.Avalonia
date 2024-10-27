@@ -5,13 +5,12 @@ open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Markup.Xaml.Styling
 open Fabulous.Avalonia
-open Fabulous.Avalonia
+open Fabulous.
 
 
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
-open Fabulous
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
 

@@ -1,8 +1,5 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System.Collections.Generic
-open System.Runtime.CompilerServices
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList

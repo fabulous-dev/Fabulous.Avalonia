@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComponentDropDownButton =

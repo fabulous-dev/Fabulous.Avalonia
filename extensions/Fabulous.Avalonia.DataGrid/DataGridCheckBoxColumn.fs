@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Data
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabDataGridCheckBoxColumn =
@@ -19,7 +18,7 @@ module DataGridCheckBoxColumn =
 
 [<AutoOpen>]
 module DataGridCheckBoxColumnBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a DataGridCheckBoxColumn widget.</summary>
         /// <param name="header">The column header.</param>

@@ -2,10 +2,8 @@ namespace Fabulous.Avalonia.Components
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Input
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComponentLabel =

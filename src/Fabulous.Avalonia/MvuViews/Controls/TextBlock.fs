@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Documents
 open Avalonia.Media

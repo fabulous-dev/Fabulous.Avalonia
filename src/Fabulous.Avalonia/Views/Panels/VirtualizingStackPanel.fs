@@ -2,9 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Interactivity
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabVirtualizingStackPanel =
     inherit IFabVirtualizingPanel

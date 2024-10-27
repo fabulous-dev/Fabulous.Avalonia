@@ -1,11 +1,8 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Interactivity
-open Avalonia.Media.Imaging
-open Avalonia.Platform
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList

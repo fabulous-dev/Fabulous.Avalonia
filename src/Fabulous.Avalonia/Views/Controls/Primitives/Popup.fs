@@ -7,7 +7,6 @@ open Avalonia.Controls.Primitives
 open Avalonia.Controls.Primitives.PopupPositioning
 open Avalonia.Input
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabPopup =
     inherit IFabControl

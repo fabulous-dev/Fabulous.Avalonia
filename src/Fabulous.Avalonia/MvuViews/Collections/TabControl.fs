@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia.Mvu
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Layout
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections

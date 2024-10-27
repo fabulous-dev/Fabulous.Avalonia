@@ -1,10 +1,8 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabBlurEffect =
     inherit IFabEffect

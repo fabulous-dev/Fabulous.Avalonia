@@ -2,9 +2,7 @@ namespace Fabulous.Avalonia.Mvu
 
 open System.ComponentModel
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
-open Avalonia.Controls.Primitives.PopupPositioning
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections

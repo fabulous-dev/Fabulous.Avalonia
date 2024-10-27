@@ -5,7 +5,6 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabScrollViewer =
     inherit IFabContentControl

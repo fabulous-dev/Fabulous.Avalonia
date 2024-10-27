@@ -1,8 +1,5 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System
-open System.Globalization
-open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Animation
 open Avalonia.Styling

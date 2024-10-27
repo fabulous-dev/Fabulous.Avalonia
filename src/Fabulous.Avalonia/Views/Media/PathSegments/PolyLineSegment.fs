@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Media
 open Fabulous
 

@@ -1,13 +1,8 @@
 namespace Fabulous.Avalonia
 
-open System
-open System.IO
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Media
-open Avalonia.Media.Imaging
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabImageDrawing =
     inherit IFabDrawing

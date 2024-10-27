@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Media
 open Fabulous

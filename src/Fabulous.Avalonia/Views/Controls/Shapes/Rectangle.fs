@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Shapes
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRectangle =
     inherit IFabShape

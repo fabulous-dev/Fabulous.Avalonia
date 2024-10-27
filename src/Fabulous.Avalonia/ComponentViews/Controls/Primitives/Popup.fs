@@ -1,12 +1,7 @@
 namespace Fabulous.Avalonia.Components
 
-open System
 open System.Runtime.CompilerServices
-open Avalonia
-open Avalonia.Controls
 open Avalonia.Controls.Primitives
-open Avalonia.Controls.Primitives.PopupPositioning
-open Avalonia.Input
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList

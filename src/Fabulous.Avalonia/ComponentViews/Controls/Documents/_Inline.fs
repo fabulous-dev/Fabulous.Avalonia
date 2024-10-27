@@ -1,9 +1,7 @@
 namespace Fabulous.Avalonia.Components
 
-open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Avalonia.Media
-open Fabulous
 open Fabulous.Avalonia
 
 type IFabComponentInline =

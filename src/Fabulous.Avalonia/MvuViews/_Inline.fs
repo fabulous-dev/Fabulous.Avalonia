@@ -1,9 +1,7 @@
 namespace Fabulous.Avalonia.Mvu
 
-open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Avalonia.Media
-open Fabulous
 open Fabulous.Avalonia
 
 type IFabMvuInline =

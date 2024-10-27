@@ -3,11 +3,9 @@ namespace Fabulous.Avalonia
 open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Interactivity
 open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabWindow =
     inherit IFabWindowBase

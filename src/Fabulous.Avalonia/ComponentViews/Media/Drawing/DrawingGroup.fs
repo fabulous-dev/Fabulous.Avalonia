@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia.Components
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections

@@ -14,20 +14,20 @@ type ComponentValueEventData<'data, 'eventArgs> =
       Event: 'eventArgs -> MsgValue }
 
 module ComponentValueEventData =
-    let create (value: 'data) (event: 'eventArgs -> 'msg) =
+    let create (value: 'data) (event: 'eventArgs -> unit) =
         { Value = ValueSome value
           Event = event >> box >> MsgValue }
 
-    let createVOption (value: 'data voption) (event: 'eventArgs -> 'msg) =
+    let createVOption (value: 'data voption) (event: 'eventArgs -> unit) =
         { Value = value
           Event = event >> box >> MsgValue }
 
 module ComponentAttributes =
-    let inline defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
+    let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)
-        ([<InlineIfLambda>] convertToValue: 'modelType -> 'valueType)
-        ([<InlineIfLambda>] convertToModel: 'valueType -> 'modelType) // FIXME: This is not used
+        (convertToValue: 'modelType -> 'valueType)
+        (convertToModel: 'valueType -> 'modelType)
         : SimpleScalarAttributeDefinition<ComponentValueEventData<'modelType, 'modelType>> =
 
         let key =
@@ -61,8 +61,14 @@ module ComponentAttributes =
                             let newValue = convertToValue v
                             target.SetValue(property, box newValue) |> ignore
 
+                        let event = property.Changed
                         // Set the new event handler
-                        let disposable = property.Changed.Subscribe(fun args -> curr.Event |> ignore)
+                        let disposable =
+                            event.Subscribe(fun args ->
+                                if args.Sender = target then
+                                    if args.NewValue.HasValue then
+                                        let args = args.NewValue.Value
+                                        convertToModel args |> ignore) 
 
                         node.SetHandler(property.Name, disposable))
             )

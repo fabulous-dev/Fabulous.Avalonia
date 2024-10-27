@@ -1,10 +1,7 @@
 namespace Fabulous.Avalonia
 
-open System
-open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Media
-open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabImageBrush =

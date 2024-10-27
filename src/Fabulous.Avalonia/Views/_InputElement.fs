@@ -2,8 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Input
-open Avalonia.Input.TextInput
-open Avalonia.Interactivity
 open Fabulous
 
 type IFabInputElement =

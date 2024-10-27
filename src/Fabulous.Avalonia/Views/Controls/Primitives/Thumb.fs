@@ -2,9 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
-open Avalonia.Input
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabThumb =
     inherit IFabTemplatedControl

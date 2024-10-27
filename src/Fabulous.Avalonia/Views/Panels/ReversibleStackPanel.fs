@@ -1,9 +1,7 @@
 namespace Fabulous.Avalonia
 
 open Avalonia.Controls
-open Avalonia.Layout
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
 
 type IFabReversibleStackPanel =
