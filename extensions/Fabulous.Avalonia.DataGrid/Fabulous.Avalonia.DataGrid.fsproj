@@ -26,8 +26,14 @@
         <Compile Include="_DataGridColumn.fs" />
         <Compile Include="_DataGridBoundColumn.fs" />
         <Compile Include="DataGridTextColumn.fs" />
+        <Compile Include="DataGridTextColumn.Mvu.fs" />
+        <Compile Include="DataGridTextColumn.Components.fs" />
         <Compile Include="DataGridCheckBoxColumn.fs" />
+        <Compile Include="DataGridCheckBoxColumn.Mvu.fs" />
+        <Compile Include="DataGridCheckBoxColumn.Components.fs" />
         <Compile Include="DataGrid.fs" />
+        <Compile Include="DataGrid.Mvu.fs" />
+        <Compile Include="DataGrid.Components.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="11.1.0" />

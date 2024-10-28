@@ -5,10 +5,19 @@ open Avalonia.Controls
 open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Components
 open Fabulous.Avalonia.Mvu
 
 type IFabDataGridColumn =
+    inherit IFabElement
+    
+type IFabMvuDataGridColumn =
     inherit IFabMvuElement
+    inherit IFabDataGridColumn
+    
+type IFabComponentDataGridColumn =
+    inherit IFabComponentElement
+    inherit IFabDataGridColumn
 
 module DataGridColumn =
     let HeaderWidget =
