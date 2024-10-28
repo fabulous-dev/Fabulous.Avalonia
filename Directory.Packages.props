@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Fabulous" Version="3.0.0-pre6" />
+    <PackageVersion Include="Fabulous" Version="3.0.0-pre7" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
     <PackageVersion Include="FSharp.Core" Version="8.0.301" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
