@@ -5,11 +5,9 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorView =
-    inherit IFabMvuTemplatedControl
+    inherit IFabTemplatedControl
 
 module ColorView =
     let WidgetKey = Widgets.register<ColorView>()
@@ -89,37 +87,15 @@ module ColorView =
     let SelectedIndex =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.SelectedIndexProperty
 
-    let ColorChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
-
     let PaletteColors =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.PaletteColorsProperty
-
-[<AutoOpen>]
-module ColorViewBuilders =
-    type Fabulous.Avalonia.Mvu.View with
-
-        /// <summary>Creates a ColorView widget.</summary>
-        static member ColorView() =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
-        /// <summary>Creates a ColorView widget.</summary>
-        /// <param name="color">The Color value.</param>
-        static member ColorView(color: Color) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
-
-        /// <summary>Creates a ColorView widget.</summary>
-        /// <param name="color">The Color value.</param>
-        /// <param name="fn">Raised when the color changes.</param>
-        static member ColorView(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(MvuValueEventData.create color fn))
 
 type ColorViewModifiers =
     /// <summary>Link a ViewRef to access the direct ColorView control instance</summary>
     /// <param name="this">Current widget</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabColorView>, value: ViewRef<ColorView>) =
+    static member inline reference(this: WidgetBuilder<'msg, #IFabColorView>, value: ViewRef<ColorView>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
     /// <summary>Set the ColorModel property.</summary>
