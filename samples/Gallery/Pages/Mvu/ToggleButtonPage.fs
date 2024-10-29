@@ -7,6 +7,7 @@ open Fabulous
 
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
+
 module ToggleButtonPage =
     type Model =
         { Text1: string

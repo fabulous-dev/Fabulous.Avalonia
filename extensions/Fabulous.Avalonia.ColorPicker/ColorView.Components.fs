@@ -27,7 +27,10 @@ module ComponentColorViewBuilders =
         /// <summary>Creates a ColorView widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorView(color: Color) =
-            WidgetBuilder<unit, IFabComponentColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
+            WidgetBuilder<unit, IFabComponentColorView>(
+                ColorView.WidgetKey,
+                AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone)
+            )
 
         /// <summary>Creates a ColorView widget.</summary>
         /// <param name="color">The Color value.</param>

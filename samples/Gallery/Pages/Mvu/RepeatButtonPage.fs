@@ -11,7 +11,7 @@ open type Fabulous.Avalonia.Mvu.View
 module RepeatButtonPage =
     type Model = { Nothing: bool }
 
-    type Msg = | Clicked of RoutedEventArgs
+    type Msg = Clicked of RoutedEventArgs
 
     let init () = { Nothing = true }, Cmd.none
 

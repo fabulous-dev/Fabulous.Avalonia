@@ -9,6 +9,7 @@ open Fabulous
 
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
+
 module ScrollBarPage =
     type Model = { ScrollValue: float }
 

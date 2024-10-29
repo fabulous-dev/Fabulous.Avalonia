@@ -11,7 +11,7 @@ module App =
     let firstNameView (value: StateValue<string>) =
         Component("1") {
             let! firstName = Context.Binding(value)
-            TextBox(firstName.Current, fun x -> firstName.Set x)
+            TextBox(firstName.Current, (fun x -> firstName.Set x))
         }
 
     let lastNameView (value: StateValue<string>) =
@@ -24,7 +24,7 @@ module App =
         Component("3") {
             let! firstName = Context.State("")
             let! lastName = Context.State("")
-    
+
             VStack() {
                 Label($"Full name is {firstName.Current} {lastName.Current}")
                 firstNameView firstName

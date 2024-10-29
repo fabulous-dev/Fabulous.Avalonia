@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 type IFabMvuLineSegment =
     inherit IFabMvuPathSegment
     inherit IFabLineSegment
-    
+
 [<AutoOpen>]
 module MvuLineSegmentBuilders =
 

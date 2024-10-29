@@ -12,6 +12,7 @@ open Fabulous
 
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
+
 module FocusAttributes =
     /// Allows setting the Focus on a AutoCompleteBox
     let Focus =

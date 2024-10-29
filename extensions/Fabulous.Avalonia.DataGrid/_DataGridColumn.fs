@@ -10,11 +10,11 @@ open Fabulous.Avalonia.Mvu
 
 type IFabDataGridColumn =
     inherit IFabElement
-    
+
 type IFabMvuDataGridColumn =
     inherit IFabMvuElement
     inherit IFabDataGridColumn
-    
+
 type IFabComponentDataGridColumn =
     inherit IFabComponentElement
     inherit IFabDataGridColumn

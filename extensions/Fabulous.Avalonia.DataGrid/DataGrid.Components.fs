@@ -95,7 +95,11 @@ module ComponentDataGridBuilders =
         /// <summary>Creates a CustomDataGrid widget.</summary>
         /// <param name="items">The items to display.</param>
         static member CustomDataGrid(items: #IEnumerable) =
-            CollectionBuilder<unit, IFabComponentDataGrid, #IFabComponentDataGridColumn>(DataGrid.WidgetKey, ComponentDataGrid.Columns, DataGrid.Items.WithValue(items))
+            CollectionBuilder<unit, IFabComponentDataGrid, #IFabComponentDataGridColumn>(
+                DataGrid.WidgetKey,
+                ComponentDataGrid.Columns,
+                DataGrid.Items.WithValue(items)
+            )
 
 type ComponentDataGridModifiers =
     /// <summary>Listens to the HorizontalScroll Scroll event.</summary>

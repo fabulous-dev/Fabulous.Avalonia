@@ -4,6 +4,7 @@ open Fabulous.Avalonia
 
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
+
 module PathIconPage =
     let view () =
         VStack(spacing = 15.) {

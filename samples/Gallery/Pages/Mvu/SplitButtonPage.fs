@@ -15,7 +15,7 @@ open type Fabulous.Avalonia.Mvu.View
 module SplitButtonPage =
     type Model = { Colors: Color list }
 
-    type Msg = | Clicked of RoutedEventArgs
+    type Msg = Clicked of RoutedEventArgs
 
     let init () =
         { Colors =

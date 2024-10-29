@@ -68,7 +68,7 @@ module ComponentAttributes =
                                 if args.Sender = target then
                                     if args.NewValue.HasValue then
                                         let args = args.NewValue.Value
-                                        convertToModel args |> ignore) 
+                                        convertToModel args |> ignore)
 
                         node.SetHandler(property.Name, disposable))
             )

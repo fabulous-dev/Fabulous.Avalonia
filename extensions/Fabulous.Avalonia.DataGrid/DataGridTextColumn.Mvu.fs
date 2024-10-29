@@ -76,6 +76,7 @@ type MvuDataGridTextColumnExtraModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, IFabMvuDataGridTextColumn>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(DataGridTextColumn.ForegroundWidget.WithValue(value.Compile()))
+
     /// <summary>Set the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground property value.</param>

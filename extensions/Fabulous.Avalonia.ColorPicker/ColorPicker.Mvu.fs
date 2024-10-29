@@ -19,7 +19,10 @@ module MvuColorPickerBuilders =
         /// <summary>Creates a ColorPicker widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorPicker(color: Color) =
-            WidgetBuilder<'msg, IFabMvuColorPicker>(ColorPicker.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuColorPicker>(
+                ColorPicker.WidgetKey,
+                AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone)
+            )
 
         /// <summary>Creates a ColorPicker widget.</summary>
         /// <param name="color">The Color value.</param>

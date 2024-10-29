@@ -6,6 +6,7 @@ open Fabulous
 
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
+
 module ToggleSwitchPage =
     type Model =
         { Value1: bool

@@ -87,115 +87,137 @@ module AcrylicPage =
             let! model = Mvu.State
 
             VStack(spacing = 20.) {
-            ExperimentalAcrylicBorder(
-                VStack(0.) {
-                    (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
-                        TextBlock("TintOpacity").style(textBlockStyle)
-            
-                        Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
-                            .gridColumn(1)
-                            .style(sliderStyle)
-            
-                        TextBlock($"{Math.Round(model.TintOpacitySlider, 2)}")
-                            .gridColumn(2)
-                            .style(textBlockStyle)
-                    })
-                        .margin(20., 10.)
-            
-                    (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
-                        TextBlock("MaterialOpacity").style(textBlockStyle)
-            
-                        Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
-                            .gridColumn(1)
-                            .style(sliderStyle)
-            
-                        TextBlock($"{Math.Round(model.MaterialOpacitySlider, 2)}")
-                            .gridColumn(2)
-                            .style(textBlockStyle)
-                    })
-                        .margin(20., 10.)
-                }
-            )
-                .material(
-                    ExperimentalAcrylicMaterial()
-                        .backgroundSource(AcrylicBackgroundSource.Digger)
-                        .tintColor(Colors.White)
+                ExperimentalAcrylicBorder(
+                    VStack(0.) {
+                        (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
+                            TextBlock("TintOpacity").style(textBlockStyle)
+
+                            Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
+                                .gridColumn(1)
+                                .style(sliderStyle)
+
+                            TextBlock($"{Math.Round(model.TintOpacitySlider, 2)}")
+                                .gridColumn(2)
+                                .style(textBlockStyle)
+                        })
+                            .margin(20., 10.)
+
+                        (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
+                            TextBlock("MaterialOpacity").style(textBlockStyle)
+
+                            Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
+                                .gridColumn(1)
+                                .style(sliderStyle)
+
+                            TextBlock($"{Math.Round(model.MaterialOpacitySlider, 2)}")
+                                .gridColumn(2)
+                                .style(textBlockStyle)
+                        })
+                            .margin(20., 10.)
+                    }
                 )
-                .style(acrylicBorderStyle)
-            
-            (UniformGrid() {
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Color.Parse("#FF0000"))
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Color.Parse("#00FF00"))
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            
-                ExperimentalAcrylicBorder()
                     .material(
                         ExperimentalAcrylicMaterial()
                             .backgroundSource(AcrylicBackgroundSource.Digger)
                             .tintColor(Colors.White)
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
                     )
-                    .style(acrylicBorderStyle1)
-            
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Color.Parse("#3c3c3c"))
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            
-            
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Colors.White)
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Color.Parse("#000000"))
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Color.Parse("#FFFF00"))
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            
-            
+                    .style(acrylicBorderStyle)
+
+                (UniformGrid() {
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#FF0000"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#00FF00"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Colors.White)
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#3c3c3c"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Colors.White)
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#000000"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#FFFF00"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#0000FF"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+
+                    ExperimentalAcrylicBorder()
+                        .material(
+                            ExperimentalAcrylicMaterial()
+                                .backgroundSource(AcrylicBackgroundSource.Digger)
+                                .tintColor(Color.Parse("#0000FF"))
+                                .tintOpacity(model.TintOpacitySlider)
+                                .materialOpacity(model.MaterialOpacitySlider)
+                        )
+                        .style(acrylicBorderStyle1)
+                })
+                    .reference(bordersGridRef)
+
                 ExperimentalAcrylicBorder()
                     .material(
                         ExperimentalAcrylicMaterial()
@@ -204,29 +226,7 @@ module AcrylicPage =
                             .tintOpacity(model.TintOpacitySlider)
                             .materialOpacity(model.MaterialOpacitySlider)
                     )
-                    .style(acrylicBorderStyle1)
-            
-                ExperimentalAcrylicBorder()
-                    .material(
-                        ExperimentalAcrylicMaterial()
-                            .backgroundSource(AcrylicBackgroundSource.Digger)
-                            .tintColor(Color.Parse("#0000FF"))
-                            .tintOpacity(model.TintOpacitySlider)
-                            .materialOpacity(model.MaterialOpacitySlider)
-                    )
-                    .style(acrylicBorderStyle1)
-            })
-                .reference(bordersGridRef)
-            
-            ExperimentalAcrylicBorder()
-                .material(
-                    ExperimentalAcrylicMaterial()
-                        .backgroundSource(AcrylicBackgroundSource.Digger)
-                        .tintColor(Color.Parse("#0000FF"))
-                        .tintOpacity(model.TintOpacitySlider)
-                        .materialOpacity(model.MaterialOpacitySlider)
-                )
-                .width(model.BorderWidth)
-                .height(160.)
+                    .width(model.BorderWidth)
+                    .height(160.)
             }
         }

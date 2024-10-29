@@ -5,8 +5,7 @@ open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Markup.Xaml.Styling
 open Fabulous.Avalonia
-open Fabulous.
-
+open Fabulous
 
 open Avalonia.Layout
 open Avalonia.Media

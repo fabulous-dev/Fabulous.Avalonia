@@ -35,4 +35,7 @@ module ComponentColorSliderBuilders =
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
         static member ColorSlider(color: Color, fn: Color -> unit) =
-            WidgetBuilder<unit, IFabComponentColorSlider>(ColorSlider.WidgetKey, ComponentColorSlider.ColorChanged.WithValue(ComponentValueEventData.create color fn))
+            WidgetBuilder<unit, IFabComponentColorSlider>(
+                ColorSlider.WidgetKey,
+                ComponentColorSlider.ColorChanged.WithValue(ComponentValueEventData.create color fn)
+            )

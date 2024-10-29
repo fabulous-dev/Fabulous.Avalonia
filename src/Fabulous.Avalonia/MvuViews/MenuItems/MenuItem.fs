@@ -39,7 +39,11 @@ module MvuMenuItemBuilders =
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItem(header: string, onClick: RoutedEventArgs -> 'msg) =
-            WidgetBuilder<'msg, IFabMvuMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header), MvuMenuItem.Clicked.WithValue(onClick))
+            WidgetBuilder<'msg, IFabMvuMenuItem>(
+                MenuItem.WidgetKey,
+                HeaderedContentControl.HeaderString.WithValue(header),
+                MvuMenuItem.Clicked.WithValue(onClick)
+            )
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>

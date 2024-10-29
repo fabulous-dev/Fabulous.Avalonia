@@ -9,6 +9,7 @@ open Avalonia.Controls
 
 open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
+
 module SelectableTextBlockPage =
     type Model = { Text: string }
 

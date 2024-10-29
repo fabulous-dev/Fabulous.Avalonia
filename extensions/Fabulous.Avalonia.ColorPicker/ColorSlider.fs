@@ -66,7 +66,7 @@ type ColorSliderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsAlphaVisible value.</param>
     [<Extension>]
-    static member inline isAlphaVisible(this: WidgetBuilder<'msg,# IFabColorSlider>, value: bool) =
+    static member inline isAlphaVisible(this: WidgetBuilder<'msg, #IFabColorSlider>, value: bool) =
         this.AddScalar(ColorSlider.IsAlphaVisible.WithValue(value))
 
     /// <summary>Set the IsPerceptive property.</summary>
