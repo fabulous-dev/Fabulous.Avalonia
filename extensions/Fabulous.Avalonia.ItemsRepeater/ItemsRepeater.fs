@@ -5,10 +5,9 @@ open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
 
 type IFabItemsRepeater =
-    inherit IFabMvuPanel
+    inherit IFabPanel
 
 module ItemsRepeater =
     let WidgetKey = Widgets.register<ItemsRepeater>()
@@ -38,16 +37,6 @@ module ItemsRepeater =
 
     let Layout =
         Attributes.defineAvaloniaPropertyWithEquality ItemsRepeater.LayoutProperty
-
-
-[<AutoOpen>]
-module ItemsRepeaterBuilders =
-    type Fabulous.Avalonia.Mvu.View with
-
-        static member ItemsRepeater<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
-            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
-            =
-            WidgetHelpers.buildItems<'msg, IFabItemsRepeater, 'itemData, 'itemMarker> ItemsRepeater.WidgetKey ItemsRepeater.ItemsSource items template
 
 type ItemsRepeaterModifiers =
     /// <summary>Link a ViewRef to access the direct ItemsRepeater control instance</summary>

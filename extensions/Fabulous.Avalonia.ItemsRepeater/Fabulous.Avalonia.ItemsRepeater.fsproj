@@ -22,9 +22,9 @@
     <ItemGroup>
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="ItemsRepeater.fs" />
+        <Compile Include="ItemsRepeater.Mvu.fs" />
+        <Compile Include="ItemsRepeater.Components.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia.Controls.ItemsRepeater" VersionOverride="11.1.0" />
