@@ -272,4 +272,3 @@ type MvuTransitionCollectionModifiers =
     [<Extension>]
     static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabTransition>) =
         MvuTransitionCollectionModifiers.transition(this) { value }
-        

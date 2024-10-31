@@ -165,6 +165,6 @@ module GalaxyAnimation =
 
             }
             |> _.background(SolidColorBrush(Colors.Black))
-            |>   _.onLoaded(OnLoaded)
-             |> _.reference(rootVisual)
+            |> _.onLoaded(OnLoaded)
+            |> _.reference(rootVisual)
         }

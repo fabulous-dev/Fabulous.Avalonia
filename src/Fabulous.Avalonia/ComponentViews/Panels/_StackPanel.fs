@@ -32,10 +32,3 @@ type ComponentStackPanelModifiers =
     [<Extension>]
     static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<unit, #IFabComponentStackPanel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentStackPanel.VerticalSnapPointsChanged.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct StackPanel control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentStackPanel>, value: ViewRef<StackPanel>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

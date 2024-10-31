@@ -22,11 +22,3 @@ module ButtonSpinnerBuilders =
                 ContentControl.ContentString.WithValue(text),
                 ComponentSpinner.Spin.WithValue(fn)
             )
-
-type ComponentButtonSpinnerModifiers =
-    /// <summary>Link a ViewRef to access the direct ButtonSpinner control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentButtonSpinner>, value: ViewRef<ButtonSpinner>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

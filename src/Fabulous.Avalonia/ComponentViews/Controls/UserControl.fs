@@ -21,11 +21,3 @@ module ComponentUserControlBuilders =
                 UserControl.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
-
-type ComponentUserControlModifiers =
-    /// <summary>Link a ViewRef to access the direct UserControl control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentUserControl>, value: ViewRef<UserControl>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

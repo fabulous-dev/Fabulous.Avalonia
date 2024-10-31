@@ -39,7 +39,7 @@ module ComponentTreeViewBuilders =
                   SubNodesFn = (fun subNode -> subNodes(unbox subNode) :> IEnumerable)
                   Template = template }
 
-            WidgetBuilder<'msg, IFabComponentTreeView>(TreeView.WidgetKey, TreeView.ItemsSource.WithValue(data))
+            WidgetBuilder<unit, IFabComponentTreeView>(TreeView.WidgetKey, TreeView.ItemsSource.WithValue(data))
 
 type ComponentTreeViewModifiers =
     /// <summary>Listens to the TreeView SelectionChanged event.</summary>

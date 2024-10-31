@@ -98,10 +98,3 @@ type ExpanderModifiers =
     [<Extension>]
     static member inline onExpanding(this: WidgetBuilder<unit, #IFabExpander>, fn: CancelRoutedEventArgs -> unit) =
         this.AddScalar(ComponentExpander.Expanding.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct Expander control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabExpander>, value: ViewRef<Expander>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -22,7 +22,7 @@ module ComponentNotificationCardBuilders =
         /// <summary>Creates a NotificationCard widget.</summary>
         /// <param name="isClosed">Whether the NotificationCard is closed.</param>
         /// <param name="content">The content of the NotificationCard.</param>
-        static member NotificationCard(isClosed: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member NotificationCard(isClosed: bool, content: WidgetBuilder<unit, #IFabComponentControl>) =
             WidgetBuilder<unit, IFabComponentNotificationCard>(
                 NotificationCard.WidgetKey,
                 AttributesBundle(
@@ -47,12 +47,5 @@ type ComponentNotificationCardModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the NotificationCard is closed.</param>
     [<Extension>]
-    static member inline onNotificationClosed(this: WidgetBuilder<unit, #IFabNotificationCard>, fn: RoutedEventArgs -> unit) =
+    static member inline onNotificationClosed(this: WidgetBuilder<unit, #IFabComponentNotificationCard>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentNotificationCard.NotificationClosed.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct NotificationCard control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentNotificationCard>, value: ViewRef<NotificationCard>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

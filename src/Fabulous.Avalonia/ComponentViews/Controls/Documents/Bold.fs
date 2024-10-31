@@ -20,11 +20,3 @@ module ComponentBoldBuilders =
         /// <summary>Creates a Bold widget.</summary>
         /// <param name="text">The text to display.</param>
         static member Bold(text: string) = View.Bold() { View.Run(text) }
-
-type ComponentBoldModifiers =
-    /// <summary>Link a ViewRef to access the direct Bold control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentBold>, value: ViewRef<Bold>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

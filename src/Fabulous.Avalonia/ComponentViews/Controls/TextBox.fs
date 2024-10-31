@@ -53,61 +53,55 @@ type ComponentTextBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PastingFromClipboard changes.</param>
     [<Extension>]
-    static member inline onPastingFromClipboard(this: WidgetBuilder<unit, #IFabTextBox>, fn: RoutedEventArgs -> unit) =
+    static member inline onPastingFromClipboard(this: WidgetBuilder<unit, #IFabComponentTextBox>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentTextBox.PastingFromClipboard.WithValue(fn))
 
-    /// <summary>Link a ViewRef to access the direct TextBox control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentTextBox>, value: ViewRef<TextBox>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type ComponentTextBoxExtraModifiers =
     /// <summary>Sets the TextAlignment to center.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline centerText(this: WidgetBuilder<'msg, #IFabTextBox>) =
+    static member inline centerText(this: WidgetBuilder<unit, #IFabComponentTextBox>) =
         this.AddScalar(TextBox.TextAlignment.WithValue(TextAlignment.Center))
 
     /// <summary>Sets the CaretBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The CaretBrush value.</param>
     [<Extension>]
-    static member inline caretBrush(this: WidgetBuilder<unit, #IFabTextBox>, value: Color) =
+    static member inline caretBrush(this: WidgetBuilder<unit, #IFabComponentTextBox>, value: Color) =
         TextBoxModifiers.caretBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the CaretBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The CaretBrush value.</param>
     [<Extension>]
-    static member inline caretBrush(this: WidgetBuilder<unit, #IFabTextBox>, value: string) =
+    static member inline caretBrush(this: WidgetBuilder<unit, #IFabComponentTextBox>, value: string) =
         TextBoxModifiers.caretBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SelectionBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SelectionBrush value.</param>
     [<Extension>]
-    static member inline selectionBrush(this: WidgetBuilder<unit, #IFabTextBox>, value: Color) =
+    static member inline selectionBrush(this: WidgetBuilder<unit, #IFabComponentTextBox>, value: Color) =
         TextBoxModifiers.selectionBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SelectionBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SelectionBrush value.</param>
     [<Extension>]
-    static member inline selectionBrush(this: WidgetBuilder<unit, #IFabTextBox>, value: string) =
+    static member inline selectionBrush(this: WidgetBuilder<unit, #IFabComponentTextBox>, value: string) =
         TextBoxModifiers.selectionBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SelectionForegroundBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SelectionForegroundBrush value.</param>
     [<Extension>]
-    static member inline selectionForegroundBrush(this: WidgetBuilder<unit, #IFabTextBox>, value: Color) =
+    static member inline selectionForegroundBrush(this: WidgetBuilder<unit, #IFabComponentTextBox>, value: Color) =
         TextBoxModifiers.selectionForegroundBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SelectionForegroundBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SelectionForegroundBrush value.</param>
     [<Extension>]
-    static member inline selectionForegroundBrush(this: WidgetBuilder<unit, #IFabTextBox>, value: string) =
+    static member inline selectionForegroundBrush(this: WidgetBuilder<unit, #IFabComponentTextBox>, value: string) =
         TextBoxModifiers.selectionForegroundBrush(this, View.SolidColorBrush(value))

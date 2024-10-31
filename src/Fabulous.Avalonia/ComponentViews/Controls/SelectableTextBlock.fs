@@ -24,7 +24,7 @@ module SelectableTextBlockBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
         static member inline SelectableTextBlock(text: string, fn: RoutedEventArgs -> unit) =
-            WidgetBuilder<'msg, IFabSelectableTextBlock>(
+            WidgetBuilder<unit, IFabSelectableTextBlock>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Text.WithValue(text),
                 ComponentSelectableTextBlock.CopyingToClipboard.WithValue(fn)
@@ -38,14 +38,6 @@ module SelectableTextBlockBuilders =
                 ComponentTextBlock.Inlines,
                 ComponentSelectableTextBlock.CopyingToClipboard.WithValue(fn)
             )
-
-type ComponentSelectableTextBlockModifiers =
-    /// <summary>Link a ViewRef to access the direct SelectableTextBlock control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentSelectableTextBlock>, value: ViewRef<SelectableTextBlock>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type SelectableTextBlockExtraModifiers =
     /// <summary>Sets the SelectionBrush property.</summary>
@@ -65,12 +57,12 @@ type SelectableTextBlockExtraModifiers =
 type ComponentSelectableTextBlockCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentInline>
-        (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentInline>, x: WidgetBuilder<'msg, 'itemType>)
-        : Content<'msg> =
+        (_: AttributeCollectionBuilder<unit, 'marker, IFabComponentInline>, x: WidgetBuilder<unit, 'itemType>)
+        : Content<unit> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComponentInline>
-        (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
-        : Content<'msg> =
+        (_: AttributeCollectionBuilder<unit, 'marker, IFabComponentInline>, x: WidgetBuilder<unit, Memo.Memoized<'itemType>>)
+        : Content<unit> =
         { Widgets = MutStackArray1.One(x.Compile()) }

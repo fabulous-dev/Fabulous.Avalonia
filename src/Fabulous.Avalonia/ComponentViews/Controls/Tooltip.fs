@@ -17,7 +17,7 @@ module ComponentToolTipBuilders =
             WidgetBuilder<unit, IFabComponentToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ToolTip widget.</summary>
-        static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ToolTip(content: WidgetBuilder<unit, #IFabComponentControl>) =
             WidgetBuilder<unit, IFabComponentToolTip>(
                 ToolTip.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)

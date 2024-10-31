@@ -14,7 +14,7 @@ module ComponentExperimentalAcrylicBorderBuilders =
 
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         /// <param name="content">The content of the ExperimentalAcrylicBorder.</param>
-        static member ExperimentalAcrylicBorder(content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ExperimentalAcrylicBorder(content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<unit, IFabComponentExperimentalAcrylicBorder>(
                 ExperimentalAcrylicBorder.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)

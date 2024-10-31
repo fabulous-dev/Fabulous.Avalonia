@@ -18,7 +18,7 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member CheckBox(isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<'msg, IFabComponentCheckBox>(
+            WidgetBuilder<unit, IFabComponentCheckBox>(
                 CheckBox.WidgetKey,
                 ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
             )
@@ -28,7 +28,7 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member CheckBox(text: string, isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<'msg, IFabComponentCheckBox>(
+            WidgetBuilder<unit, IFabComponentCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
@@ -38,7 +38,7 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         /// <param name="content">The CheckBox content.</param>
-        static member CheckBox(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabComponentControl>) =
+        static member CheckBox(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabComponentControl>) =
             WidgetBuilder<unit, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
@@ -92,11 +92,3 @@ module ComponentCheckBoxBuilders =
                     ValueNone
                 )
             )
-
-type ComponentCheckBoxModifiers =
-    /// <summary>Link a ViewRef to access the direct CheckBox control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentCheckBox>, value: ViewRef<CheckBox>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

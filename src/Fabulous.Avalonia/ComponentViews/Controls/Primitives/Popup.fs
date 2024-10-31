@@ -44,10 +44,3 @@ type ComponentPopupModifiers =
     [<Extension>]
     static member inline onOpened(this: WidgetBuilder<unit, #IFabComponentPopup>, msg: unit -> unit) =
         this.AddScalar(ComponentPopup.Opened.WithValue(msg))
-
-    /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentPopup>, value: ViewRef<Popup>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

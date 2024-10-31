@@ -83,7 +83,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="content">The content of the HyperlinkButton.</param>
         /// <param name="isVisited">Whether the HyperlinkButton is visited.</param>
         /// <param name="fn">Raised when the IsVisited value changes.</param>
-        static member HyperlinkButton(uri: Uri, isVisited: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabComponentControl>) =
+        static member HyperlinkButton(uri: Uri, isVisited: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabComponentControl>) =
             WidgetBuilder<unit, IFabComponentHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
@@ -99,7 +99,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <summary>Creates a HyperlinkButton widget.</summary>
         /// <param name="uri">The Uri to navigate to when the HyperlinkButton is clicked.</param>
         /// <param name="content">The content of the HyperlinkButton.</param>
-        static member HyperlinkButton(uri: string, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member HyperlinkButton(uri: string, content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<unit, IFabComponentHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
@@ -114,7 +114,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="content">The content of the HyperlinkButton.</param>
         /// <param name="isVisited">Whether the HyperlinkButton is visited.</param>
         /// <param name="fn">Raised when the IsVisited value changes.</param>
-        static member HyperlinkButton(uri: string, isVisited: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabComponentControl>) =
+        static member HyperlinkButton(uri: string, isVisited: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabComponentControl>) =
             WidgetBuilder<unit, IFabComponentHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
@@ -126,11 +126,3 @@ module ComponentHyperlinkButtonBuilders =
                     ValueNone
                 )
             )
-
-type ComponentHyperlinkButtonModifiers =
-    /// <summary>Link a ViewRef to access the direct HyperlinkButton control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentHyperlinkButton>, value: ViewRef<HyperlinkButton>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

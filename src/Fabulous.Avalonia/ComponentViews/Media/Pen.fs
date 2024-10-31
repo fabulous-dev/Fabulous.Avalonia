@@ -40,11 +40,3 @@ module ComponentPenBuilders =
         /// <param name="thickness">The thickness of the stroke.</param>
         static member Pen(brush: string, thickness: float) =
             View.Pen(View.SolidColorBrush(brush), thickness)
-
-type ComponentPenModifiers =
-    /// <summary>Link a ViewRef to access the direct Pen control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentPen>, value: ViewRef<Pen>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -50,11 +50,3 @@ module ComponentComboBoxItemBuilders =
                     ValueNone
                 )
             )
-
-type ComponentComboBoxItemModifiers =
-    /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentComboBoxItem>, value: ViewRef<ComboBoxItem>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

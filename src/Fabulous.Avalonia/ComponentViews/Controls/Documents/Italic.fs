@@ -21,11 +21,3 @@ module ComponentItalicBuilders =
         /// <param name="text">Text to display.</param>
         static member Italic(text: string) =
             Components.View.Italic() { View.Run(text) }
-
-type ComponentItalicModifiers =
-    /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentItalic>, value: ViewRef<Italic>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

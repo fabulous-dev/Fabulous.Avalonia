@@ -50,11 +50,3 @@ module ComponentTreeViewItemBuilders =
                 TreeViewItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()) |], ValueNone)
             )
-
-type ComponentTreeViewItemModifiers =
-    /// <summary>Link a ViewRef to access the direct TreeViewItem control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentTreeViewItem>, value: ViewRef<TreeViewItem>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

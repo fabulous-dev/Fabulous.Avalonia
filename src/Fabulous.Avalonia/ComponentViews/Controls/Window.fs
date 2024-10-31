@@ -27,15 +27,15 @@ module ComponentWindowBuilders =
 
         /// <summary>Creates a Window widget.</summary>
         /// <param name="content">The content of the window.</param>
-        static member Window(content: WidgetBuilder<'msg, #IFabComponentElement>) =
+        static member Window(content: WidgetBuilder<unit, #IFabComponentElement>) =
             WidgetBuilder<unit, IFabComponentWindow>(
                 Window.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
 
         /// <summary>Creates a Window widget.</summary>
-        static member Window<'msg, 'childMarker when 'msg: equality>() =
-            SingleChildBuilder<'msg, IFabComponentWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
+        static member Window() =
+            SingleChildBuilder<unit, IFabComponentWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
 type ComponentWindowModifiers =
     /// <summary>Listens to the Window WindowClosing event.</summary>
@@ -56,12 +56,5 @@ type ComponentWindowModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
-    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabComponentWindow>, fn: RoutedEventArgs -> unit) =
+    static member inline onWindowOpened(this: WidgetBuilder<unit, #IFabComponentWindow>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentWindow.WindowOpened.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentWindow>, value: ViewRef<Window>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

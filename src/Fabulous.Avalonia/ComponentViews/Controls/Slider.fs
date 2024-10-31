@@ -31,11 +31,3 @@ module ComponentSliderBuilders =
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),
                 ComponentRangeBase.ValueChanged.WithValue(ComponentValueEventData.create value fn)
             )
-
-type ComponentSliderModifiers =
-    /// <summary>Link a ViewRef to access the direct Slider control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentSlider>, value: ViewRef<Slider>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

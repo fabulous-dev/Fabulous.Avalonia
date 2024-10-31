@@ -33,20 +33,12 @@ module ComponentGradientStopBuilders =
 type ComponentGradientStopBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabGradientStop>
-        (_: CollectionBuilder<'msg, 'marker, IFabGradientStop>, x: WidgetBuilder<'msg, 'itemType>)
-        : Content<'msg> =
+        (_: CollectionBuilder<unit, 'marker, IFabGradientStop>, x: WidgetBuilder<unit, 'itemType>)
+        : Content<unit> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabGradientStop>
-        (_: CollectionBuilder<'msg, 'marker, IFabGradientStop>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
-        : Content<'msg> =
+        (_: CollectionBuilder<unit, 'marker, IFabGradientStop>, x: WidgetBuilder<unit, Memo.Memoized<'itemType>>)
+        : Content<unit> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-
-type GradientStopModifiers =
-    /// <summary>Link a ViewRef to access the direct GradientStop control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentGradientStop>, value: ViewRef<GradientStop>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

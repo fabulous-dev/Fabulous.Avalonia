@@ -27,12 +27,12 @@ module ComponentThumbBuilders =
 
         /// <summary>Creates a Thumb widget.</summary>
         static member Thumb() =
-            WidgetBuilder<'msg, IFabComponentThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<unit, IFabComponentThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
         /// <summary>Creates a Thumb widget.</summary>
         /// <param name="template">The template to use for the Thumb.</param>
-        static member Thumb(template: WidgetBuilder<'msg, #IFabComponentControl>) =
-            WidgetBuilder<'msg, IFabComponentThumb>(
+        static member Thumb(template: WidgetBuilder<unit, #IFabComponentControl>) =
+            WidgetBuilder<unit, IFabComponentThumb>(
                 Thumb.WidgetKey,
                 AttributesBundle(StackList.one(TemplatedControl.Template.WithValue(template.Compile())), ValueNone, ValueNone)
             )
@@ -59,10 +59,3 @@ type ComponentThumbModifiers =
     [<Extension>]
     static member inline onDragCompleted(this: WidgetBuilder<unit, #IFabComponentThumb>, fn: VectorEventArgs -> unit) =
         this.AddScalar(ComponentThumb.DragCompleted.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct Thumb control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentThumb>, value: ViewRef<Thumb>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

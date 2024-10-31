@@ -5,7 +5,6 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 type IFabComponentTransition =
     inherit IFabComponentElement
@@ -246,29 +245,16 @@ module ComponentEffectTransitionBuilders =
                 TransitionBase.Duration.WithValue(duration)
             )
 
-type ComponentTransitionBaseCollectionBuilderExtensions =
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabComponentAnimatable and 'itemType :> IFabComponentTransition>
-        (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentTransition>, x: WidgetBuilder<'msg, 'itemType>)
-        : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabComponentAnimatable and 'itemType :> IFabComponentTransition>
-        (_: AttributeCollectionBuilder<'msg, 'marker, IFabComponentTransition>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
-        : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
 type ComponentTransitionCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<unit, #IFabComponentAnimatable>) =
-        AttributeCollectionBuilder<unit, #IFabComponentAnimatable, IFabComponentTransition>(this, ComponentAnimatable.Transitions)
+    static member inline transition(this: WidgetBuilder<unit, #IFabAnimatable>) =
+        AttributeCollectionBuilder<unit, #IFabAnimatable, #IFabTransition>(this, ComponentAnimatable.Transitions)
 
     /// <summary>Sets the Transition property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Transition value.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<unit, #IFabAnimatable>, value: WidgetBuilder<unit, #IFabComponentTransition>) =
-        AttributeCollectionBuilder<unit, #IFabComponentAnimatable, IFabComponentTransition>(this, ComponentAnimatable.Transitions) { value }
+    static member inline transition(this: WidgetBuilder<unit, #IFabAnimatable>, value: WidgetBuilder<unit, #IFabTransition>) =
+        AttributeCollectionBuilder<unit, #IFabAnimatable, #IFabTransition>(this, ComponentAnimatable.Transitions) { value }

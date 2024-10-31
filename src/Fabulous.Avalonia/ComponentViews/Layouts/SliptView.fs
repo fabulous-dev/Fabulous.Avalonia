@@ -35,7 +35,7 @@ module ComponentSplitViewBuilders =
         /// <summary>Creates a SplitView widget.</summary>
         /// <param name="pane">The content of the pane.</param>
         /// <param name="content">The content to display.</param>
-        static member SplitView(pane: WidgetBuilder<'msg, #IFabComponentControl>, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member SplitView(pane: WidgetBuilder<unit, #IFabComponentControl>, content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<unit, IFabComponentSplitView>(
                 SplitView.WidgetKey,
                 AttributesBundle(
@@ -52,28 +52,28 @@ type ComponentSplitViewModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosed event fires.</param>
     [<Extension>]
-    static member inline onPanClosed(this: WidgetBuilder<unit, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
+    static member inline onPanClosed(this: WidgetBuilder<unit, #IFabComponentSplitView>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanClosed.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanClosing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosing event fires.</param>
     [<Extension>]
-    static member inline onPanClosing(this: WidgetBuilder<unit, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onPanClosing(this: WidgetBuilder<unit, #IFabComponentSplitView>, fn: CancelRoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanClosing.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpened event fires.</param>
     [<Extension>]
-    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
+    static member inline onPanOpened(this: WidgetBuilder<unit, #IFabComponentSplitView>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanOpened.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpening event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpening event fires.</param>
     [<Extension>]
-    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onPanOpening(this: WidgetBuilder<unit, #IFabComponentSplitView>, fn: CancelRoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanOpening.WithValue(fn))
 
     /// <summary>Listens to the SplitView IsPresented event.</summary>
@@ -81,7 +81,7 @@ type ComponentSplitViewModifiers =
     /// <param name="value">The IsPresented value.</param>
     /// <param name="fn">Raised when the IsPresented event fires.</param>
     [<Extension>]
-    static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> unit) =
+    static member inline isPresented(this: WidgetBuilder<unit, #IFabComponentSplitView>, value: bool, fn: bool -> unit) =
         this.AddScalar(ComponentSplitView.IsPresented.WithValue(ComponentValueEventData.create value fn))
 
 type ComponentSplitViewExtraModifiers =
@@ -89,12 +89,12 @@ type ComponentSplitViewExtraModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PaneBackground value.</param>
     [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<unit, #IFabSplitView>, value: Color) =
+    static member inline paneBackground(this: WidgetBuilder<unit, #IFabComponentSplitView>, value: Color) =
         SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the PaneBackground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PaneBackground value.</param>
     [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<unit, #IFabSplitView>, value: string) =
+    static member inline paneBackground(this: WidgetBuilder<unit, #IFabComponentSplitView>, value: string) =
         SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))

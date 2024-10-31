@@ -44,13 +44,6 @@ type ComponentPanelModifiers =
     static member inline foreground(this: WidgetBuilder<unit, #IFabComponentPanel>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
 
-    /// <summary>Link a ViewRef to access the direct Panel control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentPanel>, value: ViewRef<Panel>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type ComponentPanelExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>

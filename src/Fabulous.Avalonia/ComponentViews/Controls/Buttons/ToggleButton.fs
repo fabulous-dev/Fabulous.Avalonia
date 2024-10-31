@@ -81,7 +81,7 @@ module ComponentToggleButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateToggleButton.</param>
-        static member ThreeStateToggleButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ThreeStateToggleButton(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<unit, IFabComponentToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
@@ -95,11 +95,3 @@ module ComponentToggleButtonBuilders =
                     ValueNone
                 )
             )
-
-type ComponentToggleButtonModifiers =
-    /// <summary>Link a ViewRef to access the direct ToggleButton control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentToggleButton>, value: ViewRef<ToggleButton>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

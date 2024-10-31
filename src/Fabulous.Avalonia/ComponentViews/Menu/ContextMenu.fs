@@ -54,13 +54,6 @@ type ComponentContextMenuModifiers =
     static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> unit) =
         this.AddScalar(ComponentContextMenu.Closing.WithValue(fn))
 
-    /// <summary>Link a ViewRef to access the direct ContextMenu control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentContextMenu>, value: ViewRef<ContextMenu>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
 type ComponentContextMenuAttachedModifiers =
     /// <summary>Sets the ContextMenu property.</summary>
     /// <param name="this">Current widget.</param>

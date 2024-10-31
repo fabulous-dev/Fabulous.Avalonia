@@ -76,10 +76,3 @@ type ComponentAutoCompleteBoxModifiers =
     [<Extension>]
     static member inline onSelectionChanged(this: WidgetBuilder<unit, #IFabComponentAutoCompleteBox>, fn: SelectionChangedEventArgs -> unit) =
         this.AddScalar(ComponentAutoCompleteBox.SelectionChanged.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct AutoCompleteBox control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

@@ -30,11 +30,3 @@ module ComponentTimePickerBuilders =
                 TimePicker.WidgetKey,
                 ComponentTimePicker.SelectedTimeChanged.WithValue(ComponentValueEventData.create time fn)
             )
-
-type ComponentTimePickerModifiers =
-    /// <summary>Link a ViewRef to access the direct TimePicker control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentTimePicker>, value: ViewRef<TimePicker>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

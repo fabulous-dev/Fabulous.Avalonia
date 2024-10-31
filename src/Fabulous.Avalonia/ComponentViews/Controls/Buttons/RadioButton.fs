@@ -19,7 +19,7 @@ module RadioButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
-        static member RadioButton(text: string, isChecked: bool, fn: bool -> 'msg) =
+        static member RadioButton(text: string, isChecked: bool, fn: bool -> unit) =
             WidgetBuilder<unit, IFabComponentRadioButton>(
                 RadioButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
@@ -44,7 +44,7 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
         /// <param name="content">The content of the RadioButton.</param>
-        static member RadioButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member RadioButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<unit, IFabComponentRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
@@ -58,7 +58,7 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateRadioButton.</param>
-        static member ThreeStateRadioButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member ThreeStateRadioButton(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<unit, #IFabControl>) =
             WidgetBuilder<unit, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
@@ -72,11 +72,3 @@ module RadioButtonBuilders =
                     ValueNone
                 )
             )
-
-type ComponentRadioButtonAttachedModifiers =
-    /// <summary>Link a ViewRef to access the direct RadioButton control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabComponentRadioButton>, value: ViewRef<RadioButton>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

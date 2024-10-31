@@ -41,11 +41,3 @@ module ComponentTabItemBuilders =
                     ValueNone
                 )
             )
-
-type ComponentTabItemModifiers =
-    /// <summary>Link a ViewRef to access the direct TabItem control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<unit, IFabComponentTabItem>, value: ViewRef<TabItem>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

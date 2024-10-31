@@ -55,34 +55,27 @@ type ComponentCalendarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayDateChanged event is fired.</param>
     [<Extension>]
-    static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabComponentCalendar>, fn: CalendarDateChangedEventArgs -> unit) =
+    static member inline onDisplayDateChanged(this: WidgetBuilder<unit, #IFabComponentCalendar>, fn: CalendarDateChangedEventArgs -> unit) =
         this.AddScalar(ComponentCalendar.DisplayDateChanged.WithValue(fn))
 
     /// <summary>Listens to the Calendar DisplayModeChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayModeChanged event is fired.</param>
     [<Extension>]
-    static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabComponentCalendar>, fn: CalendarModeChangedEventArgs -> unit) =
+    static member inline onDisplayModeChanged(this: WidgetBuilder<unit, #IFabComponentCalendar>, fn: CalendarModeChangedEventArgs -> unit) =
         this.AddScalar(ComponentCalendar.DisplayModeChanged.WithValue(fn))
-
-    /// <summary>Link a ViewRef to access the direct Calendar control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabCalendar>, value: ViewRef<Calendar>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type ComponentCalendarExtraModifiers =
     /// <summary>Sets the HeaderBackground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HeaderBackground value.</param>
     [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<unit, #IFabCalendar>, value: Color) =
+    static member inline headerBackground(this: WidgetBuilder<unit, #IFabComponentCalendar>, value: Color) =
         CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the HeaderBackground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HeaderBackground value.</param>
     [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<unit, #IFabCalendar>, value: string) =
+    static member inline headerBackground(this: WidgetBuilder<unit, #IFabComponentCalendar>, value: string) =
         CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))

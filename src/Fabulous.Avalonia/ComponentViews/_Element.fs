@@ -7,7 +7,7 @@ type View = class end
 
 type IFabComponentElement =
     inherit IFabElement
-
+// FIXME
 // type ElementModifiers =
 //     /// <summary>Listen to the widget being mounted</summary>
 //     /// <param name="this">Current widget</param>
