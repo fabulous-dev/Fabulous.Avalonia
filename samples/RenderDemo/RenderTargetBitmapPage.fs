@@ -4,13 +4,14 @@ open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 open Avalonia.Media.Imaging
 open Avalonia.Threading
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open type Fabulous.Avalonia.Mvu.View
 
 type RenderTargetBitmapControl() =
     inherit Control()
@@ -46,7 +47,7 @@ type RenderTargetBitmapControl() =
         base.Render(context)
 
 type IFabRenderTargetBitmap =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module RenderTargetBitmap =
 
@@ -55,9 +56,9 @@ module RenderTargetBitmap =
 [<AutoOpen>]
 module RenderTargetBitmapBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
-        static member RenderTargetBitmap<'msg>() =
+        static member RenderTargetBitmap() =
             WidgetBuilder<'msg, IFabRenderTargetBitmap>(RenderTargetBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module RenderTargetBitmapPage =

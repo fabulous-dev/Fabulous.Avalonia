@@ -11,7 +11,9 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module DrawLineAnimationPage =
 
@@ -98,7 +100,7 @@ module DrawLineAnimationPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             (Canvas() {

@@ -15,7 +15,7 @@ module MvuTabItemBuilders =
         /// <summary>Creates a TabItem widget.</summary>
         /// <param name="header">The header of the TabItem.</param>
         /// <param name="content">The content of the TabItem.</param>
-        static member TabItem(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member TabItem(header: string, content: WidgetBuilder<'msg, #IFabMvuControl>) =
             WidgetBuilder<'msg, IFabMvuTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
@@ -28,7 +28,7 @@ module MvuTabItemBuilders =
         /// <summary>Creates a TabItem widget.</summary>
         /// <param name="header">The header of the TabItem.</param>
         /// <param name="content">The content of the TabItem.</param>
-        static member TabItem(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member TabItem(header: WidgetBuilder<'msg, #IFabMvuControl>, content: WidgetBuilder<'msg, #IFabMvuControl>) =
             WidgetBuilder<'msg, IFabMvuTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(

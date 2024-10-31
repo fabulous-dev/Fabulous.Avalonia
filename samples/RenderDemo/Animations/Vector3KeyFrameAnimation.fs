@@ -12,7 +12,9 @@ open Avalonia.Rendering.Composition.Animations
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+
+open type Fabulous.Avalonia.Mvu.View
 
 module Vector3KeyFrameAnimation =
     type Model = { Value: int }
@@ -58,7 +60,7 @@ module Vector3KeyFrameAnimation =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             (Canvas() {
                 EmptyBorder()
                     .background(Brushes.Red)

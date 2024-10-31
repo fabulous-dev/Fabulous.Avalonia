@@ -1,20 +1,18 @@
 namespace RenderDemo
 
-open System
 open System.Diagnostics
-open System.Numerics
-open System.Runtime.CompilerServices
 open Avalonia
-open Avalonia.Animation
 open Avalonia.Controls
+
+
 open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Rendering.Composition
-open Avalonia.Rendering.Composition.Animations
-open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Rendering.Composition
+open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ExpressionAnimation =
     type Model = { Value: int }
@@ -58,8 +56,8 @@ module ExpressionAnimation =
         )
 
     let view () =
-        Component(program) {
-            (ScrollViewer(
+        Component("", program) {
+            ScrollViewer(
                 Dock() {
                     TextBlock("Resize window horizontally to change Border opacity.")
                         .horizontalAlignment(HorizontalAlignment.Center)
@@ -73,6 +71,6 @@ module ExpressionAnimation =
                         .reference(borderRef)
                         .onAttachedToVisualTree(OnAttachedToVisualTree)
                 }
-            ))
+            )
                 .reference(visualRootRef)
         }

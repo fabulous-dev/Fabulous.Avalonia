@@ -5,7 +5,7 @@ open Fabulous.Avalonia
 
 type IFabMvuAnimatable =
     inherit IFabMvuElement
-    inherit IFabElement
+    inherit IFabAnimatable
 
 module MvuAnimatable =
     let Transitions =

@@ -4,12 +4,15 @@ open System
 open Avalonia.Media
 open Avalonia
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+
+open type Fabulous.Avalonia.Mvu.View
 
 module RenderTransformPage =
-    let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
+    let borderTestStyle (this: WidgetBuilder<'msg, IFabMvuBorder>) =
         this
             .child(
                 Image("avares://RenderDemo/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)

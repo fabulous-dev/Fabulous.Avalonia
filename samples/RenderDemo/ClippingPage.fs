@@ -8,7 +8,8 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ClippingPage =
     type Model = { IsChecked: bool; BrushColor: IBrush }
@@ -72,7 +73,7 @@ module ClippingPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {

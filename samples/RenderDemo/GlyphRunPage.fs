@@ -4,13 +4,14 @@ open System
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Threading
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.Avalonia
 open Fabulous
 
 #nowarn "0044"
 
-open type Fabulous.Avalonia.View
+open type Fabulous.Avalonia.Mvu.View
 
 type GlyphRunControl() =
     inherit Control()
@@ -110,7 +111,7 @@ type GlyphRunGeometryControl() =
 
 
 type IFabGlyphRunControl =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module GlyphRun =
 
@@ -119,13 +120,13 @@ module GlyphRun =
 [<AutoOpen>]
 module GlyphRunControlBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
-        static member GlyphRun<'msg>() =
+        static member GlyphRun() =
             WidgetBuilder<'msg, IFabGlyphRunControl>(GlyphRun.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type IFabGlyphRunGeometryControl =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module GlyphRunGeometry =
     let WidgetKey = Widgets.register<GlyphRunGeometryControl>()
@@ -133,9 +134,9 @@ module GlyphRunGeometry =
 [<AutoOpen>]
 module GlyphRunGeometryControlBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
-        static member GlyphRunGeometry<'msg>() =
+        static member GlyphRunGeometry() =
             WidgetBuilder<'msg, IFabGlyphRunGeometryControl>(GlyphRunGeometry.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 

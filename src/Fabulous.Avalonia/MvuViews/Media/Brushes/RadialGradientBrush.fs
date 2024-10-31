@@ -50,7 +50,7 @@ module MvuRadialGradientBrushBuilders =
         /// <param name="center">The center of the gradient.</param>
         /// <param name="origin">The origin of the gradient.</param>
         static member RadialGradientBrush(center: RelativePoint, origin: RelativePoint) =
-            CollectionBuilder<'msg, IFabMvuRadialGradientBrush, IFabGradientStop>(
+            CollectionBuilder<'msg, IFabMvuRadialGradientBrush, IFabMvuGradientStop>(
                 RadialGradientBrush.WidgetKey,
                 MvuGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(center),

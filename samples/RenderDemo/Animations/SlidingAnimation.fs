@@ -13,7 +13,9 @@ open Avalonia.Rendering.Composition.Animations
 open Fabulous
 open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+
+open type Fabulous.Avalonia.Mvu.View
 
 module ViewExtensions =
     let Apply (visual: Visual, offsetX: float, offsetY: float, duration: TimeSpan) =

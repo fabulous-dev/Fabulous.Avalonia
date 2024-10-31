@@ -10,6 +10,7 @@ open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
 
+open Fabulous.Avalonia.Mvu
 open type Fabulous.Avalonia.Mvu.View
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -96,7 +97,7 @@ and PointerContacts() =
             context.DrawEllipse(brush, null, pt.Point, 75., 75.)
 
 type IFabPointerContacts =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module PointerContacts =
     let WidgetKey = Widgets.register<PointerContacts>()

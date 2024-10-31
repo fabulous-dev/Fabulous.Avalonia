@@ -34,7 +34,7 @@ module MvuCheckBoxBuilders =
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         /// <param name="content">The CheckBox content.</param>
         static member CheckBox(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabMvuControl>) =
-            WidgetBuilder<'msg, IFabCheckBox>(
+            WidgetBuilder<'msg, IFabMvuCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
                     StackList.one(MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),

@@ -5,10 +5,11 @@ open Avalonia.Media
 open Controls.HamburgerMenu
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabHamburgerMenu =
-    inherit IFabTabControl
+    inherit IFabMvuTabControl
 
 module HamburgerMenu =
     let WidgetKey = Widgets.register<HamburgerMenu>()
@@ -22,14 +23,13 @@ module HamburgerMenu =
     let ExpandedModeThresholdWidth =
         Attributes.defineAvaloniaPropertyWithEquality HamburgerMenu.ExpandedModeThresholdWidthProperty
 
-
 [<AutoOpen>]
 module HamburgerMenuBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         static member HamburgerMenu() =
-            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenu.WidgetKey, ItemsControl.Items)
+            CollectionBuilder<'msg, IFabHamburgerMenu, IFabMvuTabItem>(HamburgerMenu.WidgetKey, MvuItemsControl.Items)
 
 
 type HamburgerMenuModifiers =
@@ -38,21 +38,21 @@ type HamburgerMenuModifiers =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
     [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: IBrush) =
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: IBrush) =
         this.AddScalar(HamburgerMenu.PaneBackground.WithValue(value))
 
     [<Extension>]
-    static member inline contentBackground(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: IBrush) =
+    static member inline contentBackground(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: IBrush) =
         this.AddScalar(HamburgerMenu.ContentBackground.WithValue(value))
 
     [<Extension>]
-    static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: int) =
+    static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: int) =
         this.AddScalar(HamburgerMenu.ExpandedModeThresholdWidth.WithValue(value))
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         /// <summary>Creates a empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member EmptyBorder() =
+            WidgetBuilder<'msg, IFabMvuBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

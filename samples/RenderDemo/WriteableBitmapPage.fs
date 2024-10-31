@@ -5,6 +5,7 @@ open System.Runtime.InteropServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 open Avalonia.Media.Imaging
 open Avalonia.Media.Immutable
@@ -12,7 +13,7 @@ open Avalonia.Platform
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open type Fabulous.Avalonia.Mvu.View
 
 
 type WriteableBitmapControl() =
@@ -78,7 +79,7 @@ type WriteableBitmapControl() =
 
 
 type IFabWriteableBitmap =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module WriteableBitmap =
 
@@ -87,9 +88,9 @@ module WriteableBitmap =
 [<AutoOpen>]
 module WriteableBitmapBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
-        static member WriteableBitmap<'msg>() =
+        static member WriteableBitmap() =
             WidgetBuilder<'msg, IFabWriteableBitmap>(WriteableBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module WriteableBitmapPage =

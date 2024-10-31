@@ -5,11 +5,12 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.TextFormatting
+open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open type Fabulous.Avalonia.Mvu.View
 
 
 type ControlRun(control: Control, defaultProperties: TextRunProperties) =
@@ -75,7 +76,7 @@ type TextFormatter() =
 
 
 type IFabTextFormatterControl =
-    inherit IFabControl
+    inherit IFabMvuControl
 
 module TextFormatter =
     let WidgetKey = Widgets.register<TextFormatter>()
@@ -83,9 +84,9 @@ module TextFormatter =
 [<AutoOpen>]
 module TextFormatterBuilders =
 
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
-        static member TextFormatter<'msg>() =
+        static member TextFormatter() =
             WidgetBuilder<'msg, IFabTextFormatterControl>(TextFormatter.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module TextFormatterPage =

@@ -64,7 +64,9 @@ type CanvasItem() as this =
             Canvas.SetTop(this, top)
         | _ -> ()
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia
+open Fabulous.Avalonia.Mvu
+open type Fabulous.Avalonia.Mvu.View
 
 module ImplicitCanvasAnimationsPage =
     type Model =
@@ -201,7 +203,7 @@ module ImplicitCanvasAnimationsPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             let! model = Mvu.State
 
             Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {

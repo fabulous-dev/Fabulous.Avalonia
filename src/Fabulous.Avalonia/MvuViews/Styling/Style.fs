@@ -40,13 +40,13 @@ type MvuStyleCollectionBuilderExtensions =
 
     [<Extension>]
     static member inline Yield
-        (_: AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabMvuStyle>, x: WidgetBuilder<'msg, #IFabMvuStyle>)
+        (_: AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabMvuStyle>, x: WidgetBuilder<'msg, IFabMvuStyle>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield
-        (_: AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabMvuStyle>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabMvuStyle>>)
+        (_: AttributeCollectionBuilder<'msg, #IFabMvuStyledElement, IFabMvuStyle>, x: WidgetBuilder<'msg, Memo.Memoized<IFabMvuStyle>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 

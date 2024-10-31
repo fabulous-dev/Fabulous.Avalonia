@@ -9,7 +9,9 @@ open Avalonia.Styling
 open Fabulous.Avalonia
 open Fabulous
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+
+open type Fabulous.Avalonia.Mvu.View
 
 type CustomStringAnimator() =
     inherit InterpolatingAnimator<string>()
@@ -52,7 +54,7 @@ module CustomAnimatorPage =
         )
 
     let view () =
-        Component(program) {
+        Component("", program) {
             Grid() {
                 TextBlock("")
                     .centerHorizontal()

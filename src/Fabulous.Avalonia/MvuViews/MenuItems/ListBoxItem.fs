@@ -31,8 +31,8 @@ module MvuListBoxItemBuilders =
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
         /// <param name="content">The content of the ListBoxItem.</param>
-        static member ListBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabListBoxItem>(
+        static member ListBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuListBoxItem>(
                 ListBoxItem.WidgetKey,
                 AttributesBundle(
                     StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
@@ -43,8 +43,8 @@ module MvuListBoxItemBuilders =
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
-        static member ListBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabListBoxItem>(
+        static member ListBoxItem(content: WidgetBuilder<'msg, #IFabMvuControl>) =
+            WidgetBuilder<'msg, IFabMvuListBoxItem>(
                 ListBoxItem.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

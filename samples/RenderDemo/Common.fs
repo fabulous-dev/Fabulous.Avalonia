@@ -68,11 +68,13 @@ module Task =
                 return output.ToArray()
             }
 
-open type Fabulous.Avalonia.View
+open Fabulous.Avalonia.Mvu
+
+open type Fabulous.Avalonia.Mvu.View
 
 [<AutoOpen>]
 module CommonBuilders =
-    type Fabulous.Avalonia.View with
+    type Fabulous.Avalonia.Mvu.View with
 
         static member CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
             Border(
