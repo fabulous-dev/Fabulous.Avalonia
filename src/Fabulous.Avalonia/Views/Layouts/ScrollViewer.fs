@@ -5,6 +5,7 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabScrollViewer =
     inherit IFabContentControl
@@ -50,6 +51,18 @@ module ScrollViewer =
 
     let IsDeferredScrollingEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsDeferredScrollingEnabledProperty
+
+[<AutoOpen>]
+module ScrollViewerBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ScrollViewer widget</summary>
+        /// <param name="content">The content to display</param>
+        static member ScrollViewer(content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabScrollViewer>(
+                ScrollViewer.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+            )
 
 type ScrollViewerModifiers =
     /// <summary>Sets the Extent property.</summary>

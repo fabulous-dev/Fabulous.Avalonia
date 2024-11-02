@@ -1,4 +1,4 @@
-﻿namespace Fabulous.Avalonia.Mvu
+﻿namespace Fabulous.Avalonia
 
 open Avalonia.Controls
 open Avalonia.Interactivity
@@ -8,9 +8,6 @@ open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
 
-type IFabMvuSplitView =
-    inherit IFabMvuContentControl
-    inherit IFabSplitView
 
 module MvuSplitView =
     let PanClosed =
@@ -27,25 +24,6 @@ module MvuSplitView =
 
     let IsPresented =
         MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
-
-[<AutoOpen>]
-module MvuSplitViewBuilders =
-    type Fabulous.Avalonia.Mvu.View with
-
-        /// <summary>Creates a SplitView widget.</summary>
-        /// <param name="pane">The content of the pane.</param>
-        /// <param name="content">The content to display.</param>
-        static member SplitView(pane: WidgetBuilder<'msg, #IFabMvuControl>, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabMvuSplitView>(
-                SplitView.WidgetKey,
-                AttributesBundle(
-                    StackList.empty(),
-                    ValueSome
-                        [| SplitView.Pane.WithValue(pane.Compile())
-                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueSome [||]
-                )
-            )
 
 type MvuSplitViewModifiers =
     /// <summary>Listens to the SplitView PanClosed event.</summary>
@@ -83,18 +61,3 @@ type MvuSplitViewModifiers =
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> 'msg) =
         this.AddScalar(MvuSplitView.IsPresented.WithValue(MvuValueEventData.create value fn))
-
-type MvuSplitViewExtraModifiers =
-    /// <summary>Sets the PaneBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PaneBackground value.</param>
-    [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: Color) =
-        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the PaneBackground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PaneBackground value.</param>
-    [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: string) =
-        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))

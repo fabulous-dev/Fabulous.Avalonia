@@ -363,7 +363,11 @@
     <Compile Include="Views\Imaging\TrayIcon.Components.fs" />
     <Compile Include="Views\Imaging\PathIcon.fs" />
     <Compile Include="Views\Layouts\SliptView.fs" />
+    <Compile Include="Views\Layouts\SliptView.Mvu.fs" />
+    <Compile Include="Views\Layouts\SliptView.Components.fs" />
     <Compile Include="Views\Layouts\ScrollViewer.fs" />
+    <Compile Include="Views\Layouts\ScrollViewer.Mvu.fs" />
+    <Compile Include="Views\Layouts\ScrollViewer.Components.fs" />
     <Compile Include="Views\Panels\Panel.fs" />
     <Compile Include="Views\Panels\Canvas.fs" />
     <Compile Include="Views\Panels\_AdornerLayer.fs" />
@@ -391,8 +395,6 @@
       <Pack>true</Pack>
     </None>
     <Compile Include="Component.fs" />
-    <Compile Include="ComponentViews\Layouts\ScrollViewer.fs" />
-    <Compile Include="ComponentViews\Layouts\SliptView.fs" />
     <Compile Include="ComponentViews\Panels\Panel.fs" />
     <Compile Include="ComponentViews\Panels\DockPanel.fs" />
     <Compile Include="ComponentViews\Panels\_StackPanel.fs" />
@@ -406,8 +408,6 @@
     <Compile Include="ComponentViews\Application.fs" />
     <Compile Include="ComponentViews\Any.fs" />
     <Compile Include="ComponentViews\Component.fs" />
-    <Compile Include="MvuViews\Layouts\ScrollViewer.fs" />
-    <Compile Include="MvuViews\Layouts\SliptView.fs" />
     <Compile Include="MvuViews\Panels\Panel.fs" />
     <Compile Include="MvuViews\Panels\DockPanel.fs" />
     <Compile Include="MvuViews\Panels\Grid.fs" />
