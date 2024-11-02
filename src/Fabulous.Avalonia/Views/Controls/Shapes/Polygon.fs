@@ -23,6 +23,14 @@ module Polygon =
                 points |> List.iter coll.Add
                 target.SetValue(Polygon.PointsProperty, coll) |> ignore)
 
+[<AutoOpen>]
+module PolygonBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Polygon widget.</summary>
+        /// <param name="points">The points of the polygon.</param>
+        static member Polygon(points: Point list) =
+            WidgetBuilder<unit, IFabPolygon>(Polygon.WidgetKey, Polygon.Points.WithValue(points))
 
 type PolygonModifiers =
     /// <summary>Link a ViewRef to access the direct Polygon control instance.</summary>

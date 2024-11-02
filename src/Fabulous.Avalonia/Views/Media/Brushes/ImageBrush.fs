@@ -1,7 +1,10 @@
 namespace Fabulous.Avalonia
 
+open System
+open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Media
+open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabImageBrush =
@@ -11,6 +14,30 @@ module ImageBrush =
     let WidgetKey = Widgets.register<ImageBrush>()
 
     let Source = Attributes.defineBindableImageSource ImageBrush.SourceProperty
+    
+[<AutoOpen>]
+module ImageBrushBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ImageBrush widget.</summary>
+        /// <param name="source">The image source.</param>
+        static member ImageBrush(source: Bitmap) =
+            WidgetBuilder<unit, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Bitmap(source)))
+
+        /// <summary>Creates a ImageBrush widget.</summary>
+        /// <param name="source">The image source.</param>
+        static member ImageBrush(source: string) =
+            WidgetBuilder<unit, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.File(source)))
+
+        /// <summary>Creates a ImageBrush widget.</summary>
+        /// <param name="source">The image source.</param>
+        static member ImageBrush(source: Uri) =
+            WidgetBuilder<unit, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Uri(source)))
+
+        /// <summary>Creates a ImageBrush widget.</summary>
+        /// <param name="source">The image source.</param>
+        static member ImageBrush(source: Stream) =
+            WidgetBuilder<unit, IFabImageBrush>(ImageBrush.WidgetKey, ImageBrush.Source.WithValue(ImageSourceValue.Stream(source)))
 
 type ImageBrushModifiers =
     /// <summary>Link a ViewRef to access the direct ImageBrush control instance.</summary>

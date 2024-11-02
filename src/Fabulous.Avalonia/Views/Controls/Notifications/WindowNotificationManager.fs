@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Notifications
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabWindowNotificationManager =
     inherit IFabTemplatedControl
@@ -16,6 +17,17 @@ module WindowNotificationManager =
 
     let MaxItems =
         Attributes.defineAvaloniaPropertyWithEquality WindowNotificationManager.MaxItemsProperty
+
+[<AutoOpen>]
+module WindowNotificationManagerBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a WindowNotificationManager widget.</summary>
+        static member WindowNotificationManager(viewRef: ViewRef<WindowNotificationManager>) =
+            WidgetBuilder<unit, IFabWindowNotificationManager>(
+                WindowNotificationManager.WidgetKey,
+                AttributesBundle(StackList.one(ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox)), ValueNone, ValueNone)
+            )
 
 
 type WindowNotificationManagerModifiers =

@@ -10,6 +10,10 @@ type IFabNativeMenu =
 
 module NativeMenu =
     let WidgetKey = Widgets.register<NativeMenu>()
+    
+    let Items =
+        Attributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
+
 
 module NativeMenuAttached =
     let NativeMenu = Attributes.defineAvaloniaPropertyWidget NativeMenu.MenuProperty

@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabHeaderedContentControl =
     inherit IFabContentControl
@@ -15,6 +16,48 @@ module HeaderedContentControl =
 
     let HeaderWidget =
         Attributes.defineAvaloniaPropertyWidget HeaderedContentControl.HeaderProperty
+
+[<AutoOpen>]
+module HeaderedContentControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a HeaderedContentControl widget.</summary>
+        /// <param name="header">The header string.</param>
+        /// <param name="content">The content widget.</param>
+        static member HeaderedContentControl(header: string, content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabHeaderedContentControl>(
+                HeaderedContentControl.WidgetKey,
+                AttributesBundle(
+                    StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a HeaderedContentControl widget.</summary>
+        /// <param name="header">The header widget.</param>
+        /// <param name="content">The content widget.</param>
+        static member HeaderedContentControl(header: WidgetBuilder<unit, #IFabControl>, content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabHeaderedContentControl>(
+                HeaderedContentControl.WidgetKey,
+                AttributesBundle(
+                    StackList.empty(),
+                    ValueSome
+                        [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
+                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a HeaderedContentControl widget.</summary>
+        /// <param name="header">The header string.</param>
+        /// <param name="content">The content string.</param>
+        static member HeaderedContentControl(header: string, content: string) =
+            WidgetBuilder<unit, IFabHeaderedContentControl>(
+                HeaderedContentControl.WidgetKey,
+                HeaderedContentControl.HeaderString.WithValue(header),
+                ContentControl.ContentString.WithValue(content)
+            )
 
 type HeaderedContentControlModifiers =
 

@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabInlineUIContainer =
     inherit IFabInline
@@ -12,6 +13,19 @@ module InlineUIContainer =
 
     let Children =
         Attributes.defineAvaloniaPropertyWidget InlineUIContainer.ChildProperty
+
+[<AutoOpen>]
+module InlineUIContainerBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a InlineUIContainer widget.</summary>
+        /// <param name="content">The content of the InlineUIContainer.</param>
+        static member InlineUIContainer(content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabInlineUIContainer>(
+                InlineUIContainer.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| InlineUIContainer.Children.WithValue(content.Compile()) |], ValueNone)
+            )
+
 
 type InlineUIContainerModifiers =
     /// <summary>Link a ViewRef to access the direct InlineUIContainer control instance.</summary>

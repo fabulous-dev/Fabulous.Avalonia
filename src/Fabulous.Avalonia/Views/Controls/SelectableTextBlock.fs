@@ -54,6 +54,20 @@ type SelectableTextBlockModifiers =
     static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: IBrush) =
         this.AddScalar(SelectableTextBlock.SelectionBrush.WithValue(value))
 
+    /// <summary>Sets the SelectionBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionBrush value.</param>
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: Color) =
+        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the SelectionBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SelectionBrush value.</param>
+    [<Extension>]
+    static member inline selectionBrush(this: WidgetBuilder<'msg, #IFabSelectableTextBlock>, value: string) =
+        SelectableTextBlockModifiers.selectionBrush(this, View.SolidColorBrush(value))
+
     /// <summary>Link a ViewRef to access the direct SelectableTextBlock control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>

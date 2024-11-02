@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabNativeMenuBar =
     inherit IFabTemplatedControl
@@ -13,6 +14,15 @@ module NativeMenuBar =
 
     let EnableMenuItemClickForwarding =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuBar.EnableMenuItemClickForwardingProperty
+
+[<AutoOpen>]
+module NativeMenuBarBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a NativeMenuBar widget.</summary>
+        static member NativeMenuBar() =
+            WidgetBuilder<unit, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 
 type NativeMenuBarAttachedModifiers =
 

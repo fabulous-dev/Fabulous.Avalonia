@@ -7,6 +7,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Controls.Primitives.PopupPositioning
 open Avalonia.Input
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabPopup =
     inherit IFabControl
@@ -58,6 +59,19 @@ module Popup =
 
     let OverlayInputPassThroughElement =
         Attributes.defineAvaloniaPropertyWithEquality Popup.OverlayInputPassThroughElementProperty
+
+[<AutoOpen>]
+module PopupBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Popup widget.</summary>
+        /// <param name="isOpen">Whether the popup is open or not.</param>
+        /// <param name="content">The content of the popup.</param>
+        static member Popup(isOpen: bool, content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabPopup>(
+                Popup.WidgetKey,
+                AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
+            )
 
 type PopupModifiers =
     /// <summary>Sets the WindowManagerAddShadowHint property.</summary>

@@ -23,6 +23,15 @@ module Polyline =
                 points |> List.iter coll.Add
                 target.SetValue(Polyline.PointsProperty, coll) |> ignore)
 
+[<AutoOpen>]
+module PolylineBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Polyline widget.</summary>
+        /// <param name="points">The points of the polyline.</param>
+        static member Polyline(points: Point list) =
+            WidgetBuilder<unit, IFabPolyline>(Polyline.WidgetKey, Polyline.Points.WithValue(points))
+
 type PolylineModifiers =
     /// <summary>Link a ViewRef to access the direct Polyline control instance.</summary>
     /// <param name="this">Current widget.</param>

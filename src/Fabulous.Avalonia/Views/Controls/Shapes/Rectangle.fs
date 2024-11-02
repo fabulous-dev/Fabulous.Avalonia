@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Shapes
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRectangle =
     inherit IFabShape
@@ -16,6 +17,19 @@ module Rectangle =
     let RadiusY =
         Attributes.defineAvaloniaPropertyWithEquality Rectangle.RadiusYProperty
 
+[<AutoOpen>]
+module RectangleBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Rectangle widget.</summary>
+        /// <param name="radiusX">The radius on the X-axis used to round the corners of the rectangle.</param>
+        /// <param name="radiusY">The radius on the Y-axis used to round the corners of the rectangle.</param>
+        static member Rectangle(radiusX: float, radiusY: float) =
+            WidgetBuilder<unit, IFabRectangle>(Rectangle.WidgetKey, Rectangle.RadiusX.WithValue(radiusX), Rectangle.RadiusY.WithValue(radiusY))
+
+        /// <summary>Creates a Rectangle widget.</summary>
+        static member Rectangle() =
+            WidgetBuilder<unit, IFabRectangle>(Rectangle.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type RectangleModifiers =
     /// <summary>Link a ViewRef to access the direct Rectangle control instance.</summary>

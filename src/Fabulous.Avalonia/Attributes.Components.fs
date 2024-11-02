@@ -11,16 +11,16 @@ open Fabulous.ScalarAttributeDefinitions
 [<Struct>]
 type ComponentValueEventData<'data, 'eventArgs> =
     { Value: 'data voption
-      Event: 'eventArgs -> MsgValue }
+      Event: 'eventArgs -> unit }
 
 module ComponentValueEventData =
     let create (value: 'data) (event: 'eventArgs -> unit) =
         { Value = ValueSome value
-          Event = event >> box >> MsgValue }
+          Event = event }
 
     let createVOption (value: 'data voption) (event: 'eventArgs -> unit) =
         { Value = value
-          Event = event >> box >> MsgValue }
+          Event = event }
 
 module ComponentAttributes =
     let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
@@ -67,8 +67,7 @@ module ComponentAttributes =
                             event.Subscribe(fun args ->
                                 if args.Sender = target then
                                     if args.NewValue.HasValue then
-                                        let args = args.NewValue.Value
-                                        convertToModel args |> ignore)
+                                        curr.Event (convertToModel args.NewValue.Value))
 
                         node.SetHandler(property.Name, disposable))
             )
@@ -79,11 +78,11 @@ module ComponentAttributes =
     let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ComponentValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
 
-    let defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> MsgValue> =
+    let defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> unit> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: ('args -> MsgValue) voption) (node: IViewNode) ->
+                (fun _ (newValueOpt: ('args -> unit) voption) (node: IViewNode) ->
                     match node.TryGetHandler(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
@@ -103,11 +102,11 @@ module ComponentAttributes =
     let inline defineCancelEvent
         name
         ([<InlineIfLambda>] getEvent: obj -> IEvent<CancelEventHandler, CancelEventArgs>)
-        : SimpleScalarAttributeDefinition<CancelEventArgs -> MsgValue> =
+        : SimpleScalarAttributeDefinition<CancelEventArgs -> unit> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
-                (fun _ (newValueOpt: (CancelEventArgs -> MsgValue) voption) (node: IViewNode) ->
+                (fun _ (newValueOpt: (CancelEventArgs -> unit) voption) (node: IViewNode) ->
                     match node.TryGetHandler(name) with
                     | ValueNone -> ()
                     | ValueSome handler -> handler.Dispose()
@@ -137,7 +136,7 @@ module ComponentAttributes =
                     let itemNode = node.TreeContext.GetViewNode(targetColl[index])
 
                     // // Trigger the unmounted event
-                    // FIXME Dispatcher.dispatchEventForAllChildren itemNode widget ComponentLifecycle.Unmounted
+                    Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
                     itemNode.Dispose()
 
                     // Remove the child from the UI tree

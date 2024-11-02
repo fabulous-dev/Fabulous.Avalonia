@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Media
 open Fabulous
 
@@ -12,6 +13,16 @@ module PolyLineSegment =
 
     let Points =
         Attributes.defineAvaloniaPropertyWithEquality PolyLineSegment.PointsProperty
+
+[<AutoOpen>]
+module PolyLineSegmentBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a PolyLineSegment widget.</summary>
+        /// <param name="points">The points of the polyline.</param>
+        static member PolyLineSegment(points: Point list) =
+            WidgetBuilder<unit, IFabPolyLineSegment>(PolyLineSegment.WidgetKey, PolyLineSegment.Points.WithValue(points |> Array.ofList))
 
 type PolyLineSegmentModifiers =
 

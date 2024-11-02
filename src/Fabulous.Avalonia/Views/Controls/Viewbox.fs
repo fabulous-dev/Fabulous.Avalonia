@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabViewBox =
     inherit IFabControl
@@ -17,6 +18,18 @@ module ViewBox =
         Attributes.defineAvaloniaPropertyWithEquality Viewbox.StretchDirectionProperty
 
     let Child = Attributes.defineAvaloniaPropertyWidget Viewbox.ChildProperty
+
+[<AutoOpen>]
+module ViewBoxBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ViewBox widget.</summary>
+        /// <param name="content">The content of the ViewBox.</param>
+        static member ViewBox(content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabViewBox>(
+                ViewBox.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone)
+            )
 
 type ViewBoxModifiers =
     /// <summary>Sets the Stretch property.</summary>

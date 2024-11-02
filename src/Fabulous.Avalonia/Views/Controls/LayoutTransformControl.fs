@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabLayoutTransformControl =
     inherit IFabDecorator
@@ -19,6 +20,18 @@ module LayoutTransformControl =
 
     let UseRenderTransform =
         Attributes.defineAvaloniaPropertyWithEquality LayoutTransformControl.UseRenderTransformProperty
+
+[<AutoOpen>]
+module LayoutTransformControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a LayoutTransformControl widget.</summary>
+        /// <param name="content">The content of the LayoutTransformControl.</param>
+        static member LayoutTransformControl(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<unit, IFabLayoutTransformControl>(
+                LayoutTransformControl.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
+            )
 
 type LayoutTransformControlModifiers =
     /// <summary>Sets the LayoutTransform property.</summary>

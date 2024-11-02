@@ -46,6 +46,28 @@ module TreeView =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality TreeView.SelectionModeProperty
 
+[<AutoOpen>]
+module TreeViewBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a TreeView widget.</summary>
+        /// <param name="nodes">The root nodes used to populate the TreeView.</param>
+        /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
+        /// <param name="template">The template used to render each node.</param>
+        static member TreeView<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
+            (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>)
+            =
+            let template (item: obj) =
+                let item = unbox<'itemData> item
+                (template item).Compile()
+
+            let data: TreeWidgetItems =
+                { Nodes = nodes
+                  SubNodesFn = (fun subNode -> subNodes(unbox subNode) :> IEnumerable)
+                  Template = template }
+
+            WidgetBuilder<unit, IFabTreeView>(TreeView.WidgetKey, TreeView.ItemsSource.WithValue(data))
+
 type TreeViewModifiers =
     /// <summary>Link a ViewRef to access the direct TreeView control instance.</summary>
     /// <param name="this">Current widget.</param>

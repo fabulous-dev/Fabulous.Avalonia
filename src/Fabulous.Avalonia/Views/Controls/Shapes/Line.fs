@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Controls.Shapes
 open Fabulous
 
@@ -14,6 +15,17 @@ module Line =
         Attributes.defineAvaloniaPropertyWithEquality Line.StartPointProperty
 
     let EndPoint = Attributes.defineAvaloniaPropertyWithEquality Line.EndPointProperty
+
+[<AutoOpen>]
+module LineBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Line widget.</summary>
+        /// <param name="starPoint">The start point of the line.</param>
+        /// <param name="endPoint">The end point of the line.</param>
+        static member Line(starPoint: Point, endPoint: Point) =
+            WidgetBuilder<unit, IFabLine>(Line.WidgetKey, Line.StartPoint.WithValue(starPoint), Line.EndPoint.WithValue(endPoint))
+
 
 type LineModifiers =
     /// <summary>Link a ViewRef to access the direct Line control instance.</summary>

@@ -6,6 +6,7 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabBorder =
     inherit IFabDecorator
@@ -34,6 +35,19 @@ module Border =
     let BoxShadow =
         Attributes.defineAvaloniaPropertyWithEquality Border.BoxShadowProperty
 
+[<AutoOpen>]
+module BorderBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Border widget.</summary>
+        /// <param name="content">The content of the Border.</param>
+        static member Border(content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabBorder>(
+                Border.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
+            )
+
+
 type BorderModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -48,6 +62,20 @@ type BorderModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.Background.WithValue(value))
+        
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<unit, #IFabBorder>, value: Color) =
+        BorderModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
+    static member inline background(this: WidgetBuilder<unit, #IFabBorder>, value: string) =
+        BorderModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
@@ -62,6 +90,20 @@ type BorderModifiers =
     [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: IBrush) =
         this.AddScalar(Border.BorderBrush.WithValue(value))
+        
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<unit, #IFabBorder>, value: Color) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<unit, #IFabBorder>, value: string) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>

@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Shapes
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabEllipse =
     inherit IFabShape
@@ -10,6 +11,13 @@ type IFabEllipse =
 module Ellipse =
     let WidgetKey = Widgets.register<Ellipse>()
 
+[<AutoOpen>]
+module EllipseBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates an Ellipse widget.</summary>
+        static member Ellipse() =
+            WidgetBuilder<unit, IFabEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type EllipseModifiers =
     /// <summary>Link a ViewRef to access the direct Ellipse control instance.</summary>

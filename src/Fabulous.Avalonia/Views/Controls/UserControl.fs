@@ -3,12 +3,25 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabUserControl =
     inherit IFabContentControl
 
 module UserControl =
     let WidgetKey = Widgets.register<UserControl>()
+
+[<AutoOpen>]
+module UserControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a UserControl widget.</summary>
+        /// <param name="content">The content of the UserControl.</param>
+        static member UserControl(content: WidgetBuilder<unit, #IFabControl>) =
+            WidgetBuilder<unit, IFabUserControl>(
+                UserControl.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+            )
 
 type UserControlModifiers =
     /// <summary>Link a ViewRef to access the direct UserControl control instance.</summary>

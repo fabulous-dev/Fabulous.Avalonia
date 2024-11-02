@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Styling
 open Fabulous
@@ -11,6 +12,18 @@ type IFabStyle =
 module Style =
 
     let WidgetKey = Widgets.register<Style>()
+
+    let Animations =
+        Attributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
+
+[<AutoOpen>]
+module StyleBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates an Animations widget.</summary>
+        static member Animations() =
+            CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
 
 type StyleCollectionBuilderExtensions =
     [<Extension>]
@@ -34,12 +47,3 @@ type StyleCollectionBuilderExtensions =
         (_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-
-type StyleModifiers =
-
-    /// <summary>Link a ViewRef to access the direct Style control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabStyle>, value: ViewRef<Style>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

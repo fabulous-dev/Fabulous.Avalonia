@@ -23,6 +23,20 @@ module EllipseGeometry =
     let Center =
         Attributes.defineAvaloniaPropertyWithEquality EllipseGeometry.CenterProperty
 
+[<AutoOpen>]
+module EllipseGeometryBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a EllipseGeometry widget.</summary>
+        /// <param name="radiusX">The X radius of the ellipse.</param>
+        /// <param name="radiusY">The Y radius of the ellipse.</param>
+        static member EllipseGeometry(radiusX: float, radiusY: float) =
+            WidgetBuilder<'msg, IFabEllipseGeometry>(
+                EllipseGeometry.WidgetKey,
+                EllipseGeometry.RadiusX.WithValue(radiusX),
+                EllipseGeometry.RadiusY.WithValue(radiusY)
+            )
+
 type EllipseGeometryModifiers =
     /// <summary>Sets the Center property.</summary>
     /// <param name="this">Current widget.</param>

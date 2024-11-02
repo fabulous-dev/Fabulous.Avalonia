@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabGeometryDrawing =
     inherit IFabDrawing
@@ -23,6 +24,88 @@ module GeometryDrawing =
         Attributes.defineAvaloniaPropertyWithEquality GeometryDrawing.BrushProperty
 
     let Pen = Attributes.defineAvaloniaPropertyWidget GeometryDrawing.PenProperty
+
+[<AutoOpen>]
+module GeometryDrawingBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: WidgetBuilder<'msg, #IFabBrush>) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.empty(),
+                    ValueSome
+                        [| GeometryDrawing.BrushWidget.WithValue(brush.Compile())
+                           GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: string, brush: WidgetBuilder<'msg, #IFabBrush>) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.one(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
+                    ValueSome [| GeometryDrawing.BrushWidget.WithValue(brush.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: string, brush: Color) =
+            View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: string, brush: string) =
+            View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: WidgetBuilder<unit, #IFabGeometry>, brush: Color) =
+            View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: WidgetBuilder<unit, #IFabGeometry>, brush: string) =
+            View.GeometryDrawing(geometry, View.SolidColorBrush(brush))
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: WidgetBuilder<'msg, #IFabGeometry>, brush: IBrush) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.one(GeometryDrawing.Brush.WithValue(brush)),
+                    ValueSome [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a GeometryDrawing widget.</summary>
+        /// <param name="geometry">The Geometry that describes the shape of this GeometryDrawing.</param>
+        /// <param name="brush">The Brush used to fill the interior with the shape described by this GeometryDrawing.</param>
+        static member GeometryDrawing(geometry: string, brush: IBrush) =
+            WidgetBuilder<'msg, IFabGeometryDrawing>(
+                GeometryDrawing.WidgetKey,
+                AttributesBundle(
+                    StackList.two(GeometryDrawing.Brush.WithValue(brush), GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
+                    ValueNone,
+                    ValueNone
+                )
+            )
 
 type GeometryDrawingModifiers =
 

@@ -17,6 +17,29 @@ module SkewTransform =
     let AngleY =
         Attributes.defineAvaloniaPropertyWithEquality SkewTransform.AngleYProperty
 
+[<AutoOpen>]
+module SkewTransformBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a SkewTransform widget.</summary>
+        /// <param name="angleX">The AngleX to apply.</param>
+        /// <param name="angleY">The AngleY to apply.</param>
+        static member SkewTransform(angleX: float, angleY: float) =
+            WidgetBuilder<'msg, IFabSkewTransform>(
+                SkewTransform.WidgetKey,
+                SkewTransform.AngleX.WithValue(angleX),
+                SkewTransform.AngleY.WithValue(angleY)
+            )
+
+        /// <summary>Creates a SkewTransform widget.</summary>
+        /// <param name="angleX">The AngleX to apply.</param>
+        static member SkewTransform(angleX: float) =
+            WidgetBuilder<'msg, IFabSkewTransform>(SkewTransform.WidgetKey, SkewTransform.AngleX.WithValue(angleX))
+
+        /// <summary>Creates a SkewTransform widget.</summary>
+        static member SkewTransform() =
+            WidgetBuilder<'msg, IFabSkewTransform>(SkewTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 type SkewTransformTransformModifiers =
     /// <summary>Link a ViewRef to access the direct SkewTransform control instance.</summary>
     /// <param name="this">Current widget.</param>

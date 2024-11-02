@@ -3,12 +3,21 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabLineBreak =
     inherit IFabInline
 
 module LineBreak =
     let WidgetKey = Widgets.register<LineBreak>()
+
+[<AutoOpen>]
+module LineBreakBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a LineBreak widget.</summary>
+        static member LineBreak() =
+            WidgetBuilder<unit, IFabLineBreak>(LineBreak.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type LineBreakModifiers =
     /// <summary>Link a ViewRef to access the direct LineBreak control instance.</summary>

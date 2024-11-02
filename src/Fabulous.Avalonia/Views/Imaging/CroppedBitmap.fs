@@ -1,6 +1,9 @@
 namespace Fabulous.Avalonia
 
+open System
+open System.IO
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Media.Imaging
 open Fabulous
 
@@ -15,6 +18,50 @@ module CroppedBitmap =
 
     let SourceRect =
         Attributes.defineAvaloniaPropertyWithEquality CroppedBitmap.SourceRectProperty
+
+[<AutoOpen>]
+module CroppedBitmapBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a CroppedBitmap widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
+        static member CroppedBitmap(source: Bitmap, rect: PixelRect) =
+            WidgetBuilder<unit, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                CroppedBitmap.Source.WithValue(ImageSourceValue.Bitmap(source)),
+                CroppedBitmap.SourceRect.WithValue(rect)
+            )
+
+        /// <summary>Creates a CroppedBitmap widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
+        static member CroppedBitmap(source: string, rect: PixelRect) =
+            WidgetBuilder<unit, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                CroppedBitmap.Source.WithValue(ImageSourceValue.File(source)),
+                CroppedBitmap.SourceRect.WithValue(rect)
+            )
+
+        /// <summary>Creates a CroppedBitmap widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
+        static member CroppedBitmap(source: Uri, rect: PixelRect) =
+            WidgetBuilder<unit, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                CroppedBitmap.Source.WithValue(ImageSourceValue.Uri(source)),
+                CroppedBitmap.SourceRect.WithValue(rect)
+            )
+
+        /// <summary>Creates a CroppedBitmap widget.</summary>
+        /// <param name="source">The source image.</param>
+        /// <param name="rect">The rectangular area that the bitmap is cropped to.</param>
+        static member CroppedBitmap(source: Stream, rect: PixelRect) =
+            WidgetBuilder<unit, IFabCroppedBitmap>(
+                CroppedBitmap.WidgetKey,
+                CroppedBitmap.Source.WithValue(ImageSourceValue.Stream(source)),
+                CroppedBitmap.SourceRect.WithValue(rect)
+            )
 
 type CroppedBitmapModifiers =
     /// <summary>Link a ViewRef to access the direct CroppedBitmap control instance.</summary>

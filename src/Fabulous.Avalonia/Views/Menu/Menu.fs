@@ -11,7 +11,13 @@ type IFabMenu =
 module Menu =
     let WidgetKey = Widgets.register<Menu>()
 
+module MenuBuilders =
+    type Fabulous.Avalonia.View with
 
+        /// <summary>Creates a Menu widget.</summary>
+        static member Menu() =
+            CollectionBuilder<unit, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ComponentItemsControl.Items)
+    
 type MenuModifiers =
     /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>
     /// <param name="this">Current widget.</param>

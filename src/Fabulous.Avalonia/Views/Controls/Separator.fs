@@ -3,12 +3,21 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabSeparator =
     inherit IFabTemplatedControl
 
 module Separator =
     let WidgetKey = Widgets.register<Separator>()
+    
+[<AutoOpen>]
+module SeparatorBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Separator widget.</summary>
+        static member Separator() =
+            WidgetBuilder<unit, IFabSeparator>(Separator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type SeparatorModifiers =
     /// <summary>Link a ViewRef to access the direct Separator control instance.</summary>

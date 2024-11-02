@@ -25,6 +25,20 @@ module GridSplitter =
     let DragIncrement =
         Attributes.defineAvaloniaPropertyWithEquality GridSplitter.DragIncrementProperty
 
+[<AutoOpen>]
+module GridSplitterBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a GridSplitter widget.</summary>
+        static member GridSplitter() =
+            WidgetBuilder<'msg, IFabGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(GridResizeDirection.Auto))
+
+        /// <summary>Creates a GridSplitter widget.</summary>
+        /// <param name="resizeDirection">The direction in which the GridSplitter can be resized.</param>
+        static member GridSplitter(resizeDirection: GridResizeDirection) =
+            WidgetBuilder<'msg, IFabGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
+
+
 type GridSplitterModifiers =
     /// <summary>Sets the ResizeBehavior property.</summary>
     /// <param name="this">Current widget.</param>

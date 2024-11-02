@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Media
 open Fabulous
 
@@ -11,6 +12,17 @@ module LineSegment =
     let WidgetKey = Widgets.register<LineSegment>()
 
     let Point = Attributes.defineAvaloniaPropertyWithEquality LineSegment.PointProperty
+
+[<AutoOpen>]
+module LineSegmentBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a LineSegment widget.</summary>
+        /// <param name="point">The point to draw the line to.</param>
+        static member LineSegment(point: Point) =
+            WidgetBuilder<unit, IFabLineSegment>(LineSegment.WidgetKey, LineSegment.Point.WithValue(point))
+
 
 type LineSegmentModifiers =
 

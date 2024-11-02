@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia
 open Avalonia.Media
 open Fabulous
 
@@ -12,6 +13,15 @@ module RectangleGeometry =
 
     let Rect =
         Attributes.defineAvaloniaPropertyWithEquality RectangleGeometry.RectProperty
+
+[<AutoOpen>]
+module RectangleGeometryBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a RectangleGeometry widget.</summary>
+        /// <param name="rect">The rectangle to use for the geometry.</param>
+        static member RectangleGeometry(rect: Rect) =
+            WidgetBuilder<unit, IFabRectangleGeometry>(RectangleGeometry.WidgetKey, RectangleGeometry.Rect.WithValue(rect))
 
 type RectangleGeometryModifiers =
 

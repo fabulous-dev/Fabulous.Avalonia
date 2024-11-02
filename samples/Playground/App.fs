@@ -9,19 +9,19 @@ open type Fabulous.Avalonia.Components.View
 
 module App =
     let firstNameView (value: StateValue<string>) =
-        Component("1") {
+        Component("firstNameView") {
             let! firstName = Context.Binding(value)
-            TextBox(firstName.Current, (fun x -> firstName.Set x))
+            TextBox(firstName.Current, firstName.Set)
         }
 
     let lastNameView (value: StateValue<string>) =
-        Component("2") {
+        Component("lastNameView") {
             let! lastName = Context.Binding(value)
             TextBox(lastName.Current, lastName.Set)
         }
 
     let content () =
-        Component("3") {
+        Component("content") {
             let! firstName = Context.State("")
             let! lastName = Context.State("")
 
