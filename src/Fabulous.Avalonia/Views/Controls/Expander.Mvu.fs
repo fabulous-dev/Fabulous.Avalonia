@@ -72,7 +72,7 @@ module MvuExpanderBuilders =
                 )
             )
 
-type ExpanderModifiers =
+type MvuExpanderModifiers =
     /// <summary>Listens to the Expander ExpandedChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="isExpanded">The IsExpanded value.</param>

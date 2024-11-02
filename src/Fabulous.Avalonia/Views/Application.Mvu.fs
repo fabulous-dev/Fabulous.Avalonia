@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Mvu
+namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia
@@ -10,9 +10,6 @@ open Fabulous.StackAllocatedCollections.StackList
 
 #nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
 
-type IFabMvuApplication =
-    inherit IFabMvuElement
-    inherit IFabApplication
 
 module MvuApplication =
     let TrayIcons =
@@ -43,34 +40,6 @@ module MvuApplication =
 
     let SafeAreaChanged =
         Attributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
-
-[<AutoOpen>]
-module MvuApplicationBuilders =
-    type Fabulous.Avalonia.Mvu.View with
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        /// <param name="window">The main Window of the Application.</param>
-        static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
-            WidgetBuilder<'msg, IFabApplication>(
-                Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline DesktopApplication<'msg, 'childMarker when 'msg: equality>() =
-            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainWindow)
-
-        /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
-        /// <param name="view">The main View of the Application.</param>
-        static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabApplication>(
-                Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline SingleViewApplication<'msg, 'childMarker when 'msg: equality>() =
-            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
 type MvuApplicationModifiers =
     /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
@@ -107,24 +76,6 @@ type MvuApplicationModifiers =
     [<Extension>]
     static member inline onSafeAreaChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.SafeAreaChangedArgs -> 'msg) =
         this.AddScalar(MvuApplication.SafeAreaChanged.WithValue(fn))
-
-// /// <summary>Links a ViewRef to access the direct Application control instance</summary>
-// /// <param name="this">Current widget</param>
-// /// <param name="value">The ViewRef instance that will receive access to the underlying control</param>
-// [<Extension>]
-// static member inline reference(this: WidgetBuilder<'msg, IFabApplication>, value: ViewRef<FabApplication>) =
-//     this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-
-type MvuApplicationYieldExtensions =
-    [<Extension>]
-    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, #IFabTrayIcon>) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
-
-    [<Extension>]
-    static member inline Yield
-        (_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>)
-        : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
 
 type MvuTrayIconAttachedModifiers =
     /// <summary>Sets the tray icons for the application.</summary>

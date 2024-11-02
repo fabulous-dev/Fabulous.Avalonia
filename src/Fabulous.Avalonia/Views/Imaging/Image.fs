@@ -96,15 +96,15 @@ module ImageBuilders =
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
         static member Image(stretch: Stretch, source: WidgetBuilder<'msg, #IFabDrawingImage>) =
-            WidgetBuilder<'msg, IFabMvuImage>(
+            WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
-        static member Image(source: WidgetBuilder<'msg, IFabMvuCroppedBitmap>) =
-            WidgetBuilder<'msg, IFabMvuImage>(
+        static member Image(source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
+            WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
@@ -116,8 +116,8 @@ module ImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         /// <param name="stretch">The stretch mode.</param>
-        static member Image(stretch: Stretch, source: WidgetBuilder<'msg, IFabMvuCroppedBitmap>) =
-            WidgetBuilder<'msg, IFabMvuImage>(
+        static member Image(stretch: Stretch, source: WidgetBuilder<'msg, IFabCroppedBitmap>) =
+            WidgetBuilder<'msg, IFabImage>(
                 Image.WidgetKey,
                 AttributesBundle(StackList.one(Image.Stretch.WithValue(stretch)), ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |], ValueNone)
             )

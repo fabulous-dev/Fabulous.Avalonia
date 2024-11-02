@@ -28,7 +28,7 @@ module ComponentNativeMenuBuilders =
         static member NativeMenu() =
             CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, ComponentNativeMenu.Items)
 
-type NativeMenuModifiers =
+type ComponentNativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the Opening event fires.</param>

@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -6,10 +6,6 @@ open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
-
-type IFabComponentVirtualizingStackPanel =
-    inherit IFabComponentVirtualizingPanel
-    inherit IFabVirtualizingStackPanel
 
 module ComponentVirtualizingStackPanel =
     let HorizontalSnapPointsChanged =
@@ -22,26 +18,18 @@ module ComponentVirtualizingStackPanel =
             (target :?> VirtualizingStackPanel)
                 .VerticalSnapPointsChanged)
 
-[<AutoOpen>]
-module ComponentVirtualizingStackPanelBuilders =
-    type Fabulous.Avalonia.Components.View with
-
-        /// <summary>Creates a VirtualizingStackPanel widget.</summary>
-        static member VirtualizingStackPanel() =
-            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(VirtualizingStackPanel.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
 type ComponentVirtualizingStackPanelModifiers =
 
     /// <summary>Listens to the StackPanel HorizontalSnapPointsChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the HorizontalSnapPointsChanged event fires.</param>
     [<Extension>]
-    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<unit, #IFabComponentVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
+    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<unit, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentVirtualizingStackPanel.HorizontalSnapPointsChanged.WithValue(fn))
 
     /// <summary>Listens to the StackPanel VerticalSnapPointsChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the VerticalSnapPointsChanged event fires.</param>
     [<Extension>]
-    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<unit, #IFabComponentVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
+    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<unit, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentVirtualizingStackPanel.VerticalSnapPointsChanged.WithValue(fn))

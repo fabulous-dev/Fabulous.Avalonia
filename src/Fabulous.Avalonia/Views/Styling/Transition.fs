@@ -339,17 +339,3 @@ type TransitionBaseCollectionBuilderExtensions =
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
-
-type TransitionCollectionModifiers =
-    /// <summary>Sets the Transitions property.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>) =
-        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions)
-
-    /// <summary>Sets the Transition property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Transition value.</param>
-    [<Extension>]
-    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabTransition>) =
-        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions) { value }

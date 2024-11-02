@@ -6,6 +6,7 @@ open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.Avalonia.Components
 open Fabulous.StackAllocatedCollections
 
 module ComponentSelectableTextBlock =

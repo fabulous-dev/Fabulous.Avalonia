@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabVirtualizingStackPanel =
     inherit IFabVirtualizingPanel
@@ -18,6 +19,14 @@ module VirtualizingStackPanel =
 
     let AreVerticalSnapPointsRegular =
         Attributes.defineAvaloniaPropertyWithEquality VirtualizingStackPanel.AreVerticalSnapPointsRegularProperty
+
+[<AutoOpen>]
+module VirtualizingStackPanelBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a VirtualizingStackPanel widget.</summary>
+        static member VirtualizingStackPanel() =
+            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(VirtualizingStackPanel.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type VirtualizingStackPanelModifiers =
     /// <summary>Sets the AreHorizontalSnapPointsRegular property.</summary>

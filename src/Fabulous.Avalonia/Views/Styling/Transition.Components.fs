@@ -16,4 +16,4 @@ type ComponentTransitionCollectionModifiers =
     /// <param name="value">The Transition value.</param>
     [<Extension>]
     static member inline transition(this: WidgetBuilder<unit, IFabAnimatable>, value: WidgetBuilder<unit, IFabTransition>) =
-        AttributeCollectionBuilder<unit, IFabAnimatable, IFabTransition>(this, ComponentAnimatable.Transitions) { value }
+        ComponentTransitionCollectionModifiers.transition(this) { value }

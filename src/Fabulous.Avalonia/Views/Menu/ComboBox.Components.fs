@@ -14,7 +14,7 @@ module ComponentComboBox =
 
 
 [<AutoOpen>]
-module ComboBoxBuilders =
+module ComponentComboBoxBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a ComboBox widget.</summary>
