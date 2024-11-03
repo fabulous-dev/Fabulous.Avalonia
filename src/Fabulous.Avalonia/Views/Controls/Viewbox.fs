@@ -25,8 +25,8 @@ module ViewBoxBuilders =
 
         /// <summary>Creates a ViewBox widget.</summary>
         /// <param name="content">The content of the ViewBox.</param>
-        static member ViewBox(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabViewBox>(
+        static member ViewBox(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabViewBox>(
                 ViewBox.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone)
             )

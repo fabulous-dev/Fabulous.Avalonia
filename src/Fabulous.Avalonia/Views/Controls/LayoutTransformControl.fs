@@ -28,7 +28,7 @@ module LayoutTransformControlBuilders =
         /// <summary>Creates a LayoutTransformControl widget.</summary>
         /// <param name="content">The content of the LayoutTransformControl.</param>
         static member LayoutTransformControl(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabLayoutTransformControl>(
+            WidgetBuilder<'msg, IFabLayoutTransformControl>(
                 LayoutTransformControl.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )

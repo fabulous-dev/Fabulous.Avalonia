@@ -9,4 +9,4 @@ module ComponentPanelBuilders =
 
         /// <summary>Creates a Panel widget.</summary>
         static member Panel() =
-            CollectionBuilder<unit, IFabPanel, IFabControl>(Panel.WidgetKey, ComponentPanel.Children)
+            CollectionBuilder<'msg, IFabPanel, IFabControl>(Panel.WidgetKey, ComponentPanel.Children)

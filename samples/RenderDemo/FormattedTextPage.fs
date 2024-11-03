@@ -5,12 +5,11 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.Immutable
-open Fabulous.Avalonia.Mvu
-open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 open Fabulous
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 type FormattedText() =
     inherit Control()
@@ -61,7 +60,7 @@ type FormattedText() =
         context.DrawGeometry(null, ImmutablePen(gradient.ToImmutable(), 2), highlightGeometry)
 
 type IFabFormattedTextControl =
-    inherit IFabMvuControl
+    inherit IFabControl
 
 module FormattedText =
     let WidgetKey = Widgets.register<FormattedText>()
@@ -69,7 +68,7 @@ module FormattedText =
 [<AutoOpen>]
 module FormattedTextBuilders =
 
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         static member FormattedText() =
             WidgetBuilder<'msg, IFabFormattedTextControl>(FormattedText.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

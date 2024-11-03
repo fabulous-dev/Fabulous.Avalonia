@@ -27,7 +27,7 @@ module RadialGradientBrushBuilders =
         /// <summary>Creates a RadialGradientBrush widget.</summary>
         /// <param name="center">The center of the gradient.</param>
         static member RadialGradientBrush(center: RelativePoint) =
-            CollectionBuilder<unit, IFabRadialGradientBrush, IFabGradientStop>(
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
                 ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(center),
@@ -38,7 +38,7 @@ module RadialGradientBrushBuilders =
         /// <param name="center">The center of the gradient.</param>
         /// <param name="unit">The relative unit of the center.</param>
         static member RadialGradientBrush(center: Point, unit: RelativeUnit) =
-            CollectionBuilder<unit, IFabRadialGradientBrush, IFabGradientStop>(
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
                 ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(RelativePoint(center, unit)),
@@ -49,7 +49,7 @@ module RadialGradientBrushBuilders =
         /// <param name="center">The center of the gradient.</param>
         /// <param name="origin">The origin of the gradient.</param>
         static member RadialGradientBrush(center: RelativePoint, origin: RelativePoint) =
-            CollectionBuilder<unit, IFabRadialGradientBrush, IFabGradientStop>(
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
                 ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(center),
@@ -61,7 +61,7 @@ module RadialGradientBrushBuilders =
         /// <param name="origin">The origin of the gradient.</param>
         /// <param name="unit">The relative unit of the center and origin.</param>
         static member RadialGradientBrush(center: Point, origin: Point, unit: RelativeUnit) =
-            CollectionBuilder<unit, IFabRadialGradientBrush, IFabGradientStop>(
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
                 ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(RelativePoint(center, unit)),
@@ -70,7 +70,7 @@ module RadialGradientBrushBuilders =
 
         /// <summary>Creates a RadialGradientBrush widget.</summary>
         static member RadialGradientBrush() =
-            CollectionBuilder<unit, IFabRadialGradientBrush, IFabGradientStop>(
+            CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
                 ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(RelativePoint.Center),

@@ -24,7 +24,7 @@ module WindowNotificationManagerBuilders =
 
         /// <summary>Creates a WindowNotificationManager widget.</summary>
         static member WindowNotificationManager(viewRef: ViewRef<WindowNotificationManager>) =
-            WidgetBuilder<unit, IFabWindowNotificationManager>(
+            WidgetBuilder<'msg, IFabWindowNotificationManager>(
                 WindowNotificationManager.WidgetKey,
                 AttributesBundle(StackList.one(ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox)), ValueNone, ValueNone)
             )

@@ -42,11 +42,11 @@ module ToolTipBuilders =
 
         /// <summary>Creates a ToolTip widget.</summary>
         static member ToolTip(content: string) =
-            WidgetBuilder<unit, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
+            WidgetBuilder<'msg, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ToolTip widget.</summary>
-        static member ToolTip(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabToolTip>(
+        static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabToolTip>(
                 ToolTip.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

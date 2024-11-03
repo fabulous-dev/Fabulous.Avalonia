@@ -16,4 +16,4 @@ module ComponentSpanBuilders =
 
         /// <summary>Creates a Span widget.</summary>
         static member Span() =
-            CollectionBuilder<unit, IFabSpan, IFabInline>(Span.WidgetKey, ComponentSpan.Inlines)
+            CollectionBuilder<'msg, IFabSpan, IFabInline>(Span.WidgetKey, ComponentSpan.Inlines)

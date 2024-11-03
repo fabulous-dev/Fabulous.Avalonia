@@ -26,7 +26,7 @@ module ComponentToggleSwitchBuilders =
         /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
         /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
         static member ToggleSwitch(isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabToggleSwitch>(
+            WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
                 ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
@@ -36,7 +36,7 @@ module ComponentToggleSwitchBuilders =
         /// <param name="isChecked">Whether the ToggleSwitch is checked.</param>
         /// <param name="fn">Raised when the ToggleSwitch value changes.</param>
         static member ThreeStateToggleSwitch(isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabToggleSwitch>(
+            WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ComponentToggleButton.ThreeStateCheckedChanged.WithValue(

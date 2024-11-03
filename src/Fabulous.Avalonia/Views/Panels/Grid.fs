@@ -86,7 +86,7 @@ module GridBuilders =
         /// <param name="coldefs">Column definitions.</param>
         /// <param name="rowdefs">Row definitions.</param>
         static member Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
-            CollectionBuilder<unit, IFabGrid, IFabControl>(
+            CollectionBuilder<'msg, IFabGrid, IFabControl>(
                 Grid.WidgetKey,
                 ComponentPanel.Children,
                 Grid.ColumnDefinitions.WithValue(Array.ofSeq coldefs),

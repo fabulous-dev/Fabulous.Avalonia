@@ -11,9 +11,7 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module DrawLineAnimationPage =
 

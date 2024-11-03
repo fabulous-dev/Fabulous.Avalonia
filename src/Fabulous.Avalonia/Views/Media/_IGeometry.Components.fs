@@ -14,5 +14,5 @@ type ComponentGeometryModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the geometry changes.</param>
     [<Extension>]
-    static member inline onChanged(this: WidgetBuilder<unit, #IFabGeometry>, msg: unit -> unit) =
+    static member inline onChanged(this: WidgetBuilder<'msg, #IFabGeometry>, msg: unit -> unit) =
         this.AddScalar(ComponentGeometry.Changed.WithValue(msg))

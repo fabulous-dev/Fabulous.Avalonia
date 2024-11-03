@@ -20,7 +20,7 @@ module VisualBrushBuilders =
         /// <summary>Creates a VisualBrush widget.</summary>
         /// <param name="content">The content of the VisualBrush.</param>
         static member VisualBrush(content: WidgetBuilder<'msg, #IFabVisual>) =
-            WidgetBuilder<'msg, IFabVisual>(
+            WidgetBuilder<'msg, IFabVisualBrush>(
                 VisualBrush.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| VisualBrush.Visual.WithValue(content.Compile()) |], ValueNone)
             )

@@ -55,7 +55,7 @@ module TreeViewBuilders =
         /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
         /// <param name="template">The template used to render each node.</param>
         static member TreeView<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
-            (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>)
+            (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
             let template (item: obj) =
                 let item = unbox<'itemData> item
@@ -66,7 +66,7 @@ module TreeViewBuilders =
                   SubNodesFn = (fun subNode -> subNodes(unbox subNode) :> IEnumerable)
                   Template = template }
 
-            WidgetBuilder<unit, IFabTreeView>(TreeView.WidgetKey, TreeView.ItemsSource.WithValue(data))
+            WidgetBuilder<'msg, IFabTreeView>(TreeView.WidgetKey, TreeView.ItemsSource.WithValue(data))
 
 type TreeViewModifiers =
     /// <summary>Link a ViewRef to access the direct TreeView control instance.</summary>

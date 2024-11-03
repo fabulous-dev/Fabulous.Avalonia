@@ -24,12 +24,12 @@ type ComponentVirtualizingStackPanelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the HorizontalSnapPointsChanged event fires.</param>
     [<Extension>]
-    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<unit, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
+    static member inline onHorizontalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentVirtualizingStackPanel.HorizontalSnapPointsChanged.WithValue(fn))
 
     /// <summary>Listens to the StackPanel VerticalSnapPointsChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the VerticalSnapPointsChanged event fires.</param>
     [<Extension>]
-    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<unit, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
+    static member inline onVerticalSnapPointsChanged(this: WidgetBuilder<'msg, #IFabVirtualizingStackPanel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentVirtualizingStackPanel.VerticalSnapPointsChanged.WithValue(fn))

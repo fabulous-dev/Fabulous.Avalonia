@@ -56,7 +56,7 @@ module TickBarBuilders =
         /// <param name="min">The minimum value.</param>
         /// <param name="max">The maximum value.</param>
         static member TickBar(min: float, max: float) =
-            WidgetBuilder<unit, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
+            WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
 
 type TickBarModifiers =
     /// <summary>Sets the Fill property.</summary>
@@ -73,21 +73,19 @@ type TickBarModifiers =
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: IBrush) =
         this.AddScalar(TickBar.Fill.WithValue(value))
 
-
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Fill value.</param>
     [<Extension>]
-    static member inline fill(this: WidgetBuilder<unit, #IFabTickBar>, value: Color) =
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: Color) =
         TickBarModifiers.fill(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Fill value.</param>
     [<Extension>]
-    static member inline fill(this: WidgetBuilder<unit, #IFabTickBar>, value: string) =
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
         TickBarModifiers.fill(this, View.SolidColorBrush(value))
-
 
     /// <summary>Sets the TickFrequency property.</summary>
     /// <param name="this">Current widget.</param>

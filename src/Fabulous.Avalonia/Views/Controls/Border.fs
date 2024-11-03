@@ -41,8 +41,8 @@ module BorderBuilders =
 
         /// <summary>Creates a Border widget.</summary>
         /// <param name="content">The content of the Border.</param>
-        static member Border(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabBorder>(
+        static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabBorder>(
                 Border.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -67,14 +67,14 @@ type BorderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<unit, #IFabBorder>, value: Color) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
         BorderModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
-    static member inline background(this: WidgetBuilder<unit, #IFabBorder>, value: string) =
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         BorderModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderBrush property.</summary>
@@ -95,14 +95,14 @@ type BorderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<unit, #IFabBorder>, value: Color) =
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
         BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
-    static member inline borderBrush(this: WidgetBuilder<unit, #IFabBorder>, value: string) =
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderThickness property.</summary>

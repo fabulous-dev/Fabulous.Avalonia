@@ -30,7 +30,7 @@ module ComponentCalendarBuilders =
         /// <param name="date">The date to display.</param>
         /// <param name="fn">Raised when the date changes.</param>
         static member Calendar(date: DateTime option, fn: DateTime option -> unit) =
-            WidgetBuilder<unit, IFabCalendar>(
+            WidgetBuilder<'msg, IFabCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
                 ComponentCalendar.SelectedDateChanged.WithValue(ComponentValueEventData.create date fn)
@@ -41,7 +41,7 @@ module ComponentCalendarBuilders =
         /// <param name="fn">Raised when the date changes.</param>
         /// <param name="mode">The selection mode.</param>
         static member Calendar(date: DateTime option, fn: DateTime option -> unit, mode: CalendarSelectionMode) =
-            WidgetBuilder<unit, IFabCalendar>(
+            WidgetBuilder<'msg, IFabCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(mode),
                 ComponentCalendar.SelectedDateChanged.WithValue(ComponentValueEventData.create date fn)
@@ -52,12 +52,12 @@ type ComponentCalendarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayDateChanged event is fired.</param>
     [<Extension>]
-    static member inline onDisplayDateChanged(this: WidgetBuilder<unit, #IFabCalendar>, fn: CalendarDateChangedEventArgs -> unit) =
+    static member inline onDisplayDateChanged(this: WidgetBuilder<'msg, #IFabCalendar>, fn: CalendarDateChangedEventArgs -> unit) =
         this.AddScalar(ComponentCalendar.DisplayDateChanged.WithValue(fn))
 
     /// <summary>Listens to the Calendar DisplayModeChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DisplayModeChanged event is fired.</param>
     [<Extension>]
-    static member inline onDisplayModeChanged(this: WidgetBuilder<unit, #IFabCalendar>, fn: CalendarModeChangedEventArgs -> unit) =
+    static member inline onDisplayModeChanged(this: WidgetBuilder<'msg, #IFabCalendar>, fn: CalendarModeChangedEventArgs -> unit) =
         this.AddScalar(ComponentCalendar.DisplayModeChanged.WithValue(fn))

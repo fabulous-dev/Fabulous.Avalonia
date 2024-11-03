@@ -5,11 +5,10 @@ open Avalonia.Media
 open Controls.HamburgerMenu
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabHamburgerMenu =
-    inherit IFabMvuTabControl
+    inherit IFabTabControl
 
 module HamburgerMenu =
     let WidgetKey = Widgets.register<HamburgerMenu>()
@@ -26,10 +25,10 @@ module HamburgerMenu =
 [<AutoOpen>]
 module HamburgerMenuBuilders =
 
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         static member HamburgerMenu() =
-            CollectionBuilder<'msg, IFabHamburgerMenu, IFabMvuTabItem>(HamburgerMenu.WidgetKey, MvuItemsControl.Items)
+            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenu.WidgetKey, MvuItemsControl.Items)
 
 
 type HamburgerMenuModifiers =
@@ -51,8 +50,8 @@ type HamburgerMenuModifiers =
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a empty Border widget.</summary>
+        /// <summary>Creates an empty Border widget.</summary>
         static member EmptyBorder() =
-            WidgetBuilder<'msg, IFabMvuBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

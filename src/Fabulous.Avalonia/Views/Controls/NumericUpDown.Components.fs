@@ -17,7 +17,7 @@ module ComponentNumericUpDownBuilders =
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
         static member NumericUpDown(value: float option, fn: float option -> unit) =
-            WidgetBuilder<unit, IFabNumericUpDown>(
+            WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 ComponentNumericUpDown.ValueChanged.WithValue(
                     let value =
@@ -35,7 +35,7 @@ module ComponentNumericUpDownBuilders =
         /// <param name="value">The value of the NumericUpDown.</param>
         /// <param name="fn">Raised when the NumericUpDown value changes.</param>
         static member NumericUpDown(min: float, max: float, value: float option, fn: float option -> unit) =
-            WidgetBuilder<unit, IFabNumericUpDown>(
+            WidgetBuilder<'msg, IFabNumericUpDown>(
                 NumericUpDown.WidgetKey,
                 NumericUpDown.MinimumMaximum.WithValue(struct (decimal min, decimal max)),
                 ComponentNumericUpDown.ValueChanged.WithValue(

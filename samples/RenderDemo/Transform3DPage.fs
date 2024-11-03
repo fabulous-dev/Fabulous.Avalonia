@@ -6,9 +6,8 @@ open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
-open Fabulous.Avalonia.Mvu
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module Transform3DPage =
     type Model =
@@ -46,7 +45,7 @@ module Transform3DPage =
         | AngleYChanged value -> { model with AngleY = value }, Cmd.none
         | AngleZChanged value -> { model with AngleZ = value }, Cmd.none
 
-    let borderTestStyle (this: WidgetBuilder<'msg, IFabMvuBorder>) =
+    let borderTestStyle (this: WidgetBuilder<'msg, IFabBorder>) =
         this
             .child(
                 Image("avares://RenderDemo/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)

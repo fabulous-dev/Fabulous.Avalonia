@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open Avalonia
 open Avalonia.Styling
-open Fabulous.Avalonia.Mvu
 open Fabulous
 
 [<AbstractClass; Sealed>]

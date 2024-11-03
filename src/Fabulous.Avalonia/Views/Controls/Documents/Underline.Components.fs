@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
@@ -11,7 +11,7 @@ module ComponentUnderlineBuilders =
 
         /// <summary>Creates a Underline widget.</summary>
         static member private Underline() =
-            CollectionBuilder<unit, IFabUnderline, IFabInline>(Underline.WidgetKey, ComponentSpan.Inlines)
+            CollectionBuilder<'msg, IFabUnderline, IFabInline>(Underline.WidgetKey, ComponentSpan.Inlines)
 
         /// <summary>Creates a Underline widget.</summary>
         /// <param name="text">The text to display.</param>

@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Mvu
+namespace Fabulous.Avalonia
 
 open Fabulous
 open Fabulous.Avalonia

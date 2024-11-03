@@ -24,8 +24,8 @@ module TransitioningContentControlBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a TransitioningContentControl widget.</summary>
-        static member TransitioningContentControl(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabTransitioningContentControl>(
+        static member TransitioningContentControl(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabTransitioningContentControl>(
                 TransitioningContentControl.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -28,35 +28,35 @@ type ComponentTopLevelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<unit, #IFabTopLevel>, fn: unit -> unit) =
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: unit -> unit) =
         this.AddScalar(ComponentTopLevel.ActualThemeVariantChanged.WithValue(fn))
 
     /// <summary>Listens the TopLevel Opened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<unit, #IFabTopLevel>, fn: unit -> unit) =
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: unit -> unit) =
         this.AddScalar(ComponentTopLevel.Opened.WithValue(fn))
 
     /// <summary>Listens the TopLevel Closed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<unit, #IFabTopLevel>, fn: unit -> unit) =
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: unit -> unit) =
         this.AddScalar(ComponentTopLevel.Closed.WithValue(fn))
 
     /// <summary>Listens the TopLevel BackRequested event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the back button is pressed.</param>
     [<Extension>]
-    static member inline onBackRequested(this: WidgetBuilder<unit, #IFabTopLevel>, fn: RoutedEventArgs -> unit) =
+    static member inline onBackRequested(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentTopLevel.BackRequested.WithValue(fn))
 
     /// <summary>Listens the TopLevel ScalingChanged event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the TopLevel's scaling changes.</param>
     [<Extension>]
-    static member inline onScalingChanged(this: WidgetBuilder<unit, #IFabTopLevel>, fn: unit -> unit) =
+    static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: unit -> unit) =
         this.AddScalar(ComponentTopLevel.ScalingChanged.WithValue(fn))
 
 type ComponentTopLevelExtraModifiers =
@@ -64,26 +64,26 @@ type ComponentTopLevelExtraModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TransparencyBackgroundFallback value.</param>
     [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<unit, #IFabTopLevel>, value: Color) =
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: Color) =
         TopLevelModifiers.transparencyBackgroundFallback(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TransparencyBackgroundFallback value.</param>
     [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<unit, #IFabTopLevel>, value: string) =
+    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
         TopLevelModifiers.transparencyBackgroundFallback(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SystemBarColor property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SystemBarColor value.</param>
     [<Extension>]
-    static member inline systemBarColor(this: WidgetBuilder<unit, #IFabTopLevel>, value: Color) =
+    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: Color) =
         TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the SystemBarColor property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The SystemBarColor value.</param>
     [<Extension>]
-    static member inline systemBarColor(this: WidgetBuilder<unit, #IFabTopLevel>, value: string) =
+    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
         TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(value))

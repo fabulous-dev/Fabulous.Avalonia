@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -18,8 +18,8 @@ module ComponentThemeVariantScopeBuilders =
         /// <summary>Creates a ThemeVariantScope widget.</summary>
         /// <param name="theme">The theme variant to use.</param>
         /// <param name="content">The content of the ThemeVariantScope.</param>
-        static member ThemeVariantScope(theme: ThemeVariant, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabThemeVariantScope>(
+        static member ThemeVariantScope(theme: ThemeVariant, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabThemeVariantScope>(
                 ThemeVariantScope.WidgetKey,
                 AttributesBundle(
                     StackList.one(ThemeVariantScope.RequestedThemeVariant.WithValue(theme)),
@@ -34,5 +34,5 @@ type ComponentThemeVariantScopeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ThemeVariantChanged event is raised.</param>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<unit, #IFabThemeVariantScope>, fn: unit -> unit) =
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabThemeVariantScope>, fn: unit -> unit) =
         this.AddScalar(ComponentThemeVariantScope.ActualThemeVariantChanged.WithValue(fn))

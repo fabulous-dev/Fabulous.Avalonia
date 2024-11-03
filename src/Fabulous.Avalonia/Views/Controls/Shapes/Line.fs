@@ -24,7 +24,7 @@ module LineBuilders =
         /// <param name="starPoint">The start point of the line.</param>
         /// <param name="endPoint">The end point of the line.</param>
         static member Line(starPoint: Point, endPoint: Point) =
-            WidgetBuilder<unit, IFabLine>(Line.WidgetKey, Line.StartPoint.WithValue(starPoint), Line.EndPoint.WithValue(endPoint))
+            WidgetBuilder<'msg, IFabLine>(Line.WidgetKey, Line.StartPoint.WithValue(starPoint), Line.EndPoint.WithValue(endPoint))
 
 
 type LineModifiers =

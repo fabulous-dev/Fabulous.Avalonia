@@ -57,7 +57,7 @@ module TextDecorationBuilders =
         /// <summary>Creates a TextDecoration widget.</summary>
         /// <param name="location">The location of the TextDecoration.</param>
         static member inline TextDecoration(location: TextDecorationLocation) =
-            WidgetBuilder<unit, IFabTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
+            WidgetBuilder<'msg, IFabTextDecoration>(TextDecoration.WidgetKey, TextDecoration.Location.WithValue(location))
 
 type TextDecorationModifiers =
     /// <summary>Sets the Stroke property.</summary>
@@ -78,14 +78,14 @@ type TextDecorationModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Stroke value.</param>
     [<Extension>]
-    static member inline stroke(this: WidgetBuilder<unit, #IFabTextDecoration>, value: Color) =
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: Color) =
         TextDecorationModifiers.stroke(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Stroke property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Stroke value.</param>
     [<Extension>]
-    static member inline stroke(this: WidgetBuilder<unit, #IFabTextDecoration>, value: string) =
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabTextDecoration>, value: string) =
         TextDecorationModifiers.stroke(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the StrokeThicknessUnit property.</summary>

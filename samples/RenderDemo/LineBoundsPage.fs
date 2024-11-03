@@ -7,7 +7,6 @@ open Avalonia.Controls
 open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
 
 [<RequireQualifiedAccess>]
 module LineBoundsHelper =
@@ -95,7 +94,7 @@ type LineBoundsControl() =
 
 
 type IFabLineBoundsDemoControl =
-    inherit IFabMvuControl
+    inherit IFabControl
 
 module LineBoundsControl =
     let WidgetKey = Widgets.register<LineBoundsControl>()
@@ -112,13 +111,13 @@ module LineBoundsControl =
 
 [<AutoOpen>]
 module LineBoundsDemoControlBuilders =
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         static member LineBoundsDemoControl(angle: float) =
             WidgetBuilder<'msg, IFabLineBoundsDemoControl>(LineBoundsControl.WidgetKey, LineBoundsControl.Angle.WithValue(angle))
 
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module LineBoundsPage =
     let view () =

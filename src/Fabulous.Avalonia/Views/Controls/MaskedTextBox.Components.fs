@@ -18,7 +18,7 @@ module ComponentMaskedTextBoxBuilders =
         /// <param name="mask">The mask to apply.</param>
         /// <param name="fn">Raised when the text changes.</param>
         static member inline MaskedTextBox(text: string, mask: string, fn: string -> unit) =
-            WidgetBuilder<unit, IFabMaskedTextBox>(
+            WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 MaskedTextBox.Mask.WithValue(mask),
                 ComponentMaskedTextBox.TextChanged.WithValue(ComponentValueEventData.create text fn)

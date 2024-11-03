@@ -2,9 +2,11 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Data
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabDataGridTextColumn =
     inherit IFabDataGridColumn
@@ -32,6 +34,56 @@ module DataGridTextColumn =
 
     let ForegroundWidget =
         Attributes.defineAvaloniaPropertyWidget DataGridTextColumn.ForegroundProperty
+
+[<AutoOpen>]
+module DataGridTextColumnBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
+        static member DataGridTextColumn(header: string, binding: IBinding) =
+            WidgetBuilder<'msg, IFabDataGridTextColumn>(
+                DataGridTextColumn.WidgetKey,
+                DataGridColumn.HeaderString.WithValue(header),
+                DataGridBoundColumn.Binding.WithValue(binding)
+            )
+
+        /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
+        static member DataGridTextColumn(header: string, binding: string) =
+            WidgetBuilder<'msg, IFabDataGridTextColumn>(
+                DataGridTextColumn.WidgetKey,
+                DataGridColumn.HeaderString.WithValue(header),
+                DataGridBoundColumn.Binding.WithValue(Binding(binding))
+            )
+
+        /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
+        static member DataGridTextColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: IBinding) =
+            WidgetBuilder<'msg, IFabDataGridTextColumn>(
+                DataGridTextColumn.WidgetKey,
+                AttributesBundle(
+                    StackList.one(DataGridBoundColumn.Binding.WithValue(binding)),
+                    ValueSome [| DataGridColumn.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a DataGridTextColumn widget.</summary>
+        /// <param name="header">The column header.</param>
+        /// <param name="binding">The column binding.</param>
+        static member DataGridTextColumn(header: WidgetBuilder<'msg, #IFabControl>, binding: string) =
+            WidgetBuilder<'msg, IFabDataGridTextColumn>(
+                DataGridTextColumn.WidgetKey,
+                AttributesBundle(
+                    StackList.one(DataGridBoundColumn.Binding.WithValue(Binding(binding))),
+                    ValueSome [| DataGridColumn.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone
+                )
+            )
 
 type DataGridTextColumnModifiers =
     /// <summary>Link a ViewRef to access the direct DataGridTextColumn control instance.</summary>
@@ -75,3 +127,31 @@ type DataGridTextColumnModifiers =
     [<Extension>]
     static member inline fontStretch(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: FontStretch) =
         this.AddScalar(DataGridTextColumn.FontStretch.WithValue(value))
+
+    /// <summary>Set the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground property value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: IBrush) =
+        this.AddScalar(DataGridTextColumn.Foreground.WithValue(value))
+
+    /// <summary>Set the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground property value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: WidgetBuilder<'msg, #IFabBrush>) =
+        this.AddWidget(DataGridTextColumn.ForegroundWidget.WithValue(value.Compile()))
+
+    /// <summary>Set the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground property value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: Color) =
+        DataGridTextColumnModifiers.foreground(this, View.SolidColorBrush(value))
+
+    /// <summary>Set the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground property value.</param>
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: string) =
+        DataGridTextColumnModifiers.foreground(this, View.SolidColorBrush(Color.Parse(value)))

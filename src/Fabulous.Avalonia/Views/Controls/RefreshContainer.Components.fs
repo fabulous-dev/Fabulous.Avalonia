@@ -18,8 +18,8 @@ module ComponentRefreshContainerBuilders =
 
         /// <summary>Creates a RefreshContainer widget.</summary>
         /// <param name="content">The content of the RefreshContainer.</param>
-        static member RefreshContainer(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabRefreshContainer>(
+        static member RefreshContainer(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabRefreshContainer>(
                 RefreshContainer.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -29,5 +29,5 @@ type ComponentRefreshContainerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the RefreshRequested event is fired.</param>
     [<Extension>]
-    static member inline onRefreshRequested(this: WidgetBuilder<unit, #IFabRefreshContainer>, fn: RefreshRequestedEventArgs -> unit) =
+    static member inline onRefreshRequested(this: WidgetBuilder<'msg, #IFabRefreshContainer>, fn: RefreshRequestedEventArgs -> unit) =
         this.AddScalar(ComponentRefreshContainer.RefreshRequested.WithValue(fn))

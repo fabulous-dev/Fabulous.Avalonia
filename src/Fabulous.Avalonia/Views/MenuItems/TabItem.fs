@@ -25,7 +25,7 @@ module TabItemBuilders =
         /// <param name="header">The header of the TabItem.</param>
         /// <param name="content">The content of the TabItem.</param>
         static member TabItem(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabTabItem>(
+            WidgetBuilder<'msg, IFabTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
@@ -38,7 +38,7 @@ module TabItemBuilders =
         /// <param name="header">The header of the TabItem.</param>
         /// <param name="content">The content of the TabItem.</param>
         static member TabItem(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<unit, IFabTabItem>(
+            WidgetBuilder<'msg, IFabTabItem>(
                 TabItem.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),

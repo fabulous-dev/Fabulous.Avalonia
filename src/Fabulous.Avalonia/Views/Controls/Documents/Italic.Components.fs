@@ -12,7 +12,7 @@ module ComponentItalicBuilders =
 
         /// <summary>Creates a Italic widget.</summary>
         static member private Italic() =
-            CollectionBuilder<unit, IFabItalic, IFabInline>(Italic.WidgetKey, ComponentSpan.Inlines)
+            CollectionBuilder<'msg, IFabItalic, IFabInline>(Italic.WidgetKey, ComponentSpan.Inlines)
 
         /// <summary>Creates a Italic widget.</summary>
         /// <param name="text">Text to display.</param>

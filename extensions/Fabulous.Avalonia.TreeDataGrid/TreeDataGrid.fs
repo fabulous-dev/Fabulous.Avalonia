@@ -2,6 +2,7 @@
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Controls.Models.TreeDataGrid
 open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.Avalonia
@@ -34,6 +35,21 @@ module TreeDataGrid =
 
     let Source =
         Attributes.defineAvaloniaPropertyWithEquality TreeDataGrid.SourceProperty
+
+[<AutoOpen>]
+module MvuTreeDataGridBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a TreeDataGrid widget.</summary>
+        /// <param name="source">The items to display.</param>
+        static member TreeDataGrid(source: #ITreeDataGridSource) =
+            WidgetBuilder<'msg, IFabTreeDataGrid>(TreeDataGrid.WidgetKey, TreeDataGrid.Source.WithValue(source))
+
+        /// <summary>Creates a TreeDataGrid widget.</summary>
+        /// <param name="source">The items to display.</param>
+        /// <param name="rows">The rows to display.</param>
+        static member TreeDataGrid(source: #ITreeDataGridSource, rows: IRows) =
+            WidgetBuilder<'msg, IFabTreeDataGrid>(TreeDataGrid.WidgetKey, TreeDataGrid.Source.WithValue(source), TreeDataGrid.Rows.WithValue(rows))
 
 type TreeDataGridModifiers =
     /// <summary>Link a ViewRef to access the direct TreeDataGrid control instance</summary>

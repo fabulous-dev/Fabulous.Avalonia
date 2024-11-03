@@ -11,8 +11,7 @@ open Fabulous.Avalonia
 open Avalonia.Rendering.Composition
 open Fabulous
 
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module ExpressionAnimation =
     type Model = { Value: int }

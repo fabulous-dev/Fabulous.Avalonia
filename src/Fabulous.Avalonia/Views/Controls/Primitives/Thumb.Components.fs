@@ -24,12 +24,12 @@ module ComponentThumbBuilders =
 
         /// <summary>Creates a Thumb widget.</summary>
         static member Thumb() =
-            WidgetBuilder<unit, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
         /// <summary>Creates a Thumb widget.</summary>
         /// <param name="template">The template to use for the Thumb.</param>
-        static member Thumb(template: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabThumb>(
+        static member Thumb(template: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabThumb>(
                 Thumb.WidgetKey,
                 AttributesBundle(StackList.one(TemplatedControl.Template.WithValue(template.Compile())), ValueNone, ValueNone)
             )
@@ -40,19 +40,19 @@ type ComponentThumbModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged started.</param>
     [<Extension>]
-    static member inline onDragStarted(this: WidgetBuilder<unit, #IFabThumb>, fn: VectorEventArgs -> unit) =
+    static member inline onDragStarted(this: WidgetBuilder<'msg, #IFabThumb>, fn: VectorEventArgs -> unit) =
         this.AddScalar(ComponentThumb.DragStarted.WithValue(fn))
 
     /// <summary>Listens to the Thumb DragDelta event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged.</param>
     [<Extension>]
-    static member inline onDragDelta(this: WidgetBuilder<unit, #IFabThumb>, fn: VectorEventArgs -> unit) =
+    static member inline onDragDelta(this: WidgetBuilder<'msg, #IFabThumb>, fn: VectorEventArgs -> unit) =
         this.AddScalar(ComponentThumb.DragDelta.WithValue(fn))
 
     /// <summary>Listens to the Thumb DragCompleted event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Thumb dragged is completed.</param>
     [<Extension>]
-    static member inline onDragCompleted(this: WidgetBuilder<unit, #IFabThumb>, fn: VectorEventArgs -> unit) =
+    static member inline onDragCompleted(this: WidgetBuilder<'msg, #IFabThumb>, fn: VectorEventArgs -> unit) =
         this.AddScalar(ComponentThumb.DragCompleted.WithValue(fn))

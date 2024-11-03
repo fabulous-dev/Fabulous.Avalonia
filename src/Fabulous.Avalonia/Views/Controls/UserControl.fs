@@ -17,8 +17,8 @@ module UserControlBuilders =
 
         /// <summary>Creates a UserControl widget.</summary>
         /// <param name="content">The content of the UserControl.</param>
-        static member UserControl(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabUserControl>(
+        static member UserControl(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabUserControl>(
                 UserControl.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

@@ -25,12 +25,12 @@ module CanvasBuilders =
 
         /// <summary>Creates a Canvas widget.</summary>
         static member Canvas() =
-            CollectionBuilder<unit, IFabCanvas, IFabControl>(Canvas.WidgetKey, ComponentPanel.Children)
+            CollectionBuilder<'msg, IFabCanvas, IFabControl>(Canvas.WidgetKey, ComponentPanel.Children)
 
         /// <summary>Creates a Canvas widget.</summary>
         /// <param name="viewRef">The ViewRef instance that will receive access to the underlying control.</param>
         static member Canvas(viewRef: ViewRef<Canvas>) =
-            WidgetBuilder<unit, IFabCanvas>(Canvas.WidgetKey, ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox))
+            WidgetBuilder<'msg, IFabCanvas>(Canvas.WidgetKey, ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox))
 
 
 type CanvasModifiers =

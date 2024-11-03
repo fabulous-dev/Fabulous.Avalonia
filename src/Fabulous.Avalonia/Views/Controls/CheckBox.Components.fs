@@ -12,14 +12,14 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member CheckBox(isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabCheckBox>(CheckBox.WidgetKey, ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn))
+            WidgetBuilder<'msg, IFabCheckBox>(CheckBox.WidgetKey, ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member CheckBox(text: string, isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabCheckBox>(
+            WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
@@ -29,8 +29,8 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         /// <param name="content">The CheckBox content.</param>
-        static member CheckBox(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabCheckBox>(
+        static member CheckBox(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
@@ -43,7 +43,7 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
         static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabCheckBox>(
+            WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ComponentToggleButton.ThreeStateCheckedChanged.WithValue(
@@ -56,7 +56,7 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
         static member inline ThreeStateCheckBox(text: string, isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabCheckBox>(
+            WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
@@ -69,8 +69,8 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the ThreeStateCheckBox is checked.</param>
         /// <param name="fn">Raised when the ThreeStateCheckBox is clicked.</param>
         /// <param name="content">The ThreeStateCheckBox content.</param>
-        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabCheckBox>(
+        static member inline ThreeStateCheckBox(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
                     StackList.two(

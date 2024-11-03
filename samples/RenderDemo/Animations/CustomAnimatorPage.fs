@@ -9,9 +9,8 @@ open Avalonia.Styling
 open Fabulous.Avalonia
 open Fabulous
 
-open Fabulous.Avalonia.Mvu
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 type CustomStringAnimator() =
     inherit InterpolatingAnimator<string>()

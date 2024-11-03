@@ -21,12 +21,12 @@ module LabelBuilders =
         /// <summary>Creates a Label widget.</summary>
         /// <param name="text">The text to display.</param>
         static member inline Label(text: string) =
-            WidgetBuilder<unit, IFabLabel>(Label.WidgetKey, ContentControl.ContentString.WithValue(text))
+            WidgetBuilder<'msg, IFabLabel>(Label.WidgetKey, ContentControl.ContentString.WithValue(text))
 
         /// <summary>Creates a Label widget.</summary>
         /// <param name="content">The content to display.</param>
-        static member inline Label(content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabLabel>(
+        static member inline Label(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabLabel>(
                 Label.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )

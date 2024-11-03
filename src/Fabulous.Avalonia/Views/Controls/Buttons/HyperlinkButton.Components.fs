@@ -1,4 +1,4 @@
-﻿namespace Fabulous.Avalonia.Components
+﻿namespace Fabulous.Avalonia
 
 open System
 open System.Runtime.CompilerServices
@@ -19,7 +19,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="uri">The Uri to navigate to when the HyperlinkButton is clicked.</param>
         static member HyperlinkButton(text: string, uri: Uri) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 HyperlinkButton.NavigateUri.WithValue(uri)
@@ -31,7 +31,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="isVisited">Whether the HyperlinkButton is visited.</param>
         /// <param name="fn">Raised when the IsVisited value changes.</param>
         static member HyperlinkButton(text: string, uri: Uri, isVisited: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 HyperlinkButton.NavigateUri.WithValue(uri),
@@ -42,7 +42,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="uri">The Uri to navigate to when the HyperlinkButton is clicked.</param>
         static member HyperlinkButton(text: string, uri: string) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 HyperlinkButton.NavigateUri.WithValue(Uri(uri))
@@ -54,7 +54,7 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="isVisited">Whether the HyperlinkButton is visited.</param>
         /// <param name="fn">Raised when the IsVisited value changes.</param>
         static member HyperlinkButton(text: string, uri: string, isVisited: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 HyperlinkButton.NavigateUri.WithValue(Uri(uri)),
@@ -64,8 +64,8 @@ module ComponentHyperlinkButtonBuilders =
         /// <summary>Creates a HyperlinkButton widget.</summary>
         /// <param name="uri">The Uri to navigate to when the HyperlinkButton is clicked.</param>
         /// <param name="content">The content of the HyperlinkButton.</param>
-        static member HyperlinkButton(uri: Uri, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+        static member HyperlinkButton(uri: Uri, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(HyperlinkButton.NavigateUri.WithValue(uri)),
@@ -79,8 +79,8 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="content">The content of the HyperlinkButton.</param>
         /// <param name="isVisited">Whether the HyperlinkButton is visited.</param>
         /// <param name="fn">Raised when the IsVisited value changes.</param>
-        static member HyperlinkButton(uri: Uri, isVisited: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+        static member HyperlinkButton(uri: Uri, isVisited: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
                     StackList.two(
@@ -95,8 +95,8 @@ module ComponentHyperlinkButtonBuilders =
         /// <summary>Creates a HyperlinkButton widget.</summary>
         /// <param name="uri">The Uri to navigate to when the HyperlinkButton is clicked.</param>
         /// <param name="content">The content of the HyperlinkButton.</param>
-        static member HyperlinkButton(uri: string, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+        static member HyperlinkButton(uri: string, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(HyperlinkButton.NavigateUri.WithValue(Uri(uri))),
@@ -110,8 +110,8 @@ module ComponentHyperlinkButtonBuilders =
         /// <param name="content">The content of the HyperlinkButton.</param>
         /// <param name="isVisited">Whether the HyperlinkButton is visited.</param>
         /// <param name="fn">Raised when the IsVisited value changes.</param>
-        static member HyperlinkButton(uri: string, isVisited: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabHyperlinkButton>(
+        static member HyperlinkButton(uri: string, isVisited: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
                     StackList.two(

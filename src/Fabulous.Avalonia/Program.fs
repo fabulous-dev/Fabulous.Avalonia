@@ -4,7 +4,6 @@ open System
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Threading
-open Fabulous.Avalonia.Mvu
 
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions

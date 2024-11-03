@@ -20,7 +20,7 @@ module ComponentComboBoxBuilders =
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
         static member ComboBox(items: seq<_>) =
-            WidgetBuilder<unit, IFabComboBox>(
+            WidgetBuilder<'msg, IFabComboBox>(
                 ComboBox.WidgetKey,
                 AttributesBundle(StackList.one(ItemsControl.ItemsSource.WithValue(items)), ValueNone, ValueNone)
             )
@@ -28,12 +28,12 @@ module ComponentComboBoxBuilders =
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
         /// <param name="template">The template to use to render each item.</param>
-        static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>) =
+        static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
             WidgetHelpers.buildItems<unit, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
         /// <summary>Creates a ComboBox widget.</summary>
         static member ComboBox() =
-            CollectionBuilder<unit, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ComponentItemsControl.Items)
+            CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ComponentItemsControl.Items)
 
 type ComponentComboBoxModifiers =
     /// <summary>Listens to the ComboBox DropDownOpened event.</summary>

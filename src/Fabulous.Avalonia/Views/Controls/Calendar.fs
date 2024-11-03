@@ -72,14 +72,14 @@ type CalendarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HeaderBackground value.</param>
     [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<unit, #IFabCalendar>, value: Color) =
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: Color) =
         CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the HeaderBackground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HeaderBackground value.</param>
     [<Extension>]
-    static member inline headerBackground(this: WidgetBuilder<unit, #IFabCalendar>, value: string) =
+    static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: string) =
         CalendarModifiers.headerBackground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the DisplayMode property.</summary>

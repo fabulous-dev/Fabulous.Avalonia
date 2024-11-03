@@ -16,7 +16,7 @@ module MenuBuilders =
 
         /// <summary>Creates a Menu widget.</summary>
         static member Menu() =
-            CollectionBuilder<unit, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ComponentItemsControl.Items)
+            CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ComponentItemsControl.Items)
 
 type MenuModifiers =
     /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>

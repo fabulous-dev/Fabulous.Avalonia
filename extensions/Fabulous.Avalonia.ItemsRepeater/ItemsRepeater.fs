@@ -38,6 +38,15 @@ module ItemsRepeater =
     let Layout =
         Attributes.defineAvaloniaPropertyWithEquality ItemsRepeater.LayoutProperty
 
+[<AutoOpen>]
+module ItemsRepeaterBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member ItemsRepeater<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
+            WidgetHelpers.buildItems<'msg, IFabItemsRepeater, 'itemData, 'itemMarker> ItemsRepeater.WidgetKey ItemsRepeater.ItemsSource items template
+
 type ItemsRepeaterModifiers =
     /// <summary>Link a ViewRef to access the direct ItemsRepeater control instance</summary>
     /// <param name="this">Current widget</param>

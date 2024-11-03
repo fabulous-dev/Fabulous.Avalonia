@@ -4,8 +4,7 @@ open Fabulous.Avalonia
 open System
 open Avalonia.Markup.Xaml.Styling
 
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module MainWindow =
     let view () =

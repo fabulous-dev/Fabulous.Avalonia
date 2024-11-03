@@ -2,9 +2,7 @@ namespace RenderDemo
 
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module CompositorAnimationsPage =
 

@@ -1,4 +1,4 @@
-namespace Fabulous.Avalonia.Components
+namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
@@ -19,7 +19,7 @@ module ComponentScrollBarBuilders =
         /// <param name="value">Current value.</param>
         /// <param name="fn">Raised when the value changes.</param>
         static member inline ScrollBar(min: float, max: float, value: float, fn: float -> unit) =
-            WidgetBuilder<unit, IFabScrollBar>(
+            WidgetBuilder<'msg, IFabScrollBar>(
                 ScrollBar.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),
                 ComponentRangeBase.ValueChanged.WithValue(ComponentValueEventData.create value fn)
@@ -30,5 +30,5 @@ type ComponentScrollBarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the Scroll value changes.</param>
     [<Extension>]
-    static member inline onScroll(this: WidgetBuilder<unit, #IFabScrollBar>, fn: ScrollEventArgs -> unit) =
+    static member inline onScroll(this: WidgetBuilder<'msg, #IFabScrollBar>, fn: ScrollEventArgs -> unit) =
         this.AddScalar(ComponentScrollBar.Scroll.WithValue(fn))

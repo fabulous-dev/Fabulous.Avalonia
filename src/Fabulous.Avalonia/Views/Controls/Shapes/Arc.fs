@@ -24,7 +24,7 @@ module ArcBuilders =
         /// <param name="startAngle">The starting angle/</param>
         /// <param name="sweepAngle">The sweep angle.</param>
         static member Arc(startAngle: float, sweepAngle: float) =
-            WidgetBuilder<unit, IFabArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))
+            WidgetBuilder<'msg, IFabArc>(Arc.WidgetKey, Arc.StartAngle.WithValue(startAngle), Arc.SweepAngle.WithValue(sweepAngle))
 
 type ArcModifiers =
     /// <summary>Link a ViewRef to access the direct Arc control instance.</summary>

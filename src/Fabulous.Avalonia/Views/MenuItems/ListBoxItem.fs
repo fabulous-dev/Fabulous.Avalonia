@@ -24,7 +24,7 @@ module ListBoxItemBuilders =
         /// <param name="content">The content of the ListBoxItem.</param>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>
         static member ListBoxItem(content: string, isSelected: bool) =
-            WidgetBuilder<unit, IFabListBoxItem>(
+            WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
                 ContentControl.ContentString.WithValue(content),
                 ListBoxItem.IsSelected.WithValue(isSelected)
@@ -33,7 +33,7 @@ module ListBoxItemBuilders =
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
         static member ListBoxItem(content: string) =
-            WidgetBuilder<unit, IFabListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
+            WidgetBuilder<'msg, IFabListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="isSelected">Whether the ListBoxItem is selected.</param>

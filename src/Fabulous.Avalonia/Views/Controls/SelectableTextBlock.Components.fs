@@ -21,7 +21,7 @@ module ComponentSelectableTextBlockBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
         static member inline SelectableTextBlock(text: string, fn: RoutedEventArgs -> unit) =
-            WidgetBuilder<unit, IFabSelectableTextBlock>(
+            WidgetBuilder<'msg, IFabSelectableTextBlock>(
                 SelectableTextBlock.WidgetKey,
                 TextBlock.Text.WithValue(text),
                 ComponentSelectableTextBlock.CopyingToClipboard.WithValue(fn)
@@ -30,7 +30,7 @@ module ComponentSelectableTextBlockBuilders =
         /// <summary>Creates a SelectableTextBlock widget.</summary>
         /// <param name="fn">Raised when the user copies the text to the clipboard.</param>
         static member inline SelectableTextBlock(fn: RoutedEventArgs -> unit) =
-            CollectionBuilder<unit, IFabSelectableTextBlock, IFabInline>(
+            CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
                 SelectableTextBlock.WidgetKey,
                 ComponentTextBlock.Inlines,
                 ComponentSelectableTextBlock.CopyingToClipboard.WithValue(fn)

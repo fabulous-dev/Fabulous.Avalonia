@@ -23,7 +23,7 @@ module ComponentToggleButtonBuilders =
         /// <param name="isChecked">Whether the ToggleButton is checked.</param>
         /// <param name="fn">Raised when the ToggleButton is clicked.</param>
         static member ToggleButton(text: string, isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabToggleButton>(
+            WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
@@ -34,7 +34,7 @@ module ComponentToggleButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
         static member ThreeStateToggleButton(text: string, isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabToggleButton>(
+            WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ToggleButton.IsThreeState.WithValue(true),
@@ -47,8 +47,8 @@ module ComponentToggleButtonBuilders =
         /// <param name="isChecked">Whether the ToggleButton is checked.</param>
         /// <param name="fn">Raised when the ToggleButton is clicked.</param>
         /// <param name="content">The content of the ToggleButton.</param>
-        static member ToggleButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabToggleButton>(
+        static member ToggleButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
@@ -61,8 +61,8 @@ module ComponentToggleButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateToggleButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateToggleButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateToggleButton.</param>
-        static member ThreeStateToggleButton(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabToggleButton>(
+        static member ThreeStateToggleButton(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
                     StackList.two(

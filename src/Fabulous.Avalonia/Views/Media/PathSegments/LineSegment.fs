@@ -21,7 +21,7 @@ module LineSegmentBuilders =
         /// <summary>Creates a LineSegment widget.</summary>
         /// <param name="point">The point to draw the line to.</param>
         static member LineSegment(point: Point) =
-            WidgetBuilder<unit, IFabLineSegment>(LineSegment.WidgetKey, LineSegment.Point.WithValue(point))
+            WidgetBuilder<'msg, IFabLineSegment>(LineSegment.WidgetKey, LineSegment.Point.WithValue(point))
 
 
 type LineSegmentModifiers =

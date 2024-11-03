@@ -18,7 +18,7 @@ module ComponentToggleSplitButtonBuilders =
         /// <param name="isChecked">Whether the ToggleSplitButton is checked.</param>
         /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked.</param>
         static member ToggleSplitButton(text: string, isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabToggleSplitButton>(
+            WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ComponentToggleSplitButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
@@ -28,8 +28,8 @@ module ComponentToggleSplitButtonBuilders =
         /// <param name="isChecked">Whether the ToggleSplitButton is checked.</param>
         /// <param name="fn">Raised when the ToggleSplitButton is checked or unchecked.</param>
         /// <param name="content">The content of the ToggleSplitButton.</param>
-        static member ToggleSplitButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabToggleSplitButton>(
+        static member ToggleSplitButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentToggleSplitButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),

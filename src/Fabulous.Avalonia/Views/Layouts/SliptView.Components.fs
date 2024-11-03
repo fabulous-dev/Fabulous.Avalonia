@@ -29,28 +29,28 @@ type ComponentSplitViewModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosed event fires.</param>
     [<Extension>]
-    static member inline onPanClosed(this: WidgetBuilder<unit, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
+    static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanClosed.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanClosing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanClosing event fires.</param>
     [<Extension>]
-    static member inline onPanClosing(this: WidgetBuilder<unit, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onPanClosing(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanClosing.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpened event fires.</param>
     [<Extension>]
-    static member inline onPanOpened(this: WidgetBuilder<unit, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
+    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanOpened.WithValue(fn))
 
     /// <summary>Listens to the SplitView PanOpening event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PanOpening event fires.</param>
     [<Extension>]
-    static member inline onPanOpening(this: WidgetBuilder<unit, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
+    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> unit) =
         this.AddScalar(ComponentSplitView.PanOpening.WithValue(fn))
 
     /// <summary>Listens to the SplitView IsPresented event.</summary>
@@ -58,5 +58,5 @@ type ComponentSplitViewModifiers =
     /// <param name="value">The IsPresented value.</param>
     /// <param name="fn">Raised when the IsPresented event fires.</param>
     [<Extension>]
-    static member inline isPresented(this: WidgetBuilder<unit, #IFabSplitView>, value: bool, fn: bool -> unit) =
+    static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> unit) =
         this.AddScalar(ComponentSplitView.IsPresented.WithValue(ComponentValueEventData.create value fn))

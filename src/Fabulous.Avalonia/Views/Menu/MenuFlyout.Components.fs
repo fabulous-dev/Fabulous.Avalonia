@@ -24,4 +24,4 @@ module ComponentMenuFlyoutBuilders =
 
         /// <summary>Creates a MenuFlyout widget.</summary>
         static member MenuFlyout() =
-            CollectionBuilder<unit, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, ComponentMenuFlyout.Items)
+            CollectionBuilder<'msg, IFabMenuFlyout, IFabMenuItem>(MenuFlyout.WidgetKey, ComponentMenuFlyout.Items)

@@ -4,7 +4,6 @@ open System
 open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
-open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Rendering.SceneGraph
 open Avalonia.Skia
@@ -15,9 +14,8 @@ open SkiaSharp
 
 #nowarn "0044"
 
-open Fabulous.Avalonia.Mvu
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 type CustomDrawOp(bounds: Rect, noSkia: GlyphRun) =
     let mutable _noSkia = null
@@ -132,7 +130,7 @@ type CustomSkiaControl() as this =
         |> ignore
 
 type IFabCustomSkiaControl =
-    inherit IFabMvuControl
+    inherit IFabControl
 
 module CustomSkiaControl =
 
@@ -141,7 +139,7 @@ module CustomSkiaControl =
 [<AutoOpen>]
 module CustomSkiaBuilders =
 
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         static member CustomSkiaControl() =
             WidgetBuilder<'msg, IFabCustomSkiaControl>(CustomSkiaControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

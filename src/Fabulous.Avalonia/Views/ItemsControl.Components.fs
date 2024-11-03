@@ -31,17 +31,17 @@ module ComponentItemsControl =
 module ComponentItemsControlBuilders =
     type Fabulous.Avalonia.View with
 
-        static member ItemsControl<'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<unit, 'itemMarker>)
+        static member ItemsControl<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
-            WidgetHelpers.buildItems<unit, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
+            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type ComponentItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
-    static member inline onContainerClearing(this: WidgetBuilder<unit, #IFabItemsControl>, fn: ContainerClearingEventArgs -> unit) =
+    static member inline onContainerClearing(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerClearingEventArgs -> unit) =
         this.AddScalar(ComponentItemsControl.ContainerClearing.WithValue(fn))
 
     /// <summary>Listens to the ItemsControl ContainerIndexChanged event.</summary>
@@ -55,5 +55,5 @@ type ComponentItemsControlModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a container is prepared for use.</param>
     [<Extension>]
-    static member inline onContainerPrepared(this: WidgetBuilder<unit, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> unit) =
+    static member inline onContainerPrepared(this: WidgetBuilder<'msg, #IFabItemsControl>, fn: ContainerPreparedEventArgs -> unit) =
         this.AddScalar(ComponentItemsControl.ContainerPrepared.WithValue(fn))

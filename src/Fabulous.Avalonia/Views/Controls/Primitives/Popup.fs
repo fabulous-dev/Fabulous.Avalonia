@@ -67,8 +67,8 @@ module PopupBuilders =
         /// <summary>Creates a Popup widget.</summary>
         /// <param name="isOpen">Whether the popup is open or not.</param>
         /// <param name="content">The content of the popup.</param>
-        static member Popup(isOpen: bool, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabPopup>(
+        static member Popup(isOpen: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabPopup>(
                 Popup.WidgetKey,
                 AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
             )

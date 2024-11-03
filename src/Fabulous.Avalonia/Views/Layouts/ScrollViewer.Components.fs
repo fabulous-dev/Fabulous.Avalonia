@@ -15,5 +15,5 @@ type ComponentScrollViewerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the ScrollChanged event fires.</param>
     [<Extension>]
-    static member inline onScrollChanged(this: WidgetBuilder<unit, #IFabScrollViewer>, fn: ScrollChangedEventArgs -> unit) =
+    static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, fn: ScrollChangedEventArgs -> unit) =
         this.AddScalar(ComponentScrollViewer.ScrollChanged.WithValue(fn))

@@ -23,8 +23,8 @@ module ComponentWindowBuilders =
 
         /// <summary>Creates a Window widget.</summary>
         /// <param name="content">The content of the window.</param>
-        static member Window(content: WidgetBuilder<unit, #IFabElement>) =
-            WidgetBuilder<unit, IFabWindow>(
+        static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
+            WidgetBuilder<'msg, IFabWindow>(
                 Window.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
@@ -38,19 +38,19 @@ type ComponentWindowModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closing.</param>
     [<Extension>]
-    static member inline onWindowClosing(this: WidgetBuilder<unit, #IFabWindow>, fn: WindowClosingEventArgs -> unit) =
+    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, fn: WindowClosingEventArgs -> unit) =
         this.AddScalar(ComponentWindow.WindowClosing.WithValue(fn))
 
     /// <summary>Listens to the Window WindowClosed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is closed.</param>
     [<Extension>]
-    static member inline onWindowClosed(this: WidgetBuilder<unit, #IFabWindow>, fn: RoutedEventArgs -> unit) =
+    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentWindow.WindowClosed.WithValue(fn))
 
     /// <summary>Listens to the Window WindowOpened event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is opened.</param>
     [<Extension>]
-    static member inline onWindowOpened(this: WidgetBuilder<unit, #IFabWindow>, fn: RoutedEventArgs -> unit) =
+    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> unit) =
         this.AddScalar(ComponentWindow.WindowOpened.WithValue(fn))

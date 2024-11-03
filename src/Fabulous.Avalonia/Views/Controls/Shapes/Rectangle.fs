@@ -25,11 +25,11 @@ module RectangleBuilders =
         /// <param name="radiusX">The radius on the X-axis used to round the corners of the rectangle.</param>
         /// <param name="radiusY">The radius on the Y-axis used to round the corners of the rectangle.</param>
         static member Rectangle(radiusX: float, radiusY: float) =
-            WidgetBuilder<unit, IFabRectangle>(Rectangle.WidgetKey, Rectangle.RadiusX.WithValue(radiusX), Rectangle.RadiusY.WithValue(radiusY))
+            WidgetBuilder<'msg, IFabRectangle>(Rectangle.WidgetKey, Rectangle.RadiusX.WithValue(radiusX), Rectangle.RadiusY.WithValue(radiusY))
 
         /// <summary>Creates a Rectangle widget.</summary>
         static member Rectangle() =
-            WidgetBuilder<unit, IFabRectangle>(Rectangle.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabRectangle>(Rectangle.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type RectangleModifiers =
     /// <summary>Link a ViewRef to access the direct Rectangle control instance.</summary>

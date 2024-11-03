@@ -8,12 +8,12 @@ type ComponentTransitionCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<unit, IFabAnimatable>) =
-        AttributeCollectionBuilder<unit, IFabAnimatable, IFabTransition>(this, ComponentAnimatable.Transitions)
+    static member inline transition(this: WidgetBuilder<'msg, IFabAnimatable>) =
+        AttributeCollectionBuilder<'msg, IFabAnimatable, IFabTransition>(this, ComponentAnimatable.Transitions)
 
     /// <summary>Sets the Transition property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Transition value.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<unit, IFabAnimatable>, value: WidgetBuilder<unit, IFabTransition>) =
+    static member inline transition(this: WidgetBuilder<'msg, IFabAnimatable>, value: WidgetBuilder<'msg, IFabTransition>) =
         ComponentTransitionCollectionModifiers.transition(this) { value }

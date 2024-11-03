@@ -16,12 +16,12 @@ type ComponentFlyoutBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the FlyoutBase is opened.</param>
     [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<unit, #IFabFlyoutBase>, msg: unit -> unit) =
+    static member inline onOpened(this: WidgetBuilder<'msg, #IFabFlyoutBase>, msg: unit -> unit) =
         this.AddScalar(ComponentFlyoutBase.Opened.WithValue(msg))
 
     /// <summary>Listens to the FlyoutBase Closed event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the FlyoutBase is closed.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<unit, #IFabFlyoutBase>, msg: unit -> unit) =
+    static member inline onClosed(this: WidgetBuilder<'msg, #IFabFlyoutBase>, msg: unit -> unit) =
         this.AddScalar(ComponentFlyoutBase.Closed.WithValue(msg))

@@ -15,5 +15,5 @@ type ComponentTreeViewModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the TreeView SelectionChanged event is fired.</param>
     [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<unit, #IFabTreeView>, fn: SelectionChangedEventArgs -> unit) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabTreeView>, fn: SelectionChangedEventArgs -> unit) =
         this.AddScalar(ComponentTreeView.SelectionChanged.WithValue(fn))

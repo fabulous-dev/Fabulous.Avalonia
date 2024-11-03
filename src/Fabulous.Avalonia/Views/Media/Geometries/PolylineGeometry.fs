@@ -25,7 +25,7 @@ module PolylineGeometryBuilders =
         /// <param name="points">The points of the polyline.</param>
         /// <param name="isFilled">Whether the polyline is filled.</param>
         static member PolylineGeometry(points: Point list, isFilled: bool) =
-            WidgetBuilder<unit, IFabPolylineGeometry>(
+            WidgetBuilder<'msg, IFabPolylineGeometry>(
                 PolylineGeometry.WidgetKey,
                 PolylineGeometry.Points.WithValue(points |> Array.ofList),
                 PolylineGeometry.IsFilled.WithValue(isFilled)

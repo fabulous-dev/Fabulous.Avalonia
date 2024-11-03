@@ -13,7 +13,7 @@ module ComponentDropDownButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>
         static member DropDownButton(text: string, msg: RoutedEventArgs -> unit) =
-            WidgetBuilder<unit, IFabDropDownButton>(
+            WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ComponentButton.Clicked.WithValue(msg)
@@ -22,8 +22,8 @@ module ComponentDropDownButtonBuilders =
         /// <summary>Creates a DropDownButton widget.</summary>
         /// <param name="msg">Raised when the DropDownButton is clicked.</param>
         /// <param name="content">The content of the DropDownButton.</param>
-        static member DropDownButton(msg: RoutedEventArgs -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabDropDownButton>(
+        static member DropDownButton(msg: RoutedEventArgs -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentButton.Clicked.WithValue(msg)),

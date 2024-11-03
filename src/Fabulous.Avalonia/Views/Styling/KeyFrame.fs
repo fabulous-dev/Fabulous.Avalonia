@@ -48,13 +48,13 @@ module KeyFrameBuilders =
         /// <summary>Creates a KeyFrame widget.</summary>
         /// <param name="setters">The animation setters to apply.</param>
         static member KeyFrames(setters: IAnimationSetter seq) =
-            WidgetBuilder<unit, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setters.WithValue(setters))
+            WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setters.WithValue(setters))
 
         /// <summary>Creates a KeyFrame widget.</summary>
         /// <param name="property">The property to animate.</param>
         /// <param name="value">The value to animate to.</param>
         static member KeyFrame(property: AvaloniaProperty, value: obj) =
-            WidgetBuilder<unit, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setter.WithValue(Setter(property, value)))
+            WidgetBuilder<'msg, IFabKeyFrame>(KeyFrame.WidgetKey, KeyFrame.Setter.WithValue(Setter(property, value)))
 
 type KeyFrameModifiers =
     /// <summary>Sets the Cue property.</summary>

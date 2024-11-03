@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open Avalonia
 open Avalonia.Styling
 open Fabulous
-open Fabulous.Avalonia.Mvu
 
 [<AbstractClass; Sealed>]
 type ThemeAware =

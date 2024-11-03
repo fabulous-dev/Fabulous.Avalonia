@@ -13,8 +13,7 @@ open Avalonia.Rendering.Composition
 open Avalonia.Rendering.Composition.Animations
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module GalaxyAnimation =
     type Model = { Value: int }

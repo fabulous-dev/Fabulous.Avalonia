@@ -20,7 +20,7 @@ module DrawingBrushBuilders =
         /// <summary>Creates a DrawingBrush widget.</summary>
         /// <param name="source">The source drawing.</param>
         static member DrawingBrush(source: WidgetBuilder<'msg, #IFabDrawing>) =
-            WidgetBuilder<'msg, IFabDrawing>(
+            WidgetBuilder<'msg, IFabDrawingBrush>(
                 DrawingBrush.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| DrawingBrush.Drawing.WithValue(source.Compile()) |], ValueNone)
             )

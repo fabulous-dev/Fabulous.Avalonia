@@ -64,9 +64,7 @@ type CanvasItem() as this =
             Canvas.SetTop(this, top)
         | _ -> ()
 
-open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module ImplicitCanvasAnimationsPage =
     type Model =

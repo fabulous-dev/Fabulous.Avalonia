@@ -6,19 +6,18 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
-open Fabulous.Avalonia.Mvu
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module AnimationsPage =
-    let borderTest1 (this: WidgetBuilder<'msg, IFabMvuBorder>) =
+    let borderTest1 (this: WidgetBuilder<'msg, IFabBorder>) =
         this.child(
             Path(Paths.Path1)
                 .fill(SolidColorBrush(Colors.White))
                 .stretch(Stretch.Uniform)
         )
 
-    let borderTest2 (this: WidgetBuilder<'msg, IFabMvuBorder>) =
+    let borderTest2 (this: WidgetBuilder<'msg, IFabBorder>) =
         this.child(
             Path(Paths.Path2)
                 .fill(SolidColorBrush(Colors.Red))

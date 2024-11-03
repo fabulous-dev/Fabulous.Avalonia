@@ -19,7 +19,7 @@ type ComponentSelectingItemsControlModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the control's selection changes.</param>
     [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<unit, #IFabSelectingItemsControl>, fn: SelectionChangedEventArgs -> unit) =
+    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, fn: SelectionChangedEventArgs -> unit) =
         this.AddScalar(ComponentSelectingItemsControl.SelectionChanged.WithValue(fn))
 
     /// <summary>Listens to the SelectingItemsControl SelectedIndexChanged event.</summary>
@@ -27,5 +27,5 @@ type ComponentSelectingItemsControlModifiers =
     /// <param name="index">Selected index</param>
     /// <param name="fn">Raised when the control's selected index changes.</param>
     [<Extension>]
-    static member inline onSelectedIndexChanged(this: WidgetBuilder<unit, #IFabSelectingItemsControl>, index: int, fn: int -> unit) =
+    static member inline onSelectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, fn: int -> unit) =
         this.AddScalar(ComponentSelectingItemsControl.SelectedIndexChanged.WithValue(ComponentValueEventData.create index fn))

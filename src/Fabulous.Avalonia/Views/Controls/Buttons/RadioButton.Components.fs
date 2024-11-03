@@ -13,7 +13,7 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
         static member RadioButton(text: string, isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabRadioButton>(
+            WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
@@ -24,7 +24,7 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
         static member ThreeStateRadioButton(text: string, isChecked: bool option, fn: bool option -> unit) =
-            WidgetBuilder<unit, IFabRadioButton>(
+            WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
@@ -37,8 +37,8 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the RadioButton is checked.</param>
         /// <param name="fn">Raised when the RadioButton is clicked.</param>
         /// <param name="content">The content of the RadioButton.</param>
-        static member RadioButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabRadioButton>(
+        static member RadioButton(isChecked: bool, fn: bool -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
@@ -51,8 +51,8 @@ module RadioButtonBuilders =
         /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
         /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
         /// <param name="content">The content of the ThreeStateRadioButton.</param>
-        static member ThreeStateRadioButton(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<unit, #IFabControl>) =
-            WidgetBuilder<unit, IFabRadioButton>(
+        static member ThreeStateRadioButton(isChecked: bool option, fn: bool option -> unit, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabRadioButton>(
                 RadioButton.WidgetKey,
                 AttributesBundle(
                     StackList.two(

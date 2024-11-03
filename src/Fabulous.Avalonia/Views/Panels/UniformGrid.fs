@@ -28,14 +28,14 @@ module UniformGridBuilders =
         static member UniformGrid(?cols: int, ?rows: int) =
             match cols, rows with
             | Some cols, Some rows ->
-                CollectionBuilder<unit, IFabUniformGrid, IFabControl>(
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
                     UniformGrid.WidgetKey,
                     ComponentPanel.Children,
                     UniformGrid.Columns.WithValue(cols),
                     UniformGrid.Rows.WithValue(rows)
                 )
             | Some cols, None ->
-                CollectionBuilder<unit, IFabUniformGrid, IFabControl>(
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
                     UniformGrid.WidgetKey,
                     ComponentPanel.Children,
                     UniformGrid.Columns.WithValue(cols),
@@ -43,7 +43,7 @@ module UniformGridBuilders =
                 )
 
             | None, Some rows ->
-                CollectionBuilder<unit, IFabUniformGrid, IFabControl>(
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
                     UniformGrid.WidgetKey,
                     ComponentPanel.Children,
                     UniformGrid.Columns.WithValue(0),
@@ -51,7 +51,7 @@ module UniformGridBuilders =
                 )
 
             | None, None ->
-                CollectionBuilder<unit, IFabUniformGrid, IFabControl>(
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
                     UniformGrid.WidgetKey,
                     ComponentPanel.Children,
                     UniformGrid.Columns.WithValue(0),

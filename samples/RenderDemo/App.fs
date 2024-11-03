@@ -1,8 +1,8 @@
 namespace RenderDemo
 
-open Fabulous.Avalonia.Mvu
+open Fabulous.Avalonia
 
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 [<AutoOpen>]
 module App =

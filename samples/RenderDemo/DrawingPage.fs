@@ -4,10 +4,8 @@ open Avalonia
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 module DrawingPage =
     let bulb () =

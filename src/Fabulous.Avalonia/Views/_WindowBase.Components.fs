@@ -22,7 +22,7 @@ type ComponentWindowBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="msg">Raised when the window is activated.</param>
     [<Extension>]
-    static member inline onActivated(this: WidgetBuilder<unit, #IFabWindowBase>, msg: unit -> unit) =
+    static member inline onActivated(this: WidgetBuilder<'msg, #IFabWindowBase>, msg: unit -> unit) =
         this.AddScalar(ComponentWindowBase.Activated.WithValue(msg))
 
     /// <summary>Listens to the WindowBase Deactivated event.</summary>
@@ -36,12 +36,12 @@ type ComponentWindowBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window position is changed.</param>
     [<Extension>]
-    static member inline onPositionChanged(this: WidgetBuilder<unit, #IFabWindowBase>, fn: PixelPointEventArgs -> unit) =
+    static member inline onPositionChanged(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: PixelPointEventArgs -> unit) =
         this.AddScalar(ComponentWindowBase.PositionChanged.WithValue(fn))
 
     /// <summary>Listens to the WindowBase Resized event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the window is resized.</param>
     [<Extension>]
-    static member inline onResized(this: WidgetBuilder<unit, #IFabWindowBase>, fn: WindowResizedEventArgs -> unit) =
+    static member inline onResized(this: WidgetBuilder<'msg, #IFabWindowBase>, fn: WindowResizedEventArgs -> unit) =
         this.AddScalar(ComponentWindowBase.Resized.WithValue(fn))
