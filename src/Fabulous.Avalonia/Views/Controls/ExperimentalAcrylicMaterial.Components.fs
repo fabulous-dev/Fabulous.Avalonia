@@ -5,6 +5,7 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
+
 module ComponentExperimentalAcrylicMaterial =
     let Invalidated =
         Attributes.defineEventNoArgNoDispatch "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)

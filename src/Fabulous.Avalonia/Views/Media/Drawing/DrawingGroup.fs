@@ -44,7 +44,7 @@ type DrawingGroupModifiers =
     [<Extension>]
     static member inline opacityMask(this: WidgetBuilder<'msg, #IFabDrawingGroup>, value: IBrush) =
         this.AddScalar(DrawingGroup.OpacityMask.WithValue(value))
-        
+
     /// <summary>Sets the OpacityMask property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The OpacityMask value.</param>

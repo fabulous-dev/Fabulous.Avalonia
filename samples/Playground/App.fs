@@ -5,7 +5,7 @@ open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
 open Fabulous.Avalonia.Components
 
-open type Fabulous.Avalonia.Components.View
+open type Fabulous.Avalonia.View
 
 module App =
     let firstNameView (value: StateValue<string>) =

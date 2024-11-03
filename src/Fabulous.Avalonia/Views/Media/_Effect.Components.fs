@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+
 module ComponentEffect =
     let Invalidated =
         Attributes.defineEventNoArgNoDispatch "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)

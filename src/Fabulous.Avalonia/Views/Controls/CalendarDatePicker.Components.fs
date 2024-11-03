@@ -41,9 +41,7 @@ type ComponentCalendarDatePickerModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the DatePicker detects a format error.</param>
     [<Extension>]
-    static member inline onDateValidationError
-        (this: WidgetBuilder<unit, #IFabCalendarDatePicker>, fn: CalendarDatePickerDateValidationErrorEventArgs -> unit)
-        =
+    static member inline onDateValidationError(this: WidgetBuilder<unit, #IFabCalendarDatePicker>, fn: CalendarDatePickerDateValidationErrorEventArgs -> unit) =
         this.AddScalar(ComponentCalendarDatePicker.DateValidationError.WithValue(fn))
 
     /// <summary>Listens to the CalendarDatePicker CalendarClosed event.</summary>

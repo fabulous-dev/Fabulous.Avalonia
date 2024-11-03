@@ -14,7 +14,7 @@ module ImageBrush =
     let WidgetKey = Widgets.register<ImageBrush>()
 
     let Source = Attributes.defineBindableImageSource ImageBrush.SourceProperty
-    
+
 [<AutoOpen>]
 module ImageBrushBuilders =
     type Fabulous.Avalonia.View with

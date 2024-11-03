@@ -12,7 +12,7 @@ module DrawingBrush =
     let WidgetKey = Widgets.register<DrawingBrush>()
 
     let Drawing = Attributes.defineAvaloniaPropertyWidget DrawingBrush.DrawingProperty
-    
+
 [<AutoOpen>]
 module DrawingBrushBuilders =
     type Fabulous.Avalonia.View with

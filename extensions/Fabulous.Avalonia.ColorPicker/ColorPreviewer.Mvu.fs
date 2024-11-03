@@ -6,6 +6,7 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
+
 module MvuColorPreviewer =
     let ColorChanged =
         Attributes.defineEvent "ColorPreviewer_ColorChanged" (fun target -> (target :?> ColorPreviewer).ColorChanged)

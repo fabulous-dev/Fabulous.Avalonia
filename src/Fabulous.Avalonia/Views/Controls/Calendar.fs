@@ -67,7 +67,7 @@ type CalendarModifiers =
     [<Extension>]
     static member inline headerBackground(this: WidgetBuilder<'msg, #IFabCalendar>, value: IBrush) =
         this.AddScalar(Calendar.HeaderBackground.WithValue(value))
-        
+
     /// <summary>Sets the HeaderBackground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HeaderBackground value.</param>

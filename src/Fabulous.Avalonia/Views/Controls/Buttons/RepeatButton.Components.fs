@@ -13,11 +13,7 @@ module ComponentRepeatButtonBuilders =
         /// <param name="text">The text to display.</param>
         /// <param name="msg">Raised when the button is clicked.</param>
         static member RepeatButton(text: string, msg: RoutedEventArgs -> unit) =
-            WidgetBuilder<unit, IFabRepeatButton>(
-                RepeatButton.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                ComponentButton.Clicked.WithValue(msg)
-            )
+            WidgetBuilder<unit, IFabRepeatButton>(RepeatButton.WidgetKey, ContentControl.ContentString.WithValue(text), ComponentButton.Clicked.WithValue(msg))
 
         /// <summary>Creates a RepeatButton widget.</summary>
         /// <param name="content">The content to display.</param>

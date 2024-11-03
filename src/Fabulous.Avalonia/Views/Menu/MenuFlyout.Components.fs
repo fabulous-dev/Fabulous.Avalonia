@@ -5,6 +5,7 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
+
 module ComponentMenuFlyout =
     let Items =
         ComponentAttributes.defineAvaloniaNonGenericListWidgetCollection "MenuFlyout_Items" (fun target ->

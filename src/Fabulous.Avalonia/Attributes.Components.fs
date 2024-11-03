@@ -18,9 +18,7 @@ module ComponentValueEventData =
         { Value = ValueSome value
           Event = event }
 
-    let createVOption (value: 'data voption) (event: 'eventArgs -> unit) =
-        { Value = value
-          Event = event }
+    let createVOption (value: 'data voption) (event: 'eventArgs -> unit) = { Value = value; Event = event }
 
 module ComponentAttributes =
     let defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
@@ -67,7 +65,7 @@ module ComponentAttributes =
                             event.Subscribe(fun args ->
                                 if args.Sender = target then
                                     if args.NewValue.HasValue then
-                                        curr.Event (convertToModel args.NewValue.Value))
+                                        curr.Event(convertToModel args.NewValue.Value))
 
                         node.SetHandler(property.Name, disposable))
             )

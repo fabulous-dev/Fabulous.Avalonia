@@ -19,11 +19,7 @@ module ComponentAnimationBuilders =
         /// <summary>Creates an Animation widget with the specified duration and keyframes.</summary>
         /// <param name="duration">The main Window of the Application.</param>
         static member Animation(duration: TimeSpan) =
-            CollectionBuilder<unit, IFabAnimation, IFabKeyFrame>(
-                Animation.WidgetKey,
-                ComponentAnimation.Children,
-                Animation.Duration.WithValue(duration)
-            )
+            CollectionBuilder<unit, IFabAnimation, IFabKeyFrame>(Animation.WidgetKey, ComponentAnimation.Children, Animation.Duration.WithValue(duration))
 
         /// <summary>Creates an Animation widget with keyframes.</summary>
         static member Animation() =

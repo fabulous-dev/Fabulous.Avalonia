@@ -16,7 +16,7 @@ module GradientStop =
 
     let Offset =
         Attributes.defineAvaloniaPropertyWithEquality GradientStop.OffsetProperty
-        
+
 [<AutoOpen>]
 module GradientStopBuilders =
     type Fabulous.Avalonia.View with
@@ -36,6 +36,7 @@ module GradientStopBuilders =
                 GradientStop.Color.WithValue(Color.Parse(color)),
                 GradientStop.Offset.WithValue(offset)
             )
+
 type GradientStopBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabGradientStop>

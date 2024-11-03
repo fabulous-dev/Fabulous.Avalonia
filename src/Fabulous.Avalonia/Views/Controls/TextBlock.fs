@@ -83,7 +83,7 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: IBrush) =
         this.AddScalar(TextBlock.Background.WithValue(value))
-        
+
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
@@ -153,7 +153,7 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: IBrush) =
         this.AddScalar(TextBlock.Foreground.WithValue(value))
-        
+
     /// <summary>Sets the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>

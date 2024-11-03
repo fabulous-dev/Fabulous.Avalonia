@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+
 module ComponentGeometry =
     let Changed =
         Attributes.defineEventNoArgNoDispatch "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)

@@ -16,8 +16,4 @@ module MvuPathFigureBuilders =
         /// <summary>Creates a PathFigure widget.</summary>
         /// <param name="startPoint">The start point of the path.</param>
         static member PathFigure(startPoint: Point) =
-            CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(
-                PathFigure.WidgetKey,
-                MvuPathFigure.Segments,
-                PathFigure.StartPoint.WithValue(startPoint)
-            )
+            CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(PathFigure.WidgetKey, MvuPathFigure.Segments, PathFigure.StartPoint.WithValue(startPoint))

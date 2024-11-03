@@ -6,6 +6,7 @@ open Fabulous
 open Fabulous.Avalonia
 open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
+
 module MvuColorSpectrum =
     let ColorChanged =
         MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "ColorSpectrum_ColorChanged" ColorSpectrum.ColorProperty

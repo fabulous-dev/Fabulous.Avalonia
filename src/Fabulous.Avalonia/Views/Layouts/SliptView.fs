@@ -106,7 +106,7 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: IBrush) =
         this.AddScalar(SplitView.PaneBackground.WithValue(value))
-        
+
     /// <summary>Sets the PaneBackground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PaneBackground value.</param>

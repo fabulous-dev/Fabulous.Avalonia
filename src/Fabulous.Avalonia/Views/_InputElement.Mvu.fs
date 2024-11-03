@@ -97,9 +97,7 @@ type MvuInputElementModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when an input element gains input focus and input method is looking for the corresponding client.</param>
     [<Extension>]
-    static member inline onTextInputMethodClientRequested
-        (this: WidgetBuilder<'msg, #IFabInputElement>, fn: TextInputMethodClientRequestedEventArgs -> 'msg)
-        =
+    static member inline onTextInputMethodClientRequested(this: WidgetBuilder<'msg, #IFabInputElement>, fn: TextInputMethodClientRequestedEventArgs -> 'msg) =
         this.AddScalar(MvuInputElement.TextInputMethodClientRequested.WithValue(fn))
 
     /// <summary>Listens to the InputElement PointerEntered event.</summary>

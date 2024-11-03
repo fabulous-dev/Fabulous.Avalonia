@@ -10,7 +10,7 @@ type IFabSeparator =
 
 module Separator =
     let WidgetKey = Widgets.register<Separator>()
-    
+
 [<AutoOpen>]
 module SeparatorBuilders =
     type Fabulous.Avalonia.View with

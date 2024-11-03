@@ -31,11 +31,7 @@ module ImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Bitmap) =
-            WidgetBuilder<'msg, IFabImage>(
-                Image.WidgetKey,
-                Image.Source.WithValue(ImageSourceValue.Bitmap(source)),
-                Image.Stretch.WithValue(Stretch.Uniform)
-            )
+            WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Bitmap(source)), Image.Stretch.WithValue(Stretch.Uniform))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
@@ -68,11 +64,7 @@ module ImageBuilders =
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>
         static member Image(source: Stream) =
-            WidgetBuilder<'msg, IFabImage>(
-                Image.WidgetKey,
-                Image.Source.WithValue(ImageSourceValue.Stream(source)),
-                Image.Stretch.WithValue(Stretch.Uniform)
-            )
+            WidgetBuilder<'msg, IFabImage>(Image.WidgetKey, Image.Source.WithValue(ImageSourceValue.Stream(source)), Image.Stretch.WithValue(Stretch.Uniform))
 
         /// <summary>Creates an Image widget.</summary>
         /// <param name="source">The source image.</param>

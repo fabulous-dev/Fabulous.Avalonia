@@ -16,5 +16,4 @@ module ComponentItalicBuilders =
 
         /// <summary>Creates a Italic widget.</summary>
         /// <param name="text">Text to display.</param>
-        static member Italic(text: string) =
-            View.Italic() { View.Run(text) }
+        static member Italic(text: string) = View.Italic() { View.Run(text) }

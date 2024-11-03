@@ -12,10 +12,7 @@ module ComponentCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member CheckBox(isChecked: bool, fn: bool -> unit) =
-            WidgetBuilder<unit, IFabCheckBox>(
-                CheckBox.WidgetKey,
-                ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)
-            )
+            WidgetBuilder<unit, IFabCheckBox>(CheckBox.WidgetKey, ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>

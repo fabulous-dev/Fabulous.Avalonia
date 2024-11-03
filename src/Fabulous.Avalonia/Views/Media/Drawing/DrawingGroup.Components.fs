@@ -5,6 +5,7 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
+
 module ComponentDrawingGroup =
 
     let Children =
@@ -16,11 +17,7 @@ module ComponentDrawingGroupBuilders =
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         static member DrawingGroup() =
-            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(
-                DrawingGroup.WidgetKey,
-                ComponentDrawingGroup.Children,
-                DrawingGroup.Opacity.WithValue(1.0)
-            )
+            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, ComponentDrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
 
         /// <summary>Creates a DrawingGroup widget.</summary>
         /// <param name="opacity">The opacity of the drawing group.</param>

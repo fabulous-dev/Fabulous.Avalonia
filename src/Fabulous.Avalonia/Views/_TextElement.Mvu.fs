@@ -4,6 +4,7 @@ open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+
 type TextElementExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>

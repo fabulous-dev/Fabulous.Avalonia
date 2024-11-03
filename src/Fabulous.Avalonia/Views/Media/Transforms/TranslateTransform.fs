@@ -24,11 +24,7 @@ module TranslateTransformBuilders =
         /// <param name="x">The X offset.</param>
         /// <param name="y">The Y offset.</param>
         static member TranslateTransform(x: float, y: float) =
-            WidgetBuilder<'msg, IFabTranslateTransform>(
-                TranslateTransform.WidgetKey,
-                TranslateTransform.X.WithValue(x),
-                TranslateTransform.Y.WithValue(y)
-            )
+            WidgetBuilder<'msg, IFabTranslateTransform>(TranslateTransform.WidgetKey, TranslateTransform.X.WithValue(x), TranslateTransform.Y.WithValue(y))
 
         /// <summary>Creates a TranslateTransform widget.</summary>
         /// <param name="x">The X offset.</param>

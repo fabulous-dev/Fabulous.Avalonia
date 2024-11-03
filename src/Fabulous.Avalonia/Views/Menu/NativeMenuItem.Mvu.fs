@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
+
 module MvuNativeMenuItem =
 
     let Click =

@@ -22,4 +22,3 @@ type ElementModifiers =
     [<Extension>]
     static member inline onUnmounted(this: WidgetBuilder<'msg, #IFabElement>, msg: 'msg) =
         this.AddScalar(Lifecycle.Unmounted.WithValue(msg))
-

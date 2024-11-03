@@ -50,7 +50,7 @@ module ToolTipBuilders =
                 ToolTip.WidgetKey,
                 AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
             )
-            
+
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>

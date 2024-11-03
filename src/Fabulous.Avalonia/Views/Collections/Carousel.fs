@@ -60,7 +60,7 @@ module Carousel =
 
     let PageTransition =
         Attributes.defineAvaloniaPropertyWithEquality Carousel.PageTransitionProperty
-        
+
 [<AutoOpen>]
 module CarouselBuilders =
     type Fabulous.Avalonia.View with

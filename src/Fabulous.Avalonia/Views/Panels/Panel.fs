@@ -41,7 +41,7 @@ type PanelModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabPanel>, value: ViewRef<Panel>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
-        
+
 type PanelExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
