@@ -5,6 +5,7 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorView =
     inherit IFabTemplatedControl
@@ -89,6 +90,19 @@ module ColorView =
 
     let PaletteColors =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.PaletteColorsProperty
+
+[<AutoOpen>]
+module ColorViewBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ColorView widget.</summary>
+        static member ColorView() =
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorView widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorView(color: Color) =
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
 
 type ColorViewModifiers =
     /// <summary>Link a ViewRef to access the direct ColorView control instance</summary>

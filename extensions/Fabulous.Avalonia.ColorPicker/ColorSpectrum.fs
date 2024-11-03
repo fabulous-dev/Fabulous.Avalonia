@@ -6,6 +6,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorSpectrum =
     inherit IFabTemplatedControl
@@ -42,6 +43,22 @@ module ColorSpectrum =
 
     let Shape =
         Attributes.defineAvaloniaPropertyWithEquality ColorSpectrum.ShapeProperty
+
+[<AutoOpen>]
+module ColorSpectrumBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ColorSpectrum widget.</summary>
+        static member ColorSpectrum() =
+            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorSpectrum widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorSpectrum(color: Color) =
+            WidgetBuilder<'msg, IFabColorSpectrum>(
+                ColorSpectrum.WidgetKey,
+                AttributesBundle(StackList.one(ColorSpectrum.Color.WithValue(color)), ValueNone, ValueNone)
+            )
 
 type ColorSpectrumModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSpectrum control instance</summary>
