@@ -25,7 +25,7 @@ module ScalarAttributeComparers =
             ScalarAttributeComparison.Identical
         else
             ScalarAttributeComparison.Different
-            
+
 [<Struct>]
 type ComponentValueEventData<'data, 'eventArgs> =
     { Value: 'data voption
@@ -151,7 +151,7 @@ module Attributes =
                     | ImageSourceValue.Stream stream -> WindowIcon(ImageSource.fromStream(stream))
 
                 target.SetValue(property, value) |> ignore)
-        
+
     let inline defineAvaloniaPropertyWithChangedEvent<'modelType, 'valueType>
         name
         (property: AvaloniaProperty<'valueType>)
@@ -261,7 +261,10 @@ module Attributes =
 
         { Key = key; Name = name }
 
-    let defineAvaloniaPropertyWithChangedEventNoDispatch'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ComponentValueEventData<'T, 'T>> =
+    let defineAvaloniaPropertyWithChangedEventNoDispatch'<'T>
+        name
+        (property: AvaloniaProperty<'T>)
+        : SimpleScalarAttributeDefinition<ComponentValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEventNoDispatch<'T, 'T> name property id id
 
     let defineRoutedEvent<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> MsgValue> =
@@ -287,7 +290,7 @@ module Attributes =
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
-        
+
     let defineRoutedEventNoDispatch<'args when 'args :> RoutedEventArgs> name (property: RoutedEvent<'args>) : SimpleScalarAttributeDefinition<'args -> unit> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
@@ -308,11 +311,8 @@ module Attributes =
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
-        
-    let inline defineEventHandler
-        name
-        ([<InlineIfLambda>] getEvent: obj -> IEvent<'handler, 'args>)
-        : SimpleScalarAttributeDefinition<'args -> MsgValue> =
+
+    let inline defineEventHandler name ([<InlineIfLambda>] getEvent: obj -> IEvent<'handler, 'args>) : SimpleScalarAttributeDefinition<'args -> MsgValue> =
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
@@ -337,7 +337,7 @@ module Attributes =
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
-        
+
     let inline defineEventHandlerNoDispatch
         name
         ([<InlineIfLambda>] getEvent: obj -> IEvent<'handler, 'args>)
@@ -363,7 +363,7 @@ module Attributes =
             |> AttributeDefinitionStore.registerScalar
 
         { Key = key; Name = name }
-        
+
     let inline defineAvaloniaNonGenericListWidgetCollection name ([<InlineIfLambda>] getCollection: obj -> System.Collections.IList) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
@@ -410,7 +410,7 @@ module Attributes =
                     // Replace the existing child in the UI tree at the index with the new one
                     targetColl[index] <- view
 
-                // Trigger the mounted event for the new child
+                    // Trigger the mounted event for the new child
                     Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
 
                 | _ -> ()
@@ -494,7 +494,7 @@ module Attributes =
                     targetColl.Add(unbox view)
 
         Attributes.defineWidgetCollection name applyDiff updateNode
-        
+
     let inline defineAvaloniaNonGenericListWidgetCollectionNoLifecycle name ([<InlineIfLambda>] getCollection: obj -> System.Collections.IList) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
