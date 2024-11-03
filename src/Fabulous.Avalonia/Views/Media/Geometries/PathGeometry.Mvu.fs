@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module MvuPathGeometry =
     let FiguresWidget =
-        MvuAttributes.defineAvaloniaListWidgetCollection "PathGeometry_Figures" (fun target -> (target :?> PathGeometry).Figures)
+        Attributes.defineAvaloniaListWidgetCollection "PathGeometry_Figures" (fun target -> (target :?> PathGeometry).Figures)
 
 [<AutoOpen>]
 module MvuPathGeometryBuilders =

@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuItemsControl =
     let Items =
-        MvuAttributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
 
             if target.Items = null then

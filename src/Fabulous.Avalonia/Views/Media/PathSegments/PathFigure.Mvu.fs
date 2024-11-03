@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuPathFigure =
     let Segments =
-        MvuAttributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
+        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
 [<AutoOpen>]
 module MvuPathFigureBuilders =

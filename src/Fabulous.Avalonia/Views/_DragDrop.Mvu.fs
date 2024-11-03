@@ -7,19 +7,16 @@ open Fabulous.Avalonia
 
 module MvuDragDrop =
     let DragEnter =
-        MvuAttributes.defineRoutedEvent<DragEventArgs> "DragDrop_DragEnter" DragDrop.DragEnterEvent
+        Attributes.defineRoutedEvent<DragEventArgs> "DragDrop_DragEnter" DragDrop.DragEnterEvent
 
     let DragLeave =
-        MvuAttributes.defineRoutedEvent<DragEventArgs> "DragDrop_DragLeave" DragDrop.DragLeaveEvent
+        Attributes.defineRoutedEvent<DragEventArgs> "DragDrop_DragLeave" DragDrop.DragLeaveEvent
 
     let DragOver =
-        MvuAttributes.defineRoutedEvent<DragEventArgs> "DragDrop_DragOver" DragDrop.DragOverEvent
+        Attributes.defineRoutedEvent<DragEventArgs> "DragDrop_DragOver" DragDrop.DragOverEvent
 
     let Drop =
-        MvuAttributes.defineRoutedEvent<DragEventArgs> "DragDrop_Drop" DragDrop.DropEvent
-
-    let AllowDrop =
-        Attributes.defineAvaloniaPropertyWithEquality DragDrop.AllowDropProperty
+        Attributes.defineRoutedEvent<DragEventArgs> "DragDrop_Drop" DragDrop.DropEvent
 
 type MvuDragDropModifiers =
     /// <summary>Listens to the DragDrop DragEnter event.</summary>

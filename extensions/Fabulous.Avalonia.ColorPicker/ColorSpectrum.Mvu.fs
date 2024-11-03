@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuColorSpectrum =
     let ColorChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "ColorSpectrum_ColorChanged" ColorSpectrum.ColorProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorSpectrum_ColorChanged" ColorSpectrum.ColorProperty
 
 [<AutoOpen>]
 module MvuColorSpectrumBuilders =

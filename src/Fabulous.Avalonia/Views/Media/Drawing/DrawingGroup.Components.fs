@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 module ComponentDrawingGroup =
 
     let Children =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
 
 [<AutoOpen>]
 module ComponentDrawingGroupBuilders =

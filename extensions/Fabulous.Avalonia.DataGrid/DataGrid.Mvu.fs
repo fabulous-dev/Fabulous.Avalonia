@@ -10,7 +10,7 @@ open Fabulous.Avalonia
 
 module MvuDataGrid =
     let Columns =
-        MvuAttributes.defineAvaloniaNonGenericListWidgetCollection "DataGrid_Columns" (fun target -> (target :?> DataGrid).Columns :> IList)
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "DataGrid_Columns" (fun target -> (target :?> DataGrid).Columns :> IList)
 
     let HorizontalScroll =
         Attributes.defineEvent "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)

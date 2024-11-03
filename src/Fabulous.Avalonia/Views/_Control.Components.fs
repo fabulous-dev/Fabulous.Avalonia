@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 module ComponentControl =
 
     let RequestBringIntoView =
-        ComponentAttributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
+        Attributes.defineRoutedEventNoDispatch "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
 
     let ContextRequested =
         Attributes.defineEventNoDispatch "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)

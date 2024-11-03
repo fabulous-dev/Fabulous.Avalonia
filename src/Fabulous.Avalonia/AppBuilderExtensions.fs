@@ -38,7 +38,7 @@ type FabulousAppBuilder private () =
             program.SyncAction,
             themeFn,
             (fun () ->
-                (View.Component("", program.State, arg) {
+                (View.Component("_", program.State, arg) {
                     let! model = Mvu.State
                     program.View model
                 })
@@ -64,7 +64,7 @@ type FabulousAppBuilder private () =
             | Some syncAction -> syncAction
             | None -> ViewHelpers.defaultSyncAction
 
-        FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component("") { view() }).Compile()))
+        FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component("_") { view() }).Compile()))
 
 #if IOS
 open UIKit

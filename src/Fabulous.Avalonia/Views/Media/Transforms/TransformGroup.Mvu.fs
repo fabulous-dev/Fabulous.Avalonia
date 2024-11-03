@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 module MvuTransformGroup =
 
     let Children =
-        MvuAttributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollection "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
 
 [<AutoOpen>]
 module MvuTransformGroupBuilders =

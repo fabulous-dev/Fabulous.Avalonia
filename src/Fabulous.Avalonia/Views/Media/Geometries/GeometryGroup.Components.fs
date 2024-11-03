@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module ComponentGeometryGroup =
     let Children =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
 
 [<AutoOpen>]
 module ComponentGeometryGroupBuilders =

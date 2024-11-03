@@ -5,7 +5,7 @@ open Fabulous.Avalonia
 
 module MvuAnimatable =
     let Transitions =
-        MvuAttributes.defineAvaloniaListWidgetCollection "Animatable_Transitions" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollection "Animatable_Transitions" (fun target ->
             let target = (target :?> Animatable)
 
             if target.Transitions = null then

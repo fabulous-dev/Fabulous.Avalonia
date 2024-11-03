@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentHyperlinkButton =
     let IsVisitedChanged =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "HyperlinkButton_VisitedChanged" HyperlinkButton.IsVisitedProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "HyperlinkButton_VisitedChanged" HyperlinkButton.IsVisitedProperty
 
 [<AutoOpen>]
 module ComponentHyperlinkButtonBuilders =

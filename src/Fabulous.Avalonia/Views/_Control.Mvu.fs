@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 module MvuControl =
 
     let RequestBringIntoView =
-        MvuAttributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
+        Attributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
 
     let ContextRequested =
         Attributes.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)

@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module MvuMaskedTextBox =
     let TextChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "MaskedTextBox_TextChanged" MaskedTextBox.TextProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "MaskedTextBox_TextChanged" MaskedTextBox.TextProperty
 
 [<AutoOpen>]
 module MvuMaskedTextBoxBuilders =

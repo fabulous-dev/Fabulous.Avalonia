@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentToggleSwitch =
     let KnobTransitions =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "ToggleSwitch_KnobTransitions" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "ToggleSwitch_KnobTransitions" (fun target ->
             let target = (target :?> ToggleSwitch)
 
             if target.Transitions = null then

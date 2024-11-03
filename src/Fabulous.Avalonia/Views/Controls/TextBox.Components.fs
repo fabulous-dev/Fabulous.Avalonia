@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentTextBox =
     let TextChanged =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_TextChanged" TextBox.TextProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "TextBox_TextChanged" TextBox.TextProperty
 
     let CopyingToClipboard =
         Attributes.defineEventNoDispatch<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target -> (target :?> TextBox).CopyingToClipboard)

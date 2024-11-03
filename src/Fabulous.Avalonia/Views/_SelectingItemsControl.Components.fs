@@ -12,7 +12,7 @@ module ComponentSelectingItemsControl =
             (target :?> SelectingItemsControl).SelectionChanged)
 
     let SelectedIndexChanged =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
 
 type ComponentSelectingItemsControlModifiers =
     /// <summary>Listens to the SelectingItemsControl SelectionChanged event.</summary>

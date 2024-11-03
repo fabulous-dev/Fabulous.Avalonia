@@ -20,7 +20,7 @@ module ComponentSplitView =
         Attributes.defineEventNoDispatch "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
 
     let IsPresented =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
 
 type ComponentSplitViewModifiers =
     /// <summary>Listens to the SplitView PanClosed event.</summary>

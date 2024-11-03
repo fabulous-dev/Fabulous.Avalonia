@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module MvuGeometryGroup =
     let Children =
-        MvuAttributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollection "GeometryGroup_Children" (fun target -> (target :?> GeometryGroup).Children)
 
 [<AutoOpen>]
 module MvuGeometryGroupBuilders =

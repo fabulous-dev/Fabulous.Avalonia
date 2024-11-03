@@ -8,10 +8,10 @@ open Fabulous.Avalonia
 
 module ComponentContextMenu =
     let Opening =
-        ComponentAttributes.defineCancelEvent "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
+        Attributes.defineEventHandlerNoDispatch "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
 
     let Closing =
-        ComponentAttributes.defineCancelEvent "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
+        Attributes.defineEventHandlerNoDispatch "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
 
 [<AutoOpen>]
 module ComponentContextMenuBuilders =

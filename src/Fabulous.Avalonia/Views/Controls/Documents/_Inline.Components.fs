@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module ComponentInline =
     let TextDecorations =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "Inline_TextDecorations" (fun target ->
             let target = target :?> Inline
 
             if target.TextDecorations = null then

@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentItemsControl =
     let Items =
-        ComponentAttributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
+        Attributes.defineAvaloniaNonGenericListWidgetCollectionNoLifecycle "ItemsControl_Items" (fun target ->
             let target = target :?> ItemsControl
 
             if target.Items = null then

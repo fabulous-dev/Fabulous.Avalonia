@@ -9,7 +9,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuExpander =
     let ExpandedChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
     let Collapsing =
         Attributes.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)

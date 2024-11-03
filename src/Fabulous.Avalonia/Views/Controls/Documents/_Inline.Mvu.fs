@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module MvuInline =
     let TextDecorations =
-        MvuAttributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
             let target = target :?> Inline
 
             if target.TextDecorations = null then

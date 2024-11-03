@@ -5,4 +5,4 @@ open Fabulous.Avalonia
 
 module ComponentRangeBase =
     let ValueChanged =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "RangeBase_ValueChanged" RangeBase.ValueProperty

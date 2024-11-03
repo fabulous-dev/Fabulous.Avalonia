@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentAnimation =
     let Children =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "Animation_KeyFramesProperty" (fun target -> (target :?> Animation).Children)
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "Animation_KeyFramesProperty" (fun target -> (target :?> Animation).Children)
 
 [<AutoOpen>]
 module ComponentAnimationBuilders =

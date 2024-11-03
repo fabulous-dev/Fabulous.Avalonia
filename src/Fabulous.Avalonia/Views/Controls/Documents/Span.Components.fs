@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module ComponentSpan =
     let Inlines =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "Span_Inlines" (fun target -> (target :?> Span).Inlines)
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "Span_Inlines" (fun target -> (target :?> Span).Inlines)
 
 [<AutoOpen>]
 module ComponentSpanBuilders =

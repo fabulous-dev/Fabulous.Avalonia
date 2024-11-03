@@ -11,7 +11,7 @@ open Fabulous.Avalonia
 
 module MvuApplication =
     let TrayIcons =
-        MvuAttributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
             let target = target :?> FabApplication
             let trayIcons = TrayIcon.GetIcons(target)
 

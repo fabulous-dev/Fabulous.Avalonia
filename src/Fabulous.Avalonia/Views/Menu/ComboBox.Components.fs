@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentComboBox =
     let DropDownOpened =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "Opened" ComboBox.IsDropDownOpenProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "Opened" ComboBox.IsDropDownOpenProperty
 
 
 [<AutoOpen>]

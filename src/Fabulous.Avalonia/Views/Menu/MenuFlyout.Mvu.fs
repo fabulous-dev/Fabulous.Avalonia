@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module MvuMenuFlyout =
     let Items =
-        MvuAttributes.defineAvaloniaNonGenericListWidgetCollection "MenuFlyout_Items" (fun target ->
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "MenuFlyout_Items" (fun target ->
             let target = target :?> MenuFlyout
 
             if target.Items = null then

@@ -21,7 +21,7 @@ module MvuSplitView =
         Attributes.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
 
     let IsPresented =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
 
 type MvuSplitViewModifiers =
     /// <summary>Listens to the SplitView PanClosed event.</summary>

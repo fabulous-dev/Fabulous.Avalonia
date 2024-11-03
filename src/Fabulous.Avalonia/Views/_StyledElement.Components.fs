@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 module ComponentStyledElement =
 
     let StylesWidget =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
 
     let AttachedToLogicalTree =
         Attributes.defineEventNoDispatch<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->

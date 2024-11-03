@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module MvuColorView =
     let ColorChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
 
 [<AutoOpen>]
 module MvuColorViewBuilders =

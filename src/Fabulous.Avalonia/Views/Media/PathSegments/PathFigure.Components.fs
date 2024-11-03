@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentPathFigure =
     let Segments =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
 
 [<AutoOpen>]

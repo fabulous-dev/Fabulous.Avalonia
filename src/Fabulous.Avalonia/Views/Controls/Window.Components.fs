@@ -12,10 +12,10 @@ module ComponentWindow =
         Attributes.defineEventNoDispatch "Window_Closing" (fun target -> (target :?> Window).Closing)
 
     let WindowClosed =
-        ComponentAttributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
+        Attributes.defineRoutedEventNoDispatch "Window_Closed" Window.WindowClosedEvent
 
     let WindowOpened =
-        ComponentAttributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
+        Attributes.defineRoutedEventNoDispatch "Window_Opened" Window.WindowOpenedEvent
 
 [<AutoOpen>]
 module ComponentWindowBuilders =

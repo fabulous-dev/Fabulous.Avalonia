@@ -31,8 +31,6 @@
     <Compile Include="_Element.fs" />
     <Compile Include="ViewNode.fs" />
     <Compile Include="Attributes.fs" />
-    <Compile Include="Attributes.Components.fs" />
-    <Compile Include="Attributes.Mvu.fs" />
     <Compile Include="VirtualizedCollection.fs" />
     <Compile Include="Widgets.fs" />
     <Compile Include="Views\_RenderOptions.fs" />

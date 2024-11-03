@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 module MvuDrawingGroup =
 
     let Children =
-        MvuAttributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
 
 [<AutoOpen>]
 module MvuDrawingGroupBuilders =

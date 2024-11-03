@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 
 module ComponentAutoCompleteBox =
     let Text =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
     let Populating =
         Attributes.defineEventNoDispatch<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
@@ -18,7 +18,7 @@ module ComponentAutoCompleteBox =
         Attributes.defineEventNoDispatch<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
 
     let DropDownOpened =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
 
     let SelectionChanged =
         Attributes.defineEventNoDispatch<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->

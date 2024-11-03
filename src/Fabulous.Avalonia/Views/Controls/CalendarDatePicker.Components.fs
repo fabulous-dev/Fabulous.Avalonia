@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentCalendarDatePicker =
     let SelectedDateChanged =
-        ComponentAttributes.defineAvaloniaPropertyWithChangedEvent
+        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch
             "CalendarDatePicker_SelectedDateChanged"
             CalendarDatePicker.SelectedDateProperty
             Option.toNullable

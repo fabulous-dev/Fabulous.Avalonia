@@ -6,7 +6,7 @@ open Fabulous.Avalonia
 
 module MvuSpan =
     let Inlines =
-        MvuAttributes.defineAvaloniaListWidgetCollection "Span_Inlines" (fun target -> (target :?> Span).Inlines)
+        Attributes.defineAvaloniaListWidgetCollection "Span_Inlines" (fun target -> (target :?> Span).Inlines)
 
 [<AutoOpen>]
 module MvuSpanBuilders =

@@ -12,10 +12,10 @@ module MvuWindow =
         Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
 
     let WindowClosed =
-        MvuAttributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
+        Attributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
 
     let WindowOpened =
-        MvuAttributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
+        Attributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
 
 [<AutoOpen>]
 module MvuWindowBuilders =

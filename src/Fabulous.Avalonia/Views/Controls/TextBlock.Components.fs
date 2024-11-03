@@ -9,7 +9,7 @@ open Fabulous.Avalonia
 
 module ComponentTextBlock =
     let TextDecorations =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "TextBlock_TextDecorations" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "TextBlock_TextDecorations" (fun target ->
             let target = target :?> TextBlock
 
             if target.TextDecorations = null then
@@ -20,7 +20,7 @@ module ComponentTextBlock =
                 target.TextDecorations)
 
     let Inlines =
-        ComponentAttributes.defineAvaloniaListWidgetCollection "TextBlock_Inlines" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "TextBlock_Inlines" (fun target ->
             let target = target :?> TextBlock
 
             if target.Inlines = null then

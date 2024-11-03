@@ -12,7 +12,7 @@ module MvuSelectingItemsControl =
             (target :?> SelectingItemsControl).SelectionChanged)
 
     let SelectedIndexChanged =
-        MvuAttributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
+        Attributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
 
 type MvuSelectingItemsControlModifiers =
     /// <summary>Listens to the SelectingItemsControl SelectionChanged event.</summary>

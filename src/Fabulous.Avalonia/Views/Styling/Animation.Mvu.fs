@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuAnimation =
     let Children =
-        MvuAttributes.defineAvaloniaListWidgetCollection "Animation_KeyFramesProperty" (fun target -> (target :?> Animation).Children)
+        Attributes.defineAvaloniaListWidgetCollection "Animation_KeyFramesProperty" (fun target -> (target :?> Animation).Children)
 
 [<AutoOpen>]
 module MvuAnimationBuilders =
