@@ -5,6 +5,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorPreviewer =
     inherit IFabTemplatedControl
@@ -17,6 +18,15 @@ module ColorPreviewer =
 
     let IsAccentColorsVisible =
         Attributes.defineAvaloniaPropertyWithEquality ColorPreviewer.IsAccentColorsVisibleProperty
+
+[<AutoOpen>]
+module ColorPreviewerBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ColorPreviewer widget.</summary>
+        static member ColorPreviewer() =
+            WidgetBuilder<'msg, IFabColorPreviewer>(ColorPreviewer.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 
 type ColorPreviewerModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>

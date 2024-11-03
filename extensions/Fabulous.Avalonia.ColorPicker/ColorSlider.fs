@@ -6,6 +6,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabColorSlider =
     inherit IFabSlider
@@ -32,6 +33,22 @@ module ColorSlider =
 
     let IsRoundingEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ColorSlider.IsRoundingEnabledProperty
+
+[<AutoOpen>]
+module ColorSliderBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ColorSlider widget.</summary>
+        static member ColorSlider() =
+            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a ColorSlider widget.</summary>
+        /// <param name="color">The Color value.</param>
+        static member ColorSlider(color: Color) =
+            WidgetBuilder<'msg, IFabColorSlider>(
+                ColorSlider.WidgetKey,
+                AttributesBundle(StackList.one(ColorSlider.Color.WithValue(color)), ValueNone, ValueNone)
+            )
 
 type ColorSliderModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>
