@@ -5,8 +5,6 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia.Components
-open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentColorView =
     let ColorChanged =

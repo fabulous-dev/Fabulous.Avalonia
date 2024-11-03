@@ -5,7 +5,6 @@ open System.Collections
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 

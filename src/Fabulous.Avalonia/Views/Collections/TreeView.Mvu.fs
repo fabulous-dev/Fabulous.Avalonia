@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous

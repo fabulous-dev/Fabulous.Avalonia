@@ -1,12 +1,9 @@
 namespace Fabulous.Avalonia
 
-open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Interactivity
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 module MvuSelectableTextBlock =
     let CopyingToClipboard =

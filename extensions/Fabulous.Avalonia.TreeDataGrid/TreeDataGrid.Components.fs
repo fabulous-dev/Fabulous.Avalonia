@@ -2,10 +2,8 @@
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Controls.Models.TreeDataGrid
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Components
 
 module ComponentTreeDataGrid =
     let RowDragStarted =

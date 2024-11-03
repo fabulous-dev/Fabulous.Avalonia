@@ -1,11 +1,9 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 module ComponentAnimation =
     let Children =

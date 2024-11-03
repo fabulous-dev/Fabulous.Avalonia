@@ -2,10 +2,8 @@
 
 open Avalonia.Controls
 open Avalonia.Interactivity
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
 
 

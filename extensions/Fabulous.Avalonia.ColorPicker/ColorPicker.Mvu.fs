@@ -3,7 +3,6 @@
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 
 [<AutoOpen>]

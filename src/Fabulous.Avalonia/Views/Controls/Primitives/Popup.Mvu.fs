@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 module MvuPopup =
     let Closed =

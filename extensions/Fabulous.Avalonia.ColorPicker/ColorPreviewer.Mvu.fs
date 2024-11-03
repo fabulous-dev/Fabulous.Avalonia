@@ -4,8 +4,6 @@ open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open Fabulous.StackAllocatedCollections.StackList
 
 module MvuColorPreviewer =
     let ColorChanged =

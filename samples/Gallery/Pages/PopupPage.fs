@@ -1,0 +1,72 @@
+namespace Gallery
+
+open System.Diagnostics
+open Avalonia
+open Avalonia.Controls
+open Avalonia.Controls.Primitives.PopupPositioning
+open Avalonia.Media
+open Fabulous
+open Fabulous.Avalonia
+
+open Fabulous.Avalonia
+open type Fabulous.Avalonia.View
+
+module PopupPage =
+    type Model = { IsOpen: bool }
+
+    type Msg =
+        | OpenPopup
+        | OnOpened
+        | OnClosed
+
+    let init () = { IsOpen = false }, Cmd.none
+
+    let update msg model =
+        match msg with
+        | OpenPopup -> { IsOpen = not model.IsOpen }, Cmd.none
+        | OnOpened -> model, Cmd.none
+        | OnClosed -> model, Cmd.none
+
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component("", program) {
+            let! model = Mvu.State
+
+            (VStack(spacing = 15.) {
+                Button("Click me", OpenPopup)
+
+                Popup(
+                    model.IsOpen,
+                    (Grid(coldefs = [ Pixel(300) ], rowdefs = [ Auto; Pixel(200.) ]) {
+                        Ellipse()
+                            .size(100., 100.)
+                            .fill(SolidColorBrush(Colors.Green))
+
+                        TextBlock("This is a popup content")
+                            .centerHorizontal()
+                            .centerVertical()
+                            .gridRow(1)
+                    })
+                        .background(SolidColorBrush(Colors.LightGray))
+                )
+                    .onOpened(OnOpened)
+                    .onClosed(OnClosed)
+                    .placement(PlacementMode.Bottom)
+                    .placementGravity(PopupGravity.Bottom)
+                    .placementAnchor(PopupAnchor.Bottom)
+                    .placementConstraintAdjustment(PopupPositionerConstraintAdjustment.FlipY)
+                    .placementRect(Rect(0., 0., 100., 100.))
+            })
+                .center()
+        }

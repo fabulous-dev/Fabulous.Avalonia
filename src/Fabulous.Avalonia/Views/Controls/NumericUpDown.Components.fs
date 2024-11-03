@@ -2,7 +2,6 @@
 
 open Avalonia.Controls
 open Fabulous
-open System.Runtime.CompilerServices
 open Fabulous.Avalonia
 
 module ComponentNumericUpDown =

@@ -7,8 +7,8 @@ open Controls.HamburgerMenu
 open Fabulous.Avalonia
 
 open Fabulous
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open Fabulous.Avalonia
+open type Fabulous.Avalonia.View
 
 module Paths =
 
@@ -76,11 +76,11 @@ open Fabulous.StackAllocatedCollections.StackList
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         /// <summary>Creates a empty Border widget.</summary>
         static member EmptyBorder() =
-            WidgetBuilder<'msg, IFabMvuBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type IFabHamburgerMenu =
     inherit IFabTabControl
@@ -100,10 +100,10 @@ module HamburgerMenuExt =
 [<AutoOpen>]
 module HamburgerMenuExtBuilders =
 
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         static member HamburgerMenu() =
-            CollectionBuilder<'msg, IFabHamburgerMenu, IFabMvuTabItem>(HamburgerMenuExt.WidgetKey, MvuItemsControl.Items)
+            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenuExt.WidgetKey, MvuItemsControl.Items)
 
 type HamburgerMenuModifiers =
     [<Extension>]
@@ -123,11 +123,11 @@ type HamburgerMenuModifiers =
         this.AddScalar(HamburgerMenuExt.ExpandedModeThresholdWidth.WithValue(value))
 
 open Avalonia.Layout
-open type Fabulous.Avalonia.Mvu.View
+open type Fabulous.Avalonia.View
 
 [<AutoOpen>]
 module CommonBuilders =
-    type Fabulous.Avalonia.Mvu.View with
+    type Fabulous.Avalonia.View with
 
         static member CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
             Border(

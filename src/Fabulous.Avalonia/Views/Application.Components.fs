@@ -5,8 +5,6 @@ open Avalonia
 open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 
 #nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
 

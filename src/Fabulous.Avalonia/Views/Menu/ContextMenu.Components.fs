@@ -5,7 +5,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 module ComponentContextMenu =
     let Opening =

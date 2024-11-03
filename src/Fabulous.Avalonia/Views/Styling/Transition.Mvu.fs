@@ -1,11 +1,8 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
-open Avalonia
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 type MvuTransitionCollectionModifiers =
     /// <summary>Sets the Transitions property.</summary>

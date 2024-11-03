@@ -17,12 +17,12 @@ type ComponentPopupFlyoutBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PopupFlyoutBase is opening.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, fn: unit -> unit) =
+    static member inline onOpening<'msg when 'msg: equality>(this: WidgetBuilder<'msg, IFabPopupFlyoutBase>, fn: unit -> unit) =
         this.AddScalar(ComponentPopupFlyoutBase.Opening.WithValue(fn))
 
     /// <summary>Listens to the PopupFlyoutBase Closing event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when the PopupFlyoutBase is closing.</param>
     [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, fn: CancelEventArgs -> unit) =
+    static member inline onClosing<'msg when 'msg: equality>(this: WidgetBuilder<'msg, IFabPopupFlyoutBase>, fn: CancelEventArgs -> unit) =
         this.AddScalar(ComponentPopupFlyoutBase.Closing.WithValue(fn))

@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Collections
 open System.Runtime.CompilerServices
 open Avalonia.Controls
@@ -9,7 +8,6 @@ open Avalonia.Media
 open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections
 
 type IFabDataGrid =

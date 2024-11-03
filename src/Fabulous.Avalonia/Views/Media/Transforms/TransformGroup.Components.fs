@@ -1,10 +1,8 @@
 namespace Fabulous.Avalonia
 
-open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 module ComponentTransformGroup =
 

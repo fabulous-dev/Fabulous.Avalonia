@@ -6,7 +6,6 @@ open Avalonia.Controls.Documents
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 
 module MvuTextBlock =
     let TextDecorations =

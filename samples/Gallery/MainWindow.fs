@@ -10,8 +10,8 @@ open Fabulous
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open Fabulous.Avalonia
+open type Fabulous.Avalonia.View
 
 module MainWindow =
     type Model =

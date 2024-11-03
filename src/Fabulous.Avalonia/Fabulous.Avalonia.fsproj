@@ -329,6 +329,8 @@
     <Compile Include="Views\Menu\_NativeMenuItemBase.fs" />
     <Compile Include="Views\Menu\Flyout.fs" />
     <Compile Include="Views\Menu\Menu.fs" />
+    <Compile Include="Views\Menu\Menu.Components.fs" />
+    <Compile Include="Views\Menu\Menu.Mvu.fs" />
     <Compile Include="Views\Menu\NativeMenuBar.fs" />
     <Compile Include="Views\Menu\MenuFlyout.fs" />
     <Compile Include="Views\Menu\MenuFlyout.Mvu.fs" />

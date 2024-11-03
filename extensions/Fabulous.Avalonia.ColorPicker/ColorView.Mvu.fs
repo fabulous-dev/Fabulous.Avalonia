@@ -5,8 +5,6 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia.Mvu
-open Fabulous.StackAllocatedCollections.StackList
 
 module MvuColorView =
     let ColorChanged =

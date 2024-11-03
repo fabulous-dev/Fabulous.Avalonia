@@ -8,8 +8,8 @@ open Avalonia.Markup.Xaml.Styling
 open Fabulous.Avalonia
 open Fabulous
 
-open Fabulous.Avalonia.Mvu
-open type Fabulous.Avalonia.Mvu.View
+open Fabulous.Avalonia
+open type Fabulous.Avalonia.View
 
 module MainView =
     type Model = { Details: DetailPage option }

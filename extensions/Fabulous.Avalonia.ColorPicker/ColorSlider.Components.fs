@@ -4,8 +4,6 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Components
-open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentColorSlider =
     let ColorChanged =

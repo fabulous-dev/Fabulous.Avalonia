@@ -4,7 +4,6 @@ open Avalonia.Controls.Primitives
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
 open Fabulous.StackAllocatedCollections.StackList
 
 module MvuColorSlider =

@@ -5,11 +5,8 @@ open System.Collections
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
-open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.Avalonia.Mvu
-open Fabulous.StackAllocatedCollections
 
 module MvuDataGrid =
     let Columns =
