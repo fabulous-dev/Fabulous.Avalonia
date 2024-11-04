@@ -5,7 +5,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 [<AutoOpen>]
-module MvuComponentColorPickerBuilders =
+module ComponentColorPickerBuilders =
     type Fabulous.Avalonia.View with
         /// <summary>Creates a ColorPicker widget.</summary>
         /// <param name="color">The Color value.</param>
