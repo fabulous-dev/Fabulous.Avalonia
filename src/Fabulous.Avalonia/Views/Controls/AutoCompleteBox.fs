@@ -75,7 +75,7 @@ module AutoCompleteBox =
             | ValueSome template ->
                 autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
                 |> ignore)
-        
+
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with

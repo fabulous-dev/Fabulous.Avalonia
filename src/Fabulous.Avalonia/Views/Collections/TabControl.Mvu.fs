@@ -18,4 +18,3 @@ module MvuTabControlBuilders =
         /// <summary>Creates a TabControl widget.</summary>
         static member TabControl() =
             CollectionBuilder<'msg, IFabTabControl, IFabTabItem>(TabControl.WidgetKey, MvuItemsControl.Items, TabControl.TabStripPlacement.WithValue(Dock.Top))
-
