@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentPathGeometry =
     let FiguresWidget =
-        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "PathGeometry_Figures" (fun target -> (target :?> PathGeometry).Figures)
+        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "PathGeometry_Figures" (fun target -> (target :?> PathGeometry).Figures)
 
 [<AutoOpen>]
 module ComponentPathGeometryBuilders =

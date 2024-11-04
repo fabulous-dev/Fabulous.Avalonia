@@ -3,7 +3,6 @@ namespace Playground
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
-open Fabulous.Avalonia.Components
 
 open type Fabulous.Avalonia.View
 

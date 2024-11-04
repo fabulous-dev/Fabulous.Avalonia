@@ -9,7 +9,6 @@ open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Controls.Primitives
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module AdornerLayerPage =

@@ -3,7 +3,6 @@ namespace Gallery
 open Avalonia.Media
 open Avalonia.Controls
 open Fabulous.Avalonia
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module ToolTipPage =

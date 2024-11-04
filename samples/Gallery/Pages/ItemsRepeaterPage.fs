@@ -7,7 +7,6 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open System.Collections.ObjectModel
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module ItemsRepeaterPage =

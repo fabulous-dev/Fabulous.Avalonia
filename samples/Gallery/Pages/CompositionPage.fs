@@ -5,7 +5,6 @@ open Controls
 
 open Fabulous
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 open Fabulous.StackAllocatedCollections.StackList
 

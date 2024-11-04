@@ -12,7 +12,6 @@ open Avalonia.Platform.Storage
 open Fabulous.Avalonia
 open Fabulous
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 open Gallery

@@ -5,4 +5,4 @@ open Fabulous.Avalonia
 
 module ComponentGradientBrush =
     let GradientStops =
-        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "GradientBrush_GradientStops" (fun target -> (target :?> GradientBrush).GradientStops)
+        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "GradientBrush_GradientStops" (fun target -> (target :?> GradientBrush).GradientStops)

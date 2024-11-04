@@ -10,7 +10,6 @@ open Fabulous
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module MainWindow =
@@ -119,7 +118,8 @@ module MainWindow =
             TabItem("AcrylicPage", ComponentAcrylicPage.view())
             // TabItem("AdornerLayerPage", AdornerLayerPage.view())
             TabItem("AdornerLayerPage", ComponentAdornerLayerPage.view())
-            TabItem("AutoCompleteBoxPage", AutoCompleteBoxPage.view())
+            // TabItem("AutoCompleteBoxPage", AutoCompleteBoxPage.view())
+            TabItem("AutoCompleteBoxPage", ComponentsAutoCompleteBoxPage.view())
             TabItem("ButtonsPage", ButtonsPage.view())
             TabItem("ButtonSpinnerPage", ButtonSpinnerPage.view())
             TabItem("BorderPage", BorderPage.view())

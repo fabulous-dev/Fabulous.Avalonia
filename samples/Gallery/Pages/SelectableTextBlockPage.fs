@@ -7,7 +7,6 @@ open Fabulous.Avalonia
 open Fabulous
 open Avalonia.Controls
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module SelectableTextBlockPage =

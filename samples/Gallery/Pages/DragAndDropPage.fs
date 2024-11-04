@@ -13,7 +13,6 @@ open Avalonia.Controls
 open Fabulous
 open Avalonia.Threading
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module Validation =

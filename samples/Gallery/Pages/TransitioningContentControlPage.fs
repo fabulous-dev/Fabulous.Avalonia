@@ -11,7 +11,6 @@ open Fabulous
 open Avalonia.Animation.Easings
 
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module TransitioningContentControlPage =

@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 module ComponentTransformGroup =
 
     let Children =
-        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
+        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "TransformGroup_Children" (fun target -> (target :?> TransformGroup).Children)
 
 [<AutoOpen>]
 module ComponentTransformGroupBuilders =

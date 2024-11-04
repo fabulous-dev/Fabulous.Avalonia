@@ -4,7 +4,6 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Avalonia.Controls
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module DockPanelPage =

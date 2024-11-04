@@ -7,7 +7,6 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 // https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ControlCatalog/Pages/GesturePage.cs

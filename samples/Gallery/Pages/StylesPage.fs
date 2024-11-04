@@ -5,7 +5,6 @@ open Avalonia.Media
 open Avalonia.Styling
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module StylesPage =

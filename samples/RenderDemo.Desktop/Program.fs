@@ -2,7 +2,6 @@ namespace RenderDemo.Desktop
 
 open System
 open Avalonia
-open Fabulous.Avalonia
 open RenderDemo
 
 module Program =

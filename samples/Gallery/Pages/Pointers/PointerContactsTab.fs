@@ -10,7 +10,6 @@ open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 open Fabulous.StackAllocatedCollections.StackList
 

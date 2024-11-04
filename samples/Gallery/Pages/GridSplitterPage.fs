@@ -4,7 +4,6 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module GridSplitterPage =

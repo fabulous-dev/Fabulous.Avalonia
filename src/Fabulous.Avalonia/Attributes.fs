@@ -1,10 +1,8 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Collections
 open System.IO
 open Avalonia
-open Avalonia.Collections
 open Avalonia.Controls
 open Avalonia.Interactivity
 open Avalonia.Media.Imaging
@@ -495,13 +493,13 @@ module Attributes =
 
         Attributes.defineWidgetCollection name applyDiff updateNode
 
-    let inline defineAvaloniaNonGenericListWidgetCollectionNoLifecycle name ([<InlineIfLambda>] getCollection: obj -> System.Collections.IList) =
+    let inline defineAvaloniaNonGenericListWidgetCollectionNoDispatch name ([<InlineIfLambda>] getCollection: obj -> System.Collections.IList) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
 
             for diff in diffs do
                 match diff with
-                | WidgetCollectionItemChange.Remove(index, widget) ->
+                | WidgetCollectionItemChange.Remove(index, _) ->
                     let itemNode = node.TreeContext.GetViewNode(targetColl[index])
 
                     itemNode.Dispose()
@@ -550,7 +548,7 @@ module Attributes =
         Attributes.defineWidgetCollection name applyDiff updateNode
 
     /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
-    let defineAvaloniaListWidgetCollectionNoLifecycle<'itemType> name (getCollection: obj -> System.Collections.Generic.IList<'itemType>) =
+    let defineAvaloniaListWidgetCollectionNoDispatch<'itemType> name (getCollection: obj -> System.Collections.Generic.IList<'itemType>) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
 

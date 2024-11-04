@@ -10,7 +10,7 @@ open Fabulous.Avalonia
 
 module ComponentApplication =
     let TrayIcons =
-        Attributes.defineAvaloniaListWidgetCollectionNoLifecycle "TrayIcon_TrayIcons" (fun target ->
+        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "TrayIcon_TrayIcons" (fun target ->
             let target = target :?> FabApplication
             let trayIcons = TrayIcon.GetIcons(target)
 

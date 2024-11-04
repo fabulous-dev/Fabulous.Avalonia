@@ -8,7 +8,6 @@ open Avalonia.Controls.Selection
 open Fabulous.Avalonia
 open Fabulous
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 type Country(name, region, population, area, density: float, coast: float, migration, infantMorality, gdp, literacy: float, phones, birth, death) =

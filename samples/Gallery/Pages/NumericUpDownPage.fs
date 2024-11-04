@@ -11,7 +11,6 @@ open Fabulous.Avalonia
 open Fabulous
 open Avalonia.Data.Converters
 
-open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module NumericUpDownPage =
