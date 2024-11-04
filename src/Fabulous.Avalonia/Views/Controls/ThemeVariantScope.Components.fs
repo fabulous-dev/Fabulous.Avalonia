@@ -11,23 +11,6 @@ module ComponentThemeVariantScope =
     let ActualThemeVariantChanged =
         Attributes.defineEventNoArgNoDispatch "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
 
-[<AutoOpen>]
-module ComponentThemeVariantScopeBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ThemeVariantScope widget.</summary>
-        /// <param name="theme">The theme variant to use.</param>
-        /// <param name="content">The content of the ThemeVariantScope.</param>
-        static member ThemeVariantScope(theme: ThemeVariant, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabThemeVariantScope>(
-                ThemeVariantScope.WidgetKey,
-                AttributesBundle(
-                    StackList.one(ThemeVariantScope.RequestedThemeVariant.WithValue(theme)),
-                    ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-
 type ComponentThemeVariantScopeModifiers =
 
     /// <summary>Listens the ThemeVariantScope ThemeVariantChanged event.</summary>

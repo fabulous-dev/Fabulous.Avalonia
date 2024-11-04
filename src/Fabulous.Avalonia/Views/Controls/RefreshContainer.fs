@@ -5,6 +5,7 @@ open Avalonia.Controls
 open Avalonia.Input
 open Fabulous
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRefreshContainer =
     inherit IFabContentControl
@@ -17,6 +18,18 @@ module RefreshContainer =
 
     let PullDirection =
         Attributes.defineAvaloniaPropertyWithEquality RefreshContainer.PullDirectionProperty
+
+[<AutoOpen>]
+module RefreshContainerBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a RefreshContainer widget.</summary>
+        /// <param name="content">The content of the RefreshContainer.</param>
+        static member RefreshContainer(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabRefreshContainer>(
+                RefreshContainer.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+            )
 
 
 type RefreshContainerModifiers =

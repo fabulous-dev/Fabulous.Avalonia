@@ -12,18 +12,6 @@ module ComponentRefreshContainer =
         Attributes.defineEventNoDispatch<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
             (target :?> RefreshContainer).RefreshRequested)
 
-[<AutoOpen>]
-module ComponentRefreshContainerBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a RefreshContainer widget.</summary>
-        /// <param name="content">The content of the RefreshContainer.</param>
-        static member RefreshContainer(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabRefreshContainer>(
-                RefreshContainer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
 type ComponentRefreshContainerModifiers =
     /// <summary>Listens the RefreshContainer RefreshRequested event.</summary>
     /// <param name="this">Current widget.</param>

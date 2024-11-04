@@ -11,33 +11,6 @@ module MvuNotificationCard =
     let NotificationClosed =
         Attributes.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
 
-[<AutoOpen>]
-module MvuNotificationCardBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a NotificationCard widget.</summary>
-        /// <param name="isClosed">Whether the NotificationCard is closed.</param>
-        /// <param name="content">The content of the NotificationCard.</param>
-        static member NotificationCard(isClosed: bool, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabNotificationCard>(
-                NotificationCard.WidgetKey,
-                AttributesBundle(
-                    StackList.one(NotificationCard.IsClosed.WithValue(isClosed)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-
-        /// <summary>Creates a NotificationCard widget.</summary>
-        /// <param name="isClosed">Whether the NotificationCard is closed.</param>
-        /// <param name="content">The content of the NotificationCard.</param>
-        static member NotificationCard(isClosed: bool, content: string) =
-            WidgetBuilder<'msg, IFabNotificationCard>(
-                NotificationCard.WidgetKey,
-                NotificationCard.IsClosed.WithValue(isClosed),
-                ContentControl.ContentString.WithValue(content)
-            )
-
 type MvuNotificationCardModifiers =
     /// <summary>Listens to the NotificationCard NotificationClosed event.</summary>
     /// <param name="this">Current widget.</param>

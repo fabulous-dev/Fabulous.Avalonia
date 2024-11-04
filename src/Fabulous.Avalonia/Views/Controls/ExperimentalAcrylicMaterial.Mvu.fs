@@ -10,17 +10,6 @@ module MvuExperimentalAcrylicMaterial =
     let Invalidated =
         Attributes.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
 
-[<AutoOpen>]
-module MvuExperimentalAcrylicMaterialBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ExperimentalAcrylicMaterial widget.</summary>
-        static member ExperimentalAcrylicMaterial() =
-            WidgetBuilder<'msg, IFabExperimentalAcrylicMaterial>(
-                ExperimentalAcrylicMaterial.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueNone, ValueNone)
-            )
-
 type MvuExperimentalAcrylicMaterialModifiers =
     /// <summary>Listens the ExperimentalAcrylicMaterial Invalidated event.</summary>
     /// <param name="this">Current widget.</param>

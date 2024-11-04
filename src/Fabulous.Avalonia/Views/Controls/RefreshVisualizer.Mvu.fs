@@ -11,18 +11,6 @@ module MvuRefreshVisualizer =
     let RefreshRequested =
         Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target -> (target :?> RefreshVisualizer).RefreshRequested)
 
-[<AutoOpen>]
-module MvuRefreshVisualizerBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a RefreshVisualizer widget.</summary>
-        /// <param name="content">The content of the RefreshVisualizer.</param>
-        static member RefreshVisualizer(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabRefreshVisualizer>(
-                RefreshVisualizer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
 type MvuRefreshVisualizerModifiers =
     /// <summary>Listens the RefreshVisualizer RefreshRequested event.</summary>
     /// <param name="this">Current widget.</param>

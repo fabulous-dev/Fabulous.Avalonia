@@ -24,25 +24,11 @@ module MvuMenuItem =
 [<AutoOpen>]
 module MvuMenuItemBuilders =
     type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a MenuItem widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
-        static member MenuItem(header: string) =
-            WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header))
-
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItem(header: string, onClick: RoutedEventArgs -> 'msg) =
             WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header), MvuMenuItem.Clicked.WithValue(onClick))
-
-        /// <summary>Creates a MenuItem widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
-        static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
-            )
 
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>

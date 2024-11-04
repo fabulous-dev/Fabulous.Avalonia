@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabExperimentalAcrylicMaterial =
     inherit IFabElement
@@ -27,6 +28,17 @@ module ExperimentalAcrylicMaterial =
 
     let FallbackColor =
         Attributes.defineAvaloniaPropertyWithEquality ExperimentalAcrylicMaterial.FallbackColorProperty
+
+[<AutoOpen>]
+module ExperimentalAcrylicMaterialBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ExperimentalAcrylicMaterial widget.</summary>
+        static member ExperimentalAcrylicMaterial() =
+            WidgetBuilder<'msg, IFabExperimentalAcrylicMaterial>(
+                ExperimentalAcrylicMaterial.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueNone, ValueNone)
+            )
 
 type ExperimentalAcrylicMaterialModifiers =
 

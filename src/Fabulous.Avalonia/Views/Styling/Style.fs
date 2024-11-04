@@ -13,18 +13,6 @@ module Style =
 
     let WidgetKey = Widgets.register<Style>()
 
-    let Animations =
-        Attributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
-
-[<AutoOpen>]
-module StyleBuilders =
-
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates an Animations widget.</summary>
-        static member Animations() =
-            CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
-
 type StyleCollectionBuilderExtensions =
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabAnimation>

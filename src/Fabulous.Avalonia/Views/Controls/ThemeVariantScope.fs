@@ -2,7 +2,9 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Styling
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabThemeVariantScope =
     inherit IFabDecorator
@@ -20,6 +22,22 @@ module ThemeVariantScope =
                 let target = target :?> ThemeVariantScope
                 target.RequestedThemeVariant <- value)
 
+[<AutoOpen>]
+module ThemeVariantScopeBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ThemeVariantScope widget.</summary>
+        /// <param name="theme">The theme variant to use.</param>
+        /// <param name="content">The content of the ThemeVariantScope.</param>
+        static member ThemeVariantScope(theme: ThemeVariant, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabThemeVariantScope>(
+                ThemeVariantScope.WidgetKey,
+                AttributesBundle(
+                    StackList.one(ThemeVariantScope.RequestedThemeVariant.WithValue(theme)),
+                    ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
+            )
 
 type ThemeVariantScopeModifiers =
 

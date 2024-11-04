@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Notifications
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabNotificationCard =
     inherit IFabContentControl
@@ -19,6 +20,33 @@ module NotificationCard =
     let CloseOnClick =
         Attributes.defineAvaloniaPropertyWithEquality NotificationCard.CloseOnClickProperty
 
+
+[<AutoOpen>]
+module NotificationCardBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a NotificationCard widget.</summary>
+        /// <param name="isClosed">Whether the NotificationCard is closed.</param>
+        /// <param name="content">The content of the NotificationCard.</param>
+        static member NotificationCard(isClosed: bool, content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabNotificationCard>(
+                NotificationCard.WidgetKey,
+                AttributesBundle(
+                    StackList.one(NotificationCard.IsClosed.WithValue(isClosed)),
+                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone
+                )
+            )
+
+        /// <summary>Creates a NotificationCard widget.</summary>
+        /// <param name="isClosed">Whether the NotificationCard is closed.</param>
+        /// <param name="content">The content of the NotificationCard.</param>
+        static member NotificationCard(isClosed: bool, content: string) =
+            WidgetBuilder<'msg, IFabNotificationCard>(
+                NotificationCard.WidgetKey,
+                NotificationCard.IsClosed.WithValue(isClosed),
+                ContentControl.ContentString.WithValue(content)
+            )
 
 type NotificationCardModifiers =
 

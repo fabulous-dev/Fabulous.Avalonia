@@ -4,8 +4,10 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 
 open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous
 open Fabulous.StackAllocatedCollections
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabMenuItem =
     inherit IFabHeaderedSelectingItemsControl
@@ -28,6 +30,23 @@ module MenuItem =
 
     let StaysOpenOnClick =
         Attributes.defineAvaloniaPropertyWithEquality MenuItem.StaysOpenOnClickProperty
+
+[<AutoOpen>]
+module MenuItemBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a MenuItem widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        static member MenuItem(header: string) =
+            WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderString.WithValue(header))
+
+        /// <summary>Creates a MenuItem widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabMenuItem>(
+                MenuItem.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
+            )
 
 type MenuItemModifiers =
     /// <summary>Sets the HotKey property.</summary>
