@@ -48,9 +48,10 @@ type ViewHelpers() =
                 { Key = TextBlock.WidgetKey
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone }
-            // [| { Key = TextBlock.Inlines.Key
-            //      Value = ArraySlice.emptyWithNull() } |] }
+                  WidgetCollectionAttributes =
+                    ValueSome
+                        [| { Key = MvuTextBlock.Inlines.Key
+                             Value = ArraySlice.emptyWithNull() } |] }
 
             let actual = ViewHelpers.canReuseView prev curr
 
@@ -65,10 +66,10 @@ type ViewHelpers() =
                 { Key = TextBlock.WidgetKey
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone }
-            // ValueSome
-            //     [| { Key = TextBlock.Inlines.Key
-            //          Value = ArraySlice.emptyWithNull() } |] }
+                  WidgetCollectionAttributes =
+                    ValueSome
+                        [| { Key = MvuTextBlock.Inlines.Key
+                             Value = ArraySlice.emptyWithNull() } |] }
 
             let curr =
                 { Key = TextBlock.WidgetKey
