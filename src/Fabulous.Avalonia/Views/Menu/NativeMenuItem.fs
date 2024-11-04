@@ -36,6 +36,15 @@ module NativeMenuItem =
     let ToolTip =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.ToolTipProperty
 
+[<AutoOpen>]
+module NativeMenuItemBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a NativeMenuItem widget.</summary>
+        /// <param name="header">The header of the Flyout.</param>
+        static member NativeMenuItem(header: string) =
+            WidgetBuilder<'msg, IFabNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
+
 type NativeMenuItemModifiers =
     /// <summary>Sets the Gesture property.</summary>
     /// <param name="this">Current widget.</param>

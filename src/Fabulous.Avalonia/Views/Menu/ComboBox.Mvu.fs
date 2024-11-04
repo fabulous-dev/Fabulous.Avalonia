@@ -14,21 +14,6 @@ module MvuComboBox =
 [<AutoOpen>]
 module MvuComboBoxBuilders =
     type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ComboBox widget.</summary>
-        /// <param name="items">The items to display in the ComboBox.</param>
-        static member ComboBox(items: seq<_>) =
-            WidgetBuilder<'msg, IFabComboBox>(
-                ComboBox.WidgetKey,
-                AttributesBundle(StackList.one(ItemsControl.ItemsSource.WithValue(items)), ValueNone, ValueNone)
-            )
-
-        /// <summary>Creates a ComboBox widget.</summary>
-        /// <param name="items">The items to display in the ComboBox.</param>
-        /// <param name="template">The template to use to render each item.</param>
-        static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
-            WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
-
         /// <summary>Creates a ComboBox widget.</summary>
         static member ComboBox() =
             CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, MvuItemsControl.Items)

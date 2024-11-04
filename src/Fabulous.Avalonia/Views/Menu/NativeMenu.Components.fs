@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentNativeMenu =
     let Items =
-        Attributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
+        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
 
     let Opening =
         Attributes.defineEventNoDispatch "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)

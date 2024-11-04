@@ -10,14 +10,8 @@ module ComponentNativeMenuItem =
         Attributes.defineEventNoArgNoDispatch "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
 
 [<AutoOpen>]
-module NativeMenuItemBuilders =
+module ComponentNativeMenuItemBuilders =
     type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a NativeMenuItem widget.</summary>
-        /// <param name="header">The header of the Flyout.</param>
-        static member NativeMenuItem(header: string) =
-            WidgetBuilder<'msg, IFabNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
-
         /// <summary>Creates a NativeMenuItem widget.</summary>
         /// <param name="header">The header of the Flyout.</param>
         /// <param name="onClicked">Raised when the menu item is clicked.</param>
