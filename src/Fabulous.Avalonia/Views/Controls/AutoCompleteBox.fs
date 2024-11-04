@@ -2,6 +2,8 @@ namespace Fabulous.Avalonia
 
 open System
 open System.Runtime.CompilerServices
+open System.Threading
+open System.Threading.Tasks
 open Avalonia.Controls
 open Fabulous
 
@@ -73,6 +75,20 @@ module AutoCompleteBox =
             | ValueSome template ->
                 autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
                 |> ignore)
+        
+[<AutoOpen>]
+module AutoCompleteBoxBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates an AutoCompleteBox widget.</summary>
+        /// <param name="items">The items to display.</param>
+        static member AutoCompleteBox(items: seq<_>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
+
+        /// <summary>Creates an AutoCompleteBox widget.</summary>
+        /// <param name="populator">The function to populate the items.</param>
+        static member AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
 
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>

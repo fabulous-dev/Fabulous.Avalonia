@@ -23,20 +23,6 @@ module MvuAutoCompleteBox =
     let SelectionChanged =
         Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target -> (target :?> AutoCompleteBox).SelectionChanged)
 
-[<AutoOpen>]
-module MvuAutoCompleteBoxBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates an AutoCompleteBox widget.</summary>
-        /// <param name="items">The items to display.</param>
-        static member AutoCompleteBox(items: seq<_>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
-
-        /// <summary>Creates an AutoCompleteBox widget.</summary>
-        /// <param name="populator">The function to populate the items.</param>
-        static member AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
-
 type MvuAutoCompleteBoxModifiers =
     /// <summary>Binds the AutoCompleteBox.TextProperty.</summary>
     /// <param name="this">Current widget.</param>

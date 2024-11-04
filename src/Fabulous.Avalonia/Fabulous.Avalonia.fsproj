@@ -352,6 +352,8 @@
     <Compile Include="Views\Collections\ListBox.Mvu.fs" />
     <Compile Include="Views\Collections\Carousel.fs" />
     <Compile Include="Views\Collections\TabControl.fs" />
+    <Compile Include="Views\Collections\TabControl.Mvu.fs" />
+    <Compile Include="Views\Collections\TabControl.Components.fs" />
     <Compile Include="Views\Collections\TreeView.fs" />
     <Compile Include="Views\Collections\TreeView.Components.fs" />
     <Compile Include="Views\Collections\TreeView.Mvu.fs" />
