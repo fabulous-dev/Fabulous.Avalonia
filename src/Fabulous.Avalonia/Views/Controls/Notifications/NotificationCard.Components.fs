@@ -5,7 +5,6 @@ open Avalonia.Controls.Notifications
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentNotificationCard =
     let NotificationClosed =

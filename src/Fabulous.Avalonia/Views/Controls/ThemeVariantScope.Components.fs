@@ -2,10 +2,8 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentThemeVariantScope =
     let ActualThemeVariantChanged =

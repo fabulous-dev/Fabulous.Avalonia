@@ -6,6 +6,7 @@ open Avalonia.Controls
 open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabWindow =
     inherit IFabWindowBase
@@ -46,6 +47,22 @@ module Window =
 
     let CanResize =
         Attributes.defineAvaloniaPropertyWithEquality Window.CanResizeProperty
+
+[<AutoOpen>]
+module WindowBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Window widget.</summary>
+        /// <param name="content">The content of the window.</param>
+        static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
+            WidgetBuilder<'msg, IFabWindow>(
+                Window.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+            )
+
+        /// <summary>Creates a Window widget.</summary>
+        static member Window() =
+            SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>

@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 module MvuExperimentalAcrylicMaterial =
     let Invalidated =

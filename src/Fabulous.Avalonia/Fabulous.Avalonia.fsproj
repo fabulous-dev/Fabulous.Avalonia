@@ -374,6 +374,8 @@
     <Compile Include="Views\Panels\Canvas.fs" />
     <Compile Include="Views\Panels\_AdornerLayer.fs" />
     <Compile Include="Views\Panels\Grid.fs" />
+    <Compile Include="Views\Panels\Grid.Mvu.fs" />
+    <Compile Include="Views\Panels\Grid.Components.fs" />
     <Compile Include="Views\Panels\_StackPanel.fs" />
     <Compile Include="Views\Panels\_StackPanel.Components.fs" />
     <Compile Include="Views\Panels\_StackPanel.Mvu.fs" />
@@ -381,9 +383,17 @@
     <Compile Include="Views\Panels\VirtualizingStackPanel.Components.fs" />
     <Compile Include="Views\Panels\VirtualizingStackPanel.Mvu.fs" />
     <Compile Include="Views\Panels\ReversibleStackPanel.fs" />
+    <Compile Include="Views\Panels\ReversibleStackPanel.Mvu.fs" />
+    <Compile Include="Views\Panels\ReversibleStackPanel.Components.fs" />
     <Compile Include="Views\Panels\DockPanel.fs" />
+    <Compile Include="Views\Panels\DockPanel.Mvu.fs" />
+    <Compile Include="Views\Panels\DockPanel.Components.fs" />
     <Compile Include="Views\Panels\WrapPanel.fs" />
+    <Compile Include="Views\Panels\WrapPanel.Mvu.fs" />
+    <Compile Include="Views\Panels\WrapPanel.Components.fs" />
     <Compile Include="Views\Panels\UniformGrid.fs" />
+    <Compile Include="Views\Panels\UniformGrid.Mvu.fs" />
+    <Compile Include="Views\Panels\UniformGrid.Components.fs" />
     <Compile Include="Views\Application.fs" />
     <Compile Include="Views\Application.Mvu.fs" />
     <Compile Include="Views\Application.Components.fs" />

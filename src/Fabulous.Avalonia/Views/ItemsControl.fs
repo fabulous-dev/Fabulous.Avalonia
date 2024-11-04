@@ -41,6 +41,15 @@ module ItemsControl =
             | ValueSome value ->
                 itemsControl.SetValue(ItemsControl.ItemsPanelProperty, WidgetItemsPanel(node, value))
                 |> ignore)
+        
+[<AutoOpen>]
+module ItemsControlBuilders =
+    type Fabulous.Avalonia.View with
+
+        static member ItemsControl<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
+            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
 type ItemsControlModifiers =
 

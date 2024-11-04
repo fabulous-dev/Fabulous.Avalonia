@@ -26,16 +26,6 @@ module ComponentItemsControl =
     let ContainerPrepared =
         Attributes.defineEventNoDispatch "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
 
-
-[<AutoOpen>]
-module ComponentItemsControlBuilders =
-    type Fabulous.Avalonia.View with
-
-        static member ItemsControl<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
-            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
-            =
-            WidgetHelpers.buildItems<'msg, IFabItemsControl, 'itemData, 'itemMarker> ItemsControl.WidgetKey ItemsControl.ItemsSourceTemplate items template
-
 type ComponentItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>
     /// <param name="this">Current widget.</param>

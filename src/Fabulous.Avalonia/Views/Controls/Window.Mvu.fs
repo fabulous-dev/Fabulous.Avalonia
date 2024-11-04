@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 module MvuWindow =
     let WindowClosing =
@@ -16,22 +15,6 @@ module MvuWindow =
 
     let WindowOpened =
         Attributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
-
-[<AutoOpen>]
-module MvuWindowBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Window widget.</summary>
-        /// <param name="content">The content of the window.</param>
-        static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
-            WidgetBuilder<'msg, IFabWindow>(
-                Window.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a Window widget.</summary>
-        static member Window() =
-            SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
 
 type MvuWindowModifiers =
     /// <summary>Listens to the Window WindowClosing event.</summary>

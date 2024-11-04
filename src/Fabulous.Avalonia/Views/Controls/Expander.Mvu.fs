@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Interactivity
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections.StackList
 
 module MvuExpander =
     let ExpandedChanged =
@@ -16,61 +15,6 @@ module MvuExpander =
 
     let Expanding =
         Attributes.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
-
-[<AutoOpen>]
-module MvuExpanderBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Expander widget.</summary>
-        /// <param name="header">The header of the expander.</param>
-        /// <param name="content">The content of the expander.</param>
-        static member Expander(header: string, content: string) =
-            WidgetBuilder<'msg, IFabExpander>(
-                Expander.WidgetKey,
-                HeaderedContentControl.HeaderString.WithValue(header),
-                ContentControl.ContentString.WithValue(content)
-            )
-
-        /// <summary>Creates a Expander widget.</summary>
-        /// <param name="header">The header of the expander.</param>
-        /// <param name="content">The content of the expander.</param>
-        static member Expander(header: WidgetBuilder<'msg, #IFabControl>, content: string) =
-            WidgetBuilder<'msg, IFabExpander>(
-                Expander.WidgetKey,
-                AttributesBundle(
-                    StackList.one(ContentControl.ContentString.WithValue(content)),
-                    ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
-                    ValueNone
-                )
-            )
-
-        /// <summary>Creates a Expander widget.</summary>
-        /// <param name="header">The header of the expander.</param>
-        /// <param name="content">The content of the expander.</param>
-        static member Expander(header: string, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabExpander>(
-                Expander.WidgetKey,
-                AttributesBundle(
-                    StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-
-        /// <summary>Creates a Expander widget.</summary>
-        /// <param name="header">The header of the expander.</param>
-        /// <param name="content">The content of the expander.</param>
-        static member Expander(header: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabExpander>(
-                Expander.WidgetKey,
-                AttributesBundle(
-                    StackList.empty(),
-                    ValueSome
-                        [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
-                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
 
 type MvuExpanderModifiers =
     /// <summary>Listens to the Expander ExpandedChanged event.</summary>
