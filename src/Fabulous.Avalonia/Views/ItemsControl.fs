@@ -41,7 +41,7 @@ module ItemsControl =
             | ValueSome value ->
                 itemsControl.SetValue(ItemsControl.ItemsPanelProperty, WidgetItemsPanel(node, value))
                 |> ignore)
-        
+
 [<AutoOpen>]
 module ItemsControlBuilders =
     type Fabulous.Avalonia.View with

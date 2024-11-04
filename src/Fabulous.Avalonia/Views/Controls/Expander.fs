@@ -20,7 +20,7 @@ module Expander =
 
     let IsExpanded =
         Attributes.defineAvaloniaPropertyWithEquality Expander.IsExpandedProperty
-        
+
 [<AutoOpen>]
 module ExpanderBuilders =
     type Fabulous.Avalonia.View with
