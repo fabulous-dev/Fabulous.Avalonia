@@ -265,6 +265,9 @@ module MainWindow =
                     .icon("avares://Gallery/Assets/Icons/logo.ico")
             })
             // FIXME this is not working after the last update of Fabulous pre 8
+            // MainWindow is null for some reason. I will investigate this later.
+            // Unhandled exception. System.ArgumentNullException: Value cannot be null. (Parameter 'root')
+            // at Avalonia.Diagnostics.DevTools.Attach(TopLevel root, DevToolsOptions options)
             // #if DEBUG
             //     .attachDevTools()
             // #endif
