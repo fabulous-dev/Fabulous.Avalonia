@@ -35,8 +35,7 @@ module MainWindow =
               WindowTransparencyLevel.AcrylicBlur
               WindowTransparencyLevel.Blur
               WindowTransparencyLevel.Mica
-              WindowTransparencyLevel.Transparent ] },
-        Cmd.none
+              WindowTransparencyLevel.Transparent ] }
 
     let update msg model =
         match msg with
@@ -45,21 +44,21 @@ module MainWindow =
             let content = args.SelectedItem :?> ComboBoxItem
             let decoration = SystemDecorations.Parse(content.Content.ToString())
             FabApplication.Current.MainWindow.SystemDecorations <- decoration
-            model, Cmd.none
+            model
         | ThemeVariantsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let content = model.ThemeVariants[args.SelectedIndex]
-            { model with CurrentTheme = content }, Cmd.none
+            { model with CurrentTheme = content }
         | FlowDirectionsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let content = model.FlowDirections[args.SelectedIndex]
             FabApplication.Current.TopLevel.FlowDirection <- content
-            model, Cmd.none
+            model
         | TransparencyLevelsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let _content = model.TransparencyLevels[args.SelectedIndex]
-            model, Cmd.none
-        | DoNothing -> model, Cmd.none
+            model
+        | DoNothing -> model
 
 
     let createMenu () =
@@ -241,36 +240,40 @@ module MainWindow =
                     .placement(PlacementMode.RightEdgeAlignedTop)
             )
 
-    let view model =
-        (DesktopApplication() {
-            (Window() { hamburgerMenu model })
-                .title("Fabulous Gallery")
-                .menu(createMenu())
-                .width(1024.)
-                .height(800.)
-                .icon("avares://Gallery/Assets/Icons/logo.ico")
-        })
-        // #if DEBUG
-        //             .attachDevTools()
-        // #endif
-        |> _.trayIcon(trayIcon())
-        |> _.requestedThemeVariant(model.CurrentTheme)
+    let program =
+        Program.stateful init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component("MainWindow") {
+            let! model = Context.Mvu program
+
+            (DesktopApplication() {
+                (Window() { hamburgerMenu model })
+                    .title("Fabulous Gallery")
+                    .menu(createMenu())
+                    .width(1024.)
+                    .height(800.)
+                    .icon("avares://Gallery/Assets/Icons/logo.ico")
+            })
+            // FIXME this is not working after the last update of Fabulous pre 8
+            // #if DEBUG
+            //     .attachDevTools()
+            // #endif
+            |> _.trayIcon(trayIcon())
+            |> _.requestedThemeVariant(model.CurrentTheme)
+        }
 
     let create () =
         let theme () =
             StyleInclude(baseUri = null, Source = Uri("avares://Gallery/App.xaml"))
 
-        let program =
-            Program.statefulWithCmd init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(theme, view)
