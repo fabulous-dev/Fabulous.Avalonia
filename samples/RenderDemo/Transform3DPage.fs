@@ -68,8 +68,8 @@ module Transform3DPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("Transform3DPage") {
+            let! model = Context.Mvu program
 
             Grid(coldefs = [ Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto ]) {
                 EmptyBorder()

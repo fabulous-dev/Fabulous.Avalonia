@@ -43,8 +43,8 @@ module ContextMenuPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ContextMenuPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 Border(TextBlock("A right click menu that can be applied to any control."))

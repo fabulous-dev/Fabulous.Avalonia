@@ -457,8 +457,8 @@ module OpenGLPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("OpenGLPage") {
+            let! model = Context.Mvu program
 
             (Grid() {
                 UserControl(

@@ -50,8 +50,8 @@ module RefreshContainerPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("RefreshContainerPage") {
+            let! model = Context.Mvu program
 
             (Dock() {
                 Label("A control that supports pull to refresh")

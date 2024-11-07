@@ -43,8 +43,8 @@ module CheckBoxPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("CheckBoxPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 CheckBox(model.IsChecked1, ValueChanged)

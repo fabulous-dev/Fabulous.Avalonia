@@ -38,8 +38,8 @@ module NodeView =
         )
 
     let view (name) =
-        Component("", program, name) {
-            let! model = Mvu.State
+        Component("NodeView") {
+            let! model = Context.Mvu(program, name)
 
             Border(
                 HStack(5) {
@@ -115,8 +115,8 @@ module TreeViewWithNodeInteraction =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("TreeViewWithNodeInteraction") {
+            let! model = Context.Mvu program
 
             HStack() {
                 TreeView(

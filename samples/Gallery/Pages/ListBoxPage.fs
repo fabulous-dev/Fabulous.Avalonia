@@ -119,8 +119,8 @@ module ListBoxPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ListBoxPage") {
+            let! model = Context.Mvu program
 
             (Dock() {
                 (VStack() {

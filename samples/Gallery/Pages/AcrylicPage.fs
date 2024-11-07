@@ -83,8 +83,8 @@ module MvuAcrylicPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("MvuAcrylicPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 20.) {
                 ExperimentalAcrylicBorder(

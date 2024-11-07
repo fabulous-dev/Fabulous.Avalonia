@@ -98,8 +98,8 @@ Position: {position.X} {position.Y}"
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("PointersPage") {
+            let! model = Context.Mvu program
 
             TabControl(Dock.Top) {
                 TabItem("Contacts", PointerContactsTab())

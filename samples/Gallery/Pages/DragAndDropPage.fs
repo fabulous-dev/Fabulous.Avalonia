@@ -265,8 +265,8 @@ module DragAndDropPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("DragAndDropPage") {
+            let! model = Context.Mvu program
 
             VStack(4.) {
                 TextBlock("Example of Drag+Drop capabilities")

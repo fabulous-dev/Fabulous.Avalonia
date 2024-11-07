@@ -72,8 +72,8 @@ module CarouselPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("CarouselPage") {
+            let! model = Context.Mvu program
 
             (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
                 Button(

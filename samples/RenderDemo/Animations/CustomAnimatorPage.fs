@@ -53,7 +53,7 @@ module CustomAnimatorPage =
         )
 
     let view () =
-        Component("", program) {
+        Component("CustomAnimatorPage") {
             Grid() {
                 TextBlock("")
                     .centerHorizontal()

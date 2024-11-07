@@ -98,8 +98,8 @@ module DrawLineAnimationPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("DrawLineAnimationPage") {
+            let! model = Context.Mvu program
 
             (Canvas() {
                 let line =

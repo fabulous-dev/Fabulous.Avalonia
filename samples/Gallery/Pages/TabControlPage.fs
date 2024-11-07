@@ -52,8 +52,8 @@ module TabControlPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("TabControlPage") {
+            let! model = Context.Mvu program
 
             Dock() {
                 TextBlock("A tab control that displays a tab strip along with the content of the selected tab")

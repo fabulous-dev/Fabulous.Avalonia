@@ -91,8 +91,8 @@ module PageTransitionsPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("PageTransitionsPage") {
+            let! model = Context.Mvu program
 
             VStack(16.) {
                 (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {

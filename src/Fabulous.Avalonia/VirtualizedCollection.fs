@@ -16,7 +16,7 @@ type WidgetControlTemplate(node: IViewNode, templateFn: Widget) as this =
         let definition = WidgetDefinitionStore.get widget.Key
 
         let struct (_, view) =
-            definition.CreateView(widget, node.TreeContext, ValueSome node)
+            definition.CreateView(widget, node.EnvironmentContext, node.TreeContext, ValueSome node)
 
         let item = ContentControl()
         item.Content <- (view :?> Control)
@@ -37,7 +37,7 @@ type WidgetDataTemplate(node: IViewNode, templateFn: obj -> Widget) as this =
         let definition = WidgetDefinitionStore.get widget.Key
 
         let struct (_, view) =
-            definition.CreateView(widget, node.TreeContext, ValueSome node)
+            definition.CreateView(widget, node.EnvironmentContext, node.TreeContext, ValueSome node)
 
         let item = ContentControl()
         item.Content <- (view :?> Control)
@@ -57,7 +57,7 @@ type WidgetTreeDataTemplate(node: IViewNode, childrenFn: obj -> IEnumerable, tem
             let definition = WidgetDefinitionStore.get widget.Key
 
             let struct (_, view) =
-                definition.CreateView(widget, node.TreeContext, ValueSome node)
+                definition.CreateView(widget, node.EnvironmentContext, node.TreeContext, ValueSome node)
 
             view :?> Control
 
@@ -66,5 +66,8 @@ type WidgetItemsPanel(node: IViewNode, widget: Widget) as this =
 
     member this.BuildPanel() =
         let definition = WidgetDefinitionStore.get widget.Key
-        let struct (_, view) = definition.CreateView(widget, node.TreeContext, ValueNone)
+
+        let struct (_, view) =
+            definition.CreateView(widget, node.EnvironmentContext, node.TreeContext, ValueNone)
+
         view :?> Panel

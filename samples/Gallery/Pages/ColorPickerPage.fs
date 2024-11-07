@@ -56,8 +56,8 @@ module ColorPickerPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ColorPickerPage") {
+            let! model = Context.Mvu program
 
             Grid(coldefs = [ Auto; Pixel(10.); Auto ], rowdefs = [ Auto; Auto ]) {
                 ColorView(model.ColorView, ColorViewChanged)

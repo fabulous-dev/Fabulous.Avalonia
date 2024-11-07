@@ -144,8 +144,8 @@ module NotificationsPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("NotificationsPage") {
+            let! model = Context.Mvu program
 
             (Grid() {
                 Dock() {

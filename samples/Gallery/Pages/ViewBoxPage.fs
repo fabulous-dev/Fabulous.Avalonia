@@ -35,8 +35,8 @@ module ViewBoxPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ViewBoxPage") {
+            let! model = Context.Mvu program
 
             Grid(coldefs = [ Pixel(300.); Star ], rowdefs = [ Pixel(300.) ]) {
                 Border(

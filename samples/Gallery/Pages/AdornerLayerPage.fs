@@ -62,8 +62,8 @@ module AdornerLayerPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("AdornerLayerPage") {
+            let! model = Context.Mvu program
 
             Dock() {
                 (Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {

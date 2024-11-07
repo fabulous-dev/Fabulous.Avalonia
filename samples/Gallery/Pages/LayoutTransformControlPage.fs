@@ -33,8 +33,8 @@ module LayoutTransformControlPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("LayoutTransformControlPage") {
+            let! model = Context.Mvu program
 
             VStack(16.) {
                 (VStack(16.) {

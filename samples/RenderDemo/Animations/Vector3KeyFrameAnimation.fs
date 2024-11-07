@@ -59,7 +59,7 @@ module Vector3KeyFrameAnimation =
         )
 
     let view () =
-        Component("", program) {
+        Component("Vector3KeyFrameAnimation") {
             (Canvas() {
                 EmptyBorder()
                     .background(Brushes.Red)

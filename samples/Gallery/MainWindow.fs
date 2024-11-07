@@ -24,7 +24,6 @@ module MainWindow =
         | ThemeVariantsOnSelectionChanged of SelectionChangedEventArgs
         | FlowDirectionsOnSelectionChanged of SelectionChangedEventArgs
         | TransparencyLevelsOnSelectionChanged of SelectionChangedEventArgs
-        | OnThemeVariantChanged
         | DoNothing
 
     let init () =
@@ -61,7 +60,6 @@ module MainWindow =
             let _content = model.TransparencyLevels[args.SelectedIndex]
             model, Cmd.none
         | DoNothing -> model, Cmd.none
-        | OnThemeVariantChanged -> model, Cmd.none
 
 
     let createMenu () =
@@ -252,12 +250,11 @@ module MainWindow =
                 .height(800.)
                 .icon("avares://Gallery/Assets/Icons/logo.ico")
         })
-#if DEBUG
-            .attachDevTools()
-#endif
+        // #if DEBUG
+        //             .attachDevTools()
+        // #endif
         |> _.trayIcon(trayIcon())
         |> _.requestedThemeVariant(model.CurrentTheme)
-        |> _.onActualThemeVariantChanged(OnThemeVariantChanged)
 
     let create () =
         let theme () =

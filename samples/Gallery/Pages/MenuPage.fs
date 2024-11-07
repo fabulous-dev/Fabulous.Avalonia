@@ -32,8 +32,8 @@ module MenuPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("MenuPage") {
+            let! model = Context.Mvu program
 
             VStack(4.) {
                 TextBlock("Exported menu fallback")

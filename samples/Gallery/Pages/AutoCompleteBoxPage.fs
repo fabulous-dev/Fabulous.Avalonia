@@ -399,8 +399,8 @@ module AutoCompleteBoxPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("AutoCompleteBoxPage") {
+            let! model = Context.Mvu program
             let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 
             VStack() {

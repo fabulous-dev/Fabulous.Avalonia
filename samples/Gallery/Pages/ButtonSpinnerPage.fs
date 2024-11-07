@@ -50,7 +50,7 @@ module ButtonSpinnerPage =
         )
 
     let view () =
-        Component("", program) {
+        Component("ButtonSpinnerPage") {
             VStack(spacing = 15.) {
                 TextBlock("Button spinner")
 

@@ -91,7 +91,7 @@ module FlyoutPage =
         )
 
     let view () =
-        Component("", program) {
+        Component("FlyoutPage") {
             VStack(spacing = 15.) {
                 TextBlock("MenuFlyout")
 

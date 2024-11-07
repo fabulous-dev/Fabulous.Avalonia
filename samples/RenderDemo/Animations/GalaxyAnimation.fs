@@ -109,7 +109,7 @@ module GalaxyAnimation =
         )
 
     let view () =
-        Component("", program) {
+        Component("GalaxyAnimation") {
             Grid() {
                 Ellipse()
                     .width(15.)

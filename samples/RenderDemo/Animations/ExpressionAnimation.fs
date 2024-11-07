@@ -55,7 +55,7 @@ module ExpressionAnimation =
         )
 
     let view () =
-        Component("", program) {
+        Component("ExpressionAnimation") {
             ScrollViewer(
                 Dock() {
                     TextBlock("Resize window horizontally to change Border opacity.")

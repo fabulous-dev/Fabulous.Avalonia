@@ -31,8 +31,8 @@ module RepeatButtonPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("RepeatButtonPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 RepeatButton("Click me, or press and hold!", Clicked)

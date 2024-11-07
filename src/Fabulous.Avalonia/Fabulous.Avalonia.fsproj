@@ -415,8 +415,8 @@
       <Pack>true</Pack>
     </None>
     <Compile Include="Component.fs" />
+    <Compile Include="Environment.fs" />
     <Compile Include="Any.fs" />
-    <Compile Include="ThemeAware.fs" />
     <Compile Include="Style.fs" />
     <Compile Include="Program.fs" />
     <Compile Include="AppBuilderExtensions.fs" />
@@ -426,7 +426,7 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre7]" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre8]" />
     <PackageReference Include="Avalonia" VersionOverride="11.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>

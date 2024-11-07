@@ -36,8 +36,8 @@ module MenuFlyoutPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("MenuFlyoutPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
 

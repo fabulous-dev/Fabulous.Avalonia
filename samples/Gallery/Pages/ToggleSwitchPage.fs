@@ -52,8 +52,8 @@ module ToggleSwitchPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ToggleSwitchPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 ToggleSwitch(model.Value1, ValueChanged)

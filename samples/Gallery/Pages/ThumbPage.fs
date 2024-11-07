@@ -314,8 +314,8 @@ module ThumbPage =
     let program = Program.stateful init update
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ThumbPage") {
+            let! model = Context.Mvu program
 
             Panel() {
                 (Canvas() {

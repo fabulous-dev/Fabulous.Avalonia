@@ -344,8 +344,8 @@ module ScrollViewerPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ScrollViewerPage") {
+            let! model = Context.Mvu program
 
             TabControl() {
                 tab1 model

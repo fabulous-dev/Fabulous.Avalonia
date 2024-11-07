@@ -102,7 +102,9 @@ module EditableNodeView =
         )
 
     let view node =
-        Component("", program, node) {
+        Component("EditableNodeView") {
+            let _ = Context.Mvu(program, node)
+
             AutoCompleteBox([])
                 .onTextChanged(node.Name, NameChanged)
                 .focus(node.Name = "")
@@ -262,8 +264,8 @@ module EditableTreeView =
         let getParentNodeName (node: EditableNode) = node.Name.Substring(prefix.Length)
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("EditableTreeView") {
+            let! model = Context.Mvu program
 
             let rec filter (nodes: EditableNode list) =
                 nodes

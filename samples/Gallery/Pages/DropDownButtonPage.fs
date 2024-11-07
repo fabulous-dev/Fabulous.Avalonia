@@ -43,8 +43,8 @@ module DropDownButtonPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("DropDownButtonPage") {
+            let! model = Context.Mvu program
 
             UniformGrid() {
                 TextBlock($"Count: {model.Count}").centerVertical()

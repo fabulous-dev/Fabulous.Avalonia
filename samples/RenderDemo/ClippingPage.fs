@@ -72,8 +72,8 @@ module ClippingPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("ClippingPage") {
+            let! model = Context.Mvu program
 
             (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {
                 let widgetBuilder =

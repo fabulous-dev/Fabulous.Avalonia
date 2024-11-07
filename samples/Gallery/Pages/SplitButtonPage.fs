@@ -85,8 +85,8 @@ module SplitButtonPage =
         )
 
     let view () =
-        Component("", program) {
-            let! model = Mvu.State
+        Component("SplitButtonPage") {
+            let! model = Context.Mvu program
 
             (VStack(spacing = 16.) {
                 SplitButton("Content", Clicked).flyout(menuFlyout())

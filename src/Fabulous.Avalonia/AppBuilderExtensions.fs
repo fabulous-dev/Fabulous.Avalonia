@@ -24,8 +24,16 @@ type FabulousAppBuilder private () =
                                   Logger = logger
                                   Dispatch = ignore }
 
+                            let envContext = new EnvironmentContext()
+                            envContext.Set(EnvironmentKeys.Theme, app.ActualThemeVariant, false)
                             let def = WidgetDefinitionStore.get widget.Key
-                            def.AttachView(widget, treeContext, ValueNone, app) |> ignore
+                            let node = def.AttachView(widget, envContext, treeContext, ValueNone, app)
+
+                            node.SetHandler(
+                                "Theme",
+                                app.ActualThemeVariantChanged.Subscribe(fun _ ->
+                                    envContext.Set(EnvironmentKeys.Theme, Application.Current.ActualThemeVariant, false))
+                            )
                 )
 
             app.Styles.Add(themeFn())
@@ -38,8 +46,8 @@ type FabulousAppBuilder private () =
             program.SyncAction,
             themeFn,
             (fun () ->
-                (View.Component("_", program.State, arg) {
-                    let! model = Mvu.State
+                (View.Component("_") {
+                    let! model = Context.Mvu(program.State, arg)
                     program.View model
                 })
                     .Compile())
