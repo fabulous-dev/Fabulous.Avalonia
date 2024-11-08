@@ -55,46 +55,49 @@ module MainView =
           "FormattedText"
           "TextFormatter" ]
 
-    let view model =
-        SingleViewApplication() {
-            ScrollViewer(
-                match model.Details with
-                | Some(CurrentWidget page) ->
-                    AnyView(
-                        VStack(16.) {
-                            Button("Go back", GoBack)
-                            page
-                        }
-                    )
-                | _ ->
-                    AnyView(
-                        Grid() {
-                            UniformGrid(cols = 2, rows = 37) {
-                                for i in 0 .. controlNames.Length - 1 do
-                                    CardItem(controlNames[i])
-                                        .onTapped(SelectControl)
-                                        .gridRow(i / 2)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component("MainView") {
+            let! model = Context.Mvu(program)
+
+            SingleViewApplication() {
+                ScrollViewer(
+                    match model.Details with
+                    | Some(CurrentWidget page) ->
+                        AnyView(
+                            VStack(16.) {
+                                Button("Go back", GoBack)
+                                page
                             }
-                        }
-                    )
-            )
+                        )
+                    | _ ->
+                        AnyView(
+                            Grid() {
+                                UniformGrid(cols = 2, rows = 37) {
+                                    for i in 0 .. controlNames.Length - 1 do
+                                        CardItem(controlNames[i])
+                                            .onTapped(SelectControl)
+                                            .gridRow(i / 2)
+                                }
+                            }
+                        )
+                )
+            }
         }
 
     let create () =
         let theme () =
             StyleInclude(baseUri = null, Source = Uri("avares://RenderDemo/App.xaml"))
 
-        let program =
-            Program.statefulWithCmd init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(theme, view)

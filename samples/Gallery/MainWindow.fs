@@ -268,9 +268,9 @@ module MainWindow =
             // MainWindow is null for some reason. I will investigate this later.
             // Unhandled exception. System.ArgumentNullException: Value cannot be null. (Parameter 'root')
             // at Avalonia.Diagnostics.DevTools.Attach(TopLevel root, DevToolsOptions options)
-            // #if DEBUG
-            //     .attachDevTools()
-            // #endif
+#if DEBUG
+                .attachDevTools()
+#endif
             |> _.trayIcon(trayIcon())
             |> _.requestedThemeVariant(model.CurrentTheme)
         }
