@@ -13,3 +13,6 @@ module Panel =
 
     let Background =
         Attributes.defineAvaloniaPropertyWithEquality Panel.BackgroundProperty
+
+    let Children =
+        Attributes.defineAvaloniaListWidgetCollection "Panel_Children" (fun x -> (x :?> Panel).Children)

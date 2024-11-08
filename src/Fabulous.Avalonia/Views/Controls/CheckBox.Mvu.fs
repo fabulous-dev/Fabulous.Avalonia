@@ -12,7 +12,7 @@ module MvuCheckBoxBuilders =
         /// <param name="isChecked">Whether the CheckBox is checked.</param>
         /// <param name="fn">Raised when the CheckBox is clicked.</param>
         static member CheckBox(isChecked: bool, fn: bool -> 'msg) =
-            WidgetBuilder<'msg, IFabCheckBox>(CheckBox.WidgetKey, MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn))
+            WidgetBuilder<'msg, IFabCheckBox>(CheckBox.WidgetKey, MvuToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn))
 
         /// <summary>Creates a CheckBox widget.</summary>
         /// <param name="text">The CheckBox text.</param>
@@ -22,7 +22,7 @@ module MvuCheckBoxBuilders =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
+                MvuToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a CheckBox widget</summary>
@@ -33,7 +33,7 @@ module MvuCheckBoxBuilders =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),
+                    StackList.one(MvuToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -46,9 +46,7 @@ module MvuCheckBoxBuilders =
             WidgetBuilder<'msg, IFabCheckBox>(
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
-                MvuToggleButton.ThreeStateCheckedChanged.WithValue(
-                    MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                MvuToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a ThreeStateCheckBox widget.</summary>
@@ -60,9 +58,7 @@ module MvuCheckBoxBuilders =
                 CheckBox.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
                 ContentControl.ContentString.WithValue(text),
-                MvuToggleButton.ThreeStateCheckedChanged.WithValue(
-                    MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                MvuToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a ThreeStateCheckBox widget.</summary>
@@ -75,7 +71,7 @@ module MvuCheckBoxBuilders =
                 AttributesBundle(
                     StackList.two(
                         MvuToggleButton.ThreeStateCheckedChanged.WithValue(
-                            MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
+                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
                         ),
                         ToggleButton.IsThreeState.WithValue(true)
                     ),

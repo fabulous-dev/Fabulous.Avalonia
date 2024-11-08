@@ -30,6 +30,11 @@ module ListBoxBuilders =
             =
             WidgetHelpers.buildItems<'msg, IFabListBox, 'itemData, 'itemMarker> ListBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
+        /// <summary>Creates a ListBox widget.</summary>
+        static member ListBox() =
+            CollectionBuilder<'msg, IFabListBox, IFabListBoxItem>(ListBox.WidgetKey, ItemsControl.Items)
+
+
 
 type ListBoxModifiers =
     /// <summary>Sets the SelectionMode property.</summary>

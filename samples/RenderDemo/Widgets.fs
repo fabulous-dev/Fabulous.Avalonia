@@ -28,7 +28,7 @@ module HamburgerMenuBuilders =
     type Fabulous.Avalonia.View with
 
         static member HamburgerMenu() =
-            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenu.WidgetKey, MvuItemsControl.Items)
+            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenu.WidgetKey, ItemsControl.Items)
 
 
 type HamburgerMenuModifiers =

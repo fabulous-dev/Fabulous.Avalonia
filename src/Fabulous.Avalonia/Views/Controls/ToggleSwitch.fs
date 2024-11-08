@@ -1,6 +1,7 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
+open Avalonia.Animation
 open Avalonia.Controls
 open Fabulous
 
@@ -21,6 +22,18 @@ module ToggleSwitch =
 
     let OnContentWidget =
         Attributes.defineAvaloniaPropertyWidget ToggleSwitch.OnContentProperty
+
+
+    let KnobTransitions =
+        Attributes.defineAvaloniaListWidgetCollection "ToggleSwitch_KnobTransitions" (fun target ->
+            let target = (target :?> ToggleSwitch)
+
+            if target.Transitions = null then
+                let newColl = Transitions()
+                target.Transitions <- newColl
+                newColl
+            else
+                target.Transitions)
 
 
 type ToggleSwitchModifiers =
@@ -65,6 +78,19 @@ type ToggleSwitchModifiers =
     [<Extension>]
     static member inline content(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabControl>) =
         this.AddWidget(ContentControl.ContentWidget.WithValue(value.Compile()))
+
+    /// <summary>Sets the KnobTransitions property.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline knobTransitions(this: WidgetBuilder<'msg, #IFabToggleSwitch>) =
+        AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions)
+
+    /// <summary>Sets the KnobTransitions property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The KnobTransitions value.</param>
+    [<Extension>]
+    static member inline knobTransition(this: WidgetBuilder<'msg, #IFabToggleSwitch>, value: WidgetBuilder<'msg, #IFabTransition>) =
+        AttributeCollectionBuilder<'msg, #IFabToggleSwitch, IFabTransition>(this, ToggleSwitch.KnobTransitions) { value }
 
     /// <summary>Link a ViewRef to access the direct ToggleSwitch control instance.</summary>
     /// <param name="this">Current widget.</param>

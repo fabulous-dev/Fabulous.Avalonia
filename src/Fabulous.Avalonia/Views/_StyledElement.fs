@@ -15,6 +15,9 @@ module StyledElement =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality StyledElement.NameProperty
 
+    let StylesWidget =
+        Attributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
+
     let Styles =
         Attributes.definePropertyWithGetSet<IStyle seq> "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles) (fun target value ->
             let target = (target :?> StyledElement)

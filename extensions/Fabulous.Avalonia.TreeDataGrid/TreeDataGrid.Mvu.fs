@@ -20,19 +20,19 @@ type MvuTreeDataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a row drag is started.</param>
     [<Extension>]
-    static member inline onRowDragStarted(this: WidgetBuilder<'msg, IFabTreeDataGrid>, fn: TreeDataGridRowDragStartedEventArgs -> 'msg) =
+    static member inline onRowDragStarted(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, fn: TreeDataGridRowDragStartedEventArgs -> 'msg) =
         this.AddScalar(MvuTreeDataGrid.RowDragStarted.WithValue(fn))
 
     /// <summary>Listens to the RowDragOver event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a row drag is over.</param>
     [<Extension>]
-    static member inline onRowDragOver(this: WidgetBuilder<'msg, IFabTreeDataGrid>, fn: TreeDataGridRowDragEventArgs -> 'msg) =
+    static member inline onRowDragOver(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, fn: TreeDataGridRowDragEventArgs -> 'msg) =
         this.AddScalar(MvuTreeDataGrid.RowDragOver.WithValue(fn))
 
     /// <summary>Listens to the RowDrop event.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="fn">Raised when a row is dropped.</param>
     [<Extension>]
-    static member inline onRowDrop(this: WidgetBuilder<'msg, IFabTreeDataGrid>, fn: TreeDataGridRowDragEventArgs -> 'msg) =
+    static member inline onRowDrop(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, fn: TreeDataGridRowDragEventArgs -> 'msg) =
         this.AddScalar(MvuTreeDataGrid.RowDrop.WithValue(fn))

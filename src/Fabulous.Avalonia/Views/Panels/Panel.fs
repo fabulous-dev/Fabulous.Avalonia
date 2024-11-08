@@ -6,6 +6,14 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
+[<AutoOpen>]
+module PanelBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Panel widget.</summary>
+        static member Panel() =
+            CollectionBuilder<'msg, IFabPanel, IFabControl>(Panel.WidgetKey, Panel.Children)
+
 type PanelModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>

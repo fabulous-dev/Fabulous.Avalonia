@@ -17,21 +17,6 @@ module MvuThumb =
     let DragCompleted =
         Attributes.defineEvent<VectorEventArgs> "Thumb_DragCompleted" (fun target -> (target :?> Thumb).DragCompleted)
 
-[<AutoOpen>]
-module MvuThumbBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Thumb widget.</summary>
-        static member Thumb() =
-            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
-
-        /// <summary>Creates a Thumb widget.</summary>
-        /// <param name="template">The template to use for the Thumb.</param>
-        static member Thumb(template: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabThumb>(
-                Thumb.WidgetKey,
-                AttributesBundle(StackList.one(TemplatedControl.Template.WithValue(template.Compile())), ValueNone, ValueNone)
-            )
 
 type MvuThumbModifiers =
 

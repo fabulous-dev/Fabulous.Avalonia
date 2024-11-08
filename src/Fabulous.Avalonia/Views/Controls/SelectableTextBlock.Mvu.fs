@@ -28,6 +28,6 @@ module MvuSelectableTextBlockBuilders =
         static member inline SelectableTextBlock(fn: RoutedEventArgs -> 'msg) =
             CollectionBuilder<'msg, IFabSelectableTextBlock, IFabInline>(
                 SelectableTextBlock.WidgetKey,
-                MvuTextBlock.Inlines,
+                TextBlock.Inlines,
                 MvuSelectableTextBlock.CopyingToClipboard.WithValue(fn)
             )

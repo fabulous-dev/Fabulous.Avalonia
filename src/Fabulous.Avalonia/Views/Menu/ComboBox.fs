@@ -63,6 +63,8 @@ module ComboBoxBuilders =
         static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
             WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
+        static member ComboBox() =
+            CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ItemsControl.Items)
 
 type ComboBoxModifiers =
     /// <summary>Sets the IsDropDownOpen property.</summary>
@@ -133,7 +135,7 @@ type ComboBoxModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabComboBox>, value: ViewRef<ComboBox>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type ComboBoxCollectionBuilderExtensions =

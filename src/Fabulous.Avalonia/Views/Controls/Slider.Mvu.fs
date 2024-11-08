@@ -12,7 +12,7 @@ module MvuSliderBuilders =
         /// <param name="value">The initial value of the slider.</param>
         /// <param name="fn">Raised when the slider value changes.</param>
         static member Slider(value: float, fn: float -> 'msg) =
-            WidgetBuilder<'msg, IFabSlider>(Slider.WidgetKey, MvuRangeBase.ValueChanged.WithValue(MvuValueEventData.create value fn))
+            WidgetBuilder<'msg, IFabSlider>(Slider.WidgetKey, MvuRangeBase.ValueChanged.WithValue(ValueEventData.create value fn))
 
         /// <summary>Creates a Slider widget.</summary>
         /// <param name="min">The minimum value of the slider.</param>
@@ -23,5 +23,5 @@ module MvuSliderBuilders =
             WidgetBuilder<'msg, IFabSlider>(
                 Slider.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),
-                MvuRangeBase.ValueChanged.WithValue(MvuValueEventData.create value fn)
+                MvuRangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )

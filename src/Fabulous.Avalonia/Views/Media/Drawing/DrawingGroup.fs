@@ -11,6 +11,9 @@ type IFabDrawingGroup =
 module DrawingGroup =
     let WidgetKey = Widgets.register<DrawingGroup>()
 
+    let Children =
+        Attributes.defineAvaloniaListWidgetCollection "DrawingGroup_Children" (fun target -> (target :?> DrawingGroup).Children)
+
     let Opacity =
         Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityProperty
 
@@ -28,6 +31,19 @@ module DrawingGroup =
 
     let OpacityMask =
         Attributes.defineAvaloniaPropertyWithEquality DrawingGroup.OpacityMaskProperty
+
+[<AutoOpen>]
+module DrawingGroupBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a DrawingGroup widget.</summary>
+        static member DrawingGroup() =
+            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(1.0))
+
+        /// <summary>Creates a DrawingGroup widget.</summary>
+        /// <param name="opacity">The opacity of the drawing group.</param>
+        static member DrawingGroup(opacity: float) =
+            CollectionBuilder<'msg, IFabDrawingGroup, IFabDrawing>(DrawingGroup.WidgetKey, DrawingGroup.Children, DrawingGroup.Opacity.WithValue(opacity))
 
 type DrawingGroupModifiers =
 

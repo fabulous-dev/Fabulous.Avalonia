@@ -7,9 +7,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 module ComponentNativeMenu =
-    let Items =
-        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
-
     let Opening =
         Attributes.defineEventNoDispatch "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
 
@@ -18,15 +15,6 @@ module ComponentNativeMenu =
 
     let NeedsUpdate =
         Attributes.defineEventNoDispatch "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
-
-
-[<AutoOpen>]
-module ComponentNativeMenuBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a NativeMenu widget</summary>
-        static member NativeMenu() =
-            CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, ComponentNativeMenu.Items)
 
 type ComponentNativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>

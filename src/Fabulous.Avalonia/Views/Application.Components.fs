@@ -9,18 +9,6 @@ open Fabulous.Avalonia
 #nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
 
 module ComponentApplication =
-    let TrayIcons =
-        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "TrayIcon_TrayIcons" (fun target ->
-            let target = target :?> FabApplication
-            let trayIcons = TrayIcon.GetIcons(target)
-
-            if trayIcons = null then
-                let trayIcons = TrayIcons()
-                TrayIcon.SetIcons(target, trayIcons)
-                trayIcons
-            else
-                trayIcons)
-
     let ActualThemeVariantChanged =
         Attributes.defineEventNoArgNoDispatch "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
@@ -73,17 +61,3 @@ type ComponentApplicationModifiers =
     [<Extension>]
     static member inline onSafeAreaChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.SafeAreaChangedArgs -> unit) =
         this.AddScalar(ComponentApplication.SafeAreaChanged.WithValue(fn))
-
-type ComponentTrayIconAttachedModifiers =
-    /// <summary>Sets the tray icons for the application.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'msg: equality and 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, ComponentApplication.TrayIcons)
-
-    /// <summary>Sets the tray icon for the application.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="trayIcon">The TrayIcon value</param>
-    [<Extension>]
-    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, IFabTrayIcon>) =
-        AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>(this, ComponentApplication.TrayIcons) { trayIcon }

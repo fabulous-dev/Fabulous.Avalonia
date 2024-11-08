@@ -30,7 +30,7 @@ type MvuAutoCompleteBoxModifiers =
     /// <param name="fn">A function mapping the updated text to a 'msg to raise on user change.</param>
     [<Extension>]
     static member inline onTextChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string, fn: string -> 'msg) =
-        this.AddScalar(MvuAutoCompleteBox.Text.WithValue(MvuValueEventData.create value fn))
+        this.AddScalar(MvuAutoCompleteBox.Text.WithValue(ValueEventData.create value fn))
 
     [<Extension>]
     static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: PopulatingEventArgs -> 'msg) =
@@ -49,7 +49,7 @@ type MvuAutoCompleteBoxModifiers =
     /// <param name="fn">Raised when the AutoCompleteBox DropDownOpened event is fired.</param>
     [<Extension>]
     static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, isOpen: bool, fn: bool -> 'msg) =
-        this.AddScalar(MvuAutoCompleteBox.DropDownOpened.WithValue(MvuValueEventData.create isOpen fn))
+        this.AddScalar(MvuAutoCompleteBox.DropDownOpened.WithValue(ValueEventData.create isOpen fn))
 
     /// <summary>Listens to the AutoCompleteBox SelectionChanged event.</summary>
     /// <param name="this">Current widget.</param>

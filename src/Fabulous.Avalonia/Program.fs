@@ -36,7 +36,7 @@ module ViewHelpers =
             if isNull def.TargetType then
                 true
             else if def.TargetType.IsAssignableTo(typeof<TextBlock>) then
-                canReuseMvuTextBlock prev curr
+                canReuseTextBlock prev curr
             else
                 true
         else
@@ -57,15 +57,13 @@ module ViewHelpers =
     /// Except when switching between the two, Avalonia will automatically clear out the other property
     /// Depending on the order of execution, this can lead to a de-sync between Avalonia and Fabulous
     /// So, it's better to not reuse a TextBlock when we are about to switch between Text and Inlines
-    and canReuseMvuTextBlock (prev: Widget) (curr: Widget) =
+    and canReuseTextBlock (prev: Widget) (curr: Widget) =
         let switchingFromTextToInlines =
             (tryGetScalarValue prev TextBlock.Text).IsSome
-            && (tryGetWidgetCollectionValue curr MvuTextBlock.Inlines)
-                .IsSome
+            && (tryGetWidgetCollectionValue curr TextBlock.Inlines).IsSome
 
         let switchingFromInlinesToText =
-            (tryGetWidgetCollectionValue prev MvuTextBlock.Inlines)
-                .IsSome
+            (tryGetWidgetCollectionValue prev TextBlock.Inlines).IsSome
             && (tryGetScalarValue curr TextBlock.Text).IsSome
 
         not switchingFromTextToInlines && not switchingFromInlinesToText

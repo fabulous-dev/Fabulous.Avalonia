@@ -28,4 +28,4 @@ type MvuSelectingItemsControlModifiers =
     /// <param name="fn">Raised when the control's selected index changes.</param>
     [<Extension>]
     static member inline onSelectedIndexChanged(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, index: int, fn: int -> 'msg) =
-        this.AddScalar(MvuSelectingItemsControl.SelectedIndexChanged.WithValue(MvuValueEventData.create index fn))
+        this.AddScalar(MvuSelectingItemsControl.SelectedIndexChanged.WithValue(ValueEventData.create index fn))

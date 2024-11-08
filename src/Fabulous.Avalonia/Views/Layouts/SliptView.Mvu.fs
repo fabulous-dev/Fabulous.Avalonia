@@ -58,4 +58,4 @@ type MvuSplitViewModifiers =
     /// <param name="fn">Raised when the IsPresented event fires.</param>
     [<Extension>]
     static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> 'msg) =
-        this.AddScalar(MvuSplitView.IsPresented.WithValue(MvuValueEventData.create value fn))
+        this.AddScalar(MvuSplitView.IsPresented.WithValue(ValueEventData.create value fn))

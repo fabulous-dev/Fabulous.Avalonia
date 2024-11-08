@@ -26,7 +26,7 @@ module MvuToggleButtonBuilders =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
+                MvuToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a ThreeStateToggleButton widget.</summary>
@@ -38,9 +38,7 @@ module MvuToggleButtonBuilders =
                 ToggleButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 ToggleButton.IsThreeState.WithValue(true),
-                MvuToggleButton.ThreeStateCheckedChanged.WithValue(
-                    MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                MvuToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )
 
         /// <summary>Creates a ToggleButton widget.</summary>
@@ -51,7 +49,7 @@ module MvuToggleButtonBuilders =
             WidgetBuilder<'msg, IFabToggleButton>(
                 ToggleButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),
+                    StackList.one(MvuToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -67,7 +65,7 @@ module MvuToggleButtonBuilders =
                 AttributesBundle(
                     StackList.two(
                         MvuToggleButton.ThreeStateCheckedChanged.WithValue(
-                            MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
+                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
                         ),
                         ToggleButton.IsThreeState.WithValue(true)
                     ),

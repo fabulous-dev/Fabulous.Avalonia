@@ -10,6 +10,17 @@ type IFabItemsControl =
 module ItemsControl =
     let WidgetKey = Widgets.register<ItemsControl>()
 
+    let Items =
+        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
+            let target = target :?> ItemsControl
+
+            if target.Items = null then
+                let newColl = ItemCollection.Empty
+                target.Items.Add newColl |> ignore
+                newColl
+            else
+                target.Items)
+
 
     let ItemsSourceTemplate =
         Attributes.defineSimpleScalar<WidgetItems>

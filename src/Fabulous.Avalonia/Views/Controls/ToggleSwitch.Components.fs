@@ -5,18 +5,6 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 
-module ComponentToggleSwitch =
-    let KnobTransitions =
-        Attributes.defineAvaloniaListWidgetCollectionNoDispatch "ToggleSwitch_KnobTransitions" (fun target ->
-            let target = (target :?> ToggleSwitch)
-
-            if target.Transitions = null then
-                let newColl = Transitions()
-                target.Transitions <- newColl
-                newColl
-            else
-                target.Transitions)
-
 [<AutoOpen>]
 module ComponentToggleSwitchBuilders =
     type Fabulous.Avalonia.View with

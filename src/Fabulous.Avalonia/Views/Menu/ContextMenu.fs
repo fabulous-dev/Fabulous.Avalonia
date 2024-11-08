@@ -40,6 +40,23 @@ module ContextMenu =
     let WindowManagerAddShadowHint =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
 
+[<AutoOpen>]
+module ContextMenuBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ContextMenu widget.</summary>
+        /// <param name="placement">The placement mode of the ContextMenu.</param>
+        static member ContextMenu(placement: PlacementMode) =
+            CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, ItemsControl.Items, ContextMenu.Placement.WithValue(placement))
+
+        /// <summary>Creates a ContextMenu widget.</summary>
+        static member ContextMenu() =
+            CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
+                ContextMenu.WidgetKey,
+                ItemsControl.Items,
+                ContextMenu.Placement.WithValue(PlacementMode.Bottom)
+            )
+
 type ContextMenuModifiers =
     /// <summary>Sets the HorizontalOffset property.</summary>
     /// <param name="this">Current widget.</param>

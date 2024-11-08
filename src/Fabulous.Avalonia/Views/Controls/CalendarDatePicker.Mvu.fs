@@ -33,7 +33,7 @@ module MvuCalendarDatePickerBuilders =
         static member CalendarDatePicker(date: DateTime option, fn: DateTime option -> 'msg) =
             WidgetBuilder<'msg, IFabCalendarDatePicker>(
                 CalendarDatePicker.WidgetKey,
-                MvuCalendarDatePicker.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
+                MvuCalendarDatePicker.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
 type MvuCalendarDatePickerModifiers =

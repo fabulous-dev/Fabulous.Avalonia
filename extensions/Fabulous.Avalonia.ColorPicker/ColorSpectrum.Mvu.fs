@@ -16,4 +16,4 @@ module MvuColorSpectrumBuilders =
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
         static member ColorSpectrum(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, MvuColorSpectrum.ColorChanged.WithValue(MvuValueEventData.create color fn))
+            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, MvuColorSpectrum.ColorChanged.WithValue(ValueEventData.create color fn))

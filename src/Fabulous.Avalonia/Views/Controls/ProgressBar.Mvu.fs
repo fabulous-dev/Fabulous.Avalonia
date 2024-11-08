@@ -18,5 +18,5 @@ module MvuProgressBarBuilders =
             WidgetBuilder<'msg, IFabProgressBar>(
                 ProgressBar.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),
-                MvuRangeBase.ValueChanged.WithValue(MvuValueEventData.create value fn)
+                MvuRangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )

@@ -25,13 +25,12 @@ module CanvasBuilders =
 
         /// <summary>Creates a Canvas widget.</summary>
         static member Canvas() =
-            CollectionBuilder<'msg, IFabCanvas, IFabControl>(Canvas.WidgetKey, ComponentPanel.Children)
+            CollectionBuilder<'msg, IFabCanvas, IFabControl>(Canvas.WidgetKey, Panel.Children)
 
         /// <summary>Creates a Canvas widget.</summary>
         /// <param name="viewRef">The ViewRef instance that will receive access to the underlying control.</param>
         static member Canvas(viewRef: ViewRef<Canvas>) =
             WidgetBuilder<'msg, IFabCanvas>(Canvas.WidgetKey, ViewRefAttributes.ViewRef.WithValue(viewRef.Unbox))
-
 
 type CanvasModifiers =
     /// <summary>Sets the Left property.</summary>
@@ -66,5 +65,5 @@ type CanvasModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabCanvas>, value: ViewRef<Canvas>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabCanvas>, value: ViewRef<Canvas>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

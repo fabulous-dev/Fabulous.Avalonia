@@ -9,14 +9,6 @@ module ComponentComboBox =
     let DropDownOpened =
         Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "Opened" ComboBox.IsDropDownOpenProperty
 
-
-[<AutoOpen>]
-module ComponentComboBoxBuilders =
-    type Fabulous.Avalonia.View with
-        /// <summary>Creates a ComboBox widget.</summary>
-        static member ComboBox() =
-            CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ComponentItemsControl.Items)
-
 type ComponentComboBoxModifiers =
     /// <summary>Listens to the ComboBox DropDownOpened event.</summary>
     /// <param name="this">Current widget.</param>

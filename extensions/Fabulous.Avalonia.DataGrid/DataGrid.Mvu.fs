@@ -9,8 +9,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 module MvuDataGrid =
-    let Columns =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "DataGrid_Columns" (fun target -> (target :?> DataGrid).Columns :> IList)
 
     let HorizontalScroll =
         Attributes.defineEvent "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)
@@ -74,15 +72,6 @@ module MvuDataGrid =
 
     let UnloadingRowDetails =
         Attributes.defineEvent "DataGrid_UnloadingRowDetails" (fun target -> (target :?> DataGrid).UnloadingRowDetails)
-
-
-[<AutoOpen>]
-module MvuDataGridBuilders =
-    type Fabulous.Avalonia.View with
-        /// <summary>Creates a CustomDataGrid widget.</summary>
-        /// <param name="items">The items to display.</param>
-        static member CustomDataGrid(items: #IEnumerable) =
-            CollectionBuilder<'msg, IFabDataGrid, IFabDataGridColumn>(DataGrid.WidgetKey, MvuDataGrid.Columns, DataGrid.Items.WithValue(items))
 
 type MvuDataGridModifiers =
     /// <summary>Listens to the HorizontalScroll Scroll event.</summary>

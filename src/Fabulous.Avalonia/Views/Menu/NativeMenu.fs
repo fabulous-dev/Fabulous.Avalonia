@@ -11,6 +11,17 @@ type IFabNativeMenu =
 module NativeMenu =
     let WidgetKey = Widgets.register<NativeMenu>()
 
+    let Items =
+        Attributes.defineAvaloniaListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
+
+[<AutoOpen>]
+module NativeMenuBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a NativeMenu widget</summary>
+        static member NativeMenu() =
+            CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, NativeMenu.Items)
+
 module NativeMenuAttached =
     let NativeMenu = Attributes.defineAvaloniaPropertyWidget NativeMenu.MenuProperty
 

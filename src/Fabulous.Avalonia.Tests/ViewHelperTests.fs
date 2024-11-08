@@ -50,7 +50,7 @@ type ViewHelpers() =
                   WidgetAttributes = ValueNone
                   WidgetCollectionAttributes =
                     ValueSome
-                        [| { Key = MvuTextBlock.Inlines.Key
+                        [| { Key = TextBlock.Inlines.Key
                              Value = ArraySlice.emptyWithNull() } |] }
 
             let actual = ViewHelpers.canReuseView prev curr
@@ -68,7 +68,7 @@ type ViewHelpers() =
                   WidgetAttributes = ValueNone
                   WidgetCollectionAttributes =
                     ValueSome
-                        [| { Key = MvuTextBlock.Inlines.Key
+                        [| { Key = TextBlock.Inlines.Key
                              Value = ArraySlice.emptyWithNull() } |] }
 
             let curr =

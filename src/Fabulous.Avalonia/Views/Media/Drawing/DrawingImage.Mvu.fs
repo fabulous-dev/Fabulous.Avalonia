@@ -9,17 +9,6 @@ module MvuDrawingImage =
     let Invalidated =
         Attributes.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
 
-[<AutoOpen>]
-module MvuDrawingImageBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a DrawingImage widget.</summary>
-        /// <param name="source">The source of the drawing.</param>
-        static member DrawingImage(source: WidgetBuilder<'msg, #IFabDrawing>) =
-            WidgetBuilder<'msg, IFabDrawingImage>(
-                DrawingImage.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| DrawingImage.Drawing.WithValue(source.Compile()) |], ValueNone)
-            )
 
 type MvuDrawingImageModifiers =
     /// <summary>Listens the DrawingImage Invalidated event.</summary>

@@ -78,6 +78,24 @@ module Grid =
     let IsSharedSizeScope =
         Attributes.defineAvaloniaPropertyWithEquality Grid.IsSharedSizeScopeProperty
 
+[<AutoOpen>]
+module GridBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Grid widget.</summary>
+        /// <param name="coldefs">Column definitions.</param>
+        /// <param name="rowdefs">Row definitions.</param>
+        static member Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
+            CollectionBuilder<'msg, IFabGrid, IFabControl>(
+                Grid.WidgetKey,
+                Panel.Children,
+                Grid.ColumnDefinitions.WithValue(Array.ofSeq coldefs),
+                Grid.RowDefinitions.WithValue(Array.ofSeq rowdefs)
+            )
+
+        /// <summary>Creates a Grid widget with a single column and row.</summary>
+        static member Grid() = View.Grid([ Star ], [ Star ])
+
 type GridModifiers =
     /// <summary>Sets the ShowGridLines property.</summary>
     /// <param name="this">Current widget.</param>
@@ -90,7 +108,7 @@ type GridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabGrid>, value: ViewRef<Grid>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabGrid>, value: ViewRef<Grid>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type GridAttachedModifiers =

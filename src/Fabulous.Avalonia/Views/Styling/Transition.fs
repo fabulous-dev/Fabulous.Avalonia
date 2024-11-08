@@ -43,7 +43,7 @@ type TransitionBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabTransition>, value: ViewRef<#TransitionBase>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabTransition>, value: ViewRef<#TransitionBase>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabDoubleTransition =
@@ -339,3 +339,17 @@ type TransitionBaseCollectionBuilderExtensions =
         (_: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
+
+type TransitionCollectionModifiers =
+    /// <summary>Sets the Transitions property.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>) =
+        AttributeCollectionBuilder<'msg, #IFabAnimatable, #IFabTransition>(this, Animatable.Transitions)
+
+    /// <summary>Sets the Transition property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Transition value.</param>
+    [<Extension>]
+    static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabTransition>) =
+        TransitionCollectionModifiers.transition(this) { value }

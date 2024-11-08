@@ -47,6 +47,31 @@ module MenuItemBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
             )
 
+[<AutoOpen>]
+module MenuItemsBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a MenuItems widget.</summary>
+        static member MenuItems() =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items)
+
+        /// <summary>Creates a MenuItems widget.</summary>
+        static member MenuItems(header: WidgetBuilder<'msg, #IFabControl>) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
+                MenuItem.WidgetKey,
+                ItemsControl.Items,
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
+            )
+
+        /// <summary>Creates a MenuItems widget.</summary>
+        /// <param name="header">The header of the menu item.</param>
+        static member MenuItems(header: string) =
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
+                MenuItem.WidgetKey,
+                ItemsControl.Items,
+                AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone)
+            )
+
 type MenuItemModifiers =
     /// <summary>Sets the HotKey property.</summary>
     /// <param name="this">Current widget.</param>
@@ -94,7 +119,7 @@ type MenuItemModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabMenuItem>, value: ViewRef<MenuItem>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabMenuItem>, value: ViewRef<MenuItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type MenuItemCollectionBuilderExtensions =

@@ -25,7 +25,7 @@ module MvuNumericUpDownBuilders =
                         | Some v -> Some(decimal v)
                         | None -> None
 
-                    MvuValueEventData.create value (Option.map float >> fn)
+                    ValueEventData.create value (Option.map float >> fn)
                 )
             )
 
@@ -44,6 +44,6 @@ module MvuNumericUpDownBuilders =
                         | Some v -> Some(decimal v)
                         | None -> None
 
-                    MvuValueEventData.create value (Option.map float >> fn)
+                    ValueEventData.create value (Option.map float >> fn)
                 )
             )

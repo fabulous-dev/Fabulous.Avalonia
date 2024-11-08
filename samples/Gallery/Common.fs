@@ -102,7 +102,7 @@ module HamburgerMenuExtBuilders =
     type Fabulous.Avalonia.View with
 
         static member HamburgerMenu() =
-            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenuExt.WidgetKey, MvuItemsControl.Items)
+            CollectionBuilder<'msg, IFabHamburgerMenu, IFabTabItem>(HamburgerMenuExt.WidgetKey, ItemsControl.Items)
 
 type HamburgerMenuModifiers =
     [<Extension>]

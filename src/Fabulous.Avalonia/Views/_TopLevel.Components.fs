@@ -58,32 +58,3 @@ type ComponentTopLevelModifiers =
     [<Extension>]
     static member inline onScalingChanged(this: WidgetBuilder<'msg, #IFabTopLevel>, fn: unit -> unit) =
         this.AddScalar(ComponentTopLevel.ScalingChanged.WithValue(fn))
-
-type ComponentTopLevelExtraModifiers =
-    /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyBackgroundFallback value.</param>
-    [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: Color) =
-        TopLevelModifiers.transparencyBackgroundFallback(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the TransparencyBackgroundFallback property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The TransparencyBackgroundFallback value.</param>
-    [<Extension>]
-    static member inline transparencyBackgroundFallback(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
-        TopLevelModifiers.transparencyBackgroundFallback(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the SystemBarColor property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The SystemBarColor value.</param>
-    [<Extension>]
-    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: Color) =
-        TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the SystemBarColor property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The SystemBarColor value.</param>
-    [<Extension>]
-    static member inline systemBarColor(this: WidgetBuilder<'msg, #IFabTopLevel>, value: string) =
-        TopLevelModifiers.systemBarColor(this, View.SolidColorBrush(value))

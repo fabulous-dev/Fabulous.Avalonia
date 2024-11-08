@@ -5,18 +5,6 @@ open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
 
-module MvuToggleSwitch =
-    let KnobTransitions =
-        Attributes.defineAvaloniaListWidgetCollection "ToggleSwitch_KnobTransitions" (fun target ->
-            let target = (target :?> ToggleSwitch)
-
-            if target.Transitions = null then
-                let newColl = Transitions()
-                target.Transitions <- newColl
-                newColl
-            else
-                target.Transitions)
-
 [<AutoOpen>]
 module MvuToggleSwitchBuilders =
     type Fabulous.Avalonia.View with
@@ -28,7 +16,7 @@ module MvuToggleSwitchBuilders =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(false),
-                MvuToggleButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
+                MvuToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a ThreeStateToggleSwitch widget.</summary>
@@ -38,7 +26,5 @@ module MvuToggleSwitchBuilders =
             WidgetBuilder<'msg, IFabToggleSwitch>(
                 ToggleSwitch.WidgetKey,
                 ToggleButton.IsThreeState.WithValue(true),
-                MvuToggleButton.ThreeStateCheckedChanged.WithValue(
-                    MvuValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                )
+                MvuToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
             )

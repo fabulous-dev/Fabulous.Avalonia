@@ -27,7 +27,7 @@ module MvuCalendarBuilders =
             WidgetBuilder<'msg, IFabCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(CalendarSelectionMode.SingleDate),
-                MvuCalendar.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
+                MvuCalendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
         /// <summary>Creates a Calendar widget.</summary>
@@ -38,7 +38,7 @@ module MvuCalendarBuilders =
             WidgetBuilder<'msg, IFabCalendar>(
                 Calendar.WidgetKey,
                 Calendar.SelectionMode.WithValue(mode),
-                MvuCalendar.SelectedDateChanged.WithValue(MvuValueEventData.create date fn)
+                MvuCalendar.SelectedDateChanged.WithValue(ValueEventData.create date fn)
             )
 
 type MvuCalendarModifiers =

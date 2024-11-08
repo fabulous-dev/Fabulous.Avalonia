@@ -48,24 +48,12 @@ module MvuMenuItemsBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a MenuItems widget.</summary>
-        static member MenuItems() =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, MvuItemsControl.Items)
-
-        /// <summary>Creates a MenuItems widget.</summary>
-        static member MenuItems(header: WidgetBuilder<'msg, #IFabControl>) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                MvuItemsControl.Items,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItems(header: WidgetBuilder<'msg, #IFabControl>, onClick: RoutedEventArgs -> 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
-                MvuItemsControl.Items,
+                ItemsControl.Items,
                 AttributesBundle(
                     StackList.one(MvuMenuItem.Clicked.WithValue(onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
@@ -75,20 +63,11 @@ module MvuMenuItemsBuilders =
 
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="header">The header of the menu item.</param>
-        static member MenuItems(header: string) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                MvuItemsControl.Items,
-                AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone)
-            )
-
-        /// <summary>Creates a MenuItems widget.</summary>
-        /// <param name="header">The header of the menu item.</param>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member MenuItems(header: string, onClick: RoutedEventArgs -> 'msg) =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
-                MvuItemsControl.Items,
+                ItemsControl.Items,
                 AttributesBundle(
                     StackList.two(MvuMenuItem.Clicked.WithValue(onClick), HeaderedContentControl.HeaderString.WithValue(header)),
                     ValueNone,
@@ -99,7 +78,7 @@ module MvuMenuItemsBuilders =
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="onClick">Raised when the menu item is clicked.</param>
         static member inline MenuItems(onClick: RoutedEventArgs -> 'msg) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, MvuItemsControl.Items, MvuMenuItem.Clicked.WithValue(onClick))
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items, MvuMenuItem.Clicked.WithValue(onClick))
 
 type MvuMenuItemModifiers =
     /// <summary>Listens to the MenuItem PointerEnteredItem event.</summary>

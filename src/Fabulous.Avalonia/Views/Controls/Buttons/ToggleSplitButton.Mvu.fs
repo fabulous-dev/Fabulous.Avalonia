@@ -21,7 +21,7 @@ module MvuToggleSplitButtonBuilders =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
-                MvuToggleSplitButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)
+                MvuToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
             )
 
         /// <summary>Creates a ToggleSplitButton widget.</summary>
@@ -32,7 +32,7 @@ module MvuToggleSplitButtonBuilders =
             WidgetBuilder<'msg, IFabToggleSplitButton>(
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
-                    StackList.one(MvuToggleSplitButton.CheckedChanged.WithValue(MvuValueEventData.create isChecked fn)),
+                    StackList.one(MvuToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )

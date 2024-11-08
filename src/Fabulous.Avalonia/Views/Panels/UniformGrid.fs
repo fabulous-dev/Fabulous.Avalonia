@@ -18,6 +18,46 @@ module UniformGrid =
     let FirstColumn =
         Attributes.defineAvaloniaPropertyWithEquality UniformGrid.FirstColumnProperty
 
+[<AutoOpen>]
+module UniformGridBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a UniformGrid widget.</summary>
+        /// <param name="cols">The number of columns in the grid.</param>
+        /// <param name="rows">The number of rows in the grid.</param>
+        static member UniformGrid(?cols: int, ?rows: int) =
+            match cols, rows with
+            | Some cols, Some rows ->
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
+                    UniformGrid.WidgetKey,
+                    Panel.Children,
+                    UniformGrid.Columns.WithValue(cols),
+                    UniformGrid.Rows.WithValue(rows)
+                )
+            | Some cols, None ->
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
+                    UniformGrid.WidgetKey,
+                    Panel.Children,
+                    UniformGrid.Columns.WithValue(cols),
+                    UniformGrid.Rows.WithValue(0)
+                )
+
+            | None, Some rows ->
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
+                    UniformGrid.WidgetKey,
+                    Panel.Children,
+                    UniformGrid.Columns.WithValue(0),
+                    UniformGrid.Rows.WithValue(rows)
+                )
+
+            | None, None ->
+                CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
+                    UniformGrid.WidgetKey,
+                    Panel.Children,
+                    UniformGrid.Columns.WithValue(0),
+                    UniformGrid.Rows.WithValue(0)
+                )
+
 type UniformGridModifiers =
     /// <summary>Sets the FirstColumn property.</summary>
     /// <param name="this">Current widget.</param>
@@ -30,5 +70,5 @@ type UniformGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabUniformGrid>, value: ViewRef<UniformGrid>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabUniformGrid>, value: ViewRef<UniformGrid>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

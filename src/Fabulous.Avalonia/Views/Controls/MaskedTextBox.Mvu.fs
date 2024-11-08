@@ -20,5 +20,5 @@ module MvuMaskedTextBoxBuilders =
             WidgetBuilder<'msg, IFabMaskedTextBox>(
                 MaskedTextBox.WidgetKey,
                 MaskedTextBox.Mask.WithValue(mask),
-                MvuMaskedTextBox.TextChanged.WithValue(MvuValueEventData.create text fn)
+                MvuMaskedTextBox.TextChanged.WithValue(ValueEventData.create text fn)
             )

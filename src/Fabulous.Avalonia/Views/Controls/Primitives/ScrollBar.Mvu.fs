@@ -22,7 +22,7 @@ module MvuScrollBarBuilders =
             WidgetBuilder<'msg, IFabScrollBar>(
                 ScrollBar.WidgetKey,
                 RangeBase.MinimumMaximum.WithValue(struct (min, max)),
-                MvuRangeBase.ValueChanged.WithValue(MvuValueEventData.create value fn)
+                MvuRangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
             )
 
 type MvuScrollBarModifiers =

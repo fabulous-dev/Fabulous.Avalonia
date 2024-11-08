@@ -6,17 +6,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 module ComponentItemsControl =
-    let Items =
-        Attributes.defineAvaloniaNonGenericListWidgetCollectionNoDispatch "ItemsControl_Items" (fun target ->
-            let target = target :?> ItemsControl
-
-            if target.Items = null then
-                let newColl = ItemCollection.Empty
-                target.Items.Add newColl |> ignore
-                newColl
-            else
-                target.Items)
-
     let ContainerClearing =
         Attributes.defineEventNoDispatch "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
 

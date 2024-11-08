@@ -3,6 +3,7 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
 open Fabulous
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabThumb =
     inherit IFabTemplatedControl
@@ -10,6 +11,21 @@ type IFabThumb =
 module Thumb =
     let WidgetKey = Widgets.register<Thumb>()
 
+[<AutoOpen>]
+module ThumbBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a Thumb widget.</summary>
+        static member Thumb() =
+            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
+        /// <summary>Creates a Thumb widget.</summary>
+        /// <param name="template">The template to use for the Thumb.</param>
+        static member Thumb(template: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabThumb>(
+                Thumb.WidgetKey,
+                AttributesBundle(StackList.one(TemplatedControl.Template.WithValue(template.Compile())), ValueNone, ValueNone)
+            )
 
 type ThumbModifiers =
 
@@ -17,5 +33,5 @@ type ThumbModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabThumb>, value: ViewRef<Thumb>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabThumb>, value: ViewRef<Thumb>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

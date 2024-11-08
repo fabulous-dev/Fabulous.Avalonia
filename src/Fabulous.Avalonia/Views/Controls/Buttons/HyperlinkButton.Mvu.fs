@@ -24,7 +24,7 @@ module MvuHyperlinkButtonBuilders =
                 HyperlinkButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 HyperlinkButton.NavigateUri.WithValue(uri),
-                MvuHyperlinkButton.IsVisitedChanged.WithValue(MvuValueEventData.create isVisited fn)
+                MvuHyperlinkButton.IsVisitedChanged.WithValue(ValueEventData.create isVisited fn)
             )
 
         /// <summary>Creates a HyperlinkButton widget.</summary>
@@ -37,7 +37,7 @@ module MvuHyperlinkButtonBuilders =
                 HyperlinkButton.WidgetKey,
                 ContentControl.ContentString.WithValue(text),
                 HyperlinkButton.NavigateUri.WithValue(Uri(uri)),
-                MvuHyperlinkButton.IsVisitedChanged.WithValue(MvuValueEventData.create isVisited fn)
+                MvuHyperlinkButton.IsVisitedChanged.WithValue(ValueEventData.create isVisited fn)
             )
 
         /// <summary>Creates a HyperlinkButton widget.</summary>
@@ -49,10 +49,7 @@ module MvuHyperlinkButtonBuilders =
             WidgetBuilder<'msg, IFabHyperlinkButton>(
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
-                    StackList.two(
-                        HyperlinkButton.NavigateUri.WithValue(uri),
-                        MvuHyperlinkButton.IsVisitedChanged.WithValue(MvuValueEventData.create isVisited fn)
-                    ),
+                    StackList.two(HyperlinkButton.NavigateUri.WithValue(uri), MvuHyperlinkButton.IsVisitedChanged.WithValue(ValueEventData.create isVisited fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone
                 )
@@ -69,7 +66,7 @@ module MvuHyperlinkButtonBuilders =
                 AttributesBundle(
                     StackList.two(
                         HyperlinkButton.NavigateUri.WithValue(Uri(uri)),
-                        MvuHyperlinkButton.IsVisitedChanged.WithValue(MvuValueEventData.create isVisited fn)
+                        MvuHyperlinkButton.IsVisitedChanged.WithValue(ValueEventData.create isVisited fn)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
                     ValueNone

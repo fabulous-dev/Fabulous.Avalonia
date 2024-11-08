@@ -23,7 +23,7 @@ type MvuExpanderModifiers =
     /// <param name="fn">Raised when the ExpandedChanged event fires.</param>
     [<Extension>]
     static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, fn: bool -> 'msg) =
-        this.AddScalar(MvuExpander.ExpandedChanged.WithValue(MvuValueEventData.create isExpanded fn))
+        this.AddScalar(MvuExpander.ExpandedChanged.WithValue(ValueEventData.create isExpanded fn))
 
     /// <summary>Listens to the Expander Collapsing event.</summary>
     /// <param name="this">Current widget.</param>

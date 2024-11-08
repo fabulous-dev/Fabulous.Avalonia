@@ -37,11 +37,11 @@ module ComponentValueEventData =
     let createVOption (value: 'data voption) (event: 'eventArgs -> unit) = { Value = value; Event = event }
 
 [<Struct>]
-type MvuValueEventData<'data, 'eventArgs> =
+type ValueEventData<'data, 'eventArgs> =
     { Value: 'data voption
       Event: 'eventArgs -> MsgValue }
 
-module MvuValueEventData =
+module ValueEventData =
     let create (value: 'data) (event: 'eventArgs -> 'msg) =
         { Value = ValueSome value
           Event = event >> box >> MsgValue }
@@ -155,12 +155,12 @@ module Attributes =
         (property: AvaloniaProperty<'valueType>)
         ([<InlineIfLambda>] convertToValue: 'modelType -> 'valueType)
         ([<InlineIfLambda>] convertToModel: 'valueType -> 'modelType)
-        : SimpleScalarAttributeDefinition<MvuValueEventData<'modelType, 'modelType>> =
+        : SimpleScalarAttributeDefinition<ValueEventData<'modelType, 'modelType>> =
 
         let key =
             SimpleScalarAttributeDefinition.CreateAttributeData(
                 ScalarAttributeComparers.noCompare,
-                (fun oldValueOpt (newValueOpt: MvuValueEventData<'modelType, 'modelType> voption) node ->
+                (fun oldValueOpt (newValueOpt: ValueEventData<'modelType, 'modelType> voption) node ->
                     let target = node.Target :?> AvaloniaObject
 
                     // The attribute is no longer applied, so we clean up the event
@@ -204,7 +204,7 @@ module Attributes =
 
         { Key = key; Name = name }
 
-    let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<MvuValueEventData<'T, 'T>> =
+    let defineAvaloniaPropertyWithChangedEvent'<'T> name (property: AvaloniaProperty<'T>) : SimpleScalarAttributeDefinition<ValueEventData<'T, 'T>> =
         defineAvaloniaPropertyWithChangedEvent<'T, 'T> name property id id
 
     let defineAvaloniaPropertyWithChangedEventNoDispatch<'modelType, 'valueType>
@@ -476,117 +476,6 @@ module Attributes =
 
                     // Trigger the mounted event for the new child
                     Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
-
-                | _ -> ()
-
-        let updateNode _ (newValueOpt: ArraySlice<Widget> voption) (node: IViewNode) =
-            let targetColl = getCollection node.Target
-            targetColl.Clear()
-
-            match newValueOpt with
-            | ValueNone -> ()
-            | ValueSome widgets ->
-                for widget in ArraySlice.toSpan widgets do
-                    let struct (_, view) = Helpers.createViewForWidget node widget
-
-                    targetColl.Add(unbox view)
-
-        Attributes.defineWidgetCollection name applyDiff updateNode
-
-    let inline defineAvaloniaNonGenericListWidgetCollectionNoDispatch name ([<InlineIfLambda>] getCollection: obj -> System.Collections.IList) =
-        let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
-            let targetColl = getCollection node.Target
-
-            for diff in diffs do
-                match diff with
-                | WidgetCollectionItemChange.Remove(index, _) ->
-                    let itemNode = node.TreeContext.GetViewNode(targetColl[index])
-
-                    itemNode.Dispose()
-
-                    // Remove the child from the UI tree
-                    targetColl.RemoveAt(index)
-
-                | _ -> ()
-
-            for diff in diffs do
-                match diff with
-                | WidgetCollectionItemChange.Insert(index, widget) ->
-                    let struct (_, view) = Helpers.createViewForWidget node widget
-
-                    // Insert the new child into the UI tree
-                    targetColl.Insert(index, unbox view)
-
-                | WidgetCollectionItemChange.Update(index, widgetDiff) ->
-                    let childNode = node.TreeContext.GetViewNode(targetColl[index])
-
-                    childNode.ApplyDiff(&widgetDiff)
-
-                | WidgetCollectionItemChange.Replace(index, _, newWidget) ->
-                    let prevItemNode = node.TreeContext.GetViewNode(targetColl[index])
-
-                    let struct (_, view) = Helpers.createViewForWidget node newWidget
-
-                    prevItemNode.Dispose()
-
-                    // Replace the existing child in the UI tree at the index with the new one
-                    targetColl[index] <- view
-                | _ -> ()
-
-        let updateNode _ (newValueOpt: ArraySlice<Widget> voption) (node: IViewNode) =
-            let targetColl = getCollection node.Target
-            targetColl.Clear()
-
-            match newValueOpt with
-            | ValueNone -> ()
-            | ValueSome widgets ->
-                for widget in ArraySlice.toSpan widgets do
-                    let struct (_, view) = Helpers.createViewForWidget node widget
-
-                    targetColl.Add(view) |> ignore
-
-        Attributes.defineWidgetCollection name applyDiff updateNode
-
-    /// Define an attribute storing a collection of Widget for a AvaloniaList<T> property
-    let defineAvaloniaListWidgetCollectionNoDispatch<'itemType> name (getCollection: obj -> System.Collections.Generic.IList<'itemType>) =
-        let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
-            let targetColl = getCollection node.Target
-
-            for diff in diffs do
-                match diff with
-                | WidgetCollectionItemChange.Remove(index, _) ->
-                    let itemNode = node.TreeContext.GetViewNode(box targetColl[index])
-
-                    itemNode.Dispose()
-
-                    // Remove the child from the UI tree
-                    targetColl.RemoveAt(index)
-
-                | _ -> ()
-
-            for diff in diffs do
-                match diff with
-                | WidgetCollectionItemChange.Insert(index, widget) ->
-                    let struct (_, view) = Helpers.createViewForWidget node widget
-
-                    // Insert the new child into the UI tree
-                    targetColl.Insert(index, unbox view)
-
-                | WidgetCollectionItemChange.Update(index, widgetDiff) ->
-                    let childNode = node.TreeContext.GetViewNode(box targetColl[index])
-
-                    childNode.ApplyDiff(&widgetDiff)
-
-                | WidgetCollectionItemChange.Replace(index, _, newWidget) ->
-                    let prevItemNode = node.TreeContext.GetViewNode(box targetColl[index])
-
-                    let struct (_, view) = Helpers.createViewForWidget node newWidget
-
-                    // Trigger the unmounted event for the old child
-                    prevItemNode.Dispose()
-
-                    // Replace the existing child in the UI tree at the index with the new one
-                    targetColl[index] <- unbox view
 
                 | _ -> ()
 

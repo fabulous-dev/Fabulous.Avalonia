@@ -10,18 +10,6 @@ open Fabulous.Avalonia
 
 
 module MvuApplication =
-    let TrayIcons =
-        Attributes.defineAvaloniaListWidgetCollection "TrayIcon_TrayIcons" (fun target ->
-            let target = target :?> FabApplication
-            let trayIcons = TrayIcon.GetIcons(target)
-
-            if trayIcons = null then
-                let trayIcons = TrayIcons()
-                TrayIcon.SetIcons(target, trayIcons)
-                trayIcons
-            else
-                trayIcons)
-
     let ActualThemeVariantChanged =
         Attributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
@@ -74,17 +62,3 @@ type MvuApplicationModifiers =
     [<Extension>]
     static member inline onSafeAreaChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: Platform.SafeAreaChangedArgs -> 'msg) =
         this.AddScalar(MvuApplication.SafeAreaChanged.WithValue(fn))
-
-type MvuTrayIconAttachedModifiers =
-    /// <summary>Sets the tray icons for the application.</summary>
-    /// <param name="this">Current widget.</param>
-    [<Extension>]
-    static member inline trayIcons<'msg, 'marker when 'msg: equality and 'marker :> IFabApplication>(this: WidgetBuilder<'msg, 'marker>) =
-        AttributeCollectionBuilder<'msg, 'marker, IFabTrayIcon>(this, MvuApplication.TrayIcons)
-
-    /// <summary>Sets the tray icon for the application.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="trayIcon">The TrayIcon value</param>
-    [<Extension>]
-    static member inline trayIcon(this: WidgetBuilder<'msg, #IFabApplication>, trayIcon: WidgetBuilder<'msg, #IFabTrayIcon>) =
-        AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>(this, MvuApplication.TrayIcons) { trayIcon }

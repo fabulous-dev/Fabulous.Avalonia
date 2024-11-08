@@ -7,9 +7,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 module MvuStyledElement =
-    let StylesWidget =
-        Attributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
-
     let AttachedToLogicalTree =
         Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
             (target :?> StyledElement).AttachedToLogicalTree)

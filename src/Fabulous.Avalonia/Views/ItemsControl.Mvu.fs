@@ -6,17 +6,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 module MvuItemsControl =
-    let Items =
-        Attributes.defineAvaloniaNonGenericListWidgetCollection "ItemsControl_Items" (fun target ->
-            let target = target :?> ItemsControl
-
-            if target.Items = null then
-                let newColl = ItemCollection.Empty
-                target.Items.Add newColl |> ignore
-                newColl
-            else
-                target.Items)
-
     let ContainerClearing =
         Attributes.defineEvent "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
 

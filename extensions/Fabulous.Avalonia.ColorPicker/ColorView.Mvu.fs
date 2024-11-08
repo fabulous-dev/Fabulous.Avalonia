@@ -17,4 +17,4 @@ module MvuColorViewBuilders =
         /// <param name="color">The Color value.</param>
         /// <param name="fn">Raised when the color changes.</param>
         static member ColorView(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, MvuColorView.ColorChanged.WithValue(MvuValueEventData.create color fn))
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, MvuColorView.ColorChanged.WithValue(ValueEventData.create color fn))

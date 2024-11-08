@@ -13,23 +13,6 @@ module MvuContextMenu =
     let Closing =
         Attributes.defineEventHandler "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
 
-[<AutoOpen>]
-module MvuContextMenuBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ContextMenu widget.</summary>
-        /// <param name="placement">The placement mode of the ContextMenu.</param>
-        static member ContextMenu(placement: PlacementMode) =
-            CollectionBuilder<'msg, IFabContextMenu, IFabControl>(ContextMenu.WidgetKey, MvuItemsControl.Items, ContextMenu.Placement.WithValue(placement))
-
-        /// <summary>Creates a ContextMenu widget.</summary>
-        static member ContextMenu() =
-            CollectionBuilder<'msg, IFabContextMenu, IFabControl>(
-                ContextMenu.WidgetKey,
-                MvuItemsControl.Items,
-                ContextMenu.Placement.WithValue(PlacementMode.Bottom)
-            )
-
 type MvuContextMenuModifiers =
     /// <summary>Listens to the ContextMenu Opening event.</summary>
     /// <param name="this">Current widget.</param>
