@@ -3,6 +3,7 @@ namespace RenderDemo
 open System
 open Avalonia.Animation
 open Avalonia.Controls
+open Avalonia.Media
 open Avalonia.Styling
 open Fabulous.Avalonia
 
@@ -27,13 +28,34 @@ module CustomAnimatorPage =
         Component("CustomAnimatorPage") {
             Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
             Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
-            
+
             Grid() {
                 TextBlock("")
                     .centerHorizontal()
                     .animation(
-                        Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
-                            .repeatForever()
+                        Animations() {
+                            Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
+                                .repeatForever()
+
+                            Animation(
+                                KeyFrames(
+                                    [ Setter(TranslateTransform.YProperty, -500.)
+                                      Setter(TextBlock.IsVisibleProperty, true) ]
+                                )
+                                    .cue(0),
+                                TimeSpan.FromSeconds(3)
+                            )
+
+                            Animation(
+                                KeyFrames(
+                                    [ Setter(TranslateTransform.YProperty, 0.)
+                                      Setter(TextBlock.IsVisibleProperty, true) ]
+                                )
+                                    .cue(1),
+                                TimeSpan.FromSeconds(3)
+                            )
+                        }
+
                     )
             }
         }

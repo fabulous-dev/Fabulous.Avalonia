@@ -74,6 +74,23 @@ type FabulousAppBuilder private () =
 
         FabulousAppBuilder.Configure(canReuseView, logger, syncAction, themeFn, (fun () -> (View.Component("_") { view() }).Compile()))
 
+    static member Configure(themeFn: unit -> #IStyle, program: Program<'arg, 'model, 'msg, Memo.Memoized<#IFabApplication>>, arg: 'arg) =
+        FabulousAppBuilder.Configure(
+            program.CanReuseView,
+            program.State.Logger,
+            program.SyncAction,
+            themeFn,
+            fun () ->
+                (View.Component("_") {
+                    let! model = Context.Mvu(program.State, arg)
+                    program.View model
+                })
+                    .Compile()
+        )
+
+    static member Configure(themeFn: unit -> #IStyle, program: Program<unit, 'model, 'msg, Memo.Memoized<#IFabApplication>>) =
+        FabulousAppBuilder.Configure(themeFn, program, ())
+
 #if IOS
 open UIKit
 open Avalonia.iOS
