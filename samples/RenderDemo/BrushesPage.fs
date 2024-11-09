@@ -46,7 +46,7 @@ module BrushesPage =
                         GradientStop(Colors.Black, 0.)
                         GradientStop(Colors.Orange, 1.0)
                     })
-                        .radius(0.13636364)
+                        .radiusX(0.13636364)
                         .transform(
                             TransformGroup() {
                                 ScaleTransform()
