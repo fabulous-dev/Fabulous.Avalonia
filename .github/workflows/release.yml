@@ -19,7 +19,7 @@ env:
 
 jobs:
   release:
-    runs-on: macos-13
+    runs-on: macos-15
     environment: nuget
     steps:
     - name: Checkout sources
