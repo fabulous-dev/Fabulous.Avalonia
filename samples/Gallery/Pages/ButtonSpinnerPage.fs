@@ -3,11 +3,11 @@ namespace Gallery
 open System
 open System.Diagnostics
 open Avalonia.Controls
-open Fabulous.Avalonia
 open Fabulous
 
+open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
-open Gallery
+
 
 module ButtonSpinnerPage =
     type Model = { Count: int }
@@ -50,7 +50,7 @@ module ButtonSpinnerPage =
         )
 
     let view () =
-        Component(program) {
+        Component("ButtonSpinnerPage") {
             VStack(spacing = 15.) {
                 TextBlock("Button spinner")
 

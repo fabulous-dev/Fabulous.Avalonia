@@ -46,13 +46,13 @@ module PathGeometryBuilders =
 
 type PathGeometryBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathFigure>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathFigure>
         (_: CollectionBuilder<'msg, 'marker, IFabPathFigure>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathFigure>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathFigure>
         (_: CollectionBuilder<'msg, 'marker, IFabPathFigure>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

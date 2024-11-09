@@ -10,11 +10,10 @@ open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-
 open type Fabulous.Avalonia.View
 
-module AutoCompleteBoxPage =
-
+[<AutoOpen>]
+module AutoCompleteBoxCommon =
     type StateData =
         { Name: string
           Abbreviation: string
@@ -262,43 +261,18 @@ module AutoCompleteBoxPage =
                         |> Seq.cast<obj>
             }
 
-    /// helps animating an active remote search AutoCompleteBox
-    module RemoteSearch =
-        let input = ViewRef<AutoCompleteBox>()
-        let heartBeat = ViewRef<Animation>()
-
-        /// animates the input with the heartBeat until searchToken is cancelled
-        let animate searchToken =
-            heartBeat.Value.IterationCount <- IterationCount.Infinite
-            heartBeat.Value.RunAsync(input.Value, searchToken) |> ignore
-
-    type Model =
-        { IsOpen: bool
-          SelectedItem: string
-          Text: string
-          AsyncSearchTerm: string
-          UsStateSearch: UsFederalStateSearch
-          Items: string seq
-          UsFederalStates: StateData seq
-          Custom: string seq }
-
-    type Msg =
-        | SearchTextChanged of string
-        | AsyncSearchTermChanged of string
-        | CustomAutoBoxLoaded of RoutedEventArgs
-
-    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
-
-    let init () =
-        { IsOpen = false
-          Text = "Arkan"
-          AsyncSearchTerm = ""
-          UsStateSearch = UsFederalStateSearch(RemoteSearch.animate)
-          SelectedItem = "Item 2"
-          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
-          UsFederalStates = usFederalStates
-          Custom = [] },
-        Cmd.none
+    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
+        task {
+            return
+                seq {
+                    "Async Item 1"
+                    "Async Item 2"
+                    "Async Item 3"
+                    "Async Product 1"
+                    "Async Product 2"
+                    "Async Product 3"
+                }
+        }
 
     let buildAllSentences () =
         [ "Hello world"
@@ -358,6 +332,48 @@ module AutoCompleteBoxPage =
         else
             String.Empty
 
+
+    /// helps to animate an active remote search AutoCompleteBox
+    module RemoteSearch =
+        let input = ViewRef<AutoCompleteBox>()
+        let heartBeat = ViewRef<Animation>()
+
+        /// animates the input with the heartBeat until searchToken is cancelled
+        let animate searchToken =
+            heartBeat.Value.IterationCount <- IterationCount.Infinite
+            heartBeat.Value.RunAsync(input.Value, searchToken) |> ignore
+
+module AutoCompleteBoxPage =
+
+
+    type Model =
+        { IsOpen: bool
+          SelectedItem: string
+          Text: string
+          AsyncSearchTerm: string
+          UsStateSearch: UsFederalStateSearch
+          Items: string seq
+          UsFederalStates: StateData seq
+          Custom: string seq }
+
+    type Msg =
+        | SearchTextChanged of string
+        | AsyncSearchTermChanged of string
+        | CustomAutoBoxLoaded of RoutedEventArgs
+
+    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
+
+    let init () =
+        { IsOpen = false
+          Text = "Arkan"
+          AsyncSearchTerm = ""
+          UsStateSearch = UsFederalStateSearch(RemoteSearch.animate)
+          SelectedItem = "Item 2"
+          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
+          UsFederalStates = usFederalStates
+          Custom = [] },
+        Cmd.none
+
     let update msg model =
         match msg with
         | SearchTextChanged args -> { model with Text = args }, Cmd.none
@@ -369,19 +385,6 @@ module AutoCompleteBoxPage =
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
             customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item))
             model, Cmd.none
-
-    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
-        task {
-            return
-                seq {
-                    "Async Item 1"
-                    "Async Item 2"
-                    "Async Item 3"
-                    "Async Product 1"
-                    "Async Product 2"
-                    "Async Product 3"
-                }
-        }
 
     let program =
         Program.statefulWithCmd init update
@@ -396,8 +399,8 @@ module AutoCompleteBoxPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("AutoCompleteBoxPage") {
+            let! model = Context.Mvu program
             let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 
             VStack() {
@@ -523,6 +526,158 @@ module AutoCompleteBoxPage =
                         TextBlock("With Validation Errors")
 
                         AutoCompleteBox(model.Items)
+                            .name("ValidationErrors")
+                            .filterMode(AutoCompleteFilterMode.None)
+                            .dataValidationErrors([ Exception() ])
+                    }
+                }
+            }
+        }
+
+module ComponentsAutoCompleteBoxPage =
+    let view () =
+        Component("ComponentsAutoCompleteBoxPage") {
+            let! usFederalStates = Context.State(usFederalStates)
+            let! usStateSearch = Context.State(UsFederalStateSearch(RemoteSearch.animate))
+            let! items = Context.State([ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ])
+            let! text = Context.State("")
+            let! asyncSearchTerm = Context.State("")
+            let! custom = Context.State([])
+            let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
+
+
+            let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
+
+            VStack() {
+                TextBlock("A control into which the user can input text")
+
+                UniformGrid() {
+                    VStack() {
+                        TextBlock("MinimumPrefixLength: 1")
+
+                        AutoCompleteBox(usFederalStates.Current)
+                            .minimumPrefixLength(1)
+                            .watermark("Select an item")
+                            .onTextChanged(text.Current, (fun args -> text.Set(args)))
+                    }
+
+                    VStack() {
+                        TextBlock("MinimumPrefixLength: 3")
+
+                        AutoCompleteBox(items.Current)
+                            .watermark("Select an item")
+                            .minimumPrefixLength(3)
+                    }
+
+                    VStack() {
+                        TextBlock("MinimumPopulateDelay: 1s")
+
+                        AutoCompleteBox(items.Current)
+                            .watermark("Select an item")
+                            .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
+                    }
+
+                    VStack() {
+                        TextBlock("MaxDropDownHeight: 60")
+
+                        AutoCompleteBox(items.Current)
+                            .maxDropDownHeight(60.0)
+                            .watermark("Select an item")
+                    }
+
+                    VStack() {
+                        TextBlock("Disabled")
+
+                        AutoCompleteBox(items.Current)
+                            .isEnabled(false)
+                            .watermark("Select an item")
+                    }
+
+                    VStack() {
+                        TextBlock("Multi-Binding")
+
+                        AutoCompleteBox(usFederalStates.Current)
+                            .watermark("Select an item")
+                            .filterMode(AutoCompleteFilterMode.Contains)
+                            .multiBindValue("{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
+                    }
+
+                    VStack() {
+                        TextBlock("With an item template")
+                            .tip(ToolTip("Somewhere, in pride, an eagle sheds\nA single splendid tear."))
+
+                        AutoCompleteBox(usFederalStates.Current)
+                            .itemTemplate(fun state ->
+                                HStack(5) {
+                                    TextBlock(state.Capital).foreground(Colors.Blue)
+                                    TextBlock(state.Abbreviation + ",").foreground(Colors.White)
+                                    TextBlock(state.Name).foreground(Colors.Red)
+                                })
+                            .watermark("Search a US state or capital")
+                            .tip(ToolTip("the custom item filter searches the state name as well as the capital"))
+                            .itemFilter(fun term item ->
+                                let state = item :?> StateData
+                                contains state.Name term || contains state.Capital term)
+                    }
+
+                    VStack() {
+                        TextBlock("AsyncBox")
+
+                        AutoCompleteBox(getItemsAsync)
+                            .watermark("Select an item")
+                            .filterMode(AutoCompleteFilterMode.Contains)
+                    }
+
+                    VStack() {
+                        TextBlock("Async remote-filtered search")
+
+                        AutoCompleteBox(usStateSearch.Current.SearchAsync)
+                            .watermark("Search capitals of US federal states by name or state")
+                            .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
+                            .onTextChanged(asyncSearchTerm.Current, (fun term -> asyncSearchTerm.Set(term)))
+                            .filterMode(AutoCompleteFilterMode.None) // remote filtered
+                            .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
+                            .reference(RemoteSearch.input)
+                            .animation(
+                                // pulses the scale like a heart beat to indicate activity
+                                (Animation(TimeSpan.FromSeconds(2.)) {
+                                    // extend slightly but quickly to get a pulse effect
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 1.05).cue(0.1)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 1.05).cue(0.1)
+                                    // contract slightly to get a bounce-back effect
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 0.95).cue(0.15)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 0.95).cue(0.15)
+                                    // return to original size rather quickly
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 1).cue(0.2)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 1).cue(0.2)
+                                })
+                                    .delay(TimeSpan.FromSeconds 1.) // to avoid a "heart attack", i.e. restarting the animation by typing
+                                    .reference(RemoteSearch.heartBeat)
+                            )
+                    }
+
+                    VStack() {
+                        TextBlock("Custom AutoComplete")
+
+                        AutoCompleteBox(custom.Current)
+                            .watermark("Select an item")
+                            .reference(customAutoCompleteBoxRef)
+                            .filterMode(AutoCompleteFilterMode.None)
+                            .onLoaded(fun _ ->
+                                let strings = buildAllSentences() |> Array.concat
+                                customAutoCompleteBoxRef.Value.ItemsSource <- strings
+
+                                customAutoCompleteBoxRef.Value.TextFilter <-
+                                    AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
+
+                                customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item)))
+
+                    }
+
+                    VStack() {
+                        TextBlock("With Validation Errors")
+
+                        AutoCompleteBox(items.Current)
                             .name("ValidationErrors")
                             .filterMode(AutoCompleteFilterMode.None)
                             .dataValidationErrors([ Exception() ])

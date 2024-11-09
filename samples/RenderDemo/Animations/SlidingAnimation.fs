@@ -13,6 +13,7 @@ open Avalonia.Rendering.Composition.Animations
 open Fabulous
 open Fabulous.Avalonia
 
+
 open type Fabulous.Avalonia.View
 
 module ViewExtensions =

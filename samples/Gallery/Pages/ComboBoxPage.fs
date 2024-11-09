@@ -42,8 +42,8 @@ module ComboBoxPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ComboBoxPage") {
+            let! model = Context.Mvu program
 
             HStack(16) {
                 ComboBox(model.Items).selectedIndex(0)

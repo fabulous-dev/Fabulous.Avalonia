@@ -69,8 +69,8 @@ module SliderPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("SliderPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 TextBlock($"Slider value: {model.SliderValue1}")

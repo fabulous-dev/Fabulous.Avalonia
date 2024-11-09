@@ -5,8 +5,8 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Media.TextFormatting
-open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 open Fabulous
 
 open type Fabulous.Avalonia.View
@@ -85,7 +85,7 @@ module TextFormatterBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member TextFormatter<'msg>() =
+        static member TextFormatter() =
             WidgetBuilder<'msg, IFabTextFormatterControl>(TextFormatter.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module TextFormatterPage =

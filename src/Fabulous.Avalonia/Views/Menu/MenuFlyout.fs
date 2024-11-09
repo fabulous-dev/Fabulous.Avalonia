@@ -15,7 +15,7 @@ module MenuFlyout =
         Attributes.defineAvaloniaNonGenericListWidgetCollection "MenuFlyout_Items" (fun target ->
             let target = target :?> MenuFlyout
 
-            if isNull target.Items then
+            if target.Items = null then
                 let newColl = ItemCollection.Empty
                 target.Items.Add newColl |> ignore
                 newColl
@@ -40,13 +40,13 @@ type MenuFlyoutModifiers =
 
 type MenuFlyoutCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

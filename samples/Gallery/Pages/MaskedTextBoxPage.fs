@@ -1,9 +1,9 @@
 namespace Gallery
 
 open System.Diagnostics
-open Fabulous.Avalonia
 open Fabulous
 
+open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 
 module MaskedTextBoxPage =
@@ -30,8 +30,8 @@ module MaskedTextBoxPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("MaskedTextBoxPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15) {
 

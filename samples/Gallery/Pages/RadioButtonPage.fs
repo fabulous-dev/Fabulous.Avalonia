@@ -135,8 +135,8 @@ module RadioButtonPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("RadioButtonPage") {
+            let! model = Context.Mvu program
 
             VStack() {
                 TextBlock("Allows the selection of a single option of many")

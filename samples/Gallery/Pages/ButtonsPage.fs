@@ -1,7 +1,6 @@
 namespace Gallery
 
 open System.Diagnostics
-open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.Styling
@@ -41,8 +40,8 @@ module ButtonsPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ButtonsPage") {
+            let! model = Context.Mvu program
 
             (VStack(spacing = 15.) {
                 Button("Regular button", Clicked)

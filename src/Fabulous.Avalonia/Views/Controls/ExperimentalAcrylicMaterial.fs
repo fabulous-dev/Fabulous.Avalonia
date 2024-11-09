@@ -6,7 +6,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabExperimentalAcrylicMaterial =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module ExperimentalAcrylicMaterial =
     let WidgetKey = Widgets.register<ExperimentalAcrylicMaterial>()
@@ -28,9 +28,6 @@ module ExperimentalAcrylicMaterial =
 
     let FallbackColor =
         Attributes.defineAvaloniaPropertyWithEquality ExperimentalAcrylicMaterial.FallbackColorProperty
-
-    let Invalidated =
-        Attributes.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
 
 [<AutoOpen>]
 module ExperimentalAcrylicMaterialBuilders =
@@ -86,13 +83,6 @@ type ExperimentalAcrylicMaterialModifiers =
     [<Extension>]
     static member inline fallbackColor(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, value: Color) =
         this.AddScalar(ExperimentalAcrylicMaterial.FallbackColor.WithValue(value))
-
-    /// <summary>Listens the ExperimentalAcrylicMaterial Invalidated event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the ExperimentalAcrylicMaterial is invalidated.</param>
-    [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicMaterial>, msg: 'msg) =
-        this.AddScalar(ExperimentalAcrylicMaterial.Invalidated.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct ExperimentalAcrylicMaterial control instance.</summary>
     /// <param name="this">Current widget.</param>

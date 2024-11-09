@@ -22,6 +22,7 @@ module UnderlineBuilders =
         /// <param name="text">The text to display.</param>
         static member Underline(text: string) = View.Underline() { View.Run(text) }
 
+
 type UnderlineModifiers =
     /// <summary>Link a ViewRef to access the direct Underline control instance.</summary>
     /// <param name="this">Current widget.</param>

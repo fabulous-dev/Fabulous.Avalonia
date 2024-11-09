@@ -46,9 +46,6 @@ module TreeView =
     let SelectionMode =
         Attributes.defineAvaloniaPropertyWithEquality TreeView.SelectionModeProperty
 
-    let SelectionChanged =
-        Attributes.defineEvent "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
-
 [<AutoOpen>]
 module TreeViewBuilders =
     type Fabulous.Avalonia.View with
@@ -57,7 +54,7 @@ module TreeViewBuilders =
         /// <param name="nodes">The root nodes used to populate the TreeView.</param>
         /// <param name="subNodes">The sub nodes used to populate the children of each node.</param>
         /// <param name="template">The template used to render each node.</param>
-        static member TreeView<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+        static member TreeView<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
             (nodes: seq<'itemData>, subNodes: 'itemData -> seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
             let template (item: obj) =
@@ -106,10 +103,3 @@ type TreeViewModifiers =
     [<Extension>]
     static member inline selectionMode(this: WidgetBuilder<'msg, #IFabTreeView>, value: SelectionMode) =
         this.AddScalar(TreeView.SelectionMode.WithValue(value))
-
-    /// <summary>Listens to the TreeView SelectionChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the TreeView SelectionChanged event is fired.</param>
-    [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabTreeView>, fn: SelectionChangedEventArgs -> 'msg) =
-        this.AddScalar(TreeView.SelectionChanged.WithValue(fn))

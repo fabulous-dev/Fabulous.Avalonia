@@ -4,10 +4,8 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Data
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabDataGridTextColumn =
@@ -99,42 +97,42 @@ type DataGridTextColumnModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The FontFamily property value.</param>
     [<Extension>]
-    static member inline fontFamily(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: FontFamily) =
+    static member inline fontFamily(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: FontFamily) =
         this.AddScalar(DataGridTextColumn.FontFamily.WithValue(value))
 
     /// <summary>Set the FontSize property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The FontSize property value.</param>
     [<Extension>]
-    static member inline fontSize(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: float) =
+    static member inline fontSize(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: float) =
         this.AddScalar(DataGridTextColumn.FontSize.WithValue(value))
 
     /// <summary>Set the FontStyle property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The FontStyle property value.</param>
     [<Extension>]
-    static member inline fontStyle(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: FontStyle) =
+    static member inline fontStyle(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: FontStyle) =
         this.AddScalar(DataGridTextColumn.FontStyle.WithValue(value))
 
     /// <summary>Set the FontWeight property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The FontWeight property value.</param>
     [<Extension>]
-    static member inline fontWeight(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: FontWeight) =
+    static member inline fontWeight(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: FontWeight) =
         this.AddScalar(DataGridTextColumn.FontWeight.WithValue(value))
 
     /// <summary>Set the FontStretch property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The FontStretch property value.</param>
     [<Extension>]
-    static member inline fontStretch(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: FontStretch) =
+    static member inline fontStretch(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: FontStretch) =
         this.AddScalar(DataGridTextColumn.FontStretch.WithValue(value))
 
     /// <summary>Set the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground property value.</param>
     [<Extension>]
-    static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: IBrush) =
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabDataGridTextColumn>, value: IBrush) =
         this.AddScalar(DataGridTextColumn.Foreground.WithValue(value))
 
     /// <summary>Set the Foreground property.</summary>
@@ -144,7 +142,6 @@ type DataGridTextColumnModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, IFabDataGridTextColumn>, value: WidgetBuilder<'msg, #IFabBrush>) =
         this.AddWidget(DataGridTextColumn.ForegroundWidget.WithValue(value.Compile()))
 
-type DataGridTextColumnExtraModifiers =
     /// <summary>Set the Foreground property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground property value.</param>

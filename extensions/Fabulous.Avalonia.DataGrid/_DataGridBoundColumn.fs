@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open Avalonia.Controls
-open Fabulous
 open Fabulous.Avalonia
 
 type IFabDataGridBoundColumn =

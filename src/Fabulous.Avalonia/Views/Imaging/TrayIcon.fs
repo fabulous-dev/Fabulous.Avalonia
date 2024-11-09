@@ -7,7 +7,7 @@ open Fabulous
 open Avalonia.Controls
 
 type IFabTrayIcon =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module TrayIcon =
     let WidgetKey = Widgets.register<TrayIcon>()
@@ -21,9 +21,6 @@ module TrayIcon =
 
     let IsVisible =
         Attributes.defineAvaloniaPropertyWithEquality TrayIcon.IsVisibleProperty
-
-    let Clicked =
-        Attributes.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
 
 [<AutoOpen>]
 module TrayIconBuilders =
@@ -88,13 +85,6 @@ type TrayIconModifiers =
     [<Extension>]
     static member inline isVisible(this: WidgetBuilder<'msg, #IFabTrayIcon>, value: bool) =
         this.AddScalar(TrayIcon.IsVisible.WithValue(value))
-
-    /// <summary>Listens to the TrayIcon Clicked event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the Clicked event fires.</param>
-    [<Extension>]
-    static member inline onClicked(this: WidgetBuilder<'msg, #IFabTrayIcon>, msg: 'msg) =
-        this.AddScalar(TrayIcon.Clicked.WithValue(MsgValue msg))
 
     /// <summary>Link a ViewRef to access the direct TrayIcon control instance.</summary>
     /// <param name="this">Current widget.</param>

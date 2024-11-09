@@ -20,8 +20,8 @@ module BoldBuilders =
 
         /// <summary>Creates a Bold widget.</summary>
         /// <param name="text">The text to display.</param>
-        static member Bold(text: string) =
-            View.Bold<'msg>() { View.Run<'msg>(text) }
+        static member Bold(text: string) = View.Bold() { View.Run(text) }
+
 
 type BoldModifiers =
     /// <summary>Link a ViewRef to access the direct Bold control instance.</summary>

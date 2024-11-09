@@ -22,7 +22,6 @@ module HamburgerMenu =
     let ExpandedModeThresholdWidth =
         Attributes.defineAvaloniaPropertyWithEquality HamburgerMenu.ExpandedModeThresholdWidthProperty
 
-
 [<AutoOpen>]
 module HamburgerMenuBuilders =
 
@@ -38,21 +37,21 @@ type HamburgerMenuModifiers =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
     [<Extension>]
-    static member inline paneBackground(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: IBrush) =
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: IBrush) =
         this.AddScalar(HamburgerMenu.PaneBackground.WithValue(value))
 
     [<Extension>]
-    static member inline contentBackground(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: IBrush) =
+    static member inline contentBackground(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: IBrush) =
         this.AddScalar(HamburgerMenu.ContentBackground.WithValue(value))
 
     [<Extension>]
-    static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, IFabHamburgerMenu>, value: int) =
+    static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: int) =
         this.AddScalar(HamburgerMenu.ExpandedModeThresholdWidth.WithValue(value))
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
+        /// <summary>Creates an empty Border widget.</summary>
+        static member EmptyBorder() =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))

@@ -4,10 +4,10 @@ open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
+open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
 open Avalonia.Media.Imaging
 open Avalonia.Threading
-open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
@@ -57,7 +57,7 @@ module RenderTargetBitmapBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member RenderTargetBitmap<'msg>() =
+        static member RenderTargetBitmap() =
             WidgetBuilder<'msg, IFabRenderTargetBitmap>(RenderTargetBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module RenderTargetBitmapPage =

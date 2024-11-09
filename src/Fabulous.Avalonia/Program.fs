@@ -31,7 +31,7 @@ module ViewHelpers =
         if ViewHelpers.canReuseView prev curr && canReuseAutomationId prev curr then
             let def = WidgetDefinitionStore.get curr.Key
 
-            // TargetType can be null for MemoWidget
+            // TargetType can be null for MemoWidget,
             // but it has already been checked by Fabulous.ViewHelpers.canReuseView
             if isNull def.TargetType then
                 true

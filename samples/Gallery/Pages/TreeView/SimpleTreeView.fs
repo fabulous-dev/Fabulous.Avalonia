@@ -58,8 +58,8 @@ module SimpleTreeView =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("SimpleTreeView") {
+            let! model = Context.Mvu program
 
             VStack() {
                 TreeView(
@@ -78,8 +78,8 @@ module SimpleTreeView =
         }
 
     let treeViewItem () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("TreeViewItem") {
+            let! model = Context.Mvu program
 
             VStack() {
                 TreeView(

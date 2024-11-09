@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Controls.Primitives
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -57,7 +56,7 @@ type ToolTipModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Tip value.</param>
     [<Extension>]
-    static member inline tip(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, IFabToolTip>) =
+    static member inline tip(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, #IFabToolTip>) =
         this.AddWidget(ToolTip.TipWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the IsOpen property.</summary>

@@ -25,7 +25,6 @@ module VisualBrushBuilders =
                 AttributesBundle(StackList.empty(), ValueSome [| VisualBrush.Visual.WithValue(content.Compile()) |], ValueNone)
             )
 
-
 type VisualBrushModifiers =
     /// <summary>Link a ViewRef to access the direct VisualBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

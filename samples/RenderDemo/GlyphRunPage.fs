@@ -4,8 +4,8 @@ open System
 open Avalonia.Controls
 open Avalonia.Media
 open Avalonia.Threading
-open Fabulous.StackAllocatedCollections.StackList
 open Fabulous.Avalonia
+open Fabulous.StackAllocatedCollections.StackList
 open Fabulous
 
 #nowarn "0044"
@@ -121,7 +121,7 @@ module GlyphRunControlBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member GlyphRun<'msg>() =
+        static member GlyphRun() =
             WidgetBuilder<'msg, IFabGlyphRunControl>(GlyphRun.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type IFabGlyphRunGeometryControl =
@@ -135,7 +135,7 @@ module GlyphRunGeometryControlBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member GlyphRunGeometry<'msg>() =
+        static member GlyphRunGeometry() =
             WidgetBuilder<'msg, IFabGlyphRunGeometryControl>(GlyphRunGeometry.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 

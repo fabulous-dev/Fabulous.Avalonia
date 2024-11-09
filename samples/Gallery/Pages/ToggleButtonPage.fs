@@ -4,7 +4,6 @@ open System.Diagnostics
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
-
 open type Fabulous.Avalonia.View
 
 module ToggleButtonPage =
@@ -85,8 +84,8 @@ module ToggleButtonPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ToggleButtonPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 ToggleButton(model.Text1, model.Value1, CheckedChanged)

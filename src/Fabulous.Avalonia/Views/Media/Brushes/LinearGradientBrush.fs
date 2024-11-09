@@ -27,7 +27,7 @@ module LinearGradientBrushBuilders =
         static member LinearGradientBrush(startPoint: RelativePoint, endPoint: RelativePoint) =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
                 LinearGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 LinearGradientBrush.StartPoint.WithValue(startPoint),
                 LinearGradientBrush.EndPoint.WithValue(endPoint)
             )
@@ -49,7 +49,7 @@ module LinearGradientBrushBuilders =
         static member LinearGradientBrush(startPoint: Point, endPoint: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
                 LinearGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint(startPoint, unit)),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint(endPoint, unit))
             )
@@ -70,7 +70,7 @@ module LinearGradientBrushBuilders =
         static member LinearGradientBrush(startPoint: Point, endPoint: Point, startUnit: RelativeUnit, endUnit: RelativeUnit) =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
                 LinearGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint(startPoint, startUnit)),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint(endPoint, endUnit))
             )
@@ -79,7 +79,7 @@ module LinearGradientBrushBuilders =
         static member LinearGradientBrush() =
             CollectionBuilder<'msg, IFabLinearGradientBrush, IFabGradientStop>(
                 LinearGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 LinearGradientBrush.StartPoint.WithValue(RelativePoint.TopLeft),
                 LinearGradientBrush.EndPoint.WithValue(RelativePoint.BottomRight)
             )

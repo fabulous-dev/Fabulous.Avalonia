@@ -18,7 +18,6 @@ module ExperimentalAcrylicBorder =
     let Material =
         Attributes.defineAvaloniaPropertyWidget ExperimentalAcrylicBorder.MaterialProperty
 
-
 [<AutoOpen>]
 module ExperimentalAcrylicBorderBuilders =
     type Fabulous.Avalonia.View with
@@ -34,6 +33,7 @@ module ExperimentalAcrylicBorderBuilders =
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         static member ExperimentalAcrylicBorder() =
             WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+
 
 type ExperimentalAcrylicBorderModifiers =
     /// <summary>Sets the CornerRadius property.</summary>

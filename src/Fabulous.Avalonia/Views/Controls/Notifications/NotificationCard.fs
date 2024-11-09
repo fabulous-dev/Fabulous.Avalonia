@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Notifications
-open Avalonia.Interactivity
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -21,8 +20,6 @@ module NotificationCard =
     let CloseOnClick =
         Attributes.defineAvaloniaPropertyWithEquality NotificationCard.CloseOnClickProperty
 
-    let NotificationClosed =
-        Attributes.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
 
 [<AutoOpen>]
 module NotificationCardBuilders =
@@ -59,13 +56,6 @@ type NotificationCardModifiers =
     [<Extension>]
     static member inline notificationType(this: WidgetBuilder<'msg, #IFabNotificationCard>, value: NotificationType) =
         this.AddScalar(NotificationCard.NotificationType.WithValue(value))
-
-    /// <summary>Listens to the NotificationCard NotificationClosed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the NotificationCard is closed.</param>
-    [<Extension>]
-    static member inline onNotificationClosed(this: WidgetBuilder<'msg, #IFabNotificationCard>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(NotificationCard.NotificationClosed.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct NotificationCard control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -14,6 +14,7 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
+
 open Microsoft.FSharp.NativeInterop
 
 #nowarn "9"
@@ -373,7 +374,7 @@ void main()
 
         this.RequestNextFrameRendering()
 
-type IFabOpenGlPageControl =
+type IFabMvuOpenGlPageControl =
     inherit IFabControl
 
 module OpenGlPageControl =
@@ -399,12 +400,12 @@ module OpenGlPageControl =
 module OpenGLWidgetBuilders =
     type Fabulous.Avalonia.View with
 
-        static member OpenGlPageControl<'msg>(yaw: float, pitch: float, roll: float, disco: float) =
-            WidgetBuilder<'msg, IFabOpenGlPageControl>(OpenGlPageControl.WidgetKey, OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
+        static member OpenGlPageControl(yaw: float, pitch: float, roll: float, disco: float) =
+            WidgetBuilder<'msg, IFabMvuOpenGlPageControl>(OpenGlPageControl.WidgetKey, OpenGlPageControl.Data.WithValue(struct (yaw, pitch, roll, disco)))
 
 type OpenGLWidgetModifiers =
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabOpenGlPageControl>, value: ViewRef<OpenGlPageControl>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabMvuOpenGlPageControl>, value: ViewRef<OpenGlPageControl>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 module OpenGLPage =
@@ -456,8 +457,8 @@ module OpenGLPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("OpenGLPage") {
+            let! model = Context.Mvu program
 
             (Grid() {
                 UserControl(

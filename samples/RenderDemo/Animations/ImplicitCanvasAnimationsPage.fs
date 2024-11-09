@@ -201,8 +201,8 @@ module ImplicitCanvasAnimationsPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ImplicitCanvasAnimationsPage") {
+            let! model = Context.Mvu program
 
             Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
                 Canvas(canvasRef)

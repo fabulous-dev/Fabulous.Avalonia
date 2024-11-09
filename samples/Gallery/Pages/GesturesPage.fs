@@ -34,8 +34,8 @@ module GesturesPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("GesturesPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 4.) {
                 TextBlock("Pull Gexture (Touch / Pen)")

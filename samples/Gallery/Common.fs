@@ -6,6 +6,9 @@ open Avalonia.Media
 open Controls.HamburgerMenu
 open Fabulous.Avalonia
 
+open Fabulous
+open type Fabulous.Avalonia.View
+
 module Paths =
 
     [<Literal>]
@@ -21,7 +24,6 @@ module Paths =
         "M3 17h18a1 1 0 0 1 .117 1.993L21 19H3a1 1 0 0 1-.117-1.993L3 17h18H3Zm0-6 18-.002a1 1 0 0 1 .117 1.993l-.117.007L3 13a1 1 0 0 1-.117-1.993L3 11l18-.002L3 11Zm0-6h18a1 1 0 0 1 .117 1.993L21 7H3a1 1 0 0 1-.117-1.993L3 5h18H3Z"
 
 
-open Fabulous
 
 module Cmd =
     let perform fn : Cmd<'msg> = [ (fun _ -> fn()) ]
@@ -76,7 +78,7 @@ module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
+        static member EmptyBorder() =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 type IFabHamburgerMenu =

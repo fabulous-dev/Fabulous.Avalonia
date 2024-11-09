@@ -35,8 +35,8 @@ module CalendarDatePickerPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("CalendarDatePickerPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 TextBlock($"Selected date: {model.Date}")

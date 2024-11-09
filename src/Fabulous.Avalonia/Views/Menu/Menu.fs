@@ -19,6 +19,7 @@ module MenuBuilders =
         static member Menu() =
             CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ItemsControl.Items)
 
+
 type MenuModifiers =
     /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -29,13 +30,13 @@ type MenuModifiers =
 
 type MenuCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabMenu and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabMenu and 'itemType :> IFabMenuItem>
         (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

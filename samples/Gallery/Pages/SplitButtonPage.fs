@@ -3,6 +3,7 @@ namespace Gallery
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
@@ -13,7 +14,7 @@ open type Fabulous.Avalonia.View
 module SplitButtonPage =
     type Model = { Colors: Color list }
 
-    type Msg = | Clicked
+    type Msg = Clicked of RoutedEventArgs
 
     let init () =
         { Colors =
@@ -40,7 +41,7 @@ module SplitButtonPage =
 
     let update msg model =
         match msg with
-        | Clicked -> model, Cmd.none
+        | Clicked _ -> model, Cmd.none
 
     let menuFlyout () =
         (MenuFlyout() {
@@ -84,8 +85,8 @@ module SplitButtonPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("SplitButtonPage") {
+            let! model = Context.Mvu program
 
             (VStack(spacing = 16.) {
                 SplitButton("Content", Clicked).flyout(menuFlyout())

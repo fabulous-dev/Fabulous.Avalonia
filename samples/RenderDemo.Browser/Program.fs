@@ -4,9 +4,7 @@ open System.Diagnostics
 open System.Runtime.Versioning
 open Avalonia
 open Avalonia.Browser
-open Avalonia.Controls.ApplicationLifetimes
 open Avalonia.Logging
-open Avalonia.Threading
 open RenderDemo
 
 

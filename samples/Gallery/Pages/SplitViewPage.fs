@@ -33,8 +33,8 @@ module SplitViewPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("SplitViewPage") {
+            let! model = Context.Mvu program
 
             VStack() {
                 Button("Open", Open)

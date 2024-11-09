@@ -15,6 +15,7 @@ module ListBoxItem =
     let IsSelected =
         Attributes.defineAvaloniaPropertyWithEquality ListBoxItem.IsSelectedProperty
 
+
 [<AutoOpen>]
 module ListBoxItemBuilders =
     type Fabulous.Avalonia.View with

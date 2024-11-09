@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Primitives
-open Avalonia.Input
 open Fabulous
 
 type IFabRangeBase =
@@ -41,9 +40,6 @@ module RangeBase =
 
     let LargeChange =
         Attributes.defineAvaloniaPropertyWithEquality RangeBase.LargeChangeProperty
-
-    let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
 
 type RangeBaserModifiers =
     /// <summary>Sets the SmallChange property.</summary>

@@ -4,7 +4,6 @@ open System
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Input.TextInput
-open Avalonia.LogicalTree
 open Avalonia.Markup.Xaml.Styling
 open Avalonia.Styling
 open Fabulous
@@ -66,17 +65,6 @@ module StyledElement =
                 style.Source <- Uri(value)
                 target.Styles.Add(style))
 
-    let AttachedToLogicalTree =
-        Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
-            (target :?> StyledElement).AttachedToLogicalTree)
-
-    let DetachedFromLogicalTree =
-        Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_DetachedFromLogicalTree" (fun target ->
-            (target :?> StyledElement).DetachedFromLogicalTree)
-
-    let ActualThemeVariantChanged =
-        Attributes.defineEventNoArg "StyledElement_ActualThemeVariantChanged" (fun target -> (target :?> StyledElement).ActualThemeVariantChanged)
-
     let ThemeKey =
         Attributes.defineSimpleScalarWithEquality<string> "StyledElement_ThemeKey" (fun _ newValueOpt node ->
             let target = node.Target :?> StyledElement
@@ -116,15 +104,6 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.Classes.WithValue([ value ]))
-
-    /// <summary>Sets the Style property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">The Style value.</param>
-    [<Extension>]
-    static member inline style
-        (this: WidgetBuilder<'msg, #IFabAvaloniaObject>, fn: WidgetBuilder<'msg, #IFabAvaloniaObject> -> WidgetBuilder<'msg, #IFabAvaloniaObject>)
-        =
-        fn this
 
     /// <summary>Sets the ContentType property.</summary>
     /// <param name="this">Current widget.</param>
@@ -211,24 +190,3 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.ThemeKey.WithValue(value))
-
-    /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the styled element is attached to a rooted logical tree.</param>
-    [<Extension>]
-    static member inline onAttachedToLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(StyledElement.AttachedToLogicalTree.WithValue(fn))
-
-    /// <summary>Listens to the StyledElement DetachedFromLogicalTree event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the styled element is detached from a rooted logical tree.</param>
-    [<Extension>]
-    static member inline onDetachedFromLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(StyledElement.DetachedFromLogicalTree.WithValue(fn))
-
-    /// <summary>Listens to the StyledElement ActualThemeVariantChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the actual theme variant changes.</param>
-    [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, msg: 'msg) =
-        this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(MsgValue msg))

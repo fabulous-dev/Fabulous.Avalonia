@@ -197,8 +197,8 @@ module FilesPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("FilesPage") {
+            let! model = Context.Mvu program
 
             Dock() {
                 (Dock() {

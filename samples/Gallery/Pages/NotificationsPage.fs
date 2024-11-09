@@ -2,7 +2,6 @@ namespace Gallery
 
 open System
 open System.Diagnostics
-open System.Threading
 open Avalonia
 open Avalonia.Controls.Notifications
 open Avalonia.Controls
@@ -13,7 +12,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Microsoft.FSharp.Control
 
 type NotificationViewModel(title, message) =
 
@@ -146,8 +144,8 @@ module NotificationsPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("NotificationsPage") {
+            let! model = Context.Mvu program
 
             (Grid() {
                 Dock() {

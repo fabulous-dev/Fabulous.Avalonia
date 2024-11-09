@@ -68,7 +68,7 @@ module CarouselBuilders =
         /// <summary>Creates a Carousel widget.</summary>
         /// <param name="items">The items to display.</param>
         /// <param name="template">The template to use to render each item.</param>
-        static member Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
+        static member Carousel<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
             WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template
@@ -79,14 +79,14 @@ type CarouselModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PageTransition value.</param>
     [<Extension>]
-    static member inline pageTransition(this: WidgetBuilder<'msg, IFabCarousel>, value: #IPageTransition) =
+    static member inline pageTransition(this: WidgetBuilder<'msg, #IFabCarousel>, value: #IPageTransition) =
         this.AddScalar(Carousel.PageTransition.WithValue(value))
 
     /// <summary>Sets the Controller property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Controller value.</param>
     [<Extension>]
-    static member inline controller(this: WidgetBuilder<'msg, IFabCarousel>, value: CarouselController) =
+    static member inline controller(this: WidgetBuilder<'msg, #IFabCarousel>, value: CarouselController) =
         this.AddScalar(Carousel.Controller.WithValue(Some value))
 
     /// <summary>Link a ViewRef to access the direct Carousel control instance.</summary>

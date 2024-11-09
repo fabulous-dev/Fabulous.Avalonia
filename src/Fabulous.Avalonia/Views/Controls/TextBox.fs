@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Media
 open Fabulous
 open Avalonia.Layout
-open Avalonia.Interactivity
 
 type IFabTextBox =
     inherit IFabTemplatedControl
@@ -98,28 +97,6 @@ module TextBox =
 
     let SelectionForegroundBrush =
         Attributes.defineAvaloniaPropertyWithEquality TextBox.SelectionForegroundBrushProperty
-
-    let TextChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "TextBox_TextChanged" TextBox.TextProperty
-
-    let CopyingToClipboard =
-        Attributes.defineEvent<RoutedEventArgs> "TextBox_CopyingToClipboardEvent" (fun target -> (target :?> TextBox).CopyingToClipboard)
-
-    let CuttingToClipboard =
-        Attributes.defineEvent<RoutedEventArgs> "TextBox_CuttingToClipboard" (fun target -> (target :?> TextBox).CuttingToClipboard)
-
-    let PastingFromClipboard =
-        Attributes.defineEvent<RoutedEventArgs> "TextBox_PastingFromClipboardEvent" (fun target -> (target :?> TextBox).PastingFromClipboard)
-
-[<AutoOpen>]
-module TextBoxBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a TextBox widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the text changes.</param>
-        static member inline TextBox(text: string, fn: string -> 'msg) =
-            WidgetBuilder<'msg, IFabTextBox>(TextBox.WidgetKey, TextBox.TextChanged.WithValue(ValueEventData.create text fn))
 
 type TextBoxModifiers =
 
@@ -325,27 +302,6 @@ type TextBoxModifiers =
     [<Extension>]
     static member inline selectionForegroundBrush(this: WidgetBuilder<'msg, #IFabTextBox>, value: IBrush) =
         this.AddScalar(TextBox.SelectionForegroundBrush.WithValue(value))
-
-    /// /// <summary>Listens to the TexBox CopyingToClipboard event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the CopyingToClipboard changes.</param>
-    [<Extension>]
-    static member inline onCopyingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TextBox.CopyingToClipboard.WithValue(fn))
-
-    /// <summary>Listens to the TexBox CuttingToClipboard event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the CuttingToClipboard changes.</param>
-    [<Extension>]
-    static member inline onCuttingToClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TextBox.CuttingToClipboard.WithValue(fn))
-
-    /// <summary>Listens to the TexBox PastingFromClipboard event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PastingFromClipboard changes.</param>
-    [<Extension>]
-    static member inline onPastingFromClipboard(this: WidgetBuilder<'msg, #IFabTextBox>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(TextBox.PastingFromClipboard.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct TextBox control instance.</summary>
     /// <param name="this">Current widget.</param>

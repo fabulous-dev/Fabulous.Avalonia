@@ -3,7 +3,7 @@ namespace RenderDemo
 open Avalonia
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
+
 
 open type Fabulous.Avalonia.View
 

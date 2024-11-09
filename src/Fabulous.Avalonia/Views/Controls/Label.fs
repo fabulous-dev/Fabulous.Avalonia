@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabLabel =
@@ -37,7 +36,7 @@ type LabelModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Target value.</param>
     [<Extension>]
-    static member inline target(this: WidgetBuilder<'msg, IFabLabel>, value: ViewRef<#IInputElement>) =
+    static member inline target(this: WidgetBuilder<'msg, #IFabLabel>, value: ViewRef<#IInputElement>) =
         match value.TryValue with
         | None -> this
         | Some value -> this.AddScalar(Label.Target.WithValue(value))

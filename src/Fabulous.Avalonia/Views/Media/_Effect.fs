@@ -7,18 +7,6 @@ open Fabulous
 type IFabEffect =
     inherit IFabAnimatable
 
-module Effect =
-    let Invalidated =
-        Attributes.defineEventNoArg "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)
-
-type EffectModifiers =
-    /// <summary>Listens the Effect Invalidated event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the Effect is invalidated.</param>
-    [<Extension>]
-    static member inline onInvalidated(this: WidgetBuilder<'msg, #IFabEffect>, msg: 'msg) =
-        this.AddScalar(Effect.Invalidated.WithValue(MsgValue msg))
-
 type AttachedEffectModifiers =
     /// <summary>Sets the Effect property.</summary>
     /// <param name="this">Current widget.</param>

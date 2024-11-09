@@ -15,6 +15,7 @@ module DockPanel =
     let LastChildFill =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.LastChildFillProperty
 
+
 [<AutoOpen>]
 module DockPanelBuilders =
     type Fabulous.Avalonia.View with

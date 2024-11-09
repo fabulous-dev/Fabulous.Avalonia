@@ -1,13 +1,12 @@
 namespace RenderDemo
 
 open System
-open System.Diagnostics
 open Avalonia.Animation
 open Avalonia.Controls
-open Avalonia.Interactivity
+open Avalonia.Media
 open Avalonia.Styling
 open Fabulous.Avalonia
-open Fabulous
+
 
 open type Fabulous.Avalonia.View
 
@@ -25,41 +24,38 @@ type CustomStringAnimator() =
             result
 
 module CustomAnimatorPage =
-    type Model = { Value: int }
-
-    type Msg = Loaded of RoutedEventArgs
-
-    let init () =
-        Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
-        { Value = 0 }, Cmd.none
-
-    let update msg model =
-        match msg with
-        | Loaded _ ->
-            Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
-            model, Cmd.none
-
-    let program =
-        Program.statefulWithCmd init update
-        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-        |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-            printfn $"Exception: %s{ex.ToString()}"
-            false
-#else
-            true
-#endif
-        )
-
     let view () =
-        Component(program) {
+        Component("CustomAnimatorPage") {
+            Animation.RegisterCustomAnimator<string, CustomStringAnimator>()
+            Animation.SetAnimator(Setter(TextBlock.TextProperty, ""), CustomStringAnimator())
+
             Grid() {
                 TextBlock("")
                     .centerHorizontal()
-                    .onLoaded(Loaded)
                     .animation(
-                        Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
-                            .repeatForever()
+                        Animations() {
+                            Animation(KeyFrame(TextBlock.TextProperty, "0123456789").cue(1.), TimeSpan.FromSeconds(3.))
+                                .repeatForever()
+
+                            Animation(
+                                KeyFrames(
+                                    [ Setter(TranslateTransform.YProperty, -500.)
+                                      Setter(TextBlock.IsVisibleProperty, true) ]
+                                )
+                                    .cue(0),
+                                TimeSpan.FromSeconds(3)
+                            )
+
+                            Animation(
+                                KeyFrames(
+                                    [ Setter(TranslateTransform.YProperty, 0.)
+                                      Setter(TextBlock.IsVisibleProperty, true) ]
+                                )
+                                    .cue(1),
+                                TimeSpan.FromSeconds(3)
+                            )
+                        }
+
                     )
             }
         }

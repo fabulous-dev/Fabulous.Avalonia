@@ -67,8 +67,8 @@ module CanvasPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("CanvasPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 TextBlock("A panel which lays out its children by explicit coordinates")

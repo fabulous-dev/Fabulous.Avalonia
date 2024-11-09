@@ -15,7 +15,7 @@ module Ellipse =
 module EllipseBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a Ellipse widget.</summary>
+        /// <summary>Creates an Ellipse widget.</summary>
         static member Ellipse() =
             WidgetBuilder<'msg, IFabEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 

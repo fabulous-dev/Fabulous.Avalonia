@@ -4,7 +4,6 @@ open Avalonia
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
 

@@ -3,14 +3,14 @@ namespace Fabulous.Avalonia
 open Avalonia.Animation
 
 type IFabAnimatable =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Animatable =
     let Transitions =
         Attributes.defineAvaloniaListWidgetCollection "Animatable_Transitions" (fun target ->
             let target = (target :?> Animatable)
 
-            if isNull target.Transitions then
+            if target.Transitions = null then
                 let newColl = Transitions()
                 target.Transitions <- newColl
                 newColl

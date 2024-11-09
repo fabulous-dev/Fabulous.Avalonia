@@ -4,7 +4,6 @@ open System
 open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
-open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Rendering.SceneGraph
 open Avalonia.Skia
@@ -14,6 +13,7 @@ open Fabulous.StackAllocatedCollections.StackList
 open SkiaSharp
 
 #nowarn "0044"
+
 
 open type Fabulous.Avalonia.View
 
@@ -141,7 +141,7 @@ module CustomSkiaBuilders =
 
     type Fabulous.Avalonia.View with
 
-        static member CustomSkiaControl<'msg>() =
+        static member CustomSkiaControl() =
             WidgetBuilder<'msg, IFabCustomSkiaControl>(CustomSkiaControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
 
 module CustomSkiaPage =

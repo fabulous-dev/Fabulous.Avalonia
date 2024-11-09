@@ -20,8 +20,8 @@ module ItalicBuilders =
 
         /// <summary>Creates a Italic widget.</summary>
         /// <param name="text">Text to display.</param>
-        static member Italic(text: string) =
-            View.Italic<'msg>() { View.Run<'msg>(text) }
+        static member Italic(text: string) = View.Italic() { View.Run(text) }
+
 
 type ItalicModifiers =
     /// <summary>Link a ViewRef to access the direct Italic control instance.</summary>

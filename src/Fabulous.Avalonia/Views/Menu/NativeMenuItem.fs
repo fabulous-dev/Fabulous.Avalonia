@@ -9,7 +9,7 @@ open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabNativeMenuItem =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module NativeMenuItem =
     let WidgetKey = Widgets.register<NativeMenuItem>()
@@ -36,9 +36,6 @@ module NativeMenuItem =
     let ToolTip =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.ToolTipProperty
 
-    let Click =
-        Attributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
-
 [<AutoOpen>]
 module NativeMenuItemBuilders =
     type Fabulous.Avalonia.View with
@@ -47,16 +44,6 @@ module NativeMenuItemBuilders =
         /// <param name="header">The header of the Flyout.</param>
         static member NativeMenuItem(header: string) =
             WidgetBuilder<'msg, IFabNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
-
-        /// <summary>Creates a NativeMenuItem widget.</summary>
-        /// <param name="header">The header of the Flyout.</param>
-        /// <param name="onClicked">Raised when the menu item is clicked.</param>
-        static member NativeMenuItem(header: string, onClicked: 'msg) =
-            WidgetBuilder<'msg, IFabNativeMenuItem>(
-                NativeMenuItem.WidgetKey,
-                NativeMenuItem.Header.WithValue(header),
-                NativeMenuItem.Click.WithValue(MsgValue onClicked)
-            )
 
 type NativeMenuItemModifiers =
     /// <summary>Sets the Gesture property.</summary>

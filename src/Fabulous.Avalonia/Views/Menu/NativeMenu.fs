@@ -12,22 +12,7 @@ module NativeMenu =
     let WidgetKey = Widgets.register<NativeMenu>()
 
     let Items =
-        Attributes.defineListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
-
-    let Opening =
-        Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
-
-    let Closed =
-        Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
-
-    let NeedsUpdate =
-        Attributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
-
-module NativeMenuAttached =
-    let NativeMenu = Attributes.defineAvaloniaPropertyWidget NativeMenu.MenuProperty
-
-    let IsNativeMenuExported =
-        Attributes.defineAvaloniaPropertyWithEquality Avalonia.Controls.NativeMenu.IsNativeMenuExportedProperty
+        Attributes.defineAvaloniaListWidgetCollection "NativeMenu_Items" (fun target -> (target :?> NativeMenu).Items)
 
 [<AutoOpen>]
 module NativeMenuBuilders =
@@ -37,27 +22,13 @@ module NativeMenuBuilders =
         static member NativeMenu() =
             CollectionBuilder<'msg, IFabNativeMenu, IFabNativeMenuItem>(NativeMenu.WidgetKey, NativeMenu.Items)
 
+module NativeMenuAttached =
+    let NativeMenu = Attributes.defineAvaloniaPropertyWidget NativeMenu.MenuProperty
+
+    let IsNativeMenuExported =
+        Attributes.defineAvaloniaPropertyWithEquality Avalonia.Controls.NativeMenu.IsNativeMenuExportedProperty
+
 type NativeMenuModifiers =
-    /// <summary>Listens to the NativeMenu Opening event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the Opening event fires.</param>
-    [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
-        this.AddScalar(NativeMenu.Opening.WithValue(fun _ -> box msg))
-
-    /// <summary>Listens to the NativeMenu Closed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the Closed event fires.</param>
-    [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
-        this.AddScalar(NativeMenu.Closed.WithValue(fun _ -> box msg))
-
-    /// <summary>Listens to the NativeMenu NeedsUpdate event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the NeedsUpdate event fires.</param>
-    [<Extension>]
-    static member inline onNeedsUpdate(this: WidgetBuilder<'msg, #IFabNativeMenu>, msg: 'msg) =
-        this.AddScalar(NativeMenu.NeedsUpdate.WithValue(fun _ -> box msg))
 
     /// <summary>Link a ViewRef to access the direct NativeMenu control instance.</summary>
     /// <param name="this">Current widget.</param>

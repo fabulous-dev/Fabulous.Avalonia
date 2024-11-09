@@ -39,8 +39,8 @@ module PopupPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("PopupPage") {
+            let! model = Context.Mvu program
 
             (VStack(spacing = 15.) {
                 Button("Click me", OpenPopup)

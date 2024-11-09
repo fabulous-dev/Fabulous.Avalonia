@@ -34,9 +34,6 @@ module ColorSlider =
     let IsRoundingEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ColorSlider.IsRoundingEnabledProperty
 
-    let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
-
 [<AutoOpen>]
 module ColorSliderBuilders =
     type Fabulous.Avalonia.View with
@@ -53,12 +50,6 @@ module ColorSliderBuilders =
                 AttributesBundle(StackList.one(ColorSlider.Color.WithValue(color)), ValueNone, ValueNone)
             )
 
-        /// <summary>Creates a ColorSlider widget.</summary>
-        /// <param name="color">The Color value.</param>
-        /// <param name="fn">Raised when the color changes.</param>
-        static member ColorSlider(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.ColorChanged.WithValue(ValueEventData.create color fn))
-
 type ColorSliderModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>
     /// <param name="this">Current widget</param>
@@ -71,40 +62,40 @@ type ColorSliderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Components value.</param>
     [<Extension>]
-    static member inline colorComponent(this: WidgetBuilder<'msg, IFabColorSlider>, value: ColorComponent) =
+    static member inline colorComponent(this: WidgetBuilder<'msg, #IFabColorSlider>, value: ColorComponent) =
         this.AddScalar(ColorSlider.ColorComponent.WithValue(value))
 
     /// <summary>Set the ColorModel property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Components value.</param>
     [<Extension>]
-    static member inline colorModel(this: WidgetBuilder<'msg, IFabColorSlider>, value: ColorModel) =
+    static member inline colorModel(this: WidgetBuilder<'msg, #IFabColorSlider>, value: ColorModel) =
         this.AddScalar(ColorSlider.ColorModel.WithValue(value))
 
     /// <summary>Set the HsvColor property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HsvColor value.</param>
     [<Extension>]
-    static member inline hsvColor(this: WidgetBuilder<'msg, IFabColorSlider>, value: HsvColor) =
+    static member inline hsvColor(this: WidgetBuilder<'msg, #IFabColorSlider>, value: HsvColor) =
         this.AddScalar(ColorSlider.HsvColor.WithValue(value))
 
     /// <summary>Set the IsAlphaVisible property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsAlphaVisible value.</param>
     [<Extension>]
-    static member inline isAlphaVisible(this: WidgetBuilder<'msg, IFabColorSlider>, value: bool) =
+    static member inline isAlphaVisible(this: WidgetBuilder<'msg, #IFabColorSlider>, value: bool) =
         this.AddScalar(ColorSlider.IsAlphaVisible.WithValue(value))
 
     /// <summary>Set the IsPerceptive property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsPerceptive value.</param>
     [<Extension>]
-    static member inline isPerceptive(this: WidgetBuilder<'msg, IFabColorSlider>, value: bool) =
+    static member inline isPerceptive(this: WidgetBuilder<'msg, #IFabColorSlider>, value: bool) =
         this.AddScalar(ColorSlider.IsPerceptive.WithValue(value))
 
     /// <summary>Set the IsRoundingEnabled property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsRoundingEnabled value.</param>
     [<Extension>]
-    static member inline isRoundingEnabled(this: WidgetBuilder<'msg, IFabColorSlider>, value: bool) =
+    static member inline isRoundingEnabled(this: WidgetBuilder<'msg, #IFabColorSlider>, value: bool) =
         this.AddScalar(ColorSlider.IsRoundingEnabled.WithValue(value))

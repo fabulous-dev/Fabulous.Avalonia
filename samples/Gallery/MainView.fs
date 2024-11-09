@@ -122,8 +122,8 @@ module MainView =
 
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("MainView") {
+            let! model = Context.Mvu program
 
             SingleViewApplication() {
                 ScrollViewer(

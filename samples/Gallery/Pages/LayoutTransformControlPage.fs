@@ -5,7 +5,6 @@ open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
-
 open type Fabulous.Avalonia.View
 
 module LayoutTransformControlPage =
@@ -34,8 +33,8 @@ module LayoutTransformControlPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("LayoutTransformControlPage") {
+            let! model = Context.Mvu program
 
             VStack(16.) {
                 (VStack(16.) {

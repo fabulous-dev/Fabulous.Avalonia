@@ -22,8 +22,6 @@
     <ItemGroup>
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="ItemsRepeater.fs" />
     </ItemGroup>
     <ItemGroup>

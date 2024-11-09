@@ -18,7 +18,7 @@ module LineGeometry =
         Attributes.defineAvaloniaPropertyWithEquality LineGeometry.EndPointProperty
 
 [<AutoOpen>]
-module LineGeometryBuilders =
+module ComponentLineGeometryBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a LineGeometry widget.</summary>

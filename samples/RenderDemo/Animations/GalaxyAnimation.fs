@@ -13,7 +13,6 @@ open Avalonia.Rendering.Composition
 open Avalonia.Rendering.Composition.Animations
 open Fabulous
 open Fabulous.Avalonia
-
 open type Fabulous.Avalonia.View
 
 module GalaxyAnimation =
@@ -110,14 +109,14 @@ module GalaxyAnimation =
         )
 
     let view () =
-        Component(program) {
-            (Grid() {
+        Component("GalaxyAnimation") {
+            Grid() {
                 Ellipse()
                     .width(15.)
                     .height(15.)
                     .fill(SolidColorBrush(Colors.Orange))
 
-                (Grid() {
+                Grid() {
                     Rectangle()
                         .width(15.)
                         .height(15.)
@@ -141,11 +140,11 @@ module GalaxyAnimation =
                         .height(5.)
                         .fill(SolidColorBrush(Colors.Yellow))
                         .renderTransform(TranslateTransform(150., -200.))
-                })
-                    .reference(startField)
+                }
+                |> _.reference(startField)
 
-                (Grid() {
-                    (Grid() {
+                Grid() {
+                    Grid() {
                         Ellipse()
                             .width(30.)
                             .height(30.)
@@ -158,13 +157,13 @@ module GalaxyAnimation =
                             .renderTransform(TranslateTransform(200., 120.))
                             .reference(satellite)
 
-                    })
-                        .reference(planet)
-                })
-                    .reference(orbit)
+                    }
+                    |> _.reference(planet)
+                }
+                |> _.reference(orbit)
 
-            })
-                .background(SolidColorBrush(Colors.Black))
-                .onLoaded(OnLoaded)
-                .reference(rootVisual)
+            }
+            |> _.background(SolidColorBrush(Colors.Black))
+            |> _.onLoaded(OnLoaded)
+            |> _.reference(rootVisual)
         }

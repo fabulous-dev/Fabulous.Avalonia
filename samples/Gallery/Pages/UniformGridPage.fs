@@ -32,8 +32,8 @@ module UniformGridPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("UniformGridPage") {
+            let! model = Context.Mvu program
 
             VStack() {
                 (UniformGrid(rows = 1) {

@@ -21,6 +21,7 @@ module TabControl =
     let VerticalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality TabControl.VerticalContentAlignmentProperty
 
+
 [<AutoOpen>]
 module TabControlBuilders =
     type Fabulous.Avalonia.View with
@@ -78,13 +79,13 @@ type TabControlExtraModifiers =
 
 type TabControlCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTabItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabTabItem>
         (_: CollectionBuilder<'msg, 'marker, IFabTabItem>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTabItem>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabTabItem>
         (_: CollectionBuilder<'msg, 'marker, IFabTabItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

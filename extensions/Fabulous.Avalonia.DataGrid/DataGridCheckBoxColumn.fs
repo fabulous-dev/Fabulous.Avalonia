@@ -5,7 +5,6 @@ open Avalonia.Controls
 open Avalonia.Data
 open Fabulous
 open Fabulous.Avalonia
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabDataGridCheckBoxColumn =
@@ -79,5 +78,5 @@ type DataGridCheckBoxColumnModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsThreeState property value.</param>
     [<Extension>]
-    static member inline isThreeState(this: WidgetBuilder<'msg, IFabDataGridCheckBoxColumn>, value: bool) =
+    static member inline isThreeState(this: WidgetBuilder<'msg, #IFabDataGridCheckBoxColumn>, value: bool) =
         this.AddScalar(DataGridCheckBoxColumn.IsThreeState.WithValue(value))

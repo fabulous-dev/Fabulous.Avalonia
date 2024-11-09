@@ -1,20 +1,19 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Styling
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabStyle =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Style =
 
     let WidgetKey = Widgets.register<Style>()
 
     let Animations =
-        Attributes.defineListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations :> IList<_>)
+        Attributes.defineAvaloniaListWidgetCollection "Style_Animations" (fun target -> (target :?> Style).Animations)
 
 [<AutoOpen>]
 module StyleBuilders =
@@ -25,15 +24,16 @@ module StyleBuilders =
         static member Animations() =
             CollectionBuilder<'msg, IFabStyle, IFabAnimation>(Style.WidgetKey, Style.Animations)
 
+
 type StyleCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabAnimation>
         (_: CollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, 'itemType>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabAnimation>
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabAnimation>
         (_: CollectionBuilder<'msg, 'marker, IFabAnimation>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
@@ -64,10 +64,3 @@ type StyleModifiers =
     [<Extension>]
     static member inline animation(this: WidgetBuilder<'msg, #IFabStyledElement>, value: WidgetBuilder<'msg, IFabStyle>) =
         AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>(this, StyledElement.StylesWidget) { value }
-
-    /// <summary>Link a ViewRef to access the direct Style control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabStyle>, value: ViewRef<Style>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

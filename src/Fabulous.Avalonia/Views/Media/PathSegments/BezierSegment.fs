@@ -36,6 +36,7 @@ module BezierSegmentBuilders =
                 BezierSegment.Point3.WithValue(point3)
             )
 
+
 type BezierSegmentModifiers =
 
     /// <summary>Link a ViewRef to access the direct BezierSegment control instance.</summary>
