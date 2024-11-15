@@ -39,7 +39,7 @@
         <Compile Include="ColorPreviewer.Components.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="11.1.0" />
+        <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="11.2.0" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>

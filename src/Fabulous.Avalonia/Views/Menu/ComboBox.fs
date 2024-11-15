@@ -131,6 +131,13 @@ type ComboBoxModifiers =
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabComboBox>, value: VerticalAlignment) =
         this.AddScalar(ComboBox.VerticalContentAlignment.WithValue(value))
 
+    /// <summary>Sets the ItemTemplate property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="template">The template to render the items with.</param>
+    [<Extension>]
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabComboBox>, template: 'item -> WidgetBuilder<'msg, #IFabControl>) =
+        this.AddScalar(ComboBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
+
     /// <summary>Link a ViewRef to access the direct ComboBox control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>

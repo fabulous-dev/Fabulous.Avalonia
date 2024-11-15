@@ -13,16 +13,6 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-type NotificationViewModel(title, message) =
-
-    interface INotification with
-        member this.Title = title
-        member this.Message = message
-        member this.Expiration = TimeSpan.FromSeconds(5.)
-        member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
-        member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
-        member this.Type = NotificationType.Error
-
 
 module NotificationsPage =
     type Model =
@@ -79,6 +69,16 @@ module NotificationsPage =
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
+    let notification title message =
+        { new INotification with
+            member this.Title = title
+            member this.Message = message
+            member this.Expiration = TimeSpan.FromSeconds(5.)
+            member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
+            member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
+            member this.Type = NotificationType.Error }
+
+
     let init () =
         { NotificationManager = null
           NotificationPosition = NotificationPosition.TopRight },
@@ -91,9 +91,7 @@ module NotificationsPage =
 
         | ShowCustomManagedNotification ->
             model,
-            showNotification
-                model.NotificationManager
-                (NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+            showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
 
         | ShowNativeNotification ->
             model,

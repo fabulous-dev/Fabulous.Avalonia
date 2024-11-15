@@ -183,7 +183,7 @@
             </Transitions>
         </Setter>
         <Setter Property="Background">
-            <RadialGradientBrush Center="50%,50%" Radius="0.5">
+            <RadialGradientBrush Center="50%,50%" RadiusX="0.5">
                 <GradientStop Offset="0" Color="Red" />
                 <GradientStop Offset="1" Color="Blue" />
             </RadialGradientBrush>
@@ -192,7 +192,7 @@
 
     <Style Selector="Border.Rect14:pointerover">
         <Setter Property="Background">
-            <RadialGradientBrush Center="30%,30%" Radius="0.2">
+            <RadialGradientBrush Center="30%,30%" RadiusX="0.2">
                 <GradientStop Offset="0" Color="Green" />
                 <GradientStop Offset="1" Color="Yellow" />
             </RadialGradientBrush>
