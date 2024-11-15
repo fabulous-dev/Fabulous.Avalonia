@@ -34,6 +34,9 @@ module MainWindow =
                 })
                     .expandedModeThresholdWidth(760)
             }
+#if DEBUG
+            |> _.attachDevTools()
+#endif
         }
 
     let create () =

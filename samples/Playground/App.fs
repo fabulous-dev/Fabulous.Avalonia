@@ -36,12 +36,14 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(Window(content()))
+        DesktopApplication(
+            Window(content())
+#if DEBUG
+                .attachDevTools()
+#endif
+        )
 #endif
 
-#if DEBUG
-            .attachDevTools()
-#endif
 
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)

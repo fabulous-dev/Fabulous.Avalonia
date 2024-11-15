@@ -52,5 +52,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     <ProjectReference Include="..\ControlSamples\ControlSamples.csproj" />
+    <ProjectReference Include="..\..\extensions\Fabulous.Avalonia.Diagnostics\Fabulous.Avalonia.Diagnostics.fsproj" />
   </ItemGroup>
 </Project>
