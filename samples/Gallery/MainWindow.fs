@@ -256,21 +256,17 @@ module MainWindow =
         Component("MainWindow") {
             let! model = Context.Mvu program
 
-            (DesktopApplication() {
-                (Window() { hamburgerMenu model })
+            DesktopApplication() {
+                Window(hamburgerMenu model)
                     .title("Fabulous Gallery")
                     .menu(createMenu())
                     .width(1024.)
                     .height(800.)
                     .icon("avares://Gallery/Assets/Icons/logo.ico")
-            })
-            // FIXME this is not working after the last update of Fabulous pre 8
-            // MainWindow is null for some reason. I will investigate this later.
-            // Unhandled exception. System.ArgumentNullException: Value cannot be null. (Parameter 'root')
-            // at Avalonia.Diagnostics.DevTools.Attach(TopLevel root, DevToolsOptions options)
 #if DEBUG
-                .attachDevTools()
+                    .attachDevTools()
 #endif
+            }
             |> _.trayIcon(trayIcon())
             |> _.requestedThemeVariant(model.CurrentTheme)
         }
