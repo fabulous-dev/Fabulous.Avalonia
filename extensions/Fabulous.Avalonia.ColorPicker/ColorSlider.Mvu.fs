@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuColorSlider =
     let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
 
 [<AutoOpen>]
 module MvuColorSliderBuilders =

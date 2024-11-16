@@ -7,10 +7,10 @@ open Fabulous
 
 module ComponentStackPanel =
     let HorizontalSnapPointsChanged =
-        Attributes.defineEventNoDispatch "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
+        Attributes.Component.defineEvent "StackPanel_HorizontalSnapPointsChanged" (fun target -> (target :?> StackPanel).HorizontalSnapPointsChanged)
 
     let VerticalSnapPointsChanged =
-        Attributes.defineEventNoDispatch "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
+        Attributes.Component.defineEvent "StackPanel_VerticalSnapPointsChanged" (fun target -> (target :?> StackPanel).VerticalSnapPointsChanged)
 
 type ComponentStackPanelModifiers =
 

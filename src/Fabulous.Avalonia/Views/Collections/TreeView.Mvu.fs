@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuTreeView =
     let SelectionChanged =
-        Attributes.defineEvent "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
+        Attributes.Mvu.defineEvent "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
 
 type MvuTreeViewModifiers =
     /// <summary>Listens to the TreeView SelectionChanged event.</summary>

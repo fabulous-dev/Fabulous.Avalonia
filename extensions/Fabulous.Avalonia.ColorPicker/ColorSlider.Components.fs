@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentColorSlider =
     let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "ColorSlider_ColorChanged" ColorSlider.ColorProperty
 
 [<AutoOpen>]
 module ComponentColorSliderBuilders =

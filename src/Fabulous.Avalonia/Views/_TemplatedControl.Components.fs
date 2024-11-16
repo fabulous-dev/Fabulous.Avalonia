@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentTemplatedControl =
     let TemplateApplied =
-        Attributes.defineEventNoDispatch "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
+        Attributes.Component.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
 
 type ComponentTemplatedControlModifiers =
     /// <summary>Listens to the TemplateApplied event.</summary>

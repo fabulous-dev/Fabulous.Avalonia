@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuTimePicker =
     let SelectedTimeChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
 module MvuTimePickerBuilders =

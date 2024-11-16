@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuSelectableTextBlock =
     let CopyingToClipboard =
-        Attributes.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
+        Attributes.Mvu.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
 
 [<AutoOpen>]
 module MvuSelectableTextBlockBuilders =

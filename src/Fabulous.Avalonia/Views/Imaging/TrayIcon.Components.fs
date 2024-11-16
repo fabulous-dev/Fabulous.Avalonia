@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentTrayIcon =
     let Clicked =
-        Attributes.defineEventNoArgNoDispatch "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
+        Attributes.Component.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
 
 type ComponentTrayIconModifiers =
     /// <summary>Listens to the TrayIcon Clicked event.</summary>

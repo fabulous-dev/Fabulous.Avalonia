@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuNumericUpDown =
     let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty Option.toNullable Option.ofNullable
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent "NumericUpDown_ValueChanged" NumericUpDown.ValueProperty Option.toNullable Option.ofNullable
 
 [<AutoOpen>]
 module MvuNumericUpDownBuilders =

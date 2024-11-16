@@ -10,16 +10,16 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuMenuItem =
     let Clicked =
-        Attributes.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
+        Attributes.Mvu.defineEvent "MenuItem_Clicked" (fun target -> (target :?> MenuItem).Click)
 
     let PointerEnteredItem =
-        Attributes.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
+        Attributes.Mvu.defineEvent "MenuItem_PointerEnteredItem" (fun target -> (target :?> MenuItem).PointerEnteredItem)
 
     let PointerExitedItem =
-        Attributes.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
+        Attributes.Mvu.defineEvent "MenuItem_PointerExitedItem" (fun target -> (target :?> MenuItem).PointerExitedItem)
 
     let SubmenuOpened =
-        Attributes.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
+        Attributes.Mvu.defineEvent "MenuItem_SubmenuOpened" (fun target -> (target :?> MenuItem).SubmenuOpened)
 
 [<AutoOpen>]
 module MvuMenuItemBuilders =

@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentTreeView =
     let SelectionChanged =
-        Attributes.defineEventNoDispatch "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
+        Attributes.Component.defineEvent "TreeView_SelectionChanged" (fun target -> (target :?> TreeView).SelectionChanged)
 
 type ComponentTreeViewModifiers =
     /// <summary>Listens to the TreeView SelectionChanged event.</summary>

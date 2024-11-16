@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentTimePicker =
     let SelectedTimeChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent
             "TimePicker_SelectedTimeChanged"
             TimePicker.SelectedTimeProperty
             Nullable

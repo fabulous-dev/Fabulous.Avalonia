@@ -9,10 +9,10 @@ open Fabulous.StackAllocatedCollections.StackList
 module MvuToggleButton =
 
     let CheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "ToggleButton_IsCheckedChanged" ToggleButton.IsCheckedProperty Nullable Nullable.op_Explicit
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent "ToggleButton_IsCheckedChanged" ToggleButton.IsCheckedProperty Nullable Nullable.op_Explicit
 
     let ThreeStateCheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ToggleButton_CheckedChanged" ToggleButton.IsCheckedProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "ToggleButton_CheckedChanged" ToggleButton.IsCheckedProperty
 
 [<AutoOpen>]
 module MvuToggleButtonBuilders =

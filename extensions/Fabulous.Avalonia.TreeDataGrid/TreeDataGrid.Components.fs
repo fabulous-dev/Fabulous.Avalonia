@@ -7,13 +7,13 @@ open Fabulous.Avalonia
 
 module ComponentTreeDataGrid =
     let RowDragStarted =
-        Attributes.defineEventNoDispatch "TreeDataGrid_RowDragStarted" (fun target -> (target :?> TreeDataGrid).RowDragStarted)
+        Attributes.Mvu.defineEvent "TreeDataGrid_RowDragStarted" (fun target -> (target :?> TreeDataGrid).RowDragStarted)
 
     let RowDragOver =
-        Attributes.defineEventNoDispatch "TreeDataGrid_RowDragOver" (fun target -> (target :?> TreeDataGrid).RowDragOver)
+        Attributes.Mvu.defineEvent "TreeDataGrid_RowDragOver" (fun target -> (target :?> TreeDataGrid).RowDragOver)
 
     let RowDrop =
-        Attributes.defineEventNoDispatch "TreeDataGrid_RowDrop" (fun target -> (target :?> TreeDataGrid).RowDrop)
+        Attributes.Mvu.defineEvent "TreeDataGrid_RowDrop" (fun target -> (target :?> TreeDataGrid).RowDrop)
 
 type ComponentTreeDataGridModifiers =
     /// <summary>Listens to the RowDragStarted event.</summary>

@@ -7,10 +7,10 @@ open Fabulous.Avalonia
 
 module ComponentPopup =
     let Closed =
-        Attributes.defineEventNoDispatch "Popup_Closed" (fun target -> (target :?> Popup).Closed)
+        Attributes.Component.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
 
     let Opened =
-        Attributes.defineEventNoArgNoDispatch "Popup_Opened" (fun target -> (target :?> Popup).Opened)
+        Attributes.Component.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
 
 type ComponentPopupModifiers =
     /// <summary>Listens to the Popup Closed event.</summary>

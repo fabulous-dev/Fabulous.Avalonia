@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 module ComponentNativeMenuItem =
 
     let Click =
-        Attributes.defineEventNoArgNoDispatch "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
+        Attributes.Component.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
 
 [<AutoOpen>]
 module ComponentNativeMenuItemBuilders =

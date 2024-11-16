@@ -9,19 +9,19 @@ open Fabulous.Avalonia
 module MvuControl =
 
     let RequestBringIntoView =
-        Attributes.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
+        Attributes.Mvu.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
 
     let ContextRequested =
-        Attributes.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
+        Attributes.Mvu.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
 
     let Loaded =
-        Attributes.defineEvent "Control_Loaded" (fun target -> (target :?> Control).Loaded)
+        Attributes.Mvu.defineEvent "Control_Loaded" (fun target -> (target :?> Control).Loaded)
 
     let UnLoaded =
-        Attributes.defineEvent "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
+        Attributes.Mvu.defineEvent "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
 
     let SizeChanged =
-        Attributes.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
+        Attributes.Mvu.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
 
 type MvuControlModifiers =
     /// <summary>Listens to the Control ContextRequested event.</summary>

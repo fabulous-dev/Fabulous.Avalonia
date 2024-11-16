@@ -7,7 +7,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuToggleSplitButton =
     let CheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ToggleSplitButton_CheckedChanged" ToggleSplitButton.IsCheckedProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "ToggleSplitButton_CheckedChanged" ToggleSplitButton.IsCheckedProperty
 
 [<AutoOpen>]
 module MvuToggleSplitButtonBuilders =

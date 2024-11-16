@@ -9,13 +9,13 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentExpander =
     let ExpandedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
     let Collapsing =
-        Attributes.defineEventNoDispatch "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
+        Attributes.Component.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
 
     let Expanding =
-        Attributes.defineEventNoDispatch "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
+        Attributes.Component.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
 
 [<AutoOpen>]
 module ComponentExpanderBuilders =

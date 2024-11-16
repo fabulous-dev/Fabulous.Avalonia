@@ -11,67 +11,67 @@ open Fabulous.Avalonia
 module MvuDataGrid =
 
     let HorizontalScroll =
-        Attributes.defineEvent "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)
+        Attributes.Mvu.defineEvent "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)
 
     let VerticalScroll =
-        Attributes.defineEvent "DataGrid_VerticalScroll" (fun target -> (target :?> DataGrid).VerticalScroll)
+        Attributes.Mvu.defineEvent "DataGrid_VerticalScroll" (fun target -> (target :?> DataGrid).VerticalScroll)
 
     let AutoGeneratingColumn =
-        Attributes.defineEvent "DataGrid_AutoGeneratingColumn" (fun target -> (target :?> DataGrid).AutoGeneratingColumn)
+        Attributes.Mvu.defineEvent "DataGrid_AutoGeneratingColumn" (fun target -> (target :?> DataGrid).AutoGeneratingColumn)
 
     let BeginningEdit =
-        Attributes.defineEvent "DataGrid_BeginningEdit" (fun target -> (target :?> DataGrid).BeginningEdit)
+        Attributes.Mvu.defineEvent "DataGrid_BeginningEdit" (fun target -> (target :?> DataGrid).BeginningEdit)
 
     let CellEditEnded =
-        Attributes.defineEvent "DataGrid_CellEditEnded" (fun target -> (target :?> DataGrid).CellEditEnded)
+        Attributes.Mvu.defineEvent "DataGrid_CellEditEnded" (fun target -> (target :?> DataGrid).CellEditEnded)
 
     let CellEditEnding =
-        Attributes.defineEvent "DataGrid_CellEditEnding" (fun target -> (target :?> DataGrid).CellEditEnding)
+        Attributes.Mvu.defineEvent "DataGrid_CellEditEnding" (fun target -> (target :?> DataGrid).CellEditEnding)
 
     let CellPointerPressed =
-        Attributes.defineEvent "DataGrid_CellPointerPressed" (fun target -> (target :?> DataGrid).CellPointerPressed)
+        Attributes.Mvu.defineEvent "DataGrid_CellPointerPressed" (fun target -> (target :?> DataGrid).CellPointerPressed)
 
     let ColumnDisplayIndexChanged =
-        Attributes.defineEvent "DataGrid_ColumnDisplayIndexChanged" (fun target -> (target :?> DataGrid).ColumnDisplayIndexChanged)
+        Attributes.Mvu.defineEvent "DataGrid_ColumnDisplayIndexChanged" (fun target -> (target :?> DataGrid).ColumnDisplayIndexChanged)
 
     let ColumnReordered =
-        Attributes.defineEvent "DataGrid_ColumnReordered" (fun target -> (target :?> DataGrid).ColumnReordered)
+        Attributes.Mvu.defineEvent "DataGrid_ColumnReordered" (fun target -> (target :?> DataGrid).ColumnReordered)
 
     let ColumnReordering =
-        Attributes.defineEvent "DataGrid_ColumnReordering" (fun target -> (target :?> DataGrid).ColumnReordering)
+        Attributes.Mvu.defineEvent "DataGrid_ColumnReordering" (fun target -> (target :?> DataGrid).ColumnReordering)
 
     let CurrentCellChanged =
-        Attributes.defineEvent "DataGrid_CurrentCellChanged" (fun target -> (target :?> DataGrid).CurrentCellChanged)
+        Attributes.Mvu.defineEvent "DataGrid_CurrentCellChanged" (fun target -> (target :?> DataGrid).CurrentCellChanged)
 
     let LoadingRow =
-        Attributes.defineEvent "DataGrid_LoadingRow" (fun target -> (target :?> DataGrid).LoadingRow)
+        Attributes.Mvu.defineEvent "DataGrid_LoadingRow" (fun target -> (target :?> DataGrid).LoadingRow)
 
     let PreparingCellForEdit =
-        Attributes.defineEvent "DataGrid_PreparingCellForEdit" (fun target -> (target :?> DataGrid).PreparingCellForEdit)
+        Attributes.Mvu.defineEvent "DataGrid_PreparingCellForEdit" (fun target -> (target :?> DataGrid).PreparingCellForEdit)
 
     let RowEditEnded =
-        Attributes.defineEvent "DataGrid_RowEditEnded" (fun target -> (target :?> DataGrid).RowEditEnded)
+        Attributes.Mvu.defineEvent "DataGrid_RowEditEnded" (fun target -> (target :?> DataGrid).RowEditEnded)
 
     let RowEditEnding =
-        Attributes.defineEvent "DataGrid_RowEditEnding" (fun target -> (target :?> DataGrid).RowEditEnding)
+        Attributes.Mvu.defineEvent "DataGrid_RowEditEnding" (fun target -> (target :?> DataGrid).RowEditEnding)
 
     let SelectionChanged =
-        Attributes.defineEvent<SelectionChangedEventArgs> "DataGrid_SelectionChanged" (fun target -> (target :?> DataGrid).SelectionChanged)
+        Attributes.Mvu.defineEvent<SelectionChangedEventArgs> "DataGrid_SelectionChanged" (fun target -> (target :?> DataGrid).SelectionChanged)
 
     let Sorting =
-        Attributes.defineEvent "DataGrid_Sorting" (fun target -> (target :?> DataGrid).Sorting)
+        Attributes.Mvu.defineEvent "DataGrid_Sorting" (fun target -> (target :?> DataGrid).Sorting)
 
     let UnloadingRow =
-        Attributes.defineEvent "DataGrid_UnloadingRow" (fun target -> (target :?> DataGrid).UnloadingRow)
+        Attributes.Mvu.defineEvent "DataGrid_UnloadingRow" (fun target -> (target :?> DataGrid).UnloadingRow)
 
     let LoadingRowDetails =
-        Attributes.defineEvent "DataGrid_LoadingRowDetails" (fun target -> (target :?> DataGrid).LoadingRowDetails)
+        Attributes.Mvu.defineEvent "DataGrid_LoadingRowDetails" (fun target -> (target :?> DataGrid).LoadingRowDetails)
 
     let RowDetailsVisibilityChanged =
-        Attributes.defineEvent "DataGrid_RowDetailsVisibilityChanged" (fun target -> (target :?> DataGrid).RowDetailsVisibilityChanged)
+        Attributes.Mvu.defineEvent "DataGrid_RowDetailsVisibilityChanged" (fun target -> (target :?> DataGrid).RowDetailsVisibilityChanged)
 
     let UnloadingRowDetails =
-        Attributes.defineEvent "DataGrid_UnloadingRowDetails" (fun target -> (target :?> DataGrid).UnloadingRowDetails)
+        Attributes.Mvu.defineEvent "DataGrid_UnloadingRowDetails" (fun target -> (target :?> DataGrid).UnloadingRowDetails)
 
 type MvuDataGridModifiers =
     /// <summary>Listens to the HorizontalScroll Scroll event.</summary>

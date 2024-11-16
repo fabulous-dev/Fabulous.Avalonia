@@ -8,7 +8,8 @@ open Fabulous.Avalonia
 
 module MvuRefreshVisualizer =
     let RefreshRequested =
-        Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target -> (target :?> RefreshVisualizer).RefreshRequested)
+        Attributes.Mvu.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target ->
+            (target :?> RefreshVisualizer).RefreshRequested)
 
 type MvuRefreshVisualizerModifiers =
     /// <summary>Listens the RefreshVisualizer RefreshRequested event.</summary>

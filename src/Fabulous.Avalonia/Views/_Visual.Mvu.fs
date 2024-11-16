@@ -8,10 +8,10 @@ open Fabulous.Avalonia
 
 module MvuVisual =
     let AttachedToVisualTree =
-        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)
+        Attributes.Mvu.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).AttachedToVisualTree)
 
     let DetachedFromVisualTree =
-        Attributes.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
+        Attributes.Mvu.defineEvent "VisualAttachedToVisualTree" (fun target -> (target :?> Visual).DetachedFromVisualTree)
 
 type MvuVisualModifiers =
     /// <summary>Listens to the Visual AttachedToVisualTree event.</summary>

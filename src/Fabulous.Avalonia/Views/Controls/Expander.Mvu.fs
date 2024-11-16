@@ -8,13 +8,13 @@ open Fabulous.Avalonia
 
 module MvuExpander =
     let ExpandedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
     let Collapsing =
-        Attributes.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
+        Attributes.Mvu.defineEvent "Expander_Collapsing" (fun target -> (target :?> Expander).Collapsing)
 
     let Expanding =
-        Attributes.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
+        Attributes.Mvu.defineEvent "Expander_Expanding" (fun target -> (target :?> Expander).Expanding)
 
 type MvuExpanderModifiers =
     /// <summary>Listens to the Expander ExpandedChanged event.</summary>

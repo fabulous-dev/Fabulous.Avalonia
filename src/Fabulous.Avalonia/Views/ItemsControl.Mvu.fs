@@ -7,13 +7,13 @@ open Fabulous.Avalonia
 
 module MvuItemsControl =
     let ContainerClearing =
-        Attributes.defineEvent "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
+        Attributes.Mvu.defineEvent "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
 
     let ContainerIndexChanged =
-        Attributes.defineEvent "ItemsControl_ContainerIndexChanged" (fun target -> (target :?> ItemsControl).ContainerIndexChanged)
+        Attributes.Mvu.defineEvent "ItemsControl_ContainerIndexChanged" (fun target -> (target :?> ItemsControl).ContainerIndexChanged)
 
     let ContainerPrepared =
-        Attributes.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
+        Attributes.Mvu.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
 
 type MvuItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>

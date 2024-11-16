@@ -8,11 +8,11 @@ open Fabulous.Avalonia
 
 module MvuSelectingItemsControl =
     let SelectionChanged =
-        Attributes.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
+        Attributes.Mvu.defineEvent<SelectionChangedEventArgs> "SelectingItemsControl_SelectionChanged" (fun target ->
             (target :?> SelectingItemsControl).SelectionChanged)
 
     let SelectedIndexChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "SelectingItemsControl_SelectedIndexChanged" SelectingItemsControl.SelectedIndexProperty
 
 type MvuSelectingItemsControlModifiers =
     /// <summary>Listens to the SelectingItemsControl SelectionChanged event.</summary>

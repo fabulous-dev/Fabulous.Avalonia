@@ -7,16 +7,16 @@ open Fabulous.Avalonia
 
 module ComponentDragDrop =
     let DragEnter =
-        Attributes.defineRoutedEventNoDispatch<DragEventArgs> "DragDrop_DragEnter" DragDrop.DragEnterEvent
+        Attributes.Component.defineRoutedEvent<DragEventArgs> "DragDrop_DragEnter" DragDrop.DragEnterEvent
 
     let DragLeave =
-        Attributes.defineRoutedEventNoDispatch<DragEventArgs> "DragDrop_DragLeave" DragDrop.DragLeaveEvent
+        Attributes.Component.defineRoutedEvent<DragEventArgs> "DragDrop_DragLeave" DragDrop.DragLeaveEvent
 
     let DragOver =
-        Attributes.defineRoutedEventNoDispatch<DragEventArgs> "DragDrop_DragOver" DragDrop.DragOverEvent
+        Attributes.Component.defineRoutedEvent<DragEventArgs> "DragDrop_DragOver" DragDrop.DragOverEvent
 
     let Drop =
-        Attributes.defineRoutedEventNoDispatch<DragEventArgs> "DragDrop_Drop" DragDrop.DropEvent
+        Attributes.Component.defineRoutedEvent<DragEventArgs> "DragDrop_Drop" DragDrop.DropEvent
 
 type ComponentDragDropModifiers =
     /// <summary>Listens to the DragDrop DragEnter event.</summary>

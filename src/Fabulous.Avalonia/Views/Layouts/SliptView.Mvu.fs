@@ -9,19 +9,19 @@ open System.Runtime.CompilerServices
 
 module MvuSplitView =
     let PanClosed =
-        Attributes.defineEvent "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
+        Attributes.Mvu.defineEvent "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
 
     let PanClosing =
-        Attributes.defineEvent "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
+        Attributes.Mvu.defineEvent "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
 
     let PanOpened =
-        Attributes.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
+        Attributes.Mvu.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
 
     let PanOpening =
-        Attributes.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
+        Attributes.Mvu.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
 
     let IsPresented =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
 
 type MvuSplitViewModifiers =
     /// <summary>Listens to the SplitView PanClosed event.</summary>

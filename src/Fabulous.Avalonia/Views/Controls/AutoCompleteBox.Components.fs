@@ -9,19 +9,19 @@ open Fabulous.Avalonia
 
 module ComponentAutoCompleteBox =
     let Text =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
 
     let Populating =
-        Attributes.defineEventNoDispatch<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
+        Attributes.Component.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
 
     let Populated =
-        Attributes.defineEventNoDispatch<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
+        Attributes.Component.defineEvent<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
 
     let DropDownOpened =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
 
     let SelectionChanged =
-        Attributes.defineEventNoDispatch<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
+        Attributes.Component.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target ->
             (target :?> AutoCompleteBox).SelectionChanged)
 
 type ComponentAutoCompleteBoxModifiers =

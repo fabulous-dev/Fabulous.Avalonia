@@ -6,16 +6,16 @@ open Fabulous
 
 module MvuWindowBase =
     let Activated =
-        Attributes.defineEventNoArg "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
+        Attributes.Mvu.defineEventNoArg "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
 
     let Deactivated =
-        Attributes.defineEventNoArg "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
+        Attributes.Mvu.defineEventNoArg "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
 
     let PositionChanged =
-        Attributes.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
+        Attributes.Mvu.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
 
     let Resized =
-        Attributes.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
+        Attributes.Mvu.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
 
 type MvuWindowBaseModifiers =
     /// <summary>Listens to the WindowBase Activated event.</summary>

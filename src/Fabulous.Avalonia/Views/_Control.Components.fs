@@ -9,19 +9,19 @@ open Fabulous.Avalonia
 module ComponentControl =
 
     let RequestBringIntoView =
-        Attributes.defineRoutedEventNoDispatch "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
+        Attributes.Component.defineRoutedEvent "Control_RequestBringIntoView" Control.RequestBringIntoViewEvent
 
     let ContextRequested =
-        Attributes.defineEventNoDispatch "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
+        Attributes.Component.defineEvent "Control_ContextRequested" (fun target -> (target :?> Control).ContextRequested)
 
     let Loaded =
-        Attributes.defineEventNoDispatch "Control_Loaded" (fun target -> (target :?> Control).Loaded)
+        Attributes.Component.defineEvent "Control_Loaded" (fun target -> (target :?> Control).Loaded)
 
     let UnLoaded =
-        Attributes.defineEventNoDispatch "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
+        Attributes.Component.defineEvent "Control_UnLoaded" (fun target -> (target :?> Control).Unloaded)
 
     let SizeChanged =
-        Attributes.defineEventNoDispatch "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
+        Attributes.Component.defineEvent "Control_SizeChanged" (fun target -> (target :?> Control).SizeChanged)
 
 type ComponentControlModifiers =
     /// <summary>Listens to the Control ContextRequested event.</summary>

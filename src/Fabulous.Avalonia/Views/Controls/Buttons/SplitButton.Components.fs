@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentSplitButton =
     let Clicked =
-        Attributes.defineEventNoDispatch "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
+        Attributes.Component.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
 
 [<AutoOpen>]
 module ComponentSplitButtonBuilders =

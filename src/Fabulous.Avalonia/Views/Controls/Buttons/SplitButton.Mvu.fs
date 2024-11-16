@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuSplitButton =
     let Clicked =
-        Attributes.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
+        Attributes.Mvu.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
 
 [<AutoOpen>]
 module MvuSplitButtonBuilders =

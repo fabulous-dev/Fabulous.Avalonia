@@ -7,10 +7,10 @@ open Fabulous.Avalonia
 
 module MvuPopup =
     let Closed =
-        Attributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
+        Attributes.Mvu.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
 
     let Opened =
-        Attributes.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
+        Attributes.Mvu.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
 
 type MvuPopupModifiers =
     /// <summary>Listens to the Popup Closed event.</summary>

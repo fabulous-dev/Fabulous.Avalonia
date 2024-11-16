@@ -8,12 +8,12 @@ open Fabulous.Avalonia
 
 module ComponentVirtualizingStackPanel =
     let HorizontalSnapPointsChanged =
-        Attributes.defineEventNoDispatch "VirtualizingStackPanel_HorizontalSnapPointsChanged" (fun target ->
+        Attributes.Component.defineEvent "VirtualizingStackPanel_HorizontalSnapPointsChanged" (fun target ->
             (target :?> VirtualizingStackPanel)
                 .HorizontalSnapPointsChanged)
 
     let VerticalSnapPointsChanged =
-        Attributes.defineEventNoDispatch "VirtualizingStackPanel_VerticalSnapPointsChanged" (fun target ->
+        Attributes.Component.defineEvent "VirtualizingStackPanel_VerticalSnapPointsChanged" (fun target ->
             (target :?> VirtualizingStackPanel)
                 .VerticalSnapPointsChanged)
 

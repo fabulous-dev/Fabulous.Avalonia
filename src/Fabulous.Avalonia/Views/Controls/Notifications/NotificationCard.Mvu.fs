@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module MvuNotificationCard =
     let NotificationClosed =
-        Attributes.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
+        Attributes.Mvu.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
 
 type MvuNotificationCardModifiers =
     /// <summary>Listens to the NotificationCard NotificationClosed event.</summary>

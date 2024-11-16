@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentNotificationCard =
     let NotificationClosed =
-        Attributes.defineEventNoDispatch "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
+        Attributes.Component.defineEvent "NotificationCard_NotificationClosed" (fun target -> (target :?> NotificationCard).NotificationClosed)
 
 type ComponentNotificationCardModifiers =
     /// <summary>Listens to the NotificationCard NotificationClosed event.</summary>

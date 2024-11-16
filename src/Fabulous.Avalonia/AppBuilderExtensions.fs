@@ -24,7 +24,7 @@ type FabulousAppBuilder private () =
                                   Logger = logger
                                   Dispatch = ignore }
 
-                            let envContext = new EnvironmentContext()
+                            let envContext = new EnvironmentContext(logger)
                             envContext.Set(EnvironmentKeys.Theme, app.ActualThemeVariant, false)
                             let def = WidgetDefinitionStore.get widget.Key
                             let node = def.AttachView(widget, envContext, treeContext, ValueNone, app)

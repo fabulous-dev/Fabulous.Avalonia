@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuHyperlinkButton =
     let IsVisitedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "HyperlinkButton_VisitedChanged" HyperlinkButton.IsVisitedProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "HyperlinkButton_VisitedChanged" HyperlinkButton.IsVisitedProperty
 
 [<AutoOpen>]
 module MvuHyperlinkButtonBuilders =

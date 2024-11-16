@@ -6,9 +6,9 @@
   </PropertyGroup>
   <!-- https://github.com/xamarin/xamarin-macios/issues/18469 -->
   <PropertyGroup Condition=" '$(GITHUB_ACTIONS)' != 'true' ">
-    <EnableCodeSigning>true</EnableCodeSigning>
-    <CodesignRequireProvisioningProfile>true</CodesignRequireProvisioningProfile>
-    <DisableCodesignVerification>true</DisableCodesignVerification>
+<!--    <EnableCodeSigning>true</EnableCodeSigning>-->
+<!--    <CodesignRequireProvisioningProfile>true</CodesignRequireProvisioningProfile>-->
+<!--    <DisableCodesignVerification>true</DisableCodesignVerification>-->
   </PropertyGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -16,6 +16,9 @@
     <Compile Include="SceneDelegate.fs" />
     <Compile Include="AppDelegate.fs" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
+    <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>

@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentSelectableTextBlock =
     let CopyingToClipboard =
-        Attributes.defineEventNoDispatch "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
+        Attributes.Component.defineEvent "SelectableTextBlock_CopyingToClipboard" (fun target -> (target :?> SelectableTextBlock).CopyingToClipboard)
 
 [<AutoOpen>]
 module ComponentSelectableTextBlockBuilders =

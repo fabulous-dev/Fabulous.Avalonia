@@ -8,20 +8,20 @@ open Fabulous.Avalonia
 
 module ComponentCalendarDatePicker =
     let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent
             "CalendarDatePicker_SelectedDateChanged"
             CalendarDatePicker.SelectedDateProperty
             Option.toNullable
             Option.ofNullable
 
     let DateValidationError =
-        Attributes.defineEventNoDispatch "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
+        Attributes.Component.defineEvent "CalendarDatePicker_DateValidationError" (fun target -> (target :?> CalendarDatePicker).DateValidationError)
 
     let CalendarClosed =
-        Attributes.defineEventNoArgNoDispatch "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
+        Attributes.Component.defineEventNoArg "CalendarDatePicker_CalendarClosed" (fun target -> (target :?> CalendarDatePicker).CalendarClosed)
 
     let CalendarOpened =
-        Attributes.defineEventNoArgNoDispatch "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
+        Attributes.Component.defineEventNoArg "CalendarDatePicker_CalendarOpened" (fun target -> (target :?> CalendarDatePicker).CalendarOpened)
 
 [<AutoOpen>]
 module ComponentCalendarDatePickerBuilders =

@@ -3,29 +3,34 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Controls.ApplicationLifetimes
 open Fabulous
 open Fabulous.Avalonia
 
-#nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
-
-
 module MvuApplication =
     let ActualThemeVariantChanged =
-        Attributes.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
+        Attributes.Mvu.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
     let ResourcesChanged =
-        Attributes.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
+        Attributes.Mvu.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
 
-    let UrlsOpened =
-        Attributes.defineEvent "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
+    let Activated =
+        Attributes.Mvu.defineEvent "Application_Activated" (fun target ->
+            (FabApplication.Current.TryGetFeature(typeof<IActivatableLifetime>) :?> IActivatableLifetime)
+                .Activated)
+
+    let Deactivated =
+        Attributes.Mvu.defineEvent "Application_Deactivated" (fun target ->
+            (FabApplication.Current.TryGetFeature(typeof<IActivatableLifetime>) :?> IActivatableLifetime)
+                .Deactivated)
 
     let ColorValuesChanged =
-        Attributes.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
+        Attributes.Mvu.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
             (target :?> FabApplication)
                 .PlatformSettings.ColorValuesChanged)
 
     let SafeAreaChanged =
-        Attributes.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
+        Attributes.Mvu.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
 
 type MvuApplicationModifiers =
     /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
@@ -42,12 +47,19 @@ type MvuApplicationModifiers =
     static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ResourcesChangedEventArgs -> 'msg) =
         this.AddScalar(MvuApplication.ResourcesChanged.WithValue(fn))
 
-    /// <summary>Listens to the application urls opened event.</summary>
+    /// <summary>Listens to the application activated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the application receives urls to open.</param>
+    /// <param name="fn">Raised when the application is activated.</param>
     [<Extension>]
-    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> 'msg) =
-        this.AddScalar(MvuApplication.UrlsOpened.WithValue(fn))
+    static member inline onActivated(this: WidgetBuilder<'msg, #IFabApplication>, fn: ActivatedEventArgs -> 'msg) =
+        this.AddScalar(MvuApplication.Activated.WithValue(fn))
+
+    /// <summary>Listens to the application deactivated event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the application is deactivated.</param>
+    [<Extension>]
+    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabApplication>, fn: ActivatedEventArgs -> 'msg) =
+        this.AddScalar(MvuApplication.Deactivated.WithValue(fn))
 
     /// <summary>Listens to the PlatformSettings color values changed event.</summary>
     /// <param name="this">Current widget.</param>

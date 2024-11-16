@@ -3,28 +3,35 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Controls.ApplicationLifetimes
 open Fabulous
 open Fabulous.Avalonia
 
-#nowarn "0044" // Disable obsolete warnings in Fabulous.Avalonia. Please remove after deleting obsolete code.
-
 module ComponentApplication =
     let ActualThemeVariantChanged =
-        Attributes.defineEventNoArgNoDispatch "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
+        Attributes.Component.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
 
     let ResourcesChanged =
-        Attributes.defineEventNoDispatch "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
+        Attributes.Component.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
 
-    let UrlsOpened =
-        Attributes.defineEventNoDispatch "Application_UrlsOpenedEvent" (fun target -> (target :?> FabApplication).UrlsOpened)
+    let Activated =
+        Attributes.Component.defineEvent "Application_Activated" (fun target ->
+            (FabApplication.Current.TryGetFeature(typeof<IActivatableLifetime>) :?> IActivatableLifetime)
+                .Activated)
+
+    let Deactivated =
+        Attributes.Component.defineEvent "Application_Deactivated" (fun target ->
+            (FabApplication.Current.TryGetFeature(typeof<IActivatableLifetime>) :?> IActivatableLifetime)
+                .Deactivated)
+
 
     let ColorValuesChanged =
-        Attributes.defineEventNoDispatch "PlatformSettings_ColorValuesChanged" (fun target ->
+        Attributes.Component.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
             (target :?> FabApplication)
                 .PlatformSettings.ColorValuesChanged)
 
     let SafeAreaChanged =
-        Attributes.defineEventNoDispatch "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
+        Attributes.Component.defineEvent "PlatformSettings_SafeAreaChanged" (fun target -> (target :?> FabApplication).InsetsManager.SafeAreaChanged)
 
 type ComponentApplicationModifiers =
     /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
@@ -41,12 +48,19 @@ type ComponentApplicationModifiers =
     static member inline onResourcesChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: ResourcesChangedEventArgs -> unit) =
         this.AddScalar(ComponentApplication.ResourcesChanged.WithValue(fn))
 
-    /// <summary>Listens to the application urls opened event.</summary>
+    /// <summary>Listens to the application activated event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the application receives urls to open.</param>
+    /// <param name="fn">Raised when the application is activated.</param>
     [<Extension>]
-    static member inline onUrlsOpened(this: WidgetBuilder<'msg, #IFabApplication>, fn: UrlOpenedEventArgs -> unit) =
-        this.AddScalar(ComponentApplication.UrlsOpened.WithValue(fn))
+    static member inline onActivated(this: WidgetBuilder<'msg, #IFabApplication>, fn: ActivatedEventArgs -> unit) =
+        this.AddScalar(ComponentApplication.Activated.WithValue(fn))
+
+    /// <summary>Listens to the application deactivated event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="fn">Raised when the application is deactivated.</param>
+    [<Extension>]
+    static member inline onDeactivated(this: WidgetBuilder<'msg, #IFabApplication>, fn: ActivatedEventArgs -> unit) =
+        this.AddScalar(ComponentApplication.Deactivated.WithValue(fn))
 
     /// <summary>Listens to the PlatformSettings color values changed event.</summary>
     /// <param name="this">Current widget.</param>

@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentDrawingImage =
     let Invalidated =
-        Attributes.defineEventNoArgNoDispatch "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
+        Attributes.Component.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
 
 type ComponentDrawingImageModifiers =
     /// <summary>Listens the DrawingImage Invalidated event.</summary>

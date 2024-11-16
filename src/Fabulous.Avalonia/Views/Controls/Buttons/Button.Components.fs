@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentButton =
     let Clicked =
-        Attributes.defineEventNoDispatch "Button_Clicked" (fun target -> (target :?> Button).Click)
+        Attributes.Component.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
 
 [<AutoOpen>]
 module ComponentButtonBuilders =

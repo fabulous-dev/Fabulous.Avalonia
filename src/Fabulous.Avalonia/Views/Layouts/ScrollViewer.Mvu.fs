@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuScrollViewer =
     let ScrollChanged =
-        Attributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
+        Attributes.Mvu.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
 
 type MvuScrollViewerModifiers =
     /// <summary>Listens to the ScrollViewer ScrollChanged event.</summary>

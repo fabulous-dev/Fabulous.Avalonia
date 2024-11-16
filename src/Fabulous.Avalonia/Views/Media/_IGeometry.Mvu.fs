@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuGeometry =
     let Changed =
-        Attributes.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
+        Attributes.Mvu.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
 
 type MvuGeometryModifiers =
     /// <summary>Listens to the Geometry Changed event.</summary>

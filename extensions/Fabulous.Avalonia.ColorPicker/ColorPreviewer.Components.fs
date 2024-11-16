@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentColorPreviewer =
     let ColorChanged =
-        Attributes.defineEventNoDispatch "ColorPreviewer_ColorChanged" (fun target -> (target :?> ColorPreviewer).ColorChanged)
+        Attributes.Component.defineEvent "ColorPreviewer_ColorChanged" (fun target -> (target :?> ColorPreviewer).ColorChanged)
 
 [<AutoOpen>]
 module ComponentColorPreviewerBuilders =
