@@ -1,5 +1,6 @@
 namespace Playground.iOS
 
+open Avalonia
 open Foundation
 open Fabulous.Avalonia
 open Playground
@@ -12,7 +13,7 @@ type SceneDelegate() =
     override val Window = null with get, set
 
     override this.WillConnect(scene: UIScene, _: UISceneSession, _: UISceneConnectionOptions) =
-        App.create().UseiOS(this, scene :?> UIWindowScene) |> ignore
+        App.create().UseiOS() |> ignore
 
     /// Called as the scene is being released by the system.
     /// This occurs shortly after the scene enters the background, or when its session is discarded.
