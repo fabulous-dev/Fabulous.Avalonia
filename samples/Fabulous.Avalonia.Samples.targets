@@ -16,7 +16,6 @@
         <None Include="$(iOSPlatformFolder)Entitlements.plist" />
         <None Include="$(iOSPlatformFolder)Info.plist" />
         <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
-        <Compile Include="$(iOSPlatformFolder)SceneDelegate.fs" />
         <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
         <PackageReference Include="Avalonia.iOS" />
     </ItemGroup>

@@ -363,7 +363,7 @@ module Attributes =
                 |> AttributeDefinitionStore.registerScalar
 
             { Key = key; Name = name }
-            
+
 
         let defineRoutedEventNoArg name (property: RoutedEvent) : SimpleScalarAttributeDefinition<MsgValue> =
             let key =
@@ -492,7 +492,7 @@ module Attributes =
                 |> AttributeDefinitionStore.registerScalar
 
             { Key = key; Name = name }
-            
+
         let defineRoutedEventNoArg name (property: RoutedEvent) : SimpleScalarAttributeDefinition<unit -> unit> =
             let key =
                 SimpleScalarAttributeDefinition.CreateAttributeData(

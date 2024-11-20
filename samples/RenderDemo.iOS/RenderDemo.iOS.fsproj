@@ -13,7 +13,6 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <Compile Include="SceneDelegate.fs" />
     <Compile Include="AppDelegate.fs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
