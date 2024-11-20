@@ -22,7 +22,7 @@ module VisualBrushBuilders =
         static member VisualBrush(content: WidgetBuilder<'msg, #IFabVisual>) =
             WidgetBuilder<'msg, IFabVisualBrush>(
                 VisualBrush.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| VisualBrush.Visual.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| VisualBrush.Visual.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type VisualBrushModifiers =

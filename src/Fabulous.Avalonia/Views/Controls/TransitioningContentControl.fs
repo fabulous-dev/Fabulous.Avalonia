@@ -27,7 +27,7 @@ module TransitioningContentControlBuilders =
         static member TransitioningContentControl(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabTransitioningContentControl>(
                 TransitioningContentControl.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type TransitioningContentControlModifiers =

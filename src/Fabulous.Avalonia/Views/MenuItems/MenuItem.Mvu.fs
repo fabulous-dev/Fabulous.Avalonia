@@ -39,6 +39,7 @@ module MvuMenuItemBuilders =
                 AttributesBundle(
                     StackList.one(MvuMenuItem.Clicked.WithValue(onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -57,6 +58,7 @@ module MvuMenuItemsBuilders =
                 AttributesBundle(
                     StackList.one(MvuMenuItem.Clicked.WithValue(onClick)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -70,6 +72,7 @@ module MvuMenuItemsBuilders =
                 ItemsControl.Items,
                 AttributesBundle(
                     StackList.two(MvuMenuItem.Clicked.WithValue(onClick), HeaderedContentControl.HeaderString.WithValue(header)),
+                    ValueNone,
                     ValueNone,
                     ValueNone
                 )

@@ -54,6 +54,7 @@ module ComponentHyperlinkButtonBuilders =
                         ComponentHyperlinkButton.IsVisitedChanged.WithValue(ComponentValueEventData.create isVisited fn)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -72,6 +73,7 @@ module ComponentHyperlinkButtonBuilders =
                         ComponentHyperlinkButton.IsVisitedChanged.WithValue(ComponentValueEventData.create isVisited fn)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

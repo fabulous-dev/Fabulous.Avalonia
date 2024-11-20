@@ -23,7 +23,7 @@ module FlyoutBuilders =
         static member Flyout(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabFlyout>(
                 Flyout.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type FlyoutModifiers =

@@ -79,7 +79,7 @@ module EmptyBorderBuilders =
 
         /// <summary>Creates a empty Border widget.</summary>
         static member EmptyBorder() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
 
 type IFabHamburgerMenu =
     inherit IFabTabControl

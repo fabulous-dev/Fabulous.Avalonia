@@ -20,7 +20,7 @@ module UserControlBuilders =
         static member UserControl(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabUserControl>(
                 UserControl.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type UserControlModifiers =

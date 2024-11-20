@@ -28,7 +28,7 @@ module ViewBoxBuilders =
         static member ViewBox(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabViewBox>(
                 ViewBox.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ViewBox.Child.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type ViewBoxModifiers =

@@ -44,6 +44,7 @@ module ExpanderBuilders =
                 AttributesBundle(
                     StackList.one(ContentControl.ContentString.WithValue(content)),
                     ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -57,6 +58,7 @@ module ExpanderBuilders =
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -72,6 +74,7 @@ module ExpanderBuilders =
                     ValueSome
                         [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

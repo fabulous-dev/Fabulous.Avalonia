@@ -70,7 +70,7 @@ module PopupBuilders =
         static member Popup(isOpen: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabPopup>(
                 Popup.WidgetKey,
-                AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type PopupModifiers =

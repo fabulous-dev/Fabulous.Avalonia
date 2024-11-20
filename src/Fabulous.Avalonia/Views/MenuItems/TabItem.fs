@@ -30,6 +30,7 @@ module TabItemBuilders =
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -45,6 +46,7 @@ module TabItemBuilders =
                     ValueSome
                         [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

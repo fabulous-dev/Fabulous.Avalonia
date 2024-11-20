@@ -197,7 +197,7 @@ module ApplicationBuilders =
         static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
@@ -209,7 +209,7 @@ module ApplicationBuilders =
         static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabApplication>(
                 Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>

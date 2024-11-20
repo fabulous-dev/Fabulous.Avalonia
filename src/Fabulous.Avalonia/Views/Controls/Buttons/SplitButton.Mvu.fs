@@ -29,6 +29,7 @@ module MvuSplitButtonBuilders =
                 AttributesBundle(
                     StackList.one(MvuSplitButton.Clicked.WithValue(fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

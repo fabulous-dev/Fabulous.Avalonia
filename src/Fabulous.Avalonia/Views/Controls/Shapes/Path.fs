@@ -26,7 +26,7 @@ module PathBuilders =
         static member Path(content: WidgetBuilder<'msg, #IFabGeometry>) =
             WidgetBuilder<'msg, IFabPath>(
                 Path.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Path.DataWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Path.DataWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a Path widget.</summary>

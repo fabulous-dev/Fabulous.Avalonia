@@ -30,7 +30,7 @@ module LayoutTransformControlBuilders =
         static member LayoutTransformControl(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabLayoutTransformControl>(
                 LayoutTransformControl.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type LayoutTransformControlModifiers =

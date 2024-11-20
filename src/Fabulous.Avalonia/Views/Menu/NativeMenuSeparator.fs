@@ -17,7 +17,10 @@ module NativeMenuItemSeparatorBuilders =
 
         /// <summary>Creates a NativeMenuItemSeparator widget.</summary>
         static member NativeMenuItemSeparator() =
-            WidgetBuilder<'msg, IFabNativeMenuItemSeparator>(NativeMenuItemSeparator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabNativeMenuItemSeparator>(
+                NativeMenuItemSeparator.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone)
+            )
 
 type NativeMenuItemSeparatorModifiers =
     /// <summary>Link a ViewRef to access the direct NativeMenuItemSeparator control instance.</summary>

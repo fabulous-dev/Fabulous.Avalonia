@@ -27,12 +27,15 @@ module ExperimentalAcrylicBorderBuilders =
         static member ExperimentalAcrylicBorder(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(
                 ExperimentalAcrylicBorder.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         static member ExperimentalAcrylicBorder() =
-            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(
+                ExperimentalAcrylicBorder.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone)
+            )
 
 
 type ExperimentalAcrylicBorderModifiers =

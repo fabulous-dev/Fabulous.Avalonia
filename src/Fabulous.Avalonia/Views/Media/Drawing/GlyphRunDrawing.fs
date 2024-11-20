@@ -33,6 +33,7 @@ module GlyphRunDrawingBuilders =
                 AttributesBundle(
                     StackList.one(GlyphRunDrawing.GlyphRun.WithValue(glyphRun)),
                     ValueSome [| GlyphRunDrawing.ForegroundWidget.WithValue(brush.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

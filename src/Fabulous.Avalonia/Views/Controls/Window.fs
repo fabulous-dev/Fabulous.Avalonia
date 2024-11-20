@@ -57,7 +57,7 @@ module WindowBuilders =
         static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
             WidgetBuilder<'msg, IFabWindow>(
                 Window.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a Window widget.</summary>

@@ -28,6 +28,7 @@ module MvuButtonBuilders =
                 AttributesBundle(
                     StackList.one(MvuButton.Clicked.WithValue(fun _ -> fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

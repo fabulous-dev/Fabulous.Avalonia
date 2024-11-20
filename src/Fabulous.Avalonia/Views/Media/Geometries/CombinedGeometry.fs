@@ -36,6 +36,7 @@ module CombinedGeometryBuilders =
                     ValueSome
                         [| CombinedGeometry.Geometry1.WithValue(geometry1.Compile())
                            CombinedGeometry.Geometry2.WithValue(geometry2.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

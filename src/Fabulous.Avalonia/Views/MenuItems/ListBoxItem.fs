@@ -44,6 +44,7 @@ module ListBoxItemBuilders =
                 AttributesBundle(
                     StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -53,7 +54,7 @@ module ListBoxItemBuilders =
         static member ListBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabListBoxItem>(
                 ListBoxItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type ListBoxItemModifiers =

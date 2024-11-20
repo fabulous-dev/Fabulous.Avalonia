@@ -44,7 +44,7 @@ module MenuItemBuilders =
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabMenuItem>(
                 MenuItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone, ValueNone)
             )
 
 [<AutoOpen>]
@@ -60,7 +60,7 @@ module MenuItemsBuilders =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a MenuItems widget.</summary>
@@ -69,7 +69,7 @@ module MenuItemsBuilders =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
-                AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone)
+                AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone, ValueNone)
             )
 
 type MenuItemModifiers =

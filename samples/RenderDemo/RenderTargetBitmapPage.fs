@@ -58,7 +58,7 @@ module RenderTargetBitmapBuilders =
     type Fabulous.Avalonia.View with
 
         static member RenderTargetBitmap() =
-            WidgetBuilder<'msg, IFabRenderTargetBitmap>(RenderTargetBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabRenderTargetBitmap>(RenderTargetBitmap.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
 
 module RenderTargetBitmapPage =
     let view () = Grid() { View.RenderTargetBitmap() }

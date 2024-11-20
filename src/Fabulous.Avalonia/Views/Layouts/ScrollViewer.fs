@@ -61,7 +61,7 @@ module ScrollViewerBuilders =
         static member ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabScrollViewer>(
                 ScrollViewer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type ScrollViewerModifiers =

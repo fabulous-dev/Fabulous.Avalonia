@@ -46,6 +46,7 @@ module TreeViewItemBuilders =
                 AttributesBundle(
                     StackList.one(TreeViewItem.IsSelected.WithValue(isSelected)),
                     ValueSome [| HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -55,7 +56,7 @@ module TreeViewItemBuilders =
         static member TreeViewItem(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabTreeViewItem>(
                 TreeViewItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type TreeViewItemModifiers =

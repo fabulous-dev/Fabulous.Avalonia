@@ -26,7 +26,10 @@ module VirtualizingStackPanelBuilders =
 
         /// <summary>Creates a VirtualizingStackPanel widget.</summary>
         static member VirtualizingStackPanel() =
-            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(VirtualizingStackPanel.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(
+                VirtualizingStackPanel.WidgetKey,
+                AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone)
+            )
 
 type VirtualizingStackPanelModifiers =
     /// <summary>Sets the AreHorizontalSnapPointsRegular property.</summary>

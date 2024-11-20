@@ -37,7 +37,7 @@ module ExperimentalAcrylicMaterialBuilders =
         static member ExperimentalAcrylicMaterial() =
             WidgetBuilder<'msg, IFabExperimentalAcrylicMaterial>(
                 ExperimentalAcrylicMaterial.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueNone, ValueNone)
+                AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone)
             )
 
 type ExperimentalAcrylicMaterialModifiers =

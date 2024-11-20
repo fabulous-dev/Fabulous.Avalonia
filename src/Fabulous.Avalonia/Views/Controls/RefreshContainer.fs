@@ -28,7 +28,7 @@ module RefreshContainerBuilders =
         static member RefreshContainer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRefreshContainer>(
                 RefreshContainer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 

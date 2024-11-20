@@ -25,7 +25,7 @@ module PathIconBuilders =
         static member PathIcon(content: WidgetBuilder<'msg, #IFabGeometry>) =
             WidgetBuilder<'msg, IFabPathIcon>(
                 PathIcon.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| PathIcon.DataWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| PathIcon.DataWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
         /// <summary>Creates a PathIcon widget.</summary>

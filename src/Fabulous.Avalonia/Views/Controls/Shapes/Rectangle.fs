@@ -29,7 +29,7 @@ module RectangleBuilders =
 
         /// <summary>Creates a Rectangle widget.</summary>
         static member Rectangle() =
-            WidgetBuilder<'msg, IFabRectangle>(Rectangle.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabRectangle>(Rectangle.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
 
 type RectangleModifiers =
     /// <summary>Link a ViewRef to access the direct Rectangle control instance.</summary>

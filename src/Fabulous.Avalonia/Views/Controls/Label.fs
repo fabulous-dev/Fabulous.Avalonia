@@ -28,7 +28,7 @@ module LabelBuilders =
         static member inline Label(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabLabel>(
                 Label.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type LabelModifiers =

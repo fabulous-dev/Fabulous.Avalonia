@@ -22,7 +22,7 @@ module DrawingBrushBuilders =
         static member DrawingBrush(source: WidgetBuilder<'msg, #IFabDrawing>) =
             WidgetBuilder<'msg, IFabDrawingBrush>(
                 DrawingBrush.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| DrawingBrush.Drawing.WithValue(source.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| DrawingBrush.Drawing.WithValue(source.Compile()) |], ValueNone, ValueNone)
             )
 
 type DrawingBrushModifiers =

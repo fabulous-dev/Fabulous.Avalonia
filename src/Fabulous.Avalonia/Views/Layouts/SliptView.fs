@@ -60,7 +60,8 @@ module SplitViewBuilders =
                     ValueSome
                         [| SplitView.Pane.WithValue(pane.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueSome [||]
+                    ValueNone,
+                    ValueNone
                 )
             )
 

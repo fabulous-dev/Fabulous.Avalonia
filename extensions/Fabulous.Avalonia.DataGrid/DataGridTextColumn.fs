@@ -68,6 +68,7 @@ module DataGridTextColumnBuilders =
                 AttributesBundle(
                     StackList.one(DataGridBoundColumn.Binding.WithValue(binding)),
                     ValueSome [| DataGridColumn.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -81,6 +82,7 @@ module DataGridTextColumnBuilders =
                 AttributesBundle(
                     StackList.one(DataGridBoundColumn.Binding.WithValue(Binding(binding))),
                     ValueSome [| DataGridColumn.HeaderWidget.WithValue(header.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

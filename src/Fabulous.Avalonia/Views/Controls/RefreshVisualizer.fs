@@ -24,7 +24,7 @@ module RefreshVisualizerBuilders =
         static member RefreshVisualizer(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRefreshVisualizer>(
                 RefreshVisualizer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type RefreshVisualizerModifiers =

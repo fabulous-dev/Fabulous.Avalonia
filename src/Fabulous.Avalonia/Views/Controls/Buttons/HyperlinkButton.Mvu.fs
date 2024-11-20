@@ -51,6 +51,7 @@ module MvuHyperlinkButtonBuilders =
                 AttributesBundle(
                     StackList.two(HyperlinkButton.NavigateUri.WithValue(uri), MvuHyperlinkButton.IsVisitedChanged.WithValue(ValueEventData.create isVisited fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -69,6 +70,7 @@ module MvuHyperlinkButtonBuilders =
                         MvuHyperlinkButton.IsVisitedChanged.WithValue(ValueEventData.create isVisited fn)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
