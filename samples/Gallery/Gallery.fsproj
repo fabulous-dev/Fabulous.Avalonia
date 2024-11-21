@@ -108,6 +108,7 @@
     <Compile Include="Pages\TextBlockPage.fs" />
     <Compile Include="Pages\ThumbPage.fs" />
     <Compile Include="Pages\TickBarPage.fs" />
+    <Compile Include="Pages\TimePickerPage.fs" />
     <Compile Include="Pages\ToggleButtonPage.fs" />
     <Compile Include="Pages\ToggleSplitButtonPage.fs" />
     <Compile Include="Pages\ToggleSwitchPage.fs" />

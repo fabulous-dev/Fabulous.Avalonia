@@ -153,8 +153,6 @@
     <Compile Include="Views\Media\Effects\DropShadowDirectionEffect.fs" />
     <Compile Include="Views\Media\Effects\BlurEffect.fs" />
     <Compile Include="Views\Controls\Tooltip.fs" />
-    <Compile Include="Views\Controls\Tooltip.Mvu.fs" />
-    <Compile Include="Views\Controls\Tooltip.Components.fs" />
     <Compile Include="Views\Controls\Border.fs" />
     <Compile Include="Views\Controls\RefreshVisualizer.fs" />
     <Compile Include="Views\Controls\RefreshVisualizer.Components.fs" />
