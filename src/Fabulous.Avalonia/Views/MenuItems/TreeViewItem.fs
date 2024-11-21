@@ -71,5 +71,5 @@ type TreeViewItemModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">Whether the TreeViewItem is expanded.</param>
     [<Extension>]
-    static member inline isExpanded(this: WidgetBuilder<'msg, IFabTreeViewItem>, value: bool) =
+    static member inline isExpanded(this: WidgetBuilder<'msg, #IFabTreeViewItem>, value: bool) =
         this.AddScalar(TreeViewItem.IsExpanded.WithValue(value))

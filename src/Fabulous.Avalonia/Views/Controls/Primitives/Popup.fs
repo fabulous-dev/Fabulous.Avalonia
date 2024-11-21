@@ -60,6 +60,9 @@ module Popup =
     let OverlayInputPassThroughElement =
         Attributes.defineAvaloniaPropertyWithEquality Popup.OverlayInputPassThroughElementProperty
 
+    let CustomPopupPlacementCallback =
+        Attributes.defineAvaloniaPropertyWithEquality Popup.CustomPopupPlacementCallbackProperty
+
 [<AutoOpen>]
 module PopupBuilders =
     type Fabulous.Avalonia.View with
@@ -173,6 +176,13 @@ type PopupModifiers =
     [<Extension>]
     static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopup>, value: IInputElement) =
         this.AddScalar(Popup.OverlayInputPassThroughElement.WithValue(value))
+
+    /// <summary>Sets the CustomPopupPlacementCallback property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CustomPopupPlacementCallback value.</param>
+    [<Extension>]
+    static member inline customPopupPlacementCallback(this: WidgetBuilder<'msg, #IFabPopup>, value: CustomPopupPlacement -> unit) =
+        this.AddScalar(Popup.CustomPopupPlacementCallback.WithValue(CustomPopupPlacementCallback(value)))
 
     /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
     /// <param name="this">Current widget.</param>
