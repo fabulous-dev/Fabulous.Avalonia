@@ -23,10 +23,7 @@ module DropShadowDirectionEffectBuilders =
 
         /// <summary>Creates a DropShadowDirectionEffect widget.</summary>
         static member DropShadowDirectionEffect() =
-            WidgetBuilder<'msg, IFabDropShadowDirectionEffect>(
-                DropShadowDirectionEffect.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabDropShadowDirectionEffect>(DropShadowDirectionEffect.WidgetKey)
 
         /// <summary>Creates a DropShadowDirectionEffect widget.</summary>
         /// <param name="shadowDepth">The depth of the shadow.</param>

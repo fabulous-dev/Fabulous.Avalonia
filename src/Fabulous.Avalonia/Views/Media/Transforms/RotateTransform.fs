@@ -44,7 +44,7 @@ module RotateTransformBuilders =
 
         /// <summary>Creates a RotateTransform widget.</summary>
         static member RotateTransform() =
-            WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabRotateTransform>(RotateTransform.WidgetKey)
 
 type RotateTransformTransformModifiers =
     /// <summary>Link a ViewRef to access the direct RotateTransform control instance.</summary>

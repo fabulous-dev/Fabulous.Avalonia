@@ -20,10 +20,7 @@ module DrawingBrushBuilders =
         /// <summary>Creates a DrawingBrush widget.</summary>
         /// <param name="source">The source drawing.</param>
         static member DrawingBrush(source: WidgetBuilder<'msg, #IFabDrawing>) =
-            WidgetBuilder<'msg, IFabDrawingBrush>(
-                DrawingBrush.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| DrawingBrush.Drawing.WithValue(source.Compile()) |], ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabDrawingBrush>(DrawingBrush.WidgetKey, DrawingBrush.Drawing.WithValue(source.Compile()))
 
 type DrawingBrushModifiers =
     /// <summary>Link a ViewRef to access the direct DrawingBrush control instance.</summary>

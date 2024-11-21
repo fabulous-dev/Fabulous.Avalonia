@@ -42,10 +42,7 @@ module MenuItemBuilders =
         /// <summary>Creates a MenuItem widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         static member MenuItem(header: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabMenuItem>(MenuItem.WidgetKey, HeaderedContentControl.HeaderWidget.WithValue(header.Compile()))
 
 [<AutoOpen>]
 module MenuItemsBuilders =
@@ -66,11 +63,7 @@ module MenuItemsBuilders =
         /// <summary>Creates a MenuItems widget.</summary>
         /// <param name="header">The header of the menu item.</param>
         static member MenuItems(header: string) =
-            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
-                MenuItem.WidgetKey,
-                ItemsControl.Items,
-                AttributesBundle(StackList.one(HeaderedContentControl.HeaderString.WithValue(header)), ValueNone, ValueNone, ValueNone)
-            )
+            CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(MenuItem.WidgetKey, ItemsControl.Items, HeaderedContentControl.HeaderString.WithValue(header))
 
 type MenuItemModifiers =
     /// <summary>Sets the HotKey property.</summary>

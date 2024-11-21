@@ -17,7 +17,7 @@ module EllipseBuilders =
 
         /// <summary>Creates an Ellipse widget.</summary>
         static member Ellipse() =
-            WidgetBuilder<'msg, IFabEllipse>(Ellipse.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabEllipse>(Ellipse.WidgetKey)
 
 type EllipseModifiers =
     /// <summary>Link a ViewRef to access the direct Ellipse control instance.</summary>

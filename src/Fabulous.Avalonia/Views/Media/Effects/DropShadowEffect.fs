@@ -23,7 +23,7 @@ module DropShadowEffectBuilders =
 
         /// <summary>Creates a DropShadowEffect widget.</summary>
         static member DropShadowEffect() =
-            WidgetBuilder<'msg, IFabDropShadowEffect>(DropShadowEffect.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabDropShadowEffect>(DropShadowEffect.WidgetKey)
 
         /// <summary>Creates a DropShadowEffect widget.</summary>
         /// <param name="offsetX">The X offset of the shadow.</param>

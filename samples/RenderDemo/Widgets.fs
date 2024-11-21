@@ -54,4 +54,4 @@ module EmptyBorderBuilders =
 
         /// <summary>Creates an empty Border widget.</summary>
         static member EmptyBorder() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)

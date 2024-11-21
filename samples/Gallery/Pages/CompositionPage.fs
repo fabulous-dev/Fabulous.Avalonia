@@ -20,7 +20,7 @@ module CompositionPageControlBuilders =
     type Fabulous.Avalonia.View with
 
         static member CompositionPageControl() =
-            WidgetBuilder<'msg, IFabMvuCompositionPage>(CompositionPageControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabMvuCompositionPage>(CompositionPageControl.WidgetKey)
 
 module CompositionPage =
     let view () = View.CompositionPageControl()

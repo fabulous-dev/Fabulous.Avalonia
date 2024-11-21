@@ -86,7 +86,7 @@ module TextFormatterBuilders =
     type Fabulous.Avalonia.View with
 
         static member TextFormatter() =
-            WidgetBuilder<'msg, IFabTextFormatterControl>(TextFormatter.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabTextFormatterControl>(TextFormatter.WidgetKey)
 
 module TextFormatterPage =
     let view () = Grid() { View.TextFormatter() }

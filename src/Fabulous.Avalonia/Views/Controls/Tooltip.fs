@@ -53,10 +53,7 @@ module ToolTipBuilders =
 
         /// <summary>Creates a ToolTip widget.</summary>
         static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabToolTip>(
-                ToolTip.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>

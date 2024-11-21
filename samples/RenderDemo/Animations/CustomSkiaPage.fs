@@ -142,7 +142,7 @@ module CustomSkiaBuilders =
     type Fabulous.Avalonia.View with
 
         static member CustomSkiaControl() =
-            WidgetBuilder<'msg, IFabCustomSkiaControl>(CustomSkiaControl.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabCustomSkiaControl>(CustomSkiaControl.WidgetKey)
 
 module CustomSkiaPage =
     let view () = Grid() { View.CustomSkiaControl() }

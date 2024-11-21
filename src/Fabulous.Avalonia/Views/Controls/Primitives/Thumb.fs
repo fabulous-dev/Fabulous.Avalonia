@@ -17,15 +17,12 @@ module ThumbBuilders =
 
         /// <summary>Creates a Thumb widget.</summary>
         static member Thumb() =
-            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey)
 
         /// <summary>Creates a Thumb widget.</summary>
         /// <param name="template">The template to use for the Thumb.</param>
         static member Thumb(template: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabThumb>(
-                Thumb.WidgetKey,
-                AttributesBundle(StackList.one(TemplatedControl.Template.WithValue(template.Compile())), ValueNone, ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabThumb>(Thumb.WidgetKey, TemplatedControl.Template.WithValue(template.Compile()))
 
 type ThumbModifiers =
 

@@ -52,10 +52,7 @@ module ComboBoxBuilders =
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
         static member ComboBox(items: seq<_>) =
-            WidgetBuilder<'msg, IFabComboBox>(
-                ComboBox.WidgetKey,
-                AttributesBundle(StackList.one(ItemsControl.ItemsSource.WithValue(items)), ValueNone, ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabComboBox>(ComboBox.WidgetKey, ItemsControl.ItemsSource.WithValue(items))
 
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>

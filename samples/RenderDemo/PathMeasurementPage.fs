@@ -91,7 +91,7 @@ module PathMeasurementBuilders =
     type Fabulous.Avalonia.View with
 
         static member PathMeasurement() =
-            WidgetBuilder<'msg, IFabPathMeasurement>(PathMeasurement.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabPathMeasurement>(PathMeasurement.WidgetKey)
 
 module PathMeasurementPage =
     let view () = Grid() { View.PathMeasurement() }

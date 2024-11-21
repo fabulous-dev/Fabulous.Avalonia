@@ -21,7 +21,7 @@ module NativeMenuBarBuilders =
 
         /// <summary>Creates a NativeMenuBar widget.</summary>
         static member NativeMenuBar() =
-            WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey)
 
 
 type NativeMenuBarAttachedModifiers =

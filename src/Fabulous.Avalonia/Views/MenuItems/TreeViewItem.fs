@@ -54,10 +54,7 @@ module TreeViewItemBuilders =
         /// <summary>Creates a TreeViewItem widget.</summary>
         /// <param name="content">The content of the TreeViewItem.</param>
         static member TreeViewItem(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabTreeViewItem>(
-                TreeViewItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()) |], ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabTreeViewItem>(TreeViewItem.WidgetKey, HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()))
 
 type TreeViewItemModifiers =
     /// <summary>Link a ViewRef to access the direct TreeViewItem control instance.</summary>

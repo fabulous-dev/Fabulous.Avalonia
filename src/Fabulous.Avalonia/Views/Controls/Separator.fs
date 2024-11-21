@@ -17,7 +17,7 @@ module SeparatorBuilders =
 
         /// <summary>Creates a Separator widget.</summary>
         static member Separator() =
-            WidgetBuilder<'msg, IFabSeparator>(Separator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabSeparator>(Separator.WidgetKey)
 
 type SeparatorModifiers =
     /// <summary>Link a ViewRef to access the direct Separator control instance.</summary>

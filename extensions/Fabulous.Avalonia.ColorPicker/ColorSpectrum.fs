@@ -50,15 +50,12 @@ module ColorSpectrumBuilders =
 
         /// <summary>Creates a ColorSpectrum widget.</summary>
         static member ColorSpectrum() =
-            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey)
 
         /// <summary>Creates a ColorSpectrum widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorSpectrum(color: Color) =
-            WidgetBuilder<'msg, IFabColorSpectrum>(
-                ColorSpectrum.WidgetKey,
-                AttributesBundle(StackList.one(ColorSpectrum.Color.WithValue(color)), ValueNone, ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabColorSpectrum>(ColorSpectrum.WidgetKey, ColorSpectrum.Color.WithValue(color))
 
 type ColorSpectrumModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSpectrum control instance</summary>

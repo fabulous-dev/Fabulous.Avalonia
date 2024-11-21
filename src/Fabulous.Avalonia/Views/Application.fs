@@ -195,10 +195,7 @@ module ApplicationBuilders =
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
         /// <param name="window">The main Window of the Application.</param>
         static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
-            WidgetBuilder<'msg, IFabApplication>(
-                Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainWindow.WithValue(window.Compile()) |], ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabApplication>(Application.WidgetKey, Application.MainWindow.WithValue(window.Compile()))
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
         static member inline DesktopApplication<'msg, 'childMarker when 'msg: equality>() =
@@ -207,10 +204,7 @@ module ApplicationBuilders =
         /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
         /// <param name="view">The main View of the Application.</param>
         static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabApplication>(
-                Application.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Application.MainView.WithValue(view.Compile()) |], ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabApplication>(Application.WidgetKey, Application.MainView.WithValue(view.Compile()))
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
         static member inline SingleViewApplication<'msg, 'childMarker when 'msg: equality>() =
