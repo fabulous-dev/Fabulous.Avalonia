@@ -159,4 +159,13 @@ module GeometriesPage =
                 .stroke(SolidColorBrush(Colors.Green))
                 .strokeThickness(2.)
                 .fill(SolidColorBrush(Colors.Orange))
+
+            TextBlock("PolyBezierSegment, which creates a series of connected cubic Bezier curves between two or more points.")
+
+            Path(
+                PathGeometry(FillRule.EvenOdd) { PathFigure(Point(10., 50.)) { PolyBezierSegment([ Point(100., 0.); Point(200., 200.); Point(300., 100.) ]) } }
+            )
+                .fill(SolidColorBrush(Colors.Blue))
+                .stroke(SolidColorBrush(Colors.Red))
+                .strokeThickness(2.)
         }

@@ -131,6 +131,7 @@
     <Compile Include="Views\Media\PathSegments\BezierSegment.fs" />
     <Compile Include="Views\Media\PathSegments\LineSegment.fs" />
     <Compile Include="Views\Media\PathSegments\PolyLineSegment.fs" />
+    <Compile Include="Views\Media\PathSegments\PolyBezierSegment.fs" />
     <Compile Include="Views\Media\PathSegments\QuadraticBezierSegment.fs" />
     <Compile Include="Views\Media\PathSegments\PathFigure.fs" />
     <Compile Include="Views\Media\Geometries\LineGeometry.fs" />
