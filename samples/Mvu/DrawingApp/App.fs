@@ -17,7 +17,7 @@ open type Fabulous.Avalonia.View
 module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a empty Border widget.</summary>
+        /// <summary>Creates an empty Border widget.</summary>
         static member EmptyBorder() =
             WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)
 

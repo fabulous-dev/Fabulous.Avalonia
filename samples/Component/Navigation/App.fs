@@ -29,7 +29,7 @@ module App =
         | BackNavigationMsg -> { Navigation = model.Navigation.Pop() }, Cmd.none
         | BackButtonPressed -> model, notifyBackButtonPressed appMsgDispatcher
 
-    let subscribe (nav: NavigationController) (model: Model) =
+    let subscribe (nav: NavigationController) (_: Model) =
         let navRequestedSub dispatch =
             nav.NavigationRequested.Subscribe(fun route -> dispatch(NavigationMsg route))
 
@@ -59,8 +59,8 @@ module App =
         let nav = NavigationController()
         let appMsgDispatcher = AppMessageDispatcher()
 
-        Component(program nav appMsgDispatcher) {
-            let! model = Mvu.State
+        Component("App") {
+            let! model = Context.Mvu(program nav appMsgDispatcher)
 
 #if MOBILE
             SingleViewApplication(content model nav appMsgDispatcher)

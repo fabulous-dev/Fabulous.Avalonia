@@ -1,103 +1,59 @@
 namespace CounterApp
 
-open System.Diagnostics
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
+open type Fabulous.Context
 
 module App =
-    type Model =
-        { Count: int; Step: int; TimerOn: bool }
+    let content () =
+        Component("CounterApp") {
+            let! count = State(0)
+            let! timerOn = State(false)
+            let! step = State(1)
 
-    type Msg =
-        | Increment
-        | Decrement
-        | Reset
-        | SetStep of float
-        | TimerToggled of bool
-        | TimedTick
+            (VStack() {
+                TextBlock($"%d{count.Current}").centerText()
 
-    let initModel = { Count = 0; Step = 1; TimerOn = false }
+                Button("Increment", (fun _ -> count.Set(count.Current + 1)))
+                    .centerHorizontal()
 
-    let timerCmd () =
-        async {
-            do! Async.Sleep 200
-            return TimedTick
-        }
-        |> Cmd.OfAsync.msg
+                Button("Decrement", (fun _ -> count.Set(count.Current - 1)))
+                    .centerHorizontal()
 
-    let init () = initModel, Cmd.none
+                (HStack() {
+                    TextBlock("Timer").centerVertical()
 
-    let update msg model =
-        match msg with
-        | Increment ->
-            { model with
-                Count = model.Count + model.Step },
-            Cmd.none
-        | Decrement ->
-            { model with
-                Count = model.Count - model.Step },
-            Cmd.none
-        | Reset -> initModel, Cmd.none
-        | SetStep n -> { model with Step = int(n + 0.5) }, Cmd.none
-        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd() else Cmd.none)
-        | TimedTick ->
-            if model.TimerOn then
-                { model with
-                    Count = model.Count + model.Step },
-                timerCmd()
-            else
-                model, Cmd.none
+                    ToggleSwitch(timerOn.Current, (fun _ -> count.Set(count.Current + step.Current)))
+                })
+                    .margin(20.)
+                    .centerHorizontal()
 
-    let content model =
-        (VStack() {
-            TextBlock($"%d{model.Count}").centerText()
+                Slider(0., 10., float step.Current, (fun n -> step.Set(int(n + 0.5))))
+                    .centerHorizontal()
 
-            Button("Increment", Increment).centerHorizontal()
+                TextBlock($"Step size: %d{step.Current}").center()
 
-            Button("Decrement", Decrement).centerHorizontal()
-
-            (HStack() {
-                TextBlock("Timer").centerVertical()
-
-                ToggleSwitch(model.TimerOn, TimerToggled)
+                Button(
+                    "Reset",
+                    fun _ ->
+                        count.Set(0)
+                        timerOn.Set(false)
+                        step.Set(1)
+                )
+                    .centerHorizontal()
             })
-                .margin(20.)
-                .centerHorizontal()
-
-            Slider(0., 10., float model.Step, SetStep)
-
-            TextBlock($"Step size: %d{model.Step}").centerText()
-
-            Button("Reset", Reset).centerHorizontal()
-
-        })
-            .center()
-
-    let program =
-        Program.statefulWithCmd init update
-        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-        |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-            printfn $"Exception: %s{ex.ToString()}"
-            false
-#else
-            true
-#endif
-        )
+                .center()
+        }
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
 #if MOBILE
-            SingleViewApplication(content model)
+        SingleViewApplication(content())
 #else
-            DesktopApplication(Window(content model))
+        DesktopApplication(Window(content()))
 #endif
-
-        }
 
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)

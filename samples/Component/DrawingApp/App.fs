@@ -9,22 +9,22 @@ open Avalonia.Markup.Xaml.Converters
 open Avalonia.Media
 
 open type Fabulous.Avalonia.View
+open type Fabulous.Context
 
-open Fabulous.StackAllocatedCollections.StackList
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates an empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
-            WidgetBuilder<unit, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member EmptyBorder() =
+            WidgetBuilder<unit, IFabBorder>(Border.WidgetKey)
 
 module ColorPicker =
     let view (color: StateValue<Color>) =
-        Component() {
+        Component("ColorPicker") {
             let brushes = [ Colors.Black; Colors.Red; Colors.Green; Colors.Blue; Colors.Yellow ]
-            let! color = Context.Binding(color)
+            let! color = Binding(color)
 
             HStack(5.) {
                 for item in brushes do
@@ -48,9 +48,9 @@ module ColorPicker =
 
 module SizePicker =
     let view (size: StateValue<float>) =
-        Component() {
+        Component("SizePicker") {
             let sizes = [ 2.; 4.; 6.; 8.; 16.; 32. ]
-            let! size = Context.Binding(size)
+            let! size = Binding(size)
 
             HStack(5.) {
                 for item in sizes do
@@ -71,7 +71,7 @@ module SizePicker =
 
 module Setting =
     let view (color, size) =
-        Component() {
+        Component("Setting") {
             View
                 .Border(
                     Dock(false) {
@@ -88,11 +88,11 @@ module Setting =
 
 module DrawingCanvas =
     let view (color: StateValue<Color>) (size: StateValue<float>) =
-        Component() {
-            let! color = Context.Binding(color)
-            let! size = Context.Binding(size)
-            let! isPressed = Context.State(false)
-            let! lastPoint = Context.State(None)
+        Component("DrawingCanvas") {
+            let! color = Binding(color)
+            let! size = Binding(size)
+            let! isPressed = State(false)
+            let! lastPoint = State(None)
             let canvasRef = ViewRef<Canvas>()
 
             Canvas(canvasRef)
@@ -132,9 +132,9 @@ module App =
     let theme = FluentTheme()
 
     let content () =
-        Component() {
-            let! color = Context.State(Colors.Black)
-            let! size = Context.State(2.)
+        Component("App") {
+            let! color = State(Colors.Black)
+            let! size = State(2.)
 
             (Dock() {
                 Setting.view(color, size).dock(Dock.Bottom)
@@ -147,10 +147,12 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(Window(content()))
-#endif
+        DesktopApplication(
+            Window(content())
 #if DEBUG
-            .attachDevTools()
+                .attachDevTools()
+#endif
+        )
 #endif
 
 

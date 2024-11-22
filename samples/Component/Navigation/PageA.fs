@@ -5,6 +5,7 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
+
 /// Each page is "isolated". They have their own MVU loop and own types.
 /// The only dependency they receive from outside is the NavigationController, which is passed to the update function.
 module PageA =
@@ -49,8 +50,8 @@ module PageA =
         |> Program.withSubscription(subscribe appMsgDispatcher)
 
     let view nav appMsgDispatcher =
-        Component(program nav appMsgDispatcher) {
-            let! model = Mvu.State
+        Component("PageA") {
+            let! model = Context.Mvu(program nav appMsgDispatcher)
 
             // ContentPage(
             Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
