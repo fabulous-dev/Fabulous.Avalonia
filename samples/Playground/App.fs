@@ -5,24 +5,25 @@ open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
+open type Fabulous.Context
 
 module App =
     let firstNameView (value: StateValue<string>) =
         Component("firstNameView") {
-            let! firstName = Context.Binding(value)
+            let! firstName = Binding(value)
             TextBox(firstName.Current, firstName.Set)
         }
 
     let lastNameView (value: StateValue<string>) =
         Component("lastNameView") {
-            let! lastName = Context.Binding(value)
+            let! lastName = Binding(value)
             TextBox(lastName.Current, lastName.Set)
         }
 
     let content () =
         Component("content") {
-            let! firstName = Context.State("")
-            let! lastName = Context.State("")
+            let! firstName = State("")
+            let! lastName = State("")
 
             VStack() {
                 Label($"Full name is {firstName.Current} {lastName.Current}")
@@ -30,7 +31,6 @@ module App =
                 lastNameView lastName
             }
         }
-
 
     let view () =
 #if MOBILE

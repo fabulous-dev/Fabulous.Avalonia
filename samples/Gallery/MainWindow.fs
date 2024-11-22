@@ -111,12 +111,9 @@ module MainWindow =
 
     let hamburgerMenu model =
         (HamburgerMenu() {
-            //TabItem("AcrylicPage", MvuAcrylicPage.view())
-            TabItem("AcrylicPage", ComponentAcrylicPage.view())
-            // TabItem("AdornerLayerPage", AdornerLayerPage.view())
-            TabItem("AdornerLayerPage", ComponentAdornerLayerPage.view())
-            // TabItem("AutoCompleteBoxPage", AutoCompleteBoxPage.view())
-            TabItem("AutoCompleteBoxPage", ComponentsAutoCompleteBoxPage.view())
+            TabItem("AcrylicPage", MvuAcrylicPage.view())
+            TabItem("AdornerLayerPage", AdornerLayerPage.view())
+            TabItem("AutoCompleteBoxPage", AutoCompleteBoxPage.view())
             TabItem("ButtonsPage", ButtonsPage.view())
             TabItem("ButtonSpinnerPage", ButtonSpinnerPage.view())
             TabItem("BorderPage", BorderPage.view())
