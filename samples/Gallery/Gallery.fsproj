@@ -42,6 +42,7 @@
 <!--  Pages-->
   <ItemGroup>
     <Compile Include="Common.fs" />
+    <Compile Include="Widgets.fs" />
     <Compile Include="Pages\AcrylicPage.fs" />
     <Compile Include="Pages\AdornerLayerPage.fs" />
     <Compile Include="Pages\AutoCompleteBoxPage.fs" />
@@ -127,7 +128,31 @@
     <Compile Include="Pages\ShapesPage.fs" />
     <Compile Include="Pages\StackPanelPage.fs" />
     <Compile Include="Pages\ViewBoxPage.fs" />
-    <Compile Include="Pages\App.fs" />
+    <Compile Include="Pages\DrawingPage.fs" />
+    <Compile Include="Pages\BrushesPage.fs" />
+    <Compile Include="Pages\TextFormatterPage.fs" />
+    <Compile Include="Pages\Transform3DPage.fs" />
+    <Compile Include="Pages\ClippingPage.fs" />
+    <Compile Include="Pages\PathMeasurementPage.fs" />
+    <Compile Include="Pages\TransitionsPage.fs" />
+    <Compile Include="Pages\GlyphRunPage.fs" />
+    <Compile Include="Pages\FormattedTextPage.fs" />
+    <Compile Include="Pages\RenderTargetBitmapPage.fs" />
+    <Compile Include="Pages\LineBoundsPage.fs" />
+    <Compile Include="Pages\WriteableBitmapPage.fs" />
+    <Compile Include="Pages\SlidingAnimation.fs" />
+    <Compile Include="Pages\AnimationsPage.fs" />
+    <Compile Include="Pages\CustomAnimatorPage.fs" />
+    <Compile Include="Pages\DrawLineAnimationPage.fs" />
+    <Compile Include="Pages\CustomSkiaPage.fs" />
+    <Compile Include="Pages\GalaxyAnimation.fs" />
+    <Compile Include="Pages\ImplicitCanvasAnimationsPage.fs" />
+    <Compile Include="Pages\ExpressionAnimation.fs" />
+    <Compile Include="Pages\RenderTransformPage.fs" />
+    <Compile Include="Pages\SpringAnimationsPage.fs" />
+    <Compile Include="Pages\Vector3KeyFrameAnimation.fs" />
+    <Compile Include="Pages\CompositorAnimationsPage.fs" />
+    <Compile Include="App.fs" />
     <Compile Include="MainWindow.fs" />
     <Compile Include="MainView.fs" />
   </ItemGroup>

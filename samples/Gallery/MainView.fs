@@ -106,7 +106,24 @@ module MainView =
           "TabStrip"
           "ThemeAware"
           "UniformGrid"
-          "ViewBox" ]
+          "ViewBox"
+          "Implicit Animations"
+          "Draw Line Animation"
+          "Compositor Animations"
+          "Animations"
+          "Spring Animations"
+          "Transitions"
+          "Render Transform"
+          "Brushes"
+          "Clipping"
+          "Drawing"
+          "Line Bounds"
+          "Transform3D"
+          "Writable Bitmap"
+          "Render Target Bitmap"
+          "Path Measurement"
+          "Custom Animator"
+          "SkCanvas" ]
 
     let program =
         Program.statefulWithCmd init update
