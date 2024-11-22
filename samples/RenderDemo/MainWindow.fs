@@ -8,8 +8,8 @@ open type Fabulous.Avalonia.View
 
 module MainWindow =
     let view () =
-        DesktopApplication() {
-            Window() {
+        DesktopApplication(
+            Window(
                 (HamburgerMenu() {
                     TabItem("Implicit Animations", ImplicitCanvasAnimationsPage.view())
                     TabItem("Draw Line Animation", DrawLineAnimationPage.view())
@@ -33,11 +33,11 @@ module MainWindow =
                     TabItem("TextFormatter", TextFormatterPage.view())
                 })
                     .expandedModeThresholdWidth(760)
-            }
+            )
 #if DEBUG
             |> _.attachDevTools()
 #endif
-        }
+        )
 
     let create () =
         let theme () =

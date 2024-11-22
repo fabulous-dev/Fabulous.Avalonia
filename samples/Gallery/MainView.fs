@@ -125,7 +125,7 @@ module MainView =
         Component("MainView") {
             let! model = Context.Mvu program
 
-            SingleViewApplication() {
+            SingleViewApplication(
                 ScrollViewer(
                     match model.Details with
                     | Some(CurrentWidget page) ->
@@ -147,7 +147,7 @@ module MainView =
                             }
                         )
                 )
-            }
+            )
         }
 
     let create () =

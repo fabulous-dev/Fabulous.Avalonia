@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Avalonia.iOS" Version="11.2.1" />
-    <PackageVersion Include="Fabulous" Version="3.0.0-pre15" />
+    <PackageVersion Include="Fabulous" Version="3.0.0-pre16" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
     <PackageVersion Include="FSharp.Core" Version="8.0.301" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />

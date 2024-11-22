@@ -197,18 +197,10 @@ module ApplicationBuilders =
         static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
             WidgetBuilder<'msg, IFabApplication>(Application.WidgetKey, Application.MainWindow.WithValue(window.Compile()))
 
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline DesktopApplication<'msg, 'childMarker when 'msg: equality>() =
-            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainWindow)
-
         /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
         /// <param name="view">The main View of the Application.</param>
         static member SingleViewApplication(view: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabApplication>(Application.WidgetKey, Application.MainView.WithValue(view.Compile()))
-
-        /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        static member inline SingleViewApplication<'msg, 'childMarker when 'msg: equality>() =
-            SingleChildBuilder<'msg, IFabApplication, 'childMarker>(Application.WidgetKey, Application.MainView)
 
 type ApplicationModifiers =
     /// <summary>Sets the application name.</summary>
