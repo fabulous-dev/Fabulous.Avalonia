@@ -4,6 +4,7 @@ open System
 open System.Diagnostics
 open Avalonia.Interactivity
 open Avalonia.Media
+open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
@@ -171,91 +172,96 @@ module App =
     let canPlay model cell =
         (cell = Empty) && (getGameResult model = StillPlaying)
 
-    let content model =
-        (Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto ]) {
-            TextBlock(getMessage model)
-                .textAlignment(TextAlignment.Center)
-                .fontSize(32.)
-                .margin(16., 50., 16., 16.)
-
-            (Grid(coldefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ], rowdefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ]) {
-
-                Rectangle()
-                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
-                    .gridRow(1)
-                    .gridColumnSpan(5)
-
-                Rectangle()
-                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
-                    .gridRow(3)
-                    .gridColumnSpan(5)
-
-                Rectangle()
-                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
-                    .gridColumn(1)
-                    .gridRowSpan(5)
-
-                Rectangle()
-                    .fill(SolidColorBrush(ThemeAware.With(Colors.Black, Colors.White)))
-                    .gridColumn(3)
-                    .gridRowSpan(5)
-
-                for row, col as pos in positions do
-                    if canPlay model model.Board[pos] then
-                        TextBlock("")
-                            .gridRow(row * 2)
-                            .gridColumn(col * 2)
-                            .fontSize(70.)
-                            .background(SolidColorBrush(Colors.Transparent))
-                            .onTapped(fun _ -> Play pos)
-                    else
-                        match model.Board[pos] with
-                        | Empty -> ()
-                        | Full X ->
-                            Border(TextBlock("X").fontSize(model.VisualBoardSize / 3.).center())
-                                .gridRow(row * 2)
-                                .gridColumn(col * 2)
-                                .background(SolidColorBrush(ThemeAware.With(Colors.White, Colors.Black)))
-                        | Full O ->
-                            Border(TextBlock("O").fontSize(model.VisualBoardSize / 3.).center())
-                                .gridRow(row * 2)
-                                .gridColumn(col * 2)
-                                .background(SolidColorBrush(ThemeAware.With(Colors.White, Colors.Black)))
-            })
-                .size(model.VisualBoardSize, model.VisualBoardSize)
-                .gridRow(1)
-
-            Button("Restart game", Restart)
-                .foreground(SolidColorBrush(Colors.Black))
-                .background(SolidColorBrush(Colors.LightBlue))
-                .fontSize(32.)
-                .centerHorizontal()
-                .margin(16., 16., 16., 50.)
-                .gridRow(2)
-        })
-            .onLoaded(Loaded)
-
-
-    let view model =
-#if MOBILE
-        SingleViewApplication(content model)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
 #else
-        DesktopApplication(Window(content model))
+            true
+#endif
+        )
+
+    let content () =
+        Component("ContentPage") {
+            let! model = Context.Mvu program
+            let! theme = Context.Environment(EnvironmentKeys.Theme)
+
+            let borderBrush =
+                if theme = ThemeVariant.Light then
+                    SolidColorBrush(Colors.Black)
+                elif theme = ThemeVariant.Dark then
+                    SolidColorBrush(Colors.White)
+                else
+                    SolidColorBrush(Colors.Black)
+
+            let background =
+                if theme = ThemeVariant.Light then
+                    SolidColorBrush(Colors.White)
+                elif theme = ThemeVariant.Dark then
+                    SolidColorBrush(Colors.Black)
+                else
+                    SolidColorBrush(Colors.White)
+
+            (Grid(coldefs = [ Star ], rowdefs = [ Auto; Star; Auto ]) {
+                TextBlock(getMessage model)
+                    .textAlignment(TextAlignment.Center)
+                    .fontSize(32.)
+                    .margin(16., 50., 16., 16.)
+
+                (Grid(coldefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ], rowdefs = [ Star; Pixel(5.); Star; Pixel(5.); Star ]) {
+
+                    Rectangle().fill(borderBrush).gridRow(1).gridColumnSpan(5)
+
+                    Rectangle().fill(borderBrush).gridRow(3).gridColumnSpan(5)
+
+                    Rectangle().fill(borderBrush).gridColumn(1).gridRowSpan(5)
+
+                    Rectangle().fill(borderBrush).gridColumn(3).gridRowSpan(5)
+
+                    for row, col as pos in positions do
+                        if canPlay model model.Board[pos] then
+                            TextBlock("")
+                                .gridRow(row * 2)
+                                .gridColumn(col * 2)
+                                .fontSize(70.)
+                                .background(SolidColorBrush(Colors.Transparent))
+                                .onTapped(fun _ -> Play pos)
+                        else
+                            match model.Board[pos] with
+                            | Empty -> ()
+                            | Full X ->
+                                Border(TextBlock("X").fontSize(model.VisualBoardSize / 3.).center())
+                                    .gridRow(row * 2)
+                                    .gridColumn(col * 2)
+                                    .background(background)
+                            | Full O ->
+                                Border(TextBlock("O").fontSize(model.VisualBoardSize / 3.).center())
+                                    .gridRow(row * 2)
+                                    .gridColumn(col * 2)
+                                    .background(background)
+                })
+                    .size(model.VisualBoardSize, model.VisualBoardSize)
+                    .gridRow(1)
+
+                Button("Restart game", Restart)
+                    .foreground(SolidColorBrush(Colors.Black))
+                    .background(SolidColorBrush(Colors.LightBlue))
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(16., 16., 16., 50.)
+                    .gridRow(2)
+            })
+                .onLoaded(Loaded)
+        }
+
+    let view () =
+#if MOBILE
+        SingleViewApplication(content())
+#else
+        DesktopApplication(Window(content()))
 #endif
     let create () =
-        let theme () = FluentTheme()
-
-        let program =
-            Program.statefulWithCmd init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(FluentTheme, view)

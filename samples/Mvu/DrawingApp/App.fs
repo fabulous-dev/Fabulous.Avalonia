@@ -12,15 +12,14 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-open Fabulous.StackAllocatedCollections.StackList
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member EmptyBorder() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)
 
 module ColorPicker =
 
@@ -222,11 +221,12 @@ module App =
 #if MOBILE
         SingleViewApplication(content model)
 #else
-        DesktopApplication(Window(content model))
-#endif
-
+        DesktopApplication(
+            Window(content model)
 #if DEBUG
-            .attachDevTools()
+                .attachDevTools()
+#endif
+        )
 #endif
 
     let create () =

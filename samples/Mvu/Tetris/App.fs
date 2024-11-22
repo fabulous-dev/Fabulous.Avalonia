@@ -18,8 +18,8 @@ module EmptyBorderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a empty Border widget.</summary>
-        static member EmptyBorder<'msg>() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member EmptyBorder() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)
 
 // Credits to https://github.com/RyushiAok/Tetris for the original code
 type Board =
