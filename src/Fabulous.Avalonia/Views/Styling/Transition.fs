@@ -306,6 +306,27 @@ module VectorTransitionBuilders =
                 TransitionBase.Duration.WithValue(duration)
             )
 
+type IFabBoolTransition =
+    inherit IFabTransition
+
+module BoolTransition =
+    let WidgetKey = Widgets.register<BoolTransition>()
+
+[<AutoOpen>]
+module BoolTransitionBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a BoolTransition widget.</summary>
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        static member BoolTransition(property: AvaloniaProperty, duration: TimeSpan) =
+            WidgetBuilder<'msg, IFabBoolTransition>(
+                BoolTransition.WidgetKey,
+                TransitionBase.Property.WithValue(property),
+                TransitionBase.Duration.WithValue(duration)
+            )
+
 type IFabEffectTransition =
     inherit IFabTransition
 

@@ -181,7 +181,7 @@ type StyledElementModifiers =
     /// <param name="value">Inline style to be used for the widget and its descendants.</param>
     /// <remarks>Note: Fabulous will recreate the Style/Styles during the view diffing as opposed to a single styled element property.</remarks>
     [<Extension>]
-    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: IStyle) =
+    static member inline style(this: WidgetBuilder<'msg, #IFabStyledElement>, value: IStyle) =
         StyledElementModifiers.styles(this, [ value ])
 
     /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the

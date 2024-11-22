@@ -9,10 +9,10 @@ open Fabulous.StackAllocatedCollections.StackList
 module ComponentToggleButton =
 
     let CheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch "ToggleButton_IsCheckedChanged" ToggleButton.IsCheckedProperty Nullable Nullable.op_Explicit
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent "ToggleButton_IsCheckedChanged" ToggleButton.IsCheckedProperty Nullable Nullable.op_Explicit
 
     let ThreeStateCheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "ToggleButton_CheckedChanged" ToggleButton.IsCheckedProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "ToggleButton_CheckedChanged" ToggleButton.IsCheckedProperty
 
 [<AutoOpen>]
 module ComponentToggleButtonBuilders =
@@ -53,6 +53,7 @@ module ComponentToggleButtonBuilders =
                 AttributesBundle(
                     StackList.one(ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -72,6 +73,7 @@ module ComponentToggleButtonBuilders =
                         ToggleButton.IsThreeState.WithValue(true)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

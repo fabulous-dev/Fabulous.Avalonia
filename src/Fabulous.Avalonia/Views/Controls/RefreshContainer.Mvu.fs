@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuRefreshContainer =
     let RefreshRequested =
-        Attributes.defineEvent<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target -> (target :?> RefreshContainer).RefreshRequested)
+        Attributes.Mvu.defineEvent<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target -> (target :?> RefreshContainer).RefreshRequested)
 
 type MvuRefreshContainerModifiers =
     /// <summary>Listens the RefreshContainer RefreshRequested event.</summary>

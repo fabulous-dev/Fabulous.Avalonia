@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentColorView =
     let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "ColorView_ColorChanged" ColorView.ColorProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
 
 [<AutoOpen>]
 module ComponentColorViewBuilders =

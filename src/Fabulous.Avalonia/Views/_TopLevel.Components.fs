@@ -9,19 +9,19 @@ open Fabulous.Avalonia
 
 module ComponentTopLevel =
     let Opened =
-        Attributes.defineEventNoArgNoDispatch "TopLevel_OpenedEvent" (fun target -> (target :?> TopLevel).Opened)
+        Attributes.Component.defineEventNoArg "TopLevel_OpenedEvent" (fun target -> (target :?> TopLevel).Opened)
 
     let Closed =
-        Attributes.defineEventNoArgNoDispatch "TopLevel_ClosedEvent" (fun target -> (target :?> TopLevel).Closed)
+        Attributes.Component.defineEventNoArg "TopLevel_ClosedEvent" (fun target -> (target :?> TopLevel).Closed)
 
     let ScalingChanged =
-        Attributes.defineEventNoArgNoDispatch "TopLevel_ScalingChangedEvent" (fun target -> (target :?> TopLevel).ScalingChanged)
+        Attributes.Component.defineEventNoArg "TopLevel_ScalingChangedEvent" (fun target -> (target :?> TopLevel).ScalingChanged)
 
     let BackRequested =
-        Attributes.defineEventNoDispatch "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
+        Attributes.Component.defineEvent "TopLevel_BackRequestedEvent" (fun target -> (target :?> TopLevel).BackRequested)
 
     let ActualThemeVariantChanged =
-        Attributes.defineEventNoArgNoDispatch "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
+        Attributes.Component.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> TopLevel).ActualThemeVariantChanged)
 
 type ComponentTopLevelModifiers =
     /// <summary>Listens to the TopLevel ThemeVariantChanged event.</summary>

@@ -52,10 +52,7 @@ module ComboBoxBuilders =
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
         static member ComboBox(items: seq<_>) =
-            WidgetBuilder<'msg, IFabComboBox>(
-                ComboBox.WidgetKey,
-                AttributesBundle(StackList.one(ItemsControl.ItemsSource.WithValue(items)), ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabComboBox>(ComboBox.WidgetKey, ItemsControl.ItemsSource.WithValue(items))
 
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
@@ -130,6 +127,13 @@ type ComboBoxModifiers =
     [<Extension>]
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabComboBox>, value: VerticalAlignment) =
         this.AddScalar(ComboBox.VerticalContentAlignment.WithValue(value))
+
+    /// <summary>Sets the ItemTemplate property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="template">The template to render the items with.</param>
+    [<Extension>]
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabComboBox>, template: 'item -> WidgetBuilder<'msg, #IFabControl>) =
+        this.AddScalar(ComboBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
 
     /// <summary>Link a ViewRef to access the direct ComboBox control instance.</summary>
     /// <param name="this">Current widget.</param>

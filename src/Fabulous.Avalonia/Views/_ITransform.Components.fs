@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 module ComponentTransform =
 
     let Changed =
-        Attributes.defineEventNoArgNoDispatch "Transform_Changed" (fun target -> (target :?> Transform).Changed)
+        Attributes.Component.defineEventNoArg "Transform_Changed" (fun target -> (target :?> Transform).Changed)
 
 type ComponentTransformModifiers =
     /// <summary>Listens to the Transform changed event.</summary>

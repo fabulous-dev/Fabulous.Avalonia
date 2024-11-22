@@ -8,13 +8,13 @@ open Fabulous.Avalonia
 
 module MvuWindow =
     let WindowClosing =
-        Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
+        Attributes.Mvu.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
 
     let WindowClosed =
-        Attributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
+        Attributes.Mvu.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
 
     let WindowOpened =
-        Attributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
+        Attributes.Mvu.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
 
 type MvuWindowModifiers =
     /// <summary>Listens to the Window WindowClosing event.</summary>

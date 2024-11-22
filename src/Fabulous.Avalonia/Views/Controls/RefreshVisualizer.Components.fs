@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentRefreshVisualizer =
     let RefreshRequested =
-        Attributes.defineEventNoDispatch<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target ->
+        Attributes.Component.defineEvent<RefreshRequestedEventArgs> "RefreshVisualizer_RefreshRequested" (fun target ->
             (target :?> RefreshVisualizer).RefreshRequested)
 
 type ComponentRefreshVisualizerModifiers =

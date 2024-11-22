@@ -35,6 +35,7 @@ module ComponentCheckBoxBuilders =
                 AttributesBundle(
                     StackList.one(ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -80,6 +81,7 @@ module ComponentCheckBoxBuilders =
                         ToggleButton.IsThreeState.WithValue(true)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

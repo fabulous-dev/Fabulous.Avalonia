@@ -7,7 +7,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuDrawingImage =
     let Invalidated =
-        Attributes.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
+        Attributes.Mvu.defineEventNoArg "DrawingImage_Invalidated" (fun target -> (target :?> DrawingImage).Invalidated)
 
 
 type MvuDrawingImageModifiers =

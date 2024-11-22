@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuScrollBar =
     let Scroll =
-        Attributes.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
+        Attributes.Mvu.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
 
 [<AutoOpen>]
 module MvuScrollBarBuilders =

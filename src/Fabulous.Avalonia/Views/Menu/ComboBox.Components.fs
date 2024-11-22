@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentComboBox =
     let DropDownOpened =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "Opened" ComboBox.IsDropDownOpenProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "Opened" ComboBox.IsDropDownOpenProperty
 
 type ComponentComboBoxModifiers =
     /// <summary>Listens to the ComboBox DropDownOpened event.</summary>

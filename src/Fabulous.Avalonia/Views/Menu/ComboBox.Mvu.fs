@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuComboBox =
     let DropDownOpened =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Opened" ComboBox.IsDropDownOpenProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "Opened" ComboBox.IsDropDownOpenProperty
 
 
 type MvuComboBoxModifiers =

@@ -5,4 +5,4 @@ open Fabulous
 
 module MvuSpinner =
     let Spin =
-        Attributes.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)
+        Attributes.Mvu.defineEvent<SpinEventArgs> "Spinner_Spin" (fun target -> (target :?> Spinner).Spin)

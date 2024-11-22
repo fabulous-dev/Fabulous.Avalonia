@@ -34,6 +34,7 @@ module NotificationCardBuilders =
                 AttributesBundle(
                     StackList.one(NotificationCard.IsClosed.WithValue(isClosed)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

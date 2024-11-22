@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module MvuTemplatedControl =
     let TemplateApplied =
-        Attributes.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
+        Attributes.Mvu.defineEvent "TemplatedControl_TemplateApplied" (fun target -> (target :?> TemplatedControl).TemplateApplied)
 
 type MvuTemplatedControlModifiers =
     /// <summary>Listens to the TemplateApplied event.</summary>

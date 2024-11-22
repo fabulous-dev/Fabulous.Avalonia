@@ -8,7 +8,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentSplitButton =
     let Clicked =
-        Attributes.defineEventNoDispatch "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
+        Attributes.Component.defineEvent "SplitButton_Clicked" (fun target -> (target :?> SplitButton).Click)
 
 [<AutoOpen>]
 module ComponentSplitButtonBuilders =
@@ -33,6 +33,7 @@ module ComponentSplitButtonBuilders =
                 AttributesBundle(
                     StackList.one(ComponentSplitButton.Clicked.WithValue(fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

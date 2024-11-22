@@ -10,13 +10,13 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module ComponentThumb =
     let DragStarted =
-        Attributes.defineEventNoDispatch<VectorEventArgs> "Thumb_DragStarted" (fun target -> (target :?> Thumb).DragStarted)
+        Attributes.Mvu.defineEvent<VectorEventArgs> "Thumb_DragStarted" (fun target -> (target :?> Thumb).DragStarted)
 
     let DragDelta =
-        Attributes.defineEventNoDispatch<VectorEventArgs> "Thumb_DragDelta" (fun target -> (target :?> Thumb).DragDelta)
+        Attributes.Mvu.defineEvent<VectorEventArgs> "Thumb_DragDelta" (fun target -> (target :?> Thumb).DragDelta)
 
     let DragCompleted =
-        Attributes.defineEventNoDispatch<VectorEventArgs> "Thumb_DragCompleted" (fun target -> (target :?> Thumb).DragCompleted)
+        Attributes.Mvu.defineEvent<VectorEventArgs> "Thumb_DragCompleted" (fun target -> (target :?> Thumb).DragCompleted)
 
 type ComponentThumbModifiers =
 

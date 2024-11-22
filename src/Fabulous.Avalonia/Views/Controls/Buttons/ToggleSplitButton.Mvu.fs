@@ -7,7 +7,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuToggleSplitButton =
     let CheckedChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ToggleSplitButton_CheckedChanged" ToggleSplitButton.IsCheckedProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "ToggleSplitButton_CheckedChanged" ToggleSplitButton.IsCheckedProperty
 
 [<AutoOpen>]
 module MvuToggleSplitButtonBuilders =
@@ -34,6 +34,7 @@ module MvuToggleSplitButtonBuilders =
                 AttributesBundle(
                     StackList.one(MvuToggleSplitButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

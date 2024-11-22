@@ -9,15 +9,15 @@ open Fabulous.Avalonia
 module ComponentStyledElement =
 
     let AttachedToLogicalTree =
-        Attributes.defineEventNoDispatch<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
+        Attributes.Component.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
             (target :?> StyledElement).AttachedToLogicalTree)
 
     let DetachedFromLogicalTree =
-        Attributes.defineEventNoDispatch<LogicalTreeAttachmentEventArgs> "StyledElement_DetachedFromLogicalTree" (fun target ->
+        Attributes.Component.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_DetachedFromLogicalTree" (fun target ->
             (target :?> StyledElement).DetachedFromLogicalTree)
 
     let ActualThemeVariantChanged =
-        Attributes.defineEventNoArgNoDispatch "StyledElement_ActualThemeVariantChanged" (fun target -> (target :?> StyledElement).ActualThemeVariantChanged)
+        Attributes.Component.defineEventNoArg "StyledElement_ActualThemeVariantChanged" (fun target -> (target :?> StyledElement).ActualThemeVariantChanged)
 
 type ComponentStyledElementModifiers =
     /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>

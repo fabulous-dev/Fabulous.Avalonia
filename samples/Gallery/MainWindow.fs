@@ -179,6 +179,7 @@ module MainWindow =
             TabItem("TextBoxPage", TextBoxPage.view())
             TabItem("ThumbPage", ThumbPage.view())
             TabItem("TickBarPage", TickBarPage.view())
+            TabItem("TimePickerPage", TimePickerPage.view())
             TabItem("ToggleSwitchPage", ToggleSwitchPage.view())
             TabItem("ToggleButtonPage", ToggleButtonPage.view())
             TabItem("ToolTipPage", ToolTipPage.view())
@@ -190,6 +191,26 @@ module MainWindow =
             TabItem("ThemeAwarePage", ThemeAwarePage.view())
             TabItem("UniformGridPage", UniformGridPage.view())
             TabItem("ViewBoxPage", ViewBoxPage.view())
+            TabItem("Implicit Animations", ImplicitCanvasAnimationsPage.view())
+            TabItem("Draw Line Animation", DrawLineAnimationPage.view())
+            TabItem("Compositor Animations", CompositorAnimationsPage.view())
+            TabItem("Animations", AnimationsPage.view())
+            TabItem("Spring Animations", SpringAnimationsPage.view())
+            TabItem("Transitions", TransitionsPage.view())
+            TabItem("Render Transform", RenderTransformPage.view())
+            TabItem("Brushes", BrushesPage.view())
+            TabItem("Clipping", ClippingPage.view())
+            TabItem("Drawing", DrawingPage.view())
+            TabItem("Line Bounds", LineBoundsPage.view())
+            TabItem("Transform3D", Transform3DPage.view())
+            TabItem("Writable Bitmap", WriteableBitmapPage.view())
+            TabItem("Render Target Bitmap", RenderTargetBitmapPage.view())
+            TabItem("Path Measurement", PathMeasurementPage.view())
+            TabItem("Custom Animator", CustomAnimatorPage.view())
+            TabItem("SkCanvas", CustomSkiaPage.view())
+            TabItem("GlyphRun", GlyphRunPage.view())
+            TabItem("FormattedText", FormattedTextPage.view())
+            TabItem("TextFormatter", TextFormatterPage.view())
         })
             .expandedModeThresholdWidth(760)
             .attachedFlyout(
@@ -256,7 +277,7 @@ module MainWindow =
         Component("MainWindow") {
             let! model = Context.Mvu program
 
-            DesktopApplication() {
+            DesktopApplication(
                 Window(hamburgerMenu model)
                     .title("Fabulous Gallery")
                     .menu(createMenu())
@@ -266,9 +287,9 @@ module MainWindow =
 #if DEBUG
                     .attachDevTools()
 #endif
-            }
-            |> _.trayIcon(trayIcon())
-            |> _.requestedThemeVariant(model.CurrentTheme)
+            )
+                .trayIcon(trayIcon())
+                .requestedThemeVariant(model.CurrentTheme)
         }
 
     let create () =

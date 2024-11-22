@@ -24,7 +24,7 @@ type FabulousAppBuilder private () =
                                   Logger = logger
                                   Dispatch = ignore }
 
-                            let envContext = new EnvironmentContext()
+                            let envContext = new EnvironmentContext(logger)
                             envContext.Set(EnvironmentKeys.Theme, app.ActualThemeVariant, false)
                             let def = WidgetDefinitionStore.get widget.Key
                             let node = def.AttachView(widget, envContext, treeContext, ValueNone, app)
@@ -90,41 +90,3 @@ type FabulousAppBuilder private () =
 
     static member Configure(themeFn: unit -> #IStyle, program: Program<unit, 'model, 'msg, Memo.Memoized<#IFabApplication>>) =
         FabulousAppBuilder.Configure(themeFn, program, ())
-
-#if IOS
-open UIKit
-open Avalonia.iOS
-
-type SingleViewLifetime() =
-    member val View: AvaloniaView = null with get, set
-
-    interface Avalonia.Controls.ApplicationLifetimes.ISingleViewApplicationLifetime with
-        member this.MainView
-            with get () = this.View.Content
-            and set value =
-                if not(isNull this.View) then
-                    this.View.Content <- value
-
-[<AutoOpen>]
-module FabulousiOSAppBuilderExtensions =
-    type AppBuilder with
-
-        member this.UseiOS(sceneDelegate: UIWindowSceneDelegate, scene: UIWindowScene) =
-            let lifetime = SingleViewLifetime()
-
-            this
-                .UseiOS()
-                .AfterSetup(fun _ ->
-                    let view = new AvaloniaView()
-                    lifetime.View <- view
-
-                    let win = new UIWindow(WindowScene = scene)
-
-                    let controller = new DefaultAvaloniaViewController(View = view)
-                    win.RootViewController <- controller
-                    view.InitWithController(controller)
-
-                    sceneDelegate.Window <- win
-                    win.MakeKeyAndVisible())
-                .SetupWithLifetime(lifetime)
-#endif

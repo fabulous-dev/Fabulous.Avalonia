@@ -28,10 +28,9 @@
         <Compile Include="DevTools.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Diagnostics" VersionOverride="11.1.0">
+        <PackageReference Include="Avalonia.Diagnostics" VersionOverride="11.2.1">
             <PrivateAssets>build; native; contentfiles; analyzers</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />

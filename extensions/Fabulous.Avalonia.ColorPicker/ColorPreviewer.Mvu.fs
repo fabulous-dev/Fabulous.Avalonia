@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuColorPreviewer =
     let ColorChanged =
-        Attributes.defineEvent "ColorPreviewer_ColorChanged" (fun target -> (target :?> ColorPreviewer).ColorChanged)
+        Attributes.Mvu.defineEvent "ColorPreviewer_ColorChanged" (fun target -> (target :?> ColorPreviewer).ColorChanged)
 
 [<AutoOpen>]
 module MvuColorPreviewerBuilders =

@@ -5,4 +5,4 @@ open Fabulous.Avalonia
 
 module MvuRangeBase =
     let ValueChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "RangeBase_ValueChanged" RangeBase.ValueProperty

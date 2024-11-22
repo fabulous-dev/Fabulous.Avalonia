@@ -8,13 +8,13 @@ open Fabulous.Avalonia
 
 module ComponentWindow =
     let WindowClosing =
-        Attributes.defineEventNoDispatch "Window_Closing" (fun target -> (target :?> Window).Closing)
+        Attributes.Component.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
 
     let WindowClosed =
-        Attributes.defineRoutedEventNoDispatch "Window_Closed" Window.WindowClosedEvent
+        Attributes.Component.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
 
     let WindowOpened =
-        Attributes.defineRoutedEventNoDispatch "Window_Opened" Window.WindowOpenedEvent
+        Attributes.Component.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
 
 type ComponentWindowModifiers =
     /// <summary>Listens to the Window WindowClosing event.</summary>

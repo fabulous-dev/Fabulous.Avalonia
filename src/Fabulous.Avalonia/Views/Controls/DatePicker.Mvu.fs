@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuDatePicker =
     let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "DatePicker_SelectedDateChanged" DatePicker.SelectedDateProperty Nullable Nullable.op_Explicit
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent "DatePicker_SelectedDateChanged" DatePicker.SelectedDateProperty Nullable Nullable.op_Explicit
 
 [<AutoOpen>]
 module MvuDatePickerBuilders =

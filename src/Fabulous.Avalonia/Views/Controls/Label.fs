@@ -26,10 +26,7 @@ module LabelBuilders =
         /// <summary>Creates a Label widget.</summary>
         /// <param name="content">The content to display.</param>
         static member inline Label(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabLabel>(
-                Label.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabLabel>(Label.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
 type LabelModifiers =
     /// <summary>Sets the Target property.</summary>

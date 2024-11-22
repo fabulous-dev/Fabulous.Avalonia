@@ -9,10 +9,10 @@ open Fabulous.Avalonia
 
 module ComponentMenuBase =
     let Opened =
-        Attributes.defineEventNoDispatch "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
+        Attributes.Component.defineEvent "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
 
     let Closed =
-        Attributes.defineEventNoDispatch "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
+        Attributes.Component.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
 
 type ComponentMenuBaseModifiers =
     /// <summary>Listens to the MenuOpened event.</summary>

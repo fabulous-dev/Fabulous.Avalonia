@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentScrollBar =
     let Scroll =
-        Attributes.defineEventNoDispatch "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
+        Attributes.Component.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
 
 [<AutoOpen>]
 module ComponentScrollBarBuilders =

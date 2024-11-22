@@ -7,10 +7,10 @@ open Fabulous
 
 module ComponentPopupFlyoutBase =
     let Opening =
-        Attributes.defineEventNoArgNoDispatch "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
+        Attributes.Component.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
 
     let Closing =
-        Attributes.defineEventNoDispatch "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
+        Attributes.Component.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
 
 type ComponentPopupFlyoutBaseModifiers =
     /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>

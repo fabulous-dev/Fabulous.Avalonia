@@ -26,10 +26,7 @@ module RefreshContainerBuilders =
         /// <summary>Creates a RefreshContainer widget.</summary>
         /// <param name="content">The content of the RefreshContainer.</param>
         static member RefreshContainer(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabRefreshContainer>(
-                RefreshContainer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabRefreshContainer>(RefreshContainer.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
 
 type RefreshContainerModifiers =

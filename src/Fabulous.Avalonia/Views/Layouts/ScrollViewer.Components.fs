@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentScrollViewer =
     let ScrollChanged =
-        Attributes.defineEventNoDispatch "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
+        Attributes.Component.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
 
 type ComponentScrollViewerModifiers =
     /// <summary>Listens to the ScrollViewer ScrollChanged event.</summary>

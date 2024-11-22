@@ -7,13 +7,13 @@ open Fabulous.Avalonia
 
 module ComponentItemsControl =
     let ContainerClearing =
-        Attributes.defineEventNoDispatch "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
+        Attributes.Component.defineEvent "ItemsControl_ContainerClearing" (fun target -> (target :?> ItemsControl).ContainerClearing)
 
     let ContainerIndexChanged =
-        Attributes.defineEventNoDispatch "ItemsControl_ContainerIndexChanged" (fun target -> (target :?> ItemsControl).ContainerIndexChanged)
+        Attributes.Component.defineEvent "ItemsControl_ContainerIndexChanged" (fun target -> (target :?> ItemsControl).ContainerIndexChanged)
 
     let ContainerPrepared =
-        Attributes.defineEventNoDispatch "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
+        Attributes.Component.defineEvent "ItemsControl_ContainerPrepared" (fun target -> (target :?> ItemsControl).ContainerPrepared)
 
 type ComponentItemsControlModifiers =
     /// <summary>Listens to the ItemsControl ContainerClearing event.</summary>

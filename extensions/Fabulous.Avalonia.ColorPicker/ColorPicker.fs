@@ -19,12 +19,12 @@ module ColorPickerBuilders =
 
         /// <summary>Creates a ColorPicker widget.</summary>
         static member ColorPicker() =
-            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey)
 
         /// <summary>Creates a ColorPicker widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorPicker(color: Color) =
-            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorPicker>(ColorPicker.WidgetKey, ColorView.Color.WithValue(color))
 
 type ColorPickerModifiers =
     /// <summary>Link a ViewRef to access the direct ColorPicker control instance</summary>

@@ -44,6 +44,7 @@ module ListBoxItemBuilders =
                 AttributesBundle(
                     StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -51,10 +52,7 @@ module ListBoxItemBuilders =
         /// <summary>Creates a ListBoxItem widget.</summary>
         /// <param name="content">The content of the ListBoxItem.</param>
         static member ListBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabListBoxItem>(
-                ListBoxItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabListBoxItem>(ListBoxItem.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
 type ListBoxItemModifiers =
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>

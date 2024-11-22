@@ -8,13 +8,13 @@ open Fabulous.Avalonia
 
 module MvuCalendar =
     let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "Calendar_SelectedDateChanged" Calendar.SelectedDateProperty Option.toNullable Option.ofNullable
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent "Calendar_SelectedDateChanged" Calendar.SelectedDateProperty Option.toNullable Option.ofNullable
 
     let DisplayDateChanged =
-        Attributes.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
+        Attributes.Mvu.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
 
     let DisplayModeChanged =
-        Attributes.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
+        Attributes.Mvu.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
 
 [<AutoOpen>]
 module MvuCalendarBuilders =

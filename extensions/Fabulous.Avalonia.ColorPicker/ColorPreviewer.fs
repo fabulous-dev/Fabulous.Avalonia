@@ -25,7 +25,7 @@ module ColorPreviewerBuilders =
 
         /// <summary>Creates a ColorPreviewer widget.</summary>
         static member ColorPreviewer() =
-            WidgetBuilder<'msg, IFabColorPreviewer>(ColorPreviewer.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorPreviewer>(ColorPreviewer.WidgetKey)
 
 
 type ColorPreviewerModifiers =

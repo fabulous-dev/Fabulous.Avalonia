@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuEffect =
     let Invalidated =
-        Attributes.defineEventNoArg "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)
+        Attributes.Mvu.defineEventNoArg "Effect_Invalidated" (fun target -> (target :?> Effect).Invalidated)
 
 type MvuEffectModifiers =
     /// <summary>Listens the Effect Invalidated event.</summary>

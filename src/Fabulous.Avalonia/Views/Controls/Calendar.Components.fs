@@ -9,17 +9,17 @@ open Fabulous.Avalonia
 
 module ComponentCalendar =
     let SelectedDateChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent
             "Calendar_SelectedDateChanged"
             Calendar.SelectedDateProperty
             Option.toNullable
             Option.ofNullable
 
     let DisplayDateChanged =
-        Attributes.defineEventNoDispatch "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
+        Attributes.Component.defineEvent "Calendar_DisplayDateChanged" (fun target -> (target :?> Calendar).DisplayDateChanged)
 
     let DisplayModeChanged =
-        Attributes.defineEventNoDispatch "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
+        Attributes.Component.defineEvent "Calendar_DisplayModeChanged" (fun target -> (target :?> Calendar).DisplayModeChanged)
 
 [<AutoOpen>]
 module ComponentCalendarBuilders =

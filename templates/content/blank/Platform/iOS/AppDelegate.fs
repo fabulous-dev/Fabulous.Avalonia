@@ -3,18 +3,17 @@ namespace NewApp.iOS
 open Foundation
 open UIKit
 
+open Avalonia
+open Avalonia.iOS
+open Fabulous.Avalonia
+open Foundation
+open NewApp
+open UIKit
+
 [<Register(nameof AppDelegate)>]
 type AppDelegate() =
-    inherit UIResponder()
-
-    interface IUIApplicationDelegate
-
-    [<Export("application:didFinishLaunchingWithOptions:")>]
-    member this.FinishedLaunching(_: UIApplication, _: NSDictionary) : bool = true
-
-    [<Export("application:configurationForConnectingSceneSession:options:")>]
-    member this.GetConfiguration(_: UIApplication, sceneSession: UISceneSession, _: UISceneConnectionOptions) =
-        UISceneConfiguration.Create("Default Configuration", sceneSession.Role)
+    inherit AvaloniaAppDelegate<FabApplication>()
+    override this.CreateAppBuilder() = App.create().UseiOS()
 
 module Main =
     [<EntryPoint>]

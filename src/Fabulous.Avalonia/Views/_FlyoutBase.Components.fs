@@ -6,10 +6,10 @@ open Fabulous
 
 module ComponentFlyoutBase =
     let Opened =
-        Attributes.defineEventNoArgNoDispatch "FlyoutBase_Opened" (fun target -> (target :?> FlyoutBase).Opened)
+        Attributes.Component.defineEventNoArg "FlyoutBase_Opened" (fun target -> (target :?> FlyoutBase).Opened)
 
     let Closed =
-        Attributes.defineEventNoArgNoDispatch "FlyoutBase_Closed" (fun target -> (target :?> FlyoutBase).Closed)
+        Attributes.Component.defineEventNoArg "FlyoutBase_Closed" (fun target -> (target :?> FlyoutBase).Closed)
 
 type ComponentFlyoutBaseModifiers =
     /// <summary>Listens to the FlyoutBase Opened event.</summary>

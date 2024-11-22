@@ -44,7 +44,7 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "FabulousPkgVersion",
-      "defaultValue": "3.0.0-pre9"
+      "defaultValue": "3.0.0-pre16"
     },
     "FabulousAvaloniaPkgVersion": {
       "type": "parameter",
@@ -62,25 +62,25 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaAndroidPkgVersion",
-      "defaultValue": "11.1.0"
+      "defaultValue": "11.2.1"
     },
     "AvaloniaDesktopPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaDesktopPkgVersion",
-      "defaultValue": "11.1.0"
+      "defaultValue": "11.2.1"
     },
     "AvaloniaiOSPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaiOSPkgVersion",
-      "defaultValue": "11.1.0"
+      "defaultValue": "11.2.1"
     },
     "AvaloniaThemesFluentPkgVersion": {
       "type": "parameter",
       "dataType": "string",
       "replaces": "AvaloniaThemesFluentPkgVersion",
-      "defaultValue": "11.1.0"
+      "defaultValue": "11.2.1"
     }
   }
 }

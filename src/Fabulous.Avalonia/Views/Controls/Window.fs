@@ -51,18 +51,10 @@ module Window =
 [<AutoOpen>]
 module WindowBuilders =
     type Fabulous.Avalonia.View with
-
         /// <summary>Creates a Window widget.</summary>
         /// <param name="content">The content of the window.</param>
         static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
-            WidgetBuilder<'msg, IFabWindow>(
-                Window.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a Window widget.</summary>
-        static member Window() =
-            SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
+            WidgetBuilder<'msg, IFabWindow>(Window.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>

@@ -7,10 +7,10 @@ open Fabulous
 
 module MvuMenuBase =
     let Opened =
-        Attributes.defineEvent "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
+        Attributes.Mvu.defineEvent "MenuBase_Opened" (fun target -> (target :?> MenuBase).Opened)
 
     let Closed =
-        Attributes.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
+        Attributes.Mvu.defineEvent "MenuBase_Closed" (fun target -> (target :?> MenuBase).Closed)
 
 type MvuMenuBaseModifiers =
     /// <summary>Listens to the MenuOpened event.</summary>

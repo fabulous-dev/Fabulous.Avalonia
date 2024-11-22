@@ -7,11 +7,11 @@ open Fabulous.Avalonia
 
 module ComponentLayoutable =
     let EffectiveViewportChanged =
-        Attributes.defineEventNoDispatch<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
+        Attributes.Component.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
             (target :?> Layoutable).EffectiveViewportChanged)
 
     let LayoutUpdated =
-        Attributes.defineEventNoArgNoDispatch "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
+        Attributes.Component.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
 
 type ComponentLayoutableModifiers =
     /// <summary>Listens to the Layoutable EffectiveViewportChanged event.</summary>

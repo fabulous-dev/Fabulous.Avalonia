@@ -34,10 +34,7 @@ module ComboBoxItemBuilders =
         /// <summary>Creates a ComboBoxItem widget.</summary>
         /// <param name="content">The content of the ComboBoxItem.</param>
         static member ComboBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabComboBoxItem>(
-                ComboBoxItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabComboBoxItem>(ComboBoxItem.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
         /// <summary>Creates a ComboBoxItem widget.</summary>
         /// <param name="isSelected">Whether the ComboBoxItem is selected.</param>
@@ -48,6 +45,7 @@ module ComboBoxItemBuilders =
                 AttributesBundle(
                     StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

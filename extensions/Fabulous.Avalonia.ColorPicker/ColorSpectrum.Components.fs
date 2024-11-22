@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentColorSpectrum =
     let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "ColorSpectrum_ColorChanged" ColorSpectrum.ColorProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "ColorSpectrum_ColorChanged" ColorSpectrum.ColorProperty
 
 [<AutoOpen>]
 module ComponentColorSpectrumBuilders =

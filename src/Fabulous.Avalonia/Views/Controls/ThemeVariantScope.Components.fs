@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentThemeVariantScope =
     let ActualThemeVariantChanged =
-        Attributes.defineEventNoArgNoDispatch "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
+        Attributes.Component.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
 
 type ComponentThemeVariantScopeModifiers =
 

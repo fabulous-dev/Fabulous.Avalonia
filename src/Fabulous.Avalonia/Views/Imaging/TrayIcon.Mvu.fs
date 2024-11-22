@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuTrayIcon =
     let Clicked =
-        Attributes.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
+        Attributes.Mvu.defineEventNoArg "TrayIcon_Clicked" (fun target -> (target :?> TrayIcon).Clicked)
 
 type MvuTrayIconModifiers =
     /// <summary>Listens to the TrayIcon Clicked event.</summary>

@@ -89,4 +89,4 @@ module WidgetHelpers =
 
     /// Creates a widget with the given key and attributes.
     let inline buildWidgets<'msg, 'marker when 'msg: equality> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
-        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone))
+        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone, ValueNone))

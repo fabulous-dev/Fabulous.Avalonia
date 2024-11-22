@@ -10,67 +10,67 @@ open Fabulous.Avalonia
 
 module ComponentDataGrid =
     let HorizontalScroll =
-        Attributes.defineEventNoDispatch "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)
+        Attributes.Component.defineEvent "DataGrid_HorizontalScroll" (fun target -> (target :?> DataGrid).HorizontalScroll)
 
     let VerticalScroll =
-        Attributes.defineEventNoDispatch "DataGrid_VerticalScroll" (fun target -> (target :?> DataGrid).VerticalScroll)
+        Attributes.Component.defineEvent "DataGrid_VerticalScroll" (fun target -> (target :?> DataGrid).VerticalScroll)
 
     let AutoGeneratingColumn =
-        Attributes.defineEventNoDispatch "DataGrid_AutoGeneratingColumn" (fun target -> (target :?> DataGrid).AutoGeneratingColumn)
+        Attributes.Component.defineEvent "DataGrid_AutoGeneratingColumn" (fun target -> (target :?> DataGrid).AutoGeneratingColumn)
 
     let BeginningEdit =
-        Attributes.defineEventNoDispatch "DataGrid_BeginningEdit" (fun target -> (target :?> DataGrid).BeginningEdit)
+        Attributes.Component.defineEvent "DataGrid_BeginningEdit" (fun target -> (target :?> DataGrid).BeginningEdit)
 
     let CellEditEnded =
-        Attributes.defineEventNoDispatch "DataGrid_CellEditEnded" (fun target -> (target :?> DataGrid).CellEditEnded)
+        Attributes.Component.defineEvent "DataGrid_CellEditEnded" (fun target -> (target :?> DataGrid).CellEditEnded)
 
     let CellEditEnding =
-        Attributes.defineEventNoDispatch "DataGrid_CellEditEnding" (fun target -> (target :?> DataGrid).CellEditEnding)
+        Attributes.Component.defineEvent "DataGrid_CellEditEnding" (fun target -> (target :?> DataGrid).CellEditEnding)
 
     let CellPointerPressed =
-        Attributes.defineEventNoDispatch "DataGrid_CellPointerPressed" (fun target -> (target :?> DataGrid).CellPointerPressed)
+        Attributes.Component.defineEvent "DataGrid_CellPointerPressed" (fun target -> (target :?> DataGrid).CellPointerPressed)
 
     let ColumnDisplayIndexChanged =
-        Attributes.defineEventNoDispatch "DataGrid_ColumnDisplayIndexChanged" (fun target -> (target :?> DataGrid).ColumnDisplayIndexChanged)
+        Attributes.Component.defineEvent "DataGrid_ColumnDisplayIndexChanged" (fun target -> (target :?> DataGrid).ColumnDisplayIndexChanged)
 
     let ColumnReordered =
-        Attributes.defineEventNoDispatch "DataGrid_ColumnReordered" (fun target -> (target :?> DataGrid).ColumnReordered)
+        Attributes.Component.defineEvent "DataGrid_ColumnReordered" (fun target -> (target :?> DataGrid).ColumnReordered)
 
     let ColumnReordering =
-        Attributes.defineEventNoDispatch "DataGrid_ColumnReordering" (fun target -> (target :?> DataGrid).ColumnReordering)
+        Attributes.Component.defineEvent "DataGrid_ColumnReordering" (fun target -> (target :?> DataGrid).ColumnReordering)
 
     let CurrentCellChanged =
-        Attributes.defineEventNoDispatch "DataGrid_CurrentCellChanged" (fun target -> (target :?> DataGrid).CurrentCellChanged)
+        Attributes.Component.defineEvent "DataGrid_CurrentCellChanged" (fun target -> (target :?> DataGrid).CurrentCellChanged)
 
     let LoadingRow =
-        Attributes.defineEventNoDispatch "DataGrid_LoadingRow" (fun target -> (target :?> DataGrid).LoadingRow)
+        Attributes.Component.defineEvent "DataGrid_LoadingRow" (fun target -> (target :?> DataGrid).LoadingRow)
 
     let PreparingCellForEdit =
-        Attributes.defineEventNoDispatch "DataGrid_PreparingCellForEdit" (fun target -> (target :?> DataGrid).PreparingCellForEdit)
+        Attributes.Component.defineEvent "DataGrid_PreparingCellForEdit" (fun target -> (target :?> DataGrid).PreparingCellForEdit)
 
     let RowEditEnded =
-        Attributes.defineEventNoDispatch "DataGrid_RowEditEnded" (fun target -> (target :?> DataGrid).RowEditEnded)
+        Attributes.Component.defineEvent "DataGrid_RowEditEnded" (fun target -> (target :?> DataGrid).RowEditEnded)
 
     let RowEditEnding =
-        Attributes.defineEventNoDispatch "DataGrid_RowEditEnding" (fun target -> (target :?> DataGrid).RowEditEnding)
+        Attributes.Component.defineEvent "DataGrid_RowEditEnding" (fun target -> (target :?> DataGrid).RowEditEnding)
 
     let SelectionChanged =
-        Attributes.defineEventNoDispatch<SelectionChangedEventArgs> "DataGrid_SelectionChanged" (fun target -> (target :?> DataGrid).SelectionChanged)
+        Attributes.Component.defineEvent<SelectionChangedEventArgs> "DataGrid_SelectionChanged" (fun target -> (target :?> DataGrid).SelectionChanged)
 
     let Sorting =
-        Attributes.defineEventNoDispatch "DataGrid_Sorting" (fun target -> (target :?> DataGrid).Sorting)
+        Attributes.Component.defineEvent "DataGrid_Sorting" (fun target -> (target :?> DataGrid).Sorting)
 
     let UnloadingRow =
-        Attributes.defineEventNoDispatch "DataGrid_UnloadingRow" (fun target -> (target :?> DataGrid).UnloadingRow)
+        Attributes.Component.defineEvent "DataGrid_UnloadingRow" (fun target -> (target :?> DataGrid).UnloadingRow)
 
     let LoadingRowDetails =
-        Attributes.defineEventNoDispatch "DataGrid_LoadingRowDetails" (fun target -> (target :?> DataGrid).LoadingRowDetails)
+        Attributes.Component.defineEvent "DataGrid_LoadingRowDetails" (fun target -> (target :?> DataGrid).LoadingRowDetails)
 
     let RowDetailsVisibilityChanged =
-        Attributes.defineEventNoDispatch "DataGrid_RowDetailsVisibilityChanged" (fun target -> (target :?> DataGrid).RowDetailsVisibilityChanged)
+        Attributes.Component.defineEvent "DataGrid_RowDetailsVisibilityChanged" (fun target -> (target :?> DataGrid).RowDetailsVisibilityChanged)
 
     let UnloadingRowDetails =
-        Attributes.defineEventNoDispatch "DataGrid_UnloadingRowDetails" (fun target -> (target :?> DataGrid).UnloadingRowDetails)
+        Attributes.Component.defineEvent "DataGrid_UnloadingRowDetails" (fun target -> (target :?> DataGrid).UnloadingRowDetails)
 
 type ComponentDataGridModifiers =
     /// <summary>Listens to the HorizontalScroll Scroll event.</summary>

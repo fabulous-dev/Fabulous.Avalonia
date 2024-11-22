@@ -40,15 +40,12 @@ module ColorSliderBuilders =
 
         /// <summary>Creates a ColorSlider widget.</summary>
         static member ColorSlider() =
-            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey)
 
         /// <summary>Creates a ColorSlider widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorSlider(color: Color) =
-            WidgetBuilder<'msg, IFabColorSlider>(
-                ColorSlider.WidgetKey,
-                AttributesBundle(StackList.one(ColorSlider.Color.WithValue(color)), ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabColorSlider>(ColorSlider.WidgetKey, ColorSlider.Color.WithValue(color))
 
 type ColorSliderModifiers =
     /// <summary>Link a ViewRef to access the direct ColorSlider control instance</summary>

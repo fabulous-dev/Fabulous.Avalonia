@@ -8,13 +8,13 @@ open Fabulous.Avalonia
 
 module MvuNativeMenu =
     let Opening =
-        Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
+        Attributes.Mvu.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
 
     let Closed =
-        Attributes.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
+        Attributes.Mvu.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
 
     let NeedsUpdate =
-        Attributes.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
+        Attributes.Mvu.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
 
 type MvuNativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>

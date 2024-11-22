@@ -8,7 +8,7 @@ open Fabulous.Avalonia
 
 module ComponentRefreshContainer =
     let RefreshRequested =
-        Attributes.defineEventNoDispatch<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
+        Attributes.Component.defineEvent<RefreshRequestedEventArgs> "RefreshContainer_RefreshRequested" (fun target ->
             (target :?> RefreshContainer).RefreshRequested)
 
 type ComponentRefreshContainerModifiers =

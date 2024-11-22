@@ -221,7 +221,7 @@ module PointerCanvas =
         Attributes.defineAvaloniaPropertyWithEquality PointerCanvas.ThreadSleepProperty
 
     let StatusChanged =
-        Attributes.defineEvent "PointerCanvas_StatusChanged" (fun target -> (target :?> PointerCanvas).StatusChanged)
+        Attributes.Mvu.defineEvent "PointerCanvas_StatusChanged" (fun target -> (target :?> PointerCanvas).StatusChanged)
 
 [<AutoOpen>]
 module PointerCanvasTabBuilders =

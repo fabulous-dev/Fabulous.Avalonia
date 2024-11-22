@@ -43,6 +43,7 @@ module RadioButtonBuilders =
                 AttributesBundle(
                     StackList.one(ComponentToggleButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -62,6 +63,7 @@ module RadioButtonBuilders =
                         ToggleButton.IsThreeState.WithValue(true)
                     ),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )

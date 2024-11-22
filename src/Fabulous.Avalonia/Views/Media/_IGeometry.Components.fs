@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module ComponentGeometry =
     let Changed =
-        Attributes.defineEventNoArgNoDispatch "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
+        Attributes.Component.defineEventNoArg "Geometry_Changed" (fun target -> (target :?> Geometry).Changed)
 
 type ComponentGeometryModifiers =
     /// <summary>Listens to the Geometry Changed event.</summary>

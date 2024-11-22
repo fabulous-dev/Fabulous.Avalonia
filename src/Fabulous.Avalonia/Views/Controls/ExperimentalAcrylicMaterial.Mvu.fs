@@ -7,7 +7,7 @@ open Fabulous.Avalonia
 
 module MvuExperimentalAcrylicMaterial =
     let Invalidated =
-        Attributes.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
+        Attributes.Mvu.defineEventNoArg "ExperimentalAcrylicMaterial_Invalidated" (fun target -> (target :?> ExperimentalAcrylicMaterial).Invalidated)
 
 type MvuExperimentalAcrylicMaterialModifiers =
     /// <summary>Listens the ExperimentalAcrylicMaterial Invalidated event.</summary>

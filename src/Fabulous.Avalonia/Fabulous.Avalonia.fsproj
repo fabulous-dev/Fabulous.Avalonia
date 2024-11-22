@@ -131,6 +131,7 @@
     <Compile Include="Views\Media\PathSegments\BezierSegment.fs" />
     <Compile Include="Views\Media\PathSegments\LineSegment.fs" />
     <Compile Include="Views\Media\PathSegments\PolyLineSegment.fs" />
+    <Compile Include="Views\Media\PathSegments\PolyBezierSegment.fs" />
     <Compile Include="Views\Media\PathSegments\QuadraticBezierSegment.fs" />
     <Compile Include="Views\Media\PathSegments\PathFigure.fs" />
     <Compile Include="Views\Media\Geometries\LineGeometry.fs" />
@@ -374,12 +375,11 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre9]" />
-    <PackageReference Include="Avalonia" VersionOverride="11.1.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre16]" />
+    <PackageReference Include="Avalonia" VersionOverride="11.2.1" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.1.0" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="11.2.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(UseLocalProjectReference)' == 'true'" Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />

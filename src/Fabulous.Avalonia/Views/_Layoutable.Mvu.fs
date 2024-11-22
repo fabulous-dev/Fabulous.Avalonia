@@ -6,11 +6,11 @@ open Fabulous
 
 module MvuLayoutable =
     let EffectiveViewportChanged =
-        Attributes.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
+        Attributes.Mvu.defineEvent<EffectiveViewportChangedEventArgs> "Layoutable_EffectiveViewportChanged" (fun target ->
             (target :?> Layoutable).EffectiveViewportChanged)
 
     let LayoutUpdated =
-        Attributes.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
+        Attributes.Mvu.defineEventNoArg "Layoutable_LayoutUpdated" (fun target -> (target :?> Layoutable).LayoutUpdated)
 
 type MvuLayoutableModifiers =
     /// <summary>Listens to the Layoutable EffectiveViewportChanged event.</summary>

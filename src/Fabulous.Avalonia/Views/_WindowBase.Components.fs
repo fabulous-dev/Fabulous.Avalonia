@@ -6,16 +6,16 @@ open Fabulous
 
 module ComponentWindowBase =
     let Activated =
-        Attributes.defineEventNoArgNoDispatch "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
+        Attributes.Component.defineEventNoArg "WindowBase_Activated" (fun target -> (target :?> WindowBase).Activated)
 
     let Deactivated =
-        Attributes.defineEventNoArgNoDispatch "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
+        Attributes.Component.defineEventNoArg "WindowBase_Deactivated" (fun target -> (target :?> WindowBase).Deactivated)
 
     let PositionChanged =
-        Attributes.defineEventNoDispatch "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
+        Attributes.Component.defineEvent "WindowBase_PositionChanged" (fun target -> (target :?> WindowBase).PositionChanged)
 
     let Resized =
-        Attributes.defineEventNoDispatch "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
+        Attributes.Component.defineEvent "WindowBase_Resized" (fun target -> (target :?> WindowBase).Resized)
 
 type ComponentWindowBaseModifiers =
     /// <summary>Listens to the WindowBase Activated event.</summary>

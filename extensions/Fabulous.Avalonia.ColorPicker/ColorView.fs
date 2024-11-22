@@ -97,12 +97,12 @@ module ColorViewBuilders =
 
         /// <summary>Creates a ColorView widget.</summary>
         static member ColorView() =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey)
 
         /// <summary>Creates a ColorView widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorView(color: Color) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.Color.WithValue(color))
 
 type ColorViewModifiers =
     /// <summary>Link a ViewRef to access the direct ColorView control instance</summary>

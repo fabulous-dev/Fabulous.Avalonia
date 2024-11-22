@@ -42,10 +42,7 @@ module BorderBuilders =
         /// <summary>Creates a Border widget.</summary>
         /// <param name="content">The content of the Border.</param>
         static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabBorder>(
-                Border.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, Decorator.ChildWidget.WithValue(content.Compile()))
 
 
 type BorderModifiers =

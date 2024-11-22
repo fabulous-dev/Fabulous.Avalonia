@@ -8,19 +8,19 @@ open System.Runtime.CompilerServices
 
 module ComponentSplitView =
     let PanClosed =
-        Attributes.defineEventNoDispatch "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
+        Attributes.Component.defineEvent "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
 
     let PanClosing =
-        Attributes.defineEventNoDispatch "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
+        Attributes.Component.defineEvent "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
 
     let PanOpened =
-        Attributes.defineEventNoDispatch "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
+        Attributes.Component.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
 
     let PanOpening =
-        Attributes.defineEventNoDispatch "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
+        Attributes.Component.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
 
     let IsPresented =
-        Attributes.defineAvaloniaPropertyWithChangedEventNoDispatch' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
 
 type ComponentSplitViewModifiers =
     /// <summary>Listens to the SplitView PanClosed event.</summary>

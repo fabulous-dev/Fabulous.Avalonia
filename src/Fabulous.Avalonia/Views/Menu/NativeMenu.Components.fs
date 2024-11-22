@@ -8,13 +8,13 @@ open Fabulous.Avalonia
 
 module ComponentNativeMenu =
     let Opening =
-        Attributes.defineEventNoDispatch "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
+        Attributes.Component.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Opening)
 
     let Closed =
-        Attributes.defineEventNoDispatch "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
+        Attributes.Component.defineEvent "NativeMenu_Opening" (fun target -> (target :?> NativeMenu).Closed)
 
     let NeedsUpdate =
-        Attributes.defineEventNoDispatch "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
+        Attributes.Component.defineEvent "NativeMenu_NeedsUpdate" (fun target -> (target :?> NativeMenu).NeedsUpdate)
 
 type ComponentNativeMenuModifiers =
     /// <summary>Listens to the NativeMenu Opening event.</summary>

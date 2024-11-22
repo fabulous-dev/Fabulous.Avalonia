@@ -7,7 +7,7 @@ open Fabulous.StackAllocatedCollections.StackList
 
 module MvuButton =
     let Clicked =
-        Attributes.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
+        Attributes.Mvu.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
 
 [<AutoOpen>]
 module MvuButtonBuilders =
@@ -28,6 +28,7 @@ module MvuButtonBuilders =
                 AttributesBundle(
                     StackList.one(MvuButton.Clicked.WithValue(fun _ -> fn)),
                     ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
