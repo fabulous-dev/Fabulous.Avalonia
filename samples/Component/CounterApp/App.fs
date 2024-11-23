@@ -1,5 +1,7 @@
 namespace CounterApp
 
+open System
+open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
 open Avalonia.Themes.Fluent
@@ -14,25 +16,39 @@ module App =
             let! timerOn = State(false)
             let! step = State(1)
 
+            let timer =
+                DispatcherTimer(
+                    TimeSpan.FromMilliseconds(1000.),
+                    DispatcherPriority.Default,
+                    (fun _ _ ->
+                        if timerOn.Current then
+                            count.Set(count.Current + step.Current))
+                )
+
             (VStack() {
                 TextBlock($"%d{count.Current}").centerText()
 
-                Button("Increment", (fun _ -> count.Set(count.Current + 1)))
+                Button("Increment", (fun _ -> count.Set(count.Current + step.Current)))
                     .centerHorizontal()
 
-                Button("Decrement", (fun _ -> count.Set(count.Current - 1)))
+                Button("Decrement", (fun _ -> count.Set(count.Current - step.Current)))
                     .centerHorizontal()
 
                 (HStack() {
                     TextBlock("Timer").centerVertical()
 
-                    ToggleSwitch(timerOn.Current, (fun _ -> count.Set(count.Current + step.Current)))
+                    ToggleSwitch(
+                        timerOn.Current,
+                        fun on ->
+                            timerOn.Set(on)
+                            if on then timer.Start() else timer.Stop()
+                    )
+
                 })
                     .margin(20.)
                     .centerHorizontal()
 
                 Slider(0., 10., float step.Current, (fun n -> step.Set(int(n + 0.5))))
-                    .centerHorizontal()
 
                 TextBlock($"Step size: %d{step.Current}").center()
 

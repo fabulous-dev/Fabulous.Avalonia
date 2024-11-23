@@ -51,51 +51,53 @@ module App =
             else
                 model, Cmd.none
 
-    let content model =
-        (VStack() {
-            TextBlock($"%d{model.Count}").centerText()
-
-            Button("Increment", Increment).centerHorizontal()
-
-            Button("Decrement", Decrement).centerHorizontal()
-
-            (HStack() {
-                TextBlock("Timer").centerVertical()
-
-                ToggleSwitch(model.TimerOn, TimerToggled)
-            })
-                .margin(20.)
-                .centerHorizontal()
-
-            Slider(0., 10., float model.Step, SetStep)
-
-            TextBlock($"Step size: %d{model.Step}").centerText()
-
-            Button("Reset", Reset).centerHorizontal()
-
-        })
-            .center()
-
-    let view model =
-#if MOBILE
-        SingleViewApplication(content model)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
 #else
-        DesktopApplication(Window(content model))
+            true
+#endif
+        )
+
+    let content () =
+        Component("CounterApp") {
+            let! model = Context.Mvu program
+
+            (VStack() {
+                TextBlock($"%d{model.Count}").centerText()
+
+                Button("Increment", Increment).centerHorizontal()
+
+                Button("Decrement", Decrement).centerHorizontal()
+
+                (HStack() {
+                    TextBlock("Timer").centerVertical()
+
+                    ToggleSwitch(model.TimerOn, TimerToggled)
+                })
+                    .margin(20.)
+                    .centerHorizontal()
+
+                Slider(0., 10., float model.Step, SetStep)
+
+                TextBlock($"Step size: %d{model.Step}").centerText()
+
+                Button("Reset", Reset).centerHorizontal()
+
+            })
+                .center()
+        }
+
+    let view () =
+#if MOBILE
+        SingleViewApplication(content())
+#else
+        DesktopApplication(Window(content()))
 #endif
     let create () =
-        let theme () = FluentTheme()
 
-        let program =
-            Program.statefulWithCmd init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(FluentTheme, view)
