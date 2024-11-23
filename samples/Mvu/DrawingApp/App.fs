@@ -176,8 +176,6 @@ module DrawingCanvas =
             .onPointerMoved(PointerMoved)
 
 module App =
-    let theme = FluentTheme()
-
     type Model =
         { Setting: Setting.Model
           DrawingCanvas: DrawingCanvas.Model }
@@ -209,20 +207,35 @@ module App =
                 DrawingCanvas = drawingCanvas },
             Cmd.none
 
-    let content (model: Model) =
-        (Dock() {
-            View.map SettingMsg (Setting.view(model.Setting).dock(Dock.Bottom))
-            View.map DrawingCanvasMsg (DrawingCanvas.view().dock(Dock.Top))
-        })
-            .background(SolidColorBrush(Colors.White))
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
+    let content () =
+        Component("App") {
+            let! model = Context.Mvu program
 
-    let view model =
+            (Dock() {
+                View.map SettingMsg (Setting.view(model.Setting).dock(Dock.Bottom))
+                View.map DrawingCanvasMsg (DrawingCanvas.view().dock(Dock.Top))
+            })
+                .background(SolidColorBrush(Colors.White))
+        }
+
+    let view () =
 #if MOBILE
-        SingleViewApplication(content model)
+        SingleViewApplication(content())
 #else
         DesktopApplication(
-            Window(content model)
+            Window(content())
 #if DEBUG
                 .attachDevTools()
 #endif
@@ -230,19 +243,5 @@ module App =
 #endif
 
     let create () =
-        let theme () = FluentTheme()
 
-        let program =
-            Program.statefulWithCmd init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(FluentTheme, view)

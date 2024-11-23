@@ -1,5 +1,6 @@
 namespace DrawingApp
 
+open Avalonia
 open Avalonia.Controls
 open Fabulous
 open Fabulous.Avalonia
@@ -92,7 +93,7 @@ module DrawingCanvas =
             let! color = Binding(color)
             let! size = Binding(size)
             let! isPressed = State(false)
-            let! lastPoint = State(None)
+            let! lastPoint = State(Some(Point(0., 0.)))
             let canvasRef = ViewRef<Canvas>()
 
             Canvas(canvasRef)
@@ -102,9 +103,12 @@ module DrawingCanvas =
                 .onPointerPressed(fun _ -> isPressed.Set true)
                 .onPointerReleased(fun _ -> isPressed.Set false)
                 .onPointerMoved(fun args ->
-                    let currentPoint = args.GetPosition(canvasRef.Value)
+                    let canvasRef = canvasRef.Value
+                    let currentPoint = args.GetPosition(canvasRef)
+                    let isPressed = isPressed.Current
+                    lastPoint.Set(None)
 
-                    if isPressed.Current then
+                    if isPressed then
                         match lastPoint.Current with
                         | Some point ->
                             let brush = unbox(ColorToBrushConverter.Convert(box(color.Current), typeof<IBrush>))
@@ -118,19 +122,18 @@ module DrawingCanvas =
                                     StrokeLineCap = PenLineCap.Round
                                 )
 
-                            if canvasRef.Value <> null then
-                                canvasRef.Value.Children.Add(line)
+                            if canvasRef <> null then
+                                canvasRef.Children.Add(line)
 
                             lastPoint.Set(Some currentPoint)
-
                         | None -> lastPoint.Set(Some currentPoint)
                     else
-                        lastPoint.Set(Some currentPoint))
+                        lastPoint.Set(Some currentPoint)
+
+                )
         }
 
 module App =
-    let theme = FluentTheme()
-
     let content () =
         Component("App") {
             let! color = State(Colors.Black)

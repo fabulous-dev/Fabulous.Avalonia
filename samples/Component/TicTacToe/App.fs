@@ -44,8 +44,6 @@ type Row = GameCell list
 
 
 module App =
-    let theme = FluentTheme()
-
     type Msg =
         | Play of Pos
         | Restart

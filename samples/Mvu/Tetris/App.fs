@@ -11,7 +11,6 @@ open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
 open Avalonia.Themes.Fluent
 
-open Fabulous.StackAllocatedCollections.StackList
 
 [<AutoOpen>]
 module EmptyBorderBuilders =
