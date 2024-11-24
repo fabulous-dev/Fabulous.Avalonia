@@ -39,9 +39,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\extensions\Fabulous.Avalonia.Diagnostics\Fabulous.Avalonia.Diagnostics.fsproj" />
         <ProjectReference Include="..\..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
     </ItemGroup>
-
     <Import Project="..\..\Fabulous.Avalonia.Samples.targets" />
 </Project>

@@ -2,6 +2,7 @@ namespace TicTacToe
 
 open System
 open System.Diagnostics
+open Avalonia.Controls
 open Avalonia.Interactivity
 open Avalonia.Media
 open Avalonia.Styling
@@ -261,7 +262,10 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(Window(content()))
+        DesktopApplication(
+            Window(content())
+                .sizeToContent(SizeToContent.WidthAndHeight)
+        )
 #endif
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)

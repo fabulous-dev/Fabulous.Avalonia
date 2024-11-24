@@ -14,9 +14,15 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CounterApp", "samples\Compo
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DrawingApp", "samples\Component\DrawingApp\DrawingApp.fsproj", "{1C9CD1FD-7DD5-4A44-8EFC-82C21F686580}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Navigation", "samples\Component\Navigation\Navigation.fsproj", "{D6A7F02F-A7D8-4A90-91B1-6DAF81F8451A}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TicTacToe", "samples\Component\TicTacToe\TicTacToe.fsproj", "{9CFC1920-1B4F-4DF6-B436-A7E8024C65D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigation", "Navigation", "{61CE352B-530C-4A44-B398-E9B42FD41560}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BasicNavigation", "samples\Component\Navigation\BasicNavigation\BasicNavigation.fsproj", "{E46E0D3E-6580-4BBD-BF4F-13894AD049DE}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ComponentNavigation", "samples\Component\Navigation\ComponentNavigation\ComponentNavigation.fsproj", "{3D782D0D-D5E7-4D10-9020-E59B27ECA8F3}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NavigationPath", "samples\Component\Navigation\NavigationPath\NavigationPath.fsproj", "{9BBE22B2-9B21-4353-B5F7-81E96CDD1B97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,13 +41,26 @@ Global
 		{1C9CD1FD-7DD5-4A44-8EFC-82C21F686580}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C9CD1FD-7DD5-4A44-8EFC-82C21F686580}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C9CD1FD-7DD5-4A44-8EFC-82C21F686580}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6A7F02F-A7D8-4A90-91B1-6DAF81F8451A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6A7F02F-A7D8-4A90-91B1-6DAF81F8451A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6A7F02F-A7D8-4A90-91B1-6DAF81F8451A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6A7F02F-A7D8-4A90-91B1-6DAF81F8451A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9CFC1920-1B4F-4DF6-B436-A7E8024C65D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9CFC1920-1B4F-4DF6-B436-A7E8024C65D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CFC1920-1B4F-4DF6-B436-A7E8024C65D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CFC1920-1B4F-4DF6-B436-A7E8024C65D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E46E0D3E-6580-4BBD-BF4F-13894AD049DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E46E0D3E-6580-4BBD-BF4F-13894AD049DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E46E0D3E-6580-4BBD-BF4F-13894AD049DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E46E0D3E-6580-4BBD-BF4F-13894AD049DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D782D0D-D5E7-4D10-9020-E59B27ECA8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D782D0D-D5E7-4D10-9020-E59B27ECA8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D782D0D-D5E7-4D10-9020-E59B27ECA8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D782D0D-D5E7-4D10-9020-E59B27ECA8F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BBE22B2-9B21-4353-B5F7-81E96CDD1B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BBE22B2-9B21-4353-B5F7-81E96CDD1B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BBE22B2-9B21-4353-B5F7-81E96CDD1B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BBE22B2-9B21-4353-B5F7-81E96CDD1B97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E46E0D3E-6580-4BBD-BF4F-13894AD049DE} = {61CE352B-530C-4A44-B398-E9B42FD41560}
+		{3D782D0D-D5E7-4D10-9020-E59B27ECA8F3} = {61CE352B-530C-4A44-B398-E9B42FD41560}
+		{9BBE22B2-9B21-4353-B5F7-81E96CDD1B97} = {61CE352B-530C-4A44-B398-E9B42FD41560}
 	EndGlobalSection
 EndGlobal

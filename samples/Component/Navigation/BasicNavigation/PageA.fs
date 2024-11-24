@@ -1,11 +1,10 @@
 namespace NavigationSample
 
-open Avalonia.Media
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-module PageC =
+module PageA =
     type Model = { Count: int }
 
     type Msg =
@@ -21,15 +20,10 @@ module PageC =
 
     let view model =
         VStack() {
-            Label("Page c")
-                .foreground(Brushes.White)
-                .fontSize(32.)
-                .centerHorizontal()
-                .margin(0., 0., 0., 30.)
+            Label("Page A") //.font(32.).centerTextHorizontal().margin(0., 0., 0., 30.)
 
-            Label($"Count: {model.Count}").centerHorizontal()
+            Label($"Count: {model.Count}") //.centerTextHorizontal()
 
             Button("Increment", Increment)
             Button("Decrement", Decrement)
         }
-        |> _.centerHorizontal()

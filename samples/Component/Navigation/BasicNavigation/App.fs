@@ -1,7 +1,6 @@
 namespace NavigationSample
 
 open System.Diagnostics
-open Avalonia.Controls
 open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
@@ -74,25 +73,23 @@ module App =
         Component("BasicNavigation") {
             let! model = Context.Mvu program
 
-            Dock(false) {
-                let content =
-                    match model.CurrentStep with
-                    | Step.PageA -> View.map PageAMsg (PageA.view model.PageAModel)
-                    | Step.PageB -> View.map PageBMsg (PageB.view model.PageBModel)
-                    | Step.PageC -> View.map PageCMsg (PageC.view model.PageCModel)
+            (VStack() {
+                Grid(coldefs = [ Star; Star; Star ], rowdefs = [ Auto; Star ]) {
+                    Button("Page A", GoToPageA).gridColumn(0)
 
-                content |> _.dock(Dock.Top)
+                    Button("Page B", GoToPageB).gridColumn(1)
 
-                HStack(16.) {
-                    Button("Page A", GoToPageA)
+                    Button("Page C", GoToPageC).gridColumn(2)
 
-                    Button("Page B", GoToPageB)
-
-                    Button("Page C", GoToPageC)
+                    (match model.CurrentStep with
+                     | Step.PageA -> View.map PageAMsg (PageA.view model.PageAModel)
+                     | Step.PageB -> View.map PageBMsg (PageB.view model.PageBModel)
+                     | Step.PageC -> View.map PageCMsg (PageC.view model.PageCModel))
+                        .gridRow(1)
+                        .gridColumnSpan(3)
                 }
-                |> _.centerHorizontal()
-                |> _.dock(Dock.Bottom)
-            }
+            })
+                .center()
         }
 
     let view () =

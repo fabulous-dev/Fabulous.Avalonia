@@ -150,12 +150,7 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(
-            Window(content())
-#if DEBUG
-                .attachDevTools()
-#endif
-        )
+        DesktopApplication(Window(content()))
 #endif
 
 
