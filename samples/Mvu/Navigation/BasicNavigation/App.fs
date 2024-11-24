@@ -57,45 +57,46 @@ module App =
         | GoToPageB -> { model with CurrentStep = Step.PageB }
         | GoToPageC -> { model with CurrentStep = Step.PageC }
 
-    let content model =
-        (VStack() {
-            Grid(coldefs = [ Star; Star; Star ], rowdefs = [ Auto; Star ]) {
-                Button("Page A", GoToPageA).gridColumn(0)
-
-                Button("Page B", GoToPageB).gridColumn(1)
-
-                Button("Page C", GoToPageC).gridColumn(2)
-
-                (match model.CurrentStep with
-                 | Step.PageA -> View.map PageAMsg (PageA.view model.PageAModel)
-                 | Step.PageB -> View.map PageBMsg (PageB.view model.PageBModel)
-                 | Step.PageC -> View.map PageCMsg (PageC.view model.PageCModel))
-                    .gridRow(1)
-                    .gridColumnSpan(3)
-            }
-        })
-            .center()
-
-    let view model =
-#if MOBILE
-        SingleViewApplication(content model)
+    let program =
+        Program.stateful init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
 #else
-        DesktopApplication(Window(content model))
+            true
+#endif
+        )
+
+    let content () =
+        Component("BasicNavigation") {
+            let! model = Context.Mvu program
+
+            (VStack() {
+                Grid(coldefs = [ Star; Star; Star ], rowdefs = [ Auto; Star ]) {
+                    Button("Page A", GoToPageA).gridColumn(0)
+
+                    Button("Page B", GoToPageB).gridColumn(1)
+
+                    Button("Page C", GoToPageC).gridColumn(2)
+
+                    (match model.CurrentStep with
+                     | Step.PageA -> View.map PageAMsg (PageA.view model.PageAModel)
+                     | Step.PageB -> View.map PageBMsg (PageB.view model.PageBModel)
+                     | Step.PageC -> View.map PageCMsg (PageC.view model.PageCModel))
+                        .gridRow(1)
+                        .gridColumnSpan(3)
+                }
+            })
+                .center()
+        }
+
+    let view () =
+#if MOBILE
+        SingleViewApplication(content())
+#else
+        DesktopApplication(Window(content()))
 #endif
     let create () =
-        let theme () = FluentTheme()
-
-        let program =
-            Program.stateful init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(FluentTheme, view)

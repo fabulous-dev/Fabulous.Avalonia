@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\src\Fabulous.Avalonia.props" />
+  <Import Project="..\..\..\..\src\Fabulous.Avalonia.props" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -26,6 +26,8 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AppMsg.fs" />
+    <Compile Include="Navigation.fs" />
     <Compile Include="PageA.fs" />
     <Compile Include="PageB.fs" />
     <Compile Include="PageC.fs" />
@@ -42,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
+    <ProjectReference Include="..\..\..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
   </ItemGroup>
-  <Import Project="..\..\Fabulous.Avalonia.Samples.targets" />
+  <Import Project="..\..\..\Fabulous.Avalonia.Samples.targets" />
 </Project>

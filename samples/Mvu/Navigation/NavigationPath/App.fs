@@ -1,6 +1,5 @@
 namespace NavigationSample
 
-open System
 open System.Diagnostics
 open Avalonia.Interactivity
 open Avalonia.Themes.Fluent
