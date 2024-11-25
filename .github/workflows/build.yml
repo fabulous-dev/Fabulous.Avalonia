@@ -12,11 +12,11 @@ env:
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
   TEMPLATE_PKG: nupkgs/Fabulous.Avalonia.Templates
   NUPKG_FOLDER: nupkgs
-  XCODE_PATH: /Applications/Xcode_15.2.app/Contents/Developer
+  XCODE_PATH: /Applications/Xcode_16.0.app/Contents/Developer
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
