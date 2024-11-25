@@ -1,10 +1,10 @@
-namespace NavigationSample.Android
+namespace BasicNavigation.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
-open NavigationSample
+open BasicNavigation
 open Fabulous.Avalonia
 
 [<Activity(Label = "Counter.Android",

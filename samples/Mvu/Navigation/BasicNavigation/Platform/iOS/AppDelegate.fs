@@ -1,7 +1,7 @@
-namespace NavigationSample.iOS
+namespace BasicNavigation.iOS
 
 open Foundation
-open NavigationSample
+open BasicNavigation
 open UIKit
 
 open Avalonia

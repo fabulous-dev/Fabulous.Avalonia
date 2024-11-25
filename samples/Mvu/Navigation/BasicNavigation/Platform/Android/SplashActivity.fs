@@ -1,4 +1,4 @@
-namespace NavigationSample.Android
+namespace BasicNavigation.Android
 
 open Android.App
 open Android.Content

@@ -1,5 +1,7 @@
 namespace NavigationSample
 
+open Avalonia.Controls
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -31,18 +33,31 @@ module PageA =
         | BackButtonPressed -> { Count = model.Count - 1 }, Cmd.none
 
     let view model =
-        Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
-            VStack() {
-                Label($"Count: {model.Count}")
+        Component("PageA") {
+            Dock() {
 
-                Button("Increment", Increment)
-                Button("Decrement", Decrement)
+                Label("Page A")
+                    .foreground(Brushes.White)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(0., 0., 0., 30.)
+                    .dock(Dock.Top)
+
+                VStack() {
+                    Label($"Count: {model.Count}").centerHorizontal()
+
+                    Button("Increment", Increment)
+                    Button("Decrement", Decrement)
+                }
+                |> _.dock(Dock.Top)
+                |> _.centerHorizontal()
+
+                (HStack() {
+                    Button("Go back", GoBack)
+                    Button("Go to Page B", GoToPageB)
+                    Button("Go to Page C", GoToPageC)
+                })
+                    .dock(Dock.Bottom)
+                    .centerHorizontal()
             }
-
-            (VStack() {
-                Button("Go back", GoBack)
-                Button("Go to Page B", GoToPageB)
-                Button("Go to Page C", GoToPageC)
-            })
-                .gridRow(1)
         }

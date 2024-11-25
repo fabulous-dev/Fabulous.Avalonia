@@ -1,5 +1,7 @@
 namespace NavigationSample
 
+open Avalonia.Controls
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -38,21 +40,31 @@ module PageC =
         | GoToPageB -> model, Navigation.navigateToPageB nav model.Count
 
     let view model =
-        Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
-            VStack() {
-                Label($"Args: {model.Args}")
-                Label($"StepCount from Page B: {model.StepCount}")
+        Component("PageC") {
+            Dock() {
 
-                Label($"Count: {model.Count}") //.centerTextHorizontal()
+                Label("Page C")
+                    .foreground(Brushes.White)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(0., 0., 0., 30.)
+                    .dock(Dock.Top)
 
-                Button("Increment", Increment)
-                Button("Decrement", Decrement)
+                VStack() {
+                    Label($"Count: {model.Count}").centerHorizontal()
+
+                    Button("Increment", Increment)
+                    Button("Decrement", Decrement)
+                }
+                |> _.dock(Dock.Top)
+                |> _.centerHorizontal()
+
+                (HStack() {
+                    Button("Go back", GoBack)
+                    Button("Go to Page A", GoToPageA)
+                    Button("Go to Page B", GoToPageB)
+                })
+                    .dock(Dock.Bottom)
+                    .centerHorizontal()
             }
-
-            (VStack() {
-                Button("Go back", GoBack)
-                Button("Go to Page A", GoToPageA)
-                Button("Go to Page B", GoToPageB)
-            })
-                .gridRow(1)
         }

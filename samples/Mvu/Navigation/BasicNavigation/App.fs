@@ -1,4 +1,4 @@
-namespace NavigationSample
+namespace BasicNavigation
 
 open System.Diagnostics
 open Avalonia.Controls

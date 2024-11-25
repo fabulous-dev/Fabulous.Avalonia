@@ -1,5 +1,6 @@
 namespace ComponentNavigation
 
+open Avalonia.Controls
 open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
@@ -57,17 +58,12 @@ module App =
             let! model = Context.Mvu(program nav appMsgDispatcher)
 
             Dock() {
-                //(NavigationPage() {
                 // We inject in the NavigationPage history the back stack of our navigation
                 for navPath in List.rev model.Navigation.BackStack do
                     navView nav appMsgDispatcher navPath
 
                 // The page currently displayed is the one on top of the stack
-                navView nav appMsgDispatcher model.Navigation.CurrentPage
-            //})
-            //.onBackButtonPressed(BackButtonPressed)
-            // .onBackNavigated(BackNavigationMsg)
-
+                navView nav appMsgDispatcher model.Navigation.CurrentPage |> _.dock(Dock.Bottom)
             }
         }
 

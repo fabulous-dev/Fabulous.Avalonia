@@ -1,5 +1,7 @@
 namespace ComponentNavigation
 
+open Avalonia.Controls
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -51,29 +53,33 @@ module PageB =
         |> Program.withSubscription(subscribe appMsgDispatcher)
 
     let view nav appMsgDispatcher arg =
-        Component("PageB") {
+        Component("Page B") {
             let! model = Context.Mvu(program nav appMsgDispatcher, arg)
 
-            //ContentPage(
-            Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
-                VStack() {
-                    Label($"Initial count: {model.InitialCount}")
+            Dock() {
 
-                    Label($"Count: {model.Count}") //.centerTextHorizontal()
+                Label("Page B")
+                    .foreground(Brushes.White)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(0., 0., 0., 30.)
+                    .dock(Dock.Top)
+
+                VStack() {
+                    Label($"Count: {model.Count}").centerHorizontal()
 
                     Button("Increment", Increment)
                     Button("Decrement", Decrement)
                 }
+                |> _.dock(Dock.Top)
+                |> _.centerHorizontal()
 
-                (VStack() {
+                (HStack() {
                     Button("Go back", GoBack)
                     Button("Go to Page A", GoToPageA)
                     Button("Go to Page C", GoToPageC)
                 })
-                    .gridRow(1)
+                    .dock(Dock.Bottom)
+                    .centerHorizontal()
             }
-        //)
-        // .title("Page B")
-        // .onNavigatedTo(Active)
-        // .onNavigatedFrom(Inactive)
         }

@@ -1,8 +1,11 @@
 namespace ComponentNavigation
 
+open Avalonia.Controls
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
+open Fabulous.Avalonia.DockPanel
 open type Fabulous.Avalonia.View
 
 /// Each page is "isolated". They have their own MVU loop and own types.
@@ -52,23 +55,30 @@ module PageA =
         Component("PageA") {
             let! model = Context.Mvu(program nav appMsgDispatcher)
 
-            Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
+            Dock() {
+
+                Label("Page A")
+                    .foreground(Brushes.White)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(0., 0., 0., 30.)
+                    .dock(Dock.Top)
+
                 VStack() {
-                    Label($"Count: {model.Count}") //.centerTextHorizontal()
+                    Label($"Count: {model.Count}").centerHorizontal()
 
                     Button("Increment", Increment)
                     Button("Decrement", Decrement)
                 }
+                |> _.dock(Dock.Top)
+                |> _.centerHorizontal()
 
-                (VStack() {
+                (HStack() {
                     Button("Go back", GoBack)
                     Button("Go to Page B", GoToPageB)
                     Button("Go to Page C", GoToPageC)
                 })
-                    .gridRow(1)
+                    .dock(Dock.Bottom)
+                    .centerHorizontal()
             }
-
-        // .title("Page A")
-        // .onNavigatedTo(Active)
-        // .onNavigatedFrom(Inactive)
         }

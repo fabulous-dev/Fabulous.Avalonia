@@ -1,4 +1,4 @@
-namespace NavigationSample
+namespace BasicNavigation
 
 open Avalonia.Media
 open Fabulous.Avalonia

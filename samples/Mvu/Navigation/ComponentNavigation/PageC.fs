@@ -1,5 +1,8 @@
 namespace ComponentNavigation
 
+
+open Avalonia.Controls
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
@@ -61,27 +64,30 @@ module PageC =
         Component("PageC") {
             let! model = Context.Mvu(program nav appMsgDispatcher, args)
 
-            //ContentPage(
-            Grid(coldefs = [ Star ], rowdefs = [ Star; Auto ]) {
-                VStack() {
-                    Label($"Args: {model.Args}")
-                    Label($"StepCount from Page B: {model.StepCount}")
+            Dock() {
 
-                    Label($"Count: {model.Count}") //.centerTextHorizontal()
+                Label("Page C")
+                    .foreground(Brushes.White)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(0., 0., 0., 30.)
+                    .dock(Dock.Top)
+
+                VStack() {
+                    Label($"Count: {model.Count}").centerHorizontal()
 
                     Button("Increment", Increment)
                     Button("Decrement", Decrement)
                 }
+                |> _.dock(Dock.Top)
+                |> _.centerHorizontal()
 
-                (VStack() {
+                (HStack() {
                     Button("Go back", GoBack)
                     Button("Go to Page A", GoToPageA)
                     Button("Go to Page B", GoToPageB)
                 })
-                    .gridRow(1)
+                    .dock(Dock.Bottom)
+                    .centerHorizontal()
             }
-        //)
-        //.title("Page C")
-        //.onNavigatedTo(Active)
-        //.onNavigatedFrom(Inactive)
         }

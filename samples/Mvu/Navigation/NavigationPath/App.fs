@@ -1,6 +1,7 @@
 namespace NavigationSample
 
 open System.Diagnostics
+open Avalonia.Controls
 open Avalonia.Interactivity
 open Avalonia.Themes.Fluent
 open Fabulous
@@ -21,7 +22,6 @@ module App =
         | BackNavigated
         | NavigationMsg of NavigationState.Msg
         | BackButtonPressed
-        | Loaded of RoutedEventArgs
 
     /// This is where we subscribe to the navigation events
     /// If a navigation forward is requested, we dispatch the NavigationPushed message
@@ -30,11 +30,10 @@ module App =
         [ fun dispatch ->
               nav.Navigated.Add(fun path -> dispatch(NavigationPushed path))
               nav.BackNavigated.Add(fun () -> dispatch BackNavigated)
-          //NavigationService.Instance.BackButtonPressed.Add(fun _ -> dispatch BackButtonPressed)
+#if MOBILE
+              FabApplication.Current.TopLevel.BackRequested.Add(fun args -> dispatch BackButtonPressed)
+#endif
           ]
-
-    let navSubscription2 () : Cmd<Msg> =
-        Cmd.ofEffect(fun dispatch -> FabApplication.Current.TopLevel.BackRequested.Add(fun args -> dispatch BackButtonPressed))
 
     /// In the init function, we initialize the NavigationStack and subscribe to the navigation events
     let init () =
@@ -64,19 +63,33 @@ module App =
 
             { Navigation = model.Navigation.UpdateCurrentPage(m) }, Cmd.map NavigationMsg navCmd
 
-        | Loaded _args -> model, navSubscription2()
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
     /// The view function contains the NavigationPage control that will display the different pages
     /// and handle the navigation animations (push, pop) as well has displaying a back button by default
     ///
     /// Because of MVU, all the pages need to return the same Msg type, but they all have their own.
     /// To be able to wrap those Msgs into the app's root Msg type, we use the View.map helper function.
-    let content model =
-        VStack(16.) {
-            // The page currently displayed is the one on top of the stack
-            View.map NavigationMsg (NavigationState.view model.Navigation.CurrentPage)
+    let content () =
+        Component("Sample") {
+            let! model = Context.Mvu(program)
+
+            Dock() {
+                // The page currently displayed is the one on top of the stack
+                View.map NavigationMsg (NavigationState.view model.Navigation.CurrentPage)
+                |> _.dock(Dock.Bottom)
+            }
         }
-        |> _.onLoaded(Loaded)
 
     let view model =
 #if MOBILE
@@ -84,20 +97,6 @@ module App =
 #else
         DesktopApplication(Window(content model))
 #endif
+
     let create () =
-        let theme () = FluentTheme()
-
-        let program =
-            Program.statefulWithCmd init update
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-            |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-                printfn $"Exception: %s{ex.ToString()}"
-                false
-#else
-                true
-#endif
-            )
-            |> Program.withView view
-
-        FabulousAppBuilder.Configure(theme, program)
+        FabulousAppBuilder.Configure(FluentTheme, view)
