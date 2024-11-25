@@ -65,7 +65,8 @@ jobs:
     - name: Test single project template
       run: |
         dotnet new fabulous-avalonia -n SingleProjectTemplate
-        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false
+        dotnet build -t:InstallAndroidDependencies -f net8.0-android "-p:AndroidSdkDirectory=/Users/runner/Library/Android/sdk"
+        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false 
     - name: Test multi project template
       run: |
         dotnet new fabulous-avalonia-multi -n MultiProjectTemplate
