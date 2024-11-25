@@ -1,29 +1,34 @@
-namespace NavigationSample
+namespace BasicNavigation
 
+open System
+open Avalonia.Media
+open Avalonia.Threading
+open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
+open type Fabulous.Context
 
 module PageB =
-    type Model = { Count: int }
+    let content () =
+        Component("PageB") {
+            let! count = State(0)
 
-    type Msg =
-        | Increment
-        | Decrement
+            (VStack() {
+                Label("Page B")
+                    .foreground(Brushes.White)
+                    .fontSize(32.)
+                    .centerHorizontal()
+                    .margin(0., 0., 0., 30.)
 
-    let init () = { Count = 0 }
+                TextBlock($"%d{count.Current}").centerText()
 
-    let update msg model =
-        match msg with
-        | Increment -> { Count = model.Count + 1 }
-        | Decrement -> { Count = model.Count - 1 }
+                Button("Increment", (fun _ -> count.Set(count.Current + 1)))
+                    .centerHorizontal()
 
-    let view model =
-        VStack() {
-            Label("Page B") //.font(32.).centerTextHorizontal().margin(0., 0., 0., 30.)
-
-            Label($"Count: {model.Count}") //.centerTextHorizontal()
-
-            Button("Increment", Increment)
-            Button("Decrement", Decrement)
+                Button("Decrement", (fun _ -> count.Set(count.Current - 1)))
+                    .centerHorizontal()
+            })
+                .center()
         }

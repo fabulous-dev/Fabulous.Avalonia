@@ -1,9 +1,9 @@
-namespace NavigationSample.Desktop
+namespace BasicNavigation.Desktop
 
 open System
 open Avalonia
 
-open NavigationSample
+open BasicNavigation
 
 module Program =
 

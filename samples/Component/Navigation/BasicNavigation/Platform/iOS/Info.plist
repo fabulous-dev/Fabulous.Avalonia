@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>CFBundleDisplayName</key>
-        <string>NavigationSample</string>
+        <string>BasicNavigation</string>
         <key>CFBundleIdentifier</key>
         <string>org.fabulous.avalonia.CounterApp</string>
         <key>CFBundleShortVersionString</key>
