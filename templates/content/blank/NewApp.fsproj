@@ -5,7 +5,10 @@
     <!-- net8.0-ios is not supported on Linux, so we do not add it there. -->
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('linux')) == false">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
     <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
-    <PublishTrimmed>false</PublishTrimmed>
+    <PublishTrimmed>true</PublishTrimmed>
+    <WarningsAsErrors>FS0025</WarningsAsErrors>
+    <NoWarn>MT7091;NETSDK1206</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <AvaloniaPlatform>$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))</AvaloniaPlatform>
@@ -21,17 +24,8 @@
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
     <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
   </PropertyGroup>
-  <!-- https://github.com/xamarin/xamarin-macios/issues/18469 -->
-  <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS' And '$(GITHUB_ACTIONS)' != 'true' ">
-    <EnableCodeSigning>true</EnableCodeSigning>
-    <CodesignRequireProvisioningProfile>true</CodesignRequireProvisioningProfile>
-    <DisableCodesignVerification>true</DisableCodesignVerification>
-  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\**" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'Android'">
     <AndroidResource Include="$(AndroidPlatformFolder)Resources\**\*" />
@@ -44,7 +38,6 @@
     <None Include="$(iOSPlatformFolder)Entitlements.plist" />
     <None Include="$(iOSPlatformFolder)Info.plist" />
     <InterfaceDefinition Include="$(iOSPlatformFolder)*.storyboard;$(iOSPlatformFolder)*.xib" />
-    <Compile Include="$(iOSPlatformFolder)SceneDelegate.fs" />
     <Compile Include="$(iOSPlatformFolder)AppDelegate.fs" />
     <PackageReference Include="Avalonia.iOS" Version="AvaloniaiOSPkgVersion" />
   </ItemGroup>

@@ -12,11 +12,11 @@ env:
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
   TEMPLATE_PKG: nupkgs/Fabulous.Avalonia.Templates
   NUPKG_FOLDER: nupkgs
-  XCODE_PATH: /Applications/Xcode_15.2.app/Contents/Developer
+  XCODE_PATH: /Applications/Xcode_16.0.app/Contents/Developer
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
@@ -65,7 +65,8 @@ jobs:
     - name: Test single project template
       run: |
         dotnet new fabulous-avalonia -n SingleProjectTemplate
-        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false
+        dotnet build SingleProjectTemplate -t:InstallAndroidDependencies -f net8.0-android -p:AndroidSdkDirectory="/Users/runner/Library/Android/sdk" -p:AcceptAndroidSDKLicenses=True -p:ManagePackageVersionsCentrally=false
+        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false 
     - name: Test multi project template
       run: |
         dotnet new fabulous-avalonia-multi -n MultiProjectTemplate
