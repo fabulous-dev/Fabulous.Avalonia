@@ -1,13 +1,13 @@
-namespace SnakeGame.Android
+namespace Tetris.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
+open Tetris
 open Fabulous.Avalonia
-open SnakeGame
 
-[<Activity(Label = "TicTacToe.Android",
+[<Activity(Label = "Tetris.Android",
            Theme = "@style/MyTheme.NoActionBar",
            Icon = "@drawable/icon",
            LaunchMode = LaunchMode.SingleTop,

@@ -1,9 +1,9 @@
-namespace SnakeGame.Desktop
+namespace Tetris.Desktop
 
 open System
 open Avalonia
 
-open SnakeGame
+open Tetris
 
 module Program =
 
@@ -11,8 +11,8 @@ module Program =
     let buildAvaloniaApp () =
         App
             .create()
-            .UsePlatformDetect()
             .LogToTrace(areas = Array.empty)
+            .UsePlatformDetect()
 
     [<EntryPoint; STAThread>]
     let main argv =

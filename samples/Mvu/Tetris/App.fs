@@ -1,9 +1,9 @@
 namespace Tetris
-namespace Tetris
 
 open System
 open System.Diagnostics
 open Avalonia.Controls
+open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Threading
 open Fabulous
@@ -315,7 +315,20 @@ module App =
 #if MOBILE
         SingleViewApplication(content model)
 #else
-        DesktopApplication(Window(content model))
+        DesktopApplication(
+            Window(content model)
+                .title("Tetris")
+                .onKeyDown(fun e ->
+                    match e.Key with
+                    | Key.RightShift
+                    | Key.LeftShift -> RotL
+                    | Key.Space -> RotR
+                    | Key.S -> Down
+                    | Key.A -> Left
+                    | Key.D -> Right
+                    | Key.E -> Hold
+                    | _ -> Empty)
+        )
 #endif
     let create () =
         let theme () = FluentTheme()

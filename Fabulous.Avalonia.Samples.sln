@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		global.json = global.json
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tetris", "samples\Component\Tetris\Tetris.fsproj", "{48A8F92E-CFAD-4B35-9DD4-D3110E259AE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,7 @@ Global
 		{B014757F-B5EC-480A-955F-44CF1FC122D8} = {235D1041-3D82-4E43-BB85-334ED0130077}
 		{56059AFE-9469-497E-9BFB-F98E889EC9CF} = {235D1041-3D82-4E43-BB85-334ED0130077}
 		{3D56601F-5DF3-4F49-A71D-A8B3363138A6} = {56059AFE-9469-497E-9BFB-F98E889EC9CF}
+		{48A8F92E-CFAD-4B35-9DD4-D3110E259AE6} = {235D1041-3D82-4E43-BB85-334ED0130077}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2B882B7C-3932-4F27-804C-2E3A0A9D0C2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -102,5 +105,9 @@ Global
 		{3D56601F-5DF3-4F49-A71D-A8B3363138A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D56601F-5DF3-4F49-A71D-A8B3363138A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D56601F-5DF3-4F49-A71D-A8B3363138A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48A8F92E-CFAD-4B35-9DD4-D3110E259AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A8F92E-CFAD-4B35-9DD4-D3110E259AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A8F92E-CFAD-4B35-9DD4-D3110E259AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A8F92E-CFAD-4B35-9DD4-D3110E259AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

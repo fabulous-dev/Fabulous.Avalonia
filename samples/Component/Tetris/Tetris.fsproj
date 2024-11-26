@@ -11,7 +11,6 @@
         <WarningsAsErrors>FS0025</WarningsAsErrors>
         <NoWarn>MT7091;NETSDK1206</NoWarn>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <RootNamespace>TicTacToe</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'Android'">
@@ -27,6 +26,7 @@
         <CodesignKey>iPhone Developer</CodesignKey>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="Core.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <ItemGroup>

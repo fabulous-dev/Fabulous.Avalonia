@@ -3,9 +3,9 @@
 <plist version="1.0">
     <dict>
         <key>CFBundleDisplayName</key>
-        <string>TicTacToe</string>
+        <string>Tetris</string>
         <key>CFBundleIdentifier</key>
-        <string>org.fabulous.avalonia.SnakeGame</string>
+        <string>org.fabulous.avalonia.Tetris</string>
         <key>CFBundleShortVersionString</key>
         <string>1.0</string>
         <key>CFBundleVersion</key>

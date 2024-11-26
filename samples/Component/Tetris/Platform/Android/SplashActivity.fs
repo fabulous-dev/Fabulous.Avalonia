@@ -1,4 +1,4 @@
-namespace SnakeGame.Android
+namespace Tetris.Android
 
 open Android.App
 open Android.Content

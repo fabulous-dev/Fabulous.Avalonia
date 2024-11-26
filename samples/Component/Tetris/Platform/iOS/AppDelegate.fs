@@ -1,9 +1,10 @@
-namespace SnakeGame.iOS
+namespace Tetris.iOS
+
+open Foundation
+open UIKit
 
 open Avalonia
-open Foundation
-open SnakeGame
-open UIKit
+open Tetris
 
 open Avalonia.iOS
 open Fabulous.Avalonia
