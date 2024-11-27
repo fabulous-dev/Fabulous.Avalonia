@@ -175,11 +175,6 @@ MyApp
 
 net8.0-ios is not supported on Linux, thus net8.0-ios is excluded from build on a Linux host.
 
-## Samples
-We have a range of samples to help you get started.
-
-You can find them in the [sample's repo](https://github.com/fabulous-dev/Fabulous.Avalonia.Samples).
-
 ## Controls Gallery
 To run the `Gallery` sample app from the command line:
 
@@ -205,7 +200,7 @@ The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/
 Other useful links:
 - [The official Fabulous website](https://fabulous.dev)
 - [Get started](https://docs.fabulous.dev/avalonia/get-started)
-- [Fabulous.Avalonia Samples](https://github.com/fabulous-dev/Fabulous.Avalonia.Samples)
+- [Samples](https://github.com/fabulous-dev/Fabulous.Avalonia/tree/main/samples)
 - [API Reference](https://api.fabulous.dev/avalonia)
 - [Contributor Guide](CONTRIBUTING.md)
 
