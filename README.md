@@ -9,86 +9,109 @@ Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windo
 ### MVU Sample
 
 ```fs
+namespace CounterApp
+
+open System.Diagnostics
+open Fabulous
+open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
+
+open type Fabulous.Avalonia.View
+
+module App =
     type Model =
-        { Count: int }
-    
+        { Count: int; Step: int; TimerOn: bool }
+
     type Msg =
         | Increment
         | Decrement
-    
-    let init () =
-        { Count = 0 }
-    
+        | Reset
+        | SetStep of float
+        | TimerToggled of bool
+        | TimedTick
+
+    let initModel = { Count = 0; Step = 1; TimerOn = false }
+
+    let timerCmd () =
+        async {
+            do! Async.Sleep 200
+            return TimedTick
+        }
+        |> Cmd.OfAsync.msg
+
+    let init () = initModel, Cmd.none
+
     let update msg model =
         match msg with
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-    
-    let content model =
-        VStack(spacing = 16.) {
-            Image("fabulous.png", Stretch.Uniform)
-    
-            TextBlock($"Count is {model.Count}")
-    
-            Button("Increment", Increment)
-            Button("Decrement", Decrement)
+        | Increment ->
+            { model with
+                Count = model.Count + model.Step },
+            Cmd.none
+        | Decrement ->
+            { model with
+                Count = model.Count - model.Step },
+            Cmd.none
+        | Reset -> initModel, Cmd.none
+        | SetStep n -> { model with Step = int(n + 0.5) }, Cmd.none
+        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd() else Cmd.none)
+        | TimedTick ->
+            if model.TimerOn then
+                { model with
+                    Count = model.Count + model.Step },
+                timerCmd()
+            else
+                model, Cmd.none
+
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let content () =
+        Component("CounterApp") {
+            let! model = Context.Mvu program
+
+            (VStack() {
+                TextBlock($"%d{model.Count}").centerText()
+
+                Button("Increment", Increment).centerHorizontal()
+
+                Button("Decrement", Decrement).centerHorizontal()
+
+                (HStack() {
+                    TextBlock("Timer").centerVertical()
+
+                    ToggleSwitch(model.TimerOn, TimerToggled)
+                })
+                    .margin(20.)
+                    .centerHorizontal()
+
+                Slider(0., 10., float model.Step, SetStep)
+
+                TextBlock($"Step size: %d{model.Step}").centerText()
+
+                Button("Reset", Reset).centerHorizontal()
+
+            })
+                .center()
         }
-        
-    #if MOBILE
-        let app model = SingleViewApplication(content model)
-    #else
-        let app model = DesktopApplication(Window(content model))
-    #endif
-    
+
+    let view () =
+#if MOBILE
+        SingleViewApplication(content())
+#else
+        DesktopApplication(Window(content()))
+#endif
     let create () =
-        let program = Program.statefulWithCmd init update |> Program.withView app
 
-        FabulousAppBuilder.Configure(FluentTheme, program)
-```
-
-### MVU Component sample
-
-```fs
-    type Model =
-        { Count: int }
-    
-    type Msg =
-        | Increment
-        | Decrement
-    
-    let init () =
-        { Count = 0 }
-    
-    let update msg model =
-        match msg with
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-    
-    let content model =
-        VStack(spacing = 16.) {
-            Image("fabulous.png", Stretch.Uniform)
-    
-            TextBlock($"Count is {model.Count}")
-    
-            Button("Increment", Increment)
-            Button("Decrement", Decrement)
-        }
-        
-     let program = Program.statefulWithCmd init update
-    
-     let view () =
-         Component(program) {
-             let! model = Mvu.State
-    
- #if MOBILE
-             SingleViewApplication(content model)
- #else
-             DesktopApplication(Window(content model))
- #endif
-         }
-    
-     let create () =
-         FabulousAppBuilder.Configure(FluentTheme, view)
+        FabulousAppBuilder.Configure(FluentTheme, view)
 ```
 
 ## Additional Controls
