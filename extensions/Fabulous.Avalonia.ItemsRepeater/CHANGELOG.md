@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre7] - 2024-11-27
+### Changed
+- Add support for Avalonia 11.1.5
+
+### Added
+- Add widget constructors and modifiers for components
+
 ## [3.0.0-pre6] - 2024-05-20
 ### Added
 - No changes
@@ -60,7 +67,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/compare/3.0.0-pre6...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/compare/3.0.0-pre7...HEAD
+[3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/releases/tag/3.0.0-pre7
 [3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/releases/tag/3.0.0-pre6
 [3.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/releases/tag/3.0.0-pre5
 [3.0.0-pre4]: https://github.com/fabulous-dev/Fabulous.Avalonia.ItemsRepeater/releases/tag/3.0.0-pre4
