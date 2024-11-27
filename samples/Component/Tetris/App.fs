@@ -1,7 +1,6 @@
 namespace Tetris
 
 open System
-open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
 open Avalonia.Layout

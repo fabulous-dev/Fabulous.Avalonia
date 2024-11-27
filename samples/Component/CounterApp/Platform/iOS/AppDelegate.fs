@@ -4,9 +4,7 @@ open Foundation
 open UIKit
 
 open Avalonia
-open Foundation
 open CounterApp
-open UIKit
 
 open Avalonia.iOS
 open Fabulous.Avalonia

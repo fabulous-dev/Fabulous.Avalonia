@@ -1,11 +1,8 @@
 namespace BasicNavigation
 
-open System
 open Avalonia.Media
-open Avalonia.Threading
 open Fabulous
 open Fabulous.Avalonia
-open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 open type Fabulous.Context

@@ -7,8 +7,6 @@ open UIKit
 open Avalonia
 open Avalonia.iOS
 open Fabulous.Avalonia
-open Foundation
-open UIKit
 
 [<Register(nameof AppDelegate)>]
 type AppDelegate() =

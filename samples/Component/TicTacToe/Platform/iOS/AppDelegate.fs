@@ -4,9 +4,7 @@ open Foundation
 open UIKit
 
 open Avalonia
-open Foundation
 open TicTacToe
-open UIKit
 
 open Avalonia.iOS
 open Fabulous.Avalonia
