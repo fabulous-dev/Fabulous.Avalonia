@@ -5,6 +5,8 @@
     <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
     <DisableImplicitSystemValueTupleReference>true</DisableImplicitSystemValueTupleReference>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AvaloniaVersion>11.2.1</AvaloniaVersion>
+    <FabulousVersion>3.0.0-pre16</FabulousVersion>
   </PropertyGroup>
 
   <!-- Shared NuGet Package info -->
