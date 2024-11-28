@@ -375,11 +375,11 @@
       FSharp.Core is fixed to a specific version that is not necessarily the latest one.
       This version will be used as the lower bound in the NuGet package
     -->
-    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[3.0.0-pre16]" />
-    <PackageReference Include="Avalonia" VersionOverride="11.2.1" />
+    <PackageReference Condition="'$(UseLocalProjectReference)' != 'true'" Include="Fabulous" VersionOverride="[$(FabulousVersion)]" />
+    <PackageReference Include="Avalonia" VersionOverride="$(AvaloniaVersion)" />
   </ItemGroup>
   <ItemGroup Condition="$(AvaloniaPlatform) == 'iOS'">
-    <PackageReference Include="Avalonia.iOS" VersionOverride="11.2.1" />
+    <PackageReference Include="Avalonia.iOS" VersionOverride="$(AvaloniaVersion)" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Condition="'$(UseLocalProjectReference)' == 'true'" Include="..\..\..\Fabulous\src\Fabulous\Fabulous.fsproj" />
