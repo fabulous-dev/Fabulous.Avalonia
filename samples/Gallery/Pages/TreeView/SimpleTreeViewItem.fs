@@ -8,24 +8,24 @@ open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
+open Fabulous.Avalonia.Expander
 open type Fabulous.Avalonia.View
 
 module SimpleTreeViewItem =
     type Node =
-        { Name: string; Children: Node list }
-        
+        { Name: string
+          Children: Node list }
+
         static member Empty = { Name = ""; Children = [] }
 
-    type Model = {
-        Items: Node list
-        SelectedItems: Node list
-        SelectionMode: SelectionMode
-        Root: Node
-    }
+    type Model =
+        { Items: Node list
+          SelectedItems: Node list
+          SelectionMode: SelectionMode
+          IsExpanded: bool
+          Root: Node }
 
-    type Msg =
-        | OnExpanded of RoutedEventArgs
-        | OnCollapsed of RoutedEventArgs
+    type Msg = OnExpanded of bool
 
     let branch name children = { Name = name; Children = children }
 
@@ -52,15 +52,15 @@ module SimpleTreeViewItem =
 
         { Items = nodes
           SelectedItems = []
+          IsExpanded = false
           SelectionMode = SelectionMode.Single
-          Root = Node.Empty }, []
+          Root = Node.Empty },
+        []
 
     let update msg model =
         match msg with
-        | OnCollapsed _ ->
-            model, Cmd.none
-        | OnExpanded _ ->
-            model, Cmd.none
+        | OnExpanded isExpnaded -> { model with IsExpanded = isExpnaded }, Cmd.none
+
     let program =
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
@@ -92,9 +92,7 @@ module SimpleTreeViewItem =
                         )
                             .isHitTestVisible(false)
                             .focusable(false)
-                            .onExpanded(OnExpanded)
-                            .onCollapsed(OnCollapsed)
-                    )
+                            .onExpandedChanged(model.IsExpanded, OnExpanded))
                 )
             }
         }

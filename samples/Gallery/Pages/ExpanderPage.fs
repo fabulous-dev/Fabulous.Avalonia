@@ -43,7 +43,7 @@ module ExpanderPage =
             let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
-                Expander("Title", "Mr.").isExpanded(model.IsExpanded)
+                Expander("Title", "Mr.")
 
                 Expander(TextBlock("Title"), "Mr.")
                     .onExpandedChanged(model.IsExpanded, ExpandChanged)

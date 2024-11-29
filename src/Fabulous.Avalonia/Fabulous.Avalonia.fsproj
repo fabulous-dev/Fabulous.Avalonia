@@ -291,6 +291,8 @@
     <Compile Include="Views\MenuItems\MenuItem.Components.fs" />
     <Compile Include="Views\MenuItems\ListBoxItem.fs" />
     <Compile Include="Views\MenuItems\TreeViewItem.fs" />
+    <Compile Include="Views\MenuItems\TreeViewItem.Mvu.fs" />
+    <Compile Include="Views\MenuItems\TreeViewItem.Components.fs" />
     <Compile Include="Views\MenuItems\ComboBoxItem.fs" />
     <Compile Include="Views\MenuItems\TabItem.fs" />
     <Compile Include="Views\Menu\_NativeMenuItemBase.fs" />
