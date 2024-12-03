@@ -21,12 +21,6 @@ module MenuItem =
     let InputGesture =
         Attributes.defineAvaloniaPropertyWithEquality MenuItem.InputGestureProperty
 
-    let IsSelected =
-        Attributes.defineAvaloniaPropertyWithEquality MenuItem.IsSelectedProperty
-
-    let IsSubMenuOpen =
-        Attributes.defineAvaloniaPropertyWithEquality MenuItem.IsSubMenuOpenProperty
-
     let StaysOpenOnClick =
         Attributes.defineAvaloniaPropertyWithEquality MenuItem.StaysOpenOnClickProperty
 
@@ -86,20 +80,6 @@ type MenuItemModifiers =
     [<Extension>]
     static member inline inputGesture(this: WidgetBuilder<'msg, #IFabMenuItem>, value: KeyGesture) =
         this.AddScalar(MenuItem.InputGesture.WithValue(value))
-
-    /// <summary>Sets the IsSelected property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSelected value.</param>
-    [<Extension>]
-    static member inline isSelected(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
-        this.AddScalar(MenuItem.IsSelected.WithValue(value))
-
-    /// <summary>Sets the IsSubmenuOpen property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSubmenuOpen value.</param>
-    [<Extension>]
-    static member inline isSubMenuOpen(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
-        this.AddScalar(MenuItem.IsSubMenuOpen.WithValue(value))
 
     /// <summary>Sets the StaysOpenOnClick property.</summary>
     /// <param name="this">Current widget.</param>

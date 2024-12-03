@@ -18,9 +18,6 @@ module Expander =
     let ExpandDirection =
         Attributes.defineAvaloniaPropertyWithEquality Expander.ExpandDirectionProperty
 
-    let IsExpanded =
-        Attributes.defineAvaloniaPropertyWithEquality Expander.IsExpandedProperty
-
 [<AutoOpen>]
 module ExpanderBuilders =
     type Fabulous.Avalonia.View with
@@ -93,13 +90,6 @@ type ExpanderModifiers =
     [<Extension>]
     static member inline expandDirection(this: WidgetBuilder<'msg, #IFabExpander>, value: ExpandDirection) =
         this.AddScalar(Expander.ExpandDirection.WithValue(value))
-
-    /// <summary>Sets the IsExpanded property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsExpanded value.</param>
-    [<Extension>]
-    static member inline isExpanded(this: WidgetBuilder<'msg, #IFabExpander>, value: bool) =
-        this.AddScalar(Expander.IsExpanded.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Expander control instance.</summary>
     /// <param name="this">Current widget.</param>
