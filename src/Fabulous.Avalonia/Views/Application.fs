@@ -185,8 +185,10 @@ module Application =
             (fun target value -> (target :?> FabApplication).InsetsManager.SystemBarColor <- value)
 
     let RequestedThemeVariant =
-        Attributes.definePropertyWithGetSet "Application_RequestedThemeVariant" (fun _ -> FabApplication.Current.ActualThemeVariant) (fun _ value ->
-            FabApplication.Current.RequestedThemeVariant <- value)
+        Attributes.defineAvaloniaPropertyWithEquality Application.RequestedThemeVariantProperty
+
+    let ActualThemeVariant =
+        Attributes.defineAvaloniaPropertyWithEquality Application.ActualThemeVariantProperty
 
 [<AutoOpen>]
 module ApplicationBuilders =
@@ -244,6 +246,13 @@ type ApplicationModifiers =
     [<Extension>]
     static member inline requestedThemeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant) =
         this.AddScalar(Application.RequestedThemeVariant.WithValue(value))
+
+    /// <summary>Sets the application ActualThemeVariant.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">System bar color to be used for the application.</param>
+    [<Extension>]
+    static member inline actualThemeVariant(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant) =
+        this.AddScalar(Application.ActualThemeVariant.WithValue(value))
 
     /// <summary>Links a ViewRef to access the direct Application control instance</summary>
     /// <param name="this">Current widget</param>

@@ -24,6 +24,9 @@ module MenuItem =
     let StaysOpenOnClick =
         Attributes.defineAvaloniaPropertyWithEquality MenuItem.StaysOpenOnClickProperty
 
+    let IsSubMenuOpen =
+        Attributes.defineAvaloniaPropertyWithEquality MenuItem.IsSubMenuOpenProperty
+
 [<AutoOpen>]
 module MenuItemBuilders =
     type Fabulous.Avalonia.View with
@@ -87,6 +90,13 @@ type MenuItemModifiers =
     [<Extension>]
     static member inline staysOpenOnClick(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.StaysOpenOnClick.WithValue(value))
+
+    /// <summary>Sets the IsSubMenuOpen property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSubMenuOpen value.</param>
+    [<Extension>]
+    static member inline isSubMenuOpen(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
+        this.AddScalar(MenuItem.IsSubMenuOpen.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>

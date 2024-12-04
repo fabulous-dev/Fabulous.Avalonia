@@ -11,6 +11,9 @@ type IFabTreeViewItem =
 module TreeViewItem =
     let WidgetKey = Widgets.register<TreeViewItem>()
 
+    let IsExpanded =
+        Attributes.defineAvaloniaPropertyWithEquality TreeViewItem.IsExpandedProperty
+
 [<AutoOpen>]
 module TreeViewItemBuilders =
     type Fabulous.Avalonia.View with
@@ -26,6 +29,14 @@ module TreeViewItemBuilders =
             WidgetBuilder<'msg, IFabTreeViewItem>(TreeViewItem.WidgetKey, HeaderedItemsControl.HeaderWidget.WithValue(content.Compile()))
 
 type TreeViewItemModifiers =
+
+    /// <summary>Sets the IsExpanded property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsExpanded value.</param>
+    [<Extension>]
+    static member inline isExpanded(this: WidgetBuilder<'msg, #IFabTreeViewItem>, value: bool) =
+        this.AddScalar(TreeViewItem.IsExpanded.WithValue(value))
+
     /// <summary>Link a ViewRef to access the direct TreeViewItem control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>

@@ -23,6 +23,9 @@ module SelectingItemsControl =
     let WrapSelection =
         Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.WrapSelectionProperty
 
+    let IsSelected =
+        Attributes.defineAvaloniaPropertyWithEquality SelectingItemsControl.IsSelectedProperty
+
 type SelectingItemsControlModifiers =
     /// <summary>Sets the AutoScrollToSelectedItem property.</summary>
     /// <param name="this">Current widget.</param>
@@ -58,3 +61,10 @@ type SelectingItemsControlModifiers =
     [<Extension>]
     static member inline wrapSelection(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
         this.AddScalar(SelectingItemsControl.WrapSelection.WithValue(value))
+
+    /// <summary>Sets the IsSelected property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSelected value.</param>
+    [<Extension>]
+    static member inline isSelected(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+        this.AddScalar(SelectingItemsControl.IsSelected.WithValue(value))
