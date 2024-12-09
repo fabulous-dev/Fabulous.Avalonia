@@ -21,14 +21,11 @@ module MenuItem =
     let InputGesture =
         Attributes.defineAvaloniaPropertyWithEquality MenuItem.InputGestureProperty
 
-    let IsSelected =
-        Attributes.defineAvaloniaPropertyWithEquality MenuItem.IsSelectedProperty
+    let StaysOpenOnClick =
+        Attributes.defineAvaloniaPropertyWithEquality MenuItem.StaysOpenOnClickProperty
 
     let IsSubMenuOpen =
         Attributes.defineAvaloniaPropertyWithEquality MenuItem.IsSubMenuOpenProperty
-
-    let StaysOpenOnClick =
-        Attributes.defineAvaloniaPropertyWithEquality MenuItem.StaysOpenOnClickProperty
 
 [<AutoOpen>]
 module MenuItemBuilders =
@@ -87,26 +84,19 @@ type MenuItemModifiers =
     static member inline inputGesture(this: WidgetBuilder<'msg, #IFabMenuItem>, value: KeyGesture) =
         this.AddScalar(MenuItem.InputGesture.WithValue(value))
 
-    /// <summary>Sets the IsSelected property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSelected value.</param>
-    [<Extension>]
-    static member inline isSelected(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
-        this.AddScalar(MenuItem.IsSelected.WithValue(value))
-
-    /// <summary>Sets the IsSubmenuOpen property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSubmenuOpen value.</param>
-    [<Extension>]
-    static member inline isSubMenuOpen(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
-        this.AddScalar(MenuItem.IsSubMenuOpen.WithValue(value))
-
     /// <summary>Sets the StaysOpenOnClick property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The StaysOpenOnClick value.</param>
     [<Extension>]
     static member inline staysOpenOnClick(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
         this.AddScalar(MenuItem.StaysOpenOnClick.WithValue(value))
+
+    /// <summary>Sets the IsSubMenuOpen property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The IsSubMenuOpen value.</param>
+    [<Extension>]
+    static member inline isSubMenuOpen(this: WidgetBuilder<'msg, #IFabMenuItem>, value: bool) =
+        this.AddScalar(MenuItem.IsSubMenuOpen.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>

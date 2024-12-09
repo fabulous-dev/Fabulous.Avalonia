@@ -4,12 +4,16 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 
 module MvuApplication =
     let ActualThemeVariantChanged =
-        Attributes.Mvu.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "Application_ActualThemeVariantChanged" FabApplication.ActualThemeVariantProperty
+
+    let RequestedThemeChanged =
+        Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "Application_RequestedThemeChanged" FabApplication.RequestedThemeVariantProperty
 
     let ResourcesChanged =
         Attributes.Mvu.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
@@ -35,10 +39,19 @@ module MvuApplication =
 type MvuApplicationModifiers =
     /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the theme variant changes.</param>
+    /// <param name="value">The new theme variant.</param>
+    /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: 'msg) =
-        this.AddScalar(MvuApplication.ActualThemeVariantChanged.WithValue(MsgValue fn))
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
+        this.AddScalar(MvuApplication.ActualThemeVariantChanged.WithValue(ValueEventData.create value fn))
+
+    /// <summary>Listens to the application RequestedThemeChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The new theme variant.</param>
+    /// <param name="fn">Raised when the requested theme variant changes.</param>
+    [<Extension>]
+    static member inline onRequestedThemeChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> 'msg) =
+        this.AddScalar(MvuApplication.RequestedThemeChanged.WithValue(ValueEventData.create value fn))
 
     /// <summary>Listens to the application resources changed event.</summary>
     /// <param name="this">Current widget.</param>

@@ -4,12 +4,16 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 
 module ComponentApplication =
     let ActualThemeVariantChanged =
-        Attributes.Component.defineEventNoArg "Application_ActualThemeVariantChanged" (fun target -> (target :?> FabApplication).ActualThemeVariantChanged)
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "Application_ActualThemeVariantChanged" FabApplication.ActualThemeVariantProperty
+
+    let RequestedThemeChanged =
+        Attributes.Component.defineAvaloniaPropertyWithChangedEvent' "Application_RequestedThemeChanged" FabApplication.RequestedThemeVariantProperty
 
     let ResourcesChanged =
         Attributes.Component.defineEvent "Application_ResourcesChangedEvent" (fun target -> (target :?> FabApplication).ResourcesChanged)
@@ -24,7 +28,6 @@ module ComponentApplication =
             (FabApplication.Current.TryGetFeature(typeof<IActivatableLifetime>) :?> IActivatableLifetime)
                 .Deactivated)
 
-
     let ColorValuesChanged =
         Attributes.Component.defineEvent "PlatformSettings_ColorValuesChanged" (fun target ->
             (target :?> FabApplication)
@@ -36,10 +39,19 @@ module ComponentApplication =
 type ComponentApplicationModifiers =
     /// <summary>Listens to the application ActualThemeVariantChanged event.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the theme variant changes.</param>
+    /// <param name="value">The new theme variant.</param>
+    /// <param name="fn">Raised when the actual theme variant changes.</param>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, fn: unit -> unit) =
-        this.AddScalar(ComponentApplication.ActualThemeVariantChanged.WithValue(fn))
+    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> unit) =
+        this.AddScalar(ComponentApplication.ActualThemeVariantChanged.WithValue(ComponentValueEventData.create value fn))
+
+    /// <summary>Listens to the application RequestedThemeChanged event.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The new theme variant.</param>
+    /// <param name="fn">Raised when the requested theme variant changes.</param>
+    [<Extension>]
+    static member inline onRequestedThemeChanged(this: WidgetBuilder<'msg, #IFabApplication>, value: ThemeVariant, fn: ThemeVariant -> unit) =
+        this.AddScalar(ComponentApplication.RequestedThemeChanged.WithValue(ComponentValueEventData.create value fn))
 
     /// <summary>Listens to the application resources changed event.</summary>
     /// <param name="this">Current widget.</param>

@@ -14,9 +14,6 @@ module TabItem =
     let TabStripPlacement =
         Attributes.defineAvaloniaPropertyWithEquality TabItem.TabStripPlacementProperty
 
-    let IsSelected =
-        Attributes.defineAvaloniaPropertyWithEquality TabItem.IsSelectedProperty
-
 [<AutoOpen>]
 module TabItemBuilders =
     type Fabulous.Avalonia.View with
@@ -59,13 +56,6 @@ type TabItemModifiers =
     [<Extension>]
     static member inline tabStripPlacement(this: WidgetBuilder<'msg, #IFabTabItem>, value: Dock) =
         this.AddScalar(TabItem.TabStripPlacement.WithValue(value))
-
-    /// <summary>Sets the IsSelected property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsSelected value.</param>
-    [<Extension>]
-    static member inline isSelected(this: WidgetBuilder<'msg, #IFabTabItem>, value: bool) =
-        this.AddScalar(TabItem.IsSelected.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct TabItem control instance.</summary>
     /// <param name="this">Current widget.</param>

@@ -70,14 +70,13 @@ module HyperlinkButtonBuilders =
                 )
             )
 
-
 type HyperlinkButtonModifiers =
 
-    /// <summary>Sets the IsVisited property.</summary>
+    /// <summary>Sets the IsVisited  property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsVisited value.</param>
+    /// <param name="value">The IsVisited  value.</param>
     [<Extension>]
-    static member inline isVisited(this: WidgetBuilder<'msg, #IFabHyperlinkButton>, value: bool) =
+    static member inline isVisited(this: WidgetBuilder<'msg, IFabHyperlinkButton>, value: bool) =
         this.AddScalar(HyperlinkButton.IsVisited.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct HyperlinkButton control instance.</summary>

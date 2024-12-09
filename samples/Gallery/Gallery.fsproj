@@ -116,6 +116,7 @@
     <Compile Include="Pages\ThemeAwarePage.fs" />
     <Compile Include="Pages\ToolTipPage.fs" />
     <Compile Include="Pages\TreeView\SimpleTreeView.fs" />
+    <Compile Include="Pages\TreeView\SimpleTreeViewItem.fs" />
     <Compile Include="Pages\TreeView\TreeViewWithNodeInteraction.fs" />
     <Compile Include="Pages\TreeView\EditableTreeView.fs" />
     <Compile Include="Pages\TreeViewPage.fs" />
