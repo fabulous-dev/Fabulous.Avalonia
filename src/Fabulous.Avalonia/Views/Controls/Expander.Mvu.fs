@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 module MvuExpander =
-    let ExpandedChanged =
+    let Expanded =
         Attributes.Mvu.defineAvaloniaPropertyWithChangedEvent' "Expander_IsExpandedChanged" Expander.IsExpandedProperty
 
     let Collapsing =
@@ -23,7 +23,7 @@ type MvuExpanderModifiers =
     /// <param name="fn">Raised when the ExpandedChanged event fires.</param>
     [<Extension>]
     static member inline onExpandedChanged(this: WidgetBuilder<'msg, #IFabExpander>, isExpanded: bool, fn: bool -> 'msg) =
-        this.AddScalar(MvuExpander.ExpandedChanged.WithValue(ValueEventData.create isExpanded fn))
+        this.AddScalar(MvuExpander.Expanded.WithValue(ValueEventData.create isExpanded fn))
 
     /// <summary>Listens to the Expander Collapsing event.</summary>
     /// <param name="this">Current widget.</param>

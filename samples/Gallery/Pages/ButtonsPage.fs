@@ -85,11 +85,12 @@ module ButtonsPage =
 
                 ThemeVariantScope(ThemeVariant.Dark, Button("Dark Button", Clicked))
 
-                HyperlinkButton("Google", "https://www.google.com", model.IsVisited, IsVisitedChanged)
+                HyperlinkButton("Google", "https://www.google.com")
+                    .onVisitedChanged(model.IsVisited, IsVisitedChanged)
 
                 HStack() {
                     HyperlinkButton("Google", "https://www.google.com")
-                        .isVisited(model.IsVisited)
+                        .onVisitedChanged(model.IsVisited, IsVisitedChanged)
 
                     CheckBox("IsVisited", model.IsVisited, Checked)
                 }

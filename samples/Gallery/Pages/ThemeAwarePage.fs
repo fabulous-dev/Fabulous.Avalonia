@@ -67,14 +67,8 @@ module ThemeAwarePage =
                 TextBlock($"Actual theme variant is: {theme.ToString()}")
                 TextBlock($"ScopedTheme is: {model.ScopeTheme.ToString()}")
 
-                let color =
-                    if theme = ThemeVariant.Light then
-                        Colors.Red
-                    else
-                        Colors.Green
-
                 TextBlock("I'm a text that is theme aware.")
-                    .foreground(SolidColorBrush(color))
+                    .foreground(SolidColorBrush(ThemeAware.With(Colors.Red, Colors.Green)))
 
                 ThemeVariantScope(ThemeVariant.Light, TextBlock("Im a text only visible in light mode"))
 

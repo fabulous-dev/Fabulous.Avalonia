@@ -55,17 +55,18 @@ module DropDownButtonPage =
                             MenuItem("Item 1")
                                 .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                            MenuItems("Item 2", Increment) {
+                            MenuItems("Item 2") {
                                 MenuItem("Subitem 1")
                                 MenuItem("Subitem 2")
                                 MenuItem("Subitem 3")
                                 MenuItem("Subitem 4")
                                 MenuItem("Subitem 5")
                             }
+                            |> _.onClick(Increment)
 
                             MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
                             MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                            MenuItem(TextBlock("Item 6"), Increment)
+                            MenuItem(TextBlock("Item 6")).onClick(Increment)
                             MenuItem("Item 7")
                         })
                             .placement(PlacementMode.BottomEdgeAlignedRight)

@@ -22,7 +22,7 @@ module RenderTransformPage =
 
     let view () =
         Grid() {
-            EmptyBorder()
+            Border()
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
                 .background(SolidColorBrush(Colors.DarkRed))
@@ -40,7 +40,7 @@ module RenderTransformPage =
                     }
                 )
 
-            EmptyBorder()
+            Border()
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
                 .background(SolidColorBrush(Colors.DarkGreen))
@@ -60,7 +60,7 @@ module RenderTransformPage =
                         .repeatForever()
                 )
 
-            EmptyBorder()
+            Border()
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
                 .background(SolidColorBrush(Colors.DarkBlue))
@@ -80,7 +80,7 @@ module RenderTransformPage =
                         .repeatForever()
                 )
 
-            EmptyBorder()
+            Border()
                 .style(borderTestStyle)
                 .renderTransform(Rotate3DTransform(0., 0., 0., 0., 0., -100, 200.))
                 .background(SolidColorBrush(Colors.Orange))

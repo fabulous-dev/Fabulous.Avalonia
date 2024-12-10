@@ -2,21 +2,32 @@ namespace Gallery
 
 open System.Diagnostics
 open Avalonia.Controls
+open Avalonia.Interactivity
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
+open Fabulous.Avalonia.Expander
 open type Fabulous.Avalonia.View
 
-module SimpleTreeView =
-    type Node = { Name: string; Children: Node list }
+module SimpleTreeViewItem =
+    type Node =
+        { Name: string
+          Children: Node list }
 
-    type Model = { Nodes: Node list }
+        static member Empty = { Name = ""; Children = [] }
 
-    type Msg = SelectionItemChanged of SelectionChangedEventArgs
+    type Model =
+        { Items: Node list
+          SelectedItems: Node list
+          SelectionMode: SelectionMode
+          IsExpanded: bool
+          Root: Node }
 
-    let branch name chidren = { Name = name; Children = chidren }
+    type Msg = OnExpanded of bool
+
+    let branch name children = { Name = name; Children = children }
 
     let leaf name = branch name []
 
@@ -39,11 +50,16 @@ module SimpleTreeView =
                   [ branch "pyramid-building terrestrial" [ leaf "Camel"; leaf "Lama"; leaf "Alpaca" ]
                     branch "extra-terrestrial" [ leaf "Alf"; leaf "E.T."; leaf "Klaatu" ] ] ]
 
-        { Nodes = nodes }, []
+        { Items = nodes
+          SelectedItems = []
+          IsExpanded = false
+          SelectionMode = SelectionMode.Single
+          Root = Node.Empty },
+        []
 
     let update msg model =
         match msg with
-        | SelectionItemChanged args -> model, Cmd.none
+        | OnExpanded isExpnaded -> { model with IsExpanded = isExpnaded }, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -58,21 +74,25 @@ module SimpleTreeView =
         )
 
     let view () =
-        Component("SimpleTreeView") {
+        Component("SimpleTreeViewItem") {
             let! model = Context.Mvu program
 
             VStack() {
                 TreeView(
-                    model.Nodes,
+                    model.Items,
                     _.Children,
                     (fun x ->
-                        Border(TextBlock(x.Name))
-                            .background(Brushes.Gray)
-                            .horizontalAlignment(HorizontalAlignment.Left)
-                            .borderThickness(1.0)
-                            .cornerRadius(5.0)
-                            .padding(15.0, 3.0))
+                        TreeViewItem(
+                            Border(TextBlock(x.Name))
+                                .background(Brushes.Gray)
+                                .horizontalAlignment(HorizontalAlignment.Left)
+                                .borderThickness(1.0)
+                                .cornerRadius(5.0)
+                                .padding(15.0, 3.0)
+                        )
+                            .isHitTestVisible(false)
+                            .focusable(false)
+                            .onExpandedChanged(model.IsExpanded, OnExpanded))
                 )
-                    .onSelectionChanged(SelectionItemChanged)
             }
         }

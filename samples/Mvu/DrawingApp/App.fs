@@ -12,15 +12,6 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-
-[<AutoOpen>]
-module EmptyBorderBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates an empty Border widget.</summary>
-        static member EmptyBorder() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)
-
 module ColorPicker =
 
     type Model = { Color: Color }
@@ -38,8 +29,7 @@ module ColorPicker =
 
         HStack(5.) {
             for item in brushes do
-                View
-                    .EmptyBorder()
+                Border()
                     .width(32.0)
                     .height(32.0)
                     .cornerRadius(16.0)
@@ -70,8 +60,7 @@ module SizePicker =
 
         HStack(5.) {
             for item in sizes do
-                View
-                    .EmptyBorder()
+                Border()
                     .width(item)
                     .height(item)
                     .cornerRadius(item / 2.0)

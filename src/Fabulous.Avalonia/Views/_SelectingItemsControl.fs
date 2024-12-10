@@ -66,5 +66,5 @@ type SelectingItemsControlModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsSelected value.</param>
     [<Extension>]
-    static member inline isSelected(this: WidgetBuilder<'msg, #IFabSelectingItemsControl>, value: bool) =
+    static member inline isSelected(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
         this.AddScalar(SelectingItemsControl.IsSelected.WithValue(value))

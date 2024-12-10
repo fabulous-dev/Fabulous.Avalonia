@@ -62,14 +62,6 @@ type HamburgerMenuModifiers =
     static member inline expandedModeThresholdWidth(this: WidgetBuilder<'msg, #IFabHamburgerMenu>, value: int) =
         this.AddScalar(HamburgerMenu.ExpandedModeThresholdWidth.WithValue(value))
 
-[<AutoOpen>]
-module EmptyBorderBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates an empty Border widget.</summary>
-        static member EmptyBorder() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)
-
 open Avalonia.Layout
 open type Fabulous.Avalonia.View
 

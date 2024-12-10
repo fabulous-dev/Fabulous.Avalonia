@@ -37,62 +37,52 @@ module AnimationsPage =
 
                         UserControl(
                             HWrap() {
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Rect1" ])
                                     .background(Brushes.DarkRed)
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Rect2" ])
                                     .background(Brushes.Magenta)
 
-                                EmptyBorder()
-                                    .style(borderTest2)
-                                    .classes([ "Test"; "Rect3" ])
+                                Border().style(borderTest2).classes([ "Test"; "Rect3" ])
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Rect4" ])
                                     .background(Brushes.Navy)
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Rect5" ])
                                     .background(Brushes.SeaGreen)
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Rect6" ])
                                     .background(Brushes.Red)
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Shadow" ])
                                     .cornerRadius(CornerRadius(10.))
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Shadow" ])
                                     .cornerRadius(CornerRadius(0., 30., 60., 0.))
 
-                                EmptyBorder()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect7" ])
+                                Border().style(borderTest1).classes([ "Test"; "Rect7" ])
 
-                                EmptyBorder()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect8" ])
+                                Border().style(borderTest1).classes([ "Test"; "Rect8" ])
 
-                                EmptyBorder()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect9" ])
+                                Border().style(borderTest1).classes([ "Test"; "Rect9" ])
 
-                                EmptyBorder()
-                                    .style(borderTest1)
-                                    .classes([ "Test"; "Rect10" ])
+                                Border().style(borderTest1).classes([ "Test"; "Rect10" ])
 
-                                EmptyBorder()
+                                Border()
                                     .style(borderTest1)
                                     .classes([ "Test"; "Blur" ])
                                     .background(Brushes.AliceBlue)
