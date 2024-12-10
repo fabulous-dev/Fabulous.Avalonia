@@ -27,17 +27,17 @@ module ItemsControl =
             "ItemsControl_ItemsSource"
             (fun a b -> ScalarAttributeComparers.equalityCompare a.OriginalItems b.OriginalItems)
             (fun _ newValueOpt node ->
-                let itmsCtrl = node.Target :?> ItemsControl
+                let itemsControl = node.Target :?> ItemsControl
 
                 match newValueOpt with
                 | ValueNone ->
-                    itmsCtrl.ClearValue(ItemsControl.ItemTemplateProperty)
-                    itmsCtrl.ClearValue(ItemsControl.ItemsSourceProperty)
+                    itemsControl.ClearValue(ItemsControl.ItemTemplateProperty)
+                    itemsControl.ClearValue(ItemsControl.ItemsSourceProperty)
                 | ValueSome value ->
-                    itmsCtrl.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
+                    itemsControl.SetValue(ItemsControl.ItemTemplateProperty, WidgetDataTemplate(node, unbox >> value.Template))
                     |> ignore
 
-                    itmsCtrl.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
+                    itemsControl.SetValue(ItemsControl.ItemsSourceProperty, value.OriginalItems)
                     |> ignore)
 
     let ItemsSource =
@@ -57,6 +57,9 @@ module ItemsControl =
 module ItemsControlBuilders =
     type Fabulous.Avalonia.View with
 
+        /// <summary>Creates an ItemsControl widget.</summary>
+        /// <param name="items">The items to display.</param>
+        /// <param name="template">The template to use for each item.</param>
         static member ItemsControl<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
             (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
             =
