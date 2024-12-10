@@ -72,7 +72,7 @@ module Transform3DPage =
             let! model = Context.Mvu program
 
             Grid(coldefs = [ Auto; Star ], rowdefs = [ Star; Auto; Auto; Auto; Auto; Auto; Auto ]) {
-                EmptyBorder()
+                Border()
                     .style(borderTestStyle)
                     .background(
                         LinearGradientBrush(Point(0., 0.), Point(0., 1.)) {

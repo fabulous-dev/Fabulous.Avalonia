@@ -63,7 +63,7 @@ module ExpressionAnimation =
                         .dock(Dock.Top)
                         .margin(12.)
 
-                    EmptyBorder()
+                    Border()
                         .background(SolidColorBrush(Colors.Red))
                         .width(200.)
                         .height(200.)
