@@ -369,6 +369,7 @@
     <Compile Include="Environment.fs" />
     <Compile Include="Any.fs" />
     <Compile Include="Style.fs" />
+    <Compile Include="ThemeAware.fs" />
     <Compile Include="Program.fs" />
     <Compile Include="AppBuilderExtensions.fs" />
   </ItemGroup>
