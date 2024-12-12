@@ -57,6 +57,7 @@
     <Compile Include="Pages\ClipboardPage.fs" />
     <Compile Include="Pages\CompositionPage.fs" />
     <Compile Include="Pages\ComboBoxPage.fs" />
+    <Compile Include="Pages\ColorsByChannel.fs" />
     <Compile Include="Pages\ColorPickerPage.fs" />
     <Compile Include="Pages\ContextFlyoutPage.fs" />
     <Compile Include="Pages\ContextMenuPage.fs" />
