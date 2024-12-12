@@ -8,6 +8,8 @@ open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
 
+(* Are these builders worth including into Fabulous.Avalonia in one form or the other?
+    Otherwise - how to create empty HWraps or VWraps for itemsPanel() extensions like below? *)
 [<AutoOpen>]
 module EmptyWrapPanelBuilders =
     type Fabulous.Avalonia.View with
@@ -125,6 +127,9 @@ module ColorsByChannel =
 #endif
         )
 
+    (* may also/alternatively be used as a show case for
+        horizontal ListBox, horizontal ItemsControl,
+        lazy-loaded Expander, WrapPanel or ThemeAware *)
     let view () =
         Component("ColorsByChannel") {
             let! model = Context.Mvu program
