@@ -11,5 +11,5 @@ type TestAppBuilder() =
             .UseSkia()
             .UseHeadless(AvaloniaHeadlessPlatformOptions(UseHeadlessDrawing = false))
 
-[<assembly: AvaloniaTestApplication(typeof<FabApplication>)>]
+[<assembly: AvaloniaTestApplication(typeof<TestAppBuilder>)>]
 do ()

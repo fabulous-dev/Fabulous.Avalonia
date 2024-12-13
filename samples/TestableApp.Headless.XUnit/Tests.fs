@@ -1,7 +1,8 @@
 ﻿namespace TestableApp
 
 
-open Avalonia
+open System.IO
+open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Headless
 open Avalonia.Headless.XUnit
@@ -10,10 +11,6 @@ open Fabulous.Avalonia
 open Xunit
 
 open type Fabulous.Avalonia.View
-open type Fabulous.Context
-// https://docs.avaloniaui.net/docs/concepts/headless/
-// https://github.com/AvaloniaUI/Avalonia.Samples/tree/main/src/Avalonia.Samples/Testing/TestableApp.Headless.XUnit#writing-ui-tests
-// https://github.com/VerifyTests/Verify.Avalonia
 
 
 module Tests =
@@ -47,8 +44,8 @@ module Tests =
 
         let content = window.Content :?> ReversibleStackPanel |> _.Children
 
-        let fullName = content[0] :?> Label
-        let firstName = content[1] :?> TextBox
+        let fullName = content[0] :?> TextBlock
+        let firstName = content[1] :?> Button
         let lastName = content[2] :?> TextBox
 
         // Focus text box:
@@ -61,9 +58,6 @@ module Tests =
 
         window.KeyTextInput("Gonzalez")
 
-        //let frame = window.CaptureRenderedFrame()
-        //frame.Save("file.png");
-        // // Assert:
         Assert.Equal("Full name is Edgar Gonzalez", fullName.Content |> string)
         Assert.Equal("Edgar", firstName.Text)
         Assert.Equal("Gonzalez", lastName.Text)
