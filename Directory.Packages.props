@@ -3,10 +3,12 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Avalonia.Headless" Version="11.2.2" />
+    <PackageVersion Include="Avalonia.Headless.XUnit" Version="11.2.2" />
     <PackageVersion Include="Fabulous" Version="$(FabulousVersion)" />
     <PackageVersion Include="FsCheck.NUnit" Version="2.16.4" />
     <PackageVersion Include="FSharp.Core" Version="8.0.301" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="NUnit" Version="3.13.3" />
     <PackageVersion Include="FsUnit" Version="5.2.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
@@ -22,5 +24,6 @@
     <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)" />
     <PackageVersion Include="Avalonia.Controls.TreeDataGrid" Version="11.0.10" />
+    <PackageVersion Include="xunit" Version="2.9.2" />
   </ItemGroup>
 </Project>
