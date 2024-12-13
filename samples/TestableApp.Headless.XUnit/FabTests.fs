@@ -1,6 +1,5 @@
 ﻿namespace TestableApp
 
-
 open Avalonia.Controls
 open Avalonia.Headless
 open Avalonia.Headless.XUnit
@@ -13,9 +12,8 @@ open type Fabulous.Avalonia.View
 
 module FabTests =
     /// It takes the root of the widget tree and create the corresponding Avalonia node, and recursively creating all children nodes
-    let mkView<'msg, 'marker, 'a when 'msg: equality> (root: WidgetBuilder<'msg, 'marker>) : 'a =
-        let widget = root.Compile()
-        let definition = WidgetDefinitionStore.get widget.Key
+    let mkView<'a> (root: Widget) : 'a =
+        let definition = WidgetDefinitionStore.get root.Key
         let logger = ProgramDefaults.defaultLogger()
 
         let treeContext =
@@ -30,19 +28,16 @@ module FabTests =
         let envContext = new EnvironmentContext(logger)
 
         let struct (_, view) =
-            definition.CreateView(widget, envContext, treeContext, ValueNone)
+            definition.CreateView(root, envContext, treeContext, ValueNone)
 
-        (view :?> 'a)
+        view |> unbox
 
     [<AvaloniaFact>]
     let ``Should increment counter`` () =
-        let window = App.view() |> mkView<_, _, Window>
-
+        let window = App.view().Compile() |> mkView<Window>
         window.Show()
 
         let content = window.Content :?> ReversibleStackPanel |> _.Children
-
-
         let counter = content[0] :?> TextBlock
         let incrementButton = content[1] :?> Button
 
@@ -56,7 +51,7 @@ module FabTests =
 
     [<AvaloniaFact>]
     let ``Should decrement counter`` () =
-        let window = App.view() |> mkView<_, _, Window>
+        let window = App.view().Compile() |> mkView<Window>
 
         window.Show()
 
@@ -75,7 +70,7 @@ module FabTests =
 
     [<AvaloniaFact>]
     let ``Should reset counter`` () =
-        let window = App.view() |> mkView<_, _, Window>
+        let window = App.view().Compile() |> mkView<Window>
 
         window.Show()
 
