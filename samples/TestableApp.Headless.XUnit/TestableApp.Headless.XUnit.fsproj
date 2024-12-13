@@ -11,7 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Tests.fs" />
+        <Compile Include="FabTests.fs" />
+        <Compile Include="AvaloniaTests.fs" />
         <Compile Include="TestAppBuilder.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
