@@ -17,13 +17,15 @@ type ViewHelpers() =
                 { Key = widgetKey
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone }
+                  WidgetCollectionAttributes = ValueNone
+                  EnvironmentAttributes = ValueNone }
 
             let curr: Widget =
                 { Key = widgetKey
                   ScalarAttributes = ValueNone
                   WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone }
+                  WidgetCollectionAttributes = ValueNone
+                  EnvironmentAttributes = ValueNone }
 
             let actual = ViewHelpers.canReuseView prev curr
 
@@ -42,7 +44,8 @@ type ViewHelpers() =
                              Value = text
                              NumericValue = 0uL } |]
                   WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone }
+                  WidgetCollectionAttributes = ValueNone
+                  EnvironmentAttributes = ValueNone }
 
             let curr =
                 { Key = TextBlock.WidgetKey
@@ -51,7 +54,8 @@ type ViewHelpers() =
                   WidgetCollectionAttributes =
                     ValueSome
                         [| { Key = TextBlock.Inlines.Key
-                             Value = ArraySlice.emptyWithNull() } |] }
+                             Value = ArraySlice.emptyWithNull() } |]
+                  EnvironmentAttributes = ValueNone }
 
             let actual = ViewHelpers.canReuseView prev curr
 
@@ -69,7 +73,8 @@ type ViewHelpers() =
                   WidgetCollectionAttributes =
                     ValueSome
                         [| { Key = TextBlock.Inlines.Key
-                             Value = ArraySlice.emptyWithNull() } |] }
+                             Value = ArraySlice.emptyWithNull() } |]
+                  EnvironmentAttributes = ValueNone }
 
             let curr =
                 { Key = TextBlock.WidgetKey
@@ -79,7 +84,8 @@ type ViewHelpers() =
                              Value = text
                              NumericValue = 0uL } |]
                   WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone }
+                  WidgetCollectionAttributes = ValueNone
+                  EnvironmentAttributes = ValueNone }
 
             let actual = ViewHelpers.canReuseView prev curr
 

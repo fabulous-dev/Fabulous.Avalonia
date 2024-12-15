@@ -74,8 +74,8 @@ module LabelPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("LabelPage") {
+            let! model = Context.Mvu program
 
             ScrollViewer(
                 (Grid(rowdefs = [ Auto; Auto; Auto; Auto; Auto; Star ], coldefs = [ Auto; Pixel(6.); Star ]) {

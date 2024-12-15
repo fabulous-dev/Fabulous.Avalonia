@@ -101,7 +101,7 @@ type GridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ShowGridLines value.</param>
     [<Extension>]
-    static member inline showGridLines(this: WidgetBuilder<'msg, IFabGrid>, value: bool) =
+    static member inline showGridLines(this: WidgetBuilder<'msg, #IFabGrid>, value: bool) =
         this.AddScalar(Grid.ShowGridLines.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Grid control instance.</summary>

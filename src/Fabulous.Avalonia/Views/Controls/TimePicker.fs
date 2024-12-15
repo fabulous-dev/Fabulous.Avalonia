@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
@@ -17,18 +16,11 @@ module TimePicker =
     let MinuteIncrement =
         Attributes.defineAvaloniaPropertyWithEquality TimePicker.MinuteIncrementProperty
 
-    let SelectedTimeChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent "TimePicker_SelectedTimeChanged" TimePicker.SelectedTimeProperty Nullable Nullable.op_Explicit
+    let SecondIncrement =
+        Attributes.defineAvaloniaPropertyWithEquality TimePicker.SecondIncrementProperty
 
-[<AutoOpen>]
-module TimePickerBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a TimePicker widget.</summary>
-        /// <param name="time">The initial time.</param>
-        /// <param name="fn">Raised when the selected time changes.</param>
-        static member TimePicker(time: TimeSpan, fn: TimeSpan -> 'msg) =
-            WidgetBuilder<'msg, IFabTimePicker>(TimePicker.WidgetKey, TimePicker.SelectedTimeChanged.WithValue(ValueEventData.create time fn))
+    let UseSeconds =
+        Attributes.defineAvaloniaPropertyWithEquality TimePicker.UseSecondsProperty
 
 type TimePickerModifiers =
 
@@ -45,6 +37,21 @@ type TimePickerModifiers =
     [<Extension>]
     static member inline minuteIncrement(this: WidgetBuilder<'msg, #IFabTimePicker>, value: int) =
         this.AddScalar(TimePicker.MinuteIncrement.WithValue(value))
+
+
+    /// <summary>Sets the SecondIncrement property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The SecondIncrement value.</param>
+    [<Extension>]
+    static member inline secondIncrement(this: WidgetBuilder<'msg, #IFabTimePicker>, value: int) =
+        this.AddScalar(TimePicker.SecondIncrement.WithValue(value))
+
+    /// <summary>Sets the UseSeconds property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The UseSeconds value.</param>
+    [<Extension>]
+    static member inline useSeconds(this: WidgetBuilder<'msg, #IFabTimePicker>, value: bool) =
+        this.AddScalar(TimePicker.UseSeconds.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct TimePicker control instance.</summary>
     /// <param name="this">Current widget.</param>

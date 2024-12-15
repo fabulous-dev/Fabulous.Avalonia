@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
@@ -20,7 +19,7 @@ module BlurEffectBuilders =
 
         /// <summary>Creates a BlurEffect widget.</summary>
         static member BlurEffect() =
-            WidgetBuilder<'msg, IFabBlurEffect>(BlurEffect.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabBlurEffect>(BlurEffect.WidgetKey)
 
         /// <summary>Creates a BlurEffect widget.</summary>
         /// <param name="radius">The radius of the blur effect.</param>

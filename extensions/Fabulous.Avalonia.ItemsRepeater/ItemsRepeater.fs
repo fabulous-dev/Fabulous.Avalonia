@@ -38,16 +38,13 @@ module ItemsRepeater =
     let Layout =
         Attributes.defineAvaloniaPropertyWithEquality ItemsRepeater.LayoutProperty
 
-
 [<AutoOpen>]
 module ItemsRepeaterBuilders =
     type Fabulous.Avalonia.View with
 
-        static member ItemsRepeater<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
+        static member ItemsRepeater<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
             WidgetHelpers.buildItems<'msg, IFabItemsRepeater, 'itemData, 'itemMarker> ItemsRepeater.WidgetKey ItemsRepeater.ItemsSource items template
 
 type ItemsRepeaterModifiers =
@@ -62,19 +59,19 @@ type ItemsRepeaterModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HorizontalCacheLength value.</param>
     [<Extension>]
-    static member inline horizontalCacheLength(this: WidgetBuilder<'msg, IFabItemsRepeater>, value: float) =
+    static member inline horizontalCacheLength(this: WidgetBuilder<'msg, #IFabItemsRepeater>, value: float) =
         this.AddScalar(ItemsRepeater.HorizontalCacheLength.WithValue(value))
 
     /// <summary>Set the VerticalCacheLength property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The VerticalCacheLength value.</param>
     [<Extension>]
-    static member inline verticalCacheLength(this: WidgetBuilder<'msg, IFabItemsRepeater>, value: float) =
+    static member inline verticalCacheLength(this: WidgetBuilder<'msg, #IFabItemsRepeater>, value: float) =
         this.AddScalar(ItemsRepeater.VerticalCacheLength.WithValue(value))
 
     /// <summary>Set the Layout property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Layout value.</param>
     [<Extension>]
-    static member inline layout(this: WidgetBuilder<'msg, IFabItemsRepeater>, value: AttachedLayout) =
+    static member inline layout(this: WidgetBuilder<'msg, #IFabItemsRepeater>, value: AttachedLayout) =
         this.AddScalar(ItemsRepeater.Layout.WithValue(value))

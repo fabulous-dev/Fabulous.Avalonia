@@ -6,14 +6,6 @@ open Avalonia
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
-[<AbstractClass; Sealed>]
-type View =
-    class
-    end
-
-type IFabAvaloniaObject =
-    interface
-    end
 
 type WidgetItems =
     { OriginalItems: IEnumerable
@@ -31,7 +23,7 @@ module Widgets =
               Name = typeof<'T>.Name
               TargetType = typeof<'T>
               CreateView =
-                fun (widget, treeContext, parentNode) ->
+                fun (widget, envContext, treeContext, parentNode) ->
                     treeContext.Logger.Debug("Creating view for {0}", typeof<'T>.Name)
 
                     let view = factory()
@@ -42,7 +34,7 @@ module Widgets =
                         | ValueNone -> None
                         | ValueSome node -> Some node
 
-                    let node = new ViewNode(parentNode, treeContext, weakReference)
+                    let node = new ViewNode(parentNode, envContext, treeContext, weakReference)
 
                     ViewNode.set node view
 
@@ -51,7 +43,7 @@ module Widgets =
                     Reconciler.update treeContext.CanReuseView ValueNone widget node
                     struct (node :> IViewNode, box view)
               AttachView =
-                fun (widget, treeContext, parentNode, view) ->
+                fun (widget, envContext, treeContext, parentNode, view) ->
                     treeContext.Logger.Debug("Attaching view for {0}", typeof<'T>.Name)
 
                     let weakReference = WeakReference(view)
@@ -61,7 +53,7 @@ module Widgets =
                         | ValueNone -> None
                         | ValueSome node -> Some node
 
-                    let node = new ViewNode(parentNode, treeContext, weakReference)
+                    let node = new ViewNode(parentNode, envContext, treeContext, weakReference)
 
                     ViewNode.set node view
 
@@ -83,7 +75,7 @@ module WidgetHelpers =
         (templateBuilder itm).Compile()
 
     /// Creates a widget with the given key and attributes.
-    let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
+    let inline buildItems<'msg, 'marker, 'itemData, 'itemMarker when 'msg: equality>
         key
         (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
         (items: seq<'itemData>)
@@ -96,5 +88,5 @@ module WidgetHelpers =
         WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
 
     /// Creates a widget with the given key and attributes.
-    let inline buildWidgets<'msg, 'marker> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
-        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone))
+    let inline buildWidgets<'msg, 'marker when 'msg: equality> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
+        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone, ValueNone))

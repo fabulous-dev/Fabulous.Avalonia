@@ -9,86 +9,109 @@ Deploy to any platform supported by Avalonia, such as Android, iOS, macOS, Windo
 ### MVU Sample
 
 ```fs
+namespace CounterApp
+
+open System.Diagnostics
+open Fabulous
+open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
+
+open type Fabulous.Avalonia.View
+
+module App =
     type Model =
-        { Count: int }
-    
+        { Count: int; Step: int; TimerOn: bool }
+
     type Msg =
         | Increment
         | Decrement
-    
-    let init () =
-        { Count = 0 }
-    
+        | Reset
+        | SetStep of float
+        | TimerToggled of bool
+        | TimedTick
+
+    let initModel = { Count = 0; Step = 1; TimerOn = false }
+
+    let timerCmd () =
+        async {
+            do! Async.Sleep 200
+            return TimedTick
+        }
+        |> Cmd.OfAsync.msg
+
+    let init () = initModel, Cmd.none
+
     let update msg model =
         match msg with
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-    
-    let content model =
-        VStack(spacing = 16.) {
-            Image("fabulous.png", Stretch.Uniform)
-    
-            TextBlock($"Count is {model.Count}")
-    
-            Button("Increment", Increment)
-            Button("Decrement", Decrement)
+        | Increment ->
+            { model with
+                Count = model.Count + model.Step },
+            Cmd.none
+        | Decrement ->
+            { model with
+                Count = model.Count - model.Step },
+            Cmd.none
+        | Reset -> initModel, Cmd.none
+        | SetStep n -> { model with Step = int(n + 0.5) }, Cmd.none
+        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd() else Cmd.none)
+        | TimedTick ->
+            if model.TimerOn then
+                { model with
+                    Count = model.Count + model.Step },
+                timerCmd()
+            else
+                model, Cmd.none
+
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let content () =
+        Component("CounterApp") {
+            let! model = Context.Mvu program
+
+            (VStack() {
+                TextBlock($"%d{model.Count}").centerText()
+
+                Button("Increment", Increment).centerHorizontal()
+
+                Button("Decrement", Decrement).centerHorizontal()
+
+                (HStack() {
+                    TextBlock("Timer").centerVertical()
+
+                    ToggleSwitch(model.TimerOn, TimerToggled)
+                })
+                    .margin(20.)
+                    .centerHorizontal()
+
+                Slider(0., 10., float model.Step, SetStep)
+
+                TextBlock($"Step size: %d{model.Step}").centerText()
+
+                Button("Reset", Reset).centerHorizontal()
+
+            })
+                .center()
         }
-        
-    #if MOBILE
-        let app model = SingleViewApplication(content model)
-    #else
-        let app model = DesktopApplication(Window(content model))
-    #endif
-    
+
+    let view () =
+#if MOBILE
+        SingleViewApplication(content())
+#else
+        DesktopApplication(Window(content()))
+#endif
     let create () =
-        let program = Program.statefulWithCmd init update |> Program.withView app
 
-        FabulousAppBuilder.Configure(FluentTheme, program)
-```
-
-### MVU Component sample
-
-```fs
-    type Model =
-        { Count: int }
-    
-    type Msg =
-        | Increment
-        | Decrement
-    
-    let init () =
-        { Count = 0 }
-    
-    let update msg model =
-        match msg with
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-    
-    let content model =
-        VStack(spacing = 16.) {
-            Image("fabulous.png", Stretch.Uniform)
-    
-            TextBlock($"Count is {model.Count}")
-    
-            Button("Increment", Increment)
-            Button("Decrement", Decrement)
-        }
-        
-     let program = Program.statefulWithCmd init update
-    
-     let view () =
-         Component(program) {
-             let! model = Mvu.State
-    
- #if MOBILE
-             SingleViewApplication(content model)
- #else
-             DesktopApplication(Window(content model))
- #endif
-         }
-    
-     let create () =
-         FabulousAppBuilder.Configure(FluentTheme, view)
+        FabulousAppBuilder.Configure(FluentTheme, view)
 ```
 
 ## Additional Controls
@@ -152,11 +175,6 @@ MyApp
 
 net8.0-ios is not supported on Linux, thus net8.0-ios is excluded from build on a Linux host.
 
-## Samples
-We have a range of samples to help you get started.
-
-You can find them in the [sample's repo](https://github.com/fabulous-dev/Fabulous.Avalonia.Samples).
-
 ## Controls Gallery
 To run the `Gallery` sample app from the command line:
 
@@ -182,7 +200,7 @@ The full documentation for Fabulous.Avalonia can be found at [docs.fabulous.dev/
 Other useful links:
 - [The official Fabulous website](https://fabulous.dev)
 - [Get started](https://docs.fabulous.dev/avalonia/get-started)
-- [Fabulous.Avalonia Samples](https://github.com/fabulous-dev/Fabulous.Avalonia.Samples)
+- [Samples](https://github.com/fabulous-dev/Fabulous.Avalonia/tree/main/samples)
 - [API Reference](https://api.fabulous.dev/avalonia)
 - [Contributor Guide](CONTRIBUTING.md)
 
@@ -204,6 +222,10 @@ Have you found a bug or have a suggestion of how to enhance Fabulous? Open an is
 Do you want to contribute with a PR? PRs are always welcome, just make sure to create it from the correct branch (main) and follow the [Contributor Guide](CONTRIBUTING.md).
 
 For bigger changes, or if in doubt, make sure to talk about your contribution to the team. Either via an issue, GitHub discussion, or reach out to the team either using the [Discord server](https://discord.gg/bpTJMbSSYK).
+
+## Old Version
+
+This repository is about Fabulous v2. You can find Version 1 [here.](https://github.com/fabulous-dev/Fabulous/tree/release/1.0)
 
 ## Commercial support
 

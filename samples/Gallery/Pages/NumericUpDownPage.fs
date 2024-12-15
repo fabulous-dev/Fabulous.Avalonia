@@ -161,8 +161,8 @@ module NumericUpDownPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("NumericUpDownPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 4.) {
                 TextBlock("Features:")

@@ -3,7 +3,7 @@ namespace Fabulous.Avalonia
 open Avalonia.Animation
 
 type IFabAnimatable =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Animatable =
     let Transitions =

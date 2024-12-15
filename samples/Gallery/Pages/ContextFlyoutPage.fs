@@ -42,8 +42,8 @@ module ContextFlyoutPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ContextFlyoutPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 Border(TextBlock("A right click Flyout that can be applied to any control."))

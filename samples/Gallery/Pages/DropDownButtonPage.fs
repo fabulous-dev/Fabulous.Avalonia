@@ -3,6 +3,7 @@ namespace Gallery
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
@@ -13,20 +14,20 @@ module DropDownButtonPage =
     type Model = { Count: int }
 
     type Msg =
-        | Clicked
-        | Clicked2
-        | Increment
-        | Decrement
+        | Clicked of RoutedEventArgs
+        | Clicked2 of RoutedEventArgs
+        | Increment of RoutedEventArgs
+        | Decrement of RoutedEventArgs
         | Reset
 
     let init () = { Count = 0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, Cmd.none
-        | Clicked2 -> model, Cmd.none
-        | Increment -> { Count = model.Count + 1 }, Cmd.none
-        | Decrement -> { Count = model.Count - 1 }, Cmd.none
+        | Clicked _ -> model, Cmd.none
+        | Clicked2 _ -> model, Cmd.none
+        | Increment _ -> { Count = model.Count + 1 }, Cmd.none
+        | Decrement _ -> { Count = model.Count - 1 }, Cmd.none
         | Reset -> { Count = 0 }, Cmd.none
 
     let program =
@@ -42,8 +43,8 @@ module DropDownButtonPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("DropDownButtonPage") {
+            let! model = Context.Mvu program
 
             UniformGrid() {
                 TextBlock($"Count: {model.Count}").centerVertical()
@@ -54,17 +55,18 @@ module DropDownButtonPage =
                             MenuItem("Item 1")
                                 .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                            MenuItems("Item 2", Increment) {
+                            MenuItems("Item 2") {
                                 MenuItem("Subitem 1")
                                 MenuItem("Subitem 2")
                                 MenuItem("Subitem 3")
                                 MenuItem("Subitem 4")
                                 MenuItem("Subitem 5")
                             }
+                            |> _.onClick(Increment)
 
                             MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
                             MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                            MenuItem(TextBlock("Item 6"), Increment)
+                            MenuItem(TextBlock("Item 6")).onClick(Increment)
                             MenuItem("Item 7")
                         })
                             .placement(PlacementMode.BottomEdgeAlignedRight)

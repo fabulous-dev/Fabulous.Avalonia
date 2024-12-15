@@ -22,13 +22,12 @@
     <ItemGroup>
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="TreeDataGrid.fs" />
+        <Compile Include="TreeDataGrid.Mvu.fs" />
+        <Compile Include="TreeDataGrid.Components.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.TreeDataGrid" VersionOverride="11.0.2" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+        <PackageReference Include="Avalonia.Controls.TreeDataGrid" VersionOverride="11.0.10" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />

@@ -13,26 +13,28 @@ open Fabulous
 open type Fabulous.Avalonia.View
 
 module FocusAttributes =
-    /// Allows setting the Focus on an Avalonia.Input.InputElement
+    /// Allows setting the Focus on a AutoCompleteBox
     let Focus =
-        Attributes.defineBool "Focus" (fun oldValueOpt newValueOpt node ->
-            let target = node.Target :?> InputElement
+        let rec focusOnce obj _ =
+            let autoComplete = unbox<AutoCompleteBox> obj
+            autoComplete.Focus(NavigationMethod.Unspecified) |> ignore
+            autoComplete.TemplateApplied.RemoveHandler(focusOnce) // to clean up
 
-            let rec focusAndCleanUp x y =
-                target.Focus() |> ignore
-                target.AttachedToVisualTree.RemoveHandler(focusAndCleanUp) // to clean up
-
+        Attributes.defineBool "Focus" (fun _ newValueOpt node ->
             if newValueOpt.IsSome && newValueOpt.Value then
-                (* TODO setting the focus on an AutoCompleteBox is broken.
-                    It works for some (probably threading-related) reason if you hit a magic break point here
-                    or in the focusAndCleanUp handler above. *)
-                Debugger.Break()
-                target.AttachedToVisualTree.AddHandler(focusAndCleanUp))
+                let autoComplete = unbox<AutoCompleteBox> node.Target
+                autoComplete.TemplateApplied.RemoveHandler(focusOnce) // to avoid duplicate handlers
+
+                (*  Wait to call Focus() on AutoCompleteBox until after TemplateApplied
+                    because of internal Avalonia AutoCompleteBox implementation:
+                    FocusChanged only applies the Focus to the nested TextBox if it is set - which happens in OnApplyTemplate.
+                    See https://github.com/AvaloniaUI/Avalonia/blob/master/src/Avalonia.Controls/AutoCompleteBox/AutoCompleteBox.cs *)
+                autoComplete.TemplateApplied.AddHandler(focusOnce))
 
 type FocusModifiers =
+    /// Sets the Focus on an IFabAutoCompleteBox if set is true; otherwise does nothing.
     [<Extension>]
-    /// Sets the Focus on an IFabInputElement if set is true; otherwise does nothing.
-    static member inline focus(this: WidgetBuilder<'msg, #IFabInputElement>, set: bool) =
+    static member inline focus(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, set: bool) =
         this.AddScalar(FocusAttributes.Focus.WithValue(set))
 
 type EditableNode(name, children) =
@@ -100,7 +102,9 @@ module EditableNodeView =
         )
 
     let view node =
-        Component(program, node) {
+        Component("EditableNodeView") {
+            let _ = Context.Mvu(program, node)
+
             AutoCompleteBox([])
                 .onTextChanged(node.Name, NameChanged)
                 .focus(node.Name = "")
@@ -260,8 +264,8 @@ module EditableTreeView =
         let getParentNodeName (node: EditableNode) = node.Name.Substring(prefix.Length)
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("EditableTreeView") {
+            let! model = Context.Mvu program
 
             let rec filter (nodes: EditableNode list) =
                 nodes
@@ -312,7 +316,7 @@ module EditableTreeView =
 
                         See https://github.com/AvaloniaUI/Avalonia/discussions/13903
                         and https://github.com/AvaloniaUI/Avalonia/discussions/12397 *)
-                    .styles([ "avares://Gallery/Styles/EditableTreeView.xaml" ])
+                    .styleInclude([ "avares://Gallery/Styles/EditableTreeView.xaml" ])
 
                 (VStack() {
                     HStack() {

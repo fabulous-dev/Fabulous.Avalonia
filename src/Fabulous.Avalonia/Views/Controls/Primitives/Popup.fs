@@ -60,11 +60,8 @@ module Popup =
     let OverlayInputPassThroughElement =
         Attributes.defineAvaloniaPropertyWithEquality Popup.OverlayInputPassThroughElementProperty
 
-    let Closed =
-        Attributes.defineEvent "Popup_Closed" (fun target -> (target :?> Popup).Closed)
-
-    let Opened =
-        Attributes.defineEventNoArg "Popup_Opened" (fun target -> (target :?> Popup).Opened)
+    let CustomPopupPlacementCallback =
+        Attributes.defineAvaloniaPropertyWithEquality Popup.CustomPopupPlacementCallbackProperty
 
 [<AutoOpen>]
 module PopupBuilders =
@@ -76,7 +73,7 @@ module PopupBuilders =
         static member Popup(isOpen: bool, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabPopup>(
                 Popup.WidgetKey,
-                AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone)
+                AttributesBundle(StackList.one(Popup.IsOpen.WithValue(isOpen)), ValueSome [| Popup.Child.WithValue(content.Compile()) |], ValueNone, ValueNone)
             )
 
 type PopupModifiers =
@@ -180,19 +177,12 @@ type PopupModifiers =
     static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopup>, value: IInputElement) =
         this.AddScalar(Popup.OverlayInputPassThroughElement.WithValue(value))
 
-    /// <summary>Listens to the Popup Closed event.</summary>
+    /// <summary>Sets the CustomPopupPlacementCallback property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the Popup is closed.</param>
+    /// <param name="value">The CustomPopupPlacementCallback value.</param>
     [<Extension>]
-    static member inline onClosed(this: WidgetBuilder<'msg, #IFabPopup>, msg: 'msg) =
-        this.AddScalar(Popup.Closed.WithValue(fun _ -> box msg))
-
-    /// <summary>Listens to the Popup Opened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the Popup is opened.</param>
-    [<Extension>]
-    static member inline onOpened(this: WidgetBuilder<'msg, #IFabPopup>, msg: 'msg) =
-        this.AddScalar(Popup.Opened.WithValue(MsgValue msg))
+    static member inline customPopupPlacementCallback(this: WidgetBuilder<'msg, #IFabPopup>, value: CustomPopupPlacement -> unit) =
+        this.AddScalar(Popup.CustomPopupPlacementCallback.WithValue(CustomPopupPlacementCallback(value)))
 
     /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
     /// <param name="this">Current widget.</param>

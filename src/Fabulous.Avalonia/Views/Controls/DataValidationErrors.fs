@@ -6,7 +6,7 @@ open Avalonia
 open Avalonia.Controls
 open Fabulous
 
-type IFaDataValidationErrors =
+type IFabDataValidationErrors =
     inherit IFabContentControl
 
 module DataValidationErrors =
@@ -29,7 +29,7 @@ type DataValidationErrorsModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HasErrors value.</param>
     [<Extension>]
-    static member inline hasErrors(this: WidgetBuilder<'msg, #IFaDataValidationErrors>, value: bool) =
+    static member inline hasErrors(this: WidgetBuilder<'msg, #IFabDataValidationErrors>, value: bool) =
         this.AddScalar(DataValidationErrors.HasErrors.WithValue(value))
 
     /// <summary>Sets the Errors property.</summary>

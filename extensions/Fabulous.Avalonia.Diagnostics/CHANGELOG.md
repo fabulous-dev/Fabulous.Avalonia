@@ -8,9 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre7] - 2024-11-27
+### Changed
+- Add support for Avalonia 11.2.1
+
 ## [3.0.0-pre6] - 2024-05-20
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/compare/3.0.0-pre6...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/compare/3.0.0-pre7...HEAD
+[3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/releases/tag/3.0.0-pre7
 [3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia.Diagnostics/releases/tag/3.0.0-pre6

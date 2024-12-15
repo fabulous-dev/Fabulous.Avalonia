@@ -381,8 +381,8 @@ module CountriesPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("Countries") {
+            let! model = Context.Mvu program
 
             Dock() {
                 TextBlock("").classes("realized-count").dock(Dock.Bottom)

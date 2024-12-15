@@ -10,7 +10,6 @@ open Fabulous.Avalonia
 open Avalonia.Controls.Primitives
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module AdornerLayerPage =
     type Model = { Angle: float }
@@ -63,8 +62,8 @@ module AdornerLayerPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("AdornerLayerPage") {
+            let! model = Context.Mvu program
 
             Dock() {
                 (Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
@@ -85,25 +84,13 @@ module AdornerLayerPage =
                     .horizontalAlignment(HorizontalAlignment.Center)
 
                 (Grid(coldefs = [ Pixel(24.); Auto; Pixel(24.) ], rowdefs = [ Pixel(24.); Auto; Pixel(24.) ]) {
-                    EmptyBorder()
-                        .background(Brushes.Red)
-                        .gridColumn(1)
-                        .gridRow(0)
+                    Border().background(Brushes.Red).gridColumn(1).gridRow(0)
 
-                    EmptyBorder()
-                        .background(Brushes.Blue)
-                        .gridColumn(0)
-                        .gridRow(1)
+                    Border().background(Brushes.Blue).gridColumn(0).gridRow(1)
 
-                    EmptyBorder()
-                        .background(Brushes.Green)
-                        .gridColumn(2)
-                        .gridRow(1)
+                    Border().background(Brushes.Green).gridColumn(2).gridRow(1)
 
-                    EmptyBorder()
-                        .background(Brushes.Yellow)
-                        .gridColumn(1)
-                        .gridRow(2)
+                    Border().background(Brushes.Yellow).gridColumn(1).gridRow(2)
 
                     LayoutTransformControl(
                         Button("Adorner Button", DoNothing)

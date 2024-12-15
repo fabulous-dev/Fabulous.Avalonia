@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Interactivity
 open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous
@@ -49,30 +48,13 @@ module Window =
     let CanResize =
         Attributes.defineAvaloniaPropertyWithEquality Window.CanResizeProperty
 
-    let WindowClosing =
-        Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
-
-    let WindowClosed =
-        Attributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
-
-    let WindowOpened =
-        Attributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
-
 [<AutoOpen>]
 module WindowBuilders =
     type Fabulous.Avalonia.View with
-
         /// <summary>Creates a Window widget.</summary>
         /// <param name="content">The content of the window.</param>
-        static member Window(content: WidgetBuilder<'msg, #IFabAvaloniaObject>) =
-            WidgetBuilder<'msg, IFabWindow>(
-                Window.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a Window widget.</summary>
-        static member Window<'msg, 'childMarker>() =
-            SingleChildBuilder<'msg, IFabWindow, 'childMarker>(Window.WidgetKey, ContentControl.ContentWidget)
+        static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
+            WidgetBuilder<'msg, IFabWindow>(Window.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>
@@ -150,27 +132,6 @@ type WindowModifiers =
     [<Extension>]
     static member inline canResize(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.CanResize.WithValue(value))
-
-    /// <summary>Listens to the Window WindowClosing event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is closing.</param>
-    [<Extension>]
-    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, fn: WindowClosingEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosing.WithValue(fn))
-
-    /// <summary>Listens to the Window WindowClosed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is closed.</param>
-    [<Extension>]
-    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosed.WithValue(fn))
-
-    /// <summary>Listens to the Window WindowOpened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is opened.</param>
-    [<Extension>]
-    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowOpened.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
     /// <param name="this">Current widget.</param>

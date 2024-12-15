@@ -38,8 +38,8 @@ module StackPanelPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("StackPanelPage") {
+            let! model = Context.Mvu program
 
             VStack(15.) {
                 HStack(10.) {

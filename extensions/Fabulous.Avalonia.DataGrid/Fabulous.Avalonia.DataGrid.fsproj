@@ -28,10 +28,11 @@
         <Compile Include="DataGridTextColumn.fs" />
         <Compile Include="DataGridCheckBoxColumn.fs" />
         <Compile Include="DataGrid.fs" />
+        <Compile Include="DataGrid.Mvu.fs" />
+        <Compile Include="DataGrid.Components.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="11.0.10" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" VersionOverride="$(AvaloniaVersion)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />

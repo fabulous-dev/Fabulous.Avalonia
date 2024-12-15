@@ -88,9 +88,6 @@ module ColorView =
     let SelectedIndex =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.SelectedIndexProperty
 
-    let ColorChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "ColorView_ColorChanged" ColorView.ColorProperty
-
     let PaletteColors =
         Attributes.defineAvaloniaPropertyWithEquality ColorView.PaletteColorsProperty
 
@@ -100,18 +97,12 @@ module ColorViewBuilders =
 
         /// <summary>Creates a ColorView widget.</summary>
         static member ColorView() =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey)
 
         /// <summary>Creates a ColorView widget.</summary>
         /// <param name="color">The Color value.</param>
         static member ColorView(color: Color) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, AttributesBundle(StackList.one(ColorView.Color.WithValue(color)), ValueNone, ValueNone))
-
-        /// <summary>Creates a ColorView widget.</summary>
-        /// <param name="color">The Color value.</param>
-        /// <param name="fn">Raised when the color changes.</param>
-        static member ColorView(color: Color, fn: Color -> 'msg) =
-            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.ColorChanged.WithValue(ValueEventData.create color fn))
+            WidgetBuilder<'msg, IFabColorView>(ColorView.WidgetKey, ColorView.Color.WithValue(color))
 
 type ColorViewModifiers =
     /// <summary>Link a ViewRef to access the direct ColorView control instance</summary>

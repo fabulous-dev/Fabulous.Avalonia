@@ -5,7 +5,6 @@ open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
-
 open type Fabulous.Avalonia.View
 
 module LayoutTransformControlPage =
@@ -34,8 +33,8 @@ module LayoutTransformControlPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("LayoutTransformControlPage") {
+            let! model = Context.Mvu program
 
             VStack(16.) {
                 (VStack(16.) {
@@ -51,22 +50,22 @@ module LayoutTransformControlPage =
                     .centerHorizontal()
 
                 (Grid(coldefs = [ Pixel(24.); Auto; Pixel(24.) ], rowdefs = [ Pixel(24.); Auto; Pixel(24.) ]) {
-                    EmptyBorder()
+                    Border()
                         .background(SolidColorBrush(Colors.Red))
                         .gridColumn(1)
                         .gridRow(0)
 
-                    EmptyBorder()
+                    Border()
                         .background(SolidColorBrush(Colors.Green))
                         .gridColumn(0)
                         .gridRow(1)
 
-                    EmptyBorder()
+                    Border()
                         .background(SolidColorBrush(Colors.Yellow))
                         .gridColumn(2)
                         .gridRow(1)
 
-                    EmptyBorder()
+                    Border()
                         .background(SolidColorBrush(Colors.Blue))
                         .gridColumn(1)
                         .gridRow(2)

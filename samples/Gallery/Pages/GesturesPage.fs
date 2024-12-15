@@ -34,8 +34,8 @@ module GesturesPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("GesturesPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 4.) {
                 TextBlock("Pull Gexture (Touch / Pen)")
@@ -47,7 +47,7 @@ module GesturesPage =
                 Border(
                     (Dock() {
                         Border(
-                            EmptyBorder()
+                            Border()
                                 .width(10.)
                                 .height(10.)
                                 .horizontalAlignment(HorizontalAlignment.Center)
@@ -66,7 +66,7 @@ module GesturesPage =
                             .borderThickness(1.)
 
                         Border(
-                            EmptyBorder()
+                            Border()
                                 .width(10.)
                                 .name("BottomBall")
                                 .horizontalAlignment(HorizontalAlignment.Center)
@@ -85,7 +85,7 @@ module GesturesPage =
                             .borderThickness(1.)
 
                         Border(
-                            EmptyBorder()
+                            Border()
                                 .width(10.)
                                 .height(10.)
                                 .name("RightBall")
@@ -105,7 +105,7 @@ module GesturesPage =
                             .borderThickness(1.)
 
                         Border(
-                            EmptyBorder()
+                            Border()
                                 .width(10.)
                                 .height(10.)
                                 .name("LeftBall")

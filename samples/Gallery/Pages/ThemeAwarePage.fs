@@ -22,7 +22,6 @@ module ThemeAwarePage =
         | TextChanged of string
         | Text2Changed of string
         | DoNothing
-        | ThemeVariantChanged
 
     let init () =
 
@@ -47,8 +46,6 @@ module ThemeAwarePage =
 
         | DoNothing -> model, Cmd.none
 
-        | ThemeVariantChanged -> model, Cmd.none
-
     let program =
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
@@ -62,22 +59,12 @@ module ThemeAwarePage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ThemeAwarePage") {
+            let! model = Context.Mvu program
+            let! theme = Context.Environment(EnvironmentKeys.Theme)
 
             VStack(spacing = 15.) {
-                let requestedThemeVariant =
-                    FabApplication.Current.RequestedThemeVariant
-                    |> Option.ofObj
-                    |> Option.defaultValue ThemeVariant.Default
-
-                let actualThemeVariant =
-                    FabApplication.Current.ActualThemeVariant
-                    |> Option.ofObj
-                    |> Option.defaultValue ThemeVariant.Default
-
-                TextBlock($"Requested theme variant is: {requestedThemeVariant.ToString()}")
-                TextBlock($"Actual theme variant is: {actualThemeVariant.ToString()}")
+                TextBlock($"Actual theme variant is: {theme.ToString()}")
                 TextBlock($"ScopedTheme is: {model.ScopeTheme.ToString()}")
 
                 TextBlock("I'm a text that is theme aware.")
@@ -131,6 +118,5 @@ module ThemeAwarePage =
                         .padding(4.)
                         .cornerRadius(4.)
                 )
-                    .onActualThemeVariantChanged(ThemeVariantChanged)
             }
         }

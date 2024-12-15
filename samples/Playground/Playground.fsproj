@@ -19,9 +19,11 @@
     <PropertyGroup Condition="'$(AvaloniaPlatform)' == 'iOS'">
         <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(AvaloniaPlatform)|$(Configuration)' == 'iOS|Debug' ">
         <CodesignKey>Apple Development: Timothé Larivière (X6N2KN9WK3)</CodesignKey>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <CodesignKey>iPhone Developer</CodesignKey>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="AsyncImage.fs" />

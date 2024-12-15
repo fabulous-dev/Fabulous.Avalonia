@@ -56,10 +56,10 @@ module ColorPickerPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ColorPickerPage") {
+            let! model = Context.Mvu program
 
-            Grid(coldefs = [ Auto; Pixel(10.); Auto ], rowdefs = [ Auto; Auto ]) {
+            Grid(coldefs = [ Auto; Pixel(10.); Auto ], rowdefs = [ Auto; Auto; Auto ]) {
                 ColorView(model.ColorView, ColorViewChanged)
                     .gridRow(0)
                     .gridColumn(0)
@@ -116,5 +116,10 @@ module ColorPickerPage =
                     .gridRow(0)
                     .gridColumn(2)
 
+                ColorsByChannel
+                    .view()
+                    .margin(0, 30, 0, 0)
+                    .gridRow(2)
+                    .gridColumnSpan(3)
             }
         }

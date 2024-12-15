@@ -1,12 +1,10 @@
 namespace Gallery
 
-open System.Diagnostics
 open Avalonia
 open Avalonia.Controls.Primitives
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 open System.Collections.ObjectModel
 
 open type Fabulous.Avalonia.View

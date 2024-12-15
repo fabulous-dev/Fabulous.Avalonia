@@ -106,7 +106,24 @@ module MainView =
           "TabStrip"
           "ThemeAware"
           "UniformGrid"
-          "ViewBox" ]
+          "ViewBox"
+          "Implicit Animations"
+          "Draw Line Animation"
+          "Compositor Animations"
+          "Animations"
+          "Spring Animations"
+          "Transitions"
+          "Render Transform"
+          "Brushes"
+          "Clipping"
+          "Drawing"
+          "Line Bounds"
+          "Transform3D"
+          "Writable Bitmap"
+          "Render Target Bitmap"
+          "Path Measurement"
+          "Custom Animator"
+          "SkCanvas" ]
 
     let program =
         Program.statefulWithCmd init update
@@ -122,10 +139,10 @@ module MainView =
 
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("MainView") {
+            let! model = Context.Mvu program
 
-            SingleViewApplication() {
+            SingleViewApplication(
                 ScrollViewer(
                     match model.Details with
                     | Some(CurrentWidget page) ->
@@ -147,7 +164,7 @@ module MainView =
                             }
                         )
                 )
-            }
+            )
         }
 
     let create () =

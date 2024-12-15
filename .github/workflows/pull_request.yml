@@ -7,14 +7,14 @@ env:
 
 jobs:
   pull_request:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
     - name: Check code formatting
       run: |
         dotnet tool restore

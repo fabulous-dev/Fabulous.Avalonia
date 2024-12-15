@@ -9,7 +9,7 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabTransition =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module TransitionBase =
     let Duration =
@@ -43,7 +43,7 @@ type TransitionBaseModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, #IFabTransition>, value: ViewRef<#TransitionBase>) =
+    static member inline reference(this: WidgetBuilder<'msg, IFabTransition>, value: ViewRef<#TransitionBase>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 type IFabDoubleTransition =
@@ -306,6 +306,27 @@ module VectorTransitionBuilders =
                 TransitionBase.Duration.WithValue(duration)
             )
 
+type IFabBoolTransition =
+    inherit IFabTransition
+
+module BoolTransition =
+    let WidgetKey = Widgets.register<BoolTransition>()
+
+[<AutoOpen>]
+module BoolTransitionBuilders =
+
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a BoolTransition widget.</summary>
+        /// <param name="property">The property to animate.</param>
+        /// <param name="duration">The duration of the animation.</param>
+        static member BoolTransition(property: AvaloniaProperty, duration: TimeSpan) =
+            WidgetBuilder<'msg, IFabBoolTransition>(
+                BoolTransition.WidgetKey,
+                TransitionBase.Property.WithValue(property),
+                TransitionBase.Duration.WithValue(duration)
+            )
+
 type IFabEffectTransition =
     inherit IFabTransition
 
@@ -329,19 +350,15 @@ module EffectTransitionBuilders =
 
 type TransitionBaseCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabAnimatable and 'itemType :> IFabTransition>
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabTransition>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
 type TransitionCollectionModifiers =
@@ -349,11 +366,11 @@ type TransitionCollectionModifiers =
     /// <param name="this">Current widget.</param>
     [<Extension>]
     static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>) =
-        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions)
+        AttributeCollectionBuilder<'msg, #IFabAnimatable, #IFabTransition>(this, Animatable.Transitions)
 
     /// <summary>Sets the Transition property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Transition value.</param>
     [<Extension>]
     static member inline transition(this: WidgetBuilder<'msg, #IFabAnimatable>, value: WidgetBuilder<'msg, #IFabTransition>) =
-        AttributeCollectionBuilder<'msg, #IFabAnimatable, IFabTransition>(this, Animatable.Transitions) { value }
+        TransitionCollectionModifiers.transition(this) { value }

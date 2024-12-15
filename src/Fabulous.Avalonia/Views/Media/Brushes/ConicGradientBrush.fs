@@ -27,7 +27,7 @@ module ConicGradientBrushBuilders =
         static member ConicGradientBrush(center: RelativePoint, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(center),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
@@ -37,7 +37,7 @@ module ConicGradientBrushBuilders =
         static member ConicGradientBrush(center: RelativePoint) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(center),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
@@ -49,7 +49,7 @@ module ConicGradientBrushBuilders =
         static member ConicGradientBrush(center: Point, unit: RelativeUnit, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
@@ -60,7 +60,7 @@ module ConicGradientBrushBuilders =
         static member ConicGradientBrush(center: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
@@ -70,7 +70,7 @@ module ConicGradientBrushBuilders =
         static member ConicGradientBrush(angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint.Center),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
@@ -79,10 +79,11 @@ module ConicGradientBrushBuilders =
         static member ConicGradientBrush() =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint.Center),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
+
 
 type ConicGradientBrushModifiers =
     /// <summary>Link a ViewRef to access the direct ConicGradientBrush control instance.</summary>

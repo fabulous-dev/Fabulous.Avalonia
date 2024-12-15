@@ -16,7 +16,6 @@ module SolidColorBrush =
 [<AutoOpen>]
 module SolidColorBrushBuilders =
     type Fabulous.Avalonia.View with
-
         /// <summary>Creates a SolidColorBrush widget.</summary>
         /// <param name="color">The color of the brush.</param>
         static member SolidColorBrush(color: Color) =

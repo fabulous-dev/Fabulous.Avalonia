@@ -1,5 +1,6 @@
 namespace Gallery
 
+open System
 open System.Diagnostics
 open Avalonia
 open Avalonia.Controls
@@ -38,9 +39,29 @@ module PopupPage =
 #endif
         )
 
+    let customPlacementCallback (placement: CustomPopupPlacement) =
+        let r = Random().Next()
+
+        placement.Anchor <-
+            match r % 4 with
+            | 1 -> PopupAnchor.Top
+            | 2 -> PopupAnchor.Bottom
+            | 3 -> PopupAnchor.Left
+            | _ -> PopupAnchor.Right
+
+        placement.Gravity <-
+            match r % 4 with
+            | 1 -> PopupGravity.Top
+            | 2 -> PopupGravity.Bottom
+            | 3 -> PopupGravity.Left
+            | _ -> PopupGravity.Right
+
+        placement.Offset <- Point(float(r % 20), float(r % 20))
+
+
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("PopupPage") {
+            let! model = Context.Mvu program
 
             (VStack(spacing = 15.) {
                 Button("Click me", OpenPopup)
@@ -61,7 +82,8 @@ module PopupPage =
                 )
                     .onOpened(OnOpened)
                     .onClosed(OnClosed)
-                    .placement(PlacementMode.Bottom)
+                    .placement(PlacementMode.Custom)
+                    .customPopupPlacementCallback(customPlacementCallback)
                     .placementGravity(PopupGravity.Bottom)
                     .placementAnchor(PopupAnchor.Bottom)
                     .placementConstraintAdjustment(PopupPositionerConstraintAdjustment.FlipY)

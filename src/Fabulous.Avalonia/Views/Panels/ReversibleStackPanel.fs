@@ -3,8 +3,8 @@ namespace Fabulous.Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabReversibleStackPanel =
     inherit IFabStackPanel

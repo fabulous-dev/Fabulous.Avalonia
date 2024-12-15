@@ -67,8 +67,8 @@ module CanvasPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("CanvasPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
                 TextBlock("A panel which lays out its children by explicit coordinates")
@@ -155,6 +155,36 @@ module CanvasPage =
                 })
                     .background(SolidColorBrush(Colors.Yellow))
                     .size(300., 400.)
+
+                Border()
+                    .height(920.)
+                    .width(920.)
+                    .padding(8.)
+                    .background(Brushes.Magenta)
+                    .opacityMask(
+                        VisualBrush(
+                            Border(
+                                Grid(coldefs = [ Star; Star; Star ], rowdefs = [ Star; Star; Star ]) {
+                                    Border().background(SolidColorBrush(Colors.Aqua))
+
+                                    Border().gridRow(1).background(SolidColorBrush(Colors.Aqua))
+
+                                    Border().gridRow(2).background(SolidColorBrush(Colors.Aqua))
+
+                                    Border()
+                                        .gridColumn(1)
+                                        .background(SolidColorBrush(Colors.Aqua))
+                                }
+                            )
+                                .height(200.)
+                                .width(200.)
+                                .padding(20.)
+
+                        )
+                            .stretch(Stretch.Fill)
+                            .tileMode(TileMode.None)
+                    )
+
 
                 (Canvas() {
                     Ellipse()

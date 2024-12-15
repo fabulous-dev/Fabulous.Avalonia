@@ -22,13 +22,10 @@
     <ItemGroup>
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="ItemsRepeater.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.ItemsRepeater" VersionOverride="11.0.10" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+        <PackageReference Include="Avalonia.Controls.ItemsRepeater" VersionOverride="11.1.5" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />

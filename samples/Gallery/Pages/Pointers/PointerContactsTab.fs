@@ -106,4 +106,4 @@ module PointerContactsTabBuilders =
     type Fabulous.Avalonia.View with
 
         static member PointerContactsTab() =
-            WidgetBuilder<'msg, IFabPointerContacts>(PointerContacts.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabPointerContacts>(PointerContacts.WidgetKey)

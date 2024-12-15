@@ -3,6 +3,7 @@ namespace Gallery
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
@@ -13,14 +14,14 @@ module MenuFlyoutPage =
 
     type Msg =
         | PressMe
-        | Increment
+        | Increment of RoutedEventArgs
 
     let init () = { Counter = 0 }, Cmd.none
 
     let update msg model =
         match msg with
         | PressMe -> model, Cmd.none
-        | Increment -> { Counter = model.Counter + 1 }, Cmd.none
+        | Increment _ -> { Counter = model.Counter + 1 }, Cmd.none
 
     let program =
         Program.statefulWithCmd init update
@@ -35,8 +36,8 @@ module MenuFlyoutPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("MenuFlyoutPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
 
@@ -48,17 +49,18 @@ module MenuFlyoutPage =
                             MenuItem("Item 1")
                                 .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                            MenuItems("Item 2", Increment) {
+                            MenuItems("Item 2") {
                                 MenuItem("Subitem 1")
                                 MenuItem("Subitem 2")
                                 MenuItem("Subitem 3")
                                 MenuItem("Subitem 4")
                                 MenuItem("Subitem 5")
                             }
+                            |> _.onClick(Increment)
 
                             MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
                             MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                            MenuItem(TextBlock("Item 6"), Increment)
+                            MenuItem(TextBlock("Item 6")).onClick(Increment)
                             MenuItem("Item 7")
                         })
                             .placement(PlacementMode.BottomEdgeAlignedRight)

@@ -2,12 +2,11 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabPen =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module Pen =
     let WidgetKey = Widgets.register<Pen>()
@@ -37,7 +36,12 @@ module PenBuilders =
         static member Pen(brush: WidgetBuilder<'msg, #IFabBrush>, thickness: float) =
             WidgetBuilder<'msg, IFabPen>(
                 Pen.WidgetKey,
-                AttributesBundle(StackList.one(Pen.Thickness.WithValue(thickness)), ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |], ValueNone)
+                AttributesBundle(
+                    StackList.one(Pen.Thickness.WithValue(thickness)),
+                    ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |],
+                    ValueNone,
+                    ValueNone
+                )
             )
 
         /// <summary>Creates a Pen widget.</summary>

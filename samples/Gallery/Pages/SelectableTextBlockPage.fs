@@ -36,8 +36,8 @@ module SelectableTextBlockPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("SelectableTextBlockPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 15.) {
 

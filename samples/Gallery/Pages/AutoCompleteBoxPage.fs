@@ -10,11 +10,10 @@ open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-
 open type Fabulous.Avalonia.View
 
-module AutoCompleteBoxPage =
-
+[<AutoOpen>]
+module AutoCompleteBoxCommon =
     type StateData =
         { Name: string
           Abbreviation: string
@@ -262,43 +261,18 @@ module AutoCompleteBoxPage =
                         |> Seq.cast<obj>
             }
 
-    /// helps animating an active remote search AutoCompleteBox
-    module RemoteSearch =
-        let input = ViewRef<AutoCompleteBox>()
-        let heartBeat = ViewRef<Animation>()
-
-        /// animates the input with the heartBeat until searchToken is cancelled
-        let animate searchToken =
-            heartBeat.Value.IterationCount <- IterationCount.Infinite
-            heartBeat.Value.RunAsync(input.Value, searchToken) |> ignore
-
-    type Model =
-        { IsOpen: bool
-          SelectedItem: string
-          Text: string
-          AsyncSearchTerm: string
-          UsStateSearch: UsFederalStateSearch
-          Items: string seq
-          UsFederalStates: StateData seq
-          Custom: string seq }
-
-    type Msg =
-        | SearchTextChanged of string
-        | AsyncSearchTermChanged of string
-        | CustomAutoBoxLoaded of RoutedEventArgs
-
-    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
-
-    let init () =
-        { IsOpen = false
-          Text = "Arkan"
-          AsyncSearchTerm = ""
-          UsStateSearch = UsFederalStateSearch(RemoteSearch.animate)
-          SelectedItem = "Item 2"
-          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
-          UsFederalStates = usFederalStates
-          Custom = [] },
-        Cmd.none
+    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
+        task {
+            return
+                seq {
+                    "Async Item 1"
+                    "Async Item 2"
+                    "Async Item 3"
+                    "Async Product 1"
+                    "Async Product 2"
+                    "Async Product 3"
+                }
+        }
 
     let buildAllSentences () =
         [ "Hello world"
@@ -358,6 +332,48 @@ module AutoCompleteBoxPage =
         else
             String.Empty
 
+
+    /// helps to animate an active remote search AutoCompleteBox
+    module RemoteSearch =
+        let input = ViewRef<AutoCompleteBox>()
+        let heartBeat = ViewRef<Animation>()
+
+        /// animates the input with the heartBeat until searchToken is cancelled
+        let animate searchToken =
+            heartBeat.Value.IterationCount <- IterationCount.Infinite
+            heartBeat.Value.RunAsync(input.Value, searchToken) |> ignore
+
+module AutoCompleteBoxPage =
+
+
+    type Model =
+        { IsOpen: bool
+          SelectedItem: string
+          Text: string
+          AsyncSearchTerm: string
+          UsStateSearch: UsFederalStateSearch
+          Items: string seq
+          UsFederalStates: StateData seq
+          Custom: string seq }
+
+    type Msg =
+        | SearchTextChanged of string
+        | AsyncSearchTermChanged of string
+        | CustomAutoBoxLoaded of RoutedEventArgs
+
+    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
+
+    let init () =
+        { IsOpen = false
+          Text = "Arkan"
+          AsyncSearchTerm = ""
+          UsStateSearch = UsFederalStateSearch(RemoteSearch.animate)
+          SelectedItem = "Item 2"
+          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
+          UsFederalStates = usFederalStates
+          Custom = [] },
+        Cmd.none
+
     let update msg model =
         match msg with
         | SearchTextChanged args -> { model with Text = args }, Cmd.none
@@ -369,19 +385,6 @@ module AutoCompleteBoxPage =
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
             customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item))
             model, Cmd.none
-
-    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
-        task {
-            return
-                seq {
-                    "Async Item 1"
-                    "Async Item 2"
-                    "Async Item 3"
-                    "Async Product 1"
-                    "Async Product 2"
-                    "Async Product 3"
-                }
-        }
 
     let program =
         Program.statefulWithCmd init update
@@ -396,8 +399,8 @@ module AutoCompleteBoxPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("AutoCompleteBoxPage") {
+            let! model = Context.Mvu program
             let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 
             VStack() {

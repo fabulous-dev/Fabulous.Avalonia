@@ -12,9 +12,12 @@ module ComboBoxPage =
     type Model =
         { Items: string list
           Fonts: FontFamily seq
-          IsDropDownOpen: bool }
+          IsDropDownOpen: bool
+          IsSelected: bool }
 
-    type Msg = DropDownOpened of bool
+    type Msg =
+        | DropDownOpened of bool
+        | SelectedChanged of bool
 
     let fontComboBox () =
         FontManager.Current.SystemFonts |> Seq.map(fun x -> FontFamily(x.Name))
@@ -22,15 +25,16 @@ module ComboBoxPage =
     let init () =
         { IsDropDownOpen = false
           Items = [ "Inline Items 1"; "Inline Item 2"; "Inline Item 3"; "Inline Item 4" ]
-          Fonts = fontComboBox() },
-        Cmd.none
+          Fonts = fontComboBox()
+          IsSelected = false }
 
     let update msg model =
         match msg with
-        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }, Cmd.none
+        | DropDownOpened isOpen -> { model with IsDropDownOpen = isOpen }
+        | SelectedChanged isSelected -> { model with IsSelected = isSelected }
 
     let program =
-        Program.statefulWithCmd init update
+        Program.stateful init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
@@ -42,8 +46,8 @@ module ComboBoxPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ComboBoxPage") {
+            let! model = Context.Mvu program
 
             HStack(16) {
                 ComboBox(model.Items).selectedIndex(0)
@@ -71,7 +75,8 @@ module ComboBoxPage =
                     .selectedIndex(0)
 
                 (ComboBox() {
-                    ComboBoxItem("Select a font", true)
+                    ComboBoxItem("Select a font")
+                        .onSelectedChanged(model.IsSelected, SelectedChanged)
 
                     for font in model.Fonts do
                         ComboBoxItem(font.Name)

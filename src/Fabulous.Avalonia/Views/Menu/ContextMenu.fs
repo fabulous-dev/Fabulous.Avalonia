@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.ComponentModel
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
@@ -40,12 +39,6 @@ module ContextMenu =
 
     let WindowManagerAddShadowHint =
         Attributes.defineAvaloniaPropertyWithEquality ContextMenu.WindowManagerAddShadowHintProperty
-
-    let Opening =
-        Attributes.defineCancelEvent "ContextMenu_Opening" (fun target -> (target :?> ContextMenu).Opening)
-
-    let Closing =
-        Attributes.defineCancelEvent "ContextMenu_Closing" (fun target -> (target :?> ContextMenu).Closing)
 
 [<AutoOpen>]
 module ContextMenuBuilders =
@@ -114,20 +107,6 @@ type ContextMenuModifiers =
     static member inline windowManagerAddShadowHint(this: WidgetBuilder<'msg, #IFabContextMenu>, value: bool) =
         this.AddScalar(ContextMenu.WindowManagerAddShadowHint.WithValue(value))
 
-    /// <summary>Listens to the ContextMenu Opening event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Opening event fires.</param>
-    [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.Opening.WithValue(fn))
-
-    /// <summary>Listens to the ContextMenu Closing event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Closing event fires.</param>
-    [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabContextMenu>, fn: CancelEventArgs -> 'msg) =
-        this.AddScalar(ContextMenu.Closing.WithValue(fn))
-
     /// <summary>Sets the PlacementTarget property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PlacementTarget value.</param>
@@ -154,17 +133,13 @@ type ContextMenuAttachedModifiers =
 
 type ContextMenuCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabControl>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabControl>
+        (_: CollectionBuilder<'msg, 'marker, IFabControl>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabControl>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabControl>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabControl>
+        (_: CollectionBuilder<'msg, 'marker, IFabControl>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls.Documents
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTextElement =
@@ -101,7 +100,6 @@ type TextElementModifiers =
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextElement>, value: IBrush) =
         this.AddScalar(TextElement.Foreground.WithValue(value))
 
-type TextElementExtraModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>

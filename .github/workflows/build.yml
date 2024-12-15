@@ -12,10 +12,11 @@ env:
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
   TEMPLATE_PKG: nupkgs/Fabulous.Avalonia.Templates
   NUPKG_FOLDER: nupkgs
+  XCODE_PATH: /Applications/Xcode_16.0.app/Contents/Developer
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
     - name: Checkout sources
       uses: actions/checkout@v4
@@ -31,11 +32,11 @@ jobs:
         echo "Nightly version is $NIGHTLY_VERSION"
         echo "NIGHTLY_VERSION=$NIGHTLY_VERSION" >> "$GITHUB_ENV"
     - name: Update xcode tools
-      run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer/
+      run: sudo xcode-select -s ${XCODE_PATH}
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
     - name: Install dotnet workload
       run: dotnet workload restore
     - name: Install workload wasm
@@ -64,7 +65,8 @@ jobs:
     - name: Test single project template
       run: |
         dotnet new fabulous-avalonia -n SingleProjectTemplate
-        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false
+        dotnet build SingleProjectTemplate -t:InstallAndroidDependencies -f net8.0-android -p:AndroidSdkDirectory="/Users/runner/Library/Android/sdk" -p:AcceptAndroidSDKLicenses=True -p:ManagePackageVersionsCentrally=false
+        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false 
     - name: Test multi project template
       run: |
         dotnet new fabulous-avalonia-multi -n MultiProjectTemplate

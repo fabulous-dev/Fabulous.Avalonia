@@ -173,8 +173,8 @@ module ClipboardPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("ClipboardPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 4.) {
                 TextBlock("Example of ClipboardPage capabilities")

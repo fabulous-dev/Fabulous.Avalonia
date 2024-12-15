@@ -35,9 +35,6 @@ module ComboBox =
     let VerticalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality ComboBox.VerticalContentAlignmentProperty
 
-    let DropDownOpened =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "Opened" ComboBox.IsDropDownOpenProperty
-
     let ItemTemplate =
         Attributes.defineSimpleScalar<obj -> Widget> "ComboBox_ItemTemplate" ScalarAttributeComparers.physicalEqualityCompare (fun _ newValueOpt node ->
             let comboBox = node.Target :?> ComboBox
@@ -55,10 +52,7 @@ module ComboBoxBuilders =
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
         static member ComboBox(items: seq<_>) =
-            WidgetBuilder<'msg, IFabComboBox>(
-                ComboBox.WidgetKey,
-                AttributesBundle(StackList.one(ItemsControl.ItemsSource.WithValue(items)), ValueNone, ValueNone)
-            )
+            WidgetBuilder<'msg, IFabComboBox>(ComboBox.WidgetKey, ItemsControl.ItemsSource.WithValue(items))
 
         /// <summary>Creates a ComboBox widget.</summary>
         /// <param name="items">The items to display in the ComboBox.</param>
@@ -66,7 +60,6 @@ module ComboBoxBuilders =
         static member ComboBox(items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>) =
             WidgetHelpers.buildItems<'msg, IFabComboBox, 'itemData, 'itemMarker> ComboBox.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
-        /// <summary>Creates a ComboBox widget.</summary>
         static member ComboBox() =
             CollectionBuilder<'msg, IFabComboBox, IFabComboBoxItem>(ComboBox.WidgetKey, ItemsControl.Items)
 
@@ -106,6 +99,21 @@ type ComboBoxModifiers =
     static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: IBrush) =
         this.AddScalar(ComboBox.PlaceholderForeground.WithValue(value))
 
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBoxItem>, value: Color) =
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the PlaceholderForeground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlaceholderForeground value.</param>
+    [<Extension>]
+    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBoxItem>, value: string) =
+        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
+
+
     /// <summary>Sets the HorizontalContentAlignment property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The HorizontalContentAlignment value.</param>
@@ -120,13 +128,12 @@ type ComboBoxModifiers =
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabComboBox>, value: VerticalAlignment) =
         this.AddScalar(ComboBox.VerticalContentAlignment.WithValue(value))
 
-    /// <summary>Listens to the ComboBox DropDownOpened event.</summary>
+    /// <summary>Sets the ItemTemplate property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="isOpen">Weather the drop down is open or not.</param>
-    /// <param name="fn">Raised when the DropDownOpened event fires.</param>
+    /// <param name="template">The template to render the items with.</param>
     [<Extension>]
-    static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabComboBox>, isOpen: bool, fn: bool -> 'msg) =
-        this.AddScalar(ComboBox.DropDownOpened.WithValue(ValueEventData.create isOpen fn))
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabComboBox>, template: 'item -> WidgetBuilder<'msg, #IFabControl>) =
+        this.AddScalar(ComboBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
 
     /// <summary>Link a ViewRef to access the direct ComboBox control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -135,34 +142,15 @@ type ComboBoxModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabComboBox>, value: ViewRef<ComboBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-type ComboBoxExtraModifier =
-    /// <summary>Sets the PlaceholderForeground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PlaceholderForeground value.</param>
-    [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: Color) =
-        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
-
-    /// <summary>Sets the PlaceholderForeground property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The PlaceholderForeground value.</param>
-    [<Extension>]
-    static member inline placeholderForeground(this: WidgetBuilder<'msg, #IFabComboBox>, value: string) =
-        ComboBoxModifiers.placeholderForeground(this, View.SolidColorBrush(value))
-
 type ComboBoxCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComboBoxItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabComboBoxItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabComboBoxItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabComboBoxItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

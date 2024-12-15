@@ -17,8 +17,11 @@ module RadialGradientBrush =
     let GradientOrigin =
         Attributes.defineAvaloniaPropertyWithEquality RadialGradientBrush.GradientOriginProperty
 
-    let Radius =
-        Attributes.defineAvaloniaPropertyWithEquality RadialGradientBrush.RadiusProperty
+    let RadiusX =
+        Attributes.defineAvaloniaPropertyWithEquality RadialGradientBrush.RadiusXProperty
+
+    let RadiusY =
+        Attributes.defineAvaloniaPropertyWithEquality RadialGradientBrush.RadiusYProperty
 
 [<AutoOpen>]
 module RadialGradientBrushBuilders =
@@ -29,7 +32,7 @@ module RadialGradientBrushBuilders =
         static member RadialGradientBrush(center: RelativePoint) =
             CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(center),
                 RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
             )
@@ -40,7 +43,7 @@ module RadialGradientBrushBuilders =
         static member RadialGradientBrush(center: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
             )
@@ -51,7 +54,7 @@ module RadialGradientBrushBuilders =
         static member RadialGradientBrush(center: RelativePoint, origin: RelativePoint) =
             CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(center),
                 RadialGradientBrush.GradientOrigin.WithValue(origin)
             )
@@ -63,7 +66,7 @@ module RadialGradientBrushBuilders =
         static member RadialGradientBrush(center: Point, origin: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 RadialGradientBrush.GradientOrigin.WithValue(RelativePoint(origin, unit))
             )
@@ -72,19 +75,40 @@ module RadialGradientBrushBuilders =
         static member RadialGradientBrush() =
             CollectionBuilder<'msg, IFabRadialGradientBrush, IFabGradientStop>(
                 RadialGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 RadialGradientBrush.Center.WithValue(RelativePoint.Center),
                 RadialGradientBrush.GradientOrigin.WithValue(RelativePoint.Center)
             )
 
 type RadialGradientBrushModifiers =
 
-    /// <summary>Sets the Radius property.</summary>
+    /// <summary>Sets the RadiusX property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Radius value.</param>
     [<Extension>]
-    static member inline radius(this: WidgetBuilder<'msg, #IFabRadialGradientBrush>, value: float) =
-        this.AddScalar(RadialGradientBrush.Radius.WithValue(value))
+    static member inline radiusX(this: WidgetBuilder<'msg, #IFabRadialGradientBrush>, value: float) =
+        this.AddScalar(RadialGradientBrush.RadiusX.WithValue(RelativeScalar(value, RelativeUnit.Relative)))
+
+    /// <summary>Sets the RadiusX property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Radius value.</param>
+    [<Extension>]
+    static member inline radiusX(this: WidgetBuilder<'msg, #IFabRadialGradientBrush>, value: RelativeScalar) =
+        this.AddScalar(RadialGradientBrush.RadiusX.WithValue(value))
+
+    /// <summary>Sets the RadiusY property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Radius value.</param>
+    [<Extension>]
+    static member inline radiusY(this: WidgetBuilder<'msg, #IFabRadialGradientBrush>, value: float) =
+        this.AddScalar(RadialGradientBrush.RadiusY.WithValue(RelativeScalar(value, RelativeUnit.Relative)))
+
+    /// <summary>Sets the RadiusY property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Radius value.</param>
+    [<Extension>]
+    static member inline radiusY(this: WidgetBuilder<'msg, #IFabRadialGradientBrush>, value: RelativeScalar) =
+        this.AddScalar(RadialGradientBrush.RadiusY.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct RadialGradientBrush control instance.</summary>
     /// <param name="this">Current widget.</param>

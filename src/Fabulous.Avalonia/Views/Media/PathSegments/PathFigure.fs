@@ -7,19 +7,19 @@ open Fabulous
 open Fabulous.StackAllocatedCollections
 
 type IFabPathFigure =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module PathFigure =
     let WidgetKey = Widgets.register<PathFigure>()
+
+    let Segments =
+        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
     let IsClosed =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsClosedProperty
 
     let IsFilled =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsFilledProperty
-
-    let Segments =
-        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.StartPointProperty
@@ -58,17 +58,13 @@ type PathFigureModifiers =
 
 type PathFigureBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabPathSegment>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathSegment>
+        (_: CollectionBuilder<'msg, 'marker, IFabPathSegment>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabPathSegment>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathSegment>
+        (_: CollectionBuilder<'msg, 'marker, IFabPathSegment>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

@@ -36,17 +36,8 @@ module TreeDataGrid =
     let Source =
         Attributes.defineAvaloniaPropertyWithEquality TreeDataGrid.SourceProperty
 
-    let RowDragStarted =
-        Attributes.defineEvent "TreeDataGrid_RowDragStarted" (fun target -> (target :?> TreeDataGrid).RowDragStarted)
-
-    let RowDragOver =
-        Attributes.defineEvent "TreeDataGrid_RowDragOver" (fun target -> (target :?> TreeDataGrid).RowDragOver)
-
-    let RowDrop =
-        Attributes.defineEvent "TreeDataGrid_RowDrop" (fun target -> (target :?> TreeDataGrid).RowDrop)
-
 [<AutoOpen>]
-module TreeDataGridBuilders =
+module MvuTreeDataGridBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a TreeDataGrid widget.</summary>
@@ -72,61 +63,40 @@ type TreeDataGridModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The AutoDragDropRows value.</param>
     [<Extension>]
-    static member inline autoDragDropRows(this: WidgetBuilder<'msg, IFabTreeDataGrid>, value: bool) =
+    static member inline autoDragDropRows(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, value: bool) =
         this.AddScalar(TreeDataGrid.AutoDragDropRows.WithValue(value))
 
     /// <summary>Sets the CanUserResizeColumns property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The CanUserResizeColumns value.</param>
     [<Extension>]
-    static member inline canUserResizeColumns(this: WidgetBuilder<'msg, IFabTreeDataGrid>, value: bool) =
+    static member inline canUserResizeColumns(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, value: bool) =
         this.AddScalar(TreeDataGrid.CanUserResizeColumns.WithValue(value))
 
     /// <summary>Sets the CanUserSortColumns property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The CanUserSortColumns value.</param>
     [<Extension>]
-    static member inline canUserSortColumns(this: WidgetBuilder<'msg, IFabTreeDataGrid>, value: bool) =
+    static member inline canUserSortColumns(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, value: bool) =
         this.AddScalar(TreeDataGrid.CanUserSortColumns.WithValue(value))
 
     /// <summary>Sets the ElementFactory property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ElementFactory value.</param>
     [<Extension>]
-    static member inline elementFactory(this: WidgetBuilder<'msg, IFabTreeDataGrid>, value: TreeDataGridElementFactory) =
+    static member inline elementFactory(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, value: TreeDataGridElementFactory) =
         this.AddScalar(TreeDataGrid.ElementFactory.WithValue(value))
 
     /// <summary>Sets the Scroll property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Scroll value.</param>
     [<Extension>]
-    static member inline scroll(this: WidgetBuilder<'msg, IFabTreeDataGrid>, value: IScrollable) =
+    static member inline scroll(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, value: IScrollable) =
         this.AddScalar(TreeDataGrid.Scroll.WithValue(value))
 
     /// <summary>Sets the ShowColumnHeaders property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ShowColumnHeaders value.</param>
     [<Extension>]
-    static member inline showColumnHeaders(this: WidgetBuilder<'msg, IFabTreeDataGrid>, value: bool) =
+    static member inline showColumnHeaders(this: WidgetBuilder<'msg, #IFabTreeDataGrid>, value: bool) =
         this.AddScalar(TreeDataGrid.ShowColumnHeaders.WithValue(value))
-
-    /// <summary>Listens to the RowDragStarted event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when a row drag is started.</param>
-    [<Extension>]
-    static member inline onRowDragStarted(this: WidgetBuilder<'msg, IFabTreeDataGrid>, fn: TreeDataGridRowDragStartedEventArgs -> 'msg) =
-        this.AddScalar(TreeDataGrid.RowDragStarted.WithValue(fn))
-
-    /// <summary>Listens to the RowDragOver event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when a row drag is over.</param>
-    [<Extension>]
-    static member inline onRowDragOver(this: WidgetBuilder<'msg, IFabTreeDataGrid>, fn: TreeDataGridRowDragEventArgs -> 'msg) =
-        this.AddScalar(TreeDataGrid.RowDragOver.WithValue(fn))
-
-    /// <summary>Listens to the RowDrop event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when a row is dropped.</param>
-    [<Extension>]
-    static member inline onRowDrop(this: WidgetBuilder<'msg, IFabTreeDataGrid>, fn: TreeDataGridRowDragEventArgs -> 'msg) =
-        this.AddScalar(TreeDataGrid.RowDrop.WithValue(fn))

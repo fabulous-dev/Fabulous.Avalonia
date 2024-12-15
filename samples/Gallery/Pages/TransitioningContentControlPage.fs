@@ -110,8 +110,8 @@ module TransitioningContentControlPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("TransitioningContentControlPage") {
+            let! model = Context.Mvu program
 
             Dock(true) {
                 TextBlock("The TransitioningContentControl control allows you to show a page transition whenever the Content changes.")

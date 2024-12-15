@@ -23,14 +23,23 @@
         <None Include="README.md" PackagePath="\" Pack="true" />
         <None Include="..\..\logo\nuget-icon.png" PackagePath="\" Pack="true" />
         <Compile Include="ColorView.fs" />
+        <Compile Include="ColorView.Mvu.fs" />
+        <Compile Include="ColorView.Components.fs" />
         <Compile Include="ColorPicker.fs" />
+        <Compile Include="ColorPicker.Mvu.fs" />
+        <Compile Include="ColorPicker.Components.fs" />
         <Compile Include="ColorSpectrum.fs" />
+        <Compile Include="ColorSpectrum.Mvu.fs" />
+        <Compile Include="ColorSpectrum.Components.fs" />
         <Compile Include="ColorSlider.fs" />
+        <Compile Include="ColorSlider.Mvu.fs" />
+        <Compile Include="ColorSlider.Components.fs" />
         <Compile Include="ColorPreviewer.fs" />
+        <Compile Include="ColorPreviewer.Mvu.fs" />
+        <Compile Include="ColorPreviewer.Components.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="11.0.10" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+        <PackageReference Include="Avalonia.Controls.ColorPicker" VersionOverride="$(AvaloniaVersion)" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />

@@ -58,13 +58,13 @@ module SimpleTreeView =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("SimpleTreeView") {
+            let! model = Context.Mvu program
 
             VStack() {
                 TreeView(
                     model.Nodes,
-                    (_.Children),
+                    _.Children,
                     (fun x ->
                         Border(TextBlock(x.Name))
                             .background(Brushes.Gray)
@@ -72,30 +72,6 @@ module SimpleTreeView =
                             .borderThickness(1.0)
                             .cornerRadius(5.0)
                             .padding(15.0, 3.0))
-                )
-                    .onSelectionChanged(SelectionItemChanged)
-            }
-        }
-
-    let treeViewItem () =
-        Component(program) {
-            let! model = Mvu.State
-
-            VStack() {
-                TreeView(
-                    model.Nodes,
-                    _.Children,
-                    (fun x ->
-                        TreeViewItem(
-                            Border(TextBlock(x.Name))
-                                .background(Brushes.Gray)
-                                .horizontalAlignment(HorizontalAlignment.Left)
-                                .borderThickness(1.0)
-                                .cornerRadius(5.0)
-                                .padding(15.0, 3.0)
-                        )
-                            .isHitTestVisible(false)
-                            .focusable(false))
                 )
                     .onSelectionChanged(SelectionItemChanged)
             }

@@ -10,56 +10,25 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
+open type Fabulous.Context
 
 module App =
-    type Model = { Count: int }
-
-    type Msg =
-        | Increment
-        | Decrement
-
-    let initModel = { Count = 0 }
-
-    let init () = initModel
-
-    let update msg model =
-        match msg with
-        | Increment -> { model with Count = model.Count + 1 }
-        | Decrement -> { model with Count = model.Count - 1 }
-
-    let program = Program.stateful init update
-
-    let component1 () =
-        Component(program) {
-            let! model = Mvu.State
-
-            (VStack() {
-                TextBlock($"%d{model.Count}").centerText()
-
-                Button("Increment", Increment).centerHorizontal()
-
-                Button("Decrement", Decrement).centerHorizontal()
-
-            })
-                .center()
-        }
-
     let firstNameView (value: StateValue<string>) =
-        Component() {
-            let! firstName = Context.Binding(value)
+        Component("firstNameView") {
+            let! firstName = Binding(value)
             TextBox(firstName.Current, firstName.Set)
         }
 
     let lastNameView (value: StateValue<string>) =
-        Component() {
-            let! lastName = Context.Binding(value)
+        Component("lastNameView") {
+            let! lastName = Binding(value)
             TextBox(lastName.Current, lastName.Set)
         }
 
-    let component2 () =
-        Component() {
-            let! firstName = Context.State("")
-            let! lastName = Context.State("")
+    let content () =
+        Component("content") {
+            let! firstName = State("")
+            let! lastName = State("")
 
             VStack() {
                 Label($"Full name is {firstName.Current} {lastName.Current}")
@@ -92,12 +61,14 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(Window(content()))
+        DesktopApplication(
+            Window(content())
+#if DEBUG
+                .attachDevTools()
+#endif
+        )
 #endif
 
-#if DEBUG
-            .attachDevTools()
-#endif
 
     let create () =
         // see https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia?tab=readme-ov-file#loaders

@@ -7,7 +7,7 @@ open Fabulous
 open Fabulous.Avalonia
 
 type IFabDataGridColumn =
-    inherit IFabAvaloniaObject
+    inherit IFabElement
 
 module DataGridColumn =
     let HeaderWidget =

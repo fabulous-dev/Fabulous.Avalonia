@@ -13,6 +13,7 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
+
 open Gallery
 
 module DialogsPage =
@@ -351,8 +352,8 @@ CanBookmark: {item.Value.CanBookmark}"
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("DialogsPage") {
+            let! model = Context.Mvu program
 
             (VStack(4.) {
                 TextBlock("Pickers:").margin(0., 20., 0., 0.)

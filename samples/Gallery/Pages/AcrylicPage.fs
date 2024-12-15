@@ -6,12 +6,27 @@ open Avalonia
 open Avalonia.Controls.Primitives
 open Avalonia.Layout
 open Avalonia.Media
+
 open Fabulous
 open Fabulous.Avalonia
-
 open type Fabulous.Avalonia.View
 
-module AcrylicPage =
+module Common =
+    let acrylicBorderStyle1 (this: WidgetBuilder<'msg, #IFabExperimentalAcrylicBorder>) =
+        this.height(100.).margin(10.).maxWidth(200.)
+
+    let acrylicBorderStyle (this: WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>) =
+        this.cornerRadius(CornerRadius(5.)).maxWidth(660.)
+
+    let textBlockStyle (this: WidgetBuilder<'msg, IFabTextBlock>) =
+        this
+            .verticalAlignment(VerticalAlignment.Center)
+            .foreground(SolidColorBrush(Colors.Black))
+
+    let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
+        this.margin(8., 0.).largeChange(0.2).smallChange(0.1)
+
+module MvuAcrylicPage =
     type Model =
         { TintOpacitySlider: float
           BorderWidth: float
@@ -55,20 +70,6 @@ module AcrylicPage =
 
         | Previous -> model, Cmd.none
 
-    let acrylicBorderStyle1 (this: WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>) =
-        this.height(100.).margin(10.).maxWidth(200.)
-
-    let acrylicBorderStyle (this: WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>) =
-        this.cornerRadius(CornerRadius(5.)).maxWidth(660.)
-
-    let textBlockStyle (this: WidgetBuilder<'msg, IFabTextBlock>) =
-        this
-            .verticalAlignment(VerticalAlignment.Center)
-            .foreground(SolidColorBrush(Colors.Black))
-
-    let sliderStyle (this: WidgetBuilder<'msg, IFabSlider>) =
-        this.margin(8., 0.).largeChange(0.2).smallChange(0.1)
-
     let program =
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
@@ -82,35 +83,35 @@ module AcrylicPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("MvuAcrylicPage") {
+            let! model = Context.Mvu program
 
             VStack(spacing = 20.) {
                 ExperimentalAcrylicBorder(
                     VStack(0.) {
                         (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
-                            TextBlock("TintOpacity").style(textBlockStyle)
+                            TextBlock("TintOpacity").style(Common.textBlockStyle)
 
                             Slider(0., 1., model.TintOpacitySlider, TintOpacitySliderValueChanged)
                                 .gridColumn(1)
-                                .style(sliderStyle)
+                                .style(Common.sliderStyle)
 
                             TextBlock($"{Math.Round(model.TintOpacitySlider, 2)}")
                                 .gridColumn(2)
-                                .style(textBlockStyle)
+                                .style(Common.textBlockStyle)
                         })
                             .margin(20., 10.)
 
                         (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
-                            TextBlock("MaterialOpacity").style(textBlockStyle)
+                            TextBlock("MaterialOpacity").style(Common.textBlockStyle)
 
                             Slider(0., 1., model.MaterialOpacitySlider, MaterialOpacitySliderValueChanged)
                                 .gridColumn(1)
-                                .style(sliderStyle)
+                                .style(Common.sliderStyle)
 
                             TextBlock($"{Math.Round(model.MaterialOpacitySlider, 2)}")
                                 .gridColumn(2)
-                                .style(textBlockStyle)
+                                .style(Common.textBlockStyle)
                         })
                             .margin(20., 10.)
                     }
@@ -120,7 +121,7 @@ module AcrylicPage =
                             .backgroundSource(AcrylicBackgroundSource.Digger)
                             .tintColor(Colors.White)
                     )
-                    .style(acrylicBorderStyle)
+                    .style(Common.acrylicBorderStyle)
 
                 (UniformGrid() {
                     ExperimentalAcrylicBorder()
@@ -131,7 +132,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
                     ExperimentalAcrylicBorder()
                         .material(
@@ -141,7 +142,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
                     ExperimentalAcrylicBorder()
                         .material(
@@ -151,7 +152,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
                     ExperimentalAcrylicBorder()
                         .material(
@@ -161,7 +162,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
 
                     ExperimentalAcrylicBorder()
@@ -172,7 +173,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
                     ExperimentalAcrylicBorder()
                         .material(
@@ -182,7 +183,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
                     ExperimentalAcrylicBorder()
                         .material(
@@ -192,7 +193,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
 
                     ExperimentalAcrylicBorder()
@@ -203,7 +204,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
 
                     ExperimentalAcrylicBorder()
                         .material(
@@ -213,7 +214,7 @@ module AcrylicPage =
                                 .tintOpacity(model.TintOpacitySlider)
                                 .materialOpacity(model.MaterialOpacitySlider)
                         )
-                        .style(acrylicBorderStyle1)
+                        .style(Common.acrylicBorderStyle1)
                 })
                     .reference(bordersGridRef)
 

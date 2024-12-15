@@ -2,7 +2,6 @@ namespace Gallery
 
 open System
 open System.Diagnostics
-open System.Threading
 open Avalonia
 open Avalonia.Controls.Notifications
 open Avalonia.Controls
@@ -13,17 +12,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Microsoft.FSharp.Control
-
-type NotificationViewModel(title, message) =
-
-    interface INotification with
-        member this.Title = title
-        member this.Message = message
-        member this.Expiration = TimeSpan.FromSeconds(5.)
-        member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
-        member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
-        member this.Type = NotificationType.Error
 
 
 module NotificationsPage =
@@ -81,6 +69,16 @@ module NotificationsPage =
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
+    let notification title message =
+        { new INotification with
+            member this.Title = title
+            member this.Message = message
+            member this.Expiration = TimeSpan.FromSeconds(5.)
+            member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
+            member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
+            member this.Type = NotificationType.Error }
+
+
     let init () =
         { NotificationManager = null
           NotificationPosition = NotificationPosition.TopRight },
@@ -93,9 +91,7 @@ module NotificationsPage =
 
         | ShowCustomManagedNotification ->
             model,
-            showNotification
-                model.NotificationManager
-                (NotificationViewModel("Hey There!", "Did you know that Avalonia now supports Custom In-Window Notifications?"))
+            showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
 
         | ShowNativeNotification ->
             model,
@@ -146,8 +142,8 @@ module NotificationsPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("NotificationsPage") {
+            let! model = Context.Mvu program
 
             (Grid() {
                 Dock() {

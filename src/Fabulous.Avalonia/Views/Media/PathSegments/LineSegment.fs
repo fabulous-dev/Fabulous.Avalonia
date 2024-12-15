@@ -23,6 +23,7 @@ module LineSegmentBuilders =
         static member LineSegment(point: Point) =
             WidgetBuilder<'msg, IFabLineSegment>(LineSegment.WidgetKey, LineSegment.Point.WithValue(point))
 
+
 type LineSegmentModifiers =
 
     /// <summary>Link a ViewRef to access the direct LineSegment control instance.</summary>

@@ -18,6 +18,7 @@ module TransitioningContentControl =
     let IsTransitionReversed =
         Attributes.defineAvaloniaPropertyWithEquality TransitioningContentControl.IsTransitionReversedProperty
 
+
 [<AutoOpen>]
 module TransitioningContentControlBuilders =
     type Fabulous.Avalonia.View with
@@ -26,7 +27,7 @@ module TransitioningContentControlBuilders =
         static member TransitioningContentControl(content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabTransitioningContentControl>(
                 TransitioningContentControl.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
+                ContentControl.ContentWidget.WithValue(content.Compile())
             )
 
 type TransitioningContentControlModifiers =

@@ -9,6 +9,9 @@ type IFabInline =
     inherit IFabTextElement
 
 module Inline =
+    let BaselineAlignment =
+        Attributes.defineAvaloniaPropertyWithEquality Inline.BaselineAlignmentProperty
+
     let TextDecorations =
         Attributes.defineAvaloniaListWidgetCollection "Inline_TextDecorations" (fun target ->
             let target = target :?> Inline
@@ -19,9 +22,6 @@ module Inline =
                 newColl
             else
                 target.TextDecorations)
-
-    let BaselineAlignment =
-        Attributes.defineAvaloniaPropertyWithEquality Inline.BaselineAlignmentProperty
 
 type InlineModifiers =
     /// <summary>Sets the BaselineAlignment property.</summary>

@@ -63,8 +63,8 @@ module CursorPage =
         )
 
     let view () =
-        Component(program) {
-            let! model = Mvu.State
+        Component("CursorPage") {
+            let! model = Context.Mvu program
 
             Grid(coldefs = [ Star; Star ], rowdefs = [ Auto; Star ]) {
                 (VStack(4) {

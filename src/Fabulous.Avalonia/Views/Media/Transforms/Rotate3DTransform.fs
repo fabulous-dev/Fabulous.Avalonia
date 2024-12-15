@@ -44,7 +44,6 @@ module Rotate3DTransform =
     let Depth =
         Attributes.defineAvaloniaPropertyWithEquality Rotate3DTransform.DepthProperty
 
-
 [<AutoOpen>]
 module Rotate3DTransformBuilders =
     type Fabulous.Avalonia.View with

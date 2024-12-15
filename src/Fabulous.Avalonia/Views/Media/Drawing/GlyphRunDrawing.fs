@@ -2,7 +2,6 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -34,6 +33,7 @@ module GlyphRunDrawingBuilders =
                 AttributesBundle(
                     StackList.one(GlyphRunDrawing.GlyphRun.WithValue(glyphRun)),
                     ValueSome [| GlyphRunDrawing.ForegroundWidget.WithValue(brush.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -59,6 +59,7 @@ module GlyphRunDrawingBuilders =
         /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
             View.GlyphRunDrawing(View.SolidColorBrush(brush), glyphRun)
+
 
 type GlyphRunDrawingModifiers =
 
