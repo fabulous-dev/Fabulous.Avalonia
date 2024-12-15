@@ -18,13 +18,13 @@ module EmptyWrapPanelBuilders =
         /// rendering child elements from left to right while they fit the width and starting a new line when there is no space left
         /// (including any margins and borders). See <seealso href="https://docs.avaloniaui.net/docs/reference/controls/detailed-reference/wrappanel" />.</summary>
         static member EmptyVWrap() =
-            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Vertical))
+            WidgetBuilder<'msg, IFabPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Vertical))
 
         /// <summary>Creates a <see cref="WrapPanel" /> with <see cref="WrapPanel.Orientation" /> set to <see cref="Orientation.Horizontal" />
         /// rendering child elements from top to bottom while they fit the height and starting a new column when there is no space left
         /// (including any margins and borders). See <seealso href="https://docs.avaloniaui.net/docs/reference/controls/detailed-reference/wrappanel" />.</summary>
         static member EmptyHWrap() =
-            WidgetBuilder<'msg, IFabVirtualizingStackPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
+            WidgetBuilder<'msg, IFabPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
 
 open type Fabulous.Avalonia.View
 
@@ -69,7 +69,7 @@ module ColorsByChannel =
         | _ -> failwith "unknown sort option"
 
     let private getStaticProperties<'T> () =
-        (typeof<'T>)
+        typeof<'T>
             .GetProperties(BindingFlags.Public ||| BindingFlags.Static)
 
     let private loadColors () =
@@ -153,10 +153,10 @@ module ColorsByChannel =
                         ItemsControl(
                             model.AllColors |> Option.defaultValue [],
                             fun c ->
-                                (Border(
+                                Border(
                                     Border(TextBlock(c.Name))
                                         .background(ThemeAware.With(Colors.White, Colors.Black))
-                                ))
+                                )
                                     .padding(50, 20, 0, 0)
                                     .background(c.Color)
                         )
