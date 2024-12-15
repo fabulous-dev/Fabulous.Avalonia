@@ -26,7 +26,6 @@
         <CodesignKey>iPhone Developer</CodesignKey>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="AsyncImage.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>
     <ItemGroup>

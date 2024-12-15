@@ -114,6 +114,7 @@ module MainWindow =
             TabItem("AcrylicPage", MvuAcrylicPage.view())
             TabItem("AdornerLayerPage", AdornerLayerPage.view())
             TabItem("AutoCompleteBoxPage", AutoCompleteBoxPage.view())
+            TabItem("AsyncImagePage", AsyncImagePage.view())
             TabItem("ButtonsPage", ButtonsPage.view())
             TabItem("ButtonSpinnerPage", ButtonSpinnerPage.view())
             TabItem("BorderPage", BorderPage.view())
