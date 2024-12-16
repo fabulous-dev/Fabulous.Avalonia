@@ -27,9 +27,11 @@
         <Compile Include="Controls\AsyncImage.fs" />
         <Compile Include="Controls\AsyncImage.Mvu.fs" />
         <Compile Include="Controls\AsyncImage.Component.fs" />
+        <Compile Include="Controls\Lottie.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia.Labs.Controls" VersionOverride="11.2.0"/>
+        <PackageReference Include="Avalonia.Labs.Lottie" VersionOverride="11.2.0"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />

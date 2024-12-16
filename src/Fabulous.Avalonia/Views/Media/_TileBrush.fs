@@ -60,6 +60,13 @@ type TileBrushModifiers =
 
     /// <summary>Sets the DestinationRect property.</summary>
     /// <param name="this">Current widget.</param>
+    /// <param name="rect">The Rect value.</param>
+    [<Extension>]
+    static member inline destinationRect(this: WidgetBuilder<'msg, #IFabTileBrush>, rect: Rect) =
+        this.AddScalar(TileBrush.DestinationRect.WithValue(RelativeRect(rect, RelativeUnit.Relative)))
+
+    /// <summary>Sets the DestinationRect property.</summary>
+    /// <param name="this">Current widget.</param>
     /// <param name="point">The Point value.</param>
     /// <param name="size">The Size value.</param>
     /// <param name="unit">The RelativeUnit value.</param>

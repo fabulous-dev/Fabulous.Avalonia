@@ -84,6 +84,7 @@
     <Compile Include="Pages\LabelPage.fs" />
     <Compile Include="Pages\LayoutTransformControlPage.fs" />
     <Compile Include="Pages\ListBoxPage.fs" />
+    <Compile Include="Pages\LottiePage.fs" />
     <Compile Include="Pages\MaskedTextBoxPage.fs" />
     <Compile Include="Pages\MenuPage.fs" />
     <Compile Include="Pages\MenuFlyoutPage.fs" />
