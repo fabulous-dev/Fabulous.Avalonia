@@ -59,7 +59,6 @@ module AsyncImageBuilders =
         static member AsyncImage(source: string) =
             WidgetBuilder<'msg, IFabAsyncImage>(AsyncImage.WidgetKey, AsyncImage.Source.WithValue(Uri(source)))
 
-
 type AsyncImageModifiers =
     /// <summary>Sets the PlaceholderSource property.</summary>
     /// <param name="this">Current widget.</param>
