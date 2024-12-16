@@ -20,8 +20,14 @@ module AsyncImagePage =
         | Opened of RoutedEventArgs
         | Failed of AsyncImage.AsyncImageFailedEventArgs
 
+    let private configureCaching () =
+        let cache = Avalonia.Labs.Controls.Cache.CacheOptions()
+        // will be used as the base cache folder. images caches are stored in the nested folder "ImageCache"
+        cache.BaseCachePath <- System.IO.Path.Combine(Environment.CurrentDirectory, "cache")
+        Avalonia.Labs.Controls.Cache.CacheOptions.SetDefault(cache)
+
     let init () =
-        { IsOpen = false; Error = None }, Cmd.none
+        { IsOpen = false; Error = None }, Cmd.ofEffect(fun _ -> configureCaching())
 
     let update msg model =
         match msg with
@@ -34,15 +40,7 @@ module AsyncImagePage =
                 Error = Some error },
             Cmd.none
 
-    let private configureCaching () =
-        let cache = Avalonia.Labs.Controls.Cache.CacheOptions()
-        // will be used as the base cache folder. images caches are stored in the nested folder "ImageCache"
-        cache.BaseCachePath <- System.IO.Path.Combine(Environment.CurrentDirectory, "cache")
-        Avalonia.Labs.Controls.Cache.CacheOptions.SetDefault(cache)
-
     let program =
-        configureCaching() // TODO Where to best call this from? here or init?
-
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
