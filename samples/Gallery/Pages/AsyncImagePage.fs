@@ -2,7 +2,7 @@ namespace Gallery
 
 open System
 open System.Diagnostics
-open Avalonia
+open Avalonia.Animation
 open Avalonia.Interactivity
 open Avalonia.Labs.Controls
 open Avalonia.Layout
@@ -68,6 +68,7 @@ module AsyncImagePage =
 
                     AsyncImage("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                     |> _.placeholderSource("avares://Gallery/Assets/Icons/fsharp-icon.png")
+                    |> _.imageTransition(Rotate3DTransition(TimeSpan.FromSeconds(2.), PageSlide.SlideAxis.Horizontal))
                     |> _.onOpened(Opened)
                     |> _.onFailed(Failed)
                     |> _.width(80.0)
@@ -82,6 +83,7 @@ module AsyncImagePage =
 
                     AsyncImage("https://cdn.cms-twdigitalassets.com/content/dam/about-twitter/en/brand-toolkit/brand-download-img-1.jpg.twimg.2560.jpg")
                     |> _.placeholderSource("avares://Gallery/Assets/Icons/fsharp-icon.png")
+                    |> _.isCacheEnabled(true)
                     |> _.width(80.0)
                     |> _.height(80.0)
                     |> _.margin(5.0)

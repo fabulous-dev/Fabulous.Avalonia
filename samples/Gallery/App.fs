@@ -43,6 +43,7 @@ module App =
         | LabelPage
         | LayoutTransformControlPage
         | ListBoxPage
+        | LottiePage
         | MenuFlyoutPage
         | MaskedTextBoxPage
         | MenuPage
@@ -142,6 +143,7 @@ module App =
         | "Label" -> ValueSome LabelPage
         | "LayoutTransformControl" -> ValueSome LayoutTransformControlPage
         | "ListBox" -> ValueSome ListBoxPage
+        | "Lottie" -> ValueSome LottiePage
         | "MenuFlyout" -> ValueSome MenuFlyoutPage
         | "MaskedTextBox" -> ValueSome MaskedTextBoxPage
         | "Menu" -> ValueSome MenuPage
@@ -241,6 +243,7 @@ module App =
         | ItemsControlPage -> ValueSome(AnyView(ItemsControlPage.view()))
         | LabelPage -> ValueSome(AnyView(LabelPage.view()))
         | ListBoxPage -> ValueSome(AnyView(ListBoxPage.view()))
+        | LottiePage -> ValueSome(AnyView(LottiePage.view()))
         | LayoutTransformControlPage -> ValueSome(AnyView(LayoutTransformControlPage.view()))
         | MenuFlyoutPage -> ValueSome(AnyView(MenuFlyoutPage.view()))
         | MaskedTextBoxPage -> ValueSome(AnyView(MaskedTextBoxPage.view()))
