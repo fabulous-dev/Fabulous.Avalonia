@@ -34,7 +34,15 @@ module AsyncImagePage =
                 Error = Some error },
             Cmd.none
 
+    let private configureCaching () =
+        let cache = Avalonia.Labs.Controls.Cache.CacheOptions()
+        // will be used as the base cache folder. images caches are stored in the nested folder "ImageCache"
+        cache.BaseCachePath <- System.IO.Path.Combine(Environment.CurrentDirectory, "cache")
+        Avalonia.Labs.Controls.Cache.CacheOptions.SetDefault(cache)
+
     let program =
+        configureCaching() // TODO Where to best call this from? here or init?
+
         Program.statefulWithCmd init update
         |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
         |> Program.withExceptionHandler(fun ex ->
@@ -76,6 +84,7 @@ module AsyncImagePage =
 
                     AsyncImage("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWCZER")
                     |> _.placeholderSource("avares://Gallery/Assets/Icons/fsharp-icon.png")
+                    |> _.isCacheEnabled(true)
                     |> _.width(80.0)
                     |> _.height(80.0)
                     |> _.margin(5.0)
