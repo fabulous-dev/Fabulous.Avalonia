@@ -33,7 +33,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AsyncImageLoader.Avalonia" />
         <PackageReference Include="Avalonia.Themes.Fluent" />
         <PackageReference Include="FSharp.Core" />
         <PackageReference Include="Fabulous" />

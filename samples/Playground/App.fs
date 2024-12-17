@@ -1,8 +1,8 @@
 namespace Playground
 
-open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
+open Avalonia.Themes.Fluent
 
 open type Fabulous.Avalonia.View
 open type Fabulous.Context
@@ -43,5 +43,7 @@ module App =
 #endif
         )
 #endif
+
+
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)
