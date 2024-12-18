@@ -3,6 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Avalonia.Labs.Controls" Version="11.2.0" />
     <PackageVersion Include="Avalonia.Headless" Version="11.2.2" />
     <PackageVersion Include="Avalonia.Headless.XUnit" Version="11.2.2" />
     <PackageVersion Include="Fabulous" Version="$(FabulousVersion)" />

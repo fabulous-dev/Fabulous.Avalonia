@@ -10,6 +10,7 @@ module App =
         | AcrylicPage
         | AdornerLayerPage
         | AutoCompleteBoxPage
+        | AsyncImagePage
         | ButtonsPage
         | ButtonSpinnerPage
         | BorderPage
@@ -108,6 +109,7 @@ module App =
         | "Acrylic" -> ValueSome AcrylicPage
         | "AdornerLayer" -> ValueSome AdornerLayerPage
         | "AutoCompleteBox" -> ValueSome AutoCompleteBoxPage
+        | "AsyncImage" -> ValueSome AsyncImagePage
         | "Buttons" -> ValueSome ButtonsPage
         | "ButtonSpinner" -> ValueSome ButtonSpinnerPage
         | "Border" -> ValueSome BorderPage
@@ -207,6 +209,7 @@ module App =
         | AcrylicPage -> ValueSome(View.AnyView(MvuAcrylicPage.view()))
         | AdornerLayerPage -> ValueSome(AnyView(AdornerLayerPage.view()))
         | AutoCompleteBoxPage -> ValueSome(AnyView(AutoCompleteBoxPage.view()))
+        | AsyncImagePage -> ValueSome(AnyView(AsyncImagePage.view()))
         | ButtonsPage -> ValueSome(AnyView(ButtonsPage.view()))
         | ButtonSpinnerPage -> ValueSome(AnyView(ButtonSpinnerPage.view()))
         | BorderPage -> ValueSome(AnyView(BorderPage.view()))
