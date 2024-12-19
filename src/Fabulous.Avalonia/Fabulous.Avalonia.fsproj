@@ -52,6 +52,8 @@
     <Compile Include="Views\_Layoutable.Mvu.fs" />
     <Compile Include="Views\_Interactive.fs" />
     <Compile Include="Views\_GestureRecognizer.fs" />
+    <Compile Include="Views\_GestureRecognizer.Mvu.fs" />
+    <Compile Include="Views\_GestureRecognizer.Component.fs" />
     <Compile Include="Views\_InputElement.fs" />
     <Compile Include="Views\_InputElement.Components.fs" />
     <Compile Include="Views\_InputElement.Mvu.fs" />
@@ -348,6 +350,15 @@
     <Compile Include="Views\Panels\DockPanel.fs" />
     <Compile Include="Views\Panels\WrapPanel.fs" />
     <Compile Include="Views\Panels\UniformGrid.fs" />
+    <Compile Include="Views\GestureRecognizers\PullGestureRecognizer.fs" />
+    <Compile Include="Views\GestureRecognizers\PullGestureRecognizer.Mvu.fs" />
+    <Compile Include="Views\GestureRecognizers\PullGestureRecognizer.Component.fs" />
+    <Compile Include="Views\GestureRecognizers\PinchGestureRecognizer.fs" />
+    <Compile Include="Views\GestureRecognizers\PinchGestureRecognizer.Mvu.fs" />
+    <Compile Include="Views\GestureRecognizers\PinchGestureRecognizer.Component.fs" />
+    <Compile Include="Views\GestureRecognizers\ScrollGestureRecognizer.fs" />
+    <Compile Include="Views\GestureRecognizers\ScrollGestureRecognizer.Mvu.fs" />
+    <Compile Include="Views\GestureRecognizers\ScrollGestureRecognizer.Component.fs" />
     <Compile Include="Views\Application.fs" />
     <Compile Include="Views\Application.Mvu.fs" />
     <Compile Include="Views\Application.Components.fs" />

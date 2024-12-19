@@ -4,6 +4,7 @@ open System
 open System.IO
 open Avalonia
 open Avalonia.Controls
+open Avalonia.Input.GestureRecognizers
 open Avalonia.Interactivity
 open Avalonia.Media.Imaging
 open Fabulous
@@ -269,6 +270,71 @@ module Attributes =
 
         let updateNode _ (newValueOpt: ArraySlice<Widget> voption) (node: IViewNode) =
             let targetColl = getCollection node.Target
+            targetColl.Clear()
+
+            match newValueOpt with
+            | ValueNone -> ()
+            | ValueSome widgets ->
+                for widget in ArraySlice.toSpan widgets do
+                    let struct (_, view) = Helpers.createViewForWidget node widget
+
+                    targetColl.Add(unbox view)
+
+        Attributes.defineWidgetCollection name applyDiff updateNode
+        
+    let defineAvaloniaGestureRecognizerCollection<'itemType> name (getCollection: obj -> GestureRecognizerCollection) =
+        let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
+            let targetColl = getCollection node.Target
+            let targetColl = List<GestureRecognizer>(targetColl)
+
+            for diff in diffs do
+                match diff with
+                | WidgetCollectionItemChange.Remove(index, widget) ->
+                    let itemNode = node.TreeContext.GetViewNode(box targetColl[index])
+
+                    // Trigger the unmounted event
+                    Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Unmounted
+
+                    // Remove the child from the UI tree
+                    targetColl.RemoveAt(index)
+
+                | _ -> ()
+
+            for diff in diffs do
+                match diff with
+                | WidgetCollectionItemChange.Insert(index, widget) ->
+                    let struct (itemNode, view) = Helpers.createViewForWidget node widget
+
+                    // Insert the new child into the UI tree
+                    targetColl.Insert(index, unbox view)
+
+                    // Trigger the mounted event
+                    Dispatcher.dispatchEventForAllChildren itemNode widget Lifecycle.Mounted
+
+                | WidgetCollectionItemChange.Update(index, widgetDiff) ->
+                    let childNode = node.TreeContext.GetViewNode(box targetColl[index])
+
+                    childNode.ApplyDiff(&widgetDiff)
+
+                | WidgetCollectionItemChange.Replace(index, oldWidget, newWidget) ->
+                    let prevItemNode = node.TreeContext.GetViewNode(box targetColl[index])
+
+                    let struct (nextItemNode, view) = Helpers.createViewForWidget node newWidget
+
+                    // Trigger the unmounted event for the old child
+                    Dispatcher.dispatchEventForAllChildren prevItemNode oldWidget Lifecycle.Unmounted
+
+                    // Replace the existing child in the UI tree at the index with the new one
+                    targetColl[index] <- unbox view
+
+                    // Trigger the mounted event for the new child
+                    Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
+
+                | _ -> ()
+
+        let updateNode _ (newValueOpt: ArraySlice<Widget> voption) (node: IViewNode) =
+            let targetColl = getCollection node.Target
+            let targetColl = System.Collections.Generic.List<GestureRecognizer>(targetColl)
             targetColl.Clear()
 
             match newValueOpt with
