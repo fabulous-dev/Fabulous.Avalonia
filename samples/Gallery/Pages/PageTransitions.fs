@@ -1,6 +1,7 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Animation
 open Avalonia.Animation.Easings
 open Avalonia.Controls
@@ -10,7 +11,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module PageTransitionsPage =
     type DataType =
@@ -28,12 +28,6 @@ module PageTransitionsPage =
         | Previous
         | TransitionChanged of SelectionChangedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Transition = PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
           SampleData =
@@ -47,7 +41,7 @@ module PageTransitionsPage =
                 Desc = "GitHub is a web-based hosting service for version control using Git."
                 Image = "github-icon" } ]
           Transitions = [ "Slide"; "CrossFade"; "3D Rotation"; "Composite" ] },
-        []
+        Cmd.none
 
     let carouselController = CarouselController()
 
@@ -55,10 +49,10 @@ module PageTransitionsPage =
         match msg with
         | Next ->
             carouselController.DoNext()
-            model, []
+            model, Cmd.none
         | Previous ->
             carouselController.DoPrevious()
-            model, []
+            model, Cmd.none
 
         | TransitionChanged selection ->
             let control = selection.Source :?> ComboBox
@@ -82,71 +76,87 @@ module PageTransitionsPage =
 
                 | _ -> PageSlide(TimeSpan.FromSeconds(1.), PageSlide.SlideAxis.Horizontal)
 
-            { model with Transition = transition }, []
+            { model with Transition = transition }, Cmd.none
 
-    let view model =
-        VStack(16.) {
-            (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
-                Button(
-                    Previous,
-                    Path("M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z")
-                        .fill(SolidColorBrush(Colors.Black))
-                )
-                    .gridColumn(0)
-                    .verticalAlignment(VerticalAlignment.Center)
-                    .padding(10., 20.)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component("PageTransitionsPage") {
+            let! model = Context.Mvu program
+
+            VStack(16.) {
+                (Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Auto ]) {
+                    Button(
+                        Previous,
+                        Path("M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z")
+                            .fill(SolidColorBrush(Colors.Black))
+                    )
+                        .gridColumn(0)
+                        .verticalAlignment(VerticalAlignment.Center)
+                        .padding(10., 20.)
+                        .margin(4.)
+
+                    Carousel(
+                        model.SampleData,
+                        (fun x ->
+                            VStack() {
+                                TextBlock(x.Name)
+                                    .fontSize(20.)
+                                    .textWrapping(TextWrapping.Wrap)
+                                    .textAlignment(TextAlignment.Center)
+                                    .horizontalAlignment(HorizontalAlignment.Center)
+
+                                TextBlock(x.Desc)
+                                    .fontSize(14.)
+                                    .textWrapping(TextWrapping.Wrap)
+                                    .textAlignment(TextAlignment.Center)
+                                    .horizontalAlignment(HorizontalAlignment.Center)
+
+                                Image($"avares://Gallery/Assets/Icons/{x.Image}.png")
+
+                            })
+                    )
+                        .pageTransition(model.Transition)
+                        .margin(16)
+                        .gridColumn(1)
+                        .controller(carouselController)
+                        .centerHorizontal()
+                        .centerVertical()
+
+                    Button(
+                        Next,
+                        Path("M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z")
+                            .fill(SolidColorBrush(Colors.Black))
+                    )
+                        .gridColumn(2)
+                        .verticalAlignment(VerticalAlignment.Center)
+                        .padding(10., 20.)
+                        .margin(4.)
+
+                })
+                    .maxWidth(500.)
+                    .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                (HStack(16.) {
+                    TextBlock("Transition")
+                        .verticalAlignment(VerticalAlignment.Center)
+
+                    ComboBox(model.Transitions)
+                        .selectedIndex(0)
+                        .onSelectionChanged(TransitionChanged)
+                        .verticalAlignment(VerticalAlignment.Center)
+                })
                     .margin(4.)
-
-                Carousel(
-                    model.SampleData,
-                    (fun x ->
-                        VStack() {
-                            TextBlock(x.Name)
-                                .fontSize(20.)
-                                .textWrapping(TextWrapping.Wrap)
-                                .textAlignment(TextAlignment.Center)
-                                .horizontalAlignment(HorizontalAlignment.Center)
-
-                            TextBlock(x.Desc)
-                                .fontSize(14.)
-                                .textWrapping(TextWrapping.Wrap)
-                                .textAlignment(TextAlignment.Center)
-                                .horizontalAlignment(HorizontalAlignment.Center)
-
-                            Image(ImageSource.fromString($"avares://Gallery/Assets/Icons/{x.Image}.png"))
-
-                        })
-                )
-                    .transition(model.Transition)
-                    .margin(16)
-                    .gridColumn(1)
-                    .controller(carouselController)
                     .centerHorizontal()
-                    .centerVertical()
-
-                Button(
-                    Next,
-                    Path("M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z")
-                        .fill(SolidColorBrush(Colors.Black))
-                )
-                    .gridColumn(2)
-                    .verticalAlignment(VerticalAlignment.Center)
-                    .padding(10., 20.)
-                    .margin(4.)
-
-            })
-                .maxWidth(500.)
-                .horizontalAlignment(HorizontalAlignment.Stretch)
-
-            (HStack(16.) {
-                TextBlock("Transition")
-                    .verticalAlignment(VerticalAlignment.Center)
-
-                ComboBox(model.Transitions, (fun x -> TextBlock(x)))
-                    .selectedIndex(0)
-                    .onSelectionChanged(TransitionChanged)
-                    .verticalAlignment(VerticalAlignment.Center)
-            })
-                .margin(4.)
-                .centerHorizontal()
+            }
         }

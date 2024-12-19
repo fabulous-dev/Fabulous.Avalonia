@@ -1,5 +1,6 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
@@ -8,133 +9,114 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ThemeAwarePage =
     type Model =
-        { CurrentTheme: ThemeVariant
-          ScopeTheme: ThemeVariant
+        { ScopeTheme: ThemeVariant
           Items: ThemeVariant list
           Text: string
           Text2: string }
 
     type Msg =
-        | SetTheme of ThemeVariant
-        | OnSelectionChanged of SelectionChangedEventArgs
+        | OnScopeThemeSelectionChanged of SelectionChangedEventArgs
         | TextChanged of string
         | Text2Changed of string
         | DoNothing
-        | ThemeVariantChanged of ThemeVariant
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
 
     let init () =
-        { CurrentTheme = Avalonia.Application.Current.ActualThemeVariant
-          ScopeTheme = ThemeVariant.Default
-          Items =
-            [ ThemeVariant.Default
-              ThemeVariant.Dark
-              ThemeVariant.Light
-              ThemeVariant("Pink", ThemeVariant.Light) ]
+
+        { ScopeTheme = ThemeVariant.Default
+          Items = [ ThemeVariant.Default; ThemeVariant.Dark; ThemeVariant.Light ]
           Text = ""
           Text2 = "" },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | SetTheme variant ->
-            Avalonia.Application.Current.RequestedThemeVariant <- variant
-            { model with CurrentTheme = variant }, []
-
-        | OnSelectionChanged args ->
+        | OnScopeThemeSelectionChanged args ->
             let control = args.Source :?> ComboBox
             let index = control.SelectedIndex
-            let variant = model.Items.[index]
+            let variant = model.Items[index]
 
-            { model with ScopeTheme = variant }, []
+            { model with ScopeTheme = variant }, Cmd.none
 
-        | TextChanged text -> { model with Text = text }, []
+        | TextChanged text -> { model with Text = text }, Cmd.none
 
-        | Text2Changed text -> { model with Text2 = text }, []
+        | Text2Changed text -> { model with Text2 = text }, Cmd.none
 
-        | DoNothing -> model, []
+        | DoNothing -> model, Cmd.none
 
-        | ThemeVariantChanged themeVariant -> { model with ScopeTheme = themeVariant }, []
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock($"Current theme is: {model.CurrentTheme.ToString()}")
-            TextBlock($"Actual theme is: {Avalonia.Application.Current.ActualThemeVariant.ToString()}")
-            TextBlock($"ScopedTheme is: {model.ScopeTheme.ToString()}")
+    let view () =
+        Component("ThemeAwarePage") {
+            let! model = Context.Mvu program
+            let! theme = Context.Environment(EnvironmentKeys.Theme)
 
-            HStack() {
-                Button("Set default theme", SetTheme ThemeVariant.Default)
-                Button("Set light theme", SetTheme ThemeVariant.Light)
-                Button("Set dark theme", SetTheme ThemeVariant.Dark)
-            }
+            VStack(spacing = 15.) {
+                TextBlock($"Actual theme variant is: {theme.ToString()}")
+                TextBlock($"ScopedTheme is: {model.ScopeTheme.ToString()}")
 
-            TextBlock("I'm a text that is theme aware")
-                .foreground(SolidColorBrush(ThemeAware.With(Colors.Red, Colors.Green)))
+                TextBlock("I'm a text that is theme aware.")
+                    .foreground(SolidColorBrush(ThemeAware.With(Colors.Red, Colors.Green)))
 
-            ThemeVariantScope(
-                model.ScopeTheme,
-                Border(
-                    Grid(coldefs = [ Pixel(150.); Pixel(150.) ], rowdefs = [ Auto; Pixel(4.); Auto; Pixel(4.); Auto; Pixel(4.); Auto ]) {
-                        ComboBox(
-                            model.Items,
-                            fun item ->
-                                TextBlock(item.ToString())
-                                    .foreground(
-                                        SolidColorBrush(
-                                            if model.ScopeTheme = ThemeVariant.Light then
-                                                Colors.Red
-                                            else
-                                                Colors.Green
-                                        )
-                                    )
-                        )
-                            .gridColumn(0)
-                            .gridRow(0)
-                            .horizontalAlignment(HorizontalAlignment.Stretch)
-                            .selectedIndex(0)
-                            .onSelectionChanged(OnSelectionChanged)
+                ThemeVariantScope(ThemeVariant.Light, TextBlock("Im a text only visible in light mode"))
 
-                        TextBlock("Username:")
-                            .gridColumn(0)
-                            .gridRow(2)
-                            .verticalAlignment(VerticalAlignment.Center)
+                ThemeVariantScope(ThemeVariant.Dark, TextBlock("Im a text only visible in dark mode"))
 
-                        TextBlock("Password:")
-                            .gridColumn(0)
-                            .gridRow(4)
-                            .verticalAlignment(VerticalAlignment.Center)
+                ThemeVariantScope(
+                    model.ScopeTheme,
+                    Border(
+                        Grid(coldefs = [ Pixel(150.); Pixel(150.) ], rowdefs = [ Auto; Pixel(4.); Auto; Pixel(4.); Auto; Pixel(4.); Auto ]) {
+                            ComboBox(model.Items)
+                                .gridColumn(0)
+                                .gridRow(0)
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                                .selectedIndex(0)
+                                .onSelectionChanged(OnScopeThemeSelectionChanged)
 
-                        TextBox(model.Text, TextChanged)
-                            .watermark("Input here")
-                            .gridColumn(1)
-                            .gridRow(2)
-                            .horizontalAlignment(HorizontalAlignment.Stretch)
+                            TextBlock("Username:")
+                                .gridColumn(0)
+                                .gridRow(2)
+                                .verticalAlignment(VerticalAlignment.Center)
 
-                        TextBox(model.Text2, Text2Changed)
-                            .watermark("Input here")
-                            .gridColumn(1)
-                            .gridRow(4)
-                            .horizontalAlignment(HorizontalAlignment.Stretch)
+                            TextBlock("Password:")
+                                .gridColumn(0)
+                                .gridRow(4)
+                                .verticalAlignment(VerticalAlignment.Center)
 
-                        Button("Login", DoNothing)
-                            .gridColumn(1)
-                            .gridRow(6)
-                            .horizontalAlignment(HorizontalAlignment.Stretch)
-                    }
+                            TextBox(model.Text, TextChanged)
+                                .watermark("Input here")
+                                .gridColumn(1)
+                                .gridRow(2)
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                            TextBox(model.Text2, Text2Changed)
+                                .watermark("Input here")
+                                .gridColumn(1)
+                                .gridRow(4)
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                            Button("Login", DoNothing)
+                                .gridColumn(1)
+                                .gridRow(6)
+                                .horizontalAlignment(HorizontalAlignment.Stretch)
+                        }
+                    )
+                        .verticalAlignment(VerticalAlignment.Top)
+                        .horizontalAlignment(HorizontalAlignment.Left)
+                        .padding(4.)
+                        .cornerRadius(4.)
                 )
-                    .verticalAlignment(VerticalAlignment.Top)
-                    .horizontalAlignment(HorizontalAlignment.Left)
-                    .padding(4.)
-                    .cornerRadius(4.)
-                    .background(SolidColorBrush(Colors.Black))
-            )
+            }
         }

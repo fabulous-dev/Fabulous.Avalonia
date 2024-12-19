@@ -1,30 +1,24 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Controls
-open Fabulous.Avalonia
 open Fabulous
 
+open Fabulous.Avalonia
 open type Fabulous.Avalonia.View
-open Gallery
+
 
 module ButtonSpinnerPage =
     type Model = { Count: int }
 
     type Msg = Increment of SpinEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Count = 0 }, []
+    let init () = { Count = 0 }, Cmd.none
 
     let update msg model =
         match msg with
         | Increment args ->
-
             let spinner = args.Source :?> ButtonSpinner
             let currentSpinValue = spinner.Content :?> string
 
@@ -41,11 +35,25 @@ module ButtonSpinnerPage =
 
             spinner.Content <- currentValue.ToString()
 
-            { model with Count = model.Count + 1 }, []
+            { Count = model.Count + 1 }, Cmd.none
 
-    let view _ =
-        VStack(spacing = 15.) {
-            TextBlock("Button spinner")
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ButtonSpinner("1", Increment)
+    let view () =
+        Component("ButtonSpinnerPage") {
+            VStack(spacing = 15.) {
+                TextBlock("Button spinner")
+
+                ButtonSpinner("1", Increment)
+            }
         }

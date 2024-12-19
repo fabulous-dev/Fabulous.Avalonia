@@ -5,7 +5,6 @@ open Avalonia
 open Avalonia.Controls
 open Avalonia.Controls.Documents
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
@@ -68,6 +67,9 @@ module TextBlock =
     let TextTrimming =
         Attributes.defineAvaloniaPropertyWithEquality TextBlock.TextTrimmingProperty
 
+    let LineSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality TextBlock.LineSpacingProperty
+
     let TextDecorations =
         Attributes.defineAvaloniaListWidgetCollection "TextBlock_TextDecorations" (fun target ->
             let target = target :?> TextBlock
@@ -91,19 +93,18 @@ module TextBlock =
                 target.Inlines)
 
 [<AutoOpen>]
-module TextBlockBuilders =
+module ComponentTextBlockBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a TextBlock widget.</summary>
         /// <param name="text">The text to display.</param>
-        static member inline TextBlock<'msg>(text: string) =
+        static member inline TextBlock(text: string) =
             WidgetBuilder<'msg, IFabTextBlock>(TextBlock.WidgetKey, TextBlock.Text.WithValue(text))
 
         /// <summary>Creates a TextBlock widget.</summary>
-        static member inline TextBlock<'msg, 'childMarker when 'childMarker :> IFabInline>() =
-            CollectionBuilder<'msg, IFabTextBlock, 'childMarker>(TextBlock.WidgetKey, TextBlock.Inlines)
+        static member inline TextBlock() =
+            CollectionBuilder<'msg, IFabTextBlock, IFabInline>(TextBlock.WidgetKey, TextBlock.Inlines)
 
-[<Extension>]
 type TextBlockModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -123,8 +124,15 @@ type TextBlockModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
-        this.AddScalar(TextBlock.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        TextBlockModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Padding property.</summary>
     /// <param name="this">Current widget.</param>
@@ -186,8 +194,15 @@ type TextBlockModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Foreground value.</param>
     [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: Color) =
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Foreground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Foreground value.</param>
+    [<Extension>]
     static member inline foreground(this: WidgetBuilder<'msg, #IFabTextBlock>, value: string) =
-        this.AddScalar(TextBlock.Foreground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        TextBlockModifiers.foreground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BaseLineOffset property.</summary>
     /// <param name="this">Current widget.</param>
@@ -238,6 +253,13 @@ type TextBlockModifiers =
     static member inline textTrimming(this: WidgetBuilder<'msg, #IFabTextBlock>, value: TextTrimming) =
         this.AddScalar(TextBlock.TextTrimming.WithValue(value))
 
+    /// <summary>Sets the LineSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The LineSpacing value.</param>
+    [<Extension>]
+    static member inline lineSpacing(this: WidgetBuilder<'msg, #IFabTextBlock>, value: float) =
+        this.AddScalar(TextBlock.LineSpacing.WithValue(value))
+
     /// <summary>Link a ViewRef to access the direct TextBlock control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
@@ -246,7 +268,6 @@ type TextBlockModifiers =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
 
-[<Extension>]
 type TextBlockExtraModifiers =
     /// <summary>Sets the TextAlignment property to center.</summary>
     /// <param name="this">Current widget.</param>
@@ -279,47 +300,37 @@ type TextBlockExtraModifiers =
     static member inline padding(this: WidgetBuilder<'msg, #IFabTextBlock>, horizontal: float, vertical) =
         TextBlockModifiers.padding(this, Thickness(horizontal, vertical))
 
-[<Extension>]
 type TextBlockCollectionBuilderExtensions =
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTextDecoration>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabTextDecoration>
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabTextDecoration>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabTextDecoration>
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabInline>
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabInline>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabInline>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabInline>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabInline>
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabInline>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
-[<Extension>]
 type InlineCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabInline>(this: WidgetBuilder<'msg, 'marker>) =
+    static member inline textDecorations<'msg, 'marker when 'msg: equality and 'marker :> IFabInline>(this: WidgetBuilder<'msg, 'marker>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>
@@ -329,12 +340,11 @@ type InlineCollectionModifiers =
     static member inline textDecoration(this: WidgetBuilder<'msg, #IFabInline>, value: WidgetBuilder<'msg, IFabTextDecoration>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, Inline.TextDecorations) { value }
 
-[<Extension>]
 type TextBlockCollectionModifiers =
     /// <summary>Sets the TextDecorations property.</summary>
     /// <param name="this">Current widget.</param>
     [<Extension>]
-    static member inline textDecorations<'msg, 'marker when 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
+    static member inline textDecorations<'msg, 'marker when 'msg: equality and 'marker :> IFabTextBlock>(this: WidgetBuilder<'msg, 'marker>) =
         AttributeCollectionBuilder<'msg, 'marker, IFabTextDecoration>(this, TextBlock.TextDecorations)
 
     /// <summary>Sets the TextDecorations property.</summary>

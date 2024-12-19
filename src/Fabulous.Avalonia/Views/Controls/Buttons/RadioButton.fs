@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabRadioButton =
     inherit IFabToggleButton
@@ -14,67 +13,7 @@ module RadioButton =
     let GroupName =
         Attributes.defineAvaloniaPropertyWithEquality RadioButton.GroupNameProperty
 
-[<AutoOpen>]
-module RadioButtonBuilders =
-    type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a RadioButton widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="isChecked">Whether the RadioButton is checked.</param>
-        /// <param name="fn">Raised when the RadioButton is clicked.</param>
-        static member inline RadioButton<'msg>(text: string, isChecked: bool, fn: bool -> 'msg) =
-            WidgetBuilder<'msg, IFabRadioButton>(
-                RadioButton.WidgetKey,
-                ContentControl.ContentString.WithValue(text),
-                ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)
-            )
-
-        /// <summary>Creates a ThreeStateRadioButton widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
-        /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
-        static member inline ThreeStateRadioButton<'msg>(text: string, isChecked: bool option, fn: bool option -> 'msg) =
-            WidgetBuilder<'msg, IFabRadioButton>(
-                RadioButton.WidgetKey,
-                ToggleButton.IsThreeState.WithValue(true),
-                ContentControl.ContentString.WithValue(text),
-                ToggleButton.ThreeStateCheckedChanged.WithValue(ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn))
-            )
-
-        /// <summary>Creates a RadioButton widget.</summary>
-        /// <param name="isChecked">Whether the RadioButton is checked.</param>
-        /// <param name="fn">Raised when the RadioButton is clicked.</param>
-        /// <param name="content">The content of the RadioButton.</param>
-        static member inline RadioButton(isChecked: bool, fn: bool -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabRadioButton>(
-                RadioButton.WidgetKey,
-                AttributesBundle(
-                    StackList.one(ToggleButton.CheckedChanged.WithValue(ValueEventData.create isChecked fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-
-        /// <summary>Creates a ThreeStateRadioButton widget.</summary>
-        /// <param name="isChecked">Whether the ThreeStateRadioButton is checked.</param>
-        /// <param name="fn">Raised when the ThreeStateRadioButton is clicked.</param>
-        /// <param name="content">The content of the ThreeStateRadioButton.</param>
-        static member inline ThreeStateRadioButton(isChecked: bool option, fn: bool option -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabRadioButton>(
-                RadioButton.WidgetKey,
-                AttributesBundle(
-                    StackList.two(
-                        ToggleButton.ThreeStateCheckedChanged.WithValue(
-                            ValueEventData.createVOption (ThreeState.fromOption(isChecked)) (ThreeState.toOption >> fn)
-                        ),
-                        ToggleButton.IsThreeState.WithValue(true)
-                    ),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-
-[<Extension>]
 type RadioButtonAttachedModifiers =
     /// <summary>Sets the GroupName property.</summary>
     /// <param name="this">Current widget.</param>

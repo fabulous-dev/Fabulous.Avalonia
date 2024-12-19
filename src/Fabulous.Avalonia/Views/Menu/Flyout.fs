@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabFlyout =
@@ -22,12 +21,8 @@ module FlyoutBuilders =
         /// <summary>Creates a Flyout widget.</summary>
         /// <param name="content">The content of the Flyout.</param>
         static member Flyout(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabFlyout>(
-                Flyout.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Flyout.Content.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabFlyout>(Flyout.WidgetKey, Flyout.Content.WithValue(content.Compile()))
 
-[<Extension>]
 type FlyoutModifiers =
     /// <summary>Link a ViewRef to access the direct Flyout control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -36,7 +31,6 @@ type FlyoutModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabFlyout>, value: ViewRef<Flyout>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type FlyoutAttachedModifiers =
     /// <summary>Sets the AttachedFlyout property.</summary>
     /// <param name="this">Current widget.</param>

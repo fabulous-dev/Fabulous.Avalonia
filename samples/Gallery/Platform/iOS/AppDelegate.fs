@@ -1,15 +1,16 @@
 namespace Gallery.iOS
 
-open Foundation
-open UIKit
+open Avalonia
+open Avalonia.iOS
 open Fabulous.Avalonia
+open Foundation
 open Gallery
+open UIKit
 
-[<Register("AppDelegate")>]
+[<Register(nameof AppDelegate)>]
 type AppDelegate() =
-    inherit FabAppDelegate()
-
-    override this.CreateApp() = Program.startApplication App.program
+    inherit AvaloniaAppDelegate<FabApplication>()
+    override this.CreateAppBuilder() = MainView.create().UseiOS()
 
 module Main =
     [<EntryPoint>]

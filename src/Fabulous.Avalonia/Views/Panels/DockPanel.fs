@@ -15,6 +15,7 @@ module DockPanel =
     let LastChildFill =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.LastChildFillProperty
 
+
 [<AutoOpen>]
 module DockPanelBuilders =
     type Fabulous.Avalonia.View with
@@ -28,7 +29,6 @@ module DockPanelBuilders =
         static member Dock(lastChildFill: bool) =
             CollectionBuilder<'msg, IFabDockPanel, IFabControl>(DockPanel.WidgetKey, Panel.Children, DockPanel.LastChildFill.WithValue(lastChildFill))
 
-[<Extension>]
 type DockPanelModifiers =
     /// <summary>Sets the Dock property.</summary>
     /// <param name="this">Current widget.</param>

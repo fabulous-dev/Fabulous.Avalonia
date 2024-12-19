@@ -24,34 +24,31 @@ module WrapPanel =
 module WrapPanelBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a VWrap widget.</summary>
-        static member VWrap<'msg>() =
+        /// <summary>Creates a <see cref="WrapPanel" /> with <see cref="WrapPanel.Orientation" /> set to <see cref="Orientation.Vertical" />
+        /// rendering child elements from left to right while they fit the width and starting a new line when there is no space left
+        /// (including any margins and borders). See <seealso href="https://docs.avaloniaui.net/docs/reference/controls/detailed-reference/wrappanel" />.</summary>
+        static member VWrap() =
             CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Vertical))
 
-        /// <summary>Creates a VWrapPanel widget.</summary>
-        static member VWrapPanel<'msg>() =
-            WidgetBuilder<'msg, IFabWrapPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Vertical))
-
-        /// <summary>Creates a HWrap widget.</summary>
-        static member HWrap<'msg>() =
+        /// <summary>Creates a <see cref="WrapPanel" /> with <see cref="WrapPanel.Orientation" /> set to <see cref="Orientation.Horizontal" />
+        /// rendering child elements from top to bottom while they fit the height and starting a new column when there is no space left
+        /// (including any margins and borders). See <seealso href="https://docs.avaloniaui.net/docs/reference/controls/detailed-reference/wrappanel" />.</summary>
+        static member HWrap() =
             CollectionBuilder<'msg, IFabWrapPanel, IFabControl>(WrapPanel.WidgetKey, Panel.Children, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
 
-        /// <summary>Creates a HWrapPanel widget.</summary>
-        static member HWrapPanel<'msg>() =
-            WidgetBuilder<'msg, IFabWrapPanel>(WrapPanel.WidgetKey, WrapPanel.Orientation.WithValue(Orientation.Horizontal))
-
-[<Extension>]
 type WrapPanelModifiers =
-    /// <summary>Sets the ItemWidth property.</summary>
+    /// <summary>Sets the <see cref="WrapPanel.ItemWidth" /> property, i.e. the width of all items in the <see cref="WrapPanel" />.
+    /// See <seealso href="https://reference.avaloniaui.net/api/Avalonia.Controls/WrapPanel/B89757B8" />.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ItemWidth value.</param>
+    /// <param name="value">The <see cref="WrapPanel.ItemWidth" /> value.</param>
     [<Extension>]
     static member inline itemWidth(this: WidgetBuilder<'msg, #IFabWrapPanel>, value: float) =
         this.AddScalar(WrapPanel.ItemWidth.WithValue(value))
 
-    /// <summary>Sets the ItemHeight property.</summary>
+    /// <summary>Sets the <see cref="WrapPanel.ItemHeight" /> property, i.e. the height of all items in the <see cref="WrapPanel" />.
+    /// See <seealso href="https://reference.avaloniaui.net/api/Avalonia.Controls/WrapPanel/3AAE129B" />.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ItemHeight value.</param>
+    /// <param name="value">The <see cref="WrapPanel.ItemHeight" /> value.</param>
     [<Extension>]
     static member inline itemHeight(this: WidgetBuilder<'msg, #IFabWrapPanel>, value: float) =
         this.AddScalar(WrapPanel.ItemHeight.WithValue(value))

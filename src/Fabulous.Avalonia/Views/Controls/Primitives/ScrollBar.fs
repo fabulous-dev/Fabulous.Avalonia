@@ -30,26 +30,7 @@ module ScrollBar =
     let ShowDelay =
         Attributes.defineAvaloniaPropertyWithEquality ScrollBar.ShowDelayProperty
 
-    let Scroll =
-        Attributes.defineEvent "ScrollBar_Scroll" (fun target -> (target :?> ScrollBar).Scroll)
 
-[<AutoOpen>]
-module ScrollBarBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ScrollBar widget.</summary>
-        /// <param name="min">Minimum value.</param>
-        /// <param name="max">Maximum value.</param>
-        /// <param name="value">Current value.</param>
-        /// <param name="fn">Raised when the value changes.</param>
-        static member inline ScrollBar(min: float, max: float, value: float, fn: float -> 'msg) =
-            WidgetBuilder<'msg, IFabScrollBar>(
-                ScrollBar.WidgetKey,
-                RangeBase.MinimumMaximum.WithValue(struct (min, max)),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
-            )
-
-[<Extension>]
 type ScrollBarModifiers =
 
     /// <summary>Sets the ViewportSize property.</summary>
@@ -93,13 +74,6 @@ type ScrollBarModifiers =
     [<Extension>]
     static member inline showDelay(this: WidgetBuilder<'msg, #IFabScrollBar>, value: TimeSpan) =
         this.AddScalar(ScrollBar.ShowDelay.WithValue(value))
-
-    /// <summary>Listens to the ScrollBar Scroll event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the Scroll value changes.</param>
-    [<Extension>]
-    static member inline onScroll(this: WidgetBuilder<'msg, #IFabScrollBar>, fn: ScrollEventArgs -> 'msg) =
-        this.AddScalar(ScrollBar.Scroll.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct ScrollBar control instance.</summary>
     /// <param name="this">Current widget.</param>

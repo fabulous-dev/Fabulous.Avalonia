@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabButton =
     inherit IFabContentControl
@@ -15,8 +14,6 @@ module Button =
     let ClickMode =
         Attributes.defineAvaloniaPropertyWithEquality Button.ClickModeProperty
 
-    let Clicked =
-        Attributes.defineEvent "Button_Clicked" (fun target -> (target :?> Button).Click)
 
     let HotKey = Attributes.defineAvaloniaPropertyWithEquality Button.HotKeyProperty
 
@@ -27,31 +24,6 @@ module Button =
 
     let Flyout = Attributes.defineAvaloniaPropertyWidget Button.FlyoutProperty
 
-[<AutoOpen>]
-module ButtonBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a Button widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the button is clicked.</param>
-        static member inline Button<'msg>(text: string, fn: 'msg) =
-            WidgetBuilder<'msg, IFabButton>(Button.WidgetKey, ContentControl.ContentString.WithValue(text), Button.Clicked.WithValue(fun _ -> box fn))
-
-        /// <summary>Creates a Button widget.</summary>
-        /// <param name="fn">Raised when the button is clicked.</param>
-        /// <param name="content">The content to display.</param>
-        static member inline Button(fn: 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabButton>(
-                Button.WidgetKey,
-                AttributesBundle(
-                    StackList.one(Button.Clicked.WithValue(fun _ -> box fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-
-            )
-
-[<Extension>]
 type ButtonModifiers =
     /// <summary>Sets the ClickMode property.</summary>
     /// <param name="this">Current widget.</param>

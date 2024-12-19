@@ -1,6 +1,7 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Input
 open Avalonia.Layout
 open Avalonia.Media
@@ -8,7 +9,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ClippingPage =
     type Model = { IsChecked: bool; BrushColor: IBrush }
@@ -18,28 +18,22 @@ module ClippingPage =
         | OnPointerExited of PointerEventArgs
         | CheckChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { IsChecked = false
           BrushColor = Brushes.Yellow },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
         | OnPointerEnter _ ->
             { model with
                 BrushColor = Brushes.Crimson },
-            []
+            Cmd.none
         | OnPointerExited _ ->
             { model with
                 BrushColor = Brushes.Yellow },
-            []
-        | CheckChanged isChecked -> { model with IsChecked = isChecked }, []
+            Cmd.none
+        | CheckChanged isChecked -> { model with IsChecked = isChecked }, Cmd.none
 
     let clip =
         """
@@ -65,39 +59,55 @@ module ClippingPage =
  C 61.721916 0.22817968 60.165597 0.038541919 58.625 0.07421875 z 
 """
 
-    let view model =
-        (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {
-            let widgetBuilder =
-                Border(
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let view () =
+        Component("ClippingPage") {
+            let! model = Context.Mvu program
+
+            (Grid(coldefs = [ Auto ], rowdefs = [ Auto; Auto ]) {
+                let widgetBuilder =
                     Border(
-                        TextBlock("Avalonia")
-                            .opacity(0.9)
-                            .verticalAlignment(VerticalAlignment.Center)
+                        Border(
+                            TextBlock("Avalonia")
+                                .opacity(0.9)
+                                .verticalAlignment(VerticalAlignment.Center)
+                        )
+                            .name("clipChild")
+                            .margin(4.)
+                            .background(Brushes.Red)
+                            .width(100.)
+                            .height(100.)
+                            .renderTransform(RotateTransform())
+                            .animation(
+                                Animation(KeyFrame(RotateTransform.AngleProperty, 360.).cue(1.), TimeSpan.FromSeconds(2.))
+                                    .repeatForever()
+                            )
                     )
-                        .name("clipChild")
-                        .margin(4.)
-                        .background(Brushes.Red)
+                        .name("clipped")
+                        .background(model.BrushColor)
+                        .onPointerEntered(OnPointerEnter)
+                        .onPointerExited(OnPointerExited)
                         .width(100.)
                         .height(100.)
-                        .renderTransform(RotateTransform())
-                        .animation(
-                            Animation(KeyFrame(RotateTransform.AngleProperty, 360.).cue(1.), TimeSpan.FromSeconds(2.))
-                                .repeatForever()
-                        )
-                )
-                    .name("clipped")
-                    .background(model.BrushColor)
-                    .onPointerEntered(OnPointerEnter)
-                    .onPointerExited(OnPointerExited)
-                    .width(100.)
-                    .height(100.)
 
-            if model.IsChecked then
-                widgetBuilder.clip(PathGeometry(clip, FillRule.EvenOdd))
-            else
-                widgetBuilder
+                if model.IsChecked then
+                    widgetBuilder.clip(PathGeometry(clip, FillRule.EvenOdd))
+                else
+                    widgetBuilder
 
-            CheckBox(model.IsChecked, CheckChanged, TextBlock("Apply Geometry Clip"))
-                .gridRow(1)
-        })
-            .centerHorizontal()
+                CheckBox(model.IsChecked, CheckChanged, TextBlock("Apply Geometry Clip"))
+                    .gridRow(1)
+            })
+                .centerHorizontal()
+        }

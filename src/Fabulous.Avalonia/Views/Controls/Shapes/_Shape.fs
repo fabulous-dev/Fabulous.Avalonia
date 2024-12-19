@@ -5,7 +5,6 @@ open Avalonia.Controls.Shapes
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabShape =
@@ -46,7 +45,6 @@ module Shape =
     let StrokeJoin =
         Attributes.defineAvaloniaPropertyWithEquality Shape.StrokeJoinProperty
 
-[<Extension>]
 type ShapeModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
@@ -66,8 +64,15 @@ type ShapeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Fill value.</param>
     [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, value: Color) =
+        ShapeModifiers.fill(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabShape>, value: string) =
-        this.AddScalar(Shape.Fill.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        ShapeModifiers.fill(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the Stretch property.</summary>
     /// <param name="this">Current widget.</param>
@@ -94,14 +99,21 @@ type ShapeModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Stroke value.</param>
     [<Extension>]
+    static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, value: Color) =
+        ShapeModifiers.stroke(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Stroke property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Stroke value.</param>
+    [<Extension>]
     static member inline stroke(this: WidgetBuilder<'msg, #IFabShape>, value: string) =
-        this.AddScalar(Shape.Stroke.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        ShapeModifiers.stroke(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the StrokeDashArray property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The StrokeDashArray value.</param>
     [<Extension>]
-    static member inline strokeDashCap(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
+    static member inline strokeDashArray(this: WidgetBuilder<'msg, #IFabShape>, value: float list) =
         this.AddScalar(Shape.StrokeDashArray.WithValue(value))
 
     /// <summary>Sets the StrokeDashOffset property.</summary>

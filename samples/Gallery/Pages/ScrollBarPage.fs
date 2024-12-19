@@ -1,5 +1,6 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls.Primitives
 open Avalonia.Layout
 open Avalonia.Media
@@ -7,7 +8,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ScrollBarPage =
     type Model = { ScrollValue: float }
@@ -16,28 +16,38 @@ module ScrollBarPage =
         | ValueChanged of float
         | ScrollBarChanged of ScrollEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { ScrollValue = 0.0 }, []
+    let init () = { ScrollValue = 0.0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with ScrollValue = value }, []
-        | ScrollBarChanged _ -> model, []
+        | ValueChanged value -> { ScrollValue = value }, Cmd.none
+        | ScrollBarChanged _ -> model, Cmd.none
 
-    let view model =
-        VStack(spacing = 15.) {
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            TextBlock($"Value: {model.ScrollValue}")
+    let view () =
+        Component("ScrollBarPage") {
+            let! model = Context.Mvu program
 
-            ScrollBar(1., 240., model.ScrollValue, ValueChanged)
-                .orientation(Orientation.Horizontal)
-                .allowAutoHide(false)
-                .background(SolidColorBrush(Colors.LightSalmon))
-                .margin(10., 10., 0., 0.)
-                .onScroll(ScrollBarChanged)
+            VStack(spacing = 15.) {
+
+                TextBlock($"Value: {model.ScrollValue}")
+
+                ScrollBar(1., 240., model.ScrollValue, ValueChanged)
+                    .orientation(Orientation.Horizontal)
+                    .allowAutoHide(false)
+                    .background(SolidColorBrush(Colors.LightSalmon))
+                    .margin(10., 10., 0., 0.)
+                    .onScroll(ScrollBarChanged)
+            }
         }

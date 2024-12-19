@@ -18,7 +18,6 @@ module ExperimentalAcrylicBorder =
     let Material =
         Attributes.defineAvaloniaPropertyWidget ExperimentalAcrylicBorder.MaterialProperty
 
-
 [<AutoOpen>]
 module ExperimentalAcrylicBorderBuilders =
     type Fabulous.Avalonia.View with
@@ -26,16 +25,13 @@ module ExperimentalAcrylicBorderBuilders =
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         /// <param name="content">The content of the ExperimentalAcrylicBorder.</param>
         static member ExperimentalAcrylicBorder(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(
-                ExperimentalAcrylicBorder.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.Child.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, Decorator.ChildWidget.WithValue(content.Compile()))
 
         /// <summary>Creates a ExperimentalAcrylicBorder widget.</summary>
         static member ExperimentalAcrylicBorder() =
-            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabExperimentalAcrylicBorder>(ExperimentalAcrylicBorder.WidgetKey)
 
-[<Extension>]
+
 type ExperimentalAcrylicBorderModifiers =
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>
@@ -43,6 +39,13 @@ type ExperimentalAcrylicBorderModifiers =
     [<Extension>]
     static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicBorder>, value: CornerRadius) =
         this.AddScalar(ExperimentalAcrylicBorder.CornerRadius.WithValue(value))
+
+    /// <summary>Sets the CornerRadius property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CornerRadius value.</param>
+    [<Extension>]
+    static member inline cornerRadius(this: WidgetBuilder<'msg, #IFabExperimentalAcrylicBorder>, value: float) =
+        this.AddScalar(ExperimentalAcrylicBorder.CornerRadius.WithValue(CornerRadius(value)))
 
     /// <summary>Sets the Material property.</summary>
     /// <param name="this">Current widget.</param>

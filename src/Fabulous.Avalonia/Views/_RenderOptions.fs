@@ -48,9 +48,8 @@ module RenderOptions =
                 let target = target :?> Visual
                 RenderOptions.SetTextRenderingMode(target, value))
 
-[<Extension>]
 type RenderOptionsModifiers =
-    /// <summary> Sets the BitmapInterpolationMode property.</summary>
+    /// <summary>Sets the BitmapInterpolationMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BitmapInterpolationMode value.</param>
     [<Extension>]
@@ -64,14 +63,14 @@ type RenderOptionsModifiers =
     static member inline bitmapBlendingMode(this: WidgetBuilder<'msg, #IFabElement>, value: BitmapBlendingMode) =
         this.AddScalar(RenderOptions.BitmapBlendingMode.WithValue(value))
 
-    /// <summary> Sets the EdgeMode property.</summary>
+    /// <summary>Sets the EdgeMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The EdgeMode value.</param>
     [<Extension>]
     static member inline edgeMode(this: WidgetBuilder<'msg, #IFabElement>, value: EdgeMode) =
         this.AddScalar(RenderOptions.EdgeMode.WithValue(value))
 
-    /// <summary> Sets the TextRenderingMode property.</summary>
+    /// <summary>Sets the TextRenderingMode property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TextRenderingMode value.</param>
     [<Extension>]

@@ -3,9 +3,8 @@ namespace Fabulous.Avalonia
 open Avalonia.Controls
 open Avalonia.Layout
 open Fabulous
-open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabReversibleStackPanel =
     inherit IFabStackPanel
@@ -23,7 +22,7 @@ module ReversibleStackPanelBuilders =
         /// <summary>Creates a VStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
         /// <param name="reverseOrder">If true, the children will be reversed.</param>
-        static member inline VStack<'msg>(?spacing: float, ?reverseOrder: bool) =
+        static member VStack(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalars =
                 StackList.one(StackPanel.Orientation.WithValue(Orientation.Vertical))
@@ -41,7 +40,7 @@ module ReversibleStackPanelBuilders =
         /// <summary>Creates a HStack widget.</summary>
         /// <param name="spacing">The spacing between each child.</param>
         /// <param name="reverseOrder">If true, the children will be reversed.</param>
-        static member inline HStack<'msg>(?spacing: float, ?reverseOrder: bool) =
+        static member HStack(?spacing: float, ?reverseOrder: bool) =
 
             let mutable scalars =
                 StackList.one(StackPanel.Orientation.WithValue(Orientation.Horizontal))
@@ -56,7 +55,6 @@ module ReversibleStackPanelBuilders =
 
             CollectionBuilder<'msg, IFabReversibleStackPanel, IFabControl>(ReversibleStackPanel.WidgetKey, scalars, Panel.Children)
 
-[<Extension>]
 type ReversibleStackPanelModifiers =
     /// <summary>Link a ViewRef to access the direct ReversibleStackPanel control instance.</summary>
     /// <param name="this">Current widget.</param>

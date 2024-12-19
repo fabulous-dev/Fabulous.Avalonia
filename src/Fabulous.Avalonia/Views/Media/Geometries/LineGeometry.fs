@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Media
 open Fabulous
@@ -17,7 +18,7 @@ module LineGeometry =
         Attributes.defineAvaloniaPropertyWithEquality LineGeometry.EndPointProperty
 
 [<AutoOpen>]
-module LineGeometryBuilders =
+module ComponentLineGeometryBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a LineGeometry widget.</summary>
@@ -29,3 +30,12 @@ module LineGeometryBuilders =
                 LineGeometry.StartPoint.WithValue(startPoint),
                 LineGeometry.EndPoint.WithValue(endPoint)
             )
+
+type LineGeometryModifiers =
+
+    /// <summary>Link a ViewRef to access the direct LineGeometry control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabLineGeometry>, value: ViewRef<LineGeometry>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

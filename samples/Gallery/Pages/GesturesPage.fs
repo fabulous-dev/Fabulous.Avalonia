@@ -1,4 +1,4 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Avalonia
 open Avalonia.Controls
@@ -9,7 +9,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module GesturesPage =
     type Model = { CurrentScale: float }
@@ -22,15 +21,7 @@ module GesturesPage =
         | OnAttachedToVisualTree of VisualTreeAttachmentEventArgs
         | OnTapGesture of TappedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { CurrentScale = 0 }, []
-
-    let topBallBorderRef = ViewRef<Border>()
+    let init () = { CurrentScale = 0 }, Cmd.none
 
     let update msg model =
         match msg with
@@ -47,7 +38,9 @@ module GesturesPage =
                 .fontSize(18.)
                 .margin(5.)
 
-            TextBlock("Pull from colored rectangles").margin(5.)
+    let view () =
+        Component("GesturesPage") {
+            let! model = Context.Mvu program
 
             Border(
                 (Dock() {
@@ -150,13 +143,8 @@ module GesturesPage =
                     .horizontalAlignment(HorizontalAlignment.Stretch)
                     .clipToBounds(true)
                     .margin(5.)
-                    .height(200.)
-            )
 
-            TextBlock("Pinch/Zoom Gexture (Multi Touch)")
-                .fontWeight(FontWeight.Bold)
-                .fontSize(18.)
-                .margin(5.)
+                TextBlock("Pull from colored rectangles").margin(5.)
 
             Border(
                 Image(ImageSource.fromString "avares://Gallery/Assets/Icons/delicate-arch-896885_640.jpg", Stretch.UniformToFill)

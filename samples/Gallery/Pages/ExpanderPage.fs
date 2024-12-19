@@ -1,6 +1,7 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System
+open System.Diagnostics
 open Avalonia.Animation
 open Avalonia.Controls
 open Avalonia.Interactivity
@@ -8,7 +9,6 @@ open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ExpanderPage =
     type Model = { IsExpanded: bool }
@@ -18,52 +18,62 @@ module ExpanderPage =
         | Expanding of CancelRoutedEventArgs
         | Collapsing of CancelRoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { IsExpanded = true }, []
+    let init () = { IsExpanded = true }, Cmd.none
 
     let update msg model =
         match msg with
-        | ExpandChanged b -> { model with IsExpanded = b }, []
-        | Expanding _ -> model, []
-        | Collapsing _ -> model, []
+        | ExpandChanged b -> { IsExpanded = b }, Cmd.none
+        | Expanding _ -> model, Cmd.none
+        | Collapsing _ -> model, Cmd.none
 
-    let view model =
-        VStack(spacing = 15.) {
-            Expander("Title", "Mr.").isExpanded(model.IsExpanded)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Expander(TextBlock("Title"), "Mr.")
-                .onExpandedChanged(model.IsExpanded, ExpandChanged)
+    let view () =
+        Component("ExpanderPage") {
+            let! model = Context.Mvu program
 
-            Expander(
-                "Title",
-                VStack(8.) {
-                    TextBlock("Mr.")
-                    TextBlock("Mr.")
-                    TextBlock("Ms.")
-                    TextBlock("Mr.")
-                }
-            )
-                .contentTransition(CrossFade(TimeSpan.FromSeconds(2.5)) :> IPageTransition)
+            VStack(spacing = 15.) {
+                Expander("Title", "Mr.")
+
+                Expander(TextBlock("Title"), "Mr.")
+                    .onExpandedChanged(model.IsExpanded, ExpandChanged)
+
+                Expander(
+                    "Title",
+                    VStack(8.) {
+                        TextBlock("Mr.")
+                        TextBlock("Mr.")
+                        TextBlock("Ms.")
+                        TextBlock("Mr.")
+                    }
+                )
+                    .contentTransition(CrossFade(TimeSpan.FromSeconds(2.5)) :> IPageTransition)
 
 
-            Expander(
-                TextBlock("Marital status"),
-                VStack(8.) {
-                    TextBlock("Married")
-                    Separator()
-                    TextBlock("Single")
-                    Separator()
-                    TextBlock("Divorced")
-                    Separator()
-                    TextBlock("Widowed")
-                }
-            )
-                .expandDirection(ExpandDirection.Right)
-                .onCollapsing(Collapsing)
-                .onExpanding(Expanding)
+                Expander(
+                    TextBlock("Marital status"),
+                    VStack(8.) {
+                        TextBlock("Married")
+                        Separator()
+                        TextBlock("Single")
+                        Separator()
+                        TextBlock("Divorced")
+                        Separator()
+                        TextBlock("Widowed")
+                    }
+                )
+                    .expandDirection(ExpandDirection.Right)
+                    .onCollapsing(Collapsing)
+                    .onExpanding(Expanding)
+            }
         }

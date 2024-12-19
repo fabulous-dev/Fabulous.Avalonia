@@ -1,11 +1,11 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module CheckBoxPage =
     type Model =
@@ -18,37 +18,47 @@ module CheckBoxPage =
         | ValueChanged2 of bool
         | ValueChanged3 of bool option
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { IsChecked1 = false
           IsChecked2 = true
           IsChecked3 = Some false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged b -> { model with IsChecked1 = b }, []
-        | ValueChanged2 b -> { model with IsChecked2 = b }, []
-        | ValueChanged3 b -> { model with IsChecked3 = b }, []
+        | ValueChanged b -> { model with IsChecked1 = b }, Cmd.none
+        | ValueChanged2 b -> { model with IsChecked2 = b }, Cmd.none
+        | ValueChanged3 b -> { model with IsChecked3 = b }, Cmd.none
 
-    let view model =
-        VStack(spacing = 15.) {
-            CheckBox(model.IsChecked1, ValueChanged)
-            CheckBox("Checked by default", model.IsChecked2, ValueChanged2)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ThreeStateCheckBox(
-                model.IsChecked3,
-                ValueChanged3,
-                VStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(100., 100.)
+    let view () =
+        Component("CheckBoxPage") {
+            let! model = Context.Mvu program
 
-                    TextBlock("Fabulous")
-                }
-            )
+            VStack(spacing = 15.) {
+                CheckBox(model.IsChecked1, ValueChanged)
+                CheckBox("Checked by default", model.IsChecked2, ValueChanged2)
+
+                ThreeStateCheckBox(
+                    model.IsChecked3,
+                    ValueChanged3,
+                    VStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(100., 100.)
+
+                        TextBlock("Fabulous")
+                    }
+                )
+            }
         }

@@ -1,69 +1,81 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module MenuPage =
     type Model = { IsChecked: bool }
 
     type Msg = ValueChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { IsChecked = false }, []
+    let init () = { IsChecked = false }, Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }, []
+        | ValueChanged value -> { IsChecked = value }, Cmd.none
 
-    let view model =
-        VStack(4.) {
-            TextBlock("Exported menu fallback")
-            TextBlock("Should be only visible on platforms without desktop-global menu bar")
-            NativeMenuBar()
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Dock() {
-                (Menu() {
-                    MenuItems'("_First") {
-                        MenuItem("Standard _Menu Item")
-                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
-                            .enableMenuItemClickForwarding(true)
+    let view () =
+        Component("MenuPage") {
+            let! model = Context.Mvu program
 
-                        MenuItem("_Disabled Menu Item")
-                            .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
-                            .isEnabled(false)
+            VStack(4.) {
+                TextBlock("Exported menu fallback")
+                TextBlock("Should be only visible on platforms without desktop-global menu bar")
+                NativeMenuBar()
 
-                        Separator()
+                Dock() {
+                    (Menu() {
+                        MenuItems(header = Image("avares://Gallery/Assets/Icons/fabulous-icon.png")) {
+                            MenuItem("Standard _Menu Item")
+                                .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+                                .enableMenuItemClickForwarding(true)
 
-                        MenuItems'("Menu with _Submenu") {
-                            MenuItem("Submenu _1")
-                            MenuItems'("Submenu _2 with Submenu") { MenuItem("Submenu Level 2") }
-
-                            (MenuItems'("Submenu _3 with Submenu Disabled") { MenuItem("Submenu Level 2") })
+                            MenuItem("_Disabled Menu Item")
+                                .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
                                 .isEnabled(false)
+
+                            MenuItem(Separator())
+
+                            MenuItems("Menu with _Submenu") {
+                                MenuItem("Submenu _1")
+
+                                MenuItems("Submenu _2 with Submenu") { MenuItem("Submenu Level 2") }
+
+
+                                (MenuItems("Submenu _3 with Submenu Disabled") { MenuItem("Submenu Level 2") })
+                                    .isEnabled(false)
+                            }
+
+                            MenuItem("Menu Item with _Icon")
+                                .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
+                                .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
+
+                            MenuItem("Menu Item with _Checkbox")
+                                .icon(CheckBox(model.IsChecked, ValueChanged))
+                                .borderThickness(0.)
+                                .isHitTestVisible(false)
                         }
 
-                        MenuItem("Menu Item with _Icon")
-                            .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
-                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
-
-                        MenuItem("Menu Item with _Checkbox")
-                            .icon(CheckBox(model.IsChecked, ValueChanged))
-                            .borderThickness(0.)
-                            .isHitTestVisible(false)
-                    }
-
-                    MenuItems'("_Second") { MenuItem("Second _Menu Item") }
-                })
-                    .dock(Dock.Top)
+                        MenuItems("_Second") { MenuItem("Second _Menu Item") }
+                    })
+                        .dock(Dock.Top)
+                }
             }
         }

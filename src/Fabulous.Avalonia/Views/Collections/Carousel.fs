@@ -1,11 +1,9 @@
 namespace Fabulous.Avalonia
 
 open System
-open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia.Animation
 open Avalonia.Controls
-open Avalonia.Styling
 open Fabulous
 
 type IFabCarousel =
@@ -70,21 +68,18 @@ module CarouselBuilders =
         /// <summary>Creates a Carousel widget.</summary>
         /// <param name="items">The items to display.</param>
         /// <param name="template">The template to use to render each item.</param>
-        static member inline Carousel<'msg, 'itemData, 'itemMarker when 'itemMarker :> IFabControl>
-            (
-                items: seq<'itemData>,
-                template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>
-            ) =
-            WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSource items template
+        static member Carousel<'msg, 'itemData, 'itemMarker when 'msg: equality and 'itemMarker :> IFabControl>
+            (items: seq<'itemData>, template: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
+            =
+            WidgetHelpers.buildItems<'msg, IFabCarousel, 'itemData, 'itemMarker> Carousel.WidgetKey ItemsControl.ItemsSourceTemplate items template
 
-[<Extension>]
 type CarouselModifiers =
 
     /// <summary>Sets the PageTransition property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PageTransition value.</param>
     [<Extension>]
-    static member inline transition(this: WidgetBuilder<'msg, #IFabCarousel>, value: IPageTransition) =
+    static member inline pageTransition(this: WidgetBuilder<'msg, #IFabCarousel>, value: #IPageTransition) =
         this.AddScalar(Carousel.PageTransition.WithValue(value))
 
     /// <summary>Sets the Controller property.</summary>

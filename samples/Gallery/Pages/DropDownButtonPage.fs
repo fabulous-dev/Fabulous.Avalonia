@@ -1,77 +1,88 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module DropDownButtonPage =
     type Model = { Count: int }
 
     type Msg =
-        | Clicked
-        | Clicked2
-        | Increment
-        | Decrement
+        | Clicked of RoutedEventArgs
+        | Clicked2 of RoutedEventArgs
+        | Increment of RoutedEventArgs
+        | Decrement of RoutedEventArgs
         | Reset
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Count = 0 }, []
+    let init () = { Count = 0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
-        | Clicked2 -> model, []
-        | Increment -> { model with Count = model.Count + 1 }, []
-        | Decrement -> { model with Count = model.Count - 1 }, []
-        | Reset -> { model with Count = 0 }, []
+        | Clicked _ -> model, Cmd.none
+        | Clicked2 _ -> model, Cmd.none
+        | Increment _ -> { Count = model.Count + 1 }, Cmd.none
+        | Decrement _ -> { Count = model.Count - 1 }, Cmd.none
+        | Reset -> { Count = 0 }, Cmd.none
 
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        UniformGrid() {
-            TextBlock($"Count: {model.Count}").centerVertical()
+    let view () =
+        Component("DropDownButtonPage") {
+            let! model = Context.Mvu program
 
-            DropDownButton("Open...", Clicked)
-                .flyout(
-                    (MenuFlyout() {
-                        MenuItem("Item 1")
-                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+            UniformGrid() {
+                TextBlock($"Count: {model.Count}").centerVertical()
 
-                        MenuItems("Item 2", Increment) {
-                            MenuItem("Subitem 1")
-                            MenuItem("Subitem 2")
-                            MenuItem("Subitem 3")
-                            MenuItem("Subitem 4")
-                            MenuItem("Subitem 5")
-                        }
+                DropDownButton("Open...", Clicked)
+                    .flyout(
+                        (MenuFlyout() {
+                            MenuItem("Item 1")
+                                .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                        MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                        MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                        MenuItem(TextBlock("Item 6"), Increment)
-                        MenuItem("Item 7")
-                    })
-                        .placement(PlacementMode.BottomEdgeAlignedRight)
-                )
+                            MenuItems("Item 2") {
+                                MenuItem("Subitem 1")
+                                MenuItem("Subitem 2")
+                                MenuItem("Subitem 3")
+                                MenuItem("Subitem 4")
+                                MenuItem("Subitem 5")
+                            }
+                            |> _.onClick(Increment)
 
-            DropDownButton(Clicked2, TextBlock("Open..."))
-                .flyout(
-                    Flyout(
-                        VWrap() {
-                            TextBlock("Item 1")
-                            Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png")
-                        }
+                            MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
+                            MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
+                            MenuItem(TextBlock("Item 6")).onClick(Increment)
+                            MenuItem("Item 7")
+                        })
+                            .placement(PlacementMode.BottomEdgeAlignedRight)
                     )
-                        .showMode(FlyoutShowMode.Standard)
-                        .placement(PlacementMode.RightEdgeAlignedTop)
-                )
-                .background(Brushes.Blue)
+
+                DropDownButton(Clicked2, TextBlock("Open..."))
+                    .flyout(
+                        Flyout(
+                            VWrap() {
+                                TextBlock("Item 1")
+                                Image("avares://Gallery/Assets/Icons/fabulous-icon.png")
+                            }
+                        )
+                            .showMode(FlyoutShowMode.Standard)
+                            .placement(PlacementMode.RightEdgeAlignedTop)
+                    )
+                    .background(Brushes.Blue)
+            }
         }

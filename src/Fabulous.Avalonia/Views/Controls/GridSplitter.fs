@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabGridSplitter =
     inherit IFabTemplatedControl
@@ -26,7 +25,6 @@ module GridSplitter =
     let DragIncrement =
         Attributes.defineAvaloniaPropertyWithEquality GridSplitter.DragIncrementProperty
 
-
 [<AutoOpen>]
 module GridSplitterBuilders =
     type Fabulous.Avalonia.View with
@@ -40,7 +38,7 @@ module GridSplitterBuilders =
         static member GridSplitter(resizeDirection: GridResizeDirection) =
             WidgetBuilder<'msg, IFabGridSplitter>(GridSplitter.WidgetKey, GridSplitter.ResizeDirection.WithValue(resizeDirection))
 
-[<Extension>]
+
 type GridSplitterModifiers =
     /// <summary>Sets the ResizeBehavior property.</summary>
     /// <param name="this">Current widget.</param>

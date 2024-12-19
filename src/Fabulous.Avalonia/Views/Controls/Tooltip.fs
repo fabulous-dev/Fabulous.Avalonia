@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Controls.Primitives.PopupPositioning
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -11,10 +12,10 @@ type IFabToolTip =
 module ToolTip =
     let WidgetKey = Widgets.register<ToolTip>()
 
+    let TipWidget = Attributes.defineAvaloniaPropertyWidget ToolTip.TipProperty
+
     let TipString =
         Attributes.defineAvaloniaProperty<string, obj> ToolTip.TipProperty box ScalarAttributeComparers.equalityCompare
-
-    let TipWidget = Attributes.defineAvaloniaPropertyWidget ToolTip.TipProperty
 
     let IsOpen = Attributes.defineAvaloniaPropertyWithEquality ToolTip.IsOpenProperty
 
@@ -30,27 +31,50 @@ module ToolTip =
     let ShowDelay =
         Attributes.defineAvaloniaPropertyWithEquality ToolTip.ShowDelayProperty
 
-[<Extension>]
+    let BetweenShowDelay =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.BetweenShowDelayProperty
+
+    let ShowOnDisabled =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.ShowOnDisabledProperty
+
+    let ServiceEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.ServiceEnabledProperty
+
+    let CustomPopupPlacementCallback =
+        Attributes.defineAvaloniaPropertyWithEquality ToolTip.CustomPopupPlacementCallbackProperty
+
+[<AutoOpen>]
+module ToolTipBuilders =
+    type Fabulous.Avalonia.View with
+
+        /// <summary>Creates a ToolTip widget.</summary>
+        static member ToolTip(content: string) =
+            WidgetBuilder<'msg, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentString.WithValue(content))
+
+        /// <summary>Creates a ToolTip widget.</summary>
+        static member ToolTip(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabToolTip>(ToolTip.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
+
 type ToolTipModifiers =
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Tip value.</param>
     [<Extension>]
-    static member inline tooltip(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
-        this.AddScalar(ToolTip.TipString.WithValue(value))
+    static member inline tip(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, #IFabToolTip>) =
+        this.AddWidget(ToolTip.TipWidget.WithValue(value.Compile()))
 
     /// <summary>Sets the Tip property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Tip value.</param>
     [<Extension>]
-    static member inline tooltip(this: WidgetBuilder<'msg, #IFabControl>, value: WidgetBuilder<'msg, #IFabControl>) =
-        this.AddWidget(ToolTip.TipWidget.WithValue(value.Compile()))
+    static member inline tip(this: WidgetBuilder<'msg, #IFabControl>, value: string) =
+        this.AddScalar(ToolTip.TipString.WithValue(value))
 
     /// <summary>Sets the IsOpen property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The IsOpen value.</param>
     [<Extension>]
-    static member inline tooltipIsOpen(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+    static member inline isOpen(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
         this.AddScalar(ToolTip.IsOpen.WithValue(value))
 
     /// <summary>Sets the Placement property.</summary>
@@ -80,3 +104,38 @@ type ToolTipModifiers =
     [<Extension>]
     static member inline tooltipShowDelay(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
         this.AddScalar(ToolTip.ShowDelay.WithValue(value))
+
+    /// <summary>Sets the BetweenShowDelay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BetweenShowDelay value.</param>
+    [<Extension>]
+    static member inline tooltipBetweenShowDelay(this: WidgetBuilder<'msg, #IFabControl>, value: int) =
+        this.AddScalar(ToolTip.BetweenShowDelay.WithValue(value))
+
+    /// <summary>Sets the ShowOnDisabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowOnDisabled value.</param>
+    [<Extension>]
+    static member inline tooltipShowOnDisabled(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+        this.AddScalar(ToolTip.ShowOnDisabled.WithValue(value))
+
+    /// <summary>Sets the ServiceEnabled property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ServiceEnabled value.</param>
+    [<Extension>]
+    static member inline tooltipServiceEnabled(this: WidgetBuilder<'msg, #IFabControl>, value: bool) =
+        this.AddScalar(ToolTip.ServiceEnabled.WithValue(value))
+
+    /// <summary>Sets the CustomPopupPlacementCallback property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The CustomPopupPlacementCallback value.</param>
+    [<Extension>]
+    static member inline tooltipCustomPopupPlacementCallback(this: WidgetBuilder<'msg, #IFabControl>, value: CustomPopupPlacement -> unit) =
+        this.AddScalar(ToolTip.CustomPopupPlacementCallback.WithValue(CustomPopupPlacementCallback(value)))
+
+    /// <summary>Link a ViewRef to access the direct ToolTip control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabToolTip>, value: ViewRef<ToolTip>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

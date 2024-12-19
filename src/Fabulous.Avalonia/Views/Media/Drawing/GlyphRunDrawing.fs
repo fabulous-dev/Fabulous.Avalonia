@@ -1,7 +1,7 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
 
@@ -33,6 +33,7 @@ module GlyphRunDrawingBuilders =
                 AttributesBundle(
                     StackList.one(GlyphRunDrawing.GlyphRun.WithValue(glyphRun)),
                     ValueSome [| GlyphRunDrawing.ForegroundWidget.WithValue(brush.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
@@ -50,9 +51,21 @@ module GlyphRunDrawingBuilders =
         /// <summary>Creates a GlyphRunDrawing widget.</summary>
         /// <param name="brush">The content of the drawing.</param>
         /// <param name="glyphRun">The glyph run to draw.</param>
+        static member GlyphRunDrawing(brush: Color, glyphRun: GlyphRun) =
+            View.GlyphRunDrawing(View.SolidColorBrush(brush), glyphRun)
+
+        /// <summary>Creates a GlyphRunDrawing widget.</summary>
+        /// <param name="brush">The content of the drawing.</param>
+        /// <param name="glyphRun">The glyph run to draw.</param>
         static member GlyphRunDrawing(brush: string, glyphRun: GlyphRun) =
-            WidgetBuilder<'msg, IFabGlyphRunDrawing>(
-                GlyphRunDrawing.WidgetKey,
-                GlyphRunDrawing.GlyphRun.WithValue(glyphRun),
-                GlyphRunDrawing.Foreground.WithValue(brush |> Color.Parse |> ImmutableSolidColorBrush)
-            )
+            View.GlyphRunDrawing(View.SolidColorBrush(brush), glyphRun)
+
+
+type GlyphRunDrawingModifiers =
+
+    /// <summary>Link a ViewRef to access the direct GlyphRunDrawing control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabGlyphRunDrawing>, value: ViewRef<GlyphRunDrawing>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

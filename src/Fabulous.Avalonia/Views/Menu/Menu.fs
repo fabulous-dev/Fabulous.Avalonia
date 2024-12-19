@@ -16,10 +16,10 @@ module MenuBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a Menu widget.</summary>
-        static member inline Menu() =
+        static member Menu() =
             CollectionBuilder<'msg, IFabMenu, IFabMenuItem>(Menu.WidgetKey, ItemsControl.Items)
 
-[<Extension>]
+
 type MenuModifiers =
     /// <summary>Link a ViewRef to access the direct Menu control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -28,20 +28,15 @@ type MenuModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabMenu>, value: ViewRef<Menu>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type MenuCollectionBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabMenu and 'itemType :> IFabMenuItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabMenuItem>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabMenuItem>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabMenu and 'itemType :> IFabMenuItem>
+        (_: CollectionBuilder<'msg, 'marker, IFabMenuItem>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

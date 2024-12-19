@@ -49,48 +49,47 @@ module AutoCompleteBox =
     let AsyncPopulator =
         Attributes.defineAvaloniaPropertyWithEquality AutoCompleteBox.AsyncPopulatorProperty
 
-    let TextChanged =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_TextChanged" AutoCompleteBox.TextProperty
+    /// Allows multi-binding the ValueMemberBinding on an AutoCompleteBox
+    let MultiValueBinding =
+        Attributes.defineSimpleScalar<string * string array>
+            "AutoCompleteBox_MultiValueBinding"
+            ScalarAttributeComparers.equalityCompare
+            (fun _ newValueOpt node ->
+                if newValueOpt.IsSome then
+                    let format, propertyNames = newValueOpt.Value
+                    let target = node.Target :?> AutoCompleteBox
 
-    let Populating =
-        Attributes.defineEvent<PopulatingEventArgs> "AutoCompleteBox_Populating" (fun target -> (target :?> AutoCompleteBox).Populating)
+                    let rec bindAndCleanUp _ _ =
+                        target.multiBind<AutoCompleteBox>((fun (box: AutoCompleteBox) -> box.ValueMemberBinding), format, propertyNames)
+                        target.Loaded.RemoveHandler(bindAndCleanUp) // to clean up
 
-    let Populated =
-        Attributes.defineEvent<PopulatedEventArgs> "AutoCompleteBox_Populated" (fun target -> (target :?> AutoCompleteBox).Populated)
+                    target.Loaded.AddHandler(bindAndCleanUp))
 
-    let DropDownOpened =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "AutoCompleteBox_onDropDownOpened" AutoCompleteBox.IsDropDownOpenProperty
+    /// Allows setting the ItemTemplate on an AutoCompleteBox
+    let ItemTemplate =
+        Attributes.defineSimpleScalar<obj -> Widget> "AutoCompleteBox_ItemTemplate" ScalarAttributeComparers.physicalEqualityCompare (fun _ newValueOpt node ->
+            let autoComplete = node.Target :?> AutoCompleteBox
 
-    let SelectionChanged =
-        Attributes.defineEvent<SelectionChangedEventArgs> "AutoCompleteBox_SelectionChanged" (fun target -> (target :?> AutoCompleteBox).SelectionChanged)
+            match newValueOpt with
+            | ValueNone -> autoComplete.ClearValue(AutoCompleteBox.ItemTemplateProperty)
+            | ValueSome template ->
+                autoComplete.SetValue(AutoCompleteBox.ItemTemplateProperty, WidgetDataTemplate(node, template))
+                |> ignore)
 
 [<AutoOpen>]
 module AutoCompleteBoxBuilders =
     type Fabulous.Avalonia.View with
 
-        /// <summary>Creates a CalendarDatePicker widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the text changes.</param>
+        /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="items">The items to display.</param>
-        static member inline AutoCompleteBox(text: string, fn: string -> 'msg, items: seq<_>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(
-                AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.ItemsSource.WithValue(items),
-                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
-            )
+        static member AutoCompleteBox(items: seq<_>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.ItemsSource.WithValue(items))
 
-        /// <summary>Creates a CalendarDatePicker widget.</summary>
-        /// <param name="text">The text to display.</param>
-        /// <param name="fn">Raised when the text changes.</param>
+        /// <summary>Creates an AutoCompleteBox widget.</summary>
         /// <param name="populator">The function to populate the items.</param>
-        static member inline AutoCompleteBox(text: string, fn: string -> 'msg, populator: string -> CancellationToken -> Task<seq<_>>) =
-            WidgetBuilder<'msg, IFabAutoCompleteBox>(
-                AutoCompleteBox.WidgetKey,
-                AutoCompleteBox.AsyncPopulator.WithValue(populator),
-                AutoCompleteBox.TextChanged.WithValue(ValueEventData.create text fn)
-            )
+        static member AutoCompleteBox(populator: string -> CancellationToken -> Task<seq<_>>) =
+            WidgetBuilder<'msg, IFabAutoCompleteBox>(AutoCompleteBox.WidgetKey, AutoCompleteBox.AsyncPopulator.WithValue(populator))
 
-[<Extension>]
 type AutoCompleteBoxModifiers =
     /// <summary>Sets the MinimumPrefixLength property.</summary>
     /// <param name="this">Current widget.</param>
@@ -141,6 +140,13 @@ type AutoCompleteBoxModifiers =
     static member inline itemFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: string -> obj -> bool) =
         this.AddScalar(AutoCompleteBox.ItemFilter.WithValue(fn))
 
+    /// <summary>Sets the ItemTemplate property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="template">The template to render the items with.</param>
+    [<Extension>]
+    static member inline itemTemplate(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, template: 'item -> WidgetBuilder<'msg, #IFabControl>) =
+        this.AddScalar(AutoCompleteBox.ItemTemplate.WithValue(WidgetHelpers.compileTemplate template))
+
     /// <summary>Sets the TextFilter property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The TextFilter value.</param>
@@ -148,45 +154,15 @@ type AutoCompleteBoxModifiers =
     static member inline textFilter(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> bool) =
         this.AddScalar(AutoCompleteBox.TextFilter.WithValue(value))
 
-    /// <summary>Sets the ItemSelector property.</summary>
+
+    /// <summary>Sets the AutoCompleteBox.ItemSelector property to a custom method that combines the user-entered text
+    /// and the selected item to return the new text input value.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="value">The ItemSelector value.</param>
+    /// <param name="value">A custom method receiving the entered text as the first
+    /// and the selected item as the second argument and returns the updated text of the input after selection.</param>
     [<Extension>]
     static member inline itemSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> obj -> string) =
         this.AddScalar(AutoCompleteBox.ItemSelector.WithValue(value))
-
-    /// <summary>Sets the TextSelector property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The TextSelector value.</param>
-    [<Extension>]
-    static member inline textSelector(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, value: string -> string -> string) =
-        this.AddScalar(AutoCompleteBox.TextSelector.WithValue(value))
-
-    [<Extension>]
-    static member inline onPopulating(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: PopulatingEventArgs -> 'msg) =
-        this.AddScalar(AutoCompleteBox.Populating.WithValue(fn))
-
-    /// <summary>Listens to the AutoCompleteBox Populated event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the AutoCompleteBox Populated event is fired.</param>
-    [<Extension>]
-    static member inline onPopulated(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: PopulatedEventArgs -> 'msg) =
-        this.AddScalar(AutoCompleteBox.Populated.WithValue(fn))
-
-    /// <summary>Listens to the AutoCompleteBox DropDownOpened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="isOpen">The IsOpen value.</param>
-    /// <param name="fn">Raised when the AutoCompleteBox DropDownOpened event is fired.</param>
-    [<Extension>]
-    static member inline onDropDownOpened(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, isOpen: bool, fn: bool -> 'msg) =
-        this.AddScalar(AutoCompleteBox.DropDownOpened.WithValue(ValueEventData.create isOpen fn))
-
-    /// <summary>Listens to the AutoCompleteBox SelectionChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the AutoCompleteBox SelectionChanged event is fired.</param>
-    [<Extension>]
-    static member inline onSelectionChanged(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, fn: SelectionChangedEventArgs -> 'msg) =
-        this.AddScalar(AutoCompleteBox.SelectionChanged.WithValue(fn))
 
     /// <summary>Link a ViewRef to access the direct AutoCompleteBox control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -194,3 +170,11 @@ type AutoCompleteBoxModifiers =
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabAutoCompleteBox>, value: ViewRef<AutoCompleteBox>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+    /// <Summary>Allows multi-binding the ValueMemberBinding on an AutoCompleteBox.</Summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="format">The format string to use.</param>
+    /// <param name="propertyNames">The property names to bind.</param>
+    [<Extension>]
+    static member inline multiBindValue(this: WidgetBuilder<'msg, #IFabAutoCompleteBox>, format: string, [<ParamArray>] propertyNames: string array) =
+        this.AddScalar(AutoCompleteBox.MultiValueBinding.WithValue((format, propertyNames)))

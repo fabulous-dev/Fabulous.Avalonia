@@ -1,5 +1,6 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
 open Avalonia.Layout
@@ -8,7 +9,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module PointersPage =
     type Model =
@@ -25,29 +25,17 @@ module PointersPage =
         | Border_PointerCaptureLost of PointerCaptureLostEventArgs
         | Border_PointerUpdated of PointerEventArgs
 
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
-    let pointerCanvasRef = ViewRef<PointerCanvas>()
-
     let init () =
         { ThreadSleep = 0
           Status = ""
           Status2 = "" },
-        []
-
-    let border1 = ViewRef<Border>()
-
-    let border2 = ViewRef<Border>()
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ThreadSleepSliderChanged v -> { model with ThreadSleep = int v }, []
-        | StatusChanged v -> { model with Status = v }, []
-        | StatusChanged2 v -> { model with Status2 = v }, []
+        | ThreadSleepSliderChanged v -> { model with ThreadSleep = int v }, Cmd.none
+        | StatusChanged v -> { model with Status = v }, Cmd.none
+        | StatusChanged2 v -> { model with Status2 = v }, Cmd.none
         | Border_PointerPressed args ->
             match args.Source with
             | :? Border as border ->
@@ -55,7 +43,7 @@ module PointersPage =
                 args.Handled <- true
             | _ -> ()
 
-            model, []
+            model, Cmd.none
         | Border_PointerReleased args ->
             match args.Source with
             | :? Border as border ->
@@ -66,7 +54,7 @@ module PointersPage =
                     raise(System.Exception("Unexpected capture"))
             | _ -> ()
 
-            model, []
+            model, Cmd.none
         | Border_PointerCaptureLost args ->
             match args.Source with
             | :? Border as border when (border.Child :? TextBlock) ->
@@ -79,8 +67,8 @@ PointerId: {args.Pointer.Id}
 Position: ??? ???"
 
                 args.Handled <- true
-                model, []
-            | _ -> model, []
+                model, Cmd.none
+            | _ -> model, Cmd.none
         | Border_PointerUpdated args ->
             match args.Source with
             | :? Border as border when (border.Child :? TextBlock) ->
@@ -94,82 +82,97 @@ PointerId: {args.Pointer.Id}
 Position: {position.X} {position.Y}"
 
                 args.Handled <- true
-                model, []
-            | _ -> model, []
+                model, Cmd.none
+            | _ -> model, Cmd.none
 
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        TabControl(Dock.Top) {
-            TabItem("Contacts", PointerContactsTab())
+    let view () =
+        Component("PointersPage") {
+            let! model = Context.Mvu program
 
-            TabItem(
-                TextBlock("IntermediatePoints"),
-                (Panel() {
-                    PointerCanvas(true, model.ThreadSleep, StatusChanged)
+            TabControl(Dock.Top) {
+                TabItem("Contacts", PointerContactsTab())
 
-                    Border(
-                        (VStack() {
-                            TextBlock($"Thread sleep: {model.ThreadSleep} / 500")
-                            Slider(0, 500, model.ThreadSleep, ThreadSleepSliderChanged)
-                        })
-                            .background(Brushes.LightYellow)
-                    )
-                        .width(300)
-                        .height(60.)
-                        .verticalAlignment(VerticalAlignment.Top)
-                        .horizontalAlignment(HorizontalAlignment.Right)
+                TabItem(
+                    TextBlock("IntermediatePoints"),
+                    (Panel() {
+                        View.PointerCanvas(true, model.ThreadSleep, StatusChanged)
 
-                    TextBlock(model.Status)
-                        .horizontalAlignment(HorizontalAlignment.Left)
-                        .verticalAlignment(VerticalAlignment.Top)
+                        Border(
+                            (VStack() {
+                                TextBlock($"Thread sleep: {model.ThreadSleep} / 500")
+                                Slider(0, 500, model.ThreadSleep, ThreadSleepSliderChanged)
+                            })
+                                .background(Brushes.LightYellow)
+                        )
+                            .width(300)
+                            .height(60.)
+                            .verticalAlignment(VerticalAlignment.Top)
+                            .horizontalAlignment(HorizontalAlignment.Right)
 
-                })
-                    .foreground(Brushes.Black)
-            )
+                        TextBlock(model.Status)
+                            .horizontalAlignment(HorizontalAlignment.Left)
+                            .verticalAlignment(VerticalAlignment.Top)
 
-            TabItem(
-                TextBlock("Pressure"),
-                (Panel() {
-                    PointerCanvas(false, 0, StatusChanged2)
+                    })
+                        .foreground(Brushes.Black)
+                )
 
-                    TextBlock(model.Status2)
-                        .horizontalAlignment(HorizontalAlignment.Left)
-                        .verticalAlignment(VerticalAlignment.Top)
-                })
-                    .foreground(Brushes.Black)
-            )
+                TabItem(
+                    TextBlock("Pressure"),
+                    (Panel() {
+                        View.PointerCanvas(false, 0, StatusChanged2)
 
-            TabItem(
-                TextBlock("Capture"),
-                VWrap() {
-                    Border(TextBlock("Capture 1"))
-                        .minHeight(170.)
-                        .minWidth(250.)
-                        .margin(5.)
-                        .padding(50.)
-                        .background(Brushes.LightBlue)
-                        .tooltipPlacement(PlacementMode.Bottom)
-                        .onPointerPressed(Border_PointerPressed)
-                        .onPointerReleased(Border_PointerReleased)
-                        .onPointerCaptureLost(Border_PointerCaptureLost)
-                        .onPointerMoved(Border_PointerUpdated)
-                        .onPointerEntered(Border_PointerUpdated)
-                        .onPointerExited(Border_PointerUpdated)
+                        TextBlock(model.Status2)
+                            .horizontalAlignment(HorizontalAlignment.Left)
+                            .verticalAlignment(VerticalAlignment.Top)
+                    })
+                        .foreground(Brushes.Black)
+                )
 
-                    Border(TextBlock("Capture 2"))
-                        .minHeight(170.)
-                        .minWidth(250.)
-                        .margin(5.)
-                        .padding(50.)
-                        .background(Brushes.LightBlue)
-                        .tooltipPlacement(PlacementMode.Bottom)
-                        .onPointerPressed(Border_PointerPressed)
-                        .onPointerReleased(Border_PointerReleased)
-                        .onPointerCaptureLost(Border_PointerCaptureLost)
-                        .onPointerMoved(Border_PointerUpdated)
-                        .onPointerEntered(Border_PointerUpdated)
-                        .onPointerExited(Border_PointerUpdated)
-                }
+                TabItem(
+                    TextBlock("Capture"),
+                    VWrap() {
+                        Border(TextBlock("Capture 1"))
+                            .minHeight(170.)
+                            .minWidth(250.)
+                            .margin(5.)
+                            .padding(50.)
+                            .background(Brushes.LightBlue)
+                            .tooltipPlacement(PlacementMode.Bottom)
+                            .onPointerPressed(Border_PointerPressed)
+                            .onPointerReleased(Border_PointerReleased)
+                            .onPointerCaptureLost(Border_PointerCaptureLost)
+                            .onPointerMoved(Border_PointerUpdated)
+                            .onPointerEntered(Border_PointerUpdated)
+                            .onPointerExited(Border_PointerUpdated)
 
-            )
+                        Border(TextBlock("Capture 2"))
+                            .minHeight(170.)
+                            .minWidth(250.)
+                            .margin(5.)
+                            .padding(50.)
+                            .background(Brushes.LightBlue)
+                            .tooltipPlacement(PlacementMode.Bottom)
+                            .onPointerPressed(Border_PointerPressed)
+                            .onPointerReleased(Border_PointerReleased)
+                            .onPointerCaptureLost(Border_PointerCaptureLost)
+                            .onPointerMoved(Border_PointerUpdated)
+                            .onPointerEntered(Border_PointerUpdated)
+                            .onPointerExited(Border_PointerUpdated)
+                    }
+
+                )
+            }
         }

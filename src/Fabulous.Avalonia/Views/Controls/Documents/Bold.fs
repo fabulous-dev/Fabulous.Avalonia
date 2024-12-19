@@ -15,15 +15,14 @@ module BoldBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a Bold widget.</summary>
-        static member private Bold<'msg>() =
+        static member private Bold() =
             CollectionBuilder<'msg, IFabBold, IFabInline>(Bold.WidgetKey, Span.Inlines)
 
         /// <summary>Creates a Bold widget.</summary>
         /// <param name="text">The text to display.</param>
-        static member Bold<'msg>(text: string) =
-            View.Bold<'msg>() { View.Run<'msg>(text) }
+        static member Bold(text: string) = View.Bold() { View.Run(text) }
 
-[<Extension>]
+
 type BoldModifiers =
     /// <summary>Link a ViewRef to access the direct Bold control instance.</summary>
     /// <param name="this">Current widget.</param>

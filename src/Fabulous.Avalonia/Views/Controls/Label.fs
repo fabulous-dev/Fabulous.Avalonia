@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Input
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabLabel =
@@ -21,24 +20,20 @@ module LabelBuilders =
 
         /// <summary>Creates a Label widget.</summary>
         /// <param name="text">The text to display.</param>
-        static member inline Label<'msg>(text: string) =
+        static member inline Label(text: string) =
             WidgetBuilder<'msg, IFabLabel>(Label.WidgetKey, ContentControl.ContentString.WithValue(text))
 
         /// <summary>Creates a Label widget.</summary>
         /// <param name="content">The content to display.</param>
         static member inline Label(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabLabel>(
-                Label.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabLabel>(Label.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
-[<Extension>]
 type LabelModifiers =
     /// <summary>Sets the Target property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Target value.</param>
     [<Extension>]
-    static member inline target(this: WidgetBuilder<'msg, IFabLabel>, value: ViewRef<#IInputElement>) =
+    static member inline target(this: WidgetBuilder<'msg, #IFabLabel>, value: ViewRef<#IInputElement>) =
         match value.TryValue with
         | None -> this
         | Some value -> this.AddScalar(Label.Target.WithValue(value))

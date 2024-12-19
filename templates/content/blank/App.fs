@@ -1,5 +1,7 @@
 namespace NewApp
 
+open Avalonia
+open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
 
@@ -24,7 +26,7 @@ module App =
             do! Async.Sleep 200
             return TimedTick
         }
-        |> Cmd.ofAsyncMsg
+        |> Cmd.OfAsync.msg
 
     let init () = initModel, Cmd.none
 
@@ -49,7 +51,7 @@ module App =
             else
                 model, Cmd.none
 
-    let view model =
+    let content model =
         (VStack() {
             TextBlock($"%d{model.Count}").centerText()
 
@@ -74,14 +76,16 @@ module App =
         })
             .center()
 
-    //-:cnd:noEmit
-
+    let view model =
+        //-:cnd:noEmit
 #if MOBILE
-    let app model = SingleViewApplication(view model)
+        SingleViewApplication(content model)
 #else
-    let app model = DesktopApplication(Window(view model))
+        DesktopApplication(Window(content model))
 #endif
-
     //+:cnd:noEmit
 
-    let program = Program.statefulWithCmd init update app
+    let create () =
+        let program = Program.statefulWithCmd init update |> Program.withView view
+
+        FabulousAppBuilder.Configure(FluentTheme, program)

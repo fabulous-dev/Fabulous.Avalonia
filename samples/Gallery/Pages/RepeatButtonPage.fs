@@ -1,44 +1,55 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module RepeatButtonPage =
     type Model = { Nothing: bool }
 
-    type Msg = | Clicked
+    type Msg = Clicked of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
+    let init () = { Nothing = true }, Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
+        | Clicked _ -> model, Cmd.none
 
-    let view _ =
-        VStack(spacing = 15.) {
-            RepeatButton("Click me, or press and hold!", Clicked)
-                .delay(400)
-                .interval(200)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            RepeatButton(
-                Clicked,
-                HStack(16.) {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png")
-                        .width(20.)
-                        .height(20.)
+    let view () =
+        Component("RepeatButtonPage") {
+            let! model = Context.Mvu program
 
-                    TextBlock("Example with custom content")
-                }
-            )
-                .delay(400)
-                .interval(200)
+            VStack(spacing = 15.) {
+                RepeatButton("Click me, or press and hold!", Clicked)
+                    .delay(400)
+                    .interval(200)
+
+                RepeatButton(
+                    Clicked,
+                    HStack(16.) {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png")
+                            .width(20.)
+                            .height(20.)
+
+                        TextBlock("Example with custom content")
+                    }
+                )
+                    .delay(400)
+                    .interval(200)
+            }
         }

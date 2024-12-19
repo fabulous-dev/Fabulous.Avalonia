@@ -26,7 +26,6 @@ module SectorBuilders =
         static member Sector(startAngle: float, sweepAngle: float) =
             WidgetBuilder<'msg, IFabSector>(Sector.WidgetKey, Sector.StartAngle.WithValue(startAngle), Sector.SweepAngle.WithValue(sweepAngle))
 
-[<Extension>]
 type SectorModifiers =
     /// <summary>Link a ViewRef to access the direct Sector control instance.</summary>
     /// <param name="this">Current widget.</param>

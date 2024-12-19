@@ -1,31 +1,14 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Avalonia
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
+
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module BrushesPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         (Canvas() {
             Rectangle()
                 .canvasLeft(20.0)
@@ -63,7 +46,7 @@ module BrushesPage =
                         GradientStop(Colors.Black, 0.)
                         GradientStop(Colors.Orange, 1.0)
                     })
-                        .radius(0.13636364)
+                        .radiusX(0.13636364)
                         .transform(
                             TransformGroup() {
                                 ScaleTransform()
@@ -85,7 +68,7 @@ module BrushesPage =
                 .width(440.0)
                 .height(50.0)
                 .fill(
-                    ImageBrush(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                    ImageBrush("avares://Gallery/Assets/Icons/fabulous-icon.png")
                         .tileMode(TileMode.Tile)
                         .sourceRect(Point(0., 0.), Size(20., 20.), RelativeUnit.Absolute)
                         .destinationRect(Point(0., 0.), Size(20., 20.), RelativeUnit.Absolute)

@@ -1,5 +1,6 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Layout
@@ -7,7 +8,6 @@ open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module LabelPage =
     type Model =
@@ -22,30 +22,23 @@ module LabelPage =
         | DoSave
         | DoCancel
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { FirstName = ""
           LastName = ""
           IsBanned = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | FirstNameChanged s -> { model with FirstName = s }, []
-        | LastNameChanged s -> { model with LastName = s }, []
-        | BannedChanged b -> { model with IsBanned = b }, []
-        | DoSave -> model, []
+        | FirstNameChanged s -> { model with FirstName = s }, Cmd.none
+        | LastNameChanged s -> { model with LastName = s }, Cmd.none
+        | BannedChanged b -> { model with IsBanned = b }, Cmd.none
+        | DoSave -> model, Cmd.none
         | DoCancel ->
-            { model with
-                FirstName = "John"
-                LastName = "Doe"
-                IsBanned = true },
-            []
+            { FirstName = "John"
+              LastName = "Doe"
+              IsBanned = true },
+            Cmd.none
 
     let labelStyle (this: WidgetBuilder<'msg, IFabLabel>) =
         this
@@ -68,65 +61,81 @@ module LabelPage =
 
     let bannedCheck = ViewRef<CheckBox>()
 
-    let view model =
-        ScrollViewer(
-            (Grid(rowdefs = [ Auto; Auto; Auto; Auto; Auto; Star ], coldefs = [ Auto; Pixel(6.); Star ]) {
-                Label("_FirstName")
-                    .target(firstNameEdit)
-                    .gridRow(0)
-                    .gridColumn(0)
-                    .style(labelStyle)
-
-                TextBox(model.FirstName, FirstNameChanged)
-                    .gridRow(0)
-                    .gridColumn(2)
-                    .name("firstNameEdit")
-                    .style(textBoxStyle)
-                    .reference(firstNameEdit)
-
-                Label("_LastName")
-                    .target(lastNameEdit)
-                    .gridRow(1)
-                    .gridColumn(0)
-                    .style(labelStyle)
-
-                TextBox(model.LastName, LastNameChanged)
-                    .gridRow(1)
-                    .gridColumn(2)
-                    .name("lastNameEdit")
-                    .style(textBoxStyle)
-                    .reference(lastNameEdit)
-
-                Label("_Banned")
-                    .target(bannedCheck)
-                    .gridRow(2)
-                    .gridColumn(0)
-                    .style(labelStyle)
-
-                CheckBox(model.IsBanned, BannedChanged)
-                    .gridRow(2)
-                    .gridColumn(2)
-                    .name("bannedCheck")
-                    .style(checkBoxStyle)
-                    .reference(bannedCheck)
-
-                GridSplitter()
-                    .gridRowSpan(3)
-                    .gridColumn(1)
-                    .verticalAlignment(VerticalAlignment.Stretch)
-                    .horizontalAlignment(HorizontalAlignment.Stretch)
-
-                (HStack() {
-                    Button("Cancel", DoCancel).isCancel(true)
-
-                    Button("Save", DoSave).isDefault(true)
-                })
-                    .gridRow(4)
-                    .gridColumn(0)
-                    .gridColumnSpan(3)
-                    .horizontalAlignment(HorizontalAlignment.Right)
-            })
-                .width(246.)
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
         )
-            .verticalScrollBarVisibility(ScrollBarVisibility.Auto)
-            .horizontalScrollBarVisibility(ScrollBarVisibility.Hidden)
+
+    let view () =
+        Component("LabelPage") {
+            let! model = Context.Mvu program
+
+            ScrollViewer(
+                (Grid(rowdefs = [ Auto; Auto; Auto; Auto; Auto; Star ], coldefs = [ Auto; Pixel(6.); Star ]) {
+                    Label("_FirstName")
+                        .target(firstNameEdit)
+                        .gridRow(0)
+                        .gridColumn(0)
+                        .style(labelStyle)
+
+                    TextBox(model.FirstName, FirstNameChanged)
+                        .gridRow(0)
+                        .gridColumn(2)
+                        .name("firstNameEdit")
+                        .style(textBoxStyle)
+                        .reference(firstNameEdit)
+
+                    Label("_LastName")
+                        .target(lastNameEdit)
+                        .gridRow(1)
+                        .gridColumn(0)
+                        .style(labelStyle)
+
+                    TextBox(model.LastName, LastNameChanged)
+                        .gridRow(1)
+                        .gridColumn(2)
+                        .name("lastNameEdit")
+                        .style(textBoxStyle)
+                        .reference(lastNameEdit)
+
+                    Label("_Banned")
+                        .target(bannedCheck)
+                        .gridRow(2)
+                        .gridColumn(0)
+                        .style(labelStyle)
+
+                    CheckBox(model.IsBanned, BannedChanged)
+                        .gridRow(2)
+                        .gridColumn(2)
+                        .name("bannedCheck")
+                        .style(checkBoxStyle)
+                        .reference(bannedCheck)
+
+                    GridSplitter()
+                        .gridRowSpan(3)
+                        .gridColumn(1)
+                        .verticalAlignment(VerticalAlignment.Stretch)
+                        .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                    (HStack() {
+                        Button("Cancel", DoCancel).isCancel(true)
+
+                        Button("Save", DoSave).isDefault(true)
+                    })
+                        .gridRow(4)
+                        .gridColumn(0)
+                        .gridColumnSpan(3)
+                        .horizontalAlignment(HorizontalAlignment.Right)
+                })
+                    .width(246.)
+            )
+                .verticalScrollBarVisibility(ScrollBarVisibility.Auto)
+                .horizontalScrollBarVisibility(ScrollBarVisibility.Hidden)
+        }

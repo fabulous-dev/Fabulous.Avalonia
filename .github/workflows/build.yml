@@ -12,32 +12,35 @@ env:
   TEMPLATE_PROJ: templates/Fabulous.Avalonia.Templates.proj
   TEMPLATE_PKG: nupkgs/Fabulous.Avalonia.Templates
   NUPKG_FOLDER: nupkgs
+  XCODE_PATH: /Applications/Xcode_16.0.app/Contents/Developer
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
     - name: Checkout sources
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Read last version from CHANGELOG.md
       id: changelog_reader
       uses: mindsers/changelog-reader-action@v2
       with:
         validation_level: warn
-        path: ./CHANGELOG.md
+        path: src/Fabulous.Avalonia/CHANGELOG.md
     - name: Set nightly version
       run: |
         NIGHTLY_VERSION=${{ steps.changelog_reader.outputs.version }}-nightly-${GITHUB_RUN_ID}
         echo "Nightly version is $NIGHTLY_VERSION"
         echo "NIGHTLY_VERSION=$NIGHTLY_VERSION" >> "$GITHUB_ENV"
     - name: Update xcode tools
-      run: sudo xcode-select -s /Applications/Xcode_14.3.app/Contents/Developer/
+      run: sudo xcode-select -s ${XCODE_PATH}
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.x
     - name: Install dotnet workload
       run: dotnet workload restore
+    - name: Install workload wasm
+      run: dotnet workload install wasm-tools
     - name: Restore
       run: dotnet restore ${SLN_FILE}
     - name: Build
@@ -54,13 +57,19 @@ jobs:
       with:
         name: Packages
         path: nupkgs/
-    - name: Test templates
+    - name: Setup for testing templates
       run: |
         LOCAL_NUGET_PATH=$(readlink -f ${NUPKG_FOLDER})
         dotnet nuget add source $LOCAL_NUGET_PATH --name local
         dotnet new install Fabulous.Avalonia.Templates::${NIGHTLY_VERSION}
-        dotnet new fabulous-avalonia -n TestTemplates
-        dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false -f net7.0-android -t:CompileResourceDesignerForFSharp
-        dotnet build TestTemplates -p:ManagePackageVersionsCentrally=false
+    - name: Test single project template
+      run: |
+        dotnet new fabulous-avalonia -n SingleProjectTemplate
+        dotnet build SingleProjectTemplate -t:InstallAndroidDependencies -f net8.0-android -p:AndroidSdkDirectory="/Users/runner/Library/Android/sdk" -p:AcceptAndroidSDKLicenses=True -p:ManagePackageVersionsCentrally=false
+        dotnet build SingleProjectTemplate -p:ManagePackageVersionsCentrally=false 
+    - name: Test multi project template
+      run: |
+        dotnet new fabulous-avalonia-multi -n MultiProjectTemplate
+        dotnet build MultiProjectTemplate -p:ManagePackageVersionsCentrally=false
     - name: Push
       run: dotnet nuget push "nupkgs/*" -s https://nuget.pkg.github.com/fabulous-dev/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate

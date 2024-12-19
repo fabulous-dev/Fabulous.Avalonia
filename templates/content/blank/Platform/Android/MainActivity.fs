@@ -1,10 +1,11 @@
-namespace NewApp
+namespace NewApp.Android
 
 open Android.App
 open Android.Content.PM
 open Avalonia
 open Avalonia.Android
 open Fabulous.Avalonia
+open NewApp
 
 [<Activity(Label = "NewApp.Android",
            Theme = "@style/MyTheme.NoActionBar",
@@ -14,7 +15,4 @@ open Fabulous.Avalonia
 type MainActivity() =
     inherit AvaloniaMainActivity<FabApplication>()
 
-    override this.CustomizeAppBuilder(_builder: AppBuilder) =
-        AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
-            .UseAndroid()
+    override this.CustomizeAppBuilder(_builder: AppBuilder) = App.create().UseAndroid()

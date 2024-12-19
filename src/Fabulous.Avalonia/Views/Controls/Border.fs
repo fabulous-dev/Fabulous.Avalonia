@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections.StackList
@@ -41,18 +40,14 @@ module BorderBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a Border widget.</summary>
-        /// <param name="content">The content of the Border.</param>
-        static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabBorder>(
-                Border.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| Decorator.Child.WithValue(content.Compile()) |], ValueNone)
-            )
+        static member Border() =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey)
 
         /// <summary>Creates a Border widget.</summary>
-        static member Border<'msg>() =
-            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        /// <param name="content">The content of the Border.</param>
+        static member Border(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabBorder>(Border.WidgetKey, Decorator.ChildWidget.WithValue(content.Compile()))
 
-[<Extension>]
 type BorderModifiers =
     /// <summary>Sets the Background property.</summary>
     /// <param name="this">Current widget.</param>
@@ -72,8 +67,15 @@ type BorderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Background value.</param>
     [<Extension>]
+    static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
+        BorderModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Background property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Background value.</param>
+    [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        this.AddScalar(Border.Background.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        BorderModifiers.background(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>
@@ -93,8 +95,15 @@ type BorderModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The BorderBrush value.</param>
     [<Extension>]
+    static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: Color) =
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the BorderBrush property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BorderBrush value.</param>
+    [<Extension>]
     static member inline borderBrush(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
-        this.AddScalar(Border.BorderBrush.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        BorderModifiers.borderBrush(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the BorderThickness property.</summary>
     /// <param name="this">Current widget.</param>
@@ -117,7 +126,13 @@ type BorderModifiers =
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, value: BoxShadows) =
         this.AddScalar(Border.BoxShadow.WithValue(value))
 
-[<Extension>]
+    /// <summary>Link a ViewRef to access the direct Border control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type BorderExtraModifiers =
     /// <summary>Sets the CornerRadius property.</summary>
     /// <param name="this">Current widget.</param>
@@ -199,10 +214,3 @@ type BorderExtraModifiers =
     static member inline boxShadow(this: WidgetBuilder<'msg, #IFabBorder>, first: string, rest: string list) =
         let rest = rest |> List.map BoxShadow.Parse |> List.toArray
         BorderModifiers.boxShadow(this, BoxShadows(BoxShadow.Parse(first), rest))
-
-    /// <summary>Link a ViewRef to access the direct Border control instance.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
-    [<Extension>]
-    static member inline reference(this: WidgetBuilder<'msg, IFabBorder>, value: ViewRef<Border>) =
-        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

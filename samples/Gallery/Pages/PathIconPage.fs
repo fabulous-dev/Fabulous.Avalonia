@@ -1,29 +1,11 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module PathIconPage =
-    type Model = { Nothing: bool }
-
-    type Msg = | DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         VStack(spacing = 15.) {
             PathIcon("M 10,100 L 100,100 100,50Z").size(100., 100.)
 

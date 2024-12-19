@@ -44,7 +44,7 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "FabulousPkgVersion",
-      "defaultValue": "2.4.0"
+      "defaultValue": "3.0.0-pre17"
     },
     "FabulousAvaloniaPkgVersion": {
       "type": "parameter",
@@ -56,13 +56,31 @@
       "type": "parameter",
       "dataType": "string",
       "replaces": "FSharpCorePkgVersion",
-      "defaultValue": "7.0.0"
+      "defaultValue": "8.0.301"
     },
-    "FSharpAndroidResourcePkgVersion": {
+    "AvaloniaAndroidPkgVersion": {
       "type": "parameter",
       "dataType": "string",
-      "replaces": "FSharpAndroidResourcePkgVersion",
-      "defaultValue": "1.0.4"
+      "replaces": "AvaloniaAndroidPkgVersion",
+      "defaultValue": "11.2.2"
+    },
+    "AvaloniaDesktopPkgVersion": {
+      "type": "parameter",
+      "dataType": "string",
+      "replaces": "AvaloniaDesktopPkgVersion",
+      "defaultValue": "11.2.2"
+    },
+    "AvaloniaiOSPkgVersion": {
+      "type": "parameter",
+      "dataType": "string",
+      "replaces": "AvaloniaiOSPkgVersion",
+      "defaultValue": "11.2.2"
+    },
+    "AvaloniaThemesFluentPkgVersion": {
+      "type": "parameter",
+      "dataType": "string",
+      "replaces": "AvaloniaThemesFluentPkgVersion",
+      "defaultValue": "11.2.2"
     }
   }
 }

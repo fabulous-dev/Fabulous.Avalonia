@@ -1,10 +1,10 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ToggleSwitchPage =
     type Model =
@@ -17,21 +17,15 @@ module ToggleSwitchPage =
         | ValueChanged1 of bool option
         | IntermediaryChanged
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Value1 = false
           Value2 = Some false
           Text2 = "Toggle me" },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with Value1 = value }, []
+        | ValueChanged value -> { model with Value1 = value }, Cmd.none
         | ValueChanged1 value ->
             let text =
                 match value with
@@ -42,18 +36,34 @@ module ToggleSwitchPage =
             { model with
                 Value2 = value
                 Text2 = text },
-            []
-        | IntermediaryChanged -> model, []
+            Cmd.none
+        | IntermediaryChanged -> model, Cmd.none
 
-    let view model =
-        VStack(spacing = 15.) {
-            ToggleSwitch(model.Value1, ValueChanged)
-                .offContent(TextBlock("Nooo"))
-                .onContent("Yessss")
-                .content("Toggle me")
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ThreeStateToggleSwitch(model.Value2, ValueChanged1)
-                .offContent("Nooo")
-                .onContent(TextBlock("Yessss"))
-                .content(model.Text2)
+    let view () =
+        Component("ToggleSwitchPage") {
+            let! model = Context.Mvu program
+
+            VStack(spacing = 15.) {
+                ToggleSwitch(model.Value1, ValueChanged)
+                    .offContent(TextBlock("Nooo"))
+                    .onContent("Yessss")
+                    .content("Toggle me")
+
+                ThreeStateToggleSwitch(model.Value2, ValueChanged1)
+                    .offContent("Nooo")
+                    .onContent(TextBlock("Yessss"))
+                    .content(model.Text2)
+            }
         }

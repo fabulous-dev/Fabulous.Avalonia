@@ -1,25 +1,20 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module SplitButtonPage =
     type Model = { Colors: Color list }
 
-    type Msg = | Clicked
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
+    type Msg = Clicked of RoutedEventArgs
 
     let init () =
         { Colors =
@@ -42,11 +37,11 @@ module SplitButtonPage =
               Colors.Red
               Colors.Bisque
               Colors.White ] },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
+        | Clicked _ -> model, Cmd.none
 
     let menuFlyout () =
         (MenuFlyout() {
@@ -63,7 +58,7 @@ module SplitButtonPage =
         })
             .placement(PlacementMode.Bottom)
 
-    let availableColors colors =
+    let availableColors (colors: Color list) =
         (MenuFlyout() {
             MenuItem(
                 ScrollViewer(
@@ -77,18 +72,33 @@ module SplitButtonPage =
         })
             .placement(PlacementMode.Bottom)
 
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        (VStack(spacing = 16.) {
-            SplitButton("Content", Clicked).flyout(menuFlyout())
+    let view () =
+        Component("SplitButtonPage") {
+            let! model = Context.Mvu program
 
-            SplitButton("Disabled", Clicked).isEnabled(false)
+            (VStack(spacing = 16.) {
+                SplitButton("Content", Clicked).flyout(menuFlyout())
 
-            SplitButton("Re-themed", Clicked)
-                .flyout(menuFlyout())
-                .foreground(SolidColorBrush(Colors.White))
+                SplitButton("Disabled", Clicked).isEnabled(false)
 
-            SplitButton(Clicked, Rectangle().size(32., 32.).fill(SolidColorBrush(Colors.Red)))
-                .flyout(availableColors model.Colors)
-        })
-            .horizontalAlignment(HorizontalAlignment.Center)
+                SplitButton("Re-themed", Clicked)
+                    .flyout(menuFlyout())
+                    .foreground(SolidColorBrush(Colors.White))
+
+                SplitButton(Clicked, Rectangle().size(32., 32.).fill(SolidColorBrush(Colors.Red)))
+                    .flyout(availableColors model.Colors)
+            })
+                .horizontalAlignment(HorizontalAlignment.Center)
+        }

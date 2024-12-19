@@ -21,12 +21,9 @@ module InlineUIContainerBuilders =
         /// <summary>Creates a InlineUIContainer widget.</summary>
         /// <param name="content">The content of the InlineUIContainer.</param>
         static member InlineUIContainer(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabInlineUIContainer>(
-                InlineUIContainer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| InlineUIContainer.Children.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabInlineUIContainer>(InlineUIContainer.WidgetKey, InlineUIContainer.Children.WithValue(content.Compile()))
 
-[<Extension>]
+
 type InlineUIContainerModifiers =
     /// <summary>Link a ViewRef to access the direct InlineUIContainer control instance.</summary>
     /// <param name="this">Current widget.</param>

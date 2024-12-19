@@ -27,23 +27,6 @@ module ProgressBar =
     let ShowProgressText =
         Attributes.defineAvaloniaPropertyWithEquality ProgressBar.ShowProgressTextProperty
 
-[<AutoOpen>]
-module ProgressBarBuilders =
-    type Fabulous.Avalonia.View with
-
-        /// <summary>Creates a ProgressBar widget.</summary>
-        /// <param name="min">Minimum value.</param>
-        /// <param name="max">Maximum value.</param>
-        /// <param name="value">Current value.</param>
-        /// <param name="fn">Raised when the value changes.</param>
-        static member inline ProgressBar<'msg>(min: float, max: float, value: float, fn: float -> 'msg) =
-            WidgetBuilder<'msg, IFabProgressBar>(
-                ProgressBar.WidgetKey,
-                RangeBase.MinimumMaximum.WithValue(struct (min, max)),
-                RangeBase.ValueChanged.WithValue(ValueEventData.create value fn)
-            )
-
-[<Extension>]
 type ProgressBarModifiers =
     /// <summary>Sets the IsIndeterminate property.</summary>
     /// <param name="this">Current widget.</param>

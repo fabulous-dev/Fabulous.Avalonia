@@ -1,31 +1,13 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Avalonia.Layout
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module BorderPage =
-    type Model = { Nothing: bool }
-
-    type Msg = DoNothing
-
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
-
-    let update msg model =
-        match msg with
-        | DoNothing -> model, []
-
-    let view _ =
+    let view () =
         VStack(spacing = 4) {
             TextBlock("A control which decorates a child with a border and background")
 
@@ -49,23 +31,23 @@ module BorderPage =
                 .horizontalAlignment(HorizontalAlignment.Center)
 
             Border(TextBlock("Rounded Corners"))
-                .borderBrush(SolidColorBrush(Colors.BlueViolet))
+                .borderBrush(Brushes.BlueViolet)
                 .borderThickness(4.)
                 .cornerRadius(8.)
                 .padding(16.)
                 .horizontalAlignment(HorizontalAlignment.Center)
 
             Border(TextBlock("Rounded Corners"))
-                .background(SolidColorBrush(Colors.Magenta))
+                .background(Colors.Magenta)
                 .cornerRadius(8.)
                 .padding(16.)
                 .horizontalAlignment(HorizontalAlignment.Center)
 
-            Border(Image(ImageSource.fromString("avares://Gallery/Assets/Icons/fabulous-icon.png")))
+            Border(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
                 .width(100.)
                 .height(100.)
                 .borderThickness(0.)
-                .background(SolidColorBrush(Colors.Green))
+                .background("#00fa9a")
                 .cornerRadius(100.)
                 .clipToBounds(true)
         }

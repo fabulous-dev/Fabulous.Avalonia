@@ -1,13 +1,13 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System.ComponentModel
+open System.Diagnostics
 open Avalonia.Input
 open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ContextMenuPage =
     type Model = { Counter: int; IsChecked: bool }
@@ -19,71 +19,82 @@ module ContextMenuPage =
         | ContextMenuClosing of CancelEventArgs
         | ValueChanged of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Counter = 0; IsChecked = false }, []
+    let init () =
+        { Counter = 0; IsChecked = false }, Cmd.none
 
     let update msg model =
         match msg with
-        | ValueChanged value -> { model with IsChecked = value }, []
-        | ContextMenuOpening _ -> model, []
-        | ContextMenuClosing _ -> model, []
-        | MenuOpened _ -> model, []
-        | MenuClosed _ -> model, []
+        | ValueChanged value -> { model with IsChecked = value }, Cmd.none
+        | ContextMenuOpening _ -> model, Cmd.none
+        | ContextMenuClosing _ -> model, Cmd.none
+        | MenuOpened _ -> model, Cmd.none
+        | MenuClosed _ -> model, Cmd.none
 
-    let view model =
-        VStack(spacing = 15.) {
-            Border(TextBlock("A right click menu that can be applied to any control."))
-                .contextMenu(
-                    (ContextMenu() {
-                        MenuItem("Standard _Menu Item")
-                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-                        MenuItem("Standard _Menu Item")
-                            .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
+    let view () =
+        Component("ContextMenuPage") {
+            let! model = Context.Mvu program
 
-                        MenuItem("_Disabled Menu Item")
-                            .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
-                            .isEnabled(false)
+            VStack(spacing = 15.) {
+                Border(TextBlock("A right click menu that can be applied to any control."))
+                    .contextMenu(
+                        (ContextMenu() {
+                            MenuItem("Standard _Menu Item")
+                                .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
-                        Separator()
+                            MenuItem("Standard _Menu Item")
+                                .inputGesture(KeyGesture(Key.A, KeyModifiers.Control))
 
-                        MenuItems("Menu with _Submenu") {
-                            MenuItem("Submenu _1")
-                            MenuItem("Submenu _1")
-                            MenuItem("Submenu _2")
-                            MenuItem("Submenu _2")
-                        }
-                    })
-                        .onOpening(ContextMenuOpening)
-                        .onClosing(ContextMenuClosing)
-                )
+                            MenuItem("_Disabled Menu Item")
+                                .inputGesture(KeyGesture(Key.D, KeyModifiers.Control))
+                                .isEnabled(false)
 
-            Border(TextBlock("A right click menu that can be applied to any control."))
-                .contextMenu(
-                    (ContextMenu() {
-                        MenuItem("Menu Item with _Icon")
-                            .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
-                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                            MenuItem(Separator())
 
-                        MenuItem("Menu Item with _Checkbox")
-                            .icon(
-                                CheckBox(model.IsChecked, ValueChanged)
-                                    .borderThickness(0.)
-                                    .isHitTestVisible(false)
-                            )
-                            .staysOpenOnClick(true)
+                            MenuItems("Menu with _Submenu") {
+                                MenuItem("Submenu _1")
+                                MenuItem("Submenu _1")
+                                MenuItem("Submenu _2")
+                                MenuItem("Submenu _2")
+                            }
+                        })
+                            .onOpening(ContextMenuOpening)
+                            .onClosing(ContextMenuClosing)
+                    )
 
-                        MenuItem("Menu Item that won't close on click")
-                            .staysOpenOnClick(true)
+                Border(TextBlock("A right click menu that can be applied to any control."))
+                    .contextMenu(
+                        (ContextMenu() {
+                            MenuItem("Menu Item with _Icon")
+                                .inputGesture(KeyGesture(Key.B, KeyModifiers.Control ||| KeyModifiers.Shift))
+                                .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                        MenuItem("Menu Item that will close on click")
-                    })
-                        .onOpened(MenuOpened)
-                        .onClosed(MenuClosed)
-                )
+                            MenuItem("Menu Item with _Checkbox")
+                                .icon(
+                                    CheckBox(model.IsChecked, ValueChanged)
+                                        .borderThickness(0.)
+                                        .isHitTestVisible(false)
+                                )
+                                .staysOpenOnClick(true)
+
+                            MenuItem("Menu Item that won't close on click")
+                                .staysOpenOnClick(true)
+
+                            MenuItem("Menu Item that will close on click")
+                        })
+                            .onOpened(MenuOpened)
+                            .onClosed(MenuClosed)
+                    )
+            }
         }

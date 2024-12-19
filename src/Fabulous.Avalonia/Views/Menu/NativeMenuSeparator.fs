@@ -16,10 +16,9 @@ module NativeMenuItemSeparatorBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a NativeMenuItemSeparator widget.</summary>
-        static member inline NativeMenuItemSeparator() =
-            WidgetBuilder<'msg, IFabNativeMenuItemSeparator>(NativeMenuItemSeparator.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member NativeMenuItemSeparator() =
+            WidgetBuilder<'msg, IFabNativeMenuItemSeparator>(NativeMenuItemSeparator.WidgetKey)
 
-[<Extension>]
 type NativeMenuItemSeparatorModifiers =
     /// <summary>Link a ViewRef to access the direct NativeMenuItemSeparator control instance.</summary>
     /// <param name="this">Current widget.</param>

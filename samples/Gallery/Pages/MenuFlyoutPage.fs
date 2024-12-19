@@ -1,61 +1,69 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Interactivity
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module MenuFlyoutPage =
     type Model = { Counter: int }
 
     type Msg =
         | PressMe
-        | Increment
+        | Increment of RoutedEventArgs
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Counter = 0 }, []
+    let init () = { Counter = 0 }, Cmd.none
 
     let update msg model =
         match msg with
-        | PressMe -> model, []
-        | Increment ->
-            { model with
-                Counter = model.Counter + 1 },
-            []
+        | PressMe -> model, Cmd.none
+        | Increment _ -> { Counter = model.Counter + 1 }, Cmd.none
 
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        VStack(spacing = 15.) {
+    let view () =
+        Component("MenuFlyoutPage") {
+            let! model = Context.Mvu program
 
-            TextBlock($"{model.Counter}")
+            VStack(spacing = 15.) {
 
-            Button("Open Flyout", PressMe)
-                .flyout(
-                    (MenuFlyout() {
-                        MenuItem("Item 1")
-                            .icon(Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png"))
+                TextBlock($"{model.Counter}")
 
-                        MenuItems("Item 2", Increment) {
-                            MenuItem("Subitem 1")
-                            MenuItem("Subitem 2")
-                            MenuItem("Subitem 3")
-                            MenuItem("Subitem 4")
-                            MenuItem("Subitem 5")
-                        }
+                Button("Open Flyout", PressMe)
+                    .flyout(
+                        (MenuFlyout() {
+                            MenuItem("Item 1")
+                                .icon(Image("avares://Gallery/Assets/Icons/fabulous-icon.png"))
 
-                        MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                        MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
-                        MenuItem(TextBlock("Item 6"), Increment)
-                        MenuItem("Item 7")
-                    })
-                        .placement(PlacementMode.BottomEdgeAlignedRight)
-                )
+                            MenuItems("Item 2") {
+                                MenuItem("Subitem 1")
+                                MenuItem("Subitem 2")
+                                MenuItem("Subitem 3")
+                                MenuItem("Subitem 4")
+                                MenuItem("Subitem 5")
+                            }
+                            |> _.onClick(Increment)
+
+                            MenuItem("Item 4").inputGesture(KeyGesture.Parse("Ctrl+A"))
+                            MenuItem("Item 5").inputGesture(KeyGesture.Parse("Ctrl+A"))
+                            MenuItem(TextBlock("Item 6")).onClick(Increment)
+                            MenuItem("Item 7")
+                        })
+                            .placement(PlacementMode.BottomEdgeAlignedRight)
+                    )
+            }
         }

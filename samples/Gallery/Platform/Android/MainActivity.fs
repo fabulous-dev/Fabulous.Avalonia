@@ -14,7 +14,4 @@ open Gallery
 type MainActivity() =
     inherit AvaloniaMainActivity<FabApplication>()
 
-    override this.CustomizeAppBuilder(_builder: AppBuilder) =
-        AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
-            .UseAndroid()
+    override this.CustomizeAppBuilder(_builder: AppBuilder) = MainView.create().UseAndroid()

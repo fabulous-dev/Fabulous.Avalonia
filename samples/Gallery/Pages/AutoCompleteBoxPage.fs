@@ -1,20 +1,19 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System
+open System.Diagnostics
 open System.Threading
 open System.Threading.Tasks
+open Avalonia.Animation
 open Avalonia.Controls
-open Avalonia.Data
-open Avalonia.Data.Converters
 open Avalonia.Interactivity
+open Avalonia.Media
 open Fabulous
 open Fabulous.Avalonia
-
 open type Fabulous.Avalonia.View
-open Gallery
 
-module AutoCompleteBoxPage =
-
+[<AutoOpen>]
+module AutoCompleteBoxCommon =
     type StateData =
         { Name: string
           Abbreviation: string
@@ -22,229 +21,258 @@ module AutoCompleteBoxPage =
 
         override this.ToString() = this.Name
 
-    type Model =
-        { IsOpen: bool
-          SelectedItem: string
-          Items: string seq
-          Capitals: StateData seq
-          Custom: string seq }
+    let usFederalStates =
+        [ { Name = "Arkansas"
+            Abbreviation = "AR"
+            Capital = "Little Rock" }
 
-    type Msg =
-        | TextChanged of string
-        | SelectionChanged of SelectionChangedEventArgs
-        | OnPopulating of string
-        | OnPopulated of System.Collections.IEnumerable
-        | OnDropDownOpen of bool
-        | MultiBindingLoaded of RoutedEventArgs
-        | CustomAutoBoxLoaded of RoutedEventArgs
+          { Name = "California"
+            Abbreviation = "CA"
+            Capital = "Sacramento" }
 
-    type CmdMsg = | NoMsg
+          { Name = "Colorado"
+            Abbreviation = "CO"
+            Capital = "Denver" }
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
+          { Name = "Connecticut"
+            Abbreviation = "CT"
+            Capital = "Hartford" }
 
-    let multiBindingBoxRef = ViewRef<AutoCompleteBox>()
+          { Name = "Delaware"
+            Abbreviation = "DE"
+            Capital = "Dover" }
 
-    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
+          { Name = "Florida"
+            Abbreviation = "FL"
+            Capital = "Tallahassee" }
 
-    let init () =
-        { IsOpen = false
-          SelectedItem = "Item 2"
-          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
-          Capitals =
-            [
+          { Name = "Georgia"
+            Abbreviation = "GA"
+            Capital = "Atlanta" }
 
-              { Name = "Arkansas"
-                Abbreviation = "AR"
-                Capital = "Little Rock" }
+          { Name = "Hawaii"
+            Abbreviation = "HI"
+            Capital = "Honolulu" }
 
-              { Name = "California"
-                Abbreviation = "CA"
-                Capital = "Sacramento" }
+          { Name = "Idaho"
+            Abbreviation = "ID"
+            Capital = "Boise" }
 
-              { Name = "Colorado"
-                Abbreviation = "CO"
-                Capital = "Denver" }
+          { Name = "Illinois"
+            Abbreviation = "IL"
+            Capital = "Springfield" }
 
-              { Name = "Connecticut"
-                Abbreviation = "CT"
-                Capital = "Hartford" }
+          { Name = "Indiana"
+            Abbreviation = "IN"
+            Capital = "Indianapolis" }
 
-              { Name = "Delaware"
-                Abbreviation = "DE"
-                Capital = "Dover" }
+          { Name = "Iowa"
+            Abbreviation = "IA"
+            Capital = "Des Moines" }
 
-              { Name = "Florida"
-                Abbreviation = "FL"
-                Capital = "Tallahassee" }
+          { Name = "Kansas"
+            Abbreviation = "KS"
+            Capital = "Topeka" }
 
-              { Name = "Georgia"
-                Abbreviation = "GA"
-                Capital = "Atlanta" }
+          { Name = "Kentucky"
+            Abbreviation = "KY"
+            Capital = "Frankfort" }
 
-              { Name = "Hawaii"
-                Abbreviation = "HI"
-                Capital = "Honolulu" }
+          { Name = "Louisiana"
+            Abbreviation = "LA"
+            Capital = "Baton Rouge" }
 
-              { Name = "Idaho"
-                Abbreviation = "ID"
-                Capital = "Boise" }
+          { Name = "Maine"
+            Abbreviation = "ME"
+            Capital = "Augusta" }
 
-              { Name = "Illinois"
-                Abbreviation = "IL"
-                Capital = "Springfield" }
+          { Name = "Maryland"
+            Abbreviation = "MD"
+            Capital = "Annapolis" }
 
-              { Name = "Indiana"
-                Abbreviation = "IN"
-                Capital = "Indianapolis" }
+          { Name = "Massachusetts"
+            Abbreviation = "MA"
+            Capital = "Boston" }
 
-              { Name = "Iowa"
-                Abbreviation = "IA"
-                Capital = "Des Moines" }
+          { Name = "Michigan"
+            Abbreviation = "MI"
+            Capital = "Lansing" }
 
-              { Name = "Kansas"
-                Abbreviation = "KS"
-                Capital = "Topeka" }
+          { Name = "Minnesota"
+            Abbreviation = "MN"
+            Capital = "St. Paul" }
 
-              { Name = "Kentucky"
-                Abbreviation = "KY"
-                Capital = "Frankfort" }
+          { Name = "Mississippi"
+            Abbreviation = "MS"
+            Capital = "Jackson" }
 
-              { Name = "Louisiana"
-                Abbreviation = "LA"
-                Capital = "Baton Rouge" }
+          { Name = "Missouri"
+            Abbreviation = "MO"
+            Capital = "Jefferson City" }
 
-              { Name = "Maine"
-                Abbreviation = "ME"
-                Capital = "Augusta" }
+          { Name = "Montana"
+            Abbreviation = "MT"
+            Capital = "Helena" }
 
-              { Name = "Maryland"
-                Abbreviation = "MD"
-                Capital = "Annapolis" }
+          { Name = "Nebraska"
+            Abbreviation = "NE"
+            Capital = "Lincoln" }
 
-              { Name = "Massachusetts"
-                Abbreviation = "MA"
-                Capital = "Boston" }
+          { Name = "Nevada"
+            Abbreviation = "NV"
+            Capital = "Carson City" }
 
-              { Name = "Michigan"
-                Abbreviation = "MI"
-                Capital = "Lansing" }
+          { Name = "New Hampshire"
+            Abbreviation = "NH"
+            Capital = "Concord" }
 
-              { Name = "Minnesota"
-                Abbreviation = "MN"
-                Capital = "St. Paul" }
+          { Name = "New Jersey"
+            Abbreviation = "NJ"
+            Capital = "Trenton" }
 
-              { Name = "Mississippi"
-                Abbreviation = "MS"
-                Capital = "Jackson" }
+          { Name = "New Mexico"
+            Abbreviation = "NM"
+            Capital = "Santa Fe" }
 
-              { Name = "Missouri"
-                Abbreviation = "MO"
-                Capital = "Jefferson City" }
+          { Name = "New York"
+            Abbreviation = "NY"
+            Capital = "Albany" }
 
-              { Name = "Montana"
-                Abbreviation = "MT"
-                Capital = "Helena" }
+          { Name = "North Carolina"
+            Abbreviation = "NC"
+            Capital = "Raleigh" }
 
-              { Name = "Nebraska"
-                Abbreviation = "NE"
-                Capital = "Lincoln" }
+          { Name = "North Dakota"
+            Abbreviation = "ND"
+            Capital = "Bismarck" }
 
-              { Name = "Nevada"
-                Abbreviation = "NV"
-                Capital = "Carson City" }
+          { Name = "Ohio"
+            Abbreviation = "OH"
+            Capital = "Columbus" }
 
-              { Name = "New Hampshire"
-                Abbreviation = "NH"
-                Capital = "Concord" }
+          { Name = "Oklahoma"
+            Abbreviation = "OK"
+            Capital = "Oklahoma City" }
 
-              { Name = "New Jersey"
-                Abbreviation = "NJ"
-                Capital = "Trenton" }
+          { Name = "Oregon"
+            Abbreviation = "OR"
+            Capital = "Salem" }
 
-              { Name = "New Mexico"
-                Abbreviation = "NM"
-                Capital = "Santa Fe" }
+          { Name = "Pennsylvania"
+            Abbreviation = "PA"
+            Capital = "Harrisburg" }
 
-              { Name = "New York"
-                Abbreviation = "NY"
-                Capital = "Albany" }
+          { Name = "Rhode Island"
+            Abbreviation = "RI"
+            Capital = "Providence" }
 
-              { Name = "North Carolina"
-                Abbreviation = "NC"
-                Capital = "Raleigh" }
+          { Name = "South Carolina"
+            Abbreviation = "SC"
+            Capital = "Columbia" }
 
-              { Name = "North Dakota"
-                Abbreviation = "ND"
-                Capital = "Bismarck" }
+          { Name = "South Dakota"
+            Abbreviation = "SD"
+            Capital = "Pierre" }
 
-              { Name = "Ohio"
-                Abbreviation = "OH"
-                Capital = "Columbus" }
+          { Name = "Tennessee"
+            Abbreviation = "TN"
+            Capital = "Nashville" }
 
-              { Name = "Oklahoma"
-                Abbreviation = "OK"
-                Capital = "Oklahoma City" }
+          { Name = "Texas"
+            Abbreviation = "TX"
+            Capital = "Austin" }
 
-              { Name = "Oregon"
-                Abbreviation = "OR"
-                Capital = "Salem" }
+          { Name = "Utah"
+            Abbreviation = "UT"
+            Capital = "Salt Lake City" }
 
-              { Name = "Pennsylvania"
-                Abbreviation = "PA"
-                Capital = "Harrisburg" }
+          { Name = "Vermont"
+            Abbreviation = "VT"
+            Capital = "Montpelier" }
 
-              { Name = "Rhode Island"
-                Abbreviation = "RI"
-                Capital = "Providence" }
+          { Name = "Virginia"
+            Abbreviation = "VA"
+            Capital = "Richmond" }
 
-              { Name = "South Carolina"
-                Abbreviation = "SC"
-                Capital = "Columbia" }
+          { Name = "Washington"
+            Abbreviation = "WA"
+            Capital = "Olympia" }
 
-              { Name = "South Dakota"
-                Abbreviation = "SD"
-                Capital = "Pierre" }
+          { Name = "West Virginia"
+            Abbreviation = "WV"
+            Capital = "Charleston" }
 
-              { Name = "Tennessee"
-                Abbreviation = "TN"
-                Capital = "Nashville" }
+          { Name = "Wisconsin"
+            Abbreviation = "WI"
+            Capital = "Madison" }
 
-              { Name = "Texas"
-                Abbreviation = "TX"
-                Capital = "Austin" }
+          { Name = "Wyoming"
+            Abbreviation = "WY"
+            Capital = "Cheyenne" } ]
 
-              { Name = "Utah"
-                Abbreviation = "UT"
-                Capital = "Salt Lake City" }
+    let contains (text: string) (term: string) =
+        text.Contains(term, StringComparison.InvariantCultureIgnoreCase)
 
-              { Name = "Vermont"
-                Abbreviation = "VT"
-                Capital = "Montpelier" }
+    /// allows searching US federal states asynchronously while cancelling running searches
+    /// to ensure we only populate with the response of the latest request
+    type UsFederalStateSearch(animateActiveInput) =
+        let mutable running: CancellationTokenSource = null // enables cancelling any running search
 
-              { Name = "Virginia"
-                Abbreviation = "VA"
-                Capital = "Richmond" }
+        let isRunning () = running <> null
 
-              { Name = "Washington"
-                Abbreviation = "WA"
-                Capital = "Olympia" }
+        /// cancels any running search
+        let cancel () =
+            if isRunning() then
+                running.Cancel()
+                running.Dispose()
+                running <- null
 
-              { Name = "West Virginia"
-                Abbreviation = "WV"
-                Capital = "Charleston" }
+        let simulateWork () =
+            task {
+                let randy = Random()
+                let getDelay () = randy.Next(300, 3000)
+                let mutable delay = getDelay()
 
-              { Name = "Wisconsin"
-                Abbreviation = "WI"
-                Capital = "Madison" }
+                // wait for every uneven delay until we generate an even one
+                while delay % 2 <> 0 do
+                    do! Task.Delay(delay)
+                    delay <- getDelay()
 
-              { Name = "Wyoming"
-                Abbreviation = "WY"
-                Capital = "Cheyenne" } ]
+                do! Task.Delay(delay) // guarantee to wait a little bit
+            }
 
-          Custom = [] },
-        []
+        member this.SearchAsync (term: string) (cancellation: CancellationToken) : Task<obj seq> =
+            task {
+                cancellation.Register(cancel) |> ignore // register cancellation of running search when outer cancellation is requested
+                cancel() // cancel any older running search
+                running <- new CancellationTokenSource() // and create a new source for this one
+                animateActiveInput(running.Token) // pass running search token to stop it when the search completes or is canceled
+                do! simulateWork() // simulate a really sporadic remote search
+
+                if isRunning() |> not || running.IsCancellationRequested then
+                    cancel() // to stop animation
+                    return Seq.empty
+                else
+                    cancel() // to stop animation
+
+                    return
+                        usFederalStates
+                        |> Seq.filter(fun state -> contains state.Name term || contains state.Capital term)
+                        |> Seq.cast<obj>
+            }
+
+    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
+        task {
+            return
+                seq {
+                    "Async Item 1"
+                    "Async Item 2"
+                    "Async Item 3"
+                    "Async Product 1"
+                    "Async Product 2"
+                    "Async Product 3"
+                }
+        }
 
     let buildAllSentences () =
         [ "Hello world"
@@ -288,7 +316,6 @@ module AutoCompleteBoxPage =
 
         options |> Array.exists(fun x -> x <> null && x = item)
 
-
     let appendWord (text: string, item: string) =
         if item <> null then
             let parts =
@@ -306,130 +333,203 @@ module AutoCompleteBoxPage =
             String.Empty
 
 
+    /// helps to animate an active remote search AutoCompleteBox
+    module RemoteSearch =
+        let input = ViewRef<AutoCompleteBox>()
+        let heartBeat = ViewRef<Animation>()
+
+        /// animates the input with the heartBeat until searchToken is cancelled
+        let animate searchToken =
+            heartBeat.Value.IterationCount <- IterationCount.Infinite
+            heartBeat.Value.RunAsync(input.Value, searchToken) |> ignore
+
+module AutoCompleteBoxPage =
+
+
+    type Model =
+        { IsOpen: bool
+          SelectedItem: string
+          Text: string
+          AsyncSearchTerm: string
+          UsStateSearch: UsFederalStateSearch
+          Items: string seq
+          UsFederalStates: StateData seq
+          Custom: string seq }
+
+    type Msg =
+        | SearchTextChanged of string
+        | AsyncSearchTermChanged of string
+        | CustomAutoBoxLoaded of RoutedEventArgs
+
+    let customAutoCompleteBoxRef = ViewRef<AutoCompleteBox>()
+
+    let init () =
+        { IsOpen = false
+          Text = "Arkan"
+          AsyncSearchTerm = ""
+          UsStateSearch = UsFederalStateSearch(RemoteSearch.animate)
+          SelectedItem = "Item 2"
+          Items = [ "Item 1"; "Item 2"; "Item 3"; "Product 1"; "Product 2"; "Product 3" ]
+          UsFederalStates = usFederalStates
+          Custom = [] },
+        Cmd.none
+
     let update msg model =
         match msg with
-        | TextChanged _ -> model, []
-        | SelectionChanged _ -> model, []
-        | OnPopulating _ -> model, []
-        | OnPopulated _ -> model, []
-        | OnDropDownOpen isOpen -> { model with IsOpen = isOpen }, []
-        | MultiBindingLoaded _ ->
-            let converter =
-                FuncMultiValueConverter<string, string>(fun parts ->
-                    let parts = parts |> Seq.toArray
-                    let first = parts[0]
-                    let second = parts[1]
-                    String.Format("{0} ({1})", first, second))
-
-            let binding = MultiBinding()
-            binding.Converter <- converter
-            binding.Bindings.Add(Binding("Name"))
-            binding.Bindings.Add(Binding("Abbreviation"))
-
-            multiBindingBoxRef.Value.ValueMemberBinding <- binding
-            model, []
+        | SearchTextChanged args -> { model with Text = args }, Cmd.none
+        | AsyncSearchTermChanged term -> { model with AsyncSearchTerm = term }, Cmd.none
 
         | CustomAutoBoxLoaded _ ->
             let strings = buildAllSentences() |> Array.concat
             customAutoCompleteBoxRef.Value.ItemsSource <- strings
             customAutoCompleteBoxRef.Value.TextFilter <- AutoCompleteFilterPredicate(fun searchText item -> lastWordContains(searchText, item))
             customAutoCompleteBoxRef.Value.TextSelector <- AutoCompleteSelector(fun searchText item -> appendWord(searchText, item))
-            model, []
+            model, Cmd.none
 
-    let getItemsAsync (_: string) (_: CancellationToken) : Task<seq<obj>> =
-        task {
-            return
-                seq {
-                    "Async Item 1"
-                    "Async Item 2"
-                    "Async Item 3"
-                    "Async Product 1"
-                    "Async Product 2"
-                    "Async Product 3"
-                }
-        }
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        VStack() {
-            TextBlock("A control into which the user can input text")
+    let view () =
+        Component("AutoCompleteBoxPage") {
+            let! model = Context.Mvu program
+            let stateData = Unchecked.defaultof<StateData> // helper instance to get compile-safe member names
 
-            UniformGrid() {
-                VStack() {
-                    TextBlock("MinimumPrefixLength: 1")
+            VStack() {
+                TextBlock("A control into which the user can input text")
 
-                    AutoCompleteBox("", TextChanged, model.Capitals)
-                        .minimumPrefixLength(1)
-                        .watermark("Select an item")
-                }
+                UniformGrid() {
+                    VStack() {
+                        TextBlock("MinimumPrefixLength: 1")
 
-                VStack() {
-                    TextBlock("MinimumPrefixLength: 3")
+                        AutoCompleteBox(model.UsFederalStates)
+                            .minimumPrefixLength(1)
+                            .watermark("Select an item")
+                            .onTextChanged(model.Text, SearchTextChanged)
+                    }
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .watermark("Select an item")
-                        .minimumPrefixLength(3)
-                }
+                    VStack() {
+                        TextBlock("MinimumPrefixLength: 3")
 
-                VStack() {
-                    TextBlock("MinimumPopulateDelay: 1s")
+                        AutoCompleteBox(model.Items)
+                            .watermark("Select an item")
+                            .minimumPrefixLength(3)
+                    }
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .watermark("Select an item")
-                        .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
-                }
+                    VStack() {
+                        TextBlock("MinimumPopulateDelay: 1s")
 
-                VStack() {
-                    TextBlock("MaxDropDownHeight: 60")
+                        AutoCompleteBox(model.Items)
+                            .watermark("Select an item")
+                            .minimumPopulateDelay(TimeSpan.FromSeconds(1.0))
+                    }
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .maxDropDownHeight(60.0)
-                        .watermark("Select an item")
-                }
+                    VStack() {
+                        TextBlock("MaxDropDownHeight: 60")
 
-                VStack() {
-                    TextBlock("Disabled")
+                        AutoCompleteBox(model.Items)
+                            .maxDropDownHeight(60.0)
+                            .watermark("Select an item")
+                    }
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .isEnabled(false)
-                        .watermark("Select an item")
-                }
+                    VStack() {
+                        TextBlock("Disabled")
 
-                VStack() {
-                    TextBlock("Multi-Binding")
+                        AutoCompleteBox(model.Items)
+                            .isEnabled(false)
+                            .watermark("Select an item")
+                    }
 
-                    AutoCompleteBox("", TextChanged, model.Capitals)
-                        .watermark("Select an item")
-                        .reference(multiBindingBoxRef)
-                        .filterMode(AutoCompleteFilterMode.Contains)
-                        .onLoaded(MultiBindingLoaded)
-                }
+                    VStack() {
+                        TextBlock("Multi-Binding")
 
-                VStack() {
-                    TextBlock("AsyncBox")
+                        AutoCompleteBox(model.UsFederalStates)
+                            .watermark("Select an item")
+                            .filterMode(AutoCompleteFilterMode.Contains)
+                            .multiBindValue("{0} ({1})", nameof stateData.Name, nameof stateData.Abbreviation)
+                    }
 
-                    AutoCompleteBox("", TextChanged, getItemsAsync)
-                        .watermark("Select an item")
-                        .filterMode(AutoCompleteFilterMode.Contains)
-                }
+                    VStack() {
+                        TextBlock("With an item template")
+                            .tip(ToolTip("Somewhere, in pride, an eagle sheds\nA single splendid tear."))
 
-                VStack() {
-                    TextBlock("Custom AutoComplete")
+                        AutoCompleteBox(model.UsFederalStates)
+                            .itemTemplate(fun state ->
+                                HStack(5) {
+                                    TextBlock(state.Capital).foreground(Colors.Blue)
+                                    TextBlock(state.Abbreviation + ",").foreground(Colors.White)
+                                    TextBlock(state.Name).foreground(Colors.Red)
+                                })
+                            .watermark("Search a US state or capital")
+                            .tip(ToolTip("the custom item filter searches the state name as well as the capital"))
+                            .itemFilter(fun term item ->
+                                let state = item :?> StateData
+                                contains state.Name term || contains state.Capital term)
+                    }
 
-                    AutoCompleteBox("", TextChanged, model.Custom)
-                        .watermark("Select an item")
-                        .reference(customAutoCompleteBoxRef)
-                        .filterMode(AutoCompleteFilterMode.None)
-                        .onLoaded(CustomAutoBoxLoaded)
+                    VStack() {
+                        TextBlock("AsyncBox")
 
-                }
+                        AutoCompleteBox(getItemsAsync)
+                            .watermark("Select an item")
+                            .filterMode(AutoCompleteFilterMode.Contains)
+                    }
 
-                VStack() {
-                    TextBlock("With Validation Errors")
+                    VStack() {
+                        TextBlock("Async remote-filtered search")
 
-                    AutoCompleteBox("", TextChanged, model.Items)
-                        .name("ValidationErrors")
-                        .filterMode(AutoCompleteFilterMode.None)
-                        .dataValidationErrors([ Exception() ])
+                        AutoCompleteBox(model.UsStateSearch.SearchAsync)
+                            .watermark("Search capitals of US federal states by name or state")
+                            .minimumPopulateDelay(TimeSpan.FromMilliseconds 300) // debounce the requests
+                            .onTextChanged(model.AsyncSearchTerm, AsyncSearchTermChanged)
+                            .filterMode(AutoCompleteFilterMode.None) // remote filtered
+                            .multiBindValue("{2}, {1} ({0})", nameof stateData.Name, nameof stateData.Abbreviation, nameof stateData.Capital)
+                            .reference(RemoteSearch.input)
+                            .animation(
+                                // pulses the scale like a heart beat to indicate activity
+                                (Animation(TimeSpan.FromSeconds(2.)) {
+                                    // extend slightly but quickly to get a pulse effect
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 1.05).cue(0.1)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 1.05).cue(0.1)
+                                    // contract slightly to get a bounce-back effect
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 0.95).cue(0.15)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 0.95).cue(0.15)
+                                    // return to original size rather quickly
+                                    KeyFrame(ScaleTransform.ScaleXProperty, 1).cue(0.2)
+                                    KeyFrame(ScaleTransform.ScaleYProperty, 1).cue(0.2)
+                                })
+                                    .delay(TimeSpan.FromSeconds 1.) // to avoid a "heart attack", i.e. restarting the animation by typing
+                                    .reference(RemoteSearch.heartBeat)
+                            )
+                    }
+
+                    VStack() {
+                        TextBlock("Custom AutoComplete")
+
+                        AutoCompleteBox(model.Custom)
+                            .watermark("Select an item")
+                            .reference(customAutoCompleteBoxRef)
+                            .filterMode(AutoCompleteFilterMode.None)
+                            .onLoaded(CustomAutoBoxLoaded)
+
+                    }
+
+                    VStack() {
+                        TextBlock("With Validation Errors")
+
+                        AutoCompleteBox(model.Items)
+                            .name("ValidationErrors")
+                            .filterMode(AutoCompleteFilterMode.None)
+                            .dataValidationErrors([ Exception() ])
+                    }
                 }
             }
         }

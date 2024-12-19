@@ -4,7 +4,6 @@ open System.Runtime.CompilerServices
 open Avalonia.Controls
 
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabComboBoxItem =
@@ -19,41 +18,14 @@ module ComboBoxItemBuilders =
 
         /// <summary>Creates a ComboBoxItem widget.</summary>
         /// <param name="content">The content of the ComboBoxItem.</param>
-        static member inline ComboBoxItem(content: string) =
+        static member ComboBoxItem(content: string) =
             WidgetBuilder<'msg, IFabComboBoxItem>(ComboBoxItem.WidgetKey, ContentControl.ContentString.WithValue(content))
 
         /// <summary>Creates a ComboBoxItem widget.</summary>
         /// <param name="content">The content of the ComboBoxItem.</param>
-        /// <param name="isSelected">Whether the ComboBoxItem is selected.</param>
-        static member inline ComboBoxItem(content: string, isSelected: bool) =
-            WidgetBuilder<'msg, IFabComboBoxItem>(
-                ComboBoxItem.WidgetKey,
-                ContentControl.ContentString.WithValue(content),
-                ListBoxItem.IsSelected.WithValue(isSelected)
-            )
+        static member ComboBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabComboBoxItem>(ComboBoxItem.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
-        /// <summary>Creates a ComboBoxItem widget.</summary>
-        /// <param name="content">The content of the ComboBoxItem.</param>
-        static member inline ComboBoxItem(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabComboBoxItem>(
-                ComboBoxItem.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
-
-        /// <summary>Creates a ComboBoxItem widget.</summary>
-        /// <param name="isSelected">Whether the ComboBoxItem is selected.</param>
-        /// <param name="content">The content of the ComboBoxItem.</param>
-        static member inline ComboBoxItem(isSelected: bool, content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabComboBoxItem>(
-                ComboBoxItem.WidgetKey,
-                AttributesBundle(
-                    StackList.one(ListBoxItem.IsSelected.WithValue(isSelected)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone
-                )
-            )
-
-[<Extension>]
 type ComboBoxItemModifiers =
     /// <summary>Link a ViewRef to access the direct MenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>

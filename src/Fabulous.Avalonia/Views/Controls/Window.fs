@@ -1,8 +1,9 @@
 namespace Fabulous.Avalonia
 
+open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
-open Avalonia.Interactivity
+open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -39,7 +40,7 @@ module Window =
 
     let Title = Attributes.defineAvaloniaPropertyWithEquality Window.TitleProperty
 
-    let Icon = Attributes.defineAvaloniaPropertyWithEquality Window.IconProperty
+    let IconSource = Attributes.defineBindableWindowIconSource Window.IconProperty
 
     let WindowStartupLocation =
         Attributes.defineAvaloniaPropertyWithEquality Window.WindowStartupLocationProperty
@@ -47,28 +48,14 @@ module Window =
     let CanResize =
         Attributes.defineAvaloniaPropertyWithEquality Window.CanResizeProperty
 
-    let WindowClosing =
-        Attributes.defineEvent "Window_Closing" (fun target -> (target :?> Window).Closing)
-
-    let WindowClosed =
-        Attributes.defineRoutedEvent "Window_Closed" Window.WindowClosedEvent
-
-    let WindowOpened =
-        Attributes.defineRoutedEvent "Window_Opened" Window.WindowOpenedEvent
-
 [<AutoOpen>]
 module WindowBuilders =
     type Fabulous.Avalonia.View with
-
         /// <summary>Creates a Window widget.</summary>
         /// <param name="content">The content of the window.</param>
         static member Window(content: WidgetBuilder<'msg, #IFabElement>) =
-            WidgetBuilder<'msg, IFabWindow>(
-                Window.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+            WidgetBuilder<'msg, IFabWindow>(Window.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
-[<Extension>]
 type WindowModifiers =
     /// <summary>Sets the SizeToContent property.</summary>
     /// <param name="this">Current widget.</param>
@@ -132,13 +119,6 @@ type WindowModifiers =
     static member inline title(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
         this.AddScalar(Window.Title.WithValue(value))
 
-    /// <summary>Sets the Icon property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Icon value.</param>
-    [<Extension>]
-    static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: WindowIcon) =
-        this.AddScalar(Window.Icon.WithValue(value))
-
     /// <summary>Sets the WindowStartupLocation property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The WindowStartupLocation value.</param>
@@ -153,30 +133,31 @@ type WindowModifiers =
     static member inline canResize(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.CanResize.WithValue(value))
 
-    /// <summary>Listens to the Window WindowClosing event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is closing.</param>
-    [<Extension>]
-    static member inline onWindowClosing(this: WidgetBuilder<'msg, #IFabWindow>, fn: WindowClosingEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosing.WithValue(fn))
-
-    /// <summary>Listens to the Window WindowClosed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is closed.</param>
-    [<Extension>]
-    static member inline onWindowClosed(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowClosed.WithValue(fn))
-
-    /// <summary>Listens to the Window WindowOpened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the window is opened.</param>
-    [<Extension>]
-    static member inline onWindowOpened(this: WidgetBuilder<'msg, #IFabWindow>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(Window.WindowOpened.WithValue(fn))
-
     /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabWindow>, value: ViewRef<Window>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+type WindowExtraModifiers =
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: Bitmap) =
+        this.AddScalar(Window.IconSource.WithValue(ImageSourceValue.Bitmap(value)))
+
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
+        this.AddScalar(Window.IconSource.WithValue(ImageSourceValue.File(value)))
+
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabWindow>, value: Stream) =
+        this.AddScalar(Window.IconSource.WithValue(ImageSourceValue.Stream(value)))

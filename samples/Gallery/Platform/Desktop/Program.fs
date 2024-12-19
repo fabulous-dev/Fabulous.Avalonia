@@ -2,18 +2,12 @@ namespace Gallery.Desktop
 
 open System
 open Avalonia
-
 open Gallery
-open Fabulous.Avalonia
 
 module Program =
 
     [<CompiledName "BuildAvaloniaApp">]
-    let buildAvaloniaApp () =
-        AppBuilder
-            .Configure(fun () -> Program.startApplication App.program)
-            .LogToTrace(areas = Array.empty)
-            .UsePlatformDetect()
+    let buildAvaloniaApp () = MainWindow.create().UsePlatformDetect()
 
     [<EntryPoint; STAThread>]
     let main argv =

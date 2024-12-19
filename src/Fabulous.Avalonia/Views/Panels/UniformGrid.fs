@@ -25,7 +25,7 @@ module UniformGridBuilders =
         /// <summary>Creates a UniformGrid widget.</summary>
         /// <param name="cols">The number of columns in the grid.</param>
         /// <param name="rows">The number of rows in the grid.</param>
-        static member UniformGrid<'msg>(?cols: int, ?rows: int) =
+        static member UniformGrid(?cols: int, ?rows: int) =
             match cols, rows with
             | Some cols, Some rows ->
                 CollectionBuilder<'msg, IFabUniformGrid, IFabControl>(
@@ -58,7 +58,6 @@ module UniformGridBuilders =
                     UniformGrid.Rows.WithValue(0)
                 )
 
-[<Extension>]
 type UniformGridModifiers =
     /// <summary>Sets the FirstColumn property.</summary>
     /// <param name="this">Current widget.</param>

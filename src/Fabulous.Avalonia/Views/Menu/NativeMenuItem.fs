@@ -1,5 +1,7 @@
 namespace Fabulous.Avalonia
 
+open System
+open System.IO
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Input
@@ -7,17 +9,14 @@ open Avalonia.Media.Imaging
 open Fabulous
 
 type IFabNativeMenuItem =
-    inherit IFabObject
-
-type IFabNativeMenu =
-    inherit IFabObject
+    inherit IFabElement
 
 module NativeMenuItem =
     let WidgetKey = Widgets.register<NativeMenuItem>()
 
     let Menu = Attributes.defineAvaloniaPropertyWidget NativeMenuItem.MenuProperty
 
-    let Icon = Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.IconProperty
+    let Icon = Attributes.defineBindableImageSource NativeMenuItem.IconProperty
 
     let Header =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.HeaderProperty
@@ -34,8 +33,8 @@ module NativeMenuItem =
     let IsEnabled =
         Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.IsEnabledProperty
 
-    let Click =
-        Attributes.defineEventNoArg "NativeMenuItem_Click" (fun target -> (target :?> NativeMenuItem).Click)
+    let ToolTip =
+        Attributes.defineAvaloniaPropertyWithEquality NativeMenuItem.ToolTipProperty
 
 [<AutoOpen>]
 module NativeMenuItemBuilders =
@@ -46,32 +45,7 @@ module NativeMenuItemBuilders =
         static member NativeMenuItem(header: string) =
             WidgetBuilder<'msg, IFabNativeMenuItem>(NativeMenuItem.WidgetKey, NativeMenuItem.Header.WithValue(header))
 
-        /// <summary>Creates a NativeMenuItem widget.</summary>
-        /// <param name="header">The header of the Flyout.</param>
-        /// <param name="onClicked">Raised when the menu item is clicked.</param>
-        static member NativeMenuItem(header: string, onClicked: 'msg) =
-            WidgetBuilder<'msg, IFabNativeMenuItem>(
-                NativeMenuItem.WidgetKey,
-                NativeMenuItem.Header.WithValue(header),
-                NativeMenuItem.Click.WithValue(MsgValue onClicked)
-            )
-
-[<Extension>]
 type NativeMenuItemModifiers =
-    /// <summary>Sets the Menu property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Menu value.</param>
-    [<Extension>]
-    static member inline menu(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: WidgetBuilder<'msg, #IFabNativeMenu>) =
-        this.AddWidget(NativeMenuItem.Menu.WithValue(value.Compile()))
-
-    /// <summary>Sets the Icon property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The Icon value.</param>
-    [<Extension>]
-    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Bitmap) =
-        this.AddScalar(NativeMenuItem.Icon.WithValue(value))
-
     /// <summary>Sets the Gesture property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Gesture value.</param>
@@ -100,9 +74,45 @@ type NativeMenuItemModifiers =
     static member inline isEnabled(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: bool) =
         this.AddScalar(NativeMenuItem.IsEnabled.WithValue(value))
 
+    /// <summary>Sets the ToolTip property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ToolTip value.</param>
+    [<Extension>]
+    static member inline toolTip(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: string) =
+        this.AddScalar(NativeMenuItem.ToolTip.WithValue(value))
+
     /// <summary>Link a ViewRef to access the direct NativeMenuItem control instance.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
     [<Extension>]
     static member inline reference(this: WidgetBuilder<'msg, IFabNativeMenuItem>, value: ViewRef<NativeMenuItem>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
+type NativeMenuItemExtraModifiers =
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Bitmap) =
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.Bitmap(value)))
+
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: string) =
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.File(value)))
+
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Uri) =
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.Uri(value)))
+
+    /// <summary>Sets the Icon property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Icon value.</param>
+    [<Extension>]
+    static member inline icon(this: WidgetBuilder<'msg, #IFabNativeMenuItem>, value: Stream) =
+        this.AddScalar(NativeMenuItem.Icon.WithValue(ImageSourceValue.Stream(value)))

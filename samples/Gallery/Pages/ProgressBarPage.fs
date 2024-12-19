@@ -1,9 +1,9 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Fabulous.Avalonia
 open Fabulous
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ProgressBarPage =
     type Model = { Progress: int; Max: int }
@@ -12,33 +12,43 @@ module ProgressBarPage =
         | Clicked
         | ProgressChanged of float
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Progress = 5; Max = 20 }, []
+    let init () = { Progress = 5; Max = 20 }, Cmd.none
 
     let update msg model =
         match msg with
         | Clicked ->
             { model with
                 Progress = model.Progress % model.Max + 1 },
-            []
-        | ProgressChanged p -> model, []
+            Cmd.none
+        | ProgressChanged p -> model, Cmd.none
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock("Progress Bar")
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            ProgressBar(0, model.Max, model.Progress, ProgressChanged)
-                .showProgressText(true)
+    let view () =
+        Component("ProgressBarPage") {
+            let! model = Context.Mvu program
 
-            Button("Advance Progress Bar", Clicked)
+            VStack(spacing = 15.) {
+                TextBlock("Progress Bar")
 
-            TextBlock("Indeterminate Progress Bar").margin(0, 30, 0, 0)
+                ProgressBar(0, model.Max, model.Progress, ProgressChanged)
+                    .showProgressText(true)
 
-            ProgressBar(0, model.Max, model.Progress, ProgressChanged)
-                .isIndeterminate(true)
+                Button("Advance Progress Bar", Clicked)
+
+                TextBlock("Indeterminate Progress Bar").margin(0, 30, 0, 0)
+
+                ProgressBar(0, model.Max, model.Progress, ProgressChanged)
+                    .isIndeterminate(true)
+            }
         }

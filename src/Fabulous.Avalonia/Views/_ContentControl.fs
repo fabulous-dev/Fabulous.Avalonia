@@ -21,7 +21,6 @@ module ContentControl =
     let VerticalContentAlignment =
         Attributes.defineAvaloniaPropertyWithEquality ContentControl.VerticalContentAlignmentProperty
 
-[<Extension>]
 type ContentControlModifiers =
     /// <summary>Sets the HorizontalContentAlignment property.</summary>
     /// <param name="this">Current widget.</param>
@@ -36,3 +35,21 @@ type ContentControlModifiers =
     [<Extension>]
     static member inline verticalContentAlignment(this: WidgetBuilder<'msg, #IFabContentControl>, value: VerticalAlignment) =
         this.AddScalar(ContentControl.VerticalContentAlignment.WithValue(value))
+
+    /// <summary>Sets the HorizontalContentAlignment property to Center.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline centerContentHorizontal(this: WidgetBuilder<'msg, #IFabContentControl>) =
+        this.horizontalContentAlignment(HorizontalAlignment.Center)
+
+    /// <summary>Sets the VerticalContentAlignment property to Center.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline centerContentVertical(this: WidgetBuilder<'msg, #IFabContentControl>) =
+        this.verticalContentAlignment(VerticalAlignment.Center)
+
+    // <summary>Sets the HorizontalContentAlignment and VerticalContentAlignment properties to center.</summary>
+    /// <param name="this">Current widget.</param>
+    [<Extension>]
+    static member inline center(this: WidgetBuilder<'msg, #IFabContentControl>) =
+        this.centerContentHorizontal().centerContentVertical()

@@ -1,35 +1,17 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open Avalonia.Layout
 open Avalonia
 open Avalonia.Media
 open Fabulous.Avalonia
-open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module GeometriesPage =
-    type Model = { Nothing: float }
-
-    type Msg = | NoMsg
-
-    type CmdMsg = | NoCmdMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoCmdMsg -> Cmd.none
-
-    let init () = { Nothing = 0 }, []
-
-    let update msg model =
-        match msg with
-        | NoMsg -> model, []
-
     let path =
         "M3 2C3.27614 2 3.5 2.22386 3.5 2.5V5.5C3.5 5.77614 3.72386 6 4 6H16C16.2761 6 16.5 5.77614 29 15.5C10.5 15.3225 10.4921 15.1549 10.4765 15H9.52346Z"
 
-    let view _ =
+    let view () =
         VStack(spacing = 4.) {
             TextBlock("Geometries")
                 .fontSize(20.)
@@ -177,4 +159,13 @@ module GeometriesPage =
                 .stroke(SolidColorBrush(Colors.Green))
                 .strokeThickness(2.)
                 .fill(SolidColorBrush(Colors.Orange))
+
+            TextBlock("PolyBezierSegment, which creates a series of connected cubic Bezier curves between two or more points.")
+
+            Path(
+                PathGeometry(FillRule.EvenOdd) { PathFigure(Point(10., 50.)) { PolyBezierSegment([ Point(100., 0.); Point(200., 200.); Point(300., 100.) ]) } }
+            )
+                .fill(SolidColorBrush(Colors.Blue))
+                .stroke(SolidColorBrush(Colors.Red))
+                .strokeThickness(2.)
         }

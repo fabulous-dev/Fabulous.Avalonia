@@ -1,7 +1,8 @@
-namespace Gallery.Pages
+namespace Gallery
 
 open System
 open System.Buffers
+open System.Diagnostics
 open System.Reflection
 open Avalonia.Input
 open Avalonia.Layout
@@ -88,10 +89,6 @@ module DragAndDropPage =
         | Dropped of string
         | DraggedOver of DragEventArgs
         | Drop of DragEventArgs
-
-    type CmdMsg =
-        | DragBegin of args: PointerEventArgs * factory: System.Action<DataObject> * DragDropEffects * borderDragged: BorderPointerPressed
-        | DropBegin of args: DragEventArgs
 
     let customFormat = "application/xxx-avalonia-galleryapp-custom"
 
@@ -190,18 +187,13 @@ module DragAndDropPage =
         then
             e.DragEffects <- DragDropEffects.None
 
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | DragBegin(args, factory, effects, borderDragged) -> Cmd.ofAsyncMsg(doDrag args effects factory borderDragged)
-        | DropBegin(args) -> Cmd.ofAsyncMsg(doDrop args)
-
     let init () =
         { DragStateTex = "Drag Me (text)"
           DragStateFilesText = "Drag Me (files)"
           DragStateCustomText = "Drag Me (custom)"
           DropStateText = ""
           DraggedCount = 0 },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
@@ -212,23 +204,22 @@ module DragAndDropPage =
             let factory =
                 System.Action<DataObject>(fun d -> d.Set(DataFormats.Text, $"Text was dragged {model.DraggedCount} times"))
 
-            model, [ DragBegin(args, factory, effects, BorderPointerPressed.First) ]
+            model, Cmd.OfAsync.msg(doDrag args effects factory BorderPointerPressed.First)
 
         | OnPointPressed2 args ->
             args.Handled <- true
             let effects = DragDropEffects.Move
             let factory = System.Action<DataObject>(fun d -> d.Set(customFormat, "Test123"))
-            model, [ DragBegin(args, factory, effects, BorderPointerPressed.Second) ]
+            model, Cmd.OfAsync.msg(doDrag args effects factory BorderPointerPressed.Second)
 
         | OnPointPressed3 args ->
             args.Handled <- true
             let effects = DragDropEffects.Copy
             let files = getFiles() |> Async.RunSynchronously
 
-            let factory =
-                System.Action<DataObject>(fun d -> d.Set(DataFormats.Files, value = files))
+            let factory = System.Action<DataObject>(_.Set(DataFormats.Files, value = files))
 
-            model, [ DragBegin(args, factory, effects, BorderPointerPressed.Third) ]
+            model, Cmd.OfAsync.msg(doDrag args effects factory BorderPointerPressed.Third)
 
         | Dragged1 s ->
             let dragCount = model.DraggedCount + 1
@@ -236,97 +227,113 @@ module DragAndDropPage =
             { model with
                 DragStateTex = s
                 DraggedCount = dragCount },
-            []
+            Cmd.none
         | Dragged2 s ->
             let dragCount = model.DraggedCount + 1
 
             { model with
                 DragStateFilesText = s
                 DraggedCount = dragCount },
-            []
+            Cmd.none
         | Dragged3 s ->
             let dragCount = model.DraggedCount + 1
 
             { model with
                 DragStateCustomText = s
                 DraggedCount = dragCount },
-            []
+            Cmd.none
 
-        | Dropped s -> { model with DropStateText = s }, []
+        | Dropped s -> { model with DropStateText = s }, Cmd.none
         | Drop args ->
             args.Handled <- true
-            model, [ DropBegin(args) ]
+            model, Cmd.OfAsync.msg(doDrop args)
 
         | DraggedOver args ->
             DragOver args
-            model, []
+            model, Cmd.none
 
-    let view model =
-        VStack(4.) {
-            TextBlock("Example of Drag+Drop capabilities")
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            (VWrap() {
-                (VStack() {
-                    Border(
-                        TextBlock(model.DragStateTex)
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .padding(16.)
-                        .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
-                        .borderThickness(2.)
-                        .onPointerPressed(OnPointPressed1)
+    let view () =
+        Component("DragAndDropPage") {
+            let! model = Context.Mvu program
 
-                    Border(
-                        TextBlock(model.DragStateFilesText)
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .padding(16.)
-                        .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
-                        .borderThickness(2.)
-                        .onPointerPressed(OnPointPressed2)
+            VStack(4.) {
+                TextBlock("Example of Drag+Drop capabilities")
 
-                    Border(
-                        TextBlock(model.DragStateCustomText)
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .padding(16.)
-                        .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
-                        .borderThickness(2.)
-                        .onPointerPressed(OnPointPressed3)
-                })
-                    .horizontalAlignment(HorizontalAlignment.Center)
+                (VWrap() {
+                    (VStack() {
+                        Border(
+                            TextBlock(model.DragStateTex)
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .padding(16.)
+                            .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
+                            .borderThickness(2.)
+                            .onPointerPressed(OnPointPressed1)
 
-                (HStack(8.) {
-                    Border(
-                        TextBlock("Drop some text or files here (Copy)")
-                            .textWrapping(TextWrapping.Wrap)
+                        Border(
+                            TextBlock(model.DragStateFilesText)
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .padding(16.)
+                            .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
+                            .borderThickness(2.)
+                            .onPointerPressed(OnPointPressed2)
+
+                        Border(
+                            TextBlock(model.DragStateCustomText)
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .padding(16.)
+                            .borderBrush(SolidColorBrush(Color.Parse("#aaa")))
+                            .borderThickness(2.)
+                            .onPointerPressed(OnPointPressed3)
+                    })
+                        .horizontalAlignment(HorizontalAlignment.Center)
+
+                    (HStack(8.) {
+                        Border(
+                            TextBlock("Drop some text or files here (Copy)")
+                                .textWrapping(TextWrapping.Wrap)
+                                .allowDrop(true)
+                                .onDrop(Drop)
+                                .onDragOver(DraggedOver)
+                        )
+                            .name("CopyTarget")
+                            .padding(16.)
+                            .maxWidth(260.)
+                            .background(SolidColorBrush(Color.Parse("#aaa")))
+
+                        Border(
+                            TextBlock("Drop some text or files here (Move)")
+                                .textWrapping(TextWrapping.Wrap)
+                        )
+                            .name("MoveTarget")
                             .allowDrop(true)
                             .onDrop(Drop)
                             .onDragOver(DraggedOver)
-                    )
-                        .name("CopyTarget")
-                        .padding(16.)
-                        .maxWidth(260.)
-                        .background(SolidColorBrush(Color.Parse("#aaa")))
-
-                    Border(
-                        TextBlock("Drop some text or files here (Move)")
-                            .textWrapping(TextWrapping.Wrap)
-                    )
-                        .name("MoveTarget")
-                        .allowDrop(true)
-                        .onDrop(Drop)
-                        .onDragOver(DraggedOver)
-                        .padding(16.)
-                        .maxWidth(260.)
-                        .background(SolidColorBrush(Color.Parse("#aaa")))
+                            .padding(16.)
+                            .maxWidth(260.)
+                            .background(SolidColorBrush(Color.Parse("#aaa")))
+                    })
+                        .horizontalAlignment(HorizontalAlignment.Center)
                 })
-                    .horizontalAlignment(HorizontalAlignment.Center)
-            })
-                .margin(8.)
-                .maxWidth(160.)
+                    .margin(8.)
+                    .maxWidth(160.)
 
-            TextBlock(model.DropStateText)
-                .textWrapping(TextWrapping.Wrap)
+                TextBlock(model.DropStateText)
+                    .textWrapping(TextWrapping.Wrap)
 
+            }
         }

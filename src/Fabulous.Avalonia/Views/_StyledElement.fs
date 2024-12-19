@@ -1,12 +1,12 @@
 namespace Fabulous.Avalonia
 
+open System
 open System.Runtime.CompilerServices
 open Avalonia
-open Avalonia.Collections
 open Avalonia.Input.TextInput
-open Avalonia.LogicalTree
+open Avalonia.Markup.Xaml.Styling
+open Avalonia.Styling
 open Fabulous
-open Fabulous.StackAllocatedCollections
 
 type IFabStyledElement =
     inherit IFabAnimatable
@@ -15,19 +15,24 @@ module StyledElement =
 
     let Name = Attributes.defineAvaloniaPropertyWithEquality StyledElement.NameProperty
 
+    let StylesWidget =
+        Attributes.defineAvaloniaListWidgetCollection "StyledElement_StylesWidget" (fun target -> (target :?> StyledElement).Styles)
+
     let Styles =
-        Attributes.defineAvaloniaListWidgetCollection "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles)
+        Attributes.definePropertyWithGetSet<IStyle seq> "StyledElement_Styles" (fun target -> (target :?> StyledElement).Styles) (fun target value ->
+            let target = (target :?> StyledElement)
+            target.Styles.Clear()
+
+            for an in value do
+                target.Styles.Add(an))
 
     let Classes =
-        Attributes.defineSimpleScalarWithEquality<string list> "StyledElement_Classes" (fun _ newValueOpt node ->
-            let target = node.Target :?> StyledElement
+        Attributes.definePropertyWithGetSet<string seq> "StyledElement_Classes" (fun target -> (target :?> StyledElement).Classes) (fun target value ->
+            let target = (target :?> StyledElement)
+            target.Classes.Clear()
 
-            match newValueOpt with
-            | ValueNone -> target.Classes.Clear()
-            | ValueSome classes ->
-                let coll = AvaloniaList<string>()
-                classes |> List.iter coll.Add
-                target.Classes.AddRange coll)
+            for an in value do
+                target.Classes.Add(an))
 
     let ContentType =
         Attributes.defineAvaloniaPropertyWithEquality<TextInputContentType> TextInputOptions.ContentTypeProperty
@@ -50,18 +55,34 @@ module StyledElement =
     let IsSensitive =
         Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.IsSensitiveProperty
 
-    let AttachedToLogicalTree =
-        Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_AttachedToLogicalTree" (fun target ->
-            (target :?> StyledElement).AttachedToLogicalTree)
+    let StyleInclude =
+        Attributes.defineProperty "StyledElement_StyleInclude" Unchecked.defaultof<string list> (fun target values ->
+            let target = (target :?> StyledElement)
+            target.Styles.Clear()
 
-    let DetachedFromLogicalTree =
-        Attributes.defineEvent<LogicalTreeAttachmentEventArgs> "StyledElement_DetachedFromLogicalTree" (fun target ->
-            (target :?> StyledElement).DetachedFromLogicalTree)
+            for value in values do
+                let style = StyleInclude(baseUri = null)
+                style.Source <- Uri(value)
+                target.Styles.Add(style))
 
-    let ActualThemeVariantChanged =
-        Attributes.defineEventNoArg "StyledElement_ActualThemeVariantChanged" (fun target -> (target :?> StyledElement).ActualThemeVariantChanged)
+    let ThemeKey =
+        Attributes.defineSimpleScalarWithEquality<string> "StyledElement_ThemeKey" (fun _ newValueOpt node ->
+            let target = node.Target :?> StyledElement
 
-[<Extension>]
+            match newValueOpt with
+            | ValueNone -> target.Theme <- null
+            | ValueSome themeKey ->
+                match Application.Current.Styles.TryGetResource(themeKey, null) with
+                | true, value ->
+                    match value with
+                    | :? ControlTheme as controlTheme -> target.Theme <- controlTheme
+                    | _ ->
+                        node.TreeContext.Logger.Warn("The resource '{0}' is not a ControlTheme. The theme has been unset.", themeKey)
+                        target.Theme <- null
+                | _ ->
+                    node.TreeContext.Logger.Warn("The resource '{0}' was not found. The theme has been unset", themeKey)
+                    target.Theme <- null)
+
 type StyledElementModifiers =
     /// <summary>Sets the Name property.</summary>
     /// <param name="this">Current widget.</param>
@@ -84,19 +105,12 @@ type StyledElementModifiers =
     static member inline classes(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         this.AddScalar(StyledElement.Classes.WithValue([ value ]))
 
-    /// <summary>Sets the Style property.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">The Style value.</param>
-    [<Extension>]
-    static member inline style(this: WidgetBuilder<'msg, #IFabElement>, fn: WidgetBuilder<'msg, #IFabElement> -> WidgetBuilder<'msg, #IFabElement>) = fn this
-
     /// <summary>Sets the ContentType property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ContentType value.</param>
     [<Extension>]
     static member inline contentType(this: WidgetBuilder<'msg, #IFabStyledElement>, value: TextInputContentType) =
         this.AddScalar(StyledElement.ContentType.WithValue(value))
-
 
     /// <summary>Sets the ReturnKeyType property.</summary>
     /// <param name="this">Current widget.</param>
@@ -140,37 +154,40 @@ type StyledElementModifiers =
     static member inline isSensitive(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
         this.AddScalar(StyledElement.IsSensitive.WithValue(value))
 
-    /// <summary>Listens to the StyledElement AttachedToLogicalTree event.</summary>
+    /// <summary>Sets the application styles.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the styled element is attached to a rooted logical tree.</param>
+    /// <param name="value">Application styles to be used for the control.</param>
     [<Extension>]
-    static member inline onAttachedToLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(StyledElement.AttachedToLogicalTree.WithValue(fn))
+    static member inline styleInclude(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string list) =
+        this.AddScalar(StyledElement.StyleInclude.WithValue(value))
 
-    /// <summary>Listens to the StyledElement DetachedFromLogicalTree event.</summary>
+    /// <summary>Sets the application styles.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the styled element is detached from a rooted logical tree.</param>
+    /// <param name="value">Application styles to be used for the control.</param>
     [<Extension>]
-    static member inline onDetachedFromLogicalTree(this: WidgetBuilder<'msg, #IFabStyledElement>, fn: LogicalTreeAttachmentEventArgs -> 'msg) =
-        this.AddScalar(StyledElement.DetachedFromLogicalTree.WithValue(fn))
+    static member inline styleInclude(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        StyledElementModifiers.styleInclude(this, [ value ])
 
-    /// <summary>Listens to the StyledElement ActualThemeVariantChanged event.</summary>
+    /// <summary>Adds inline styles used by the widget and its descendants.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the actual theme variant changes.</param>
+    /// <param name="value">Inline styles to be used for the widget and its descendants.</param>
+    /// <remarks>Note: Fabulous will recreate the Style/Styles during the view diffing as opposed to a single styled element property.</remarks>
     [<Extension>]
-    static member inline onActualThemeVariantChanged(this: WidgetBuilder<'msg, #IFabStyledElement>, msg: 'msg) =
-        this.AddScalar(StyledElement.ActualThemeVariantChanged.WithValue(MsgValue msg))
+    static member inline styles(this: WidgetBuilder<'msg, #IFabStyledElement>, value: IStyle list) =
+        this.AddScalar(StyledElement.Styles.WithValue(value))
 
-[<Extension>]
-type StyledElementCollectionBuilderExtensions =
+    /// <summary>Add inline style used by the widget and its descendants.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">Inline style to be used for the widget and its descendants.</param>
+    /// <remarks>Note: Fabulous will recreate the Style/Styles during the view diffing as opposed to a single styled element property.</remarks>
     [<Extension>]
-    static member inline Yield(_: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>, x: WidgetBuilder<'msg, #IFabStyle>) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
+    static member inline style(this: WidgetBuilder<'msg, #IFabStyledElement>, value: IStyle) =
+        StyledElementModifiers.styles(this, [ value ])
 
+    /// <summary>Sets the ThemeKey property. The ThemeKey is used to lookup the ControlTheme from the
+    /// application styles that is applied to the control.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ThemeKey value.</param>
     [<Extension>]
-    static member inline Yield
-        (
-            _: AttributeCollectionBuilder<'msg, #IFabStyledElement, IFabStyle>,
-            x: WidgetBuilder<'msg, Memo.Memoized<#IFabStyle>>
-        ) : Content<'msg> =
-        { Widgets = MutStackArray1.One(x.Compile()) }
+    static member inline themeKey(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
+        this.AddScalar(StyledElement.ThemeKey.WithValue(value))

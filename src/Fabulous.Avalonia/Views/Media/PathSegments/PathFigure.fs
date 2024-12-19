@@ -12,14 +12,14 @@ type IFabPathFigure =
 module PathFigure =
     let WidgetKey = Widgets.register<PathFigure>()
 
+    let Segments =
+        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
+
     let IsClosed =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsClosedProperty
 
     let IsFilled =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.IsFilledProperty
-
-    let Segments =
-        Attributes.defineAvaloniaListWidgetCollection "PathFigure_Segments" (fun target -> (target :?> PathFigure).Segments)
 
     let StartPoint =
         Attributes.defineAvaloniaPropertyWithEquality PathFigure.StartPointProperty
@@ -33,7 +33,6 @@ module PathFigureBuilders =
         static member PathFigure(startPoint: Point) =
             CollectionBuilder<'msg, IFabPathFigure, IFabPathSegment>(PathFigure.WidgetKey, PathFigure.Segments, PathFigure.StartPoint.WithValue(startPoint))
 
-[<Extension>]
 type PathFigureModifiers =
 
     /// <summary>Sets the IsClosed property.</summary>
@@ -50,20 +49,22 @@ type PathFigureModifiers =
     static member inline isFilled(this: WidgetBuilder<'msg, #IFabPathFigure>, value: bool) =
         this.AddScalar(PathFigure.IsFilled.WithValue(value))
 
-[<Extension>]
+    /// <summary>Link a ViewRef to access the direct PathFigure control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabPathFigure>, value: ViewRef<PathFigure>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
+
 type PathFigureBuilderExtensions =
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabPathSegment>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathSegment>
+        (_: CollectionBuilder<'msg, 'marker, IFabPathSegment>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
-    static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabPathSegment>
-        (
-            _: CollectionBuilder<'msg, 'marker, IFabPathSegment>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'itemType :> IFabPathSegment>
+        (_: CollectionBuilder<'msg, 'marker, IFabPathSegment>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

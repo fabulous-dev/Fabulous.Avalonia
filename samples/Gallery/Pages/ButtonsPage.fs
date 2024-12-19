@@ -1,67 +1,100 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Layout
 open Avalonia.Media
+open Avalonia.Styling
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ButtonsPage =
-    type Model = { Nothing: bool }
+    type Model = { IsVisited: bool }
 
-    type Msg = | Clicked
+    type Msg =
+        | Clicked
+        | IsVisitedChanged of bool
+        | Checked of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
-    let init () = { Nothing = true }, []
+    let init () = { IsVisited = false }
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
+        | Clicked -> model
+        | IsVisitedChanged value ->
+            printfn $"IsVisitedChanged: {value}"
+            model
+        | Checked value -> { model with IsVisited = value }
 
-    let view _ =
-        (VStack(spacing = 15.) {
-            Button("Regular button", Clicked)
+    let program =
+        Program.stateful init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-            Button("Disabled button", Clicked).isEnabled(false)
+    let view () =
+        Component("ButtonsPage") {
+            let! model = Context.Mvu program
 
-            Button("White text, red background", Clicked)
-                .background(SolidColorBrush(Colors.Red))
-                .foreground(SolidColorBrush(Colors.White))
-                .width(200.)
+            (VStack(spacing = 15.) {
+                Button("Regular button", Clicked)
 
-            Button(
-                Clicked,
+                Button("Disabled button", Clicked).isEnabled(false)
+
+                Button("White text, red background", Clicked)
+                    .background(SolidColorBrush(Colors.Red))
+                    .foreground(SolidColorBrush(Colors.White))
+                    .width(200.)
+
+                Button(
+                    Clicked,
+                    HStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(32., 32.)
+
+                        TextBlock("Button with image")
+                    }
+                )
+
+                Button("No Border", Clicked).borderThickness(0.)
+
+                Button("Border Color", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+
+                Button("Thick Border", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                    .borderThickness(4.)
+
+                Button("Disabled", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                    .borderThickness(4.)
+                    .isEnabled(false)
+
+                Button("IsTabStop=False", Clicked)
+                    .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
+                    .isTabStop(false)
+
+                ThemeVariantScope(ThemeVariant.Light, Button("Light Button", Clicked))
+
+                ThemeVariantScope(ThemeVariant.Dark, Button("Dark Button", Clicked))
+
+                HyperlinkButton("Google", "https://www.google.com")
+                    .onVisitedChanged(model.IsVisited, IsVisitedChanged)
+
                 HStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(32., 32.)
+                    HyperlinkButton("Google", "https://www.google.com")
+                        .onVisitedChanged(model.IsVisited, IsVisitedChanged)
 
-                    TextBlock("Button with image")
+                    CheckBox("IsVisited", model.IsVisited, Checked)
                 }
-            )
 
-            Button("No Border", Clicked).borderThickness(0.)
-
-            Button("Border Color", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-
-            Button("Thick Border", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .borderThickness(4.)
-
-            Button("Disabled", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .borderThickness(4.)
-                .isEnabled(false)
-
-            Button("IsTabStop=False", Clicked)
-                .borderBrush(SolidColorBrush(Color.Parse("#FF0000")))
-                .isTabStop(false)
-        })
-            .horizontalAlignment(HorizontalAlignment.Center)
+            })
+                .horizontalAlignment(HorizontalAlignment.Center)
+        }

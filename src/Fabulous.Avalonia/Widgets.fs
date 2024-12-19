@@ -6,17 +6,6 @@ open Avalonia
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 
-[<AbstractClass; Sealed>]
-type View =
-    class
-    end
-
-type IFabObject =
-    interface
-    end
-
-type IFabElement =
-    inherit IFabObject
 
 type WidgetItems =
     { OriginalItems: IEnumerable
@@ -34,7 +23,7 @@ module Widgets =
               Name = typeof<'T>.Name
               TargetType = typeof<'T>
               CreateView =
-                fun (widget, treeContext, parentNode) ->
+                fun (widget, envContext, treeContext, parentNode) ->
                     treeContext.Logger.Debug("Creating view for {0}", typeof<'T>.Name)
 
                     let view = factory()
@@ -45,7 +34,7 @@ module Widgets =
                         | ValueNone -> None
                         | ValueSome node -> Some node
 
-                    let node = ViewNode(parentNode, treeContext, weakReference)
+                    let node = new ViewNode(parentNode, envContext, treeContext, weakReference)
 
                     ViewNode.set node view
 
@@ -54,7 +43,7 @@ module Widgets =
                     Reconciler.update treeContext.CanReuseView ValueNone widget node
                     struct (node :> IViewNode, box view)
               AttachView =
-                fun (widget, treeContext, parentNode, view) ->
+                fun (widget, envContext, treeContext, parentNode, view) ->
                     treeContext.Logger.Debug("Attaching view for {0}", typeof<'T>.Name)
 
                     let weakReference = WeakReference(view)
@@ -64,7 +53,7 @@ module Widgets =
                         | ValueNone -> None
                         | ValueSome node -> Some node
 
-                    let node = ViewNode(parentNode, treeContext, weakReference)
+                    let node = new ViewNode(parentNode, envContext, treeContext, weakReference)
 
                     ViewNode.set node view
 
@@ -80,23 +69,24 @@ module Widgets =
     let register<'T when WidgetOps<'T>> () = registerWithFactory(fun () -> new 'T())
 
 module WidgetHelpers =
+    /// Compiles the templateBuilder into a template.
+    let compileTemplate (templateBuilder: 'item -> WidgetBuilder<'msg, 'widget>) item =
+        let itm = unbox<'item> item
+        (templateBuilder itm).Compile()
+
     /// Creates a widget with the given key and attributes.
-    let buildItems<'msg, 'marker, 'itemData, 'itemMarker>
+    let inline buildItems<'msg, 'marker, 'itemData, 'itemMarker when 'msg: equality>
         key
         (attrDef: SimpleScalarAttributeDefinition<WidgetItems>)
         (items: seq<'itemData>)
         (itemTemplate: 'itemData -> WidgetBuilder<'msg, 'itemMarker>)
         =
-        let template (item: obj) =
-            let item = unbox<'itemData> item
-            (itemTemplate item).Compile()
-
         let data: WidgetItems =
             { OriginalItems = items
-              Template = template }
+              Template = compileTemplate itemTemplate }
 
         WidgetBuilder<'msg, 'marker>(key, attrDef.WithValue(data))
 
     /// Creates a widget with the given key and attributes.
-    let inline buildWidgets<'msg, 'marker> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
-        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone))
+    let inline buildWidgets<'msg, 'marker when 'msg: equality> (key: WidgetKey) scalars (attrs: WidgetAttribute[]) =
+        WidgetBuilder<'msg, 'marker>(key, struct (scalars, ValueSome attrs, ValueNone, ValueNone))

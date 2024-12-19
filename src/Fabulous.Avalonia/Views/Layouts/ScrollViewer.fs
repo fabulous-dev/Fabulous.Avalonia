@@ -49,8 +49,8 @@ module ScrollViewer =
     let IsScrollInertiaEnabled =
         Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsScrollInertiaEnabledProperty
 
-    let ScrollChanged =
-        Attributes.defineEvent "ScrollViewer_ScrollChangedEvent" (fun target -> (target :?> ScrollViewer).ScrollChanged)
+    let IsDeferredScrollingEnabled =
+        Attributes.defineAvaloniaPropertyWithEquality ScrollViewer.IsDeferredScrollingEnabledProperty
 
 [<AutoOpen>]
 module ScrollViewerBuilders =
@@ -58,13 +58,9 @@ module ScrollViewerBuilders =
 
         /// <summary>Creates a ScrollViewer widget</summary>
         /// <param name="content">The content to display</param>
-        static member inline ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
-            WidgetBuilder<'msg, IFabScrollViewer>(
-                ScrollViewer.WidgetKey,
-                AttributesBundle(StackList.empty(), ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |], ValueNone)
-            )
+        static member ScrollViewer(content: WidgetBuilder<'msg, #IFabControl>) =
+            WidgetBuilder<'msg, IFabScrollViewer>(ScrollViewer.WidgetKey, ContentControl.ContentWidget.WithValue(content.Compile()))
 
-[<Extension>]
 type ScrollViewerModifiers =
     /// <summary>Sets the Extent property.</summary>
     /// <param name="this">Current widget.</param>
@@ -143,12 +139,12 @@ type ScrollViewerModifiers =
     static member inline isScrollInertiaEnabled(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
         this.AddScalar(ScrollViewer.IsScrollInertiaEnabled.WithValue(value))
 
-    /// <summary>Listens to the ScrollViewer ScrollChanged event.</summary>
+    /// <summary>Sets the IsDeferredScrollingEnabled property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the ScrollChanged event fires.</param>
+    /// <param name="value">The IsDeferredScrollingEnabled value.</param>
     [<Extension>]
-    static member inline onScrollChanged(this: WidgetBuilder<'msg, #IFabScrollViewer>, fn: ScrollChangedEventArgs -> 'msg) =
-        this.AddScalar(ScrollViewer.ScrollChanged.WithValue(fn))
+    static member inline isDeferredScrollingEnabled(this: WidgetBuilder<'msg, #IFabScrollViewer>, value: bool) =
+        this.AddScalar(ScrollViewer.IsDeferredScrollingEnabled.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct ScrollViewer control instance.</summary>
     /// <param name="this">Current widget.</param>
@@ -157,7 +153,6 @@ type ScrollViewerModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabScrollViewer>, value: ViewRef<ScrollViewer>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type ScrollViewerAttachedModifiers =
     /// <summary>Sets the BringIntoViewOnFocusChange property.</summary>
     /// <param name="this">Current widget.</param>

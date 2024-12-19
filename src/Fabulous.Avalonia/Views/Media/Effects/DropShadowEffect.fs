@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia.Media
 open Fabulous
 open Fabulous.StackAllocatedCollections.StackList
@@ -22,7 +23,7 @@ module DropShadowEffectBuilders =
 
         /// <summary>Creates a DropShadowEffect widget.</summary>
         static member DropShadowEffect() =
-            WidgetBuilder<'msg, IFabDropShadowEffect>(DropShadowEffect.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+            WidgetBuilder<'msg, IFabDropShadowEffect>(DropShadowEffect.WidgetKey)
 
         /// <summary>Creates a DropShadowEffect widget.</summary>
         /// <param name="offsetX">The X offset of the shadow.</param>
@@ -33,3 +34,12 @@ module DropShadowEffectBuilders =
                 DropShadowEffect.OffsetX.WithValue(offsetX),
                 DropShadowEffect.OffsetY.WithValue(offsetY)
             )
+
+type DropShadowEffectModifiers =
+
+    /// <summary>Link a ViewRef to access the direct DropShadowEffect control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabDropShadowEffect>, value: ViewRef<DropShadowEffect>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

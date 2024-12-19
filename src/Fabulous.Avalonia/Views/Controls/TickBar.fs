@@ -6,7 +6,6 @@ open Avalonia.Collections
 open Avalonia.Controls
 open Avalonia.Layout
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
 
 type IFabTickBar =
@@ -59,7 +58,6 @@ module TickBarBuilders =
         static member TickBar(min: float, max: float) =
             WidgetBuilder<'msg, IFabTickBar>(TickBar.WidgetKey, TickBar.Minimum.WithValue(min), TickBar.Maximum.WithValue(max))
 
-[<Extension>]
 type TickBarModifiers =
     /// <summary>Sets the Fill property.</summary>
     /// <param name="this">Current widget.</param>
@@ -79,8 +77,15 @@ type TickBarModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The Fill value.</param>
     [<Extension>]
+    static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: Color) =
+        TickBarModifiers.fill(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the Fill property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The Fill value.</param>
+    [<Extension>]
     static member inline fill(this: WidgetBuilder<'msg, #IFabTickBar>, value: string) =
-        this.AddScalar(TickBar.Fill.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        TickBarModifiers.fill(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the TickFrequency property.</summary>
     /// <param name="this">Current widget.</param>

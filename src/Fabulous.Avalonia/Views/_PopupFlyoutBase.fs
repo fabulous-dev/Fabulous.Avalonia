@@ -1,6 +1,5 @@
 namespace Fabulous.Avalonia
 
-open System.ComponentModel
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
@@ -33,13 +32,9 @@ module PopupFlyoutBase =
     let OverlayInputPassThroughElement =
         Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.OverlayInputPassThroughElementProperty
 
-    let Opening =
-        Attributes.defineEventNoArg "PopupFlyoutBase_Opening" (fun target -> (target :?> PopupFlyoutBase).Opening)
+    let PlacementConstraintAdjustment =
+        Attributes.defineAvaloniaPropertyWithEquality PopupFlyoutBase.PlacementConstraintAdjustmentProperty
 
-    let Closing =
-        Attributes.defineEvent "PopupFlyoutBase_Closing" (fun target -> (target :?> PopupFlyoutBase).Closing)
-
-[<Extension>]
 type PopupFlyoutBaseModifiers =
     /// <summary>Sets the Placement property.</summary>
     /// <param name="this">Current widget.</param>
@@ -90,16 +85,9 @@ type PopupFlyoutBaseModifiers =
     static member inline overlayInputPassThroughElement(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: IInputElement) =
         this.AddScalar(PopupFlyoutBase.OverlayInputPassThroughElement.WithValue(value))
 
-    /// <summary>Listens to the PopupFlyoutBase Opening event.</summary>
+    /// <summary>Sets the PlacementConstraintAdjustment property.</summary>
     /// <param name="this">Current widget.</param>
-    /// <param name="msg">Raised when the PopupFlyoutBase is opening.</param>
+    /// <param name="value">The PlacementConstraintAdjustment value.</param>
     [<Extension>]
-    static member inline onOpening(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, msg: 'msg) =
-        this.AddScalar(PopupFlyoutBase.Opening.WithValue(MsgValue msg))
-
-    /// <summary>Listens to the PopupFlyoutBase Closing event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PopupFlyoutBase is closing.</param>
-    [<Extension>]
-    static member inline onClosing(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, fn: CancelEventArgs -> 'msg) =
-        this.AddScalar(PopupFlyoutBase.Closing.WithValue(fn))
+    static member inline placementConstraintAdjustment(this: WidgetBuilder<'msg, #IFabPopupFlyoutBase>, value: PopupPositionerConstraintAdjustment) =
+        this.AddScalar(PopupFlyoutBase.PlacementConstraintAdjustment.WithValue(value))

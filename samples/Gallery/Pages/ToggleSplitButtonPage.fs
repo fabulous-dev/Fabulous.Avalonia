@@ -1,12 +1,12 @@
-namespace Gallery.Pages
+namespace Gallery
 
+open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Media
 open Fabulous.Avalonia
 open Fabulous
 
 open type Fabulous.Avalonia.View
-open Gallery
 
 module ToggleSplitButtonPage =
     type Model =
@@ -22,26 +22,20 @@ module ToggleSplitButtonPage =
         | CheckedChanged of bool
         | CheckedChanged2 of bool
 
-    type CmdMsg = | NoMsg
-
-    let mapCmdMsgToCmd cmdMsg =
-        match cmdMsg with
-        | NoMsg -> Cmd.none
-
     let init () =
         { Count = 0
           IsChecked = false
           IsChecked2 = false },
-        []
+        Cmd.none
 
     let update msg model =
         match msg with
-        | Clicked -> model, []
-        | Increment -> { model with Count = model.Count + 1 }, []
-        | Decrement -> { model with Count = model.Count - 1 }, []
-        | Reset -> { model with Count = 0 }, []
-        | CheckedChanged b -> { model with IsChecked = b }, []
-        | CheckedChanged2 b -> { model with IsChecked2 = b }, []
+        | Clicked -> model, Cmd.none
+        | Increment -> { model with Count = model.Count + 1 }, Cmd.none
+        | Decrement -> { model with Count = model.Count - 1 }, Cmd.none
+        | Reset -> { model with Count = 0 }, Cmd.none
+        | CheckedChanged b -> { model with IsChecked = b }, Cmd.none
+        | CheckedChanged2 b -> { model with IsChecked2 = b }, Cmd.none
 
     let menu () =
         Flyout(
@@ -54,21 +48,36 @@ module ToggleSplitButtonPage =
             .showMode(FlyoutShowMode.Standard)
             .placement(PlacementMode.RightEdgeAlignedTop)
 
+    let program =
+        Program.statefulWithCmd init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
 
-    let view model =
-        VStack(spacing = 15.) {
-            TextBlock($"Count: i {model.Count}")
+    let view () =
+        Component("ToggleSplitButtonPage") {
+            let! model = Context.Mvu program
 
-            ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged)
-                .flyout(menu())
+            VStack(spacing = 15.) {
+                TextBlock($"Count: i {model.Count}")
 
-            ToggleSplitButton(
-                model.IsChecked2,
-                CheckedChanged2,
-                HStack() {
-                    Image(ImageSource.fromString "avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
-                        .size(32., 32.)
-                }
-            )
-                .flyout(menu())
+                ToggleSplitButton("Press me!", model.IsChecked, CheckedChanged)
+                    .flyout(menu())
+
+                ToggleSplitButton(
+                    model.IsChecked2,
+                    CheckedChanged2,
+                    HStack() {
+                        Image("avares://Gallery/Assets/Icons/fabulous-icon.png", Stretch.UniformToFill)
+                            .size(32., 32.)
+                    }
+                )
+                    .flyout(menu())
+            }
         }

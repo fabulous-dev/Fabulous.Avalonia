@@ -3,7 +3,6 @@ namespace Fabulous.Avalonia
 open System.Runtime.CompilerServices
 open Avalonia.Controls
 open Fabulous
-open Fabulous.StackAllocatedCollections
 open Fabulous.StackAllocatedCollections.StackList
 
 type IFabNativeMenuBar =
@@ -21,10 +20,10 @@ module NativeMenuBarBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a NativeMenuBar widget.</summary>
-        static member inline NativeMenuBar() =
-            WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey, AttributesBundle(StackList.empty(), ValueNone, ValueNone))
+        static member NativeMenuBar() =
+            WidgetBuilder<'msg, IFabNativeMenuBar>(NativeMenuBar.WidgetKey)
 
-[<Extension>]
+
 type NativeMenuBarAttachedModifiers =
 
     /// <summary>Sets the EnableMenuItemClickForwarding property.</summary>

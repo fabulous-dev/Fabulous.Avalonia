@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Media
 open Fabulous
@@ -23,20 +24,20 @@ module ConicGradientBrushBuilders =
         /// <summary>Creates a ConicGradientBrush widget.</summary>
         /// <param name="center">The center of the gradient.</param>
         /// <param name="angle">The angle of the gradient.</param>
-        static member ConicGradientBrush<'msg>(center: RelativePoint, angle: float) =
+        static member ConicGradientBrush(center: RelativePoint, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(center),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
 
         /// <summary>Creates a ConicGradientBrush widget.</summary>
         /// <param name="center">The center of the gradient.</param>
-        static member ConicGradientBrush<'msg>(center: RelativePoint) =
+        static member ConicGradientBrush(center: RelativePoint) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(center),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
@@ -45,10 +46,10 @@ module ConicGradientBrushBuilders =
         /// <param name="center">The center of the gradient.</param>
         /// <param name="unit">The unit of the center.</param>
         /// <param name="angle">The angle of the gradient.</param>
-        static member ConicGradientBrush<'msg>(center: Point, unit: RelativeUnit, angle: float) =
+        static member ConicGradientBrush(center: Point, unit: RelativeUnit, angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
@@ -56,29 +57,38 @@ module ConicGradientBrushBuilders =
         /// <summary>Creates a ConicGradientBrush widget.</summary>
         /// <param name="center">The center of the gradient.</param>
         /// <param name="unit">The unit of the center.</param>
-        static member ConicGradientBrush<'msg>(center: Point, unit: RelativeUnit) =
+        static member ConicGradientBrush(center: Point, unit: RelativeUnit) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint(center, unit)),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
 
         /// <summary>Creates a ConicGradientBrush widget.</summary>
         /// <param name="angle">The angle of the gradient.</param>
-        static member ConicGradientBrush<'msg>(angle: float) =
+        static member ConicGradientBrush(angle: float) =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint.Center),
                 ConicGradientBrush.Angle.WithValue(angle)
             )
 
         /// <summary>Creates a ConicGradientBrush widget.</summary>
-        static member ConicGradientBrush<'msg>() =
+        static member ConicGradientBrush() =
             CollectionBuilder<'msg, IFabConicGradientBrush, IFabGradientStop>(
                 ConicGradientBrush.WidgetKey,
-                GradientBrush.GradientStops,
+                ComponentGradientBrush.GradientStops,
                 ConicGradientBrush.Center.WithValue(RelativePoint.Center),
                 ConicGradientBrush.Angle.WithValue(0.)
             )
+
+
+type ConicGradientBrushModifiers =
+    /// <summary>Link a ViewRef to access the direct ConicGradientBrush control instance.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ViewRef instance that will receive access to the underlying control.</param>
+    [<Extension>]
+    static member inline reference(this: WidgetBuilder<'msg, IFabConicGradientBrush>, value: ViewRef<ConicGradientBrush>) =
+        this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))

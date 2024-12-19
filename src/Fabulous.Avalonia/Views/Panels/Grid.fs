@@ -85,7 +85,7 @@ module GridBuilders =
         /// <summary>Creates a Grid widget.</summary>
         /// <param name="coldefs">Column definitions.</param>
         /// <param name="rowdefs">Row definitions.</param>
-        static member inline Grid<'msg>(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
+        static member Grid(coldefs: seq<Dimension>, rowdefs: seq<Dimension>) =
             CollectionBuilder<'msg, IFabGrid, IFabControl>(
                 Grid.WidgetKey,
                 Panel.Children,
@@ -94,15 +94,14 @@ module GridBuilders =
             )
 
         /// <summary>Creates a Grid widget with a single column and row.</summary>
-        static member inline Grid<'msg>() = View.Grid<'msg>([ Star ], [ Star ])
+        static member Grid() = View.Grid([ Star ], [ Star ])
 
-[<Extension>]
 type GridModifiers =
     /// <summary>Sets the ShowGridLines property.</summary>
     /// <param name="this">Current widget.</param>
     /// <param name="value">The ShowGridLines value.</param>
     [<Extension>]
-    static member inline showGridLines(this: WidgetBuilder<'msg, IFabGrid>, value: bool) =
+    static member inline showGridLines(this: WidgetBuilder<'msg, #IFabGrid>, value: bool) =
         this.AddScalar(Grid.ShowGridLines.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Grid control instance.</summary>
@@ -112,7 +111,6 @@ type GridModifiers =
     static member inline reference(this: WidgetBuilder<'msg, IFabGrid>, value: ViewRef<Grid>) =
         this.AddScalar(ViewRefAttributes.ViewRef.WithValue(value.Unbox))
 
-[<Extension>]
 type GridAttachedModifiers =
     /// <summary>Sets the Column property.</summary>
     /// <param name="this">Current widget.</param>

@@ -1,7 +1,6 @@
 namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
-open Avalonia
 open Avalonia.Controls
 open Avalonia.Styling
 open Fabulous
@@ -13,11 +12,15 @@ type IFabThemeVariantScope =
 module ThemeVariantScope =
     let WidgetKey = Widgets.register<ThemeVariantScope>()
 
-    let ThemeVariant =
-        Attributes.defineAvaloniaPropertyWithEquality ThemeVariantScope.RequestedThemeVariantProperty
-
-    let ThemeVariantChanged =
-        Attributes.defineEventNoArg "TopLevel_ThemeVariantChanged" (fun target -> (target :?> ThemeVariantScope).ActualThemeVariantChanged)
+    let RequestedThemeVariant =
+        Attributes.definePropertyWithGetSet
+            "Application_ThemeVariant"
+            (fun target ->
+                let target = target :?> ThemeVariantScope
+                target.ActualThemeVariant)
+            (fun target value ->
+                let target = target :?> ThemeVariantScope
+                target.RequestedThemeVariant <- value)
 
 [<AutoOpen>]
 module ThemeVariantScopeBuilders =
@@ -30,21 +33,14 @@ module ThemeVariantScopeBuilders =
             WidgetBuilder<'msg, IFabThemeVariantScope>(
                 ThemeVariantScope.WidgetKey,
                 AttributesBundle(
-                    StackList.one(ThemeVariantScope.ThemeVariant.WithValue(theme)),
-                    ValueSome [| Decorator.Child.WithValue(content.Compile()) |],
+                    StackList.one(ThemeVariantScope.RequestedThemeVariant.WithValue(theme)),
+                    ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |],
+                    ValueNone,
                     ValueNone
                 )
             )
 
-[<Extension>]
 type ThemeVariantScopeModifiers =
-
-    /// <summary>Listens the ThemeVariantScope ThemeVariantChanged event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the ThemeVariantChanged event is raised.</param>
-    [<Extension>]
-    static member inline onThemeVariantChanged(this: WidgetBuilder<'msg, #IFabThemeVariantScope>, fn: ThemeVariant -> 'msg) =
-        this.AddScalar(ThemeVariantScope.ThemeVariantChanged.WithValue(MsgValue(fn Application.Current.ActualThemeVariant)))
 
     /// <summary>Link a ViewRef to access the direct ThemeVariantScope control instance.</summary>
     /// <param name="this">Current widget.</param>

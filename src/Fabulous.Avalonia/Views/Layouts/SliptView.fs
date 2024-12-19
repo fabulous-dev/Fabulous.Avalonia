@@ -2,13 +2,10 @@
 
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
-open Avalonia.Interactivity
 open Avalonia.Media
-open Avalonia.Media.Immutable
 open Fabulous
-open Fabulous.StackAllocatedCollections
-open Fabulous.StackAllocatedCollections.StackList
 open System.Runtime.CompilerServices
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabSplitView =
     inherit IFabContentControl
@@ -48,21 +45,6 @@ module SplitView =
     let PaneColumnGridLength =
         Attributes.defineAvaloniaPropertyWithEquality SplitViewTemplateSettings.PaneColumnGridLengthProperty
 
-    let PanClosed =
-        Attributes.defineEvent "SplitView_PanClosed" (fun target -> (target :?> SplitView).PaneClosed)
-
-    let PanClosing =
-        Attributes.defineEvent "SplitView_PanClosing" (fun target -> (target :?> SplitView).PaneClosing)
-
-    let PanOpened =
-        Attributes.defineEvent "SplitView_PanOpened" (fun target -> (target :?> SplitView).PaneOpened)
-
-    let PanOpening =
-        Attributes.defineEvent "SplitView_PanOpening" (fun target -> (target :?> SplitView).PaneOpening)
-
-    let IsPresented =
-        Attributes.defineAvaloniaPropertyWithChangedEvent' "SplitView_IsPresented" SplitView.IsPaneOpenProperty
-
 [<AutoOpen>]
 module SplitViewBuilders =
     type Fabulous.Avalonia.View with
@@ -70,7 +52,7 @@ module SplitViewBuilders =
         /// <summary>Creates a SplitView widget.</summary>
         /// <param name="pane">The content of the pane.</param>
         /// <param name="content">The content to display.</param>
-        static member inline SplitView(pane: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
+        static member SplitView(pane: WidgetBuilder<'msg, #IFabControl>, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabSplitView>(
                 SplitView.WidgetKey,
                 AttributesBundle(
@@ -78,11 +60,11 @@ module SplitViewBuilders =
                     ValueSome
                         [| SplitView.Pane.WithValue(pane.Compile())
                            ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueSome [||]
+                    ValueNone,
+                    ValueNone
                 )
             )
 
-[<Extension>]
 type SplitViewModifiers =
     /// <summary>Sets the CompactPaneLength property.</summary>
     /// <param name="this">Current widget.</param>
@@ -130,8 +112,15 @@ type SplitViewModifiers =
     /// <param name="this">Current widget.</param>
     /// <param name="value">The PaneBackground value.</param>
     [<Extension>]
+    static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: Color) =
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the PaneBackground property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PaneBackground value.</param>
+    [<Extension>]
     static member inline paneBackground(this: WidgetBuilder<'msg, #IFabSplitView>, value: string) =
-        this.AddScalar(SplitView.PaneBackground.WithValue(value |> Color.Parse |> ImmutableSolidColorBrush))
+        SplitViewModifiers.paneBackground(this, View.SolidColorBrush(value))
 
     /// <summary>Sets the PanePlacement property.</summary>
     /// <param name="this">Current widget.</param>
@@ -160,42 +149,6 @@ type SplitViewModifiers =
     [<Extension>]
     static member inline paneColumnGridLength(this: WidgetBuilder<'msg, #IFabSplitView>, value: GridLength) =
         this.AddScalar(SplitView.PaneColumnGridLength.WithValue(value))
-
-    /// <summary>Listens to the SplitView PanClosed event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PanClosed event fires.</param>
-    [<Extension>]
-    static member inline onPanClosed(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanClosed.WithValue(fn))
-
-    /// <summary>Listens to the SplitView PanClosing event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PanClosing event fires.</param>
-    [<Extension>]
-    static member inline onPanClosing(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanClosing.WithValue(fn))
-
-    /// <summary>Listens to the SplitView PanOpened event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PanOpened event fires.</param>
-    [<Extension>]
-    static member inline onPanOpened(this: WidgetBuilder<'msg, #IFabSplitView>, fn: RoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanOpened.WithValue(fn))
-
-    /// <summary>Listens to the SplitView PanOpening event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="fn">Raised when the PanOpening event fires.</param>
-    [<Extension>]
-    static member inline onPanOpening(this: WidgetBuilder<'msg, #IFabSplitView>, fn: CancelRoutedEventArgs -> 'msg) =
-        this.AddScalar(SplitView.PanOpening.WithValue(fn))
-
-    /// <summary>Listens to the SplitView IsPresented event.</summary>
-    /// <param name="this">Current widget.</param>
-    /// <param name="value">The IsPresented value.</param>
-    /// <param name="fn">Raised when the IsPresented event fires.</param>
-    [<Extension>]
-    static member inline isPresented(this: WidgetBuilder<'msg, #IFabSplitView>, value: bool, fn: bool -> 'msg) =
-        this.AddScalar(SplitView.IsPresented.WithValue(ValueEventData.create value fn))
 
     /// <summary>Link a ViewRef to access the direct SplitView control instance.</summary>
     /// <param name="this">Current widget.</param>
