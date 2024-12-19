@@ -17,4 +17,4 @@ module ComponentPinchGestureRecognizerBuilders =
 type ComponentPinchGestureRecognizerModifiers =
     [<Extension>]
     static member inline onPinchEnded(this: WidgetBuilder<'msg, #IFabPinchGestureRecognizer>, onPinchEnded: PinchEndedEventArgs -> unit) =
-        this.AddScalar(ComponentGestureRecognizer.PinchEnded.WithValue(onPinchEnded) )
+        this.AddScalar(ComponentGestureRecognizer.PinchEnded.WithValue(onPinchEnded))

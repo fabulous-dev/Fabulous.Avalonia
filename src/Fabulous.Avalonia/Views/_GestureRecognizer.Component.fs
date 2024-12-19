@@ -5,9 +5,6 @@ open Avalonia.Input
 open Fabulous
 open Fabulous.StackAllocatedCollections
 
-type IFabGestureRecognizer =
-    inherit IFabStyledElement
-
 module ComponentGestureRecognizer =
     let RightTapped =
         Attributes.Component.defineRoutedEvent<TappedEventArgs> "GestureRecognizer_RightTapped" Gestures.RightTappedEvent
@@ -44,32 +41,25 @@ module ComponentGestureRecognizer =
     let PullGestureEnded =
         Attributes.Component.defineRoutedEvent<PullGestureEndedEventArgs> "GestureRecognizer_PullGestureEnded" Gestures.PullGestureEndedEvent
 
-type GestureRecognizerModifiers =
+type ComponentGestureRecognizerModifiers =
     [<Extension>]
     static member inline onRightTapped(this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onRightTapped: TappedEventArgs -> unit) =
-        this.AddScalar(ComponentGestureRecognizer.RightTapped.WithValue(onRightTapped) )
+        this.AddScalar(ComponentGestureRecognizer.RightTapped.WithValue(onRightTapped))
 
     [<Extension>]
     static member inline onPointerTouchPadGestureMagnify
-        (
-            this: WidgetBuilder<'msg, #IFabGestureRecognizer>,
-            onPointerTouchPadGestureMagnify: PointerDeltaEventArgs -> unit
-        ) =
-        this.AddScalar(ComponentGestureRecognizer.PointerTouchPadGestureMagnify.WithValue(onPointerTouchPadGestureMagnify) )
+        (this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onPointerTouchPadGestureMagnify: PointerDeltaEventArgs -> unit)
+        =
+        this.AddScalar(ComponentGestureRecognizer.PointerTouchPadGestureMagnify.WithValue(onPointerTouchPadGestureMagnify))
 
     [<Extension>]
     static member inline onPointerTouchPadGestureRotate
-        (
-            this: WidgetBuilder<'msg, #IFabGestureRecognizer>,
-            onPointerTouchPadGestureRotate: PointerDeltaEventArgs -> unit
-        ) =
-        this.AddScalar(ComponentGestureRecognizer.PointerTouchPadGestureRotate.WithValue(onPointerTouchPadGestureRotate) )
+        (this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onPointerTouchPadGestureRotate: PointerDeltaEventArgs -> unit)
+        =
+        this.AddScalar(ComponentGestureRecognizer.PointerTouchPadGestureRotate.WithValue(onPointerTouchPadGestureRotate))
 
     [<Extension>]
     static member inline onPointerTouchPadGestureSwipe
-        (
-            this: WidgetBuilder<'msg, #IFabGestureRecognizer>,
-            onPointerTouchPadGestureSwipe: PointerDeltaEventArgs -> unit
-        ) =
-        this.AddScalar(ComponentGestureRecognizer.PointerTouchPadGestureSwipe.WithValue(onPointerTouchPadGestureSwipe) )
-
+        (this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onPointerTouchPadGestureSwipe: PointerDeltaEventArgs -> unit)
+        =
+        this.AddScalar(ComponentGestureRecognizer.PointerTouchPadGestureSwipe.WithValue(onPointerTouchPadGestureSwipe))

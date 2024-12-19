@@ -17,16 +17,12 @@ module ComponentScrollGestureRecognizerBuilders =
 type ComponentScrollGestureRecognizerModifiers =
     [<Extension>]
     static member inline onScrollGestureInertiaStarting
-        (
-            this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>,
-            onScrollGestureInertiaStarting: ScrollGestureInertiaStartingEventArgs -> unit
-        ) =
-        this.AddScalar(ComponentGestureRecognizer.ScrollGestureInertiaStarting.WithValue(onScrollGestureInertiaStarting) )
+        (this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>, onScrollGestureInertiaStarting: ScrollGestureInertiaStartingEventArgs -> unit)
+        =
+        this.AddScalar(ComponentGestureRecognizer.ScrollGestureInertiaStarting.WithValue(onScrollGestureInertiaStarting))
 
     [<Extension>]
     static member inline onScrollGestureEnded
-        (
-            this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>,
-            onScrollGestureEnded: ScrollGestureEndedEventArgs -> unit
-        ) =
-        this.AddScalar(ComponentGestureRecognizer.ScrollGestureEnded.WithValue(onScrollGestureEnded) )
+        (this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>, onScrollGestureEnded: ScrollGestureEndedEventArgs -> unit)
+        =
+        this.AddScalar(ComponentGestureRecognizer.ScrollGestureEnded.WithValue(onScrollGestureEnded))

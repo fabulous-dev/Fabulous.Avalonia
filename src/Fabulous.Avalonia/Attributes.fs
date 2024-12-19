@@ -281,11 +281,11 @@ module Attributes =
                     targetColl.Add(unbox view)
 
         Attributes.defineWidgetCollection name applyDiff updateNode
-        
+
     let defineAvaloniaGestureRecognizerCollection<'itemType> name (getCollection: obj -> GestureRecognizerCollection) =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let targetColl = getCollection node.Target
-            let targetColl = List<GestureRecognizer>(targetColl)
+            let targetColl = System.Collections.Generic.List<GestureRecognizer>(targetColl)
 
             for diff in diffs do
                 match diff with

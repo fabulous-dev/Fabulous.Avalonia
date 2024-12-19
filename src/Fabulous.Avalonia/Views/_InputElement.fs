@@ -28,7 +28,7 @@ module InputElement =
 
     let TabIndex =
         Attributes.defineAvaloniaPropertyWithEquality InputElement.TabIndexProperty
-        
+
     let GestureRecognizers =
         Attributes.defineAvaloniaGestureRecognizerCollection "InputElement_GestureRecognizers" (fun target -> (target :?> InputElement).GestureRecognizers)
 

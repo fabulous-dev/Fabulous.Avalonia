@@ -5,7 +5,7 @@ open Avalonia.Input
 open Fabulous
 
 [<AutoOpen>]
-module PullGestureRecognizerBuilders =
+module MvuPullGestureRecognizerBuilders =
     type Fabulous.Avalonia.View with
 
         static member inline PullGestureRecognizer(gesture: PullGestureEventArgs -> 'msg) =

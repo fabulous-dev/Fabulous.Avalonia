@@ -28,16 +28,12 @@ type GestureRecognizerBuilderExtensions =
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGestureRecognizer and 'msg: equality>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabGestureRecognizer>,
-            x: WidgetBuilder<'msg, 'itemType>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabGestureRecognizer>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 
     [<Extension>]
     static member inline Yield<'msg, 'marker, 'itemType when 'itemType :> IFabGestureRecognizer and 'msg: equality>
-        (
-            _: AttributeCollectionBuilder<'msg, 'marker, IFabGestureRecognizer>,
-            x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>
-        ) : Content<'msg> =
+        (_: AttributeCollectionBuilder<'msg, 'marker, IFabGestureRecognizer>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
+        : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }

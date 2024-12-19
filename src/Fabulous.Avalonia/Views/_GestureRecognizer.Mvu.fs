@@ -49,24 +49,18 @@ type MvuGestureRecognizerModifiers =
 
     [<Extension>]
     static member inline onPointerTouchPadGestureMagnify
-        (
-            this: WidgetBuilder<'msg, #IFabGestureRecognizer>,
-            onPointerTouchPadGestureMagnify: PointerDeltaEventArgs -> 'msg
-        ) =
+        (this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onPointerTouchPadGestureMagnify: PointerDeltaEventArgs -> 'msg)
+        =
         this.AddScalar(MvuGestureRecognizer.PointerTouchPadGestureMagnify.WithValue(fun args -> onPointerTouchPadGestureMagnify args |> box))
 
     [<Extension>]
     static member inline onPointerTouchPadGestureRotate
-        (
-            this: WidgetBuilder<'msg, #IFabGestureRecognizer>,
-            onPointerTouchPadGestureRotate: PointerDeltaEventArgs -> 'msg
-        ) =
+        (this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onPointerTouchPadGestureRotate: PointerDeltaEventArgs -> 'msg)
+        =
         this.AddScalar(MvuGestureRecognizer.PointerTouchPadGestureRotate.WithValue(fun args -> onPointerTouchPadGestureRotate args |> box))
 
     [<Extension>]
     static member inline onPointerTouchPadGestureSwipe
-        (
-            this: WidgetBuilder<'msg, #IFabGestureRecognizer>,
-            onPointerTouchPadGestureSwipe: PointerDeltaEventArgs -> 'msg
-        ) =
+        (this: WidgetBuilder<'msg, #IFabGestureRecognizer>, onPointerTouchPadGestureSwipe: PointerDeltaEventArgs -> 'msg)
+        =
         this.AddScalar(MvuGestureRecognizer.PointerTouchPadGestureSwipe.WithValue(fun args -> onPointerTouchPadGestureSwipe args |> box))

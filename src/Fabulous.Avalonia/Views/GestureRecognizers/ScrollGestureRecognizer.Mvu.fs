@@ -18,16 +18,12 @@ module MvuScrollGestureRecognizerBuilders =
 type MvuScrollGestureRecognizerModifiers =
     [<Extension>]
     static member inline onScrollGestureInertiaStarting
-        (
-            this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>,
-            onScrollGestureInertiaStarting: ScrollGestureInertiaStartingEventArgs -> 'msg
-        ) =
+        (this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>, onScrollGestureInertiaStarting: ScrollGestureInertiaStartingEventArgs -> 'msg)
+        =
         this.AddScalar(MvuGestureRecognizer.ScrollGestureInertiaStarting.WithValue(fun args -> onScrollGestureInertiaStarting args |> box))
 
     [<Extension>]
     static member inline onScrollGestureEnded
-        (
-            this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>,
-            onScrollGestureEnded: ScrollGestureEndedEventArgs -> 'msg
-        ) =
+        (this: WidgetBuilder<'msg, #IFabScrollGestureRecognizer>, onScrollGestureEnded: ScrollGestureEndedEventArgs -> 'msg)
+        =
         this.AddScalar(MvuGestureRecognizer.ScrollGestureEnded.WithValue(fun args -> onScrollGestureEnded args |> box))
