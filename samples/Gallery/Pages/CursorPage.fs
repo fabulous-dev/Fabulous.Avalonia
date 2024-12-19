@@ -7,6 +7,7 @@ open System.Linq
 open Avalonia
 open Avalonia.Controls
 open Avalonia.Input
+open Avalonia.Media
 open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous.Avalonia

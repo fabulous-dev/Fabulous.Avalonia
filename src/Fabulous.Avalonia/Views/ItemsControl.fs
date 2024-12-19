@@ -2,6 +2,7 @@ namespace Fabulous.Avalonia
 
 open System.Runtime.CompilerServices
 open Avalonia.Controls
+open Avalonia.Data
 open Fabulous
 
 type IFabItemsControl =
@@ -53,6 +54,9 @@ module ItemsControl =
                 itemsControl.SetValue(ItemsControl.ItemsPanelProperty, WidgetItemsPanel(node, value))
                 |> ignore)
 
+    let DisplayMemberBinding =
+        Attributes.defineAvaloniaPropertyWithEquality ItemsControl.DisplayMemberBindingProperty
+
 [<AutoOpen>]
 module ItemsControlBuilders =
     type Fabulous.Avalonia.View with
@@ -67,6 +71,16 @@ module ItemsControlBuilders =
 
 type ItemsControlModifiers =
 
+    /// <summary>Sets the ItemsPanel property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ItemsPanel value.</param>
     [<Extension>]
     static member inline itemsPanel(this: WidgetBuilder<'msg, #IFabItemsControl>, value: WidgetBuilder<'msg, #IFabPanel>) =
         this.AddScalar(ItemsControl.ItemsPanel.WithValue(value.Compile()))
+
+    /// <summary>Sets the DisplayMemberBinding property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The DisplayMemberBinding value.</param>
+    [<Extension>]
+    static member inline displayMemberBinding(this: WidgetBuilder<'msg, #IFabItemsControl>, value: IBinding) =
+        this.AddScalar(ItemsControl.DisplayMemberBinding.WithValue(value))

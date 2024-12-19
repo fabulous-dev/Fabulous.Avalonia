@@ -148,6 +148,7 @@ module MainWindow =
             TabItem("LabelPage", LabelPage.view())
             TabItem("LayoutTransformControlPage", LayoutTransformControlPage.view())
             TabItem("ListBoxPage", ListBoxPage.view())
+            TabItem("LottiePage", LottiePage.view())
             TabItem("MenuFlyoutPage", MenuFlyoutPage.view())
             TabItem("MaskedTextBoxPage", MaskedTextBoxPage.view())
             TabItem("MenuPage", MenuPage.view())

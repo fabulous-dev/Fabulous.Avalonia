@@ -1,8 +1,10 @@
 ﻿## Fabulous.Avalonia.Labs
 
-Avalonia has some experimental [packages](https://www.nuget.org/packages?q=Avalonia.Labs) that are not yet part of the main Avalonia project and might or might not be included in the future.
+Experimental Controls for [Avalonia](https://github.com/AvaloniaUI/Avalonia.Labs).
 
-This repository contains the source code for the Fabulous.Avalonia.Labs package, which is a collection of experimental controls so that you can use them in your Fabulous.Avalonia applications.
+This repository serves as a staging ground for new controls for Avalonia, with the intention of including them in the core AvaloniaUI controls. 
+
+The controls available here are unstable and are suspected to breaking changes as they are being worked on.
 
 > NOTe: This package is not yet stable and is subject to change.
 
@@ -19,6 +21,11 @@ VStack() {
 
     AsyncImage("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
 }
+```
+
+#### Lottie
+```fsharp
+Lottie("lottie-file.json")
 ```
 
 ## Other useful links:
