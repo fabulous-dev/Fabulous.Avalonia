@@ -1,12 +1,60 @@
 namespace Gallery
 
+open System.Diagnostics
+open Avalonia.Layout
 open Avalonia.Media
+open Fabulous
 open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
 module GridPage =
-    let view () =
+
+    type Person =
+        { FirstName: string
+          LastName: string
+          Age: int
+          Occupation: string }
+
+    type Model = { People: Person list }
+    type Msg = | PressMe
+
+    let init () =
+        { People =
+            [ { FirstName = "Jim"
+                LastName = "Smith"
+                Age = 35
+                Occupation = "Printed Circuit Board Drafter" }
+              { FirstName = "Charlotte"
+                LastName = "O'Shaughnessy-Alejandro"
+                Age = 30
+                Occupation = "Librarian" }
+              { FirstName = "Ryan"
+                LastName = "Cullen"
+                Age = 40
+                Occupation = "Ceramics Instructor" }
+              { FirstName = "Valentina"
+                LastName = "Levine"
+                Age = 38
+                Occupation = "Oceanologist" } ] }
+
+    let update msg model =
+        match msg with
+        | PressMe -> model
+
+    let program =
+        Program.stateful init update
+        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+        |> Program.withExceptionHandler(fun ex ->
+#if DEBUG
+            printfn $"Exception: %s{ex.ToString()}"
+            false
+#else
+            true
+#endif
+        )
+
+    let gridView1 () =
         VStack(16.) {
             (Grid() { TextBlock("By default, a Grid contains one row and one column.") })
                 .margin(16.)
@@ -180,4 +228,59 @@ module GridPage =
                     .background(SolidColorBrush(Colors.Coral))
 
             }
+        }
+
+    let gridView2 people =
+        VStack() {
+            ListBox(
+                people,
+                fun x ->
+                    ListBoxItem(
+                        Grid(coldefs = [ SharedSizeGroup("A"); SharedSizeGroup("B"); Star; SharedSizeGroup("C") ], rowdefs = [ Auto; Auto ]) {
+                            TextBlock(x.FirstName).gridColumn(0).margin(6., 0.)
+
+                            TextBlock(x.LastName).gridColumn(1).margin(6., 0.)
+
+                            TextBlock(x.Age.ToString()).gridColumn(2).margin(6., 0.)
+
+                            TextBlock(x.Occupation).gridColumn(3).margin(6., 0.)
+                        }
+                        |> _.showGridLines(true)
+                    )
+                        .padding(0.)
+            )
+
+            Separator()
+
+            Grid(coldefs = [ SharedSizeGroup("A"); SharedSizeGroup("B"); Star; SharedSizeGroup("C") ], rowdefs = [ Auto; Auto ]) {
+                Button("This is the First Name", PressMe)
+                    .gridColumn(0)
+                    .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                Button("Last", PressMe)
+                    .gridColumn(1)
+                    .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                Button("Age", PressMe)
+                    .gridColumn(2)
+                    .horizontalAlignment(HorizontalAlignment.Stretch)
+
+                Button("Occupation", PressMe)
+                    .gridColumn(3)
+                    .horizontalAlignment(HorizontalAlignment.Stretch)
+            }
+        }
+        |> _.isSharedSizeScope(true)
+
+    let view () =
+        Component("GridPage") {
+            let! model = Context.Mvu program
+
+            (TabControl() {
+                TabItem("Grids", gridView1())
+
+                TabItem("SharedSizeGroup", gridView2 model.People)
+            })
+                .margin(0., 16.)
+
         }
