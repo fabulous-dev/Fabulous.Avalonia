@@ -16,6 +16,8 @@ type Dimension =
     | Stars of float
     /// Use the associated value as the number of device-specific units.
     | Pixel of float
+    /// Use the associated value as the shared size group name.
+    | SharedSizeGroup of string
 
 module GridUpdaters =
     let updateGridColumnDefinitions _ (newValueOpt: Dimension[] voption) (node: IViewNode) =
@@ -27,14 +29,15 @@ module GridUpdaters =
             grid.ColumnDefinitions.Clear()
 
             for c in coll do
-                let gridLength =
+                let columnDef =
                     match c with
-                    | Auto -> GridLength.Auto
-                    | Star -> GridLength.Star
-                    | Stars x -> GridLength(x, GridUnitType.Star)
-                    | Pixel x -> GridLength(x, GridUnitType.Pixel)
+                    | Auto -> ColumnDefinition(Width = GridLength.Auto)
+                    | Star -> ColumnDefinition(GridLength.Star)
+                    | Stars x -> ColumnDefinition(Width = GridLength(x, GridUnitType.Star))
+                    | Pixel x -> ColumnDefinition(Width = GridLength(x, GridUnitType.Pixel))
+                    | SharedSizeGroup x -> ColumnDefinition(SharedSizeGroup = x)
 
-                grid.ColumnDefinitions.Add(ColumnDefinition(Width = gridLength))
+                grid.ColumnDefinitions.Add(columnDef)
 
     let updateGridRowDefinitions _ (newValueOpt: Dimension[] voption) (node: IViewNode) =
         let grid = node.Target :?> Grid
@@ -45,14 +48,15 @@ module GridUpdaters =
             grid.RowDefinitions.Clear()
 
             for c in coll do
-                let gridLength =
+                let rowDef =
                     match c with
-                    | Auto -> GridLength.Auto
-                    | Star -> GridLength.Star
-                    | Stars x -> GridLength(x, GridUnitType.Star)
-                    | Pixel x -> GridLength(x, GridUnitType.Pixel)
+                    | Auto -> RowDefinition(Height = GridLength.Auto)
+                    | Star -> RowDefinition(GridLength.Star)
+                    | Stars x -> RowDefinition(GridLength(x, GridUnitType.Star))
+                    | Pixel x -> RowDefinition(GridLength(x, GridUnitType.Pixel))
+                    | SharedSizeGroup x -> RowDefinition(SharedSizeGroup = x)
 
-                grid.RowDefinitions.Add(RowDefinition(Height = gridLength))
+                grid.RowDefinitions.Add(rowDef)
 
 module Grid =
     let WidgetKey = Widgets.register<Grid>()
