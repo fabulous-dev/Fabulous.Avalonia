@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre8] - 2024-12-27
+### Changed
+- Centralize AvaloniaVersion and FabulousVersion in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/266
+- Avalonia version update in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/267
+- Use Fabulous pre17 in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/271
+- Improve gestures samples in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/274
+
+### Added
+- SharedSizeGroup support in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/273
+- Named colors by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/270
+- Add Testing samples in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/269
+
 ## [3.0.0-pre7] - 2024-11-27
 ### Changed
 - Add support for Avalonia 11.2.1
@@ -247,7 +259,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre7...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre8...HEAD
+[3.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre8
 [3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre7
 [3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre6
 [3.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre5

@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre8] - 2024-12-27
+### Changed
+- Add support for Avalonia 11.2.2
+- Add support for Fabulous 3.0.0-pre17
+
 ## [3.0.0-pre7] - 2024-11-27
 ### Changed
 - Add support for Avalonia 11.2.1
@@ -76,7 +81,8 @@ _No unreleased changes_
 - Add a new template for a multi-project Fabulous.Avalonia app. 
 - Fix black screen in multi-project template when targeting Browser
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/3.0.0-pre7...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/3.0.0-pre8...HEAD
+[3.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/3.0.0-pre8
 [3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/3.0.0-pre7
 [3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/3.0.0-pre6
 [3.0.0-pre5]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/3.0.0-pre5

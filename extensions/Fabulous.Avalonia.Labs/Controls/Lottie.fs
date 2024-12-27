@@ -1,13 +1,8 @@
 ﻿namespace Fabulous.Avalonia
 
-open System
-open System.IO
 open System.Runtime.CompilerServices
-open Avalonia.Animation
-open Avalonia.Labs.Controls
 open Avalonia.Labs.Lottie
 open Avalonia.Media
-open Avalonia.Media.Imaging
 open Fabulous
 open Fabulous.Avalonia
 

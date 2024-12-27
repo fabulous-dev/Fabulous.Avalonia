@@ -62,17 +62,7 @@ module App =
             else
                 model, Cmd.none
 
-    let program =
-        Program.statefulWithCmd init update
-        |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
-        |> Program.withExceptionHandler(fun ex ->
-#if DEBUG
-            printfn $"Exception: %s{ex.ToString()}"
-            false
-#else
-            true
-#endif
-        )
+    let program = Program.statefulWithCmd init update
 
     let content () =
         Component("CounterApp") {
@@ -120,8 +110,10 @@ We also provide additional binding for Avalonia controls, you can find them in t
 
 - Fabulous.Avalonia.DataGrid [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.DataGrid)](https://www.nuget.org/packages/Fabulous.Avalonia.DataGrid#readme-body-tab)
 - Fabulous.Avalonia.ColorPicker [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.ColorPicker)](https://www.nuget.org/packages/Fabulous.Avalonia.ColorPicker#readme-body-tab)
+- Fabulous.Avalonia.Diagnostics [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.Diagnostics)](https://www.nuget.org/packages/Fabulous.Avalonia.Diagnostics#readme-body-tab)
 - Fabulous.Avalonia.ItemsRepeater [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.ItemsRepeater)](https://www.nuget.org/packages/Fabulous.Avalonia.ItemsRepeater#readme-body-tab)
 - Fabulous.Avalonia.TreeDataGrid [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.TreeDataGrid)](https://www.nuget.org/packages/Fabulous.Avalonia.TreeDataGrid#readme-body-tab)
+- Fabulous.Avalonia.Labs [![NuGet version](https://img.shields.io/nuget/v/Fabulous.Avalonia.Labs)](https://www.nuget.org/packages/Fabulous.Avalonia.Labs#readme-body-tab)
 
 ## Getting Started
 
