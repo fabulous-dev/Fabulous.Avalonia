@@ -10,6 +10,7 @@ env:
   CONFIG: Release
   SLN_FILE: Fabulous.Avalonia.NoSamples.sln
   MAIN_PROJ: src/Fabulous.Avalonia/Fabulous.Avalonia.fsproj
+  AVALONIALABS_PROJ: extensions/Fabulous.Avalonia.Labs/Fabulous.Avalonia.Labs.fsproj
   ITEMSREPEATER_PROJ: extensions/Fabulous.Avalonia.ItemsRepeater/Fabulous.Avalonia.ItemsRepeater.fsproj
   COLORPICKER_PROJ: extensions/Fabulous.Avalonia.ColorPicker/Fabulous.Avalonia.ColorPicker.fsproj
   DATAGRID_PROJ: extensions/Fabulous.Avalonia.DataGrid/Fabulous.Avalonia.DataGrid.fsproj
@@ -56,6 +57,13 @@ jobs:
         validation_level: warn
         version: '${{ env.RELEASE_VERSION }}'
         path: extensions/Fabulous.Avalonia.ItemsRepeater/CHANGELOG.md
+    - name: Get Fabulous.Avalonia.Labs Changelog Entry
+      id: avalonialabs_changelog
+      uses: mindsers/changelog-reader-action@v2
+      with:
+        validation_level: warn
+        version: '${{ env.RELEASE_VERSION }}'
+        path: extensions/Fabulous.Avalonia.Labs/CHANGELOG.md
     - name: Get Fabulous.Avalonia.ColorPicker Changelog Entry
       id: colorpicker_changelog
       uses: mindsers/changelog-reader-action@v2
@@ -100,6 +108,7 @@ jobs:
       run: |
         find templates -type f -name template.json | xargs sed -i bak "s/PKG_VERSION/${RELEASE_VERSION}/g"
         dotnet pack ${MAIN_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.fabulous_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
+        dotnet pack ${AVALONIALABS_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.avalonialabs_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
         dotnet pack ${ITEMSREPEATER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.itemsrepeater_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
         dotnet pack ${COLORPICKER_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.colorpicker_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
         dotnet pack ${DATAGRID_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.datagrid_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs

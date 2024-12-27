@@ -6,7 +6,7 @@ This repository serves as a staging ground for new controls for Avalonia, with t
 
 The controls available here are unstable and are suspected to breaking changes as they are being worked on.
 
-> NOTe: This package is not yet stable and is subject to change.
+> NOTE: This package is not yet stable and is subject to change.
 
 ### How to use
 - Add the `Fabulous.Avalonia.Labs` package to your project.

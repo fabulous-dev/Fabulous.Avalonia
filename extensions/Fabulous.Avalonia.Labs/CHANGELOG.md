@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Labs/compare/3.0.0-pre7...HEAD
-[3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia.Labs/releases/tag/3.0.0-pre7
-[3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia.Labs/releases/tag/3.0.0-pre6
+## [3.0.0-pre8] - 2024-12-27
+### Changed
+- Add support for `AsyncImage` by @h0lg in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/245
+- Add support for `Lottie` in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/272
+- Add support for `Fabulous` 3.0.0-pre17
+
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Labs/compare/3.0.0-pre8...HEAD
+[3.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia.Labs/releases/tag/3.0.0-pre8
