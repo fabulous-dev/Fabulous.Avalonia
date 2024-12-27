@@ -4,6 +4,8 @@ open System
 open System.Diagnostics
 open Avalonia.Controls
 open Avalonia.Markup.Xaml.Styling
+open Avalonia.Media.Immutable
+open Controls.HamburgerMenu
 open Fabulous.Avalonia
 open Fabulous
 
@@ -37,6 +39,8 @@ module MainWindow =
               WindowTransparencyLevel.Mica
               WindowTransparencyLevel.Transparent ] }
 
+    let sideBar = ViewRef<HamburgerMenu>()
+
     let update msg model =
         match msg with
         | DecorationsOnSelectionChanged args ->
@@ -56,7 +60,26 @@ module MainWindow =
             model
         | TransparencyLevelsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
-            let _content = model.TransparencyLevels[args.SelectedIndex]
+            let selected = model.TransparencyLevels[args.SelectedIndex]
+            let topLevel = TopLevel.GetTopLevel(FabApplication.Current.MainWindow)
+            topLevel.TransparencyLevelHint <- [| selected |]
+
+            if
+                topLevel.ActualTransparencyLevel <> WindowTransparencyLevel.None
+                && topLevel.ActualTransparencyLevel = selected
+            then
+                let transparentBrush = ImmutableSolidColorBrush(Colors.White, 0)
+                let semiTransparentBrush = ImmutableSolidColorBrush(Colors.Gray, 0.2)
+
+                topLevel.SetValue(TopLevel.BackgroundProperty, transparentBrush, Avalonia.Data.BindingPriority.Style)
+                |> ignore
+
+                sideBar.Value.SetValue(TopLevel.BackgroundProperty, semiTransparentBrush, Avalonia.Data.BindingPriority.Style)
+                |> ignore
+
+                sideBar.Value.SetValue(HamburgerMenu.BackgroundProperty, semiTransparentBrush, Avalonia.Data.BindingPriority.Style)
+                |> ignore
+
             model
         | DoNothing -> model
 
@@ -211,6 +234,7 @@ module MainWindow =
             TabItem("FormattedText", FormattedTextPage.view())
             TabItem("TextFormatter", TextFormatterPage.view())
         })
+            .reference(sideBar)
             .expandedModeThresholdWidth(760)
             .attachedFlyout(
                 Flyout(
@@ -282,6 +306,7 @@ module MainWindow =
                     .menu(createMenu())
                     .width(1024.)
                     .height(800.)
+                    .background(Colors.Transparent)
                     .icon("avares://Gallery/Assets/Icons/logo.ico")
 #if DEBUG
                     .attachDevTools()
