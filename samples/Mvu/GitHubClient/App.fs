@@ -1,9 +1,7 @@
 namespace GitHubClient
 
 open System.Diagnostics
-open System.IO
 open Avalonia.Markup.Xaml.Styling
-open Avalonia.Themes.Fluent
 open Fabulous
 open Fabulous.Avalonia
 open System.Net
@@ -15,11 +13,11 @@ open System.Text.Json
 open type Fabulous.Avalonia.View
 
 module Models =
-    type RemoteData<'e, 't> =
+    type RemoteData<'T> =
         | NotAsked
         | Loading
-        | Content of 't
-        | Failure of 'e
+        | Content of 'T
+        | Failure of string
 
     type User =
         { login: string
@@ -41,8 +39,6 @@ module URlConstants =
     [<Literal>]
     let githubBaseUrl = "https://api.github.com/users/"
 
-type GitHubError = | Non200Response
-
 module GitHubService =
     let private fetchWitHeader (urlString: string) =
         let client = new HttpClient()
@@ -63,7 +59,7 @@ module GitHubService =
             return
                 match response.StatusCode with
                 | HttpStatusCode.OK -> Ok deserialized
-                | _ -> Error Non200Response
+                | _ -> Error "User not found!"
         }
 
 module App =
@@ -71,12 +67,12 @@ module App =
         | UserNameChanged of string
         | SearchClicked
         | UserInfoLoaded of User
-        | UserInfoNotFound of GitHubError
+        | UserInfoNotFound of string
         | LoadingProgress of float
 
     type Model =
         { UserName: string
-          UserInfo: RemoteData<string, User> }
+          UserInfo: RemoteData<User> }
 
     let init () =
         { UserName = ""
@@ -96,19 +92,13 @@ module App =
         match msg with
         | UserNameChanged userName -> { model with UserName = userName }, Cmd.none
 
-        | SearchClicked ->
-            { model with
-                UserInfo = RemoteData.Loading },
-            Cmd.OfTask.msg(getUserInfo model.UserName)
+        | SearchClicked -> { model with UserInfo = Loading }, Cmd.OfTask.msg(getUserInfo model.UserName)
 
-        | UserInfoLoaded user ->
-            { model with
-                UserInfo = RemoteData.Content(user) },
-            Cmd.none
+        | UserInfoLoaded user -> { model with UserInfo = Content(user) }, Cmd.none
 
         | UserInfoNotFound _ ->
             { model with
-                UserInfo = RemoteData.Failure("User not found!") },
+                UserInfo = Failure("User not found!") },
             Cmd.none
 
         | LoadingProgress _ -> model, Cmd.none
@@ -130,13 +120,7 @@ module App =
             let! model = Context.Mvu program
 
             Grid() {
-                (VStack() {
-                    Image("avares://GitHubClient/Assets/github-icon.png")
-                        .size(100., 100.)
-
-                    TextBox(model.UserName, UserNameChanged)
-                    Button("Search", SearchClicked)
-
+                VStack() {
                     match model.UserInfo with
                     | NotAsked -> ()
                     | Loading -> ProgressBar(0., 1., 0.5, LoadingProgress)
@@ -171,9 +155,13 @@ module App =
                         })
                             .centerHorizontal()
                     | Failure s -> TextBlock(s)
-                })
-                    .centerHorizontal()
+
+                    TextBox(model.UserName, UserNameChanged)
+
+                    Button("Search", SearchClicked).centerHorizontal()
+                }
             }
+            |> _.centerVertical()
         }
 
     let view () =
