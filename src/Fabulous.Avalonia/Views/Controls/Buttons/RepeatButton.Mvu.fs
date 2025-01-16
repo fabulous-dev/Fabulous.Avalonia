@@ -21,10 +21,5 @@ module MvuRepeatButtonBuilders =
         static member RepeatButton(fn: RoutedEventArgs -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabRepeatButton>(
                 RepeatButton.WidgetKey,
-                AttributesBundle(
-                    StackList.one(MvuButton.Clicked.WithValue(fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(MvuButton.Clicked.WithValue(fn)), [| ContentControl.ContentWidget.WithValue(content.Compile()) |], [||], [||])
             )

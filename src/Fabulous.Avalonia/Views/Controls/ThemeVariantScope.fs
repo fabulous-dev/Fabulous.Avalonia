@@ -34,9 +34,9 @@ module ThemeVariantScopeBuilders =
                 ThemeVariantScope.WidgetKey,
                 AttributesBundle(
                     StackList.one(ThemeVariantScope.RequestedThemeVariant.WithValue(theme)),
-                    ValueSome [| Decorator.ChildWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| Decorator.ChildWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

@@ -50,9 +50,9 @@ module HyperlinkButtonBuilders =
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(HyperlinkButton.NavigateUri.WithValue(uri)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -64,9 +64,9 @@ module HyperlinkButtonBuilders =
                 HyperlinkButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(HyperlinkButton.NavigateUri.WithValue(Uri(uri))),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

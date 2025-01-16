@@ -37,11 +37,10 @@ module GeometryDrawingBuilders =
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
-                    ValueSome
-                        [| GeometryDrawing.BrushWidget.WithValue(brush.Compile())
-                           GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| GeometryDrawing.BrushWidget.WithValue(brush.Compile())
+                       GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -53,9 +52,9 @@ module GeometryDrawingBuilders =
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.one(GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
-                    ValueSome [| GeometryDrawing.BrushWidget.WithValue(brush.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| GeometryDrawing.BrushWidget.WithValue(brush.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -91,9 +90,9 @@ module GeometryDrawingBuilders =
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.one(GeometryDrawing.Brush.WithValue(brush)),
-                    ValueSome [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| GeometryDrawing.GeometryWidget.WithValue(geometry.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -105,9 +104,9 @@ module GeometryDrawingBuilders =
                 GeometryDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.two(GeometryDrawing.Brush.WithValue(brush), GeometryDrawing.Geometry.WithValue(StreamGeometry.Parse(geometry))),
-                    ValueNone,
-                    ValueNone,
-                    ValueNone
+                    [||],
+                    [||],
+                    [||]
                 )
             )
 

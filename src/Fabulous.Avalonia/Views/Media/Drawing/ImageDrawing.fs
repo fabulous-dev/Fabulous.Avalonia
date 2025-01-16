@@ -73,12 +73,7 @@ module ImageDrawingBuilders =
         static member ImageDrawing(source: WidgetBuilder<'msg, #IFabDrawing>, rect: Rect) =
             WidgetBuilder<'msg, IFabImageDrawing>(
                 ImageDrawing.WidgetKey,
-                AttributesBundle(
-                    StackList.one(ImageDrawing.Rect.WithValue(rect)),
-                    ValueSome [| ImageDrawing.ImageSourceWidget.WithValue(source.Compile()) |],
-                    ValueNone,
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(ImageDrawing.Rect.WithValue(rect)), [| ImageDrawing.ImageSourceWidget.WithValue(source.Compile()) |], [||], [||])
             )
 
 type ImageDrawingModifiers =

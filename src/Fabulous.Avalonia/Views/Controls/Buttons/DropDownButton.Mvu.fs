@@ -21,10 +21,5 @@ module MvuDropDownButtonBuilders =
         static member DropDownButton(fn: RoutedEventArgs -> 'msg, content: WidgetBuilder<'msg, #IFabControl>) =
             WidgetBuilder<'msg, IFabDropDownButton>(
                 DropDownButton.WidgetKey,
-                AttributesBundle(
-                    StackList.one(MvuButton.Clicked.WithValue(fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
-                )
+                AttributesBundle(StackList.one(MvuButton.Clicked.WithValue(fn)), [| ContentControl.ContentWidget.WithValue(content.Compile()) |], [||], [||])
             )

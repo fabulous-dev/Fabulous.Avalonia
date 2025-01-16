@@ -39,9 +39,9 @@ module ComponentExpanderBuilders =
                 Expander.WidgetKey,
                 AttributesBundle(
                     StackList.one(ContentControl.ContentString.WithValue(content)),
-                    ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -53,9 +53,9 @@ module ComponentExpanderBuilders =
                 Expander.WidgetKey,
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -67,11 +67,10 @@ module ComponentExpanderBuilders =
                 Expander.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
-                    ValueSome
-                        [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
-                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
+                       ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
