@@ -28,8 +28,8 @@ module MvuSplitButtonBuilders =
                 SplitButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(MvuSplitButton.Clicked.WithValue(fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )

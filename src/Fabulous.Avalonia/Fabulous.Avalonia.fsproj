@@ -327,7 +327,7 @@
     <Compile Include="Views\Imaging\TrayIcon.Mvu.fs" />
     <Compile Include="Views\Imaging\TrayIcon.Components.fs" />
     <Compile Include="Views\Imaging\PathIcon.fs" />
-    <Compile Include="Views\Layouts\SliptView.fs" />
+    <Compile Include="Views\Layouts\SplitView.fs" />
     <Compile Include="Views\Layouts\SliptView.Mvu.fs" />
     <Compile Include="Views\Layouts\SliptView.Components.fs" />
     <Compile Include="Views\Layouts\ScrollViewer.fs" />

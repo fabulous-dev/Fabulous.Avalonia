@@ -15,17 +15,17 @@ type ViewHelpers() =
 
             let prev: Widget =
                 { Key = widgetKey
-                  ScalarAttributes = ValueNone
-                  WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone
-                  EnvironmentAttributes = ValueNone }
+                  ScalarAttributes = [||]
+                  WidgetAttributes = [||]
+                  WidgetCollectionAttributes = [||]
+                  EnvironmentAttributes = [||] }
 
             let curr: Widget =
                 { Key = widgetKey
-                  ScalarAttributes = ValueNone
-                  WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone
-                  EnvironmentAttributes = ValueNone }
+                  ScalarAttributes = [||]
+                  WidgetAttributes = [||]
+                  WidgetCollectionAttributes = [||]
+                  EnvironmentAttributes = [||] }
 
             let actual = ViewHelpers.canReuseView prev curr
 
@@ -39,23 +39,21 @@ type ViewHelpers() =
             let prev =
                 { Key = TextBlock.WidgetKey
                   ScalarAttributes =
-                    ValueSome
-                        [| { Key = TextBlock.Text.Key
-                             Value = text
-                             NumericValue = 0uL } |]
-                  WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone
-                  EnvironmentAttributes = ValueNone }
+                    [| { Key = TextBlock.Text.Key
+                         Value = text
+                         NumericValue = 0uL } |]
+                  WidgetAttributes = [||]
+                  WidgetCollectionAttributes = [||]
+                  EnvironmentAttributes = [||] }
 
             let curr =
                 { Key = TextBlock.WidgetKey
-                  ScalarAttributes = ValueNone
-                  WidgetAttributes = ValueNone
+                  ScalarAttributes = [||]
+                  WidgetAttributes = [||]
                   WidgetCollectionAttributes =
-                    ValueSome
-                        [| { Key = TextBlock.Inlines.Key
-                             Value = ArraySlice.emptyWithNull() } |]
-                  EnvironmentAttributes = ValueNone }
+                    [| { Key = TextBlock.Inlines.Key
+                         Value = ArraySlice.emptyWithNull() } |]
+                  EnvironmentAttributes = [||] }
 
             let actual = ViewHelpers.canReuseView prev curr
 
@@ -68,24 +66,22 @@ type ViewHelpers() =
         Prop.forAll arb (fun text ->
             let prev =
                 { Key = TextBlock.WidgetKey
-                  ScalarAttributes = ValueNone
-                  WidgetAttributes = ValueNone
+                  ScalarAttributes = [||]
+                  WidgetAttributes = [||]
                   WidgetCollectionAttributes =
-                    ValueSome
-                        [| { Key = TextBlock.Inlines.Key
-                             Value = ArraySlice.emptyWithNull() } |]
-                  EnvironmentAttributes = ValueNone }
+                    [| { Key = TextBlock.Inlines.Key
+                         Value = ArraySlice.emptyWithNull() } |]
+                  EnvironmentAttributes = [||] }
 
             let curr =
                 { Key = TextBlock.WidgetKey
                   ScalarAttributes =
-                    ValueSome
-                        [| { Key = TextBlock.Text.Key
-                             Value = text
-                             NumericValue = 0uL } |]
-                  WidgetAttributes = ValueNone
-                  WidgetCollectionAttributes = ValueNone
-                  EnvironmentAttributes = ValueNone }
+                    [| { Key = TextBlock.Text.Key
+                         Value = text
+                         NumericValue = 0uL } |]
+                  WidgetAttributes = [||]
+                  WidgetCollectionAttributes = [||]
+                  EnvironmentAttributes = [||] }
 
             let actual = ViewHelpers.canReuseView prev curr
 

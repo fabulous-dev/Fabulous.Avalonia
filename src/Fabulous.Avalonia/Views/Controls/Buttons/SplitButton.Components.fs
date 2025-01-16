@@ -32,8 +32,8 @@ module ComponentSplitButtonBuilders =
                 SplitButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentSplitButton.Clicked.WithValue(fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )

@@ -79,9 +79,9 @@ module ImageBuilders =
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -93,9 +93,9 @@ module ImageBuilders =
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(stretch)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -106,9 +106,9 @@ module ImageBuilders =
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(Stretch.Uniform)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -120,9 +120,9 @@ module ImageBuilders =
                 Image.WidgetKey,
                 AttributesBundle(
                     StackList.one(Image.Stretch.WithValue(stretch)),
-                    ValueSome [| Image.SourceWidget.WithValue(source.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| Image.SourceWidget.WithValue(source.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

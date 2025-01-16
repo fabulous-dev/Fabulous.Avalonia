@@ -29,9 +29,9 @@ module HeaderedContentControlBuilders =
                 HeaderedContentControl.WidgetKey,
                 AttributesBundle(
                     StackList.one(HeaderedContentControl.HeaderString.WithValue(header)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 
@@ -43,11 +43,10 @@ module HeaderedContentControlBuilders =
                 HeaderedContentControl.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
-                    ValueSome
-                        [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
-                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile())
+                       ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

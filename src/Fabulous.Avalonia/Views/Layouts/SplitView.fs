@@ -57,11 +57,10 @@ module SplitViewBuilders =
                 SplitView.WidgetKey,
                 AttributesBundle(
                     StackList.empty(),
-                    ValueSome
-                        [| SplitView.Pane.WithValue(pane.Compile())
-                           ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| SplitView.Pane.WithValue(pane.Compile())
+                       ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

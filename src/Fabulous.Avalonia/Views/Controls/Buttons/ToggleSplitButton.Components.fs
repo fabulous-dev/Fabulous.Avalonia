@@ -33,8 +33,8 @@ module ComponentToggleSplitButtonBuilders =
                 ToggleSplitButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentToggleSplitButton.CheckedChanged.WithValue(ComponentValueEventData.create isChecked fn)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )

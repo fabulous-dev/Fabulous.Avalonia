@@ -38,9 +38,9 @@ module PenBuilders =
                 Pen.WidgetKey,
                 AttributesBundle(
                     StackList.one(Pen.Thickness.WithValue(thickness)),
-                    ValueSome [| Pen.BrushWidget.WithValue(brush.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| Pen.BrushWidget.WithValue(brush.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

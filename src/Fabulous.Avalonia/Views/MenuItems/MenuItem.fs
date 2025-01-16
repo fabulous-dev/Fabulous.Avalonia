@@ -54,7 +54,7 @@ module MenuItemsBuilders =
             CollectionBuilder<'msg, IFabMenuItem, IFabMenuItem>(
                 MenuItem.WidgetKey,
                 ItemsControl.Items,
-                AttributesBundle(StackList.empty(), ValueSome [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], ValueNone, ValueNone)
+                AttributesBundle(StackList.empty(), [| HeaderedContentControl.HeaderWidget.WithValue(header.Compile()) |], [||], [||])
             )
 
         /// <summary>Creates a MenuItems widget.</summary>

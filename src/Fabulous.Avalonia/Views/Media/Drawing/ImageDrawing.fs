@@ -75,9 +75,9 @@ module ImageDrawingBuilders =
                 ImageDrawing.WidgetKey,
                 AttributesBundle(
                     StackList.one(ImageDrawing.Rect.WithValue(rect)),
-                    ValueSome [| ImageDrawing.ImageSourceWidget.WithValue(source.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ImageDrawing.ImageSourceWidget.WithValue(source.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
 

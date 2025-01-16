@@ -27,8 +27,8 @@ module ComponentDropDownButtonBuilders =
                 DropDownButton.WidgetKey,
                 AttributesBundle(
                     StackList.one(ComponentButton.Clicked.WithValue(msg)),
-                    ValueSome [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
-                    ValueNone,
-                    ValueNone
+                    [| ContentControl.ContentWidget.WithValue(content.Compile()) |],
+                    [||],
+                    [||]
                 )
             )
