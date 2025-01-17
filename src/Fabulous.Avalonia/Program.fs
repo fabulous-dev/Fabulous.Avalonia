@@ -10,15 +10,11 @@ open Fabulous.ScalarAttributeDefinitions
 open Fabulous.WidgetCollectionAttributeDefinitions
 
 module ViewHelpers =
-    let private tryGetScalarValue (widget: Widget) (def: SimpleScalarAttributeDefinition<'data>) =
-        match Array.tryFind (fun (attr: ScalarAttribute) -> attr.Key = def.Key) widget.ScalarAttributes with
-        | None -> ValueNone
-        | Some attr -> ValueSome(unbox<'data> attr.Value)
+    let private simpleScalarAttributeExists (widget: Widget) (def: SimpleScalarAttributeDefinition<'data>) =
+        widget.ScalarAttributes |> Array.exists (fun attr -> attr.Key = def.Key)
 
-    let private tryGetWidgetCollectionValue (widget: Widget) (def: WidgetCollectionAttributeDefinition) =
-        match Array.tryFind (fun (attr: WidgetCollectionAttribute) -> attr.Key = def.Key) widget.WidgetCollectionAttributes with
-        | None -> ValueNone
-        | Some attr -> ValueSome attr.Value
+    let private widgetCollectionAttributeExists (widget: Widget) (def: WidgetCollectionAttributeDefinition) =
+        widget.WidgetCollectionAttributes |> Array.exists (fun attr -> attr.Key = def.Key) 
 
     /// Extend the canReuseView function to check AvaloniaUI specific constraints
     let rec canReuseView (prev: Widget) (curr: Widget) =
@@ -39,12 +35,8 @@ module ViewHelpers =
     /// Check whether widgets have compatible automation ids.
     /// Avalonia only allows setting the automation id once so we can't reuse a control if the id is not the same.
     and private canReuseAutomationId (prev: Widget) (curr: Widget) =
-        let prevIdOpt = tryGetScalarValue prev AutomationProperties.AutomationId
-
-        let currIdOpt = tryGetScalarValue curr AutomationProperties.AutomationId
-
-        match prevIdOpt with
-        | ValueSome _ when prevIdOpt <> currIdOpt -> false
+        match AttributeHelpers.tryFindSimpleScalarAttribute AutomationProperties.AutomationId prev with
+        | ValueSome _ as prev -> prev = AttributeHelpers.tryFindSimpleScalarAttribute AutomationProperties.AutomationId curr
         | _ -> true
 
     /// TextBlock's text can be defined by both the Text and Inlines property
@@ -53,12 +45,12 @@ module ViewHelpers =
     /// So, it's better to not reuse a TextBlock when we are about to switch between Text and Inlines
     and canReuseTextBlock (prev: Widget) (curr: Widget) =
         let switchingFromTextToInlines =
-            (tryGetScalarValue prev TextBlock.Text).IsSome
-            && (tryGetWidgetCollectionValue curr TextBlock.Inlines).IsSome
+            simpleScalarAttributeExists prev TextBlock.Text
+            && widgetCollectionAttributeExists curr TextBlock.Inlines
 
         let switchingFromInlinesToText =
-            (tryGetWidgetCollectionValue prev TextBlock.Inlines).IsSome
-            && (tryGetScalarValue curr TextBlock.Text).IsSome
+            widgetCollectionAttributeExists prev TextBlock.Inlines
+            && simpleScalarAttributeExists curr TextBlock.Text
 
         not switchingFromTextToInlines && not switchingFromInlinesToText
 
