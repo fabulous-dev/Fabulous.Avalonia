@@ -11,10 +11,11 @@ open Fabulous.WidgetCollectionAttributeDefinitions
 
 module ViewHelpers =
     let private simpleScalarAttributeExists (widget: Widget) (def: SimpleScalarAttributeDefinition<'data>) =
-        widget.ScalarAttributes |> Array.exists (fun attr -> attr.Key = def.Key)
+        widget.ScalarAttributes |> Array.exists(fun attr -> attr.Key = def.Key)
 
     let private widgetCollectionAttributeExists (widget: Widget) (def: WidgetCollectionAttributeDefinition) =
-        widget.WidgetCollectionAttributes |> Array.exists (fun attr -> attr.Key = def.Key)
+        widget.WidgetCollectionAttributes
+        |> Array.exists(fun attr -> attr.Key = def.Key)
 
     /// Extend the canReuseView function to check AvaloniaUI specific constraints
     let rec canReuseView (prev: Widget) (curr: Widget) =
