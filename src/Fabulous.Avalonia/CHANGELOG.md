@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre9] - 2025-01-17
+### Changed
+- Use Fabulous pre19 in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/277
+
 ## [3.0.0-pre8] - 2024-12-27
 ### Changed
 - Centralize AvaloniaVersion and FabulousVersion in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/266
@@ -259,7 +263,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre8...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre9...HEAD
+[3.0.0-pre9]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre9
 [3.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre8
 [3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre7
 [3.0.0-pre6]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre6
