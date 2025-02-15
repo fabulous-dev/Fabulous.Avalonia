@@ -8,8 +8,8 @@
     <PackageVersion Include="Avalonia.Headless" Version="11.2.2" />
     <PackageVersion Include="Avalonia.Headless.XUnit" Version="11.2.2" />
     <PackageVersion Include="Fabulous" Version="$(FabulousVersion)" />
-    <PackageVersion Include="FsCheck.NUnit" Version="3.1.0" />
-    <PackageVersion Include="FSharp.Core" Version="9.0.101" />
+    <PackageVersion Include="FsCheck.NUnit" Version="2.16.6" />
+    <PackageVersion Include="FSharp.Core" Version="8.0.403" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
     <PackageVersion Include="FsUnit" Version="7.0.1" />
