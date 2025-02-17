@@ -300,7 +300,7 @@ module MainWindow =
         Component("MainWindow") {
             let! model = Context.Mvu program
 
-            DesktopApplication(
+            (DesktopApplication() {
                 Window(hamburgerMenu model)
                     .title("Fabulous Gallery")
                     .menu(createMenu())
@@ -311,7 +311,7 @@ module MainWindow =
 #if DEBUG
                     .attachDevTools()
 #endif
-            )
+            })
                 .trayIcon(trayIcon())
                 .requestedThemeVariant(model.CurrentTheme)
         }
