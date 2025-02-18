@@ -34,18 +34,16 @@ type FabApplication() =
         _windows.Add(window)
         this.UpdateLifetime()
 
-    member this.RemoveWindow(window: FabWindow) =
-        _windows.Remove(window) |> ignore
+    member this.RemoveWindow(window: FabWindow) = _windows.Remove(window) |> ignore
 
     member this.FindWindowById(id: string) =
         _windows |> Seq.tryFind(fun w -> w.WindowId = id)
 
     member this.ShowWindow(id: string) =
         match this.FindWindowById(id) with
-        | Some window ->
-            window.Show()
+        | Some window -> window.Show()
         | None -> failwithf $"Window with id %s{id} not found"
-        
+
     member this.HideWindow(id: string) =
         match this.FindWindowById(id) with
         | Some window -> window.Hide()
@@ -66,8 +64,7 @@ type FabApplication() =
 
     member private this.UpdateLifetime() =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime when _windows.Count > 0 ->
-            desktopLifetime.MainWindow <- _windows[0]
+        | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime when _windows.Count > 0 -> desktopLifetime.MainWindow <- _windows[0]
         | :? ISingleViewApplicationLifetime as singleViewLifetime -> singleViewLifetime.MainView <- _mainView
         | _ -> ()
 
@@ -120,12 +117,6 @@ type FabApplication() =
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView).InsetsManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
-    member this.MainWindow
-        with get () = _windows[0]
-        and set value =
-            _windows.Add(value)
-            this.UpdateLifetime()
-
     member this.MainView
         with get () = _mainView
         and set value =
@@ -173,23 +164,23 @@ module Application =
                 trayIcons)
 
     let Windows =
-            Attributes.defineAvaloniaListWidgetCollectionWithCustomDiff<FabWindow>
-                "Application_Windows"
-                (fun target -> (target :?> FabApplication).InternalWindows)
-                (fun target index view -> 
-                    let app = target :?> FabApplication
-                    let window = view :?> FabWindow
-                    app.AddWindow(window))
-                (fun target index view ->
-                    let app = target :?> FabApplication
-                    let window = view :?> FabWindow
-                    app.RemoveWindow(window))
-                (fun target index oldView newView ->
-                    let app = target :?> FabApplication
-                    let oldWindow = oldView :?> FabWindow
-                    let newWindow = newView :?> FabWindow
-                    app.RemoveWindow(oldWindow)
-                    app.AddWindow(newWindow))
+        Attributes.defineAvaloniaListWidgetCollectionWithCustomDiff<FabWindow>
+            "Application_Windows"
+            (fun target -> (target :?> FabApplication).InternalWindows)
+            (fun target index view ->
+                let app = target :?> FabApplication
+                let window = view :?> FabWindow
+                app.AddWindow(window))
+            (fun target index view ->
+                let app = target :?> FabApplication
+                let window = view :?> FabWindow
+                app.RemoveWindow(window))
+            (fun target index oldView newView ->
+                let app = target :?> FabApplication
+                let oldWindow = oldView :?> FabWindow
+                let newWindow = newView :?> FabWindow
+                app.RemoveWindow(oldWindow)
+                app.AddWindow(newWindow))
 
     let MainView =
         Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode

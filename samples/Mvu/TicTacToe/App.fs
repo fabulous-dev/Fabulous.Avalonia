@@ -262,10 +262,10 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(
+        DesktopApplication() {
             Window(content())
                 .sizeToContent(SizeToContent.WidthAndHeight)
-        )
+        }
 #endif
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)

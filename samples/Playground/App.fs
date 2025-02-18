@@ -21,40 +21,26 @@ module App =
         }
 
     let content () =
-        Component("content1") {
-            let app = FabApplication.Current
+        Component("content") {
+            let! firstName = State("")
+            let! lastName = State("")
 
             VStack() {
-                Label("Window 1")
-
-                Button("Open", fun _ -> app.ShowWindow("window2"))
+                Label($"Full name is {firstName.Current} {lastName.Current}")
+                firstNameView firstName
+                lastNameView lastName
             }
         }
-
-    let content2 () =
-        Component("content2") {
-            let app = FabApplication.Current
-
-            VStack() {
-
-                Label("Window 2")
-
-                Button("Open", fun _ -> app.CloseWindow("window1"))
-            }
-        }
-
-
-    let window1 () = Window(content()).windowId("window1")
-
-    let window2 () = Window(content2()).windowId("window2")
 
     let view () =
 #if MOBILE
         SingleViewApplication(content())
 #else
         DesktopApplication() {
-            window1()
-            window2()
+            Window(content())
+#if DEBUG
+                .attachDevTools()
+#endif
         }
 #endif
 

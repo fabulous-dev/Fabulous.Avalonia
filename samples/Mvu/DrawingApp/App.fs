@@ -223,12 +223,12 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(
+        DesktopApplication() {
             Window(content())
 #if DEBUG
                 .attachDevTools()
 #endif
-        )
+        }
 #endif
 
     let create () =

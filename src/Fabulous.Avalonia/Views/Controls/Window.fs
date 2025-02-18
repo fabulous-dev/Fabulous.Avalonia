@@ -60,6 +60,7 @@ module Window =
     let WindowId =
         Attributes.defineSimpleScalarWithEquality<string> "WindowId" (fun _ newValueOpt node ->
             let target = node.Target :?> FabWindow
+
             match newValueOpt with
             | ValueSome id -> target.WindowId <- id
             | ValueNone -> target.WindowId <- "")

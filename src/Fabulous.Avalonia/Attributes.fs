@@ -280,13 +280,14 @@ module Attributes =
                     targetColl.Add(unbox view)
 
         Attributes.defineWidgetCollection name applyDiff updateNode
-        
+
     let inline defineAvaloniaListWidgetCollectionWithCustomDiff<'itemType>
-            name
-            (getCollection: obj -> System.Collections.Generic.IList<'itemType>)
-            ([<InlineIfLambda>] onInsert: obj -> int -> obj -> unit)
-            ([<InlineIfLambda>] onRemove: obj -> int -> obj -> unit)
-            ([<InlineIfLambda>] onReplace: obj -> int -> obj -> obj -> unit) = 
+        name
+        (getCollection: obj -> System.Collections.Generic.IList<'itemType>)
+        ([<InlineIfLambda>] onInsert: obj -> int -> obj -> unit)
+        ([<InlineIfLambda>] onRemove: obj -> int -> obj -> unit)
+        ([<InlineIfLambda>] onReplace: obj -> int -> obj -> obj -> unit)
+        =
         let applyDiff _ (diffs: WidgetCollectionItemChanges) (node: IViewNode) =
             let target = node.Target
             let targetColl = getCollection target
@@ -355,6 +356,7 @@ module Attributes =
             for i = targetColl.Count - 1 downto 0 do
                 let item = targetColl[i]
                 onRemove target i (box item)
+
             targetColl.Clear()
 
             // Add new items

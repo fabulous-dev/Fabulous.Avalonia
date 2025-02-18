@@ -371,7 +371,7 @@ module App =
 #if MOBILE
         SingleViewApplication(content())
 #else
-        DesktopApplication(
+        DesktopApplication() {
             Window(content())
                 .onKeyDown(fun e ->
                     match e.Key with
@@ -383,7 +383,7 @@ module App =
                     | Key.D -> printfn "D"
                     | Key.E -> printfn "E"
                     | _ -> printfn "Other")
-        )
+        }
 #endif
     let create () =
         FabulousAppBuilder.Configure(FluentTheme, view)

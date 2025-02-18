@@ -47,7 +47,12 @@ module MainWindow =
             let args = args.Source :?> ComboBox
             let content = args.SelectedItem :?> ComboBoxItem
             let decoration = SystemDecorations.Parse(content.Content.ToString())
-            FabApplication.Current.MainWindow.SystemDecorations <- decoration
+            let mainWindow = FabApplication.Current.FindWindowById("MainWindow")
+
+            match mainWindow with
+            | None -> ()
+            | Some currentWindow -> currentWindow.SystemDecorations <- decoration
+
             model
         | ThemeVariantsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
@@ -61,7 +66,13 @@ module MainWindow =
         | TransparencyLevelsOnSelectionChanged args ->
             let args = args.Source :?> ComboBox
             let selected = model.TransparencyLevels[args.SelectedIndex]
-            let topLevel = TopLevel.GetTopLevel(FabApplication.Current.MainWindow)
+            let mainWindow = FabApplication.Current.FindWindowById("MainWindow")
+
+            let topLevel =
+                match mainWindow with
+                | None -> failwith "MainWindow not found"
+                | Some currentWindow -> TopLevel.GetTopLevel(currentWindow)
+
             topLevel.TransparencyLevelHint <- [| selected |]
 
             if
@@ -308,6 +319,7 @@ module MainWindow =
                     .height(800.)
                     .background(Colors.Transparent)
                     .icon("avares://Gallery/Assets/Icons/logo.ico")
+                    .windowId("MainWindow")
 #if DEBUG
                     .attachDevTools()
 #endif
