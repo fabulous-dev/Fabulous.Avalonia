@@ -464,7 +464,7 @@ module App =
 #if MOBILE
             SingleViewApplication(mainView model)
 #else
-            DesktopApplication(mainWindow model)
+            DesktopApplication() { mainWindow model }
 #endif
         }
 

@@ -6,13 +6,22 @@ open Avalonia.Controls
 open Avalonia.Media.Imaging
 open Avalonia.Platform
 open Fabulous
-open Fabulous.StackAllocatedCollections.StackList
 
 type IFabWindow =
     inherit IFabWindowBase
 
+[<AllowNullLiteral>]
+type FabWindow() =
+    inherit Window()
+
+    let mutable _windowId = ""
+
+    member this.WindowId
+        with get () = _windowId
+        and set value = _windowId <- value
+
 module Window =
-    let WidgetKey = Widgets.register<Window>()
+    let WidgetKey = Widgets.register<FabWindow>()
 
     let SizeToContent =
         Attributes.defineAvaloniaPropertyWithEquality Window.SizeToContentProperty
@@ -47,6 +56,14 @@ module Window =
 
     let CanResize =
         Attributes.defineAvaloniaPropertyWithEquality Window.CanResizeProperty
+
+    let WindowId =
+        Attributes.defineSimpleScalarWithEquality<string> "WindowId" (fun _ newValueOpt node ->
+            let target = node.Target :?> FabWindow
+
+            match newValueOpt with
+            | ValueSome id -> target.WindowId <- id
+            | ValueNone -> target.WindowId <- "")
 
 [<AutoOpen>]
 module WindowBuilders =
@@ -132,6 +149,13 @@ type WindowModifiers =
     [<Extension>]
     static member inline canResize(this: WidgetBuilder<'msg, #IFabWindow>, value: bool) =
         this.AddScalar(Window.CanResize.WithValue(value))
+
+    /// <summary>Sets the WindowId property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The WindowId value.</param>
+    [<Extension>]
+    static member inline windowId(this: WidgetBuilder<'msg, #IFabWindow>, value: string) =
+        this.AddScalar(Window.WindowId.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Window control instance.</summary>
     /// <param name="this">Current widget.</param>

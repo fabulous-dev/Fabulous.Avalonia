@@ -1,5 +1,6 @@
 namespace Fabulous.Avalonia
 
+open System.Collections.Generic
 open System.Runtime.CompilerServices
 open Avalonia
 open Avalonia.Controls
@@ -11,6 +12,7 @@ open Avalonia.Styling
 open Fabulous
 open Fabulous.Avalonia
 open Fabulous.StackAllocatedCollections
+open Fabulous.StackAllocatedCollections.StackList
 
 type IFabApplication =
     inherit IFabElement
@@ -18,12 +20,39 @@ type IFabApplication =
 type FabApplication() =
     inherit Application()
 
-    let mutable _mainWindow: Window = null
+    let _windows = List<FabWindow>()
+
     let mutable _mainView: Control = null
 
     let mutable _shutdownMode: ShutdownMode = ShutdownMode.OnLastWindowClose
 
     let mutable _onFrameworkInitialized: Application -> unit = fun _ -> ()
+
+    member this.InternalWindows = _windows :> IList<FabWindow>
+
+    member this.AddWindow(window: FabWindow) =
+        _windows.Add(window)
+        this.UpdateLifetime()
+
+    member this.RemoveWindow(window: FabWindow) = _windows.Remove(window) |> ignore
+
+    member this.FindWindowById(id: string) =
+        _windows |> Seq.tryFind(fun w -> w.WindowId = id)
+
+    member this.ShowWindow(id: string) =
+        match this.FindWindowById(id) with
+        | Some window -> window.Show()
+        | None -> failwithf $"Window with id %s{id} not found"
+
+    member this.HideWindow(id: string) =
+        match this.FindWindowById(id) with
+        | Some window -> window.Hide()
+        | None -> failwithf $"Window with id %s{id} not found"
+
+    member this.CloseWindow(id: string) =
+        match this.FindWindowById(id) with
+        | Some window -> window.Close()
+        | None -> failwithf $"Window with id %s{id} not found"
 
     member this.OnFrameworkInitialized
         with get () = _onFrameworkInitialized
@@ -35,64 +64,58 @@ type FabApplication() =
 
     member private this.UpdateLifetime() =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime -> desktopLifetime.MainWindow <- _mainWindow
+        | :? IClassicDesktopStyleApplicationLifetime as desktopLifetime when _windows.Count > 0 -> desktopLifetime.MainWindow <- _windows[0]
         | :? ISingleViewApplicationLifetime as singleViewLifetime -> singleViewLifetime.MainView <- _mainView
         | _ -> ()
 
     /// <summary>Gets the top-level window or view for the application.</summary>
     member this.TopLevel =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow)
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> TopLevel.GetTopLevel(_windows[0])
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView)
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary> Initializes a new instance of the WindowNotificationManager class.</summary>
     member this.WindowNotificationManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> WindowNotificationManager(TopLevel.GetTopLevel(_mainWindow))
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> WindowNotificationManager(TopLevel.GetTopLevel(_windows[0]))
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> WindowNotificationManager(TopLevel.GetTopLevel(_mainView))
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform's clipboard implementation</summary>
     member this.Clipboard =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).Clipboard
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> TopLevel.GetTopLevel(_windows[0]).Clipboard
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView).Clipboard
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>File System storage service used for file pickers and bookmarks.</summary>
     member this.StorageProvider =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).StorageProvider
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> TopLevel.GetTopLevel(_windows[0]).StorageProvider
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView).StorageProvider
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Manages focus for the application.</summary>
     member this.FocusManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).FocusManager
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> TopLevel.GetTopLevel(_windows[0]).FocusManager
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView).FocusManager
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform-specific settings for the application.</summary>
     member this.PlatformSettings =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).PlatformSettings
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> TopLevel.GetTopLevel(_windows[0]).PlatformSettings
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView).PlatformSettings
         | _ -> failwith "ApplicationLifetime is not supported"
 
     /// <summary>Gets the platform-specific insets manager for the application.</summary>
     member this.InsetsManager =
         match this.ApplicationLifetime with
-        | :? IClassicDesktopStyleApplicationLifetime when not(isNull _mainWindow) -> TopLevel.GetTopLevel(_mainWindow).InsetsManager
+        | :? IClassicDesktopStyleApplicationLifetime when _windows.Count > 0 -> TopLevel.GetTopLevel(_windows[0]).InsetsManager
         | :? ISingleViewApplicationLifetime when not(isNull _mainView) -> TopLevel.GetTopLevel(_mainView).InsetsManager
         | _ -> failwith "ApplicationLifetime is not supported"
-
-    member this.MainWindow
-        with get () = _mainWindow
-        and set value =
-            _mainWindow <- value
-            this.UpdateLifetime()
 
     member this.MainView
         with get () = _mainView
@@ -111,20 +134,6 @@ type FabApplication() =
     static member Current = Application.Current :?> FabApplication
 
 module ApplicationUpdaters =
-    let mainWindowApplyDiff (diff: WidgetDiff) (node: IViewNode) =
-        let target = node.Target :?> FabApplication
-        let childViewNode = node.TreeContext.GetViewNode(target.MainWindow)
-        childViewNode.ApplyDiff(&diff)
-
-    let mainWindowUpdateNode (_: Widget voption) (currOpt: Widget voption) (node: IViewNode) =
-        let target = node.Target :?> FabApplication
-
-        match currOpt with
-        | ValueNone -> target.MainWindow <- Unchecked.defaultof<_>
-        | ValueSome widget ->
-            let struct (_, view) = Helpers.createViewForWidget node widget
-            target.MainWindow <- view :?> Window
-
     let mainViewApplyDiff (diff: WidgetDiff) (node: IViewNode) =
         let target = node.Target :?> FabApplication
         let childViewNode = node.TreeContext.GetViewNode(target.MainView)
@@ -154,8 +163,24 @@ module Application =
             else
                 trayIcons)
 
-    let MainWindow =
-        Attributes.defineWidget "MainWindow" ApplicationUpdaters.mainWindowApplyDiff ApplicationUpdaters.mainWindowUpdateNode
+    let Windows =
+        Attributes.defineAvaloniaListWidgetCollectionWithCustomDiff<FabWindow>
+            "Application_Windows"
+            (fun target -> (target :?> FabApplication).InternalWindows)
+            (fun target _ view ->
+                let app = target :?> FabApplication
+                let window = view :?> FabWindow
+                app.AddWindow(window))
+            (fun target _ view ->
+                let app = target :?> FabApplication
+                let window = view :?> FabWindow
+                app.RemoveWindow(window))
+            (fun target _ oldView newView ->
+                let app = target :?> FabApplication
+                let oldWindow = oldView :?> FabWindow
+                let newWindow = newView :?> FabWindow
+                app.RemoveWindow(oldWindow)
+                app.AddWindow(newWindow))
 
     let MainView =
         Attributes.defineWidget "MainView" ApplicationUpdaters.mainViewApplyDiff ApplicationUpdaters.mainViewUpdateNode
@@ -205,9 +230,12 @@ module ApplicationBuilders =
     type Fabulous.Avalonia.View with
 
         /// <summary>Creates a DesktopApplication widget with a content widget.</summary>
-        /// <param name="window">The main Window of the Application.</param>
-        static member DesktopApplication(window: WidgetBuilder<'msg, #IFabWindow>) =
-            WidgetBuilder<'msg, IFabApplication>(Application.WidgetKey, Application.MainWindow.WithValue(window.Compile()))
+        static member DesktopApplication() =
+            CollectionBuilder<'msg, IFabApplication, IFabWindow>(
+                Application.WidgetKey,
+                Application.Windows,
+                AttributesBundle(StackList.empty(), [||], [||], [||])
+            )
 
         /// <summary>Creates a SingleViewApplication widget with a content widget.</summary>
         /// <param name="view">The main View of the Application.</param>
@@ -286,6 +314,18 @@ type ApplicationYieldExtensions =
     [<Extension>]
     static member inline Yield
         (_: AttributeCollectionBuilder<'msg, #IFabApplication, IFabTrayIcon>, x: WidgetBuilder<'msg, Memo.Memoized<#IFabTrayIcon>>)
+        : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabApplication and 'itemType :> IFabWindow>
+        (_: CollectionBuilder<'msg, 'marker, IFabWindow>, x: WidgetBuilder<'msg, 'itemType>)
+        : Content<'msg> =
+        { Widgets = MutStackArray1.One(x.Compile()) }
+
+    [<Extension>]
+    static member inline Yield<'msg, 'marker, 'itemType when 'msg: equality and 'marker :> IFabApplication and 'itemType :> IFabWindow>
+        (_: CollectionBuilder<'msg, 'marker, IFabWindow>, x: WidgetBuilder<'msg, Memo.Memoized<'itemType>>)
         : Content<'msg> =
         { Widgets = MutStackArray1.One(x.Compile()) }
 

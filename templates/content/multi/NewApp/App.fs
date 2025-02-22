@@ -83,7 +83,7 @@ module App =
         then
             SingleViewApplication(content model)
         else
-            DesktopApplication(Window(content model))
+            DesktopApplication() { Window(content model) }
 
     let create () =
         let program = Program.statefulWithCmd init update |> Program.withView view
