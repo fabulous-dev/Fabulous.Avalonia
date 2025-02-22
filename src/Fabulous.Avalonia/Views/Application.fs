@@ -167,15 +167,15 @@ module Application =
         Attributes.defineAvaloniaListWidgetCollectionWithCustomDiff<FabWindow>
             "Application_Windows"
             (fun target -> (target :?> FabApplication).InternalWindows)
-            (fun target index view ->
+            (fun target _ view ->
                 let app = target :?> FabApplication
                 let window = view :?> FabWindow
                 app.AddWindow(window))
-            (fun target index view ->
+            (fun target _ view ->
                 let app = target :?> FabApplication
                 let window = view :?> FabWindow
                 app.RemoveWindow(window))
-            (fun target index oldView newView ->
+            (fun target _ oldView newView ->
                 let app = target :?> FabApplication
                 let oldWindow = oldView :?> FabWindow
                 let newWindow = newView :?> FabWindow
