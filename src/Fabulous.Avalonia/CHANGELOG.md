@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre10] - 2025-02-28
+
+### Changed
+- Optimize by @kerams in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/278
+- Update avalonia by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/280
+- MultiWindow support by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/281
+- Use Fabulous pre20 by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/282
+
 ## [3.0.0-pre9] - 2025-01-17
 ### Changed
 - Use Fabulous pre19 in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/277
@@ -263,7 +271,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre9...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre10...HEAD
+[3.0.0-pre10]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre10
 [3.0.0-pre9]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre9
 [3.0.0-pre8]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre8
 [3.0.0-pre7]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre7
