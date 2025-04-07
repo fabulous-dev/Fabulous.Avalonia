@@ -22,7 +22,7 @@ jobs:
     environment: nuget
     steps:
     - name: Checkout sources
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Extract version from tag
       uses: damienaicheh/extract-version-from-tag-action@v1.0.0
     - name: Set release version
@@ -77,7 +77,7 @@ jobs:
         version: '${{ env.RELEASE_VERSION }}'
         path: src/Fabulous.Avalonia.TreeDataGrid/CHANGELOG.md
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
     - name: Install dotnet workload
@@ -98,7 +98,7 @@ jobs:
         dotnet pack ${TREEDATAGRID_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.treedatagrid_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
         dotnet pack ${TEMPLATE_PROJ} -p:Version=${RELEASE_VERSION} -p:PackageReleaseNotes="${{ steps.templates_changelog.outputs.changes }}" -c ${CONFIG} --property PackageOutputPath=${PWD}/nupkgs
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Packages
         path: nupkgs/
