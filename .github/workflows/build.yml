@@ -71,5 +71,9 @@ jobs:
       run: |
         dotnet new fabulous-avalonia-multi -n MultiProjectTemplate
         dotnet build MultiProjectTemplate -p:ManagePackageVersionsCentrally=false
+    - name: Test desktop project template
+      run: |
+        dotnet new fabulous-avalonia-desktop -n DesktopProjectTemplate
+        dotnet build DesktopProjectTemplate -p:ManagePackageVersionsCentrally=false
     - name: Push
       run: dotnet nuget push "nupkgs/*" -s https://nuget.pkg.github.com/fabulous-dev/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
