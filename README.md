@@ -64,6 +64,14 @@ dotnet new install Fabulous.Avalonia.Templates
 
 Then, you will be able to create new Fabulous.Avalonia projects with `dotnet new`:
 
+#### Desktop Project
+
+Desktop project is a standard Avalonia project that can target Desktop platforms only.
+
+```sh
+dotnet new fabulous-avalonia-desktop -n MyApp
+```
+
 #### Single Project
 
 Single project takes the platform-specific development experiences and abstracts them into a single shared project that can target Android, iOS, Desktop.

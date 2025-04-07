@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [2.4.0] - 2025-04-07
+### Added
+- Add desktop specific template by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/286
+
 ## [2.3.0] - 2024-01-17
 ### Added
 - No changes
@@ -38,7 +42,8 @@ _No unreleased changes_
 - Add a new template for a multi-project Fabulous.Avalonia app. 
 - Fix black screen in multi-project template when targeting Browser
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/2.3.0...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.4.0
 [2.3.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.3.0
 [2.2.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.2.0
 [2.1.0]: https://github.com/fabulous-dev/Fabulous.Avalonia.Templates/releases/tag/2.1.0
