@@ -78,7 +78,7 @@ module App =
 
     let view model =
         DesktopApplication() { Window(content model) }
-        
+
     let create () =
         let program = Program.statefulWithCmd init update |> Program.withView view
 
