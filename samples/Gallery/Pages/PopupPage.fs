@@ -80,6 +80,8 @@ module PopupPage =
                     })
                         .background(SolidColorBrush(Colors.LightGray))
                 )
+                    .shouldUseOverlayLayer(true)
+                    .takesFocusFromNativeControl(false)
                     .onOpened(OnOpened)
                     .onClosed(OnClosed)
                     .placement(PlacementMode.Custom)
