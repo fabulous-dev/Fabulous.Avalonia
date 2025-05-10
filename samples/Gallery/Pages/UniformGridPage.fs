@@ -63,6 +63,8 @@ module UniformGridPage =
                     .margin(10.)
                     .horizontalAlignment(HorizontalAlignment.Center)
                     .verticalAlignment(VerticalAlignment.Center)
+                    .rowSpacing(10.)
+                    .columnSpacing(10.)
 
                 UniformGrid() {
                     Border(TextBlock("1"))

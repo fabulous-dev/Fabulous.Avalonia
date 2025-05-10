@@ -55,6 +55,9 @@ module StyledElement =
     let IsSensitive =
         Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.IsSensitiveProperty
 
+    let ShowSuggestions =
+        Attributes.defineAvaloniaPropertyWithEquality TextInputOptions.ShowSuggestionsProperty
+
     let StyleInclude =
         Attributes.defineProperty "StyledElement_StyleInclude" Unchecked.defaultof<string list> (fun target values ->
             let target = (target :?> StyledElement)
@@ -167,6 +170,13 @@ type StyledElementModifiers =
     [<Extension>]
     static member inline styleInclude(this: WidgetBuilder<'msg, #IFabStyledElement>, value: string) =
         StyledElementModifiers.styleInclude(this, [ value ])
+
+    /// <summary>Sets the ShowSuggestions property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShowSuggestions value.</param>
+    [<Extension>]
+    static member inline showSuggestions(this: WidgetBuilder<'msg, #IFabStyledElement>, value: bool) =
+        this.AddScalar(StyledElement.ShowSuggestions.WithValue(value))
 
     /// <summary>Adds inline styles used by the widget and its descendants.</summary>
     /// <param name="this">Current widget.</param>

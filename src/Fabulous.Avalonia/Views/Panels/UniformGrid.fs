@@ -18,6 +18,12 @@ module UniformGrid =
     let FirstColumn =
         Attributes.defineAvaloniaPropertyWithEquality UniformGrid.FirstColumnProperty
 
+    let RowSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality UniformGrid.RowSpacingProperty
+
+    let ColumnSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality UniformGrid.ColumnSpacingProperty
+
 [<AutoOpen>]
 module UniformGridBuilders =
     type Fabulous.Avalonia.View with
@@ -65,6 +71,20 @@ type UniformGridModifiers =
     [<Extension>]
     static member inline firstColumn(this: WidgetBuilder<'msg, #IFabUniformGrid>, value: int) =
         this.AddScalar(UniformGrid.FirstColumn.WithValue(value))
+
+    /// <summary>Sets the RowSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RowSpacing value.</param>
+    [<Extension>]
+    static member inline rowSpacing(this: WidgetBuilder<'msg, #IFabUniformGrid>, value: float) =
+        this.AddScalar(UniformGrid.RowSpacing.WithValue(value))
+
+    /// <summary>Sets the ColumnSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ColumnSpacing value.</param>
+    [<Extension>]
+    static member inline columnSpacing(this: WidgetBuilder<'msg, #IFabUniformGrid>, value: float) =
+        this.AddScalar(UniformGrid.ColumnSpacing.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct UniformGrid control instance.</summary>
     /// <param name="this">Current widget.</param>

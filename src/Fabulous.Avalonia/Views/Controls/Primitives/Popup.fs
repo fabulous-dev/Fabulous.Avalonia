@@ -63,6 +63,12 @@ module Popup =
     let CustomPopupPlacementCallback =
         Attributes.defineAvaloniaPropertyWithEquality Popup.CustomPopupPlacementCallbackProperty
 
+    let ShouldUseOverlayLayer =
+        Attributes.defineAvaloniaPropertyWithEquality Popup.ShouldUseOverlayLayerProperty
+
+    let TakesFocusFromNativeControl =
+        Attributes.defineAvaloniaPropertyWithEquality Popup.TakesFocusFromNativeControlProperty
+
 [<AutoOpen>]
 module PopupBuilders =
     type Fabulous.Avalonia.View with
@@ -183,6 +189,20 @@ type PopupModifiers =
     [<Extension>]
     static member inline customPopupPlacementCallback(this: WidgetBuilder<'msg, #IFabPopup>, value: CustomPopupPlacement -> unit) =
         this.AddScalar(Popup.CustomPopupPlacementCallback.WithValue(CustomPopupPlacementCallback(value)))
+
+    /// <summary>Sets the ShouldUseOverlayLayer property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ShouldUseOverlayLayer value.</param>
+    [<Extension>]
+    static member inline shouldUseOverlayLayer(this: WidgetBuilder<'msg, #IFabPopup>, value: bool) =
+        this.AddScalar(Popup.ShouldUseOverlayLayer.WithValue(value))
+
+    /// <summary>Sets the TakesFocusFromNativeControl property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The TakesFocusFromNativeControl value.</param>
+    [<Extension>]
+    static member inline takesFocusFromNativeControl(this: WidgetBuilder<'msg, #IFabPopup>, value: bool) =
+        this.AddScalar(Popup.TakesFocusFromNativeControl.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Popup control instance.</summary>
     /// <param name="this">Current widget.</param>

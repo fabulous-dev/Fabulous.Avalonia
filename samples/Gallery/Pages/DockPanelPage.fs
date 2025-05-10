@@ -32,3 +32,5 @@ module DockPanelPage =
             Rectangle().fill(SolidColorBrush(Colors.Gray))
         })
             .size(300., 300.)
+            .horizontalSpacing(10.)
+            .verticalSpacing(10.)

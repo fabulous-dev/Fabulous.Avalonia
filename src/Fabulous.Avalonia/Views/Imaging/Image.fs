@@ -24,6 +24,9 @@ module Image =
     let StretchDirection =
         Attributes.defineAvaloniaPropertyWithEquality Image.StretchDirectionProperty
 
+    let BlendMode =
+        Attributes.defineAvaloniaPropertyWithEquality Image.BlendModeProperty
+
 [<AutoOpen>]
 module ImageBuilders =
     type Fabulous.Avalonia.View with
@@ -113,6 +116,13 @@ type ImageModifiers =
     [<Extension>]
     static member inline stretchDirection(this: WidgetBuilder<'msg, #IFabImage>, value: StretchDirection) =
         this.AddScalar(Image.StretchDirection.WithValue(value))
+
+    /// <summary>Sets the BlendMode property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BlendMode value.</param>
+    [<Extension>]
+    static member inline blendMode(this: WidgetBuilder<'msg, #IFabImage>, value: BitmapBlendingMode) =
+        this.AddScalar(Image.BlendMode.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Image control instance.</summary>
     /// <param name="this">Current widget.</param>

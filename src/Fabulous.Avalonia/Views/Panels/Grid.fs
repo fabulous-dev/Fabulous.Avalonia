@@ -72,7 +72,13 @@ module Grid =
 
     let Column = Attributes.defineAvaloniaPropertyWithEquality Grid.ColumnProperty
 
+    let ColumnSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality Grid.ColumnSpacingProperty
+
     let Row = Attributes.defineAvaloniaPropertyWithEquality Grid.RowProperty
+
+    let RowSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality Grid.RowSpacingProperty
 
     let ColumnSpan =
         Attributes.defineAvaloniaPropertyWithEquality Grid.ColumnSpanProperty
@@ -107,6 +113,20 @@ type GridModifiers =
     [<Extension>]
     static member inline showGridLines(this: WidgetBuilder<'msg, #IFabGrid>, value: bool) =
         this.AddScalar(Grid.ShowGridLines.WithValue(value))
+
+    /// <summary>Sets the ColumnSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The ColumnSpacing value.</param>
+    [<Extension>]
+    static member inline columnSpacing(this: WidgetBuilder<'msg, #IFabGrid>, value: float) =
+        this.AddScalar(Grid.ColumnSpacing.WithValue(value))
+
+    /// <summary>Sets the RowSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The RowSpacing value.</param>
+    [<Extension>]
+    static member inline rowSpacing(this: WidgetBuilder<'msg, #IFabGrid>, value: float) =
+        this.AddScalar(Grid.RowSpacing.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct Grid control instance.</summary>
     /// <param name="this">Current widget.</param>

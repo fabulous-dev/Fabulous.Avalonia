@@ -269,6 +269,10 @@ module GridPage =
                     .gridColumn(3)
                     .horizontalAlignment(HorizontalAlignment.Stretch)
             }
+            |> _.showGridLines(true)
+            |> _.rowSpacing(10.)
+            |> _.columnSpacing(10.)
+
         }
         |> _.isSharedSizeScope(true)
 
