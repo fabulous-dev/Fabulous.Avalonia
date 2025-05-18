@@ -15,7 +15,7 @@ module DockPanel =
     let LastChildFill =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.LastChildFillProperty
 
-    let HorizontalSpacingSpacing =
+    let HorizontalSpacing =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.HorizontalSpacingProperty
 
     let VerticalSpacing =
@@ -48,7 +48,7 @@ type DockPanelModifiers =
     /// <param name="value">The HorizontalSpacing value.</param>
     [<Extension>]
     static member inline horizontalSpacing(this: WidgetBuilder<'msg, #IFabDockPanel>, value: float) =
-        this.AddScalar(DockPanel.HorizontalSpacingSpacing.WithValue(value))
+        this.AddScalar(DockPanel.HorizontalSpacing.WithValue(value))
 
     /// <summary>Sets the VerticalSpacing property.</summary>
     /// <param name="this">Current widget.</param>
