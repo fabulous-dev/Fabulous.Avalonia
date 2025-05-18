@@ -244,6 +244,7 @@ module MainWindow =
             TabItem("GlyphRun", GlyphRunPage.view())
             TabItem("FormattedText", FormattedTextPage.view())
             TabItem("TextFormatter", TextFormatterPage.view())
+            TabItem("WrapPanel", WrapPanelsPage.view())
         })
             .reference(sideBar)
             .expandedModeThresholdWidth(760)

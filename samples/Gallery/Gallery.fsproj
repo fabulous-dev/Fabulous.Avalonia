@@ -159,6 +159,7 @@
     <Compile Include="Pages\SpringAnimationsPage.fs" />
     <Compile Include="Pages\Vector3KeyFrameAnimation.fs" />
     <Compile Include="Pages\CompositorAnimationsPage.fs" />
+    <Compile Include="Pages\WrapPanelsPage.fs" />
     <Compile Include="App.fs" />
     <Compile Include="MainWindow.fs" />
     <Compile Include="MainView.fs" />
