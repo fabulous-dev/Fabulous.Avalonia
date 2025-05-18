@@ -20,6 +20,9 @@ module Border =
     let Background =
         Attributes.defineAvaloniaPropertyWithEquality Border.BackgroundProperty
 
+    let BackgroundSizing =
+        Attributes.defineAvaloniaPropertyWithEquality Border.BackgroundSizingProperty
+
     let BorderBrushWidget =
         Attributes.defineAvaloniaPropertyWidget Border.BorderBrushProperty
 
@@ -76,6 +79,13 @@ type BorderModifiers =
     [<Extension>]
     static member inline background(this: WidgetBuilder<'msg, #IFabBorder>, value: string) =
         BorderModifiers.background(this, View.SolidColorBrush(value))
+
+    /// <summary>Sets the BackgroundSizing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The BackgroundSizing value.</param>
+    [<Extension>]
+    static member inline backgroundSizing(this: WidgetBuilder<'msg, #IFabBorder>, value: BackgroundSizing) =
+        this.AddScalar(Border.BackgroundSizing.WithValue(value))
 
     /// <summary>Sets the BorderBrush property.</summary>
     /// <param name="this">Current widget.</param>

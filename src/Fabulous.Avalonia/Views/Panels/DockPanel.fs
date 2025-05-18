@@ -15,6 +15,12 @@ module DockPanel =
     let LastChildFill =
         Attributes.defineAvaloniaPropertyWithEquality DockPanel.LastChildFillProperty
 
+    let HorizontalSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality DockPanel.HorizontalSpacingProperty
+
+    let VerticalSpacing =
+        Attributes.defineAvaloniaPropertyWithEquality DockPanel.VerticalSpacingProperty
+
 
 [<AutoOpen>]
 module DockPanelBuilders =
@@ -36,6 +42,20 @@ type DockPanelModifiers =
     [<Extension>]
     static member inline dock(this: WidgetBuilder<'msg, #IFabControl>, value: Dock) =
         this.AddScalar(DockPanel.Dock.WithValue(value))
+
+    /// <summary>Sets the HorizontalSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The HorizontalSpacing value.</param>
+    [<Extension>]
+    static member inline horizontalSpacing(this: WidgetBuilder<'msg, #IFabDockPanel>, value: float) =
+        this.AddScalar(DockPanel.HorizontalSpacing.WithValue(value))
+
+    /// <summary>Sets the VerticalSpacing property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The VerticalSpacing value.</param>
+    [<Extension>]
+    static member inline verticalSpacing(this: WidgetBuilder<'msg, #IFabDockPanel>, value: float) =
+        this.AddScalar(DockPanel.VerticalSpacing.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct DockPanel control instance.</summary>
     /// <param name="this">Current widget.</param>

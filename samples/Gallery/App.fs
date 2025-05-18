@@ -103,6 +103,7 @@ module App =
         | GlyphRun
         | FormattedText
         | TextFormatter
+        | WrapPanel
 
     [<return: Struct>]
     let (|CurrentPage|_|) page =
@@ -203,6 +204,7 @@ module App =
         | "GlyphRun" -> ValueSome GlyphRun
         | "FormattedText" -> ValueSome FormattedText
         | "TextFormatter" -> ValueSome TextFormatter
+        | "WrapPanel" -> ValueSome WrapPanel
         | _ -> ValueNone
 
     [<return: Struct>]
@@ -304,3 +306,4 @@ module App =
         | FormattedText -> ValueSome(AnyView(FormattedTextPage.view()))
         | TextFormatter -> ValueSome(AnyView(TextFormatterPage.view()))
         | ViewBoxPage -> ValueSome(AnyView(ViewBoxPage.view()))
+        | WrapPanel -> ValueSome(AnyView(WrapPanelsPage.view()))

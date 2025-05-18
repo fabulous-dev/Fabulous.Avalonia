@@ -92,6 +92,8 @@ module FlyoutPage =
 
     let view () =
         Component("FlyoutPage") {
+            let! _ = Context.Mvu program
+
             VStack(spacing = 15.) {
                 TextBlock("MenuFlyout")
 
