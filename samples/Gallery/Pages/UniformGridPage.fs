@@ -220,7 +220,9 @@ module UniformGridPage =
                 .borderThickness(1.)
                 .margin(0., 0., 0., 20.)
 
-            TextBlock("Note: Each example matches the dimensions and spacing used in the C# unit tests. The borders show the outer boundary of each UniformGrid.")
+            TextBlock(
+                "Note: Each example matches the dimensions and spacing used in the C# unit tests. The borders show the outer boundary of each UniformGrid."
+            )
                 .textWrapping(TextWrapping.Wrap)
                 .opacity(0.8)
         }

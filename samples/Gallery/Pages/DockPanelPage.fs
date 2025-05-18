@@ -13,7 +13,7 @@ module DockPanelPage =
                 .fontWeight(FontWeight.Bold)
                 .fontSize(18.)
                 .margin(0., 0., 0., 10.)
-                
+
             (Dock() {
                 Rectangle()
                     .fill(SolidColorBrush(Colors.Red))
@@ -38,45 +38,46 @@ module DockPanelPage =
                 Rectangle().fill(SolidColorBrush(Colors.Gray))
             })
                 .size(300., 300.)
-                
+
             TextBlock("DockPanel with Spacing")
                 .fontWeight(FontWeight.Bold)
                 .fontSize(18.)
                 .margin(0., 20., 0., 10.)
-                
+
             (Dock() {
-                Border() 
+                Border()
                     .width(500.)
                     .height(50.)
                     .background(SolidColorBrush(Colors.LightBlue))
                     .dock(Dock.Top)
-                    
+
                 Border()
                     .width(500.)
                     .height(50.)
                     .background(SolidColorBrush(Colors.LightGreen))
                     .dock(Dock.Bottom)
-                    
+
                 Border()
                     .width(50.)
                     .height(400.)
                     .background(SolidColorBrush(Colors.LightPink))
                     .dock(Dock.Left)
-                    
+
                 Border()
                     .width(50.)
                     .height(400.)
                     .background(SolidColorBrush(Colors.LightYellow))
                     .dock(Dock.Right)
-                    
-                Border()
-                    .background(SolidColorBrush(Colors.LightGray))
+
+                Border().background(SolidColorBrush(Colors.LightGray))
             })
                 .horizontalSpacing(10.)
                 .verticalSpacing(10.)
                 .margin(10.)
-                
-            TextBlock("In this example, the DockPanel with spacing shows exactly how the horizontal and vertical spacing properties affect layout. Borders are positioned with the same dimensions as in the C# test case, resulting in proper spacing between elements.")
+
+            TextBlock(
+                "In this example, the DockPanel with spacing shows exactly how the horizontal and vertical spacing properties affect layout. Borders are positioned with the same dimensions as in the C# test case, resulting in proper spacing between elements."
+            )
                 .textWrapping(TextWrapping.Wrap)
                 .margin(0., 20., 0., 0.)
         }

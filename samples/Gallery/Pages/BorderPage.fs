@@ -30,7 +30,7 @@ module BorderPage =
                 .backgroundSizing(BackgroundSizing.CenterBorder)
                 .padding(12.)
                 .horizontalAlignment(HorizontalAlignment.Center)
-            
+
             Border(TextBlock("Background And InnerBorder"))
                 .background(SolidColorBrush(Colors.ForestGreen))
                 .borderBrush(SolidColorBrush(Colors.BlueViolet))
@@ -38,7 +38,7 @@ module BorderPage =
                 .borderThickness(8.)
                 .padding(12.)
                 .horizontalAlignment(HorizontalAlignment.Center)
-                
+
             Border(TextBlock("Border and Background"))
                 .background(SolidColorBrush(Colors.ForestGreen))
                 .borderBrush(SolidColorBrush(Colors.BlueViolet))

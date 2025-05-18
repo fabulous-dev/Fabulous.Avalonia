@@ -275,34 +275,34 @@ module GridPage =
 
         }
         |> _.isSharedSizeScope(true)
-        
+
     let gridSpacingView () =
         VStack(spacing = 20.) {
             TextBlock("Grid with Spacing Examples")
                 .fontWeight(FontWeight.Bold)
                 .fontSize(18.)
-                
+
             TextBlock("Basic Grid with Spacing (2x2)")
                 .fontWeight(FontWeight.Bold)
                 .fontSize(16.)
                 .margin(0., 0., 0., 5.)
-                
+
             (Grid(coldefs = [ Pixel(100); Pixel(100) ], rowdefs = [ Pixel(100); Pixel(100) ]) {
                 Border()
                     .background(SolidColorBrush(Colors.LightBlue))
                     .gridRow(0)
                     .gridColumn(0)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightGreen))
                     .gridRow(0)
                     .gridColumn(1)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightPink))
                     .gridRow(1)
                     .gridColumn(0)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightYellow))
                     .gridRow(1)
@@ -312,29 +312,28 @@ module GridPage =
                 .columnSpacing(10.)
                 .showGridLines(true)
                 .margin(0., 0., 0., 20.)
-                
+
             TextBlock("Complex Grid with Mixed Sizing")
                 .fontWeight(FontWeight.Bold)
                 .fontSize(16.)
                 .margin(0., 0., 0., 5.)
-                
-            (Grid(coldefs = [ Pixel(50); Star; Stars(2); Auto ],
-                  rowdefs = [ Pixel(50); Star; Stars(2); Auto ]) {
+
+            (Grid(coldefs = [ Pixel(50); Star; Stars(2); Auto ], rowdefs = [ Pixel(50); Star; Stars(2); Auto ]) {
                 Border()
                     .background(SolidColorBrush(Colors.LightBlue))
                     .gridRow(0)
                     .gridColumn(0)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightGreen))
                     .gridRow(1)
                     .gridColumn(1)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightPink))
                     .gridRow(2)
                     .gridColumn(2)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightYellow))
                     .width(30.)
@@ -348,29 +347,28 @@ module GridPage =
                 .height(200.)
                 .showGridLines(true)
                 .margin(0., 0., 0., 20.)
-                
+
             TextBlock("Grid with Spacing Overflow")
                 .fontWeight(FontWeight.Bold)
                 .fontSize(16.)
                 .margin(0., 0., 0., 5.)
-                
-            (Grid(coldefs = [ Pixel(30); Star; Star; Auto ],
-                  rowdefs = [ Pixel(30); Star; Star; Auto ]) {
+
+            (Grid(coldefs = [ Pixel(30); Star; Star; Auto ], rowdefs = [ Pixel(30); Star; Star; Auto ]) {
                 Border()
                     .background(SolidColorBrush(Colors.LightBlue))
                     .gridRow(0)
                     .gridColumn(0)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightGreen))
                     .gridRow(1)
                     .gridColumn(1)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightPink))
                     .gridRow(2)
                     .gridColumn(2)
-                
+
                 Border()
                     .background(SolidColorBrush(Colors.LightYellow))
                     .width(30.)
@@ -384,7 +382,7 @@ module GridPage =
                 .height(100.)
                 .showGridLines(true)
                 .margin(0., 0., 0., 20.)
-                
+
             TextBlock("Notice how excessive spacing can cause interior cells to have 0 width/height.")
                 .textWrapping(TextWrapping.Wrap)
                 .opacity(0.8)
@@ -398,7 +396,7 @@ module GridPage =
                 TabItem("Grids", gridView1())
 
                 TabItem("SharedSizeGroup", gridView2 model.People)
-                
+
                 TabItem("Grid Spacing", gridSpacingView())
             })
                 .margin(0., 16.)
