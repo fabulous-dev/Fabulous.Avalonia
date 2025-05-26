@@ -6,6 +6,7 @@
     <DisableImplicitSystemValueTupleReference>true</DisableImplicitSystemValueTupleReference>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <AvaloniaVersion>11.3.0</AvaloniaVersion>
+    <AvaloniaLabsVersion>11.3.0</AvaloniaLabsVersion>
     <FabulousVersion>3.0.0-pre22</FabulousVersion>
   </PropertyGroup>
 

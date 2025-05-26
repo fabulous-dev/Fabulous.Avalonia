@@ -23,6 +23,11 @@ module Lottie =
     let RepeatCount =
         Attributes.defineAvaloniaPropertyWithEquality Lottie.RepeatCountProperty
 
+    let PlayBackRate =
+        Attributes.defineAvaloniaPropertyWithEquality Lottie.PlayBackRateProperty
+
+    let AutoPlay = Attributes.defineAvaloniaPropertyWithEquality Lottie.AutoPlayProperty
+
 [<AutoOpen>]
 module LottieBuilders =
     type Fabulous.Avalonia.View with
@@ -52,6 +57,20 @@ type LottieModifiers =
     [<Extension>]
     static member inline repeatCount(this: WidgetBuilder<'msg, #IFabLottie>, value: int) =
         this.AddScalar(Lottie.RepeatCount.WithValue(value))
+
+    /// <summary>Sets the PlayBackRate property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The PlayBackRate value.</param>
+    [<Extension>]
+    static member inline playBackRate(this: WidgetBuilder<'msg, #IFabLottie>, value: int) =
+        this.AddScalar(Lottie.PlayBackRate.WithValue(value))
+
+    /// <summary>Sets the AutoPlay property.</summary>
+    /// <param name="this">Current widget.</param>
+    /// <param name="value">The AutoPlay value.</param>
+    [<Extension>]
+    static member inline autoPlay(this: WidgetBuilder<'msg, #IFabLottie>, value: bool) =
+        this.AddScalar(Lottie.AutoPlay.WithValue(value))
 
     /// <summary>Link a ViewRef to access the direct AsyncImage control instance.</summary>
     /// <param name="this">Current widget.</param>

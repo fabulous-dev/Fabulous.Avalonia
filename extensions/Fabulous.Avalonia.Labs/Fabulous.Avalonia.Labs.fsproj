@@ -30,8 +30,8 @@
         <Compile Include="Controls\Lottie.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia.Labs.Controls" VersionOverride="11.2.0"/>
-        <PackageReference Include="Avalonia.Labs.Lottie" VersionOverride="11.2.0"/>
+        <PackageReference Include="Avalonia.Labs.Controls" VersionOverride="$(AvaloniaLabsVersion)" />
+        <PackageReference Include="Avalonia.Labs.Lottie" VersionOverride="$(AvaloniaLabsVersion)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Fabulous.Avalonia\Fabulous.Avalonia.fsproj" />
