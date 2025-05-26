@@ -25,7 +25,7 @@ module LottiePage =
 
     type Model =
         { Assets: ObservableCollection<AssetModel>
-          SelectedAsset: AssetModel 
+          SelectedAsset: AssetModel
           PlaybackRate: int
           IsPlaying: bool }
 
@@ -43,7 +43,7 @@ module LottiePage =
             |> Seq.map(fun x -> AssetModel(System.IO.Path.GetFileName(x.AbsoluteUri), x.AbsoluteUri))
 
         { Assets = ObservableCollection<AssetModel>(assets)
-          SelectedAsset = assets |> Seq.head 
+          SelectedAsset = assets |> Seq.head
           PlaybackRate = 1
           IsPlaying = true },
         Cmd.none
@@ -90,22 +90,19 @@ module LottiePage =
             { model with
                 SelectedAsset = selectedAsset },
             Cmd.none
-            
-        | SetPlaybackRate rate ->
-            { model with PlaybackRate = rate }, Cmd.none
-            
+
+        | SetPlaybackRate rate -> { model with PlaybackRate = rate }, Cmd.none
+
         | TogglePlayPause lottieRef ->
-            let cmd = 
-                Cmd.ofEffect (fun _ ->
+            let cmd =
+                Cmd.ofEffect(fun _ ->
                     match lottieRef.TryValue with
                     | None -> ()
-                    | Some lottie ->
-                        if model.IsPlaying then
-                            lottie.Pause()
-                        else
-                            lottie.Resume())
-                            
-            { model with IsPlaying = not model.IsPlaying }, cmd
+                    | Some lottie -> if model.IsPlaying then lottie.Pause() else lottie.Resume())
+
+            { model with
+                IsPlaying = not model.IsPlaying },
+            cmd
 
     let program =
         Program.statefulWithCmd init update
@@ -130,7 +127,7 @@ module LottiePage =
                     .fontWeight(FontWeight.Bold)
                     .horizontalAlignment(HorizontalAlignment.Center)
                     .margin(0, 0, 0, 10)
-                
+
                 ComboBox(model.Assets)
                     .margin(0, 0, 0, 20)
                     .selectedItem(model.SelectedAsset)
@@ -138,7 +135,7 @@ module LottiePage =
                     .onSelectionChanged(SelectionChanged)
                     .displayMemberBinding(Binding("Name"))
                     .width(300)
-                
+
                 Grid(coldefs = [ Auto; Star; Auto ], rowdefs = [ Star ]) {
                     Button(
                         Previous,
@@ -159,7 +156,8 @@ module LottiePage =
                             .playBackRate(model.PlaybackRate)
                             .autoPlay(true)
                             .margin(10)
-                            .reference(lottieRef))
+                            .reference(lottieRef)
+                    )
                         .gridColumn(1)
                         .margin(20)
                         .borderThickness(1)
@@ -179,22 +177,22 @@ module LottiePage =
                         .background(Colors.Transparent)
                         .verticalAlignment(VerticalAlignment.Center)
                 }
-                
+
                 HStack(spacing = 20) {
                     Border(
                         HStack(spacing = 10) {
                             TextBlock("Playback Rate:")
                                 .verticalAlignment(VerticalAlignment.Center)
-                            
+
                             Button("-", SetPlaybackRate(Math.Max(1, model.PlaybackRate - 1)))
                                 .width(30)
                                 .height(30)
-                            
+
                             TextBlock(string model.PlaybackRate)
                                 .width(30)
                                 .horizontalAlignment(HorizontalAlignment.Center)
                                 .verticalAlignment(VerticalAlignment.Center)
-                            
+
                             Button("+", SetPlaybackRate(model.PlaybackRate + 1))
                                 .width(30)
                                 .height(30)
@@ -204,15 +202,14 @@ module LottiePage =
                         .borderBrush(SolidColorBrush(Colors.Gray))
                         .cornerRadius(4)
                         .padding(10)
-                    
-                    Button(
-                        (if model.IsPlaying then "Pause" else "Play"),
-                        TogglePlayPause lottieRef
-                    )
+
+                    Button((if model.IsPlaying then "Pause" else "Play"), TogglePlayPause lottieRef)
                         .width(100)
                 }
-                
-                TextBlock("The Lottie control supports animations with various playback options. Use the controls above to adjust playback rate and pause/play the animation.")
+
+                TextBlock(
+                    "The Lottie control supports animations with various playback options. Use the controls above to adjust playback rate and pause/play the animation."
+                )
                     .textWrapping(TextWrapping.Wrap)
                     .margin(0, 20, 0, 0)
                     .maxWidth(500)
