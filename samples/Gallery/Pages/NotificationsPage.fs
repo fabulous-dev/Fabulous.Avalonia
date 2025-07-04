@@ -17,7 +17,8 @@ open type Fabulous.Avalonia.View
 module NotificationsPage =
     type Model =
         { NotificationManager: INotificationManager
-          NotificationPosition: NotificationPosition }
+          NotificationPosition: NotificationPosition
+          ShowInlined: bool }
 
     type Msg =
         | ShowManagedNotification
@@ -25,6 +26,7 @@ module NotificationsPage =
         | ShowNativeNotification
         | ShowAsyncCompletedNotification
         | ShowAsyncStatusNotifications
+        | ToggleInlinedNotification
         | NotifyInfo of string
         | YesCommand
         | NoCommand
@@ -81,7 +83,8 @@ module NotificationsPage =
 
     let init () =
         { NotificationManager = null
-          NotificationPosition = NotificationPosition.TopRight },
+          NotificationPosition = NotificationPosition.TopRight
+          ShowInlined = false },
         []
 
     let update msg model =
@@ -99,6 +102,7 @@ module NotificationsPage =
 
         | ShowAsyncCompletedNotification -> model, notifyOneAsync()
         | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
+        | ToggleInlinedNotification -> {model with ShowInlined = not model.ShowInlined}, Cmd.none
 
         | NotifyInfo message -> model, showNotification model.NotificationManager (Notification(message, "", NotificationType.Information))
         | YesCommand -> model, showNotification model.NotificationManager (Notification("Wise choice.", "You better!"))
@@ -163,6 +167,9 @@ module NotificationsPage =
                     Button("Notify status updates from async operation", ShowAsyncStatusNotifications)
                         .dock(Dock.Top)
 
+                    Button("Toggle inlined notifications", ToggleInlinedNotification)
+                        .dock(Dock.Top)
+
                     TextBlock("Widget-only notification manager.")
                         .dock(Dock.Top)
                         .margin(2.)
@@ -187,10 +194,12 @@ module NotificationsPage =
                         .dock(Dock.Top)
 
                     InlinedYesNoQuestion("Can you believe it?", "You can also roll your own inlined dialogs using standard widgets.", YesCommand, NoCommand)
+                        .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
-                    NotificationCard(false, "This is a notification card.")
-                        .size(200., 100.)
+                    NotificationCard(not model.ShowInlined, "I was here all along, just hidden!")
+                        .isVisible(model.ShowInlined)
+                        .size(300., 70.)
                         .dock(Dock.Top)
                         .padding(10)
                         .borderBrush(SolidColorBrush(Colors.Blue))
