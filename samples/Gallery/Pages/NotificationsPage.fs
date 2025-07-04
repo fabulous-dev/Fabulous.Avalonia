@@ -76,6 +76,7 @@ module NotificationsPage =
                 let widget = content.Compile()
                 let widgetDef = WidgetDefinitionStore.get widget.Key
 
+                // TODO how to attach or create the view? how to get TreeContext and EnvironmentContext?
                 (*let struct (_node, view) =
                     widgetDef.CreateView(widget, ...?, ...?, ValueNone)
 
@@ -219,6 +220,7 @@ module NotificationsPage =
                         .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
+                    //TODO toggling the isClosed flag seems to do nothing. Why include it in the builders at all?
                     NotificationCard(not model.ShowInlined, "I was here all along, just hidden!")
                         .isVisible(model.ShowInlined)
                         .size(300., 70.)
