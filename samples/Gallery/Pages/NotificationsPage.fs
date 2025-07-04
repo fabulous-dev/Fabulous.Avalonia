@@ -16,13 +16,14 @@ open type Fabulous.Avalonia.View
 
 module NotificationsPage =
     type Model =
-        { NotificationManager: INotificationManager
+        { NotificationManager: WindowNotificationManager
           NotificationPosition: NotificationPosition
           ShowInlined: bool }
 
     type Msg =
         | ShowPlainNotification
         | ShowCustomPlainNotification
+        | ShowCustomManagedNotification
         | ShowNativeNotification
         | ShowAsyncCompletedNotification
         | ShowAsyncStatusNotifications
@@ -63,10 +64,22 @@ module NotificationsPage =
             }
             |> Async.Start)
 
-    let showNotification (notificationManager: INotificationManager) notification =
+    let showNotification (notificationManager: WindowNotificationManager) notification =
         Cmd.ofEffect(fun dispatch ->
             Dispatcher.UIThread.Post(fun () ->
                 notificationManager.Show(notification)
+                dispatch(NotificationShown)))
+
+    let showNotificationContent (notificationManager: WindowNotificationManager) (content: WidgetBuilder<'msg, 'marker>) =
+        Cmd.ofEffect(fun dispatch ->
+            Dispatcher.UIThread.Post(fun () ->
+                let widget = content.Compile()
+                let widgetDef = WidgetDefinitionStore.get widget.Key
+
+                (*let struct (_node, view) =
+                    widgetDef.CreateView(widget, ...?, ...?, ValueNone)
+
+                notificationManager.Show(view)*)
                 dispatch(NotificationShown)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
@@ -87,6 +100,8 @@ module NotificationsPage =
           ShowInlined = false },
         []
 
+    let questionContent title question = InlinedYesNoQuestion(title, question, YesCommand, NoCommand)
+
     let update msg model =
         match msg with
         | ShowPlainNotification ->
@@ -95,6 +110,10 @@ module NotificationsPage =
         | ShowCustomPlainNotification ->
             model,
             showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
+            
+        | ShowCustomManagedNotification ->
+            model,
+            showNotificationContent model.NotificationManager (questionContent "Can you dig it?" "You can use standard widgets in notifications!")
 
         | ShowNativeNotification ->
             model,
@@ -159,6 +178,9 @@ module NotificationsPage =
                         .dock(Dock.Top)
 
                     Button("A custom plain Notification", ShowCustomPlainNotification)
+                        .dock(Dock.Top)
+
+                    Button("A Managed Notification with custom content", ShowCustomManagedNotification)
                         .dock(Dock.Top)
 
                     Button("Notify async operation completed", ShowAsyncCompletedNotification)
