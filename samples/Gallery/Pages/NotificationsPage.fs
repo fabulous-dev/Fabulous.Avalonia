@@ -21,8 +21,8 @@ module NotificationsPage =
           ShowInlined: bool }
 
     type Msg =
-        | ShowManagedNotification
-        | ShowCustomManagedNotification
+        | ShowPlainNotification
+        | ShowCustomPlainNotification
         | ShowNativeNotification
         | ShowAsyncCompletedNotification
         | ShowAsyncStatusNotifications
@@ -89,10 +89,10 @@ module NotificationsPage =
 
     let update msg model =
         match msg with
-        | ShowManagedNotification ->
+        | ShowPlainNotification ->
             model, showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
 
-        | ShowCustomManagedNotification ->
+        | ShowCustomPlainNotification ->
             model,
             showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
 
@@ -155,10 +155,10 @@ module NotificationsPage =
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
-                    Button("Show Standard Managed Notification", ShowManagedNotification)
+                    Button("A plain Notification", ShowPlainNotification)
                         .dock(Dock.Top)
 
-                    Button("Show Custom Managed Notification", ShowCustomManagedNotification)
+                    Button("A custom plain Notification", ShowCustomPlainNotification)
                         .dock(Dock.Top)
 
                     Button("Notify async operation completed", ShowAsyncCompletedNotification)
