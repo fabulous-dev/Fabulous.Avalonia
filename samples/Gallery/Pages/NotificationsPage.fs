@@ -101,11 +101,9 @@ module NotificationsPage =
         | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
 
         | NotifyInfo message -> model, showNotification model.NotificationManager (Notification(message, "", NotificationType.Information))
-        | YesCommand ->
-            model, showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today."))
+        | YesCommand -> model, showNotification model.NotificationManager (Notification("Wise choice.", "You better!"))
+        | NoCommand -> model, showNotification model.NotificationManager (Notification("What?", "Why wouldn't you?"))
 
-        | NoCommand ->
-            model, showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today."))
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
             See https://github.com/AvaloniaUI/Avalonia/issues/5442 *)
@@ -188,7 +186,7 @@ module NotificationsPage =
                     })
                         .dock(Dock.Top)
 
-                    CustomNotification("Avalonia Notifications", "Start adding notifications to your app today.", YesCommand, NoCommand)
+                    InlinedYesNoQuestion("Can you believe it?", "You can also roll your own inlined dialogs using standard widgets.", YesCommand, NoCommand)
                         .dock(Dock.Top)
 
                     NotificationCard(false, "This is a notification card.")
