@@ -1,4 +1,4 @@
-namespace Gallery
+﻿namespace Gallery
 
 open System.Runtime.CompilerServices
 open Avalonia.Media
@@ -69,11 +69,11 @@ open type Fabulous.Avalonia.View
 module CustomNotificationBuilders =
     type Fabulous.Avalonia.View with
 
-        static member CustomNotification(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
+        static member InlinedYesNoQuestion(title: string, message: string, yesCommand: 'msg, noCommand: 'msg) =
             Border(
                 Grid(coldefs = [ Auto; Star ], rowdefs = [ Auto ]) {
                     (Panel() {
-                        TextBlock("&#xE115;")
+                        TextBlock("❔")
                             .foreground(SolidColorBrush(Colors.White))
                             .fontWeight(FontWeight.Bold)
                             .fontSize(20.)

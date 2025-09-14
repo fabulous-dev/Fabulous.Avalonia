@@ -16,15 +16,18 @@ open type Fabulous.Avalonia.View
 
 module NotificationsPage =
     type Model =
-        { NotificationManager: INotificationManager
-          NotificationPosition: NotificationPosition }
+        { NotificationManager: WindowNotificationManager
+          NotificationPosition: NotificationPosition
+          ShowInlined: bool }
 
     type Msg =
-        | ShowManagedNotification
+        | ShowPlainNotification
+        | ShowCustomPlainNotification
         | ShowCustomManagedNotification
         | ShowNativeNotification
         | ShowAsyncCompletedNotification
         | ShowAsyncStatusNotifications
+        | ToggleInlinedNotification
         | NotifyInfo of string
         | YesCommand
         | NoCommand
@@ -61,10 +64,23 @@ module NotificationsPage =
             }
             |> Async.Start)
 
-    let showNotification (notificationManager: INotificationManager) notification =
+    let showNotification (notificationManager: WindowNotificationManager) notification =
         Cmd.ofEffect(fun dispatch ->
             Dispatcher.UIThread.Post(fun () ->
                 notificationManager.Show(notification)
+                dispatch(NotificationShown)))
+
+    let showNotificationContent (notificationManager: WindowNotificationManager) (content: WidgetBuilder<'msg, 'marker>) =
+        Cmd.ofEffect(fun dispatch ->
+            Dispatcher.UIThread.Post(fun () ->
+                let widget = content.Compile()
+                let widgetDef = WidgetDefinitionStore.get widget.Key
+
+                // TODO how to attach or create the view? how to get TreeContext and EnvironmentContext?
+                (*let struct (_node, view) =
+                    widgetDef.CreateView(widget, ...?, ...?, ValueNone)
+
+                notificationManager.Show(view)*)
                 dispatch(NotificationShown)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
@@ -81,17 +97,24 @@ module NotificationsPage =
 
     let init () =
         { NotificationManager = null
-          NotificationPosition = NotificationPosition.TopRight },
+          NotificationPosition = NotificationPosition.TopRight
+          ShowInlined = false },
         []
+
+    let questionContent title question = InlinedYesNoQuestion(title, question, YesCommand, NoCommand)
 
     let update msg model =
         match msg with
-        | ShowManagedNotification ->
+        | ShowPlainNotification ->
             model, showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
 
-        | ShowCustomManagedNotification ->
+        | ShowCustomPlainNotification ->
             model,
             showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
+            
+        | ShowCustomManagedNotification ->
+            model,
+            showNotificationContent model.NotificationManager (questionContent "Can you dig it?" "You can use standard widgets in notifications!")
 
         | ShowNativeNotification ->
             model,
@@ -99,13 +122,12 @@ module NotificationsPage =
 
         | ShowAsyncCompletedNotification -> model, notifyOneAsync()
         | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
+        | ToggleInlinedNotification -> {model with ShowInlined = not model.ShowInlined}, Cmd.none
 
         | NotifyInfo message -> model, showNotification model.NotificationManager (Notification(message, "", NotificationType.Information))
-        | YesCommand ->
-            model, showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today."))
+        | YesCommand -> model, showNotification model.NotificationManager (Notification("Wise choice.", "You better!"))
+        | NoCommand -> model, showNotification model.NotificationManager (Notification("What?", "Why wouldn't you?"))
 
-        | NoCommand ->
-            model, showNotification model.NotificationManager (Notification("Avalonia Notifications", "Start adding notifications to your app today."))
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
             See https://github.com/AvaloniaUI/Avalonia/issues/5442 *)
@@ -153,16 +175,22 @@ module NotificationsPage =
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
-                    Button("Show Standard Managed Notification", ShowManagedNotification)
+                    Button("A plain Notification", ShowPlainNotification)
                         .dock(Dock.Top)
 
-                    Button("Show Custom Managed Notification", ShowCustomManagedNotification)
+                    Button("A custom plain Notification", ShowCustomPlainNotification)
+                        .dock(Dock.Top)
+
+                    Button("A Managed Notification with custom content", ShowCustomManagedNotification)
                         .dock(Dock.Top)
 
                     Button("Notify async operation completed", ShowAsyncCompletedNotification)
                         .dock(Dock.Top)
 
                     Button("Notify status updates from async operation", ShowAsyncStatusNotifications)
+                        .dock(Dock.Top)
+
+                    Button("Toggle inlined notifications", ToggleInlinedNotification)
                         .dock(Dock.Top)
 
                     TextBlock("Widget-only notification manager.")
@@ -188,11 +216,14 @@ module NotificationsPage =
                     })
                         .dock(Dock.Top)
 
-                    CustomNotification("Avalonia Notifications", "Start adding notifications to your app today.", YesCommand, NoCommand)
+                    InlinedYesNoQuestion("Can you believe it?", "You can also roll your own inlined dialogs using standard widgets.", YesCommand, NoCommand)
+                        .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
-                    NotificationCard(false, "This is a notification card.")
-                        .size(200., 100.)
+                    //TODO toggling the isClosed flag seems to do nothing. Why include it in the builders at all?
+                    NotificationCard(not model.ShowInlined, "I was here all along, just hidden!")
+                        .isVisible(model.ShowInlined)
+                        .size(300., 70.)
                         .dock(Dock.Top)
                         .padding(10)
                         .borderBrush(SolidColorBrush(Colors.Blue))
