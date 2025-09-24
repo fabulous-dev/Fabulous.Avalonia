@@ -33,29 +33,6 @@ module NotificationsPage =
         | NotificationShown
         | PositionChanged of SelectionChangedEventArgs
 
-    type WindowNotificationManager with
-        member this.Show(content: WidgetBuilder<'msg, 'marker>) =
-            let widget = content.Compile()
-            let widgetDef = WidgetDefinitionStore.get widget.Key
-            let logger = ProgramDefaults.defaultLogger()
-            let syncAction = ViewHelpers.defaultSyncAction
-
-            let treeContext: ViewTreeContext =
-                { CanReuseView = ViewHelpers.canReuseView
-                  GetViewNode = ViewNode.get
-                  GetComponent = Component.get
-                  SetComponent = Component.set
-                  SyncAction = syncAction
-                  Logger = logger
-                  Dispatch = ignore }
-
-            let envContext = new EnvironmentContext(logger)
-
-            let struct (_node, view) =
-                widgetDef.CreateView(widget, envContext, treeContext, ValueNone)
-
-            this.Show(view)
-
     let notifyOneAsync () =
         Cmd.OfAsync.msg(
             async {
