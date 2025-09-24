@@ -103,26 +103,9 @@ module NotificationsPage =
           ShowInlined = false },
         []
 
-    type QuestionLocalMsg =
-        | LocalYes
-        | LocalNo
-
-    let questionInit () = (), Cmd.none
-
-    let questionUpdate (msg: QuestionLocalMsg) (model: unit) =
-        let show (title: string) (message: string) : Cmd<QuestionLocalMsg> =
-            Cmd.ofEffect(fun _ -> Dispatcher.UIThread.Post(fun () -> FabApplication.Current.WindowNotificationManager.Show(Notification(title, message))))
-
-        match msg with
-        | LocalYes -> model, show "Wise choice." "You better!"
-        | LocalNo -> model, show "What?" "Why wouldn't you?"
-
-    let questionProgram = Program.statefulWithCmd questionInit questionUpdate
-
-    let createYesNoQuestion title question =
-        Component("QuestionContent") {
-            let! _ = Context.Mvu questionProgram
-            InlinedYesNoQuestion(title, question, QuestionLocalMsg.LocalYes, QuestionLocalMsg.LocalNo)
+    let private createYesNoQuestion title question =
+        Component("YesNoQuestion") {
+            InlinedYesNoQuestion(title, question, NotifyInfo "Wise choice.", NotifyInfo "Why wouldn't you?")
         }
 
     let update msg model =
