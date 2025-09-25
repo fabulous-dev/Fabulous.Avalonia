@@ -240,8 +240,10 @@ module NotificationsPage =
                         .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
+                    //TODO this is always shown - indepedendent of model.ShowInlined. I.e, NotificationCard isClosed flag is not working!
                     // Demonstrate NotificationCard controlled solely via its IsClosed flag. Avoid .isVisible, which masks the effect.
                     NotificationCard(not model.ShowInlined, "I was here all along, just hidden!")
+                        //.isVisible(model.ShowInlined) // but if you uncomment this, toggling works!
                         .size(300., 70.)
                         .dock(Dock.Top)
                         .padding(10)
