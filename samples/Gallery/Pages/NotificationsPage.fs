@@ -116,7 +116,7 @@ module NotificationsPage =
                 let struct (_node, view) =
                     widgetDef.CreateView(widget, envContext, treeContext, ValueNone)
 
-                notificationManager.Show(view)))
+                notificationManager.Show(view, NotificationType.Warning, TimeSpan.Zero)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
