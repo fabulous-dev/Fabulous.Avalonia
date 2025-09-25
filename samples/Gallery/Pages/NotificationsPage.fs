@@ -284,8 +284,9 @@ module NotificationsPage =
                         .borderBrush(SolidColorBrush(Colors.Blue))
                 }
 
-                // We can use the WindowNotificationManager a widget to be able to have a different WindowNotificationManager than FabApplication.Current.WindowNotificationManager
-                // Allowing you to control ie the Position of a single notification
+                (*  Use the WindowNotificationManager widget to create a NotificationManager
+                    separate from the FabApplication.Current.WindowNotificationManager
+                    allowing you to control e.g. the Position of specific notifications. *)
                 WindowNotificationManager(controlNotificationsRef)
                     .position(model.NotificationPosition)
                     .dock(Dock.Top)
