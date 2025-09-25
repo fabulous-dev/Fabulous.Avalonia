@@ -13,7 +13,6 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-
 module NotificationsPage =
     type Model =
         { NotificationManager: WindowNotificationManager
@@ -21,9 +20,9 @@ module NotificationsPage =
           ShowInlined: bool }
 
     type Msg =
-        | ShowPlainNotification
-        | ShowCustomPlainNotification
-        | ShowCustomManagedNotification
+        | ShowBasicNotification
+        | ShowINotification
+        | ShowYesNoNotification
         | ShowNativeNotification
         | ShowAsyncCompletedNotification
         | ShowAsyncStatusNotifications
@@ -91,7 +90,7 @@ module NotificationsPage =
                 notificationManager.Show(notification)
                 dispatch(NotificationShown)))
 
-    let showNotificationContent<'msg, 'marker when 'msg: equality>
+    let notifyComponent<'msg, 'marker when 'msg: equality>
         (notificationManager: WindowNotificationManager)
         (content: WidgetBuilder<'msg, 'marker>)
         : Cmd<'msg> =
@@ -143,7 +142,7 @@ module NotificationsPage =
 
     let questionProgram = Program.statefulWithCmd questionInit questionUpdate
 
-    let questionContent title question =
+    let createYesNoQuestion title question =
         Component("QuestionContent") {
             let! _ = Context.Mvu questionProgram
             InlinedYesNoQuestion(title, question, QuestionLocalMsg.LocalYes, QuestionLocalMsg.LocalNo)
@@ -151,12 +150,12 @@ module NotificationsPage =
 
     let update msg model =
         match msg with
-        | ShowPlainNotification ->
+        | ShowBasicNotification ->
             model,
-            Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information)
+            Notification("Avalonia supports basic Notifications", "via the built-in Notification type.", NotificationType.Information)
             |> showNotification model.NotificationManager
 
-        | ShowCustomPlainNotification ->
+        | ShowINotification ->
             model,
             { new INotification with
                 member this.Title = "You can implement custom Notifications"
@@ -167,10 +166,10 @@ module NotificationsPage =
                 member this.Type = NotificationType.Error }
             |> showNotification model.NotificationManager
 
-        | ShowCustomManagedNotification ->
+        | ShowYesNoNotification ->
             model,
-            questionContent "Can you dig it?" "You can use standard widgets in notifications!"
-            |> showNotificationContent model.NotificationManager
+            createYesNoQuestion "Can you dig it?" "You can use standard widgets in notifications!"
+            |> notifyComponent model.NotificationManager
 
         | ShowNativeNotification ->
             model,
@@ -230,19 +229,19 @@ module NotificationsPage =
 
             (Grid() {
                 Dock() {
-                    TextBlock("TopLevel bound notification manager.")
+                    TextBlock("TopLevel bound notification manager")
                         .dock(Dock.Top)
-                        .margin(2.)
+                        .margin(20.)
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
-                    Button("A plain Notification", ShowPlainNotification)
+                    Button("A basic Notification", ShowBasicNotification)
                         .dock(Dock.Top)
 
-                    Button("A custom plain Notification", ShowCustomPlainNotification)
+                    Button("A custom INotification", ShowINotification)
                         .dock(Dock.Top)
 
-                    Button("A Managed Notification with custom content", ShowCustomManagedNotification)
+                    Button("A Managed Notification with custom content", ShowYesNoNotification)
                         .dock(Dock.Top)
 
                     Button("Notify async operation completed", ShowAsyncCompletedNotification)
@@ -254,9 +253,9 @@ module NotificationsPage =
                     Button("Toggle inlined notifications", ToggleInlinedNotification)
                         .dock(Dock.Top)
 
-                    TextBlock("Widget-only notification manager.")
+                    TextBlock("Widget-only notification manager")
                         .dock(Dock.Top)
-                        .margin(2.)
+                        .margin(20.)
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
@@ -277,7 +276,7 @@ module NotificationsPage =
                     })
                         .dock(Dock.Top)
 
-                    (questionContent "Can you believe it?" "You can also roll your own inlined dialogs using standard widgets.")
+                    (createYesNoQuestion "Can you believe it?" "You can also roll your own inlined dialogs using standard widgets.")
                         .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
