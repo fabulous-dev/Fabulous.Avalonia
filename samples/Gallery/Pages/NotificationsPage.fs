@@ -121,16 +121,6 @@ module NotificationsPage =
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
 
-    let notification title message =
-        { new INotification with
-            member this.Title = title
-            member this.Message = message
-            member this.Expiration = TimeSpan.FromSeconds(5.)
-            member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
-            member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
-            member this.Type = NotificationType.Error }
-
-
     let init () =
         { NotificationManager = null
           NotificationPosition = NotificationPosition.TopRight
@@ -168,7 +158,13 @@ module NotificationsPage =
 
         | ShowCustomPlainNotification ->
             model,
-            notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?"
+            { new INotification with
+                member this.Title = "You can implement custom Notifications"
+                member this.Message = "via the INotification interface."
+                member this.Expiration = TimeSpan.FromSeconds(5.)
+                member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
+                member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
+                member this.Type = NotificationType.Error }
             |> showNotification model.NotificationManager
 
         | ShowCustomManagedNotification ->
