@@ -162,27 +162,37 @@ module NotificationsPage =
     let update msg model =
         match msg with
         | ShowPlainNotification ->
-            model, showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
+            model,
+            Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information)
+            |> showNotification model.NotificationManager
 
         | ShowCustomPlainNotification ->
             model,
-            showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
+            notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?"
+            |> showNotification model.NotificationManager
 
         | ShowCustomManagedNotification ->
-            model, showNotificationContent model.NotificationManager (questionContent "Can you dig it?" "You can use standard widgets in notifications!")
+            model,
+            questionContent "Can you dig it?" "You can use standard widgets in notifications!"
+            |> showNotificationContent model.NotificationManager
 
         | ShowNativeNotification ->
             model,
-            showNotification model.NotificationManager (Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
+            Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error)
+            |> showNotification model.NotificationManager
 
         | ShowAsyncCompletedNotification -> model, notifyOneAsync()
         | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
+
         | ToggleInlinedNotification ->
             { model with
                 ShowInlined = not model.ShowInlined },
             Cmd.none
 
-        | NotifyInfo message -> model, showNotification model.NotificationManager (Notification(message, "", NotificationType.Information))
+        | NotifyInfo message ->
+            model,
+            Notification(message, "", NotificationType.Information)
+            |> showNotification model.NotificationManager
 
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
@@ -194,7 +204,6 @@ module NotificationsPage =
 
         | ControlNotificationsShow ->
             model, showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
-
 
         | NotificationShown -> model, Cmd.none
 
