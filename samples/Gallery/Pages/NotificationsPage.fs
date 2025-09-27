@@ -104,9 +104,7 @@ module NotificationsPage =
         []
 
     let private createYesNoQuestion title question =
-        Component("YesNoQuestion") {
-            InlinedYesNoQuestion(title, question, NotifyInfo "Wise choice.", NotifyInfo "Why wouldn't you?")
-        }
+        InlinedYesNoQuestion(title, question, NotifyInfo "Wise choice.", NotifyInfo "Why wouldn't you?")
 
     let update msg model =
         match msg with
