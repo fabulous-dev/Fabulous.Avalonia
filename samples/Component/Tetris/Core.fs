@@ -333,3 +333,14 @@ module Tetrimino =
             | h :: t ->
                 queue <- t
                 h
+
+type Board =
+    { width: int
+      height: int
+      board: TetrisBoard }
+
+module Board =
+    let init =
+        { width = 16
+          height = 24
+          board = TetrisBoard.init }
