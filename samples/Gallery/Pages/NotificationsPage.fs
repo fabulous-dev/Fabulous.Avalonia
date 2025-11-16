@@ -136,7 +136,6 @@ module NotificationsPage =
 
         | ShowAsyncCompletedNotification -> model, notifyOneAsync()
         | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
-
         | ToggleInlinedNotification ->
             { model with
                 ShowInlined = not model.ShowInlined },
@@ -150,7 +149,7 @@ module NotificationsPage =
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
             See https://github.com/AvaloniaUI/Avalonia/issues/5442 *)
-        | AttachedToVisualTreeChanged args ->
+        | AttachedToVisualTreeChanged _ ->
             { model with
                 NotificationManager = FabApplication.Current.WindowNotificationManager },
             Cmd.none
@@ -238,24 +237,21 @@ module NotificationsPage =
                         .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
-                    //TODO this is always shown - indepedendent of model.ShowInlined. I.e, NotificationCard isClosed flag is not working!
-                    // Demonstrate NotificationCard controlled solely via its IsClosed flag. Avoid .isVisible, which masks the effect.
-                    NotificationCard(not model.ShowInlined, "I was here all along, just hidden!")
-                        //.isVisible(model.ShowInlined) // but if you uncomment this, toggling works!
-                        .size(300., 70.)
-                        .dock(Dock.Top)
-                        .padding(10)
-                        .borderBrush(SolidColorBrush(Colors.Blue))
+                    if model.ShowInlined then
+                        NotificationCard("I was here all along, just hidden!")
+                            .size(300., 70.)
+                            .dock(Dock.Top)
+                            .padding(10)
+                            .borderBrush(SolidColorBrush(Colors.Blue))
                 }
 
                 (*  Use the WindowNotificationManager widget to create a NotificationManager
                     separate from the FabApplication.Current.WindowNotificationManager
-                    allowing you to control e.g. the Position of specific notifications. *)
+                    allowing you to control e.g., the Position of specific notifications. *)
                 WindowNotificationManager(controlNotificationsRef)
                     .position(model.NotificationPosition)
                     .dock(Dock.Top)
                     .maxItems(3)
-
             })
                 .onAttachedToVisualTree(AttachedToVisualTreeChanged)
         }
