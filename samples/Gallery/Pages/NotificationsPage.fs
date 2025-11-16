@@ -13,7 +13,6 @@ open Fabulous.Avalonia
 
 open type Fabulous.Avalonia.View
 
-
 module NotificationsPage =
     type Model =
         { NotificationManager: WindowNotificationManager
@@ -21,9 +20,9 @@ module NotificationsPage =
           ShowInlined: bool }
 
     type Msg =
-        | ShowPlainNotification
-        | ShowCustomPlainNotification
-        | ShowCustomManagedNotification
+        | ShowBasicNotification
+        | ShowINotification
+        | ShowYesNoNotification
         | ShowNativeNotification
         | ShowAsyncCompletedNotification
         | ShowAsyncStatusNotifications
@@ -33,29 +32,6 @@ module NotificationsPage =
         | ControlNotificationsShow
         | NotificationShown
         | PositionChanged of SelectionChangedEventArgs
-
-    type WindowNotificationManager with
-        member this.Show(content: WidgetBuilder<'msg, 'marker>) =
-            let widget = content.Compile()
-            let widgetDef = WidgetDefinitionStore.get widget.Key
-            let logger = ProgramDefaults.defaultLogger()
-            let syncAction = ViewHelpers.defaultSyncAction
-
-            let treeContext: ViewTreeContext =
-                { CanReuseView = ViewHelpers.canReuseView
-                  GetViewNode = ViewNode.get
-                  GetComponent = Component.get
-                  SetComponent = Component.set
-                  SyncAction = syncAction
-                  Logger = logger
-                  Dispatch = ignore }
-
-            let envContext = new EnvironmentContext(logger)
-
-            let struct (_node, view) =
-                widgetDef.CreateView(widget, envContext, treeContext, ValueNone)
-
-            this.Show(view)
 
     let notifyOneAsync () =
         Cmd.OfAsync.msg(
@@ -91,7 +67,7 @@ module NotificationsPage =
                 notificationManager.Show(notification)
                 dispatch(NotificationShown)))
 
-    let showNotificationContent<'msg, 'marker when 'msg: equality>
+    let notifyComponent<'msg, 'marker when 'msg: equality>
         (notificationManager: WindowNotificationManager)
         (content: WidgetBuilder<'msg, 'marker>)
         : Cmd<'msg> =
@@ -117,19 +93,9 @@ module NotificationsPage =
                 let struct (_node, view) =
                     widgetDef.CreateView(widget, envContext, treeContext, ValueNone)
 
-                notificationManager.Show(view)))
+                notificationManager.Show(view, NotificationType.Warning, TimeSpan.Zero)))
 
     let controlNotificationsRef = ViewRef<WindowNotificationManager>()
-
-    let notification title message =
-        { new INotification with
-            member this.Title = title
-            member this.Message = message
-            member this.Expiration = TimeSpan.FromSeconds(5.)
-            member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
-            member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
-            member this.Type = NotificationType.Error }
-
 
     let init () =
         { NotificationManager = null
@@ -137,52 +103,49 @@ module NotificationsPage =
           ShowInlined = false },
         []
 
-    type QuestionLocalMsg =
-        | LocalYes
-        | LocalNo
-
-    let questionInit () = (), Cmd.none
-
-    let questionUpdate (msg: QuestionLocalMsg) (model: unit) =
-        let show (title: string) (message: string) : Cmd<QuestionLocalMsg> =
-            Cmd.ofEffect(fun _ -> Dispatcher.UIThread.Post(fun () -> FabApplication.Current.WindowNotificationManager.Show(Notification(title, message))))
-
-        match msg with
-        | LocalYes -> model, show "Wise choice." "You better!"
-        | LocalNo -> model, show "What?" "Why wouldn't you?"
-
-    let questionProgram = Program.statefulWithCmd questionInit questionUpdate
-
-    let questionContent title question =
-        Component("QuestionContent") {
-            let! _ = Context.Mvu questionProgram
-            InlinedYesNoQuestion(title, question, QuestionLocalMsg.LocalYes, QuestionLocalMsg.LocalNo)
-        }
+    let private createYesNoQuestion title question =
+        InlinedYesNoQuestion(title, question, NotifyInfo "Wise choice.", NotifyInfo "Why wouldn't you?")
 
     let update msg model =
         match msg with
-        | ShowPlainNotification ->
-            model, showNotification model.NotificationManager (Notification("Welcome", "Avalonia now supports Notifications.", NotificationType.Information))
-
-        | ShowCustomPlainNotification ->
+        | ShowBasicNotification ->
             model,
-            showNotification model.NotificationManager (notification "Hey There!" "Did you know that Avalonia now supports Custom In-Window Notifications?")
+            Notification("Avalonia supports basic Notifications", "via the built-in Notification type.", NotificationType.Information)
+            |> showNotification model.NotificationManager
 
-        | ShowCustomManagedNotification ->
-            model, showNotificationContent model.NotificationManager (questionContent "Can you dig it?" "You can use standard widgets in notifications!")
+        | ShowINotification ->
+            model,
+            { new INotification with
+                member this.Title = "You can implement custom Notifications"
+                member this.Message = "via the INotification interface."
+                member this.Expiration = TimeSpan.FromSeconds(5.)
+                member this.OnClick = Action(fun _ -> Console.WriteLine("Clicked"))
+                member this.OnClose = Action(fun _ -> Console.WriteLine("Closed"))
+                member this.Type = NotificationType.Error }
+            |> showNotification model.NotificationManager
+
+        | ShowYesNoNotification ->
+            model,
+            createYesNoQuestion "Can you dig it?" "You can use standard widgets in notifications!"
+            |> notifyComponent model.NotificationManager
 
         | ShowNativeNotification ->
             model,
-            showNotification model.NotificationManager (Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error))
+            Notification("Error", "Native Notifications are not quite ready. Coming soon.", NotificationType.Error)
+            |> showNotification model.NotificationManager
 
         | ShowAsyncCompletedNotification -> model, notifyOneAsync()
         | ShowAsyncStatusNotifications -> model, notifyAsyncStatusUpdates()
+
         | ToggleInlinedNotification ->
             { model with
                 ShowInlined = not model.ShowInlined },
             Cmd.none
 
-        | NotifyInfo message -> model, showNotification model.NotificationManager (Notification(message, "", NotificationType.Information))
+        | NotifyInfo message ->
+            model,
+            Notification(message, "", NotificationType.Information)
+            |> showNotification model.NotificationManager
 
         (*  WindowNotificationManager can't be used immediately after creating it,
             so we need to wait for it to be attached to the visual tree.
@@ -194,7 +157,6 @@ module NotificationsPage =
 
         | ControlNotificationsShow ->
             model, showNotification controlNotificationsRef.Value (Notification("Control Notifications", "This notification is shown by the control itself."))
-
 
         | NotificationShown -> model, Cmd.none
 
@@ -225,19 +187,19 @@ module NotificationsPage =
 
             (Grid() {
                 Dock() {
-                    TextBlock("TopLevel bound notification manager.")
+                    TextBlock("TopLevel bound notification manager")
                         .dock(Dock.Top)
-                        .margin(2.)
+                        .margin(20.)
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
-                    Button("A plain Notification", ShowPlainNotification)
+                    Button("A basic Notification", ShowBasicNotification)
                         .dock(Dock.Top)
 
-                    Button("A custom plain Notification", ShowCustomPlainNotification)
+                    Button("A custom INotification", ShowINotification)
                         .dock(Dock.Top)
 
-                    Button("A Managed Notification with custom content", ShowCustomManagedNotification)
+                    Button("A Managed Notification with custom content", ShowYesNoNotification)
                         .dock(Dock.Top)
 
                     Button("Notify async operation completed", ShowAsyncCompletedNotification)
@@ -249,9 +211,9 @@ module NotificationsPage =
                     Button("Toggle inlined notifications", ToggleInlinedNotification)
                         .dock(Dock.Top)
 
-                    TextBlock("Widget-only notification manager.")
+                    TextBlock("Widget-only notification manager")
                         .dock(Dock.Top)
-                        .margin(2.)
+                        .margin(20.)
                         .classes([ "h2" ])
                         .textWrapping(TextWrapping.Wrap)
 
@@ -272,20 +234,23 @@ module NotificationsPage =
                     })
                         .dock(Dock.Top)
 
-                    (questionContent "Can you believe it?" "You can also roll your own inlined dialogs using standard widgets.")
+                    (createYesNoQuestion "Can you believe it?" "You can also roll your own inlined dialogs using standard widgets.")
                         .isVisible(model.ShowInlined)
                         .dock(Dock.Top)
 
+                    //TODO this is always shown - indepedendent of model.ShowInlined. I.e, NotificationCard isClosed flag is not working!
                     // Demonstrate NotificationCard controlled solely via its IsClosed flag. Avoid .isVisible, which masks the effect.
                     NotificationCard(not model.ShowInlined, "I was here all along, just hidden!")
+                        //.isVisible(model.ShowInlined) // but if you uncomment this, toggling works!
                         .size(300., 70.)
                         .dock(Dock.Top)
                         .padding(10)
                         .borderBrush(SolidColorBrush(Colors.Blue))
                 }
 
-                // We can use the WindowNotificationManager a widget to be able to have a different WindowNotificationManager than FabApplication.Current.WindowNotificationManager
-                // Allowing you to control ie the Position of a single notification
+                (*  Use the WindowNotificationManager widget to create a NotificationManager
+                    separate from the FabApplication.Current.WindowNotificationManager
+                    allowing you to control e.g. the Position of specific notifications. *)
                 WindowNotificationManager(controlNotificationsRef)
                     .position(model.NotificationPosition)
                     .dock(Dock.Top)
