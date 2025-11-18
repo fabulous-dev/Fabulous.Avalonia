@@ -22,12 +22,7 @@ module App =
             (VStack() {
                 TextBlock($"%d{count.Current}")
                     .centerText()
-                    .onReceive(
-                        timer.Tick,
-                        fun _ ->
-                            Console.WriteLine("Timer ticked")
-                            count.Set(count.Current + step.Current)
-                    )
+                    .onReceive(timer.Tick, (fun _ -> count.Set(count.Current + step.Current)))
 
                 Button("Increment", (fun _ -> count.Set(count.Current + step.Current)))
                     .centerHorizontal()

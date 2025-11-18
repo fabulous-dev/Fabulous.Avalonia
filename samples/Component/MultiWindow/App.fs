@@ -17,16 +17,12 @@ module FirstWindow =
             let! step = State(1)
 
             let timer =
-                DispatcherTimer(
-                    TimeSpan.FromMilliseconds(1000.),
-                    DispatcherPriority.Default,
-                    (fun _ _ ->
-                        if timerOn.Current then
-                            count.Set(count.Current + step.Current))
-                )
+                DispatcherTimer(Interval = TimeSpan.FromSeconds(1.), IsEnabled = timerOn.Current)
 
             (VStack() {
-                TextBlock($"%d{count.Current}").centerText()
+                TextBlock($"%d{count.Current}")
+                    .centerText()
+                    .onReceive(timer.Tick, (fun _ -> count.Set(count.Current + step.Current)))
 
                 Button("Increment", (fun _ -> count.Set(count.Current + step.Current)))
                     .centerHorizontal()
@@ -37,12 +33,7 @@ module FirstWindow =
                 (HStack() {
                     TextBlock("Timer").centerVertical()
 
-                    ToggleSwitch(
-                        timerOn.Current,
-                        fun on ->
-                            timerOn.Set(on)
-                            if on then timer.Start() else timer.Stop()
-                    )
+                    ToggleSwitch(timerOn.Current, (fun on -> timerOn.Set(on)))
 
                 })
                     .margin(20.)
@@ -82,16 +73,12 @@ module SecondWindow =
             let! step = State(1)
 
             let timer =
-                DispatcherTimer(
-                    TimeSpan.FromMilliseconds(1000.),
-                    DispatcherPriority.Default,
-                    (fun _ _ ->
-                        if timerOn.Current then
-                            count.Set(count.Current + step.Current))
-                )
+                DispatcherTimer(Interval = TimeSpan.FromSeconds(1.), IsEnabled = timerOn.Current)
 
             (VStack() {
-                TextBlock($"%d{count.Current}").centerText()
+                TextBlock($"%d{count.Current}")
+                    .centerText()
+                    .onReceive(timer.Tick, (fun _ -> count.Set(count.Current + step.Current)))
 
                 Button("Increment", (fun _ -> count.Set(count.Current + step.Current)))
                     .centerHorizontal()
@@ -102,12 +89,7 @@ module SecondWindow =
                 (HStack() {
                     TextBlock("Timer").centerVertical()
 
-                    ToggleSwitch(
-                        timerOn.Current,
-                        fun on ->
-                            timerOn.Set(on)
-                            if on then timer.Start() else timer.Stop()
-                    )
+                    ToggleSwitch(timerOn.Current, (fun on -> timerOn.Set(on)))
 
                 })
                     .margin(20.)

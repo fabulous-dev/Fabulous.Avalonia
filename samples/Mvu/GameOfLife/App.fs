@@ -35,9 +35,10 @@ module BoardPosition =
 
     let rightOf (pos: BoardPosition) : BoardPosition = { pos with x = pos.x + 1 }
 
-    let below (pos: BoardPosition) : BoardPosition = { pos with y = pos.y - 1 }
+    // Match the typical UI coordinate system: y+1 is down (below), y-1 is up (above)
+    let above (pos: BoardPosition) : BoardPosition = { pos with y = pos.y - 1 }
 
-    let above (pos: BoardPosition) : BoardPosition = { pos with y = pos.y + 1 }
+    let below (pos: BoardPosition) : BoardPosition = { pos with y = pos.y + 1 }
 
 type Cell =
     | Alive
@@ -61,10 +62,7 @@ module BoardMatrix =
         let yInRange = pos.y >= 0 && pos.y < board.height
 
         if (xInRange && yInRange) then
-            try
-                Some(Array2D.get board.cells pos.x pos.y)
-            with _ ->
-                None
+            Some(Array2D.get board.cells pos.x pos.y)
         else
             None
 
@@ -102,9 +100,7 @@ module BoardMatrix =
 
     let placeDeadCell (board: BoardMatrix, pos: BoardPosition) : BoardMatrix = board |> setCell(pos, Dead)
 
-    let isAliveCell (board: BoardMatrix, pos: BoardPosition) : bool = board |> getCell(pos) = Alive
-
-    let isDeadCell (board: BoardMatrix, pos: BoardPosition) : bool = board |> getCell(pos) = Dead
+    // Helpers for checking cell state were unused; remove to reduce noise
 
     let evolveCellDead (neighbors: Cell list) : Cell =
         let aliveNeighbors =
@@ -154,9 +150,7 @@ module Board =
 
     let view (board: BoardMatrix) =
         UniformGrid(board.width, board.height) {
-            let tuples = board.cells |> Array2D.flati |> Seq.map id
-
-            for x, y, cell in tuples do
+            for x, y, cell in Array2D.flati board.cells do
                 let cellPosition = { x = x; y = y }
 
                 match cell with
@@ -164,16 +158,13 @@ module Board =
                     Rectangle()
                         .fill(SolidColorBrush(Colors.Green))
                         .onTapped(fun _ -> KillCell cellPosition)
-                        .size(10., 10.)
                 | Dead ->
                     Rectangle()
                         .fill(SolidColorBrush(Colors.Gray))
                         .onTapped(fun _ -> ReviveCell cellPosition)
-                        .size(10., 10.)
         }
 
 module App =
-    let theme = FluentTheme()
 
     type Model =
         { board: BoardMatrix
@@ -189,16 +180,21 @@ module App =
         | StartEvolution
         | StopEvolution
 
-    let subscription (_model: Model) =
-        let timeSub dispatch =
-            DispatcherTimer.Run(
-                Func<bool>(fun _ ->
-                    dispatch(BoardMsg(Board.Evolve))
-                    true),
-                TimeSpan.FromMilliseconds 100.0
-            )
+    let subscription (model: Model) =
+        let key = "evolutionTimer"
 
-        [ [ nameof timeSub ], timeSub ]
+        if model.evolutionRunning then
+            let timeSub dispatch =
+                DispatcherTimer.Run(
+                    Func<bool>(fun _ ->
+                        dispatch(BoardMsg(Board.Evolve))
+                        true),
+                    TimeSpan.FromMilliseconds 100.0
+                )
+
+            [ [ key ], timeSub ]
+        else
+            []
 
     let update msg model =
         match msg with
@@ -250,7 +246,7 @@ module App =
         let program =
             Program.statefulWithCmd init update
             |> Program.withSubscription subscription
-            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, box args))
+            |> Program.withTrace(fun (format, args) -> Debug.WriteLine(format, args))
             |> Program.withExceptionHandler(fun ex ->
 #if DEBUG
                 printfn $"Exception: %s{ex.ToString()}"

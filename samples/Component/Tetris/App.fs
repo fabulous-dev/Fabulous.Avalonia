@@ -729,7 +729,6 @@ module App =
             let! isLevelComplete = State(false)
 
             let timer =
-                // Run a fast tick and throttle with a level-based interval
                 DispatcherTimer(Interval = TimeSpan.FromMilliseconds(10.), IsEnabled = true)
 
             let content =
