@@ -62,13 +62,12 @@ module SizePicker =
 module Setting =
     let view (color, size) =
         Component("Setting") {
-            View
-                .Border(
-                    Dock(false) {
-                        ColorPicker.view(color).dock(Dock.Left)
-                        SizePicker.view(size).dock(Dock.Right)
-                    }
-                )
+            Border(
+                Dock(false) {
+                    ColorPicker.view(color).dock(Dock.Left)
+                    SizePicker.view(size).dock(Dock.Right)
+                }
+            )
                 .dock(Dock.Bottom)
                 .margin(5.0)
                 .padding(5.0)
