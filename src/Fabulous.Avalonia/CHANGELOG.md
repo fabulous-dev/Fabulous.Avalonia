@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 _No unreleased changes_
 
+## [3.0.0-pre13] - 2025-11-19
+
+### Added
+- Add `onReceive` modifier for Components by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/293
+
+### Changed
+- NotificationCard: support custom content and improve samples by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/291 and https://github.com/fabulous-dev/Fabulous.Avalonia/pull/292
+
+### Fixed
+- Update NotificationCard widgets by @edgarfgp in https://github.com/fabulous-dev/Fabulous.Avalonia/pull/294
+
 ## [3.0.0-pre12] - 2025-05-25
 
 ### Changed
@@ -284,7 +295,8 @@ _No unreleased changes_
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre12...HEAD
+[unreleased]: https://github.com/fabulous-dev/Fabulous.Avalonia/compare/3.0.0-pre13...HEAD
+[3.0.0-pre13]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre13
 [3.0.0-pre12]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre12
 [3.0.0-pre11]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre11
 [3.0.0-pre10]: https://github.com/fabulous-dev/Fabulous.Avalonia/releases/tag/3.0.0-pre10
